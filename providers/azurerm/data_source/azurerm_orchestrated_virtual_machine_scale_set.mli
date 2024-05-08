@@ -5,7 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type identity = {
-  identity_ids : string prop list;  (** identity_ids *)
+  identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** identity_ids *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 
@@ -21,6 +23,7 @@ type network_interface__ip_configuration__public_ip_address = {
   ip_tag :
     network_interface__ip_configuration__public_ip_address__ip_tag
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ip_tag *)
   name : string prop;  (** name *)
   public_ip_prefix_id : string prop;  (** public_ip_prefix_id *)
@@ -29,17 +32,22 @@ type network_interface__ip_configuration__public_ip_address = {
 
 type network_interface__ip_configuration = {
   application_gateway_backend_address_pool_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** application_gateway_backend_address_pool_ids *)
   application_security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** application_security_group_ids *)
   load_balancer_backend_address_pool_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** load_balancer_backend_address_pool_ids *)
   load_balancer_inbound_nat_rules_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** load_balancer_inbound_nat_rules_ids *)
   name : string prop;  (** name *)
   primary : bool prop;  (** primary *)
   public_ip_address :
     network_interface__ip_configuration__public_ip_address list;
+      [@default []] [@yojson_drop_default ( = )]
       (** public_ip_address *)
   subnet_id : string prop;  (** subnet_id *)
   version : string prop;  (** version *)
@@ -48,8 +56,11 @@ type network_interface__ip_configuration = {
 type network_interface = {
   accelerated_networking_enabled : bool prop;
       (** accelerated_networking_enabled *)
-  dns_servers : string prop list;  (** dns_servers *)
+  dns_servers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** dns_servers *)
   ip_configuration : network_interface__ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ip_configuration *)
   ip_forwarding_enabled : bool prop;  (** ip_forwarding_enabled *)
   name : string prop;  (** name *)

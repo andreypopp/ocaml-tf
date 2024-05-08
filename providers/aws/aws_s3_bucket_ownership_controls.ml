@@ -29,7 +29,7 @@ let _ = yojson_of_rule
 type aws_s3_bucket_ownership_controls = {
   bucket : string prop;
   id : string prop option; [@option]
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -42,8 +42,11 @@ let yojson_of_aws_s3_bucket_ownership_controls =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

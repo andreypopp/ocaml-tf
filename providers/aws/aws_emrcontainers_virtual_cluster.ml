@@ -33,6 +33,7 @@ let _ = yojson_of_container_provider__info__eks_info
 
 type container_provider__info = {
   eks_info : container_provider__info__eks_info list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -45,11 +46,15 @@ let yojson_of_container_provider__info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_container_provider__info__eks_info v_eks_info
-         in
-         ("eks_info", arg) :: bnds
+         if [] = v_eks_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_container_provider__info__eks_info)
+               v_eks_info
+           in
+           let bnd = "eks_info", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : container_provider__info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -62,6 +67,7 @@ type container_provider = {
   id : string prop;
   type_ : string prop; [@key "type"]
   info : container_provider__info list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,10 +80,14 @@ let yojson_of_container_provider =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container_provider__info v_info
-         in
-         ("info", arg) :: bnds
+         if [] = v_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container_provider__info)
+               v_info
+           in
+           let bnd = "info", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -126,6 +136,7 @@ type aws_emrcontainers_virtual_cluster = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   container_provider : container_provider list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -150,11 +161,14 @@ let yojson_of_aws_emrcontainers_virtual_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container_provider
-             v_container_provider
-         in
-         ("container_provider", arg) :: bnds
+         if [] = v_container_provider then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container_provider)
+               v_container_provider
+           in
+           let bnd = "container_provider", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

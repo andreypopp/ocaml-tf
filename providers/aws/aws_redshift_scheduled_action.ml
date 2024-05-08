@@ -127,8 +127,11 @@ let _ = yojson_of_target_action__resume_cluster
 
 type target_action = {
   pause_cluster : target_action__pause_cluster list;
+      [@default []] [@yojson_drop_default ( = )]
   resize_cluster : target_action__resize_cluster list;
+      [@default []] [@yojson_drop_default ( = )]
   resume_cluster : target_action__resume_cluster list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -145,25 +148,34 @@ let yojson_of_target_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_action__resume_cluster
-             v_resume_cluster
-         in
-         ("resume_cluster", arg) :: bnds
+         if [] = v_resume_cluster then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_action__resume_cluster)
+               v_resume_cluster
+           in
+           let bnd = "resume_cluster", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_action__resize_cluster
-             v_resize_cluster
-         in
-         ("resize_cluster", arg) :: bnds
+         if [] = v_resize_cluster then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_action__resize_cluster)
+               v_resize_cluster
+           in
+           let bnd = "resize_cluster", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_action__pause_cluster
-             v_pause_cluster
-         in
-         ("pause_cluster", arg) :: bnds
+         if [] = v_pause_cluster then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_action__pause_cluster)
+               v_pause_cluster
+           in
+           let bnd = "pause_cluster", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : target_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -182,6 +194,7 @@ type aws_redshift_scheduled_action = {
   schedule : string prop;
   start_time : string prop option; [@option]
   target_action : target_action list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -204,10 +217,13 @@ let yojson_of_aws_redshift_scheduled_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_action v_target_action
-         in
-         ("target_action", arg) :: bnds
+         if [] = v_target_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_action) v_target_action
+           in
+           let bnd = "target_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start_time with

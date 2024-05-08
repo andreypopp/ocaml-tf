@@ -64,9 +64,13 @@ let _ = yojson_of_connection_string
 
 type site_config__scm_ip_restriction__headers = {
   x_azure_fdid : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_fd_health_probe : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_forwarded_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_forwarded_host : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -84,36 +88,44 @@ let yojson_of_site_config__scm_ip_restriction__headers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_forwarded_host
-         in
-         ("x_forwarded_host", arg) :: bnds
+         if [] = v_x_forwarded_host then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_forwarded_host
+           in
+           let bnd = "x_forwarded_host", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_forwarded_for
-         in
-         ("x_forwarded_for", arg) :: bnds
+         if [] = v_x_forwarded_for then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_forwarded_for
+           in
+           let bnd = "x_forwarded_for", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_fd_health_probe
-         in
-         ("x_fd_health_probe", arg) :: bnds
+         if [] = v_x_fd_health_probe then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_fd_health_probe
+           in
+           let bnd = "x_fd_health_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_azure_fdid
-         in
-         ("x_azure_fdid", arg) :: bnds
+         if [] = v_x_azure_fdid then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_azure_fdid
+           in
+           let bnd = "x_azure_fdid", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : site_config__scm_ip_restriction__headers ->
@@ -126,6 +138,7 @@ let _ = yojson_of_site_config__scm_ip_restriction__headers
 type site_config__scm_ip_restriction = {
   action : string prop;
   headers : site_config__scm_ip_restriction__headers list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_address : string prop;
   name : string prop;
   priority : float prop;
@@ -174,12 +187,15 @@ let yojson_of_site_config__scm_ip_restriction =
          ("ip_address", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_site_config__scm_ip_restriction__headers
-             v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__scm_ip_restriction__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_action in
@@ -195,9 +211,13 @@ let _ = yojson_of_site_config__scm_ip_restriction
 
 type site_config__ip_restriction__headers = {
   x_azure_fdid : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_fd_health_probe : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_forwarded_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_forwarded_host : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -215,36 +235,44 @@ let yojson_of_site_config__ip_restriction__headers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_forwarded_host
-         in
-         ("x_forwarded_host", arg) :: bnds
+         if [] = v_x_forwarded_host then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_forwarded_host
+           in
+           let bnd = "x_forwarded_host", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_forwarded_for
-         in
-         ("x_forwarded_for", arg) :: bnds
+         if [] = v_x_forwarded_for then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_forwarded_for
+           in
+           let bnd = "x_forwarded_for", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_fd_health_probe
-         in
-         ("x_fd_health_probe", arg) :: bnds
+         if [] = v_x_fd_health_probe then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_fd_health_probe
+           in
+           let bnd = "x_fd_health_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_azure_fdid
-         in
-         ("x_azure_fdid", arg) :: bnds
+         if [] = v_x_azure_fdid then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_azure_fdid
+           in
+           let bnd = "x_azure_fdid", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : site_config__ip_restriction__headers ->
@@ -257,6 +285,7 @@ let _ = yojson_of_site_config__ip_restriction__headers
 type site_config__ip_restriction = {
   action : string prop;
   headers : site_config__ip_restriction__headers list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_address : string prop;
   name : string prop;
   priority : float prop;
@@ -305,11 +334,15 @@ let yojson_of_site_config__ip_restriction =
          ("ip_address", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_site_config__ip_restriction__headers v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__ip_restriction__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_action in
@@ -325,6 +358,7 @@ let _ = yojson_of_site_config__ip_restriction
 
 type site_config__cors = {
   allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   support_credentials : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -347,12 +381,14 @@ let yojson_of_site_config__cors =
          ("support_credentials", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : site_config__cors -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -367,12 +403,15 @@ type site_config = {
   always_on : bool prop;
   app_command_line : string prop;
   cors : site_config__cors list;
+      [@default []] [@yojson_drop_default ( = )]
   default_documents : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   dotnet_framework_version : string prop;
   ftps_state : string prop;
   health_check_path : string prop;
   http2_enabled : bool prop;
   ip_restriction : site_config__ip_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
   java_container : string prop;
   java_container_version : string prop;
   java_version : string prop;
@@ -386,6 +425,7 @@ type site_config = {
   remote_debugging_enabled : bool prop;
   remote_debugging_version : string prop;
   scm_ip_restriction : site_config__scm_ip_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
   scm_type : string prop;
   scm_use_main_ip_restriction : bool prop;
   use_32_bit_worker_process : bool prop;
@@ -472,11 +512,15 @@ let yojson_of_site_config =
          ("scm_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_site_config__scm_ip_restriction
-             v_scm_ip_restriction
-         in
-         ("scm_ip_restriction", arg) :: bnds
+         if [] = v_scm_ip_restriction then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__scm_ip_restriction)
+               v_scm_ip_restriction
+           in
+           let bnd = "scm_ip_restriction", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -547,11 +591,14 @@ let yojson_of_site_config =
          ("java_container", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_site_config__ip_restriction
-             v_ip_restriction
-         in
-         ("ip_restriction", arg) :: bnds
+         if [] = v_ip_restriction then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_site_config__ip_restriction)
+               v_ip_restriction
+           in
+           let bnd = "ip_restriction", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_http2_enabled in
@@ -574,18 +621,23 @@ let yojson_of_site_config =
          ("dotnet_framework_version", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_default_documents
-         in
-         ("default_documents", arg) :: bnds
+         if [] = v_default_documents then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_default_documents
+           in
+           let bnd = "default_documents", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_site_config__cors v_cors
-         in
-         ("cors", arg) :: bnds
+         if [] = v_cors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_site_config__cors) v_cors
+           in
+           let bnd = "cors", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

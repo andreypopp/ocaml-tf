@@ -31,6 +31,7 @@ let _ = yojson_of_secret__customer_certificate
 
 type secret = {
   customer_certificate : secret__customer_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -43,11 +44,14 @@ let yojson_of_secret =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secret__customer_certificate
-             v_customer_certificate
-         in
-         ("customer_certificate", arg) :: bnds
+         if [] = v_customer_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secret__customer_certificate)
+               v_customer_certificate
+           in
+           let bnd = "customer_certificate", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : secret -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -106,7 +110,7 @@ type azurerm_cdn_frontdoor_secret = {
   cdn_frontdoor_profile_id : string prop;
   id : string prop option; [@option]
   name : string prop;
-  secret : secret list;
+  secret : secret list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -130,8 +134,11 @@ let yojson_of_azurerm_cdn_frontdoor_secret =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_secret v_secret in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg = (yojson_of_list yojson_of_secret) v_secret in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

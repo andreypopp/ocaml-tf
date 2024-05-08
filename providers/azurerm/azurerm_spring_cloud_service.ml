@@ -133,7 +133,9 @@ type config_server_git_setting__repository = {
   uri : string prop;
   http_basic_auth :
     config_server_git_setting__repository__http_basic_auth list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_auth : config_server_git_setting__repository__ssh_auth list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -154,20 +156,26 @@ let yojson_of_config_server_git_setting__repository =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_server_git_setting__repository__ssh_auth
-             v_ssh_auth
-         in
-         ("ssh_auth", arg) :: bnds
+         if [] = v_ssh_auth then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_server_git_setting__repository__ssh_auth)
+               v_ssh_auth
+           in
+           let bnd = "ssh_auth", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_server_git_setting__repository__http_basic_auth
-             v_http_basic_auth
-         in
-         ("http_basic_auth", arg) :: bnds
+         if [] = v_http_basic_auth then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_server_git_setting__repository__http_basic_auth)
+               v_http_basic_auth
+           in
+           let bnd = "http_basic_auth", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_uri in
@@ -276,8 +284,11 @@ type config_server_git_setting = {
   search_paths : string prop list option; [@option]
   uri : string prop;
   http_basic_auth : config_server_git_setting__http_basic_auth list;
+      [@default []] [@yojson_drop_default ( = )]
   repository : config_server_git_setting__repository list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_auth : config_server_git_setting__ssh_auth list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -297,27 +308,37 @@ let yojson_of_config_server_git_setting =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_server_git_setting__ssh_auth v_ssh_auth
-         in
-         ("ssh_auth", arg) :: bnds
+         if [] = v_ssh_auth then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_server_git_setting__ssh_auth)
+               v_ssh_auth
+           in
+           let bnd = "ssh_auth", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_server_git_setting__repository
-             v_repository
-         in
-         ("repository", arg) :: bnds
+         if [] = v_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_server_git_setting__repository)
+               v_repository
+           in
+           let bnd = "repository", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_server_git_setting__http_basic_auth
-             v_http_basic_auth
-         in
-         ("http_basic_auth", arg) :: bnds
+         if [] = v_http_basic_auth then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_server_git_setting__http_basic_auth)
+               v_http_basic_auth
+           in
+           let bnd = "http_basic_auth", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_uri in
@@ -459,6 +480,7 @@ type network = {
   app_network_resource_group : string prop option; [@option]
   app_subnet_id : string prop;
   cidr_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   outbound_type : string prop option; [@option]
   read_timeout_seconds : float prop option; [@option]
   service_runtime_network_resource_group : string prop option;
@@ -518,12 +540,14 @@ let yojson_of_network =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cidr_ranges
-         in
-         ("cidr_ranges", arg) :: bnds
+         if [] = v_cidr_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cidr_ranges
+           in
+           let bnd = "cidr_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_app_subnet_id in
@@ -647,7 +671,9 @@ let _ = yojson_of_trace
 type required_network_traffic_rules = {
   direction : string prop;
   fqdns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   port : float prop;
   protocol : string prop;
 }
@@ -676,18 +702,24 @@ let yojson_of_required_network_traffic_rules =
          ("port", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_fqdns
-         in
-         ("fqdns", arg) :: bnds
+         if [] = v_fqdns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fqdns
+           in
+           let bnd = "fqdns", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_direction in
@@ -715,12 +747,16 @@ type azurerm_spring_cloud_service = {
   tags : (string * string prop) list option; [@option]
   zone_redundant : bool prop option; [@option]
   config_server_git_setting : config_server_git_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   container_registry : container_registry list;
+      [@default []] [@yojson_drop_default ( = )]
   default_build_service : default_build_service list;
+      [@default []] [@yojson_drop_default ( = )]
   marketplace : marketplace list;
-  network : network list;
+      [@default []] [@yojson_drop_default ( = )]
+  network : network list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  trace : trace list;
+  trace : trace list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -754,43 +790,61 @@ let yojson_of_azurerm_spring_cloud_service =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_trace v_trace in
-         ("trace", arg) :: bnds
+         if [] = v_trace then bnds
+         else
+           let arg = (yojson_of_list yojson_of_trace) v_trace in
+           let bnd = "trace", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_network v_network in
-         ("network", arg) :: bnds
+         if [] = v_network then bnds
+         else
+           let arg = (yojson_of_list yojson_of_network) v_network in
+           let bnd = "network", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_marketplace v_marketplace
-         in
-         ("marketplace", arg) :: bnds
+         if [] = v_marketplace then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_marketplace) v_marketplace
+           in
+           let bnd = "marketplace", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_build_service
-             v_default_build_service
-         in
-         ("default_build_service", arg) :: bnds
+         if [] = v_default_build_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_build_service)
+               v_default_build_service
+           in
+           let bnd = "default_build_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container_registry
-             v_container_registry
-         in
-         ("container_registry", arg) :: bnds
+         if [] = v_container_registry then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container_registry)
+               v_container_registry
+           in
+           let bnd = "container_registry", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config_server_git_setting
-             v_config_server_git_setting
-         in
-         ("config_server_git_setting", arg) :: bnds
+         if [] = v_config_server_git_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config_server_git_setting)
+               v_config_server_git_setting
+           in
+           let bnd = "config_server_git_setting", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone_redundant with

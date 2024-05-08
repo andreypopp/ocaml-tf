@@ -4,6 +4,7 @@ open! Tf_core
 
 type segment_configurations = {
   db_paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -21,12 +22,14 @@ let yojson_of_segment_configurations =
          ("volume_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_db_paths
-         in
-         ("db_paths", arg) :: bnds
+         if [] = v_db_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_db_paths
+           in
+           let bnd = "db_paths", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : segment_configurations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -94,6 +97,7 @@ type aws_finspace_kx_dataview = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   segment_configurations : segment_configurations list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -125,11 +129,14 @@ let yojson_of_aws_finspace_kx_dataview =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_segment_configurations
-             v_segment_configurations
-         in
-         ("segment_configurations", arg) :: bnds
+         if [] = v_segment_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_segment_configurations)
+               v_segment_configurations
+           in
+           let bnd = "segment_configurations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

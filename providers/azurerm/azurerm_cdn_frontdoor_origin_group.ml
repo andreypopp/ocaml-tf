@@ -176,7 +176,9 @@ type azurerm_cdn_frontdoor_origin_group = {
       [@option]
   session_affinity_enabled : bool prop option; [@option]
   health_probe : health_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   load_balancing : load_balancing list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -204,16 +206,23 @@ let yojson_of_azurerm_cdn_frontdoor_origin_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_balancing v_load_balancing
-         in
-         ("load_balancing", arg) :: bnds
+         if [] = v_load_balancing then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_balancing)
+               v_load_balancing
+           in
+           let bnd = "load_balancing", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_health_probe v_health_probe
-         in
-         ("health_probe", arg) :: bnds
+         if [] = v_health_probe then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_health_probe) v_health_probe
+           in
+           let bnd = "health_probe", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_affinity_enabled with

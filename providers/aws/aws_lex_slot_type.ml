@@ -90,6 +90,7 @@ type aws_lex_slot_type = {
   name : string prop;
   value_selection_strategy : string prop option; [@option]
   enumeration_value : enumeration_value list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -115,11 +116,14 @@ let yojson_of_aws_lex_slot_type =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_enumeration_value
-             v_enumeration_value
-         in
-         ("enumeration_value", arg) :: bnds
+         if [] = v_enumeration_value then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_enumeration_value)
+               v_enumeration_value
+           in
+           let bnd = "enumeration_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_value_selection_strategy with

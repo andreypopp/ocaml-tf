@@ -43,6 +43,7 @@ let _ = yojson_of_auto_adjust_data__historical_options
 type auto_adjust_data = {
   auto_adjust_type : string prop;
   historical_options : auto_adjust_data__historical_options list;
+      [@default []] [@yojson_drop_default ( = )]
   last_auto_adjust_time : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -66,12 +67,15 @@ let yojson_of_auto_adjust_data =
          ("last_auto_adjust_time", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auto_adjust_data__historical_options
-             v_historical_options
-         in
-         ("historical_options", arg) :: bnds
+         if [] = v_historical_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auto_adjust_data__historical_options)
+               v_historical_options
+           in
+           let bnd = "historical_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -144,6 +148,7 @@ let _ = yojson_of_calculated_spend__actual_spend
 
 type calculated_spend = {
   actual_spend : calculated_spend__actual_spend list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -156,11 +161,14 @@ let yojson_of_calculated_spend =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_calculated_spend__actual_spend
-             v_actual_spend
-         in
-         ("actual_spend", arg) :: bnds
+         if [] = v_actual_spend then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_calculated_spend__actual_spend)
+               v_actual_spend
+           in
+           let bnd = "actual_spend", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : calculated_spend -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -169,7 +177,11 @@ let _ = yojson_of_calculated_spend
 
 [@@@deriving.end]
 
-type cost_filter = { name : string prop; values : string prop list }
+type cost_filter = {
+  name : string prop;
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : cost_filter) -> ()
@@ -181,10 +193,14 @@ let yojson_of_cost_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -295,7 +311,9 @@ type notification = {
   comparison_operator : string prop;
   notification_type : string prop;
   subscriber_email_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subscriber_sns_topic_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   threshold : float prop;
   threshold_type : string prop;
 }
@@ -327,20 +345,24 @@ let yojson_of_notification =
          ("threshold", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subscriber_sns_topic_arns
-         in
-         ("subscriber_sns_topic_arns", arg) :: bnds
+         if [] = v_subscriber_sns_topic_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subscriber_sns_topic_arns
+           in
+           let bnd = "subscriber_sns_topic_arns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subscriber_email_addresses
-         in
-         ("subscriber_email_addresses", arg) :: bnds
+         if [] = v_subscriber_email_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subscriber_email_addresses
+           in
+           let bnd = "subscriber_email_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -100,6 +100,7 @@ let _ = yojson_of_network_profile__account_access__ip_rule
 type network_profile__account_access = {
   default_action : string prop option; [@option]
   ip_rule : network_profile__account_access__ip_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,12 +113,15 @@ let yojson_of_network_profile__account_access =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_profile__account_access__ip_rule
-             v_ip_rule
-         in
-         ("ip_rule", arg) :: bnds
+         if [] = v_ip_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_profile__account_access__ip_rule)
+               v_ip_rule
+           in
+           let bnd = "ip_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_default_action with
@@ -173,6 +177,7 @@ let _ = yojson_of_network_profile__node_management_access__ip_rule
 type network_profile__node_management_access = {
   default_action : string prop option; [@option]
   ip_rule : network_profile__node_management_access__ip_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -185,12 +190,15 @@ let yojson_of_network_profile__node_management_access =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_profile__node_management_access__ip_rule
-             v_ip_rule
-         in
-         ("ip_rule", arg) :: bnds
+         if [] = v_ip_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_profile__node_management_access__ip_rule)
+               v_ip_rule
+           in
+           let bnd = "ip_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_default_action with
@@ -210,8 +218,10 @@ let _ = yojson_of_network_profile__node_management_access
 
 type network_profile = {
   account_access : network_profile__account_access list;
+      [@default []] [@yojson_drop_default ( = )]
   node_management_access :
     network_profile__node_management_access list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -227,19 +237,26 @@ let yojson_of_network_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_profile__node_management_access
-             v_node_management_access
-         in
-         ("node_management_access", arg) :: bnds
+         if [] = v_node_management_access then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_profile__node_management_access)
+               v_node_management_access
+           in
+           let bnd = "node_management_access", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_profile__account_access
-             v_account_access
-         in
-         ("account_access", arg) :: bnds
+         if [] = v_account_access then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_profile__account_access)
+               v_account_access
+           in
+           let bnd = "account_access", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : network_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -346,8 +363,11 @@ type azurerm_batch_account = {
   storage_account_node_identity : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   key_vault_reference : key_vault_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   network_profile : network_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -385,21 +405,33 @@ let yojson_of_azurerm_batch_account =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_profile v_network_profile
-         in
-         ("network_profile", arg) :: bnds
+         if [] = v_network_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_profile)
+               v_network_profile
+           in
+           let bnd = "network_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_key_vault_reference
-             v_key_vault_reference
-         in
-         ("key_vault_reference", arg) :: bnds
+         if [] = v_key_vault_reference then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_vault_reference)
+               v_key_vault_reference
+           in
+           let bnd = "key_vault_reference", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

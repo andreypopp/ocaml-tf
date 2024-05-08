@@ -55,6 +55,7 @@ type google_active_directory_domain = {
   id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
   locations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   project : string prop option; [@option]
   reserved_ip_range : string prop;
   timeouts : timeouts option;
@@ -98,12 +99,14 @@ let yojson_of_google_active_directory_domain =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_locations
-         in
-         ("locations", arg) :: bnds
+         if [] = v_locations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_locations
+           in
+           let bnd = "locations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_labels with

@@ -149,10 +149,13 @@ type azurerm_sql_failover_group = {
   server_name : string prop;
   tags : (string * string prop) list option; [@option]
   partner_servers : partner_servers list;
+      [@default []] [@yojson_drop_default ( = )]
   read_write_endpoint_failover_policy :
     read_write_endpoint_failover_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   readonly_endpoint_failover_policy :
     readonly_endpoint_failover_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -183,25 +186,36 @@ let yojson_of_azurerm_sql_failover_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_readonly_endpoint_failover_policy
-             v_readonly_endpoint_failover_policy
-         in
-         ("readonly_endpoint_failover_policy", arg) :: bnds
+         if [] = v_readonly_endpoint_failover_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_readonly_endpoint_failover_policy)
+               v_readonly_endpoint_failover_policy
+           in
+           let bnd = "readonly_endpoint_failover_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_read_write_endpoint_failover_policy
-             v_read_write_endpoint_failover_policy
-         in
-         ("read_write_endpoint_failover_policy", arg) :: bnds
+         if [] = v_read_write_endpoint_failover_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_read_write_endpoint_failover_policy)
+               v_read_write_endpoint_failover_policy
+           in
+           let bnd = "read_write_endpoint_failover_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_partner_servers v_partner_servers
-         in
-         ("partner_servers", arg) :: bnds
+         if [] = v_partner_servers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_partner_servers)
+               v_partner_servers
+           in
+           let bnd = "partner_servers", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

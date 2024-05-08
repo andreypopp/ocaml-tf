@@ -89,8 +89,10 @@ let _ = yojson_of_autoscale_configuration
 
 type backend_address_pool = {
   fqdns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop;
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -113,22 +115,28 @@ let yojson_of_backend_address_pool =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_id in
          ("id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_fqdns
-         in
-         ("fqdns", arg) :: bnds
+         if [] = v_fqdns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fqdns
+           in
+           let bnd = "fqdns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : backend_address_pool -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -205,8 +213,10 @@ type backend_http_settings = {
   affinity_cookie_name : string prop;
   authentication_certificate :
     backend_http_settings__authentication_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   connection_draining :
     backend_http_settings__connection_draining list;
+      [@default []] [@yojson_drop_default ( = )]
   cookie_based_affinity : string prop;
   host_name : string prop;
   id : string prop;
@@ -219,6 +229,7 @@ type backend_http_settings = {
   protocol : string prop;
   request_timeout : float prop;
   trusted_root_certificate_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -249,12 +260,14 @@ let yojson_of_backend_http_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_trusted_root_certificate_names
-         in
-         ("trusted_root_certificate_names", arg) :: bnds
+         if [] = v_trusted_root_certificate_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_trusted_root_certificate_names
+           in
+           let bnd = "trusted_root_certificate_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -308,20 +321,26 @@ let yojson_of_backend_http_settings =
          ("cookie_based_affinity", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backend_http_settings__connection_draining
-             v_connection_draining
-         in
-         ("connection_draining", arg) :: bnds
+         if [] = v_connection_draining then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backend_http_settings__connection_draining)
+               v_connection_draining
+           in
+           let bnd = "connection_draining", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backend_http_settings__authentication_certificate
-             v_authentication_certificate
-         in
-         ("authentication_certificate", arg) :: bnds
+         if [] = v_authentication_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backend_http_settings__authentication_certificate)
+               v_authentication_certificate
+           in
+           let bnd = "authentication_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -608,6 +627,7 @@ let _ = yojson_of_http_listener__custom_error_configuration
 type http_listener = {
   custom_error_configuration :
     http_listener__custom_error_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   firewall_policy_id : string prop;
   frontend_ip_configuration_id : string prop;
   frontend_ip_configuration_name : string prop;
@@ -615,6 +635,7 @@ type http_listener = {
   frontend_port_name : string prop;
   host_name : string prop;
   host_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop;
   name : string prop;
   protocol : string prop;
@@ -693,12 +714,14 @@ let yojson_of_http_listener =
          ("id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_host_names
-         in
-         ("host_names", arg) :: bnds
+         if [] = v_host_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_host_names
+           in
+           let bnd = "host_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_host_name in
@@ -737,12 +760,15 @@ let yojson_of_http_listener =
          ("firewall_policy_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_http_listener__custom_error_configuration
-             v_custom_error_configuration
-         in
-         ("custom_error_configuration", arg) :: bnds
+         if [] = v_custom_error_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_http_listener__custom_error_configuration)
+               v_custom_error_configuration
+           in
+           let bnd = "custom_error_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : http_listener -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -753,6 +779,7 @@ let _ = yojson_of_http_listener
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -770,12 +797,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -875,6 +904,7 @@ type private_link_configuration = {
   id : string prop;
   ip_configuration :
     private_link_configuration__ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -896,12 +926,15 @@ let yojson_of_private_link_configuration =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_private_link_configuration__ip_configuration
-             v_ip_configuration
-         in
-         ("ip_configuration", arg) :: bnds
+         if [] = v_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_private_link_configuration__ip_configuration)
+               v_ip_configuration
+           in
+           let bnd = "ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_id in
@@ -917,6 +950,7 @@ let _ = yojson_of_private_link_configuration
 type probe__match = {
   body : string prop;
   status_code : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -929,12 +963,14 @@ let yojson_of_probe__match =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_status_code
-         in
-         ("status_code", arg) :: bnds
+         if [] = v_status_code then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_status_code
+           in
+           let bnd = "status_code", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_body in
@@ -951,7 +987,8 @@ type probe = {
   host : string prop;
   id : string prop;
   interval : float prop;
-  match_ : probe__match list; [@key "match"]
+  match_ : probe__match list;
+      [@default []] [@yojson_drop_default ( = )] [@key "match"]
   minimum_servers : float prop;
   name : string prop;
   path : string prop;
@@ -1025,8 +1062,13 @@ let yojson_of_probe =
          ("minimum_servers", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_probe__match v_match_ in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_probe__match) v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_interval in
@@ -1429,14 +1471,18 @@ let _ = yojson_of_rewrite_rule_set__rewrite_rule__condition
 
 type rewrite_rule_set__rewrite_rule = {
   condition : rewrite_rule_set__rewrite_rule__condition list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   request_header_configuration :
     rewrite_rule_set__rewrite_rule__request_header_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   response_header_configuration :
     rewrite_rule_set__rewrite_rule__response_header_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   rule_sequence : float prop;
   url : rewrite_rule_set__rewrite_rule__url list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1457,43 +1503,56 @@ let yojson_of_rewrite_rule_set__rewrite_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rewrite_rule_set__rewrite_rule__url v_url
-         in
-         ("url", arg) :: bnds
+         if [] = v_url then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rewrite_rule_set__rewrite_rule__url)
+               v_url
+           in
+           let bnd = "url", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_rule_sequence in
          ("rule_sequence", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rewrite_rule_set__rewrite_rule__response_header_configuration
-             v_response_header_configuration
-         in
-         ("response_header_configuration", arg) :: bnds
+         if [] = v_response_header_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rewrite_rule_set__rewrite_rule__response_header_configuration)
+               v_response_header_configuration
+           in
+           let bnd = "response_header_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rewrite_rule_set__rewrite_rule__request_header_configuration
-             v_request_header_configuration
-         in
-         ("request_header_configuration", arg) :: bnds
+         if [] = v_request_header_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rewrite_rule_set__rewrite_rule__request_header_configuration)
+               v_request_header_configuration
+           in
+           let bnd = "request_header_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rewrite_rule_set__rewrite_rule__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rewrite_rule_set__rewrite_rule__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rewrite_rule_set__rewrite_rule ->
@@ -1507,6 +1566,7 @@ type rewrite_rule_set = {
   id : string prop;
   name : string prop;
   rewrite_rule : rewrite_rule_set__rewrite_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1519,11 +1579,14 @@ let yojson_of_rewrite_rule_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rewrite_rule_set__rewrite_rule
-             v_rewrite_rule
-         in
-         ("rewrite_rule", arg) :: bnds
+         if [] = v_rewrite_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rewrite_rule_set__rewrite_rule)
+               v_rewrite_rule
+           in
+           let bnd = "rewrite_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1624,7 +1687,9 @@ let _ = yojson_of_ssl_certificate
 
 type ssl_policy = {
   cipher_suites : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   disabled_protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   min_protocol_version : string prop;
   policy_name : string prop;
   policy_type : string prop;
@@ -1660,20 +1725,24 @@ let yojson_of_ssl_policy =
          ("min_protocol_version", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_disabled_protocols
-         in
-         ("disabled_protocols", arg) :: bnds
+         if [] = v_disabled_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_disabled_protocols
+           in
+           let bnd = "disabled_protocols", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cipher_suites
-         in
-         ("cipher_suites", arg) :: bnds
+         if [] = v_cipher_suites then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cipher_suites
+           in
+           let bnd = "cipher_suites", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : ssl_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1684,7 +1753,9 @@ let _ = yojson_of_ssl_policy
 
 type ssl_profile__ssl_policy = {
   cipher_suites : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   disabled_protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   min_protocol_version : string prop;
   policy_name : string prop;
   policy_type : string prop;
@@ -1720,20 +1791,24 @@ let yojson_of_ssl_profile__ssl_policy =
          ("min_protocol_version", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_disabled_protocols
-         in
-         ("disabled_protocols", arg) :: bnds
+         if [] = v_disabled_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_disabled_protocols
+           in
+           let bnd = "disabled_protocols", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cipher_suites
-         in
-         ("cipher_suites", arg) :: bnds
+         if [] = v_cipher_suites then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cipher_suites
+           in
+           let bnd = "cipher_suites", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : ssl_profile__ssl_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1746,7 +1821,9 @@ type ssl_profile = {
   id : string prop;
   name : string prop;
   ssl_policy : ssl_profile__ssl_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   trusted_client_certificate_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   verify_client_certificate_issuer_dn : bool prop;
   verify_client_certificate_revocation : string prop;
 }
@@ -1785,19 +1862,24 @@ let yojson_of_ssl_profile =
          ("verify_client_certificate_issuer_dn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_trusted_client_certificate_names
-         in
-         ("trusted_client_certificate_names", arg) :: bnds
+         if [] = v_trusted_client_certificate_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_trusted_client_certificate_names
+           in
+           let bnd = "trusted_client_certificate_names", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_profile__ssl_policy
-             v_ssl_policy
-         in
-         ("ssl_policy", arg) :: bnds
+         if [] = v_ssl_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssl_profile__ssl_policy)
+               v_ssl_policy
+           in
+           let bnd = "ssl_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1897,6 +1979,7 @@ type url_path_map__path_rule = {
   id : string prop;
   name : string prop;
   paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   redirect_configuration_id : string prop;
   redirect_configuration_name : string prop;
   rewrite_rule_set_id : string prop;
@@ -1952,10 +2035,14 @@ let yojson_of_url_path_map__path_rule =
          ("redirect_configuration_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_paths
-         in
-         ("paths", arg) :: bnds
+         if [] = v_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_paths
+           in
+           let bnd = "paths", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -2016,6 +2103,7 @@ type url_path_map = {
   id : string prop;
   name : string prop;
   path_rule : url_path_map__path_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2047,11 +2135,14 @@ let yojson_of_url_path_map =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_url_path_map__path_rule
-             v_path_rule
-         in
-         ("path_rule", arg) :: bnds
+         if [] = v_path_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_url_path_map__path_rule)
+               v_path_rule
+           in
+           let bnd = "path_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -2169,7 +2260,7 @@ let _ = yojson_of_waf_configuration__exclusion
 
 type waf_configuration__disabled_rule_group = {
   rule_group_name : string prop;
-  rules : float prop list;
+  rules : float prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2182,10 +2273,14 @@ let yojson_of_waf_configuration__disabled_rule_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_float) v_rules
-         in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_rules
+           in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2203,8 +2298,10 @@ let _ = yojson_of_waf_configuration__disabled_rule_group
 
 type waf_configuration = {
   disabled_rule_group : waf_configuration__disabled_rule_group list;
+      [@default []] [@yojson_drop_default ( = )]
   enabled : bool prop;
   exclusion : waf_configuration__exclusion list;
+      [@default []] [@yojson_drop_default ( = )]
   file_upload_limit_mb : float prop;
   firewall_mode : string prop;
   max_request_body_size_kb : float prop;
@@ -2265,23 +2362,29 @@ let yojson_of_waf_configuration =
          ("file_upload_limit_mb", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_waf_configuration__exclusion
-             v_exclusion
-         in
-         ("exclusion", arg) :: bnds
+         if [] = v_exclusion then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_waf_configuration__exclusion)
+               v_exclusion
+           in
+           let bnd = "exclusion", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in
          ("enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_waf_configuration__disabled_rule_group
-             v_disabled_rule_group
-         in
-         ("disabled_rule_group", arg) :: bnds
+         if [] = v_disabled_rule_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_waf_configuration__disabled_rule_group)
+               v_disabled_rule_group
+           in
+           let bnd = "disabled_rule_group", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : waf_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)

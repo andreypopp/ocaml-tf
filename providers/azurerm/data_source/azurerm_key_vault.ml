@@ -31,10 +31,14 @@ let _ = yojson_of_timeouts
 type access_policy = {
   application_id : string prop;
   certificate_permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   key_permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   object_id : string prop;
   secret_permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tenant_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -60,40 +64,48 @@ let yojson_of_access_policy =
          ("tenant_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_storage_permissions
-         in
-         ("storage_permissions", arg) :: bnds
+         if [] = v_storage_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_storage_permissions
+           in
+           let bnd = "storage_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_secret_permissions
-         in
-         ("secret_permissions", arg) :: bnds
+         if [] = v_secret_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_secret_permissions
+           in
+           let bnd = "secret_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_object_id in
          ("object_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_key_permissions
-         in
-         ("key_permissions", arg) :: bnds
+         if [] = v_key_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_key_permissions
+           in
+           let bnd = "key_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_certificate_permissions
-         in
-         ("certificate_permissions", arg) :: bnds
+         if [] = v_certificate_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_certificate_permissions
+           in
+           let bnd = "certificate_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -112,7 +124,9 @@ type network_acls = {
   bypass : string prop;
   default_action : string prop;
   ip_rules : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_network_subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,20 +144,24 @@ let yojson_of_network_acls =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_virtual_network_subnet_ids
-         in
-         ("virtual_network_subnet_ids", arg) :: bnds
+         if [] = v_virtual_network_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_virtual_network_subnet_ids
+           in
+           let bnd = "virtual_network_subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_rules
-         in
-         ("ip_rules", arg) :: bnds
+         if [] = v_ip_rules then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_rules
+           in
+           let bnd = "ip_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

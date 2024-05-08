@@ -15,7 +15,7 @@ let _ = yojson_of_groups
 
 type aws_cognito_user_groups = {
   user_pool_id : string prop;
-  groups : groups list;
+  groups : groups list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28,8 +28,11 @@ let yojson_of_aws_cognito_user_groups =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_groups v_groups in
-         ("groups", arg) :: bnds
+         if [] = v_groups then bnds
+         else
+           let arg = (yojson_of_list yojson_of_groups) v_groups in
+           let bnd = "groups", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_user_pool_id in

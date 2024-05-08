@@ -51,6 +51,7 @@ type aws_appautoscaling_scheduled_action = {
   start_time : string prop option; [@option]
   timezone : string prop option; [@option]
   scalable_target_action : scalable_target_action list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,11 +75,14 @@ let yojson_of_aws_appautoscaling_scheduled_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scalable_target_action
-             v_scalable_target_action
-         in
-         ("scalable_target_action", arg) :: bnds
+         if [] = v_scalable_target_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scalable_target_action)
+               v_scalable_target_action
+           in
+           let bnd = "scalable_target_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timezone with

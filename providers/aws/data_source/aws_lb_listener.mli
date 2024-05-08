@@ -25,8 +25,10 @@ type default_action__forward__stickiness = {
 
 type default_action__forward = {
   stickiness : default_action__forward__stickiness list;
+      [@default []] [@yojson_drop_default ( = )]
       (** stickiness *)
   target_group : default_action__forward__target_group list;
+      [@default []] [@yojson_drop_default ( = )]
       (** target_group *)
 }
 
@@ -68,14 +70,21 @@ type default_action__authenticate_cognito = {
 
 type default_action = {
   authenticate_cognito : default_action__authenticate_cognito list;
+      [@default []] [@yojson_drop_default ( = )]
       (** authenticate_cognito *)
   authenticate_oidc : default_action__authenticate_oidc list;
+      [@default []] [@yojson_drop_default ( = )]
       (** authenticate_oidc *)
   fixed_response : default_action__fixed_response list;
+      [@default []] [@yojson_drop_default ( = )]
       (** fixed_response *)
-  forward : default_action__forward list;  (** forward *)
+  forward : default_action__forward list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** forward *)
   order : float prop;  (** order *)
-  redirect : default_action__redirect list;  (** redirect *)
+  redirect : default_action__redirect list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** redirect *)
   target_group_arn : string prop;  (** target_group_arn *)
   type_ : string prop; [@key "type"]  (** type *)
 }

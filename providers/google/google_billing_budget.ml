@@ -120,6 +120,7 @@ let _ = yojson_of_amount__specified_amount
 type amount = {
   last_period_amount : bool prop option; [@option]
   specified_amount : amount__specified_amount list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -135,11 +136,14 @@ let yojson_of_amount =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_amount__specified_amount
-             v_specified_amount
-         in
-         ("specified_amount", arg) :: bnds
+         if [] = v_specified_amount then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_amount__specified_amount)
+               v_specified_amount
+           in
+           let bnd = "specified_amount", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_last_period_amount with
@@ -228,7 +232,9 @@ let _ = yojson_of_budget_filter__custom_period__start_date
 
 type budget_filter__custom_period = {
   end_date : budget_filter__custom_period__end_date list;
+      [@default []] [@yojson_drop_default ( = )]
   start_date : budget_filter__custom_period__start_date list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -241,20 +247,26 @@ let yojson_of_budget_filter__custom_period =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_budget_filter__custom_period__start_date
-             v_start_date
-         in
-         ("start_date", arg) :: bnds
+         if [] = v_start_date then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_budget_filter__custom_period__start_date)
+               v_start_date
+           in
+           let bnd = "start_date", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_budget_filter__custom_period__end_date
-             v_end_date
-         in
-         ("end_date", arg) :: bnds
+         if [] = v_end_date then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_budget_filter__custom_period__end_date)
+               v_end_date
+           in
+           let bnd = "end_date", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : budget_filter__custom_period ->
@@ -274,6 +286,7 @@ type budget_filter = {
   services : string prop list option; [@option]
   subaccounts : string prop list option; [@option]
   custom_period : budget_filter__custom_period list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -296,11 +309,14 @@ let yojson_of_budget_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_budget_filter__custom_period
-             v_custom_period
-         in
-         ("custom_period", arg) :: bnds
+         if [] = v_custom_period then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_budget_filter__custom_period)
+               v_custom_period
+           in
+           let bnd = "custom_period", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_subaccounts with
@@ -480,9 +496,12 @@ type google_billing_budget = {
   display_name : string prop option; [@option]
   id : string prop option; [@option]
   all_updates_rule : all_updates_rule list;
-  amount : amount list;
+      [@default []] [@yojson_drop_default ( = )]
+  amount : amount list; [@default []] [@yojson_drop_default ( = )]
   budget_filter : budget_filter list;
+      [@default []] [@yojson_drop_default ( = )]
   threshold_rules : threshold_rules list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -509,27 +528,40 @@ let yojson_of_google_billing_budget =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_rules v_threshold_rules
-         in
-         ("threshold_rules", arg) :: bnds
+         if [] = v_threshold_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_threshold_rules)
+               v_threshold_rules
+           in
+           let bnd = "threshold_rules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_budget_filter v_budget_filter
-         in
-         ("budget_filter", arg) :: bnds
+         if [] = v_budget_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_budget_filter) v_budget_filter
+           in
+           let bnd = "budget_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_amount v_amount in
-         ("amount", arg) :: bnds
+         if [] = v_amount then bnds
+         else
+           let arg = (yojson_of_list yojson_of_amount) v_amount in
+           let bnd = "amount", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_all_updates_rule
-             v_all_updates_rule
-         in
-         ("all_updates_rule", arg) :: bnds
+         if [] = v_all_updates_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_all_updates_rule)
+               v_all_updates_rule
+           in
+           let bnd = "all_updates_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

@@ -127,7 +127,9 @@ let _ = yojson_of_mirrored_resources__subnetworks
 type mirrored_resources = {
   tags : string prop list option; [@option]
   instances : mirrored_resources__instances list;
+      [@default []] [@yojson_drop_default ( = )]
   subnetworks : mirrored_resources__subnetworks list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,18 +146,25 @@ let yojson_of_mirrored_resources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mirrored_resources__subnetworks
-             v_subnetworks
-         in
-         ("subnetworks", arg) :: bnds
+         if [] = v_subnetworks then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_mirrored_resources__subnetworks)
+               v_subnetworks
+           in
+           let bnd = "subnetworks", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mirrored_resources__instances
-             v_instances
-         in
-         ("instances", arg) :: bnds
+         if [] = v_instances then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mirrored_resources__instances)
+               v_instances
+           in
+           let bnd = "instances", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -249,9 +258,11 @@ type google_compute_packet_mirroring = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   collector_ilb : collector_ilb list;
-  filter : filter list;
+      [@default []] [@yojson_drop_default ( = )]
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
   mirrored_resources : mirrored_resources list;
-  network : network list;
+      [@default []] [@yojson_drop_default ( = )]
+  network : network list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -281,25 +292,37 @@ let yojson_of_google_compute_packet_mirroring =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_network v_network in
-         ("network", arg) :: bnds
+         if [] = v_network then bnds
+         else
+           let arg = (yojson_of_list yojson_of_network) v_network in
+           let bnd = "network", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mirrored_resources
-             v_mirrored_resources
-         in
-         ("mirrored_resources", arg) :: bnds
+         if [] = v_mirrored_resources then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mirrored_resources)
+               v_mirrored_resources
+           in
+           let bnd = "mirrored_resources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_collector_ilb v_collector_ilb
-         in
-         ("collector_ilb", arg) :: bnds
+         if [] = v_collector_ilb then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_collector_ilb) v_collector_ilb
+           in
+           let bnd = "collector_ilb", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

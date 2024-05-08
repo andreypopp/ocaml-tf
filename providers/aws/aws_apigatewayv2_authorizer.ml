@@ -53,6 +53,7 @@ type aws_apigatewayv2_authorizer = {
   identity_sources : string prop list option; [@option]
   name : string prop;
   jwt_configuration : jwt_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,11 +80,14 @@ let yojson_of_aws_apigatewayv2_authorizer =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_jwt_configuration
-             v_jwt_configuration
-         in
-         ("jwt_configuration", arg) :: bnds
+         if [] = v_jwt_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_jwt_configuration)
+               v_jwt_configuration
+           in
+           let bnd = "jwt_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

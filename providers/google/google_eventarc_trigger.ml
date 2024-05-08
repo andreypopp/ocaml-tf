@@ -151,9 +151,13 @@ let _ = yojson_of_destination__network_config
 type destination = {
   workflow : string prop option; [@option]
   cloud_run_service : destination__cloud_run_service list;
+      [@default []] [@yojson_drop_default ( = )]
   gke : destination__gke list;
+      [@default []] [@yojson_drop_default ( = )]
   http_endpoint : destination__http_endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
   network_config : destination__network_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,29 +176,43 @@ let yojson_of_destination =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination__network_config
-             v_network_config
-         in
-         ("network_config", arg) :: bnds
+         if [] = v_network_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination__network_config)
+               v_network_config
+           in
+           let bnd = "network_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination__http_endpoint
-             v_http_endpoint
-         in
-         ("http_endpoint", arg) :: bnds
+         if [] = v_http_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination__http_endpoint)
+               v_http_endpoint
+           in
+           let bnd = "http_endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_destination__gke v_gke in
-         ("gke", arg) :: bnds
+         if [] = v_gke then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination__gke) v_gke
+           in
+           let bnd = "gke", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination__cloud_run_service
-             v_cloud_run_service
-         in
-         ("cloud_run_service", arg) :: bnds
+         if [] = v_cloud_run_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination__cloud_run_service)
+               v_cloud_run_service
+           in
+           let bnd = "cloud_run_service", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_workflow with
@@ -325,7 +343,10 @@ let _ = yojson_of_transport__pubsub
 
 [@@@deriving.end]
 
-type transport = { pubsub : transport__pubsub list }
+type transport = {
+  pubsub : transport__pubsub list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : transport) -> ()
@@ -337,10 +358,13 @@ let yojson_of_transport =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transport__pubsub v_pubsub
-         in
-         ("pubsub", arg) :: bnds
+         if [] = v_pubsub then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transport__pubsub) v_pubsub
+           in
+           let bnd = "pubsub", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : transport -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -359,9 +383,12 @@ type google_eventarc_trigger = {
   project : string prop option; [@option]
   service_account : string prop option; [@option]
   destination : destination list;
+      [@default []] [@yojson_drop_default ( = )]
   matching_criteria : matching_criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   transport : transport list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -387,25 +414,36 @@ let yojson_of_google_eventarc_trigger =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_transport v_transport in
-         ("transport", arg) :: bnds
+         if [] = v_transport then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transport) v_transport
+           in
+           let bnd = "transport", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_matching_criteria
-             v_matching_criteria
-         in
-         ("matching_criteria", arg) :: bnds
+         if [] = v_matching_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_matching_criteria)
+               v_matching_criteria
+           in
+           let bnd = "matching_criteria", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination) v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service_account with

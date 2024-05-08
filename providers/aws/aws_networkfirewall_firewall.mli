@@ -11,12 +11,15 @@ type firewall_status__sync_states__attachment = {
 
 type firewall_status__sync_states = {
   attachment : firewall_status__sync_states__attachment list;
+      [@default []] [@yojson_drop_default ( = )]
       (** attachment *)
   availability_zone : string prop;  (** availability_zone *)
 }
 
 type firewall_status = {
-  sync_states : firewall_status__sync_states list;  (** sync_states *)
+  sync_states : firewall_status__sync_states list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** sync_states *)
 }
 
 type encryption_configuration

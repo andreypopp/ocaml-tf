@@ -152,6 +152,7 @@ type autoscaling_policy__scale_in_control = {
   time_window_sec : float prop option; [@option]
   max_scaled_in_replicas :
     autoscaling_policy__scale_in_control__max_scaled_in_replicas list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,12 +168,15 @@ let yojson_of_autoscaling_policy__scale_in_control =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_autoscaling_policy__scale_in_control__max_scaled_in_replicas
-             v_max_scaled_in_replicas
-         in
-         ("max_scaled_in_replicas", arg) :: bnds
+         if [] = v_max_scaled_in_replicas then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_autoscaling_policy__scale_in_control__max_scaled_in_replicas)
+               v_max_scaled_in_replicas
+           in
+           let bnd = "max_scaled_in_replicas", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_time_window_sec with
@@ -273,11 +277,16 @@ type autoscaling_policy = {
   min_replicas : float prop;
   mode : string prop option; [@option]
   cpu_utilization : autoscaling_policy__cpu_utilization list;
+      [@default []] [@yojson_drop_default ( = )]
   load_balancing_utilization :
     autoscaling_policy__load_balancing_utilization list;
+      [@default []] [@yojson_drop_default ( = )]
   metric : autoscaling_policy__metric list;
+      [@default []] [@yojson_drop_default ( = )]
   scale_in_control : autoscaling_policy__scale_in_control list;
+      [@default []] [@yojson_drop_default ( = )]
   scaling_schedules : autoscaling_policy__scaling_schedules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -300,43 +309,58 @@ let yojson_of_autoscaling_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_autoscaling_policy__scaling_schedules
-             v_scaling_schedules
-         in
-         ("scaling_schedules", arg) :: bnds
+         if [] = v_scaling_schedules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_autoscaling_policy__scaling_schedules)
+               v_scaling_schedules
+           in
+           let bnd = "scaling_schedules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_autoscaling_policy__scale_in_control
-             v_scale_in_control
-         in
-         ("scale_in_control", arg) :: bnds
+         if [] = v_scale_in_control then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_autoscaling_policy__scale_in_control)
+               v_scale_in_control
+           in
+           let bnd = "scale_in_control", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_autoscaling_policy__metric
-             v_metric
-         in
-         ("metric", arg) :: bnds
+         if [] = v_metric then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscaling_policy__metric)
+               v_metric
+           in
+           let bnd = "metric", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_autoscaling_policy__load_balancing_utilization
-             v_load_balancing_utilization
-         in
-         ("load_balancing_utilization", arg) :: bnds
+         if [] = v_load_balancing_utilization then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_autoscaling_policy__load_balancing_utilization)
+               v_load_balancing_utilization
+           in
+           let bnd = "load_balancing_utilization", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_autoscaling_policy__cpu_utilization
-             v_cpu_utilization
-         in
-         ("cpu_utilization", arg) :: bnds
+         if [] = v_cpu_utilization then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_autoscaling_policy__cpu_utilization)
+               v_cpu_utilization
+           in
+           let bnd = "cpu_utilization", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_mode with
@@ -423,6 +447,7 @@ type google_compute_region_autoscaler = {
   region : string prop option; [@option]
   target : string prop;
   autoscaling_policy : autoscaling_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -449,11 +474,14 @@ let yojson_of_google_compute_region_autoscaler =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_autoscaling_policy
-             v_autoscaling_policy
-         in
-         ("autoscaling_policy", arg) :: bnds
+         if [] = v_autoscaling_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscaling_policy)
+               v_autoscaling_policy
+           in
+           let bnd = "autoscaling_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_target in

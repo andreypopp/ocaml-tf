@@ -187,10 +187,15 @@ type aws_appstream_stack = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   access_endpoints : access_endpoints list;
+      [@default []] [@yojson_drop_default ( = )]
   application_settings : application_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_connectors : storage_connectors list;
+      [@default []] [@yojson_drop_default ( = )]
   streaming_experience_settings : streaming_experience_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   user_settings : user_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -219,38 +224,53 @@ let yojson_of_aws_appstream_stack =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_user_settings v_user_settings
-         in
-         ("user_settings", arg) :: bnds
+         if [] = v_user_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_user_settings) v_user_settings
+           in
+           let bnd = "user_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_streaming_experience_settings
-             v_streaming_experience_settings
-         in
-         ("streaming_experience_settings", arg) :: bnds
+         if [] = v_streaming_experience_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_streaming_experience_settings)
+               v_streaming_experience_settings
+           in
+           let bnd = "streaming_experience_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_connectors
-             v_storage_connectors
-         in
-         ("storage_connectors", arg) :: bnds
+         if [] = v_storage_connectors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_connectors)
+               v_storage_connectors
+           in
+           let bnd = "storage_connectors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_application_settings
-             v_application_settings
-         in
-         ("application_settings", arg) :: bnds
+         if [] = v_application_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_application_settings)
+               v_application_settings
+           in
+           let bnd = "application_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access_endpoints
-             v_access_endpoints
-         in
-         ("access_endpoints", arg) :: bnds
+         if [] = v_access_endpoints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_endpoints)
+               v_access_endpoints
+           in
+           let bnd = "access_endpoints", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

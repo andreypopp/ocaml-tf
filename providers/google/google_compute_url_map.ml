@@ -200,6 +200,7 @@ type default_route_action__fault_injection_policy__delay = {
   fixed_delay :
     default_route_action__fault_injection_policy__delay__fixed_delay
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -213,12 +214,15 @@ let yojson_of_default_route_action__fault_injection_policy__delay =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__fault_injection_policy__delay__fixed_delay
-             v_fixed_delay
-         in
-         ("fixed_delay", arg) :: bnds
+         if [] = v_fixed_delay then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__fault_injection_policy__delay__fixed_delay)
+               v_fixed_delay
+           in
+           let bnd = "fixed_delay", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_percentage with
@@ -238,7 +242,9 @@ let _ = yojson_of_default_route_action__fault_injection_policy__delay
 
 type default_route_action__fault_injection_policy = {
   abort : default_route_action__fault_injection_policy__abort list;
+      [@default []] [@yojson_drop_default ( = )]
   delay : default_route_action__fault_injection_policy__delay list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -251,20 +257,26 @@ let yojson_of_default_route_action__fault_injection_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__fault_injection_policy__delay
-             v_delay
-         in
-         ("delay", arg) :: bnds
+         if [] = v_delay then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__fault_injection_policy__delay)
+               v_delay
+           in
+           let bnd = "delay", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__fault_injection_policy__abort
-             v_abort
-         in
-         ("abort", arg) :: bnds
+         if [] = v_abort then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__fault_injection_policy__abort)
+               v_abort
+           in
+           let bnd = "abort", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : default_route_action__fault_injection_policy ->
@@ -345,6 +357,7 @@ type default_route_action__retry_policy = {
   retry_conditions : string prop list option; [@option]
   per_try_timeout :
     default_route_action__retry_policy__per_try_timeout list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -361,12 +374,15 @@ let yojson_of_default_route_action__retry_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__retry_policy__per_try_timeout
-             v_per_try_timeout
-         in
-         ("per_try_timeout", arg) :: bnds
+         if [] = v_per_try_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__retry_policy__per_try_timeout)
+               v_per_try_timeout
+           in
+           let bnd = "per_try_timeout", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retry_conditions with
@@ -591,9 +607,11 @@ type default_route_action__weighted_backend_services__header_action = {
   request_headers_to_add :
     default_route_action__weighted_backend_services__header_action__request_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response_headers_to_add :
     default_route_action__weighted_backend_services__header_action__response_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -615,20 +633,26 @@ let yojson_of_default_route_action__weighted_backend_services__header_action
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__weighted_backend_services__header_action__response_headers_to_add
-             v_response_headers_to_add
-         in
-         ("response_headers_to_add", arg) :: bnds
+         if [] = v_response_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__weighted_backend_services__header_action__response_headers_to_add)
+               v_response_headers_to_add
+           in
+           let bnd = "response_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__weighted_backend_services__header_action__request_headers_to_add
-             v_request_headers_to_add
-         in
-         ("request_headers_to_add", arg) :: bnds
+         if [] = v_request_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__weighted_backend_services__header_action__request_headers_to_add)
+               v_request_headers_to_add
+           in
+           let bnd = "request_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_response_headers_to_remove with
@@ -665,6 +689,7 @@ type default_route_action__weighted_backend_services = {
   header_action :
     default_route_action__weighted_backend_services__header_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -682,12 +707,15 @@ let yojson_of_default_route_action__weighted_backend_services =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__weighted_backend_services__header_action
-             v_header_action
-         in
-         ("header_action", arg) :: bnds
+         if [] = v_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__weighted_backend_services__header_action)
+               v_header_action
+           in
+           let bnd = "header_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weight with
@@ -715,15 +743,22 @@ let _ = yojson_of_default_route_action__weighted_backend_services
 
 type default_route_action = {
   cors_policy : default_route_action__cors_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   fault_injection_policy :
     default_route_action__fault_injection_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   request_mirror_policy :
     default_route_action__request_mirror_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_policy : default_route_action__retry_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout : default_route_action__timeout list;
+      [@default []] [@yojson_drop_default ( = )]
   url_rewrite : default_route_action__url_rewrite list;
+      [@default []] [@yojson_drop_default ( = )]
   weighted_backend_services :
     default_route_action__weighted_backend_services list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -744,57 +779,80 @@ let yojson_of_default_route_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__weighted_backend_services
-             v_weighted_backend_services
-         in
-         ("weighted_backend_services", arg) :: bnds
+         if [] = v_weighted_backend_services then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__weighted_backend_services)
+               v_weighted_backend_services
+           in
+           let bnd = "weighted_backend_services", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_route_action__url_rewrite
-             v_url_rewrite
-         in
-         ("url_rewrite", arg) :: bnds
+         if [] = v_url_rewrite then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__url_rewrite)
+               v_url_rewrite
+           in
+           let bnd = "url_rewrite", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_route_action__timeout
-             v_timeout
-         in
-         ("timeout", arg) :: bnds
+         if [] = v_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_route_action__timeout)
+               v_timeout
+           in
+           let bnd = "timeout", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__retry_policy
-             v_retry_policy
-         in
-         ("retry_policy", arg) :: bnds
+         if [] = v_retry_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__retry_policy)
+               v_retry_policy
+           in
+           let bnd = "retry_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__request_mirror_policy
-             v_request_mirror_policy
-         in
-         ("request_mirror_policy", arg) :: bnds
+         if [] = v_request_mirror_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__request_mirror_policy)
+               v_request_mirror_policy
+           in
+           let bnd = "request_mirror_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_route_action__fault_injection_policy
-             v_fault_injection_policy
-         in
-         ("fault_injection_policy", arg) :: bnds
+         if [] = v_fault_injection_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__fault_injection_policy)
+               v_fault_injection_policy
+           in
+           let bnd = "fault_injection_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_route_action__cors_policy
-             v_cors_policy
-         in
-         ("cors_policy", arg) :: bnds
+         if [] = v_cors_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_route_action__cors_policy)
+               v_cors_policy
+           in
+           let bnd = "cors_policy", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : default_route_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -962,8 +1020,10 @@ type header_action = {
   response_headers_to_remove : string prop list option; [@option]
   request_headers_to_add :
     header_action__request_headers_to_add list;
+      [@default []] [@yojson_drop_default ( = )]
   response_headers_to_add :
     header_action__response_headers_to_add list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -981,20 +1041,26 @@ let yojson_of_header_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_header_action__response_headers_to_add
-             v_response_headers_to_add
-         in
-         ("response_headers_to_add", arg) :: bnds
+         if [] = v_response_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_header_action__response_headers_to_add)
+               v_response_headers_to_add
+           in
+           let bnd = "response_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_header_action__request_headers_to_add
-             v_request_headers_to_add
-         in
-         ("request_headers_to_add", arg) :: bnds
+         if [] = v_request_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_header_action__request_headers_to_add)
+               v_request_headers_to_add
+           in
+           let bnd = "request_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_response_headers_to_remove with
@@ -1026,6 +1092,7 @@ let _ = yojson_of_header_action
 type host_rule = {
   description : string prop option; [@option]
   hosts : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   path_matcher : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1047,10 +1114,14 @@ let yojson_of_host_rule =
          ("path_matcher", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_hosts
-         in
-         ("hosts", arg) :: bnds
+         if [] = v_hosts then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_hosts
+           in
+           let bnd = "hosts", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_description with
@@ -1270,6 +1341,7 @@ type path_matcher__default_route_action__fault_injection_policy__delay = {
   fixed_delay :
     path_matcher__default_route_action__fault_injection_policy__delay__fixed_delay
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1286,12 +1358,15 @@ let yojson_of_path_matcher__default_route_action__fault_injection_policy__delay
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__fault_injection_policy__delay__fixed_delay
-             v_fixed_delay
-         in
-         ("fixed_delay", arg) :: bnds
+         if [] = v_fixed_delay then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__fault_injection_policy__delay__fixed_delay)
+               v_fixed_delay
+           in
+           let bnd = "fixed_delay", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_percentage with
@@ -1314,9 +1389,11 @@ type path_matcher__default_route_action__fault_injection_policy = {
   abort :
     path_matcher__default_route_action__fault_injection_policy__abort
     list;
+      [@default []] [@yojson_drop_default ( = )]
   delay :
     path_matcher__default_route_action__fault_injection_policy__delay
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1332,20 +1409,26 @@ let yojson_of_path_matcher__default_route_action__fault_injection_policy
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__fault_injection_policy__delay
-             v_delay
-         in
-         ("delay", arg) :: bnds
+         if [] = v_delay then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__fault_injection_policy__delay)
+               v_delay
+           in
+           let bnd = "delay", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__fault_injection_policy__abort
-             v_abort
-         in
-         ("abort", arg) :: bnds
+         if [] = v_abort then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__fault_injection_policy__abort)
+               v_abort
+           in
+           let bnd = "abort", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : path_matcher__default_route_action__fault_injection_policy ->
@@ -1436,6 +1519,7 @@ type path_matcher__default_route_action__retry_policy = {
   per_try_timeout :
     path_matcher__default_route_action__retry_policy__per_try_timeout
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1453,12 +1537,15 @@ let yojson_of_path_matcher__default_route_action__retry_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__retry_policy__per_try_timeout
-             v_per_try_timeout
-         in
-         ("per_try_timeout", arg) :: bnds
+         if [] = v_per_try_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__retry_policy__per_try_timeout)
+               v_per_try_timeout
+           in
+           let bnd = "per_try_timeout", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retry_conditions with
@@ -1684,9 +1771,11 @@ type path_matcher__default_route_action__weighted_backend_services__header_actio
   request_headers_to_add :
     path_matcher__default_route_action__weighted_backend_services__header_action__request_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response_headers_to_add :
     path_matcher__default_route_action__weighted_backend_services__header_action__response_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1708,20 +1797,26 @@ let yojson_of_path_matcher__default_route_action__weighted_backend_services__hea
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__weighted_backend_services__header_action__response_headers_to_add
-             v_response_headers_to_add
-         in
-         ("response_headers_to_add", arg) :: bnds
+         if [] = v_response_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__weighted_backend_services__header_action__response_headers_to_add)
+               v_response_headers_to_add
+           in
+           let bnd = "response_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__weighted_backend_services__header_action__request_headers_to_add
-             v_request_headers_to_add
-         in
-         ("request_headers_to_add", arg) :: bnds
+         if [] = v_request_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__weighted_backend_services__header_action__request_headers_to_add)
+               v_request_headers_to_add
+           in
+           let bnd = "request_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_response_headers_to_remove with
@@ -1758,6 +1853,7 @@ type path_matcher__default_route_action__weighted_backend_services = {
   header_action :
     path_matcher__default_route_action__weighted_backend_services__header_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1778,12 +1874,15 @@ let yojson_of_path_matcher__default_route_action__weighted_backend_services
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__weighted_backend_services__header_action
-             v_header_action
-         in
-         ("header_action", arg) :: bnds
+         if [] = v_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__weighted_backend_services__header_action)
+               v_header_action
+           in
+           let bnd = "header_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weight with
@@ -1812,17 +1911,24 @@ let _ =
 
 type path_matcher__default_route_action = {
   cors_policy : path_matcher__default_route_action__cors_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   fault_injection_policy :
     path_matcher__default_route_action__fault_injection_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   request_mirror_policy :
     path_matcher__default_route_action__request_mirror_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_policy :
     path_matcher__default_route_action__retry_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout : path_matcher__default_route_action__timeout list;
+      [@default []] [@yojson_drop_default ( = )]
   url_rewrite : path_matcher__default_route_action__url_rewrite list;
+      [@default []] [@yojson_drop_default ( = )]
   weighted_backend_services :
     path_matcher__default_route_action__weighted_backend_services
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1843,60 +1949,81 @@ let yojson_of_path_matcher__default_route_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__weighted_backend_services
-             v_weighted_backend_services
-         in
-         ("weighted_backend_services", arg) :: bnds
+         if [] = v_weighted_backend_services then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__weighted_backend_services)
+               v_weighted_backend_services
+           in
+           let bnd = "weighted_backend_services", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__url_rewrite
-             v_url_rewrite
-         in
-         ("url_rewrite", arg) :: bnds
+         if [] = v_url_rewrite then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__url_rewrite)
+               v_url_rewrite
+           in
+           let bnd = "url_rewrite", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__timeout
-             v_timeout
-         in
-         ("timeout", arg) :: bnds
+         if [] = v_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__timeout)
+               v_timeout
+           in
+           let bnd = "timeout", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__retry_policy
-             v_retry_policy
-         in
-         ("retry_policy", arg) :: bnds
+         if [] = v_retry_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__retry_policy)
+               v_retry_policy
+           in
+           let bnd = "retry_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__request_mirror_policy
-             v_request_mirror_policy
-         in
-         ("request_mirror_policy", arg) :: bnds
+         if [] = v_request_mirror_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__request_mirror_policy)
+               v_request_mirror_policy
+           in
+           let bnd = "request_mirror_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__fault_injection_policy
-             v_fault_injection_policy
-         in
-         ("fault_injection_policy", arg) :: bnds
+         if [] = v_fault_injection_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__fault_injection_policy)
+               v_fault_injection_policy
+           in
+           let bnd = "fault_injection_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action__cors_policy
-             v_cors_policy
-         in
-         ("cors_policy", arg) :: bnds
+         if [] = v_cors_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action__cors_policy)
+               v_cors_policy
+           in
+           let bnd = "cors_policy", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : path_matcher__default_route_action ->
@@ -2069,8 +2196,10 @@ type path_matcher__header_action = {
   response_headers_to_remove : string prop list option; [@option]
   request_headers_to_add :
     path_matcher__header_action__request_headers_to_add list;
+      [@default []] [@yojson_drop_default ( = )]
   response_headers_to_add :
     path_matcher__header_action__response_headers_to_add list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2088,20 +2217,26 @@ let yojson_of_path_matcher__header_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__header_action__response_headers_to_add
-             v_response_headers_to_add
-         in
-         ("response_headers_to_add", arg) :: bnds
+         if [] = v_response_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__header_action__response_headers_to_add)
+               v_response_headers_to_add
+           in
+           let bnd = "response_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__header_action__request_headers_to_add
-             v_request_headers_to_add
-         in
-         ("request_headers_to_add", arg) :: bnds
+         if [] = v_request_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__header_action__request_headers_to_add)
+               v_request_headers_to_add
+           in
+           let bnd = "request_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_response_headers_to_remove with
@@ -2318,6 +2453,7 @@ type path_matcher__path_rule__route_action__fault_injection_policy__delay = {
   fixed_delay :
     path_matcher__path_rule__route_action__fault_injection_policy__delay__fixed_delay
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2334,12 +2470,15 @@ let yojson_of_path_matcher__path_rule__route_action__fault_injection_policy__del
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__fault_injection_policy__delay__fixed_delay
-             v_fixed_delay
-         in
-         ("fixed_delay", arg) :: bnds
+         if [] = v_fixed_delay then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__fault_injection_policy__delay__fixed_delay)
+               v_fixed_delay
+           in
+           let bnd = "fixed_delay", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_percentage in
@@ -2358,9 +2497,11 @@ type path_matcher__path_rule__route_action__fault_injection_policy = {
   abort :
     path_matcher__path_rule__route_action__fault_injection_policy__abort
     list;
+      [@default []] [@yojson_drop_default ( = )]
   delay :
     path_matcher__path_rule__route_action__fault_injection_policy__delay
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2377,20 +2518,26 @@ let yojson_of_path_matcher__path_rule__route_action__fault_injection_policy
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__fault_injection_policy__delay
-             v_delay
-         in
-         ("delay", arg) :: bnds
+         if [] = v_delay then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__fault_injection_policy__delay)
+               v_delay
+           in
+           let bnd = "delay", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__fault_injection_policy__abort
-             v_abort
-         in
-         ("abort", arg) :: bnds
+         if [] = v_abort then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__fault_injection_policy__abort)
+               v_abort
+           in
+           let bnd = "abort", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : path_matcher__path_rule__route_action__fault_injection_policy ->
@@ -2478,6 +2625,7 @@ type path_matcher__path_rule__route_action__retry_policy = {
   per_try_timeout :
     path_matcher__path_rule__route_action__retry_policy__per_try_timeout
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2495,12 +2643,15 @@ let yojson_of_path_matcher__path_rule__route_action__retry_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__retry_policy__per_try_timeout
-             v_per_try_timeout
-         in
-         ("per_try_timeout", arg) :: bnds
+         if [] = v_per_try_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__retry_policy__per_try_timeout)
+               v_per_try_timeout
+           in
+           let bnd = "per_try_timeout", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retry_conditions with
@@ -2699,9 +2850,11 @@ type path_matcher__path_rule__route_action__weighted_backend_services__header_ac
   request_headers_to_add :
     path_matcher__path_rule__route_action__weighted_backend_services__header_action__request_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response_headers_to_add :
     path_matcher__path_rule__route_action__weighted_backend_services__header_action__response_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2723,20 +2876,26 @@ let yojson_of_path_matcher__path_rule__route_action__weighted_backend_services__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__weighted_backend_services__header_action__response_headers_to_add
-             v_response_headers_to_add
-         in
-         ("response_headers_to_add", arg) :: bnds
+         if [] = v_response_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__weighted_backend_services__header_action__response_headers_to_add)
+               v_response_headers_to_add
+           in
+           let bnd = "response_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__weighted_backend_services__header_action__request_headers_to_add
-             v_request_headers_to_add
-         in
-         ("request_headers_to_add", arg) :: bnds
+         if [] = v_request_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__weighted_backend_services__header_action__request_headers_to_add)
+               v_request_headers_to_add
+           in
+           let bnd = "request_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_response_headers_to_remove with
@@ -2773,6 +2932,7 @@ type path_matcher__path_rule__route_action__weighted_backend_services = {
   header_action :
     path_matcher__path_rule__route_action__weighted_backend_services__header_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2793,12 +2953,15 @@ let yojson_of_path_matcher__path_rule__route_action__weighted_backend_services
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__weighted_backend_services__header_action
-             v_header_action
-         in
-         ("header_action", arg) :: bnds
+         if [] = v_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__weighted_backend_services__header_action)
+               v_header_action
+           in
+           let bnd = "header_action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_weight in
@@ -2822,19 +2985,26 @@ let _ =
 type path_matcher__path_rule__route_action = {
   cors_policy :
     path_matcher__path_rule__route_action__cors_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   fault_injection_policy :
     path_matcher__path_rule__route_action__fault_injection_policy
     list;
+      [@default []] [@yojson_drop_default ( = )]
   request_mirror_policy :
     path_matcher__path_rule__route_action__request_mirror_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_policy :
     path_matcher__path_rule__route_action__retry_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout : path_matcher__path_rule__route_action__timeout list;
+      [@default []] [@yojson_drop_default ( = )]
   url_rewrite :
     path_matcher__path_rule__route_action__url_rewrite list;
+      [@default []] [@yojson_drop_default ( = )]
   weighted_backend_services :
     path_matcher__path_rule__route_action__weighted_backend_services
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2855,60 +3025,81 @@ let yojson_of_path_matcher__path_rule__route_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__weighted_backend_services
-             v_weighted_backend_services
-         in
-         ("weighted_backend_services", arg) :: bnds
+         if [] = v_weighted_backend_services then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__weighted_backend_services)
+               v_weighted_backend_services
+           in
+           let bnd = "weighted_backend_services", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__url_rewrite
-             v_url_rewrite
-         in
-         ("url_rewrite", arg) :: bnds
+         if [] = v_url_rewrite then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__url_rewrite)
+               v_url_rewrite
+           in
+           let bnd = "url_rewrite", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__timeout
-             v_timeout
-         in
-         ("timeout", arg) :: bnds
+         if [] = v_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__timeout)
+               v_timeout
+           in
+           let bnd = "timeout", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__retry_policy
-             v_retry_policy
-         in
-         ("retry_policy", arg) :: bnds
+         if [] = v_retry_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__retry_policy)
+               v_retry_policy
+           in
+           let bnd = "retry_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__request_mirror_policy
-             v_request_mirror_policy
-         in
-         ("request_mirror_policy", arg) :: bnds
+         if [] = v_request_mirror_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__request_mirror_policy)
+               v_request_mirror_policy
+           in
+           let bnd = "request_mirror_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__fault_injection_policy
-             v_fault_injection_policy
-         in
-         ("fault_injection_policy", arg) :: bnds
+         if [] = v_fault_injection_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__fault_injection_policy)
+               v_fault_injection_policy
+           in
+           let bnd = "fault_injection_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action__cors_policy
-             v_cors_policy
-         in
-         ("cors_policy", arg) :: bnds
+         if [] = v_cors_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action__cors_policy)
+               v_cors_policy
+           in
+           let bnd = "cors_policy", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : path_matcher__path_rule__route_action ->
@@ -2997,9 +3188,12 @@ let _ = yojson_of_path_matcher__path_rule__url_redirect
 
 type path_matcher__path_rule = {
   paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   service : string prop option; [@option]
   route_action : path_matcher__path_rule__route_action list;
+      [@default []] [@yojson_drop_default ( = )]
   url_redirect : path_matcher__path_rule__url_redirect list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3017,20 +3211,26 @@ let yojson_of_path_matcher__path_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__url_redirect
-             v_url_redirect
-         in
-         ("url_redirect", arg) :: bnds
+         if [] = v_url_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__url_redirect)
+               v_url_redirect
+           in
+           let bnd = "url_redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__path_rule__route_action
-             v_route_action
-         in
-         ("route_action", arg) :: bnds
+         if [] = v_route_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__path_rule__route_action)
+               v_route_action
+           in
+           let bnd = "route_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service with
@@ -3041,10 +3241,14 @@ let yojson_of_path_matcher__path_rule =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_paths
-         in
-         ("paths", arg) :: bnds
+         if [] = v_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_paths
+           in
+           let bnd = "paths", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : path_matcher__path_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -3147,9 +3351,11 @@ type path_matcher__route_rules__header_action = {
   request_headers_to_add :
     path_matcher__route_rules__header_action__request_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response_headers_to_add :
     path_matcher__route_rules__header_action__response_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3167,20 +3373,26 @@ let yojson_of_path_matcher__route_rules__header_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__header_action__response_headers_to_add
-             v_response_headers_to_add
-         in
-         ("response_headers_to_add", arg) :: bnds
+         if [] = v_response_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__header_action__response_headers_to_add)
+               v_response_headers_to_add
+           in
+           let bnd = "response_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__header_action__request_headers_to_add
-             v_request_headers_to_add
-         in
-         ("request_headers_to_add", arg) :: bnds
+         if [] = v_request_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__header_action__request_headers_to_add)
+               v_request_headers_to_add
+           in
+           let bnd = "request_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_response_headers_to_remove with
@@ -3256,6 +3468,7 @@ type path_matcher__route_rules__match_rules__header_matches = {
   range_match :
     path_matcher__route_rules__match_rules__header_matches__range_match
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3280,12 +3493,15 @@ let yojson_of_path_matcher__route_rules__match_rules__header_matches
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__match_rules__header_matches__range_match
-             v_range_match
-         in
-         ("range_match", arg) :: bnds
+         if [] = v_range_match then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__match_rules__header_matches__range_match)
+               v_range_match
+           in
+           let bnd = "range_match", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_suffix_match with
@@ -3388,6 +3604,7 @@ type path_matcher__route_rules__match_rules__metadata_filters = {
   filter_labels :
     path_matcher__route_rules__match_rules__metadata_filters__filter_labels
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3406,12 +3623,15 @@ let yojson_of_path_matcher__route_rules__match_rules__metadata_filters
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__match_rules__metadata_filters__filter_labels
-             v_filter_labels
-         in
-         ("filter_labels", arg) :: bnds
+         if [] = v_filter_labels then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__match_rules__metadata_filters__filter_labels)
+               v_filter_labels
+           in
+           let bnd = "filter_labels", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -3498,11 +3718,14 @@ type path_matcher__route_rules__match_rules = {
   regex_match : string prop option; [@option]
   header_matches :
     path_matcher__route_rules__match_rules__header_matches list;
+      [@default []] [@yojson_drop_default ( = )]
   metadata_filters :
     path_matcher__route_rules__match_rules__metadata_filters list;
+      [@default []] [@yojson_drop_default ( = )]
   query_parameter_matches :
     path_matcher__route_rules__match_rules__query_parameter_matches
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3524,28 +3747,37 @@ let yojson_of_path_matcher__route_rules__match_rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__match_rules__query_parameter_matches
-             v_query_parameter_matches
-         in
-         ("query_parameter_matches", arg) :: bnds
+         if [] = v_query_parameter_matches then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__match_rules__query_parameter_matches)
+               v_query_parameter_matches
+           in
+           let bnd = "query_parameter_matches", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__match_rules__metadata_filters
-             v_metadata_filters
-         in
-         ("metadata_filters", arg) :: bnds
+         if [] = v_metadata_filters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__match_rules__metadata_filters)
+               v_metadata_filters
+           in
+           let bnd = "metadata_filters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__match_rules__header_matches
-             v_header_matches
-         in
-         ("header_matches", arg) :: bnds
+         if [] = v_header_matches then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__match_rules__header_matches)
+               v_header_matches
+           in
+           let bnd = "header_matches", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_regex_match with
@@ -3795,6 +4027,7 @@ type path_matcher__route_rules__route_action__fault_injection_policy__delay = {
   fixed_delay :
     path_matcher__route_rules__route_action__fault_injection_policy__delay__fixed_delay
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3811,12 +4044,15 @@ let yojson_of_path_matcher__route_rules__route_action__fault_injection_policy__d
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__fault_injection_policy__delay__fixed_delay
-             v_fixed_delay
-         in
-         ("fixed_delay", arg) :: bnds
+         if [] = v_fixed_delay then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__fault_injection_policy__delay__fixed_delay)
+               v_fixed_delay
+           in
+           let bnd = "fixed_delay", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_percentage with
@@ -3839,9 +4075,11 @@ type path_matcher__route_rules__route_action__fault_injection_policy = {
   abort :
     path_matcher__route_rules__route_action__fault_injection_policy__abort
     list;
+      [@default []] [@yojson_drop_default ( = )]
   delay :
     path_matcher__route_rules__route_action__fault_injection_policy__delay
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3858,20 +4096,26 @@ let yojson_of_path_matcher__route_rules__route_action__fault_injection_policy
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__fault_injection_policy__delay
-             v_delay
-         in
-         ("delay", arg) :: bnds
+         if [] = v_delay then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__fault_injection_policy__delay)
+               v_delay
+           in
+           let bnd = "delay", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__fault_injection_policy__abort
-             v_abort
-         in
-         ("abort", arg) :: bnds
+         if [] = v_abort then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__fault_injection_policy__abort)
+               v_abort
+           in
+           let bnd = "abort", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : path_matcher__route_rules__route_action__fault_injection_policy ->
@@ -3959,6 +4203,7 @@ type path_matcher__route_rules__route_action__retry_policy = {
   per_try_timeout :
     path_matcher__route_rules__route_action__retry_policy__per_try_timeout
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3977,12 +4222,15 @@ let yojson_of_path_matcher__route_rules__route_action__retry_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__retry_policy__per_try_timeout
-             v_per_try_timeout
-         in
-         ("per_try_timeout", arg) :: bnds
+         if [] = v_per_try_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__retry_policy__per_try_timeout)
+               v_per_try_timeout
+           in
+           let bnd = "per_try_timeout", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retry_conditions with
@@ -4189,9 +4437,11 @@ type path_matcher__route_rules__route_action__weighted_backend_services__header_
   request_headers_to_add :
     path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response_headers_to_add :
     path_matcher__route_rules__route_action__weighted_backend_services__header_action__response_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4213,20 +4463,26 @@ let yojson_of_path_matcher__route_rules__route_action__weighted_backend_services
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__weighted_backend_services__header_action__response_headers_to_add
-             v_response_headers_to_add
-         in
-         ("response_headers_to_add", arg) :: bnds
+         if [] = v_response_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__weighted_backend_services__header_action__response_headers_to_add)
+               v_response_headers_to_add
+           in
+           let bnd = "response_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add
-             v_request_headers_to_add
-         in
-         ("request_headers_to_add", arg) :: bnds
+         if [] = v_request_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__weighted_backend_services__header_action__request_headers_to_add)
+               v_request_headers_to_add
+           in
+           let bnd = "request_headers_to_add", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_response_headers_to_remove with
@@ -4263,6 +4519,7 @@ type path_matcher__route_rules__route_action__weighted_backend_services = {
   header_action :
     path_matcher__route_rules__route_action__weighted_backend_services__header_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4283,12 +4540,15 @@ let yojson_of_path_matcher__route_rules__route_action__weighted_backend_services
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__weighted_backend_services__header_action
-             v_header_action
-         in
-         ("header_action", arg) :: bnds
+         if [] = v_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__weighted_backend_services__header_action)
+               v_header_action
+           in
+           let bnd = "header_action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_weight in
@@ -4312,20 +4572,27 @@ let _ =
 type path_matcher__route_rules__route_action = {
   cors_policy :
     path_matcher__route_rules__route_action__cors_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   fault_injection_policy :
     path_matcher__route_rules__route_action__fault_injection_policy
     list;
+      [@default []] [@yojson_drop_default ( = )]
   request_mirror_policy :
     path_matcher__route_rules__route_action__request_mirror_policy
     list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_policy :
     path_matcher__route_rules__route_action__retry_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout : path_matcher__route_rules__route_action__timeout list;
+      [@default []] [@yojson_drop_default ( = )]
   url_rewrite :
     path_matcher__route_rules__route_action__url_rewrite list;
+      [@default []] [@yojson_drop_default ( = )]
   weighted_backend_services :
     path_matcher__route_rules__route_action__weighted_backend_services
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4346,60 +4613,81 @@ let yojson_of_path_matcher__route_rules__route_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__weighted_backend_services
-             v_weighted_backend_services
-         in
-         ("weighted_backend_services", arg) :: bnds
+         if [] = v_weighted_backend_services then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__weighted_backend_services)
+               v_weighted_backend_services
+           in
+           let bnd = "weighted_backend_services", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__url_rewrite
-             v_url_rewrite
-         in
-         ("url_rewrite", arg) :: bnds
+         if [] = v_url_rewrite then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__url_rewrite)
+               v_url_rewrite
+           in
+           let bnd = "url_rewrite", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__timeout
-             v_timeout
-         in
-         ("timeout", arg) :: bnds
+         if [] = v_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__timeout)
+               v_timeout
+           in
+           let bnd = "timeout", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__retry_policy
-             v_retry_policy
-         in
-         ("retry_policy", arg) :: bnds
+         if [] = v_retry_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__retry_policy)
+               v_retry_policy
+           in
+           let bnd = "retry_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__request_mirror_policy
-             v_request_mirror_policy
-         in
-         ("request_mirror_policy", arg) :: bnds
+         if [] = v_request_mirror_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__request_mirror_policy)
+               v_request_mirror_policy
+           in
+           let bnd = "request_mirror_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__fault_injection_policy
-             v_fault_injection_policy
-         in
-         ("fault_injection_policy", arg) :: bnds
+         if [] = v_fault_injection_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__fault_injection_policy)
+               v_fault_injection_policy
+           in
+           let bnd = "fault_injection_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action__cors_policy
-             v_cors_policy
-         in
-         ("cors_policy", arg) :: bnds
+         if [] = v_cors_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action__cors_policy)
+               v_cors_policy
+           in
+           let bnd = "cors_policy", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : path_matcher__route_rules__route_action ->
@@ -4494,9 +4782,13 @@ type path_matcher__route_rules = {
   priority : float prop;
   service : string prop option; [@option]
   header_action : path_matcher__route_rules__header_action list;
+      [@default []] [@yojson_drop_default ( = )]
   match_rules : path_matcher__route_rules__match_rules list;
+      [@default []] [@yojson_drop_default ( = )]
   route_action : path_matcher__route_rules__route_action list;
+      [@default []] [@yojson_drop_default ( = )]
   url_redirect : path_matcher__route_rules__url_redirect list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4516,36 +4808,48 @@ let yojson_of_path_matcher__route_rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__url_redirect
-             v_url_redirect
-         in
-         ("url_redirect", arg) :: bnds
+         if [] = v_url_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__url_redirect)
+               v_url_redirect
+           in
+           let bnd = "url_redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__route_action
-             v_route_action
-         in
-         ("route_action", arg) :: bnds
+         if [] = v_route_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__route_action)
+               v_route_action
+           in
+           let bnd = "route_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__match_rules
-             v_match_rules
-         in
-         ("match_rules", arg) :: bnds
+         if [] = v_match_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__match_rules)
+               v_match_rules
+           in
+           let bnd = "match_rules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__route_rules__header_action
-             v_header_action
-         in
-         ("header_action", arg) :: bnds
+         if [] = v_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__route_rules__header_action)
+               v_header_action
+           in
+           let bnd = "header_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service with
@@ -4571,10 +4875,15 @@ type path_matcher = {
   description : string prop option; [@option]
   name : string prop;
   default_route_action : path_matcher__default_route_action list;
+      [@default []] [@yojson_drop_default ( = )]
   default_url_redirect : path_matcher__default_url_redirect list;
+      [@default []] [@yojson_drop_default ( = )]
   header_action : path_matcher__header_action list;
+      [@default []] [@yojson_drop_default ( = )]
   path_rule : path_matcher__path_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   route_rules : path_matcher__route_rules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4596,41 +4905,56 @@ let yojson_of_path_matcher =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_path_matcher__route_rules
-             v_route_rules
-         in
-         ("route_rules", arg) :: bnds
+         if [] = v_route_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_path_matcher__route_rules)
+               v_route_rules
+           in
+           let bnd = "route_rules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_path_matcher__path_rule
-             v_path_rule
-         in
-         ("path_rule", arg) :: bnds
+         if [] = v_path_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_path_matcher__path_rule)
+               v_path_rule
+           in
+           let bnd = "path_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_path_matcher__header_action
-             v_header_action
-         in
-         ("header_action", arg) :: bnds
+         if [] = v_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_path_matcher__header_action)
+               v_header_action
+           in
+           let bnd = "header_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_url_redirect
-             v_default_url_redirect
-         in
-         ("default_url_redirect", arg) :: bnds
+         if [] = v_default_url_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_url_redirect)
+               v_default_url_redirect
+           in
+           let bnd = "default_url_redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_path_matcher__default_route_action
-             v_default_route_action
-         in
-         ("default_route_action", arg) :: bnds
+         if [] = v_default_route_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_path_matcher__default_route_action)
+               v_default_route_action
+           in
+           let bnd = "default_route_action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -4760,11 +5084,16 @@ type google_compute_url_map = {
   name : string prop;
   project : string prop option; [@option]
   default_route_action : default_route_action list;
+      [@default []] [@yojson_drop_default ( = )]
   default_url_redirect : default_url_redirect list;
+      [@default []] [@yojson_drop_default ( = )]
   header_action : header_action list;
+      [@default []] [@yojson_drop_default ( = )]
   host_rule : host_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   path_matcher : path_matcher list;
-  test : test list;
+      [@default []] [@yojson_drop_default ( = )]
+  test : test list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -4795,38 +5124,58 @@ let yojson_of_google_compute_url_map =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_test v_test in
-         ("test", arg) :: bnds
+         if [] = v_test then bnds
+         else
+           let arg = (yojson_of_list yojson_of_test) v_test in
+           let bnd = "test", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_path_matcher v_path_matcher
-         in
-         ("path_matcher", arg) :: bnds
+         if [] = v_path_matcher then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_path_matcher) v_path_matcher
+           in
+           let bnd = "path_matcher", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_host_rule v_host_rule in
-         ("host_rule", arg) :: bnds
+         if [] = v_host_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_host_rule) v_host_rule
+           in
+           let bnd = "host_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_header_action v_header_action
-         in
-         ("header_action", arg) :: bnds
+         if [] = v_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_header_action) v_header_action
+           in
+           let bnd = "header_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_url_redirect
-             v_default_url_redirect
-         in
-         ("default_url_redirect", arg) :: bnds
+         if [] = v_default_url_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_url_redirect)
+               v_default_url_redirect
+           in
+           let bnd = "default_url_redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_route_action
-             v_default_route_action
-         in
-         ("default_route_action", arg) :: bnds
+         if [] = v_default_route_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_route_action)
+               v_default_route_action
+           in
+           let bnd = "default_route_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

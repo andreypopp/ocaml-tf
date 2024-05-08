@@ -112,6 +112,7 @@ type azurerm_managed_application_definition = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   authorization : authorization list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -144,10 +145,13 @@ let yojson_of_azurerm_managed_application_definition =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authorization v_authorization
-         in
-         ("authorization", arg) :: bnds
+         if [] = v_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authorization) v_authorization
+           in
+           let bnd = "authorization", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

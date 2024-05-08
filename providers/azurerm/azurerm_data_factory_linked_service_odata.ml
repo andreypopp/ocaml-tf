@@ -103,6 +103,7 @@ type azurerm_data_factory_linked_service_odata = {
   parameters : (string * string prop) list option; [@option]
   url : string prop;
   basic_authentication : basic_authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -132,11 +133,14 @@ let yojson_of_azurerm_data_factory_linked_service_odata =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_basic_authentication
-             v_basic_authentication
-         in
-         ("basic_authentication", arg) :: bnds
+         if [] = v_basic_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_basic_authentication)
+               v_basic_authentication
+           in
+           let bnd = "basic_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_url in

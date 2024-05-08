@@ -209,9 +209,12 @@ type aws_codepipeline_custom_action_type = {
   tags_all : (string * string prop) list option; [@option]
   version : string prop;
   configuration_property : configuration_property list;
+      [@default []] [@yojson_drop_default ( = )]
   input_artifact_details : input_artifact_details list;
+      [@default []] [@yojson_drop_default ( = )]
   output_artifact_details : output_artifact_details list;
-  settings : settings list;
+      [@default []] [@yojson_drop_default ( = )]
+  settings : settings list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -235,29 +238,43 @@ let yojson_of_aws_codepipeline_custom_action_type =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_settings v_settings in
-         ("settings", arg) :: bnds
+         if [] = v_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings) v_settings
+           in
+           let bnd = "settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_output_artifact_details
-             v_output_artifact_details
-         in
-         ("output_artifact_details", arg) :: bnds
+         if [] = v_output_artifact_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_output_artifact_details)
+               v_output_artifact_details
+           in
+           let bnd = "output_artifact_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_input_artifact_details
-             v_input_artifact_details
-         in
-         ("input_artifact_details", arg) :: bnds
+         if [] = v_input_artifact_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_input_artifact_details)
+               v_input_artifact_details
+           in
+           let bnd = "input_artifact_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration_property
-             v_configuration_property
-         in
-         ("configuration_property", arg) :: bnds
+         if [] = v_configuration_property then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration_property)
+               v_configuration_property
+           in
+           let bnd = "configuration_property", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_version in

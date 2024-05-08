@@ -4,6 +4,7 @@ open! Tf_core
 
 type notification = {
   events : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   sns_topic : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -21,10 +22,14 @@ let yojson_of_notification =
          ("sns_topic", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_events
-         in
-         ("events", arg) :: bnds
+         if [] = v_events then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_events
+           in
+           let bnd = "events", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : notification -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -40,6 +45,7 @@ type aws_glacier_vault = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   notification : notification list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,10 +65,13 @@ let yojson_of_aws_glacier_vault =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification v_notification
-         in
-         ("notification", arg) :: bnds
+         if [] = v_notification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification) v_notification
+           in
+           let bnd = "notification", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

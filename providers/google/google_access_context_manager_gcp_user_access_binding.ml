@@ -50,6 +50,7 @@ let _ = yojson_of_timeouts
 
 type google_access_context_manager_gcp_user_access_binding = {
   access_levels : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   group_key : string prop;
   id : string prop option; [@option]
   organization_id : string prop;
@@ -96,12 +97,14 @@ let yojson_of_google_access_context_manager_gcp_user_access_binding =
          ("group_key", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_access_levels
-         in
-         ("access_levels", arg) :: bnds
+         if [] = v_access_levels then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_access_levels
+           in
+           let bnd = "access_levels", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : google_access_context_manager_gcp_user_access_binding ->

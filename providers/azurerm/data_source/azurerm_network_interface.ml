@@ -30,10 +30,14 @@ let _ = yojson_of_timeouts
 
 type ip_configuration = {
   application_gateway_backend_address_pools_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   application_security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   gateway_load_balancer_frontend_ip_configuration_id : string prop;
   load_balancer_backend_address_pools_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   load_balancer_inbound_nat_rules_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   primary : bool prop;
   private_ip_address : string prop;
@@ -110,20 +114,26 @@ let yojson_of_ip_configuration =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_load_balancer_inbound_nat_rules_ids
-         in
-         ("load_balancer_inbound_nat_rules_ids", arg) :: bnds
+         if [] = v_load_balancer_inbound_nat_rules_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_load_balancer_inbound_nat_rules_ids
+           in
+           let bnd = "load_balancer_inbound_nat_rules_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_load_balancer_backend_address_pools_ids
-         in
-         ("load_balancer_backend_address_pools_ids", arg) :: bnds
+         if [] = v_load_balancer_backend_address_pools_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_load_balancer_backend_address_pools_ids
+           in
+           let bnd =
+             "load_balancer_backend_address_pools_ids", arg
+           in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -134,21 +144,27 @@ let yojson_of_ip_configuration =
          :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_application_security_group_ids
-         in
-         ("application_security_group_ids", arg) :: bnds
+         if [] = v_application_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_application_security_group_ids
+           in
+           let bnd = "application_security_group_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_application_gateway_backend_address_pools_ids
-         in
-         ("application_gateway_backend_address_pools_ids", arg)
-         :: bnds
+         if [] = v_application_gateway_backend_address_pools_ids then
+           bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_application_gateway_backend_address_pools_ids
+           in
+           let bnd =
+             "application_gateway_backend_address_pools_ids", arg
+           in
+           bnd :: bnds
        in
        `Assoc bnds
     : ip_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)

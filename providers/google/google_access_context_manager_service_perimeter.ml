@@ -36,6 +36,7 @@ type spec__egress_policies__egress_from = {
   identity_type : string prop option; [@option]
   source_restriction : string prop option; [@option]
   sources : spec__egress_policies__egress_from__sources list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,12 +54,15 @@ let yojson_of_spec__egress_policies__egress_from =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__egress_policies__egress_from__sources
-             v_sources
-         in
-         ("sources", arg) :: bnds
+         if [] = v_sources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__egress_policies__egress_from__sources)
+               v_sources
+           in
+           let bnd = "sources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_restriction with
@@ -142,6 +146,7 @@ type spec__egress_policies__egress_to__operations = {
   method_selectors :
     spec__egress_policies__egress_to__operations__method_selectors
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -157,12 +162,15 @@ let yojson_of_spec__egress_policies__egress_to__operations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__egress_policies__egress_to__operations__method_selectors
-             v_method_selectors
-         in
-         ("method_selectors", arg) :: bnds
+         if [] = v_method_selectors then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__egress_policies__egress_to__operations__method_selectors)
+               v_method_selectors
+           in
+           let bnd = "method_selectors", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service_name with
@@ -184,6 +192,7 @@ type spec__egress_policies__egress_to = {
   external_resources : string prop list option; [@option]
   resources : string prop list option; [@option]
   operations : spec__egress_policies__egress_to__operations list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -200,12 +209,15 @@ let yojson_of_spec__egress_policies__egress_to =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__egress_policies__egress_to__operations
-             v_operations
-         in
-         ("operations", arg) :: bnds
+         if [] = v_operations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__egress_policies__egress_to__operations)
+               v_operations
+           in
+           let bnd = "operations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resources with
@@ -237,7 +249,9 @@ let _ = yojson_of_spec__egress_policies__egress_to
 
 type spec__egress_policies = {
   egress_from : spec__egress_policies__egress_from list;
+      [@default []] [@yojson_drop_default ( = )]
   egress_to : spec__egress_policies__egress_to list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -250,19 +264,26 @@ let yojson_of_spec__egress_policies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__egress_policies__egress_to
-             v_egress_to
-         in
-         ("egress_to", arg) :: bnds
+         if [] = v_egress_to then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__egress_policies__egress_to)
+               v_egress_to
+           in
+           let bnd = "egress_to", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__egress_policies__egress_from
-             v_egress_from
-         in
-         ("egress_from", arg) :: bnds
+         if [] = v_egress_from then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__egress_policies__egress_from)
+               v_egress_from
+           in
+           let bnd = "egress_from", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__egress_policies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -313,6 +334,7 @@ type spec__ingress_policies__ingress_from = {
   identities : string prop list option; [@option]
   identity_type : string prop option; [@option]
   sources : spec__ingress_policies__ingress_from__sources list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -329,12 +351,15 @@ let yojson_of_spec__ingress_policies__ingress_from =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__ingress_policies__ingress_from__sources
-             v_sources
-         in
-         ("sources", arg) :: bnds
+         if [] = v_sources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__ingress_policies__ingress_from__sources)
+               v_sources
+           in
+           let bnd = "sources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_identity_type with
@@ -410,6 +435,7 @@ type spec__ingress_policies__ingress_to__operations = {
   method_selectors :
     spec__ingress_policies__ingress_to__operations__method_selectors
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -426,12 +452,15 @@ let yojson_of_spec__ingress_policies__ingress_to__operations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__ingress_policies__ingress_to__operations__method_selectors
-             v_method_selectors
-         in
-         ("method_selectors", arg) :: bnds
+         if [] = v_method_selectors then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__ingress_policies__ingress_to__operations__method_selectors)
+               v_method_selectors
+           in
+           let bnd = "method_selectors", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service_name with
@@ -452,6 +481,7 @@ let _ = yojson_of_spec__ingress_policies__ingress_to__operations
 type spec__ingress_policies__ingress_to = {
   resources : string prop list option; [@option]
   operations : spec__ingress_policies__ingress_to__operations list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -464,12 +494,15 @@ let yojson_of_spec__ingress_policies__ingress_to =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__ingress_policies__ingress_to__operations
-             v_operations
-         in
-         ("operations", arg) :: bnds
+         if [] = v_operations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__ingress_policies__ingress_to__operations)
+               v_operations
+           in
+           let bnd = "operations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resources with
@@ -491,7 +524,9 @@ let _ = yojson_of_spec__ingress_policies__ingress_to
 
 type spec__ingress_policies = {
   ingress_from : spec__ingress_policies__ingress_from list;
+      [@default []] [@yojson_drop_default ( = )]
   ingress_to : spec__ingress_policies__ingress_to list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -504,20 +539,26 @@ let yojson_of_spec__ingress_policies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__ingress_policies__ingress_to
-             v_ingress_to
-         in
-         ("ingress_to", arg) :: bnds
+         if [] = v_ingress_to then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__ingress_policies__ingress_to)
+               v_ingress_to
+           in
+           let bnd = "ingress_to", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__ingress_policies__ingress_from
-             v_ingress_from
-         in
-         ("ingress_from", arg) :: bnds
+         if [] = v_ingress_from then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__ingress_policies__ingress_from)
+               v_ingress_from
+           in
+           let bnd = "ingress_from", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__ingress_policies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -574,8 +615,11 @@ type spec = {
   resources : string prop list option; [@option]
   restricted_services : string prop list option; [@option]
   egress_policies : spec__egress_policies list;
+      [@default []] [@yojson_drop_default ( = )]
   ingress_policies : spec__ingress_policies list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_accessible_services : spec__vpc_accessible_services list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -595,25 +639,34 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__vpc_accessible_services
-             v_vpc_accessible_services
-         in
-         ("vpc_accessible_services", arg) :: bnds
+         if [] = v_vpc_accessible_services then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__vpc_accessible_services)
+               v_vpc_accessible_services
+           in
+           let bnd = "vpc_accessible_services", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__ingress_policies
-             v_ingress_policies
-         in
-         ("ingress_policies", arg) :: bnds
+         if [] = v_ingress_policies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__ingress_policies)
+               v_ingress_policies
+           in
+           let bnd = "ingress_policies", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__egress_policies
-             v_egress_policies
-         in
-         ("egress_policies", arg) :: bnds
+         if [] = v_egress_policies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__egress_policies)
+               v_egress_policies
+           in
+           let bnd = "egress_policies", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_restricted_services with
@@ -686,6 +739,7 @@ type status__egress_policies__egress_from = {
   identity_type : string prop option; [@option]
   source_restriction : string prop option; [@option]
   sources : status__egress_policies__egress_from__sources list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -703,12 +757,15 @@ let yojson_of_status__egress_policies__egress_from =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__egress_policies__egress_from__sources
-             v_sources
-         in
-         ("sources", arg) :: bnds
+         if [] = v_sources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__egress_policies__egress_from__sources)
+               v_sources
+           in
+           let bnd = "sources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_restriction with
@@ -792,6 +849,7 @@ type status__egress_policies__egress_to__operations = {
   method_selectors :
     status__egress_policies__egress_to__operations__method_selectors
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -808,12 +866,15 @@ let yojson_of_status__egress_policies__egress_to__operations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__egress_policies__egress_to__operations__method_selectors
-             v_method_selectors
-         in
-         ("method_selectors", arg) :: bnds
+         if [] = v_method_selectors then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__egress_policies__egress_to__operations__method_selectors)
+               v_method_selectors
+           in
+           let bnd = "method_selectors", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service_name with
@@ -835,6 +896,7 @@ type status__egress_policies__egress_to = {
   external_resources : string prop list option; [@option]
   resources : string prop list option; [@option]
   operations : status__egress_policies__egress_to__operations list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -851,12 +913,15 @@ let yojson_of_status__egress_policies__egress_to =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__egress_policies__egress_to__operations
-             v_operations
-         in
-         ("operations", arg) :: bnds
+         if [] = v_operations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__egress_policies__egress_to__operations)
+               v_operations
+           in
+           let bnd = "operations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resources with
@@ -888,7 +953,9 @@ let _ = yojson_of_status__egress_policies__egress_to
 
 type status__egress_policies = {
   egress_from : status__egress_policies__egress_from list;
+      [@default []] [@yojson_drop_default ( = )]
   egress_to : status__egress_policies__egress_to list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -901,19 +968,26 @@ let yojson_of_status__egress_policies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__egress_policies__egress_to v_egress_to
-         in
-         ("egress_to", arg) :: bnds
+         if [] = v_egress_to then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__egress_policies__egress_to)
+               v_egress_to
+           in
+           let bnd = "egress_to", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__egress_policies__egress_from
-             v_egress_from
-         in
-         ("egress_from", arg) :: bnds
+         if [] = v_egress_from then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__egress_policies__egress_from)
+               v_egress_from
+           in
+           let bnd = "egress_from", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : status__egress_policies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -965,6 +1039,7 @@ type status__ingress_policies__ingress_from = {
   identities : string prop list option; [@option]
   identity_type : string prop option; [@option]
   sources : status__ingress_policies__ingress_from__sources list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -981,12 +1056,15 @@ let yojson_of_status__ingress_policies__ingress_from =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__ingress_policies__ingress_from__sources
-             v_sources
-         in
-         ("sources", arg) :: bnds
+         if [] = v_sources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__ingress_policies__ingress_from__sources)
+               v_sources
+           in
+           let bnd = "sources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_identity_type with
@@ -1062,6 +1140,7 @@ type status__ingress_policies__ingress_to__operations = {
   method_selectors :
     status__ingress_policies__ingress_to__operations__method_selectors
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1078,12 +1157,15 @@ let yojson_of_status__ingress_policies__ingress_to__operations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__ingress_policies__ingress_to__operations__method_selectors
-             v_method_selectors
-         in
-         ("method_selectors", arg) :: bnds
+         if [] = v_method_selectors then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__ingress_policies__ingress_to__operations__method_selectors)
+               v_method_selectors
+           in
+           let bnd = "method_selectors", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service_name with
@@ -1104,6 +1186,7 @@ let _ = yojson_of_status__ingress_policies__ingress_to__operations
 type status__ingress_policies__ingress_to = {
   resources : string prop list option; [@option]
   operations : status__ingress_policies__ingress_to__operations list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1116,12 +1199,15 @@ let yojson_of_status__ingress_policies__ingress_to =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__ingress_policies__ingress_to__operations
-             v_operations
-         in
-         ("operations", arg) :: bnds
+         if [] = v_operations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__ingress_policies__ingress_to__operations)
+               v_operations
+           in
+           let bnd = "operations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resources with
@@ -1143,7 +1229,9 @@ let _ = yojson_of_status__ingress_policies__ingress_to
 
 type status__ingress_policies = {
   ingress_from : status__ingress_policies__ingress_from list;
+      [@default []] [@yojson_drop_default ( = )]
   ingress_to : status__ingress_policies__ingress_to list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1156,20 +1244,26 @@ let yojson_of_status__ingress_policies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__ingress_policies__ingress_to
-             v_ingress_to
-         in
-         ("ingress_to", arg) :: bnds
+         if [] = v_ingress_to then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__ingress_policies__ingress_to)
+               v_ingress_to
+           in
+           let bnd = "ingress_to", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__ingress_policies__ingress_from
-             v_ingress_from
-         in
-         ("ingress_from", arg) :: bnds
+         if [] = v_ingress_from then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__ingress_policies__ingress_from)
+               v_ingress_from
+           in
+           let bnd = "ingress_from", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : status__ingress_policies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1226,8 +1320,11 @@ type status = {
   resources : string prop list option; [@option]
   restricted_services : string prop list option; [@option]
   egress_policies : status__egress_policies list;
+      [@default []] [@yojson_drop_default ( = )]
   ingress_policies : status__ingress_policies list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_accessible_services : status__vpc_accessible_services list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1247,25 +1344,35 @@ let yojson_of_status =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__vpc_accessible_services
-             v_vpc_accessible_services
-         in
-         ("vpc_accessible_services", arg) :: bnds
+         if [] = v_vpc_accessible_services then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__vpc_accessible_services)
+               v_vpc_accessible_services
+           in
+           let bnd = "vpc_accessible_services", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__ingress_policies
-             v_ingress_policies
-         in
-         ("ingress_policies", arg) :: bnds
+         if [] = v_ingress_policies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__ingress_policies)
+               v_ingress_policies
+           in
+           let bnd = "ingress_policies", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__egress_policies
-             v_egress_policies
-         in
-         ("egress_policies", arg) :: bnds
+         if [] = v_egress_policies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__egress_policies)
+               v_egress_policies
+           in
+           let bnd = "egress_policies", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_restricted_services with
@@ -1358,8 +1465,8 @@ type google_access_context_manager_service_perimeter = {
   perimeter_type : string prop option; [@option]
   title : string prop;
   use_explicit_dry_run_spec : bool prop option; [@option]
-  spec : spec list;
-  status : status list;
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
+  status : status list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1389,12 +1496,18 @@ let yojson_of_google_access_context_manager_service_perimeter =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_status v_status in
-         ("status", arg) :: bnds
+         if [] = v_status then bnds
+         else
+           let arg = (yojson_of_list yojson_of_status) v_status in
+           let bnd = "status", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_explicit_dry_run_spec with

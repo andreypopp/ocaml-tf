@@ -106,6 +106,7 @@ type eligible_authorization__just_in_time_access_policy = {
   multi_factor_auth_provider : string prop option; [@option]
   approver :
     eligible_authorization__just_in_time_access_policy__approver list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -123,12 +124,15 @@ let yojson_of_eligible_authorization__just_in_time_access_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eligible_authorization__just_in_time_access_policy__approver
-             v_approver
-         in
-         ("approver", arg) :: bnds
+         if [] = v_approver then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eligible_authorization__just_in_time_access_policy__approver)
+               v_approver
+           in
+           let bnd = "approver", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_multi_factor_auth_provider with
@@ -160,6 +164,7 @@ type eligible_authorization = {
   role_definition_id : string prop;
   just_in_time_access_policy :
     eligible_authorization__just_in_time_access_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -177,12 +182,15 @@ let yojson_of_eligible_authorization =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eligible_authorization__just_in_time_access_policy
-             v_just_in_time_access_policy
-         in
-         ("just_in_time_access_policy", arg) :: bnds
+         if [] = v_just_in_time_access_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eligible_authorization__just_in_time_access_policy)
+               v_just_in_time_access_policy
+           in
+           let bnd = "just_in_time_access_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -321,8 +329,10 @@ type azurerm_lighthouse_definition = {
   name : string prop;
   scope : string prop;
   authorization : authorization list;
+      [@default []] [@yojson_drop_default ( = )]
   eligible_authorization : eligible_authorization list;
-  plan : plan list;
+      [@default []] [@yojson_drop_default ( = )]
+  plan : plan list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -351,21 +361,30 @@ let yojson_of_azurerm_lighthouse_definition =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_plan v_plan in
-         ("plan", arg) :: bnds
+         if [] = v_plan then bnds
+         else
+           let arg = (yojson_of_list yojson_of_plan) v_plan in
+           let bnd = "plan", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_eligible_authorization
-             v_eligible_authorization
-         in
-         ("eligible_authorization", arg) :: bnds
+         if [] = v_eligible_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_eligible_authorization)
+               v_eligible_authorization
+           in
+           let bnd = "eligible_authorization", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authorization v_authorization
-         in
-         ("authorization", arg) :: bnds
+         if [] = v_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authorization) v_authorization
+           in
+           let bnd = "authorization", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_scope in

@@ -14,6 +14,7 @@ type auto_adjust_data__historical_options = {
 type auto_adjust_data = {
   auto_adjust_type : string prop;  (** auto_adjust_type *)
   historical_options : auto_adjust_data__historical_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** historical_options *)
   last_auto_adjust_time : string prop;  (** last_auto_adjust_time *)
 }
@@ -30,12 +31,15 @@ type calculated_spend__actual_spend = {
 
 type calculated_spend = {
   actual_spend : calculated_spend__actual_spend list;
+      [@default []] [@yojson_drop_default ( = )]
       (** actual_spend *)
 }
 
 type cost_filter = {
   name : string prop;  (** name *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type cost_types = {
@@ -57,8 +61,10 @@ type notification = {
   comparison_operator : string prop;  (** comparison_operator *)
   notification_type : string prop;  (** notification_type *)
   subscriber_email_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** subscriber_email_addresses *)
   subscriber_sns_topic_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** subscriber_sns_topic_arns *)
   threshold : float prop;  (** threshold *)
   threshold_type : string prop;  (** threshold_type *)

@@ -27,6 +27,7 @@ let _ = yojson_of_container_provider__info__eks_info
 
 type container_provider__info = {
   eks_info : container_provider__info__eks_info list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,11 +40,15 @@ let yojson_of_container_provider__info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_container_provider__info__eks_info v_eks_info
-         in
-         ("eks_info", arg) :: bnds
+         if [] = v_eks_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_container_provider__info__eks_info)
+               v_eks_info
+           in
+           let bnd = "eks_info", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : container_provider__info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -55,6 +60,7 @@ let _ = yojson_of_container_provider__info
 type container_provider = {
   id : string prop;
   info : container_provider__info list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -72,10 +78,14 @@ let yojson_of_container_provider =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container_provider__info v_info
-         in
-         ("info", arg) :: bnds
+         if [] = v_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container_provider__info)
+               v_info
+           in
+           let bnd = "info", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_id in

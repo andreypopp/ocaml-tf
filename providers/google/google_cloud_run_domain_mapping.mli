@@ -18,10 +18,13 @@ type status__conditions = {
 }
 
 type status = {
-  conditions : status__conditions list;  (** conditions *)
+  conditions : status__conditions list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** conditions *)
   mapped_route_name : string prop;  (** mapped_route_name *)
   observed_generation : float prop;  (** observed_generation *)
   resource_records : status__resource_records list;
+      [@default []] [@yojson_drop_default ( = )]
       (** resource_records *)
 }
 

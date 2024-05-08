@@ -107,6 +107,7 @@ type space_settings__code_editor_app_settings = {
   default_resource_spec :
     space_settings__code_editor_app_settings__default_resource_spec
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,12 +120,15 @@ let yojson_of_space_settings__code_editor_app_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__code_editor_app_settings__default_resource_spec
-             v_default_resource_spec
-         in
-         ("default_resource_spec", arg) :: bnds
+         if [] = v_default_resource_spec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__code_editor_app_settings__default_resource_spec)
+               v_default_resource_spec
+           in
+           let bnd = "default_resource_spec", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : space_settings__code_editor_app_settings ->
@@ -165,6 +169,7 @@ let _ = yojson_of_space_settings__custom_file_system__efs_file_system
 type space_settings__custom_file_system = {
   efs_file_system :
     space_settings__custom_file_system__efs_file_system list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -177,12 +182,15 @@ let yojson_of_space_settings__custom_file_system =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__custom_file_system__efs_file_system
-             v_efs_file_system
-         in
-         ("efs_file_system", arg) :: bnds
+         if [] = v_efs_file_system then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__custom_file_system__efs_file_system)
+               v_efs_file_system
+           in
+           let bnd = "efs_file_system", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : space_settings__custom_file_system ->
@@ -303,9 +311,11 @@ let _ =
 type space_settings__jupyter_lab_app_settings = {
   code_repository :
     space_settings__jupyter_lab_app_settings__code_repository list;
+      [@default []] [@yojson_drop_default ( = )]
   default_resource_spec :
     space_settings__jupyter_lab_app_settings__default_resource_spec
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -321,20 +331,26 @@ let yojson_of_space_settings__jupyter_lab_app_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__jupyter_lab_app_settings__default_resource_spec
-             v_default_resource_spec
-         in
-         ("default_resource_spec", arg) :: bnds
+         if [] = v_default_resource_spec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__jupyter_lab_app_settings__default_resource_spec)
+               v_default_resource_spec
+           in
+           let bnd = "default_resource_spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__jupyter_lab_app_settings__code_repository
-             v_code_repository
-         in
-         ("code_repository", arg) :: bnds
+         if [] = v_code_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__jupyter_lab_app_settings__code_repository)
+               v_code_repository
+           in
+           let bnd = "code_repository", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : space_settings__jupyter_lab_app_settings ->
@@ -457,9 +473,11 @@ type space_settings__jupyter_server_app_settings = {
   lifecycle_config_arns : string prop list option; [@option]
   code_repository :
     space_settings__jupyter_server_app_settings__code_repository list;
+      [@default []] [@yojson_drop_default ( = )]
   default_resource_spec :
     space_settings__jupyter_server_app_settings__default_resource_spec
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -476,20 +494,26 @@ let yojson_of_space_settings__jupyter_server_app_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__jupyter_server_app_settings__default_resource_spec
-             v_default_resource_spec
-         in
-         ("default_resource_spec", arg) :: bnds
+         if [] = v_default_resource_spec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__jupyter_server_app_settings__default_resource_spec)
+               v_default_resource_spec
+           in
+           let bnd = "default_resource_spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__jupyter_server_app_settings__code_repository
-             v_code_repository
-         in
-         ("code_repository", arg) :: bnds
+         if [] = v_code_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__jupyter_server_app_settings__code_repository)
+               v_code_repository
+           in
+           let bnd = "code_repository", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_lifecycle_config_arns with
@@ -639,9 +663,11 @@ type space_settings__kernel_gateway_app_settings = {
   lifecycle_config_arns : string prop list option; [@option]
   custom_image :
     space_settings__kernel_gateway_app_settings__custom_image list;
+      [@default []] [@yojson_drop_default ( = )]
   default_resource_spec :
     space_settings__kernel_gateway_app_settings__default_resource_spec
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -658,20 +684,26 @@ let yojson_of_space_settings__kernel_gateway_app_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__kernel_gateway_app_settings__default_resource_spec
-             v_default_resource_spec
-         in
-         ("default_resource_spec", arg) :: bnds
+         if [] = v_default_resource_spec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__kernel_gateway_app_settings__default_resource_spec)
+               v_default_resource_spec
+           in
+           let bnd = "default_resource_spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__kernel_gateway_app_settings__custom_image
-             v_custom_image
-         in
-         ("custom_image", arg) :: bnds
+         if [] = v_custom_image then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__kernel_gateway_app_settings__custom_image)
+               v_custom_image
+           in
+           let bnd = "custom_image", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_lifecycle_config_arns with
@@ -726,6 +758,7 @@ let _ =
 type space_settings__space_storage_settings = {
   ebs_storage_settings :
     space_settings__space_storage_settings__ebs_storage_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -738,12 +771,15 @@ let yojson_of_space_settings__space_storage_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__space_storage_settings__ebs_storage_settings
-             v_ebs_storage_settings
-         in
-         ("ebs_storage_settings", arg) :: bnds
+         if [] = v_ebs_storage_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__space_storage_settings__ebs_storage_settings)
+               v_ebs_storage_settings
+           in
+           let bnd = "ebs_storage_settings", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : space_settings__space_storage_settings ->
@@ -757,15 +793,21 @@ type space_settings = {
   app_type : string prop option; [@option]
   code_editor_app_settings :
     space_settings__code_editor_app_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_file_system : space_settings__custom_file_system list;
+      [@default []] [@yojson_drop_default ( = )]
   jupyter_lab_app_settings :
     space_settings__jupyter_lab_app_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   jupyter_server_app_settings :
     space_settings__jupyter_server_app_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   kernel_gateway_app_settings :
     space_settings__kernel_gateway_app_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   space_storage_settings :
     space_settings__space_storage_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -786,52 +828,70 @@ let yojson_of_space_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__space_storage_settings
-             v_space_storage_settings
-         in
-         ("space_storage_settings", arg) :: bnds
+         if [] = v_space_storage_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__space_storage_settings)
+               v_space_storage_settings
+           in
+           let bnd = "space_storage_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__kernel_gateway_app_settings
-             v_kernel_gateway_app_settings
-         in
-         ("kernel_gateway_app_settings", arg) :: bnds
+         if [] = v_kernel_gateway_app_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__kernel_gateway_app_settings)
+               v_kernel_gateway_app_settings
+           in
+           let bnd = "kernel_gateway_app_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__jupyter_server_app_settings
-             v_jupyter_server_app_settings
-         in
-         ("jupyter_server_app_settings", arg) :: bnds
+         if [] = v_jupyter_server_app_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__jupyter_server_app_settings)
+               v_jupyter_server_app_settings
+           in
+           let bnd = "jupyter_server_app_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__jupyter_lab_app_settings
-             v_jupyter_lab_app_settings
-         in
-         ("jupyter_lab_app_settings", arg) :: bnds
+         if [] = v_jupyter_lab_app_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__jupyter_lab_app_settings)
+               v_jupyter_lab_app_settings
+           in
+           let bnd = "jupyter_lab_app_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__custom_file_system
-             v_custom_file_system
-         in
-         ("custom_file_system", arg) :: bnds
+         if [] = v_custom_file_system then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__custom_file_system)
+               v_custom_file_system
+           in
+           let bnd = "custom_file_system", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_space_settings__code_editor_app_settings
-             v_code_editor_app_settings
-         in
-         ("code_editor_app_settings", arg) :: bnds
+         if [] = v_code_editor_app_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_space_settings__code_editor_app_settings)
+               v_code_editor_app_settings
+           in
+           let bnd = "code_editor_app_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_app_type with
@@ -878,8 +938,11 @@ type aws_sagemaker_space = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   ownership_settings : ownership_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   space_settings : space_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   space_sharing_settings : space_sharing_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -902,24 +965,34 @@ let yojson_of_aws_sagemaker_space =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_space_sharing_settings
-             v_space_sharing_settings
-         in
-         ("space_sharing_settings", arg) :: bnds
+         if [] = v_space_sharing_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_space_sharing_settings)
+               v_space_sharing_settings
+           in
+           let bnd = "space_sharing_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_space_settings v_space_settings
-         in
-         ("space_settings", arg) :: bnds
+         if [] = v_space_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_space_settings)
+               v_space_settings
+           in
+           let bnd = "space_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ownership_settings
-             v_ownership_settings
-         in
-         ("ownership_settings", arg) :: bnds
+         if [] = v_ownership_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ownership_settings)
+               v_ownership_settings
+           in
+           let bnd = "ownership_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

@@ -23,21 +23,26 @@ type agent_pool_profile = {
   node_labels : (string * string prop) list;  (** node_labels *)
   node_public_ip_prefix_id : string prop;
       (** node_public_ip_prefix_id *)
-  node_taints : string prop list;  (** node_taints *)
+  node_taints : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** node_taints *)
   orchestrator_version : string prop;  (** orchestrator_version *)
   os_disk_size_gb : float prop;  (** os_disk_size_gb *)
   os_type : string prop;  (** os_type *)
   tags : (string * string prop) list;  (** tags *)
   type_ : string prop; [@key "type"]  (** type *)
   upgrade_settings : agent_pool_profile__upgrade_settings list;
+      [@default []] [@yojson_drop_default ( = )]
       (** upgrade_settings *)
   vm_size : string prop;  (** vm_size *)
   vnet_subnet_id : string prop;  (** vnet_subnet_id *)
-  zones : string prop list;  (** zones *)
+  zones : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** zones *)
 }
 
 type azure_active_directory_role_based_access_control = {
   admin_group_object_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** admin_group_object_ids *)
   azure_rbac_enabled : bool prop;  (** azure_rbac_enabled *)
   client_app_id : string prop;  (** client_app_id *)
@@ -47,7 +52,9 @@ type azure_active_directory_role_based_access_control = {
 }
 
 type identity = {
-  identity_ids : string prop list;  (** identity_ids *)
+  identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** identity_ids *)
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -67,6 +74,7 @@ type ingress_application_gateway = {
   ingress_application_gateway_identity :
     ingress_application_gateway__ingress_application_gateway_identity
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ingress_application_gateway_identity *)
   subnet_cidr : string prop;  (** subnet_cidr *)
   subnet_id : string prop;  (** subnet_id *)
@@ -87,6 +95,7 @@ type key_vault_secrets_provider__secret_identity = {
 
 type key_vault_secrets_provider = {
   secret_identity : key_vault_secrets_provider__secret_identity list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret_identity *)
   secret_rotation_enabled : bool prop;
       (** secret_rotation_enabled *)
@@ -127,7 +136,9 @@ type linux_profile__ssh_key = {
 
 type linux_profile = {
   admin_username : string prop;  (** admin_username *)
-  ssh_key : linux_profile__ssh_key list;  (** ssh_key *)
+  ssh_key : linux_profile__ssh_key list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ssh_key *)
 }
 
 type microsoft_defender = {
@@ -158,6 +169,7 @@ type oms_agent = {
   msi_auth_for_monitoring_enabled : bool prop;
       (** msi_auth_for_monitoring_enabled *)
   oms_agent_identity : oms_agent__oms_agent_identity list;
+      [@default []] [@yojson_drop_default ( = )]
       (** oms_agent_identity *)
 }
 

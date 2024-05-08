@@ -120,7 +120,7 @@ type azurerm_spring_cloud_build_pack_binding = {
   id : string prop option; [@option]
   name : string prop;
   spring_cloud_builder_id : string prop;
-  launch : launch list;
+  launch : launch list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -145,8 +145,11 @@ let yojson_of_azurerm_spring_cloud_build_pack_binding =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_launch v_launch in
-         ("launch", arg) :: bnds
+         if [] = v_launch then bnds
+         else
+           let arg = (yojson_of_list yojson_of_launch) v_launch in
+           let bnd = "launch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

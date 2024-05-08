@@ -5,6 +5,7 @@ open! Tf_core
 type condition__alert_context = {
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,10 +18,14 @@ let yojson_of_condition__alert_context =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -36,6 +41,7 @@ let _ = yojson_of_condition__alert_context
 type condition__alert_rule_id = {
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,10 +54,14 @@ let yojson_of_condition__alert_rule_id =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -67,6 +77,7 @@ let _ = yojson_of_condition__alert_rule_id
 type condition__description = {
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,10 +90,14 @@ let yojson_of_condition__description =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -98,6 +113,7 @@ let _ = yojson_of_condition__description
 type condition__monitor = {
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,10 +126,14 @@ let yojson_of_condition__monitor =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -129,6 +149,7 @@ let _ = yojson_of_condition__monitor
 type condition__monitor_service = {
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -141,10 +162,14 @@ let yojson_of_condition__monitor_service =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -160,6 +185,7 @@ let _ = yojson_of_condition__monitor_service
 type condition__severity = {
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,10 +198,14 @@ let yojson_of_condition__severity =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -191,6 +221,7 @@ let _ = yojson_of_condition__severity
 type condition__target_resource_type = {
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -203,10 +234,14 @@ let yojson_of_condition__target_resource_type =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -222,12 +257,19 @@ let _ = yojson_of_condition__target_resource_type
 
 type condition = {
   alert_context : condition__alert_context list;
+      [@default []] [@yojson_drop_default ( = )]
   alert_rule_id : condition__alert_rule_id list;
+      [@default []] [@yojson_drop_default ( = )]
   description : condition__description list;
+      [@default []] [@yojson_drop_default ( = )]
   monitor : condition__monitor list;
+      [@default []] [@yojson_drop_default ( = )]
   monitor_service : condition__monitor_service list;
+      [@default []] [@yojson_drop_default ( = )]
   severity : condition__severity list;
+      [@default []] [@yojson_drop_default ( = )]
   target_resource_type : condition__target_resource_type list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -248,51 +290,74 @@ let yojson_of_condition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__target_resource_type
-             v_target_resource_type
-         in
-         ("target_resource_type", arg) :: bnds
+         if [] = v_target_resource_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_condition__target_resource_type)
+               v_target_resource_type
+           in
+           let bnd = "target_resource_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__severity v_severity
-         in
-         ("severity", arg) :: bnds
+         if [] = v_severity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__severity)
+               v_severity
+           in
+           let bnd = "severity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__monitor_service
-             v_monitor_service
-         in
-         ("monitor_service", arg) :: bnds
+         if [] = v_monitor_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__monitor_service)
+               v_monitor_service
+           in
+           let bnd = "monitor_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__monitor v_monitor
-         in
-         ("monitor", arg) :: bnds
+         if [] = v_monitor then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__monitor) v_monitor
+           in
+           let bnd = "monitor", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__description
-             v_description
-         in
-         ("description", arg) :: bnds
+         if [] = v_description then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__description)
+               v_description
+           in
+           let bnd = "description", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__alert_rule_id
-             v_alert_rule_id
-         in
-         ("alert_rule_id", arg) :: bnds
+         if [] = v_alert_rule_id then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__alert_rule_id)
+               v_alert_rule_id
+           in
+           let bnd = "alert_rule_id", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__alert_context
-             v_alert_context
-         in
-         ("alert_context", arg) :: bnds
+         if [] = v_alert_context then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__alert_context)
+               v_alert_context
+           in
+           let bnd = "alert_context", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -303,6 +368,7 @@ let _ = yojson_of_condition
 
 type scope = {
   resource_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -320,12 +386,14 @@ let yojson_of_scope =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_resource_ids
-         in
-         ("resource_ids", arg) :: bnds
+         if [] = v_resource_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_resource_ids
+           in
+           let bnd = "resource_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : scope -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -395,6 +463,7 @@ let _ = yojson_of_suppression__schedule
 type suppression = {
   recurrence_type : string prop;
   schedule : suppression__schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -408,10 +477,14 @@ let yojson_of_suppression =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_suppression__schedule v_schedule
-         in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_suppression__schedule)
+               v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -494,8 +567,10 @@ type azurerm_monitor_action_rule_suppression = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   condition : condition list;
-  scope : scope list;
+      [@default []] [@yojson_drop_default ( = )]
+  scope : scope list; [@default []] [@yojson_drop_default ( = )]
   suppression : suppression list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -524,18 +599,29 @@ let yojson_of_azurerm_monitor_action_rule_suppression =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_suppression v_suppression
-         in
-         ("suppression", arg) :: bnds
+         if [] = v_suppression then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_suppression) v_suppression
+           in
+           let bnd = "suppression", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_scope v_scope in
-         ("scope", arg) :: bnds
+         if [] = v_scope then bnds
+         else
+           let arg = (yojson_of_list yojson_of_scope) v_scope in
+           let bnd = "scope", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_condition v_condition in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition) v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

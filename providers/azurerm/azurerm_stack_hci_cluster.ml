@@ -94,6 +94,7 @@ type azurerm_stack_hci_cluster = {
   tags : (string * string prop) list option; [@option]
   tenant_id : string prop option; [@option]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -122,8 +123,13 @@ let yojson_of_azurerm_stack_hci_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tenant_id with

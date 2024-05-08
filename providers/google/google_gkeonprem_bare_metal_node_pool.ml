@@ -98,7 +98,9 @@ type node_pool_config = {
   labels : (string * string prop) list option; [@option]
   operating_system : string prop option; [@option]
   node_configs : node_pool_config__node_configs list;
+      [@default []] [@yojson_drop_default ( = )]
   taints : node_pool_config__taints list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -116,17 +118,24 @@ let yojson_of_node_pool_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_pool_config__taints v_taints
-         in
-         ("taints", arg) :: bnds
+         if [] = v_taints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_pool_config__taints)
+               v_taints
+           in
+           let bnd = "taints", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_pool_config__node_configs
-             v_node_configs
-         in
-         ("node_configs", arg) :: bnds
+         if [] = v_node_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_pool_config__node_configs)
+               v_node_configs
+           in
+           let bnd = "node_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_operating_system with
@@ -259,6 +268,7 @@ let _ = yojson_of_status__conditions
 
 type status = {
   conditions : status__conditions list;
+      [@default []] [@yojson_drop_default ( = )]
   error_message : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -277,10 +287,14 @@ let yojson_of_status =
          ("error_message", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__conditions v_conditions
-         in
-         ("conditions", arg) :: bnds
+         if [] = v_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__conditions)
+               v_conditions
+           in
+           let bnd = "conditions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -298,6 +312,7 @@ type google_gkeonprem_bare_metal_node_pool = {
   name : string prop;
   project : string prop option; [@option]
   node_pool_config : node_pool_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -325,11 +340,14 @@ let yojson_of_google_gkeonprem_bare_metal_node_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_pool_config
-             v_node_pool_config
-         in
-         ("node_pool_config", arg) :: bnds
+         if [] = v_node_pool_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_pool_config)
+               v_node_pool_config
+           in
+           let bnd = "node_pool_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

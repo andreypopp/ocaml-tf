@@ -82,6 +82,7 @@ type schedule = {
   hours : float prop list option; [@option]
   minutes : float prop list option; [@option]
   monthly : schedule__monthly list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -100,10 +101,13 @@ let yojson_of_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schedule__monthly v_monthly
-         in
-         ("monthly", arg) :: bnds
+         if [] = v_monthly then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule__monthly) v_monthly
+           in
+           let bnd = "monthly", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_minutes with
@@ -227,7 +231,9 @@ type azurerm_data_factory_trigger_schedule = {
   start_time : string prop option; [@option]
   time_zone : string prop option; [@option]
   pipeline : pipeline list;
+      [@default []] [@yojson_drop_default ( = )]
   schedule : schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -262,12 +268,22 @@ let yojson_of_azurerm_data_factory_trigger_schedule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_schedule v_schedule in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule) v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_pipeline v_pipeline in
-         ("pipeline", arg) :: bnds
+         if [] = v_pipeline then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pipeline) v_pipeline
+           in
+           let bnd = "pipeline", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_time_zone with

@@ -31,7 +31,9 @@ let _ = yojson_of_settings__acl
 
 [@@@deriving.end]
 
-type settings = { acl : settings__acl list }
+type settings = {
+  acl : settings__acl list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : settings) -> ()
@@ -43,8 +45,13 @@ let yojson_of_settings =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_settings__acl v_acl in
-         ("acl", arg) :: bnds
+         if [] = v_acl then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings__acl) v_acl
+           in
+           let bnd = "acl", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -58,7 +65,7 @@ type digitalocean_database_user = {
   id : string prop option; [@option]
   mysql_auth_plugin : string prop option; [@option]
   name : string prop;
-  settings : settings list;
+  settings : settings list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -77,8 +84,13 @@ let yojson_of_digitalocean_database_user =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_settings v_settings in
-         ("settings", arg) :: bnds
+         if [] = v_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings) v_settings
+           in
+           let bnd = "settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

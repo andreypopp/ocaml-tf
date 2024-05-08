@@ -14,7 +14,8 @@ type frontend_ip_configuration = {
       (** private_ip_address_version *)
   public_ip_address_id : string prop;  (** public_ip_address_id *)
   subnet_id : string prop;  (** subnet_id *)
-  zones : string prop list;  (** zones *)
+  zones : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** zones *)
 }
 
 type timeouts

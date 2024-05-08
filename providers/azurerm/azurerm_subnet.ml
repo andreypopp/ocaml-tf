@@ -41,6 +41,7 @@ let _ = yojson_of_delegation__service_delegation
 type delegation = {
   name : string prop;
   service_delegation : delegation__service_delegation list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,11 +54,14 @@ let yojson_of_delegation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delegation__service_delegation
-             v_service_delegation
-         in
-         ("service_delegation", arg) :: bnds
+         if [] = v_service_delegation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_delegation__service_delegation)
+               v_service_delegation
+           in
+           let bnd = "service_delegation", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -132,6 +136,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_subnet = {
   address_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   enforce_private_link_endpoint_network_policies : bool prop option;
       [@option]
   enforce_private_link_service_network_policies : bool prop option;
@@ -147,6 +152,7 @@ type azurerm_subnet = {
   service_endpoints : string prop list option; [@option]
   virtual_network_name : string prop;
   delegation : delegation list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -182,10 +188,13 @@ let yojson_of_azurerm_subnet =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delegation v_delegation
-         in
-         ("delegation", arg) :: bnds
+         if [] = v_delegation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_delegation) v_delegation
+           in
+           let bnd = "delegation", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -272,12 +281,14 @@ let yojson_of_azurerm_subnet =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_address_prefixes
-         in
-         ("address_prefixes", arg) :: bnds
+         if [] = v_address_prefixes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_address_prefixes
+           in
+           let bnd = "address_prefixes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_subnet -> Ppx_yojson_conv_lib.Yojson.Safe.t)

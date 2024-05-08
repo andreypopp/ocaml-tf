@@ -43,6 +43,7 @@ type aws_cloudformation_type = {
   type_ : string prop option; [@option] [@key "type"]
   type_name : string prop;
   logging_config : logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -62,10 +63,14 @@ let yojson_of_aws_cloudformation_type =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging_config v_logging_config
-         in
-         ("logging_config", arg) :: bnds
+         if [] = v_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging_config)
+               v_logging_config
+           in
+           let bnd = "logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_name in

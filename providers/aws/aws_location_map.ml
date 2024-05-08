@@ -31,6 +31,7 @@ type aws_location_map = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   configuration : configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,10 +51,13 @@ let yojson_of_aws_location_map =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration v_configuration
-         in
-         ("configuration", arg) :: bnds
+         if [] = v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

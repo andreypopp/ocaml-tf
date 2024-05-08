@@ -107,7 +107,9 @@ let _ = yojson_of_oidc_config
 
 [@@@deriving.end]
 
-type source_ip_config = { cidrs : string prop list }
+type source_ip_config = {
+  cidrs : string prop list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : source_ip_config) -> ()
@@ -119,10 +121,14 @@ let yojson_of_source_ip_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_cidrs
-         in
-         ("cidrs", arg) :: bnds
+         if [] = v_cidrs then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cidrs
+           in
+           let bnd = "cidrs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : source_ip_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -189,9 +195,13 @@ type aws_sagemaker_workforce = {
   id : string prop option; [@option]
   workforce_name : string prop;
   cognito_config : cognito_config list;
+      [@default []] [@yojson_drop_default ( = )]
   oidc_config : oidc_config list;
+      [@default []] [@yojson_drop_default ( = )]
   source_ip_config : source_ip_config list;
+      [@default []] [@yojson_drop_default ( = )]
   workforce_vpc_config : workforce_vpc_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -211,30 +221,43 @@ let yojson_of_aws_sagemaker_workforce =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_workforce_vpc_config
-             v_workforce_vpc_config
-         in
-         ("workforce_vpc_config", arg) :: bnds
+         if [] = v_workforce_vpc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workforce_vpc_config)
+               v_workforce_vpc_config
+           in
+           let bnd = "workforce_vpc_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_ip_config
-             v_source_ip_config
-         in
-         ("source_ip_config", arg) :: bnds
+         if [] = v_source_ip_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_ip_config)
+               v_source_ip_config
+           in
+           let bnd = "source_ip_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_oidc_config v_oidc_config
-         in
-         ("oidc_config", arg) :: bnds
+         if [] = v_oidc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_oidc_config) v_oidc_config
+           in
+           let bnd = "oidc_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cognito_config v_cognito_config
-         in
-         ("cognito_config", arg) :: bnds
+         if [] = v_cognito_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cognito_config)
+               v_cognito_config
+           in
+           let bnd = "cognito_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

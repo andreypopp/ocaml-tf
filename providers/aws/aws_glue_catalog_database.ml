@@ -37,6 +37,7 @@ let _ = yojson_of_create_table_default_permission__principal
 type create_table_default_permission = {
   permissions : string prop list option; [@option]
   principal : create_table_default_permission__principal list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,12 +50,15 @@ let yojson_of_create_table_default_permission =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_create_table_default_permission__principal
-             v_principal
-         in
-         ("principal", arg) :: bnds
+         if [] = v_principal then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_create_table_default_permission__principal)
+               v_principal
+           in
+           let bnd = "principal", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_permissions with
@@ -167,8 +171,11 @@ type aws_glue_catalog_database = {
   tags_all : (string * string prop) list option; [@option]
   create_table_default_permission :
     create_table_default_permission list;
+      [@default []] [@yojson_drop_default ( = )]
   federated_database : federated_database list;
+      [@default []] [@yojson_drop_default ( = )]
   target_database : target_database list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -194,24 +201,35 @@ let yojson_of_aws_glue_catalog_database =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_database v_target_database
-         in
-         ("target_database", arg) :: bnds
+         if [] = v_target_database then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_database)
+               v_target_database
+           in
+           let bnd = "target_database", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_federated_database
-             v_federated_database
-         in
-         ("federated_database", arg) :: bnds
+         if [] = v_federated_database then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_federated_database)
+               v_federated_database
+           in
+           let bnd = "federated_database", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_create_table_default_permission
-             v_create_table_default_permission
-         in
-         ("create_table_default_permission", arg) :: bnds
+         if [] = v_create_table_default_permission then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_create_table_default_permission)
+               v_create_table_default_permission
+           in
+           let bnd = "create_table_default_permission", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

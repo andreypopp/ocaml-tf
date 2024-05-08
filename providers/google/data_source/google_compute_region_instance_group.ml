@@ -34,6 +34,7 @@ let _ = yojson_of_instances__named_ports
 type instances = {
   instance : string prop;
   named_ports : instances__named_ports list;
+      [@default []] [@yojson_drop_default ( = )]
   status : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -55,11 +56,14 @@ let yojson_of_instances =
          ("status", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instances__named_ports
-             v_named_ports
-         in
-         ("named_ports", arg) :: bnds
+         if [] = v_named_ports then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instances__named_ports)
+               v_named_ports
+           in
+           let bnd = "named_ports", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_instance in

@@ -250,8 +250,9 @@ type aws_redshift_cluster = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   vpc_security_group_ids : string prop list option; [@option]
-  logging : logging list;
+  logging : logging list; [@default []] [@yojson_drop_default ( = )]
   snapshot_copy : snapshot_copy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -320,14 +321,20 @@ let yojson_of_aws_redshift_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_snapshot_copy v_snapshot_copy
-         in
-         ("snapshot_copy", arg) :: bnds
+         if [] = v_snapshot_copy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_snapshot_copy) v_snapshot_copy
+           in
+           let bnd = "snapshot_copy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_logging v_logging in
-         ("logging", arg) :: bnds
+         if [] = v_logging then bnds
+         else
+           let arg = (yojson_of_list yojson_of_logging) v_logging in
+           let bnd = "logging", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_security_group_ids with

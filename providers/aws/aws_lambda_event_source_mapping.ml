@@ -60,6 +60,7 @@ let _ = yojson_of_destination_config__on_failure
 
 type destination_config = {
   on_failure : destination_config__on_failure list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -72,11 +73,14 @@ let yojson_of_destination_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_config__on_failure
-             v_on_failure
-         in
-         ("on_failure", arg) :: bnds
+         if [] = v_on_failure then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_config__on_failure)
+               v_on_failure
+           in
+           let bnd = "on_failure", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : destination_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -160,7 +164,10 @@ let _ = yojson_of_filter_criteria__filter
 
 [@@@deriving.end]
 
-type filter_criteria = { filter : filter_criteria__filter list }
+type filter_criteria = {
+  filter : filter_criteria__filter list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : filter_criteria) -> ()
@@ -172,10 +179,14 @@ let yojson_of_filter_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter_criteria__filter v_filter
-         in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter_criteria__filter)
+               v_filter
+           in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : filter_criteria -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -322,15 +333,23 @@ type aws_lambda_event_source_mapping = {
   tumbling_window_in_seconds : float prop option; [@option]
   amazon_managed_kafka_event_source_config :
     amazon_managed_kafka_event_source_config list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_config : destination_config list;
+      [@default []] [@yojson_drop_default ( = )]
   document_db_event_source_config :
     document_db_event_source_config list;
+      [@default []] [@yojson_drop_default ( = )]
   filter_criteria : filter_criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   scaling_config : scaling_config list;
+      [@default []] [@yojson_drop_default ( = )]
   self_managed_event_source : self_managed_event_source list;
+      [@default []] [@yojson_drop_default ( = )]
   self_managed_kafka_event_source_config :
     self_managed_kafka_event_source_config list;
+      [@default []] [@yojson_drop_default ( = )]
   source_access_configuration : source_access_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -374,60 +393,89 @@ let yojson_of_aws_lambda_event_source_mapping =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_access_configuration
-             v_source_access_configuration
-         in
-         ("source_access_configuration", arg) :: bnds
+         if [] = v_source_access_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_access_configuration)
+               v_source_access_configuration
+           in
+           let bnd = "source_access_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_self_managed_kafka_event_source_config
-             v_self_managed_kafka_event_source_config
-         in
-         ("self_managed_kafka_event_source_config", arg) :: bnds
+         if [] = v_self_managed_kafka_event_source_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_self_managed_kafka_event_source_config)
+               v_self_managed_kafka_event_source_config
+           in
+           let bnd = "self_managed_kafka_event_source_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_self_managed_event_source
-             v_self_managed_event_source
-         in
-         ("self_managed_event_source", arg) :: bnds
+         if [] = v_self_managed_event_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_self_managed_event_source)
+               v_self_managed_event_source
+           in
+           let bnd = "self_managed_event_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scaling_config v_scaling_config
-         in
-         ("scaling_config", arg) :: bnds
+         if [] = v_scaling_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scaling_config)
+               v_scaling_config
+           in
+           let bnd = "scaling_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter_criteria v_filter_criteria
-         in
-         ("filter_criteria", arg) :: bnds
+         if [] = v_filter_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter_criteria)
+               v_filter_criteria
+           in
+           let bnd = "filter_criteria", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_document_db_event_source_config
-             v_document_db_event_source_config
-         in
-         ("document_db_event_source_config", arg) :: bnds
+         if [] = v_document_db_event_source_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_document_db_event_source_config)
+               v_document_db_event_source_config
+           in
+           let bnd = "document_db_event_source_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_config
-             v_destination_config
-         in
-         ("destination_config", arg) :: bnds
+         if [] = v_destination_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_config)
+               v_destination_config
+           in
+           let bnd = "destination_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_amazon_managed_kafka_event_source_config
-             v_amazon_managed_kafka_event_source_config
-         in
-         ("amazon_managed_kafka_event_source_config", arg) :: bnds
+         if [] = v_amazon_managed_kafka_event_source_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_amazon_managed_kafka_event_source_config)
+               v_amazon_managed_kafka_event_source_config
+           in
+           let bnd =
+             "amazon_managed_kafka_event_source_config", arg
+           in
+           bnd :: bnds
        in
        let bnds =
          match v_tumbling_window_in_seconds with

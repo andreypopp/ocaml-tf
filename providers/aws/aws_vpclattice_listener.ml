@@ -68,6 +68,7 @@ let _ = yojson_of_default_action__forward__target_groups
 
 type default_action__forward = {
   target_groups : default_action__forward__target_groups list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -80,12 +81,15 @@ let yojson_of_default_action__forward =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_action__forward__target_groups
-             v_target_groups
-         in
-         ("target_groups", arg) :: bnds
+         if [] = v_target_groups then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_action__forward__target_groups)
+               v_target_groups
+           in
+           let bnd = "target_groups", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : default_action__forward -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -96,7 +100,9 @@ let _ = yojson_of_default_action__forward
 
 type default_action = {
   fixed_response : default_action__fixed_response list;
+      [@default []] [@yojson_drop_default ( = )]
   forward : default_action__forward list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,17 +115,24 @@ let yojson_of_default_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_action__forward v_forward
-         in
-         ("forward", arg) :: bnds
+         if [] = v_forward then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_action__forward)
+               v_forward
+           in
+           let bnd = "forward", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_action__fixed_response
-             v_fixed_response
-         in
-         ("fixed_response", arg) :: bnds
+         if [] = v_fixed_response then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_action__fixed_response)
+               v_fixed_response
+           in
+           let bnd = "fixed_response", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : default_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -184,6 +197,7 @@ type aws_vpclattice_listener = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   default_action : default_action list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -212,10 +226,14 @@ let yojson_of_aws_vpclattice_listener =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_action v_default_action
-         in
-         ("default_action", arg) :: bnds
+         if [] = v_default_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_action)
+               v_default_action
+           in
+           let bnd = "default_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

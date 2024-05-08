@@ -130,6 +130,7 @@ type azurerm_cdn_frontdoor_origin = {
   priority : float prop option; [@option]
   weight : float prop option; [@option]
   private_link : private_link list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -164,10 +165,13 @@ let yojson_of_azurerm_cdn_frontdoor_origin =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_link v_private_link
-         in
-         ("private_link", arg) :: bnds
+         if [] = v_private_link then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_link) v_private_link
+           in
+           let bnd = "private_link", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weight with

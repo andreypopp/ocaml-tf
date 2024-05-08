@@ -75,8 +75,10 @@ let _ = yojson_of_consumption_configuration__borrow_configuration
 type consumption_configuration = {
   borrow_configuration :
     consumption_configuration__borrow_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   provisional_configuration :
     consumption_configuration__provisional_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   renew_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -98,20 +100,26 @@ let yojson_of_consumption_configuration =
          ("renew_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_consumption_configuration__provisional_configuration
-             v_provisional_configuration
-         in
-         ("provisional_configuration", arg) :: bnds
+         if [] = v_provisional_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_consumption_configuration__provisional_configuration)
+               v_provisional_configuration
+           in
+           let bnd = "provisional_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_consumption_configuration__borrow_configuration
-             v_borrow_configuration
-         in
-         ("borrow_configuration", arg) :: bnds
+         if [] = v_borrow_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_consumption_configuration__borrow_configuration)
+               v_borrow_configuration
+           in
+           let bnd = "borrow_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : consumption_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -238,6 +246,7 @@ let _ = yojson_of_license_metadata
 
 type received_metadata = {
   allowed_operations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   received_status : string prop;
   received_status_reason : string prop;
 }
@@ -268,12 +277,14 @@ let yojson_of_received_metadata =
          ("received_status", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_operations
-         in
-         ("allowed_operations", arg) :: bnds
+         if [] = v_allowed_operations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_operations
+           in
+           let bnd = "allowed_operations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : received_metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)

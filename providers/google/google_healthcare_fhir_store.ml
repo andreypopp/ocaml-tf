@@ -69,6 +69,7 @@ type stream_configs__bigquery_destination__schema_config = {
   last_updated_partition_config :
     stream_configs__bigquery_destination__schema_config__last_updated_partition_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -87,12 +88,15 @@ let yojson_of_stream_configs__bigquery_destination__schema_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_stream_configs__bigquery_destination__schema_config__last_updated_partition_config
-             v_last_updated_partition_config
-         in
-         ("last_updated_partition_config", arg) :: bnds
+         if [] = v_last_updated_partition_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_stream_configs__bigquery_destination__schema_config__last_updated_partition_config)
+               v_last_updated_partition_config
+           in
+           let bnd = "last_updated_partition_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_schema_type with
@@ -120,6 +124,7 @@ type stream_configs__bigquery_destination = {
   dataset_uri : string prop;
   schema_config :
     stream_configs__bigquery_destination__schema_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,12 +138,15 @@ let yojson_of_stream_configs__bigquery_destination =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_stream_configs__bigquery_destination__schema_config
-             v_schema_config
-         in
-         ("schema_config", arg) :: bnds
+         if [] = v_schema_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_stream_configs__bigquery_destination__schema_config)
+               v_schema_config
+           in
+           let bnd = "schema_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_dataset_uri in
@@ -155,6 +163,7 @@ let _ = yojson_of_stream_configs__bigquery_destination
 type stream_configs = {
   resource_types : string prop list option; [@option]
   bigquery_destination : stream_configs__bigquery_destination list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -170,12 +179,15 @@ let yojson_of_stream_configs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_stream_configs__bigquery_destination
-             v_bigquery_destination
-         in
-         ("bigquery_destination", arg) :: bnds
+         if [] = v_bigquery_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_stream_configs__bigquery_destination)
+               v_bigquery_destination
+           in
+           let bnd = "bigquery_destination", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resource_types with
@@ -253,7 +265,9 @@ type google_healthcare_fhir_store = {
   name : string prop;
   version : string prop;
   notification_config : notification_config list;
+      [@default []] [@yojson_drop_default ( = )]
   stream_configs : stream_configs list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -289,17 +303,24 @@ let yojson_of_google_healthcare_fhir_store =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stream_configs v_stream_configs
-         in
-         ("stream_configs", arg) :: bnds
+         if [] = v_stream_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stream_configs)
+               v_stream_configs
+           in
+           let bnd = "stream_configs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification_config
-             v_notification_config
-         in
-         ("notification_config", arg) :: bnds
+         if [] = v_notification_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification_config)
+               v_notification_config
+           in
+           let bnd = "notification_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_version in

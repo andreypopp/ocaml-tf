@@ -6,9 +6,13 @@ open! Tf_core
 
 type regions = {
   available : bool prop;  (** available *)
-  features : string prop list;  (** features *)
+  features : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** features *)
   name : string prop;  (** name *)
-  sizes : string prop list;  (** sizes *)
+  sizes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** sizes *)
   slug : string prop;  (** slug *)
 }
 

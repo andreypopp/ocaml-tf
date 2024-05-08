@@ -181,6 +181,7 @@ type geoproximity_routing_policy = {
   bias : float prop option; [@option]
   local_zone_group : string prop option; [@option]
   coordinates : geoproximity_routing_policy__coordinates list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -198,12 +199,15 @@ let yojson_of_geoproximity_routing_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_geoproximity_routing_policy__coordinates
-             v_coordinates
-         in
-         ("coordinates", arg) :: bnds
+         if [] = v_coordinates then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_geoproximity_routing_policy__coordinates)
+               v_coordinates
+           in
+           let bnd = "coordinates", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_local_zone_group with
@@ -292,13 +296,19 @@ type aws_route53_record = {
   ttl : float prop option; [@option]
   type_ : string prop; [@key "type"]
   zone_id : string prop;
-  alias : alias list;
+  alias : alias list; [@default []] [@yojson_drop_default ( = )]
   cidr_routing_policy : cidr_routing_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   failover_routing_policy : failover_routing_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   geolocation_routing_policy : geolocation_routing_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   geoproximity_routing_policy : geoproximity_routing_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   latency_routing_policy : latency_routing_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   weighted_routing_policy : weighted_routing_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -330,50 +340,71 @@ let yojson_of_aws_route53_record =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_weighted_routing_policy
-             v_weighted_routing_policy
-         in
-         ("weighted_routing_policy", arg) :: bnds
+         if [] = v_weighted_routing_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_weighted_routing_policy)
+               v_weighted_routing_policy
+           in
+           let bnd = "weighted_routing_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_latency_routing_policy
-             v_latency_routing_policy
-         in
-         ("latency_routing_policy", arg) :: bnds
+         if [] = v_latency_routing_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_latency_routing_policy)
+               v_latency_routing_policy
+           in
+           let bnd = "latency_routing_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_geoproximity_routing_policy
-             v_geoproximity_routing_policy
-         in
-         ("geoproximity_routing_policy", arg) :: bnds
+         if [] = v_geoproximity_routing_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_geoproximity_routing_policy)
+               v_geoproximity_routing_policy
+           in
+           let bnd = "geoproximity_routing_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_geolocation_routing_policy
-             v_geolocation_routing_policy
-         in
-         ("geolocation_routing_policy", arg) :: bnds
+         if [] = v_geolocation_routing_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_geolocation_routing_policy)
+               v_geolocation_routing_policy
+           in
+           let bnd = "geolocation_routing_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_failover_routing_policy
-             v_failover_routing_policy
-         in
-         ("failover_routing_policy", arg) :: bnds
+         if [] = v_failover_routing_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_failover_routing_policy)
+               v_failover_routing_policy
+           in
+           let bnd = "failover_routing_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cidr_routing_policy
-             v_cidr_routing_policy
-         in
-         ("cidr_routing_policy", arg) :: bnds
+         if [] = v_cidr_routing_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cidr_routing_policy)
+               v_cidr_routing_policy
+           in
+           let bnd = "cidr_routing_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_alias v_alias in
-         ("alias", arg) :: bnds
+         if [] = v_alias then bnds
+         else
+           let arg = (yojson_of_list yojson_of_alias) v_alias in
+           let bnd = "alias", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in

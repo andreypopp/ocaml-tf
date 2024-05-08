@@ -46,6 +46,7 @@ type aws_apprunner_vpc_ingress_connection = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   ingress_vpc_configuration : ingress_vpc_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,11 +66,14 @@ let yojson_of_aws_apprunner_vpc_ingress_connection =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ingress_vpc_configuration
-             v_ingress_vpc_configuration
-         in
-         ("ingress_vpc_configuration", arg) :: bnds
+         if [] = v_ingress_vpc_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ingress_vpc_configuration)
+               v_ingress_vpc_configuration
+           in
+           let bnd = "ingress_vpc_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

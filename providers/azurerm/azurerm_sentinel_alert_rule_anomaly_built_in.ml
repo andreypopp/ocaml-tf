@@ -66,7 +66,9 @@ type multi_select_observation = {
   description : string prop;
   name : string prop;
   supported_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -84,18 +86,24 @@ let yojson_of_multi_select_observation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_supported_values
-         in
-         ("supported_values", arg) :: bnds
+         if [] = v_supported_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_supported_values
+           in
+           let bnd = "supported_values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -160,6 +168,7 @@ let _ = yojson_of_prioritized_exclude_observation
 type required_data_connector = {
   connector_id : string prop;
   data_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,12 +181,14 @@ let yojson_of_required_data_connector =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_data_types
-         in
-         ("data_types", arg) :: bnds
+         if [] = v_data_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_data_types
+           in
+           let bnd = "data_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_connector_id in
@@ -194,6 +205,7 @@ type single_select_observation = {
   description : string prop;
   name : string prop;
   supported_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   value : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -216,12 +228,14 @@ let yojson_of_single_select_observation =
          ("value", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_supported_values
-         in
-         ("supported_values", arg) :: bnds
+         if [] = v_supported_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_supported_values
+           in
+           let bnd = "supported_values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

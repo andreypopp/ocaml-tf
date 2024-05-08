@@ -207,7 +207,7 @@ type google = {
   workbench_custom_endpoint : string prop option; [@option]
   workflows_custom_endpoint : string prop option; [@option]
   zone : string prop option; [@option]
-  batching : batching list;
+  batching : batching list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -431,8 +431,13 @@ let yojson_of_google =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_batching v_batching in
-         ("batching", arg) :: bnds
+         if [] = v_batching then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_batching) v_batching
+           in
+           let bnd = "batching", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

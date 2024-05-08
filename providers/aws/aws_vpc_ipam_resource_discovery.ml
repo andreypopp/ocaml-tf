@@ -76,6 +76,7 @@ type aws_vpc_ipam_resource_discovery = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   operating_regions : operating_regions list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -100,11 +101,14 @@ let yojson_of_aws_vpc_ipam_resource_discovery =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_operating_regions
-             v_operating_regions
-         in
-         ("operating_regions", arg) :: bnds
+         if [] = v_operating_regions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_operating_regions)
+               v_operating_regions
+           in
+           let bnd = "operating_regions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

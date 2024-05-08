@@ -24,13 +24,15 @@ type conditions = {
 type template__vpc_access__network_interfaces = {
   network : string prop;  (** network *)
   subnetwork : string prop;  (** subnetwork *)
-  tags : string prop list;  (** tags *)
+  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** tags *)
 }
 
 type template__vpc_access = {
   connector : string prop;  (** connector *)
   egress : string prop;  (** egress *)
   network_interfaces : template__vpc_access__network_interfaces list;
+      [@default []] [@yojson_drop_default ( = )]
       (** network_interfaces *)
 }
 
@@ -42,7 +44,9 @@ type template__volumes__secret__items = {
 
 type template__volumes__secret = {
   default_mode : float prop;  (** default_mode *)
-  items : template__volumes__secret__items list;  (** items *)
+  items : template__volumes__secret__items list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** items *)
   secret : string prop;  (** secret *)
 }
 
@@ -58,16 +62,25 @@ type template__volumes__gcs = {
 }
 
 type template__volumes__cloud_sql_instance = {
-  instances : string prop list;  (** instances *)
+  instances : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** instances *)
 }
 
 type template__volumes = {
   cloud_sql_instance : template__volumes__cloud_sql_instance list;
+      [@default []] [@yojson_drop_default ( = )]
       (** cloud_sql_instance *)
-  gcs : template__volumes__gcs list;  (** gcs *)
+  gcs : template__volumes__gcs list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** gcs *)
   name : string prop;  (** name *)
-  nfs : template__volumes__nfs list;  (** nfs *)
-  secret : template__volumes__secret list;  (** secret *)
+  nfs : template__volumes__nfs list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** nfs *)
+  secret : template__volumes__secret list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** secret *)
 }
 
 type template__scaling = {
@@ -92,6 +105,7 @@ type template__containers__startup_probe__http_get__http_headers = {
 type template__containers__startup_probe__http_get = {
   http_headers :
     template__containers__startup_probe__http_get__http_headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_headers *)
   path : string prop;  (** path *)
   port : float prop;  (** port *)
@@ -104,12 +118,16 @@ type template__containers__startup_probe__grpc = {
 
 type template__containers__startup_probe = {
   failure_threshold : float prop;  (** failure_threshold *)
-  grpc : template__containers__startup_probe__grpc list;  (** grpc *)
+  grpc : template__containers__startup_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** grpc *)
   http_get : template__containers__startup_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   initial_delay_seconds : float prop;  (** initial_delay_seconds *)
   period_seconds : float prop;  (** period_seconds *)
   tcp_socket : template__containers__startup_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
   timeout_seconds : float prop;  (** timeout_seconds *)
 }
@@ -137,6 +155,7 @@ type template__containers__liveness_probe__http_get__http_headers = {
 type template__containers__liveness_probe__http_get = {
   http_headers :
     template__containers__liveness_probe__http_get__http_headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_headers *)
   path : string prop;  (** path *)
   port : float prop;  (** port *)
@@ -150,12 +169,15 @@ type template__containers__liveness_probe__grpc = {
 type template__containers__liveness_probe = {
   failure_threshold : float prop;  (** failure_threshold *)
   grpc : template__containers__liveness_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
       (** grpc *)
   http_get : template__containers__liveness_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   initial_delay_seconds : float prop;  (** initial_delay_seconds *)
   period_seconds : float prop;  (** period_seconds *)
   tcp_socket : template__containers__liveness_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
   timeout_seconds : float prop;  (** timeout_seconds *)
 }
@@ -168,6 +190,7 @@ type template__containers__env__value_source__secret_key_ref = {
 type template__containers__env__value_source = {
   secret_key_ref :
     template__containers__env__value_source__secret_key_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret_key_ref *)
 }
 
@@ -175,42 +198,65 @@ type template__containers__env = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
   value_source : template__containers__env__value_source list;
+      [@default []] [@yojson_drop_default ( = )]
       (** value_source *)
 }
 
 type template__containers = {
-  args : string prop list;  (** args *)
-  command : string prop list;  (** command *)
-  depends_on : string prop list;  (** depends_on *)
-  env : template__containers__env list;  (** env *)
+  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** args *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
+  depends_on : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** depends_on *)
+  env : template__containers__env list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env *)
   image : string prop;  (** image *)
   liveness_probe : template__containers__liveness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** liveness_probe *)
   name : string prop;  (** name *)
-  ports : template__containers__ports list;  (** ports *)
-  resources : template__containers__resources list;  (** resources *)
+  ports : template__containers__ports list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ports *)
+  resources : template__containers__resources list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** resources *)
   startup_probe : template__containers__startup_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** startup_probe *)
   volume_mounts : template__containers__volume_mounts list;
+      [@default []] [@yojson_drop_default ( = )]
       (** volume_mounts *)
   working_dir : string prop;  (** working_dir *)
 }
 
 type template = {
   annotations : (string * string prop) list;  (** annotations *)
-  containers : template__containers list;  (** containers *)
+  containers : template__containers list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** containers *)
   encryption_key : string prop;  (** encryption_key *)
   execution_environment : string prop;  (** execution_environment *)
   labels : (string * string prop) list;  (** labels *)
   max_instance_request_concurrency : float prop;
       (** max_instance_request_concurrency *)
   revision : string prop;  (** revision *)
-  scaling : template__scaling list;  (** scaling *)
+  scaling : template__scaling list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** scaling *)
   service_account : string prop;  (** service_account *)
   session_affinity : bool prop;  (** session_affinity *)
   timeout : string prop;  (** timeout *)
-  volumes : template__volumes list;  (** volumes *)
-  vpc_access : template__vpc_access list;  (** vpc_access *)
+  volumes : template__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** volumes *)
+  vpc_access : template__vpc_access list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** vpc_access *)
 }
 
 type terminal_condition = {

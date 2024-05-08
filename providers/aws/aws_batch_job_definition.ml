@@ -220,12 +220,16 @@ type eks_properties__pod_properties__containers = {
   image_pull_policy : string prop option; [@option]
   name : string prop option; [@option]
   env : eks_properties__pod_properties__containers__env list;
+      [@default []] [@yojson_drop_default ( = )]
   resources :
     eks_properties__pod_properties__containers__resources list;
+      [@default []] [@yojson_drop_default ( = )]
   security_context :
     eks_properties__pod_properties__containers__security_context list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_mounts :
     eks_properties__pod_properties__containers__volume_mounts list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -248,36 +252,48 @@ let yojson_of_eks_properties__pod_properties__containers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eks_properties__pod_properties__containers__volume_mounts
-             v_volume_mounts
-         in
-         ("volume_mounts", arg) :: bnds
+         if [] = v_volume_mounts then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eks_properties__pod_properties__containers__volume_mounts)
+               v_volume_mounts
+           in
+           let bnd = "volume_mounts", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eks_properties__pod_properties__containers__security_context
-             v_security_context
-         in
-         ("security_context", arg) :: bnds
+         if [] = v_security_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eks_properties__pod_properties__containers__security_context)
+               v_security_context
+           in
+           let bnd = "security_context", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eks_properties__pod_properties__containers__resources
-             v_resources
-         in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eks_properties__pod_properties__containers__resources)
+               v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eks_properties__pod_properties__containers__env
-             v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eks_properties__pod_properties__containers__env)
+               v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -464,9 +480,12 @@ type eks_properties__pod_properties__volumes = {
   name : string prop option; [@option]
   empty_dir :
     eks_properties__pod_properties__volumes__empty_dir list;
+      [@default []] [@yojson_drop_default ( = )]
   host_path :
     eks_properties__pod_properties__volumes__host_path list;
+      [@default []] [@yojson_drop_default ( = )]
   secret : eks_properties__pod_properties__volumes__secret list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -484,28 +503,37 @@ let yojson_of_eks_properties__pod_properties__volumes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eks_properties__pod_properties__volumes__secret
-             v_secret
-         in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eks_properties__pod_properties__volumes__secret)
+               v_secret
+           in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eks_properties__pod_properties__volumes__host_path
-             v_host_path
-         in
-         ("host_path", arg) :: bnds
+         if [] = v_host_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eks_properties__pod_properties__volumes__host_path)
+               v_host_path
+           in
+           let bnd = "host_path", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eks_properties__pod_properties__volumes__empty_dir
-             v_empty_dir
-         in
-         ("empty_dir", arg) :: bnds
+         if [] = v_empty_dir then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eks_properties__pod_properties__volumes__empty_dir)
+               v_empty_dir
+           in
+           let bnd = "empty_dir", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -528,8 +556,11 @@ type eks_properties__pod_properties = {
   host_network : bool prop option; [@option]
   service_account_name : string prop option; [@option]
   containers : eks_properties__pod_properties__containers list;
+      [@default []] [@yojson_drop_default ( = )]
   metadata : eks_properties__pod_properties__metadata list;
+      [@default []] [@yojson_drop_default ( = )]
   volumes : eks_properties__pod_properties__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -549,28 +580,37 @@ let yojson_of_eks_properties__pod_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eks_properties__pod_properties__volumes
-             v_volumes
-         in
-         ("volumes", arg) :: bnds
+         if [] = v_volumes then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eks_properties__pod_properties__volumes)
+               v_volumes
+           in
+           let bnd = "volumes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eks_properties__pod_properties__metadata
-             v_metadata
-         in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eks_properties__pod_properties__metadata)
+               v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eks_properties__pod_properties__containers
-             v_containers
-         in
-         ("containers", arg) :: bnds
+         if [] = v_containers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eks_properties__pod_properties__containers)
+               v_containers
+           in
+           let bnd = "containers", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service_account_name with
@@ -606,6 +646,7 @@ let _ = yojson_of_eks_properties__pod_properties
 
 type eks_properties = {
   pod_properties : eks_properties__pod_properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -618,11 +659,14 @@ let yojson_of_eks_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_eks_properties__pod_properties
-             v_pod_properties
-         in
-         ("pod_properties", arg) :: bnds
+         if [] = v_pod_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_eks_properties__pod_properties)
+               v_pod_properties
+           in
+           let bnd = "pod_properties", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : eks_properties -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -691,6 +735,7 @@ let _ = yojson_of_retry_strategy__evaluate_on_exit
 type retry_strategy = {
   attempts : float prop option; [@option]
   evaluate_on_exit : retry_strategy__evaluate_on_exit list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -704,11 +749,15 @@ let yojson_of_retry_strategy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retry_strategy__evaluate_on_exit
-             v_evaluate_on_exit
-         in
-         ("evaluate_on_exit", arg) :: bnds
+         if [] = v_evaluate_on_exit then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_retry_strategy__evaluate_on_exit)
+               v_evaluate_on_exit
+           in
+           let bnd = "evaluate_on_exit", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_attempts with
@@ -766,8 +815,10 @@ type aws_batch_job_definition = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   eks_properties : eks_properties list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_strategy : retry_strategy list;
-  timeout : timeout list;
+      [@default []] [@yojson_drop_default ( = )]
+  timeout : timeout list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -795,20 +846,31 @@ let yojson_of_aws_batch_job_definition =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_timeout v_timeout in
-         ("timeout", arg) :: bnds
+         if [] = v_timeout then bnds
+         else
+           let arg = (yojson_of_list yojson_of_timeout) v_timeout in
+           let bnd = "timeout", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retry_strategy v_retry_strategy
-         in
-         ("retry_strategy", arg) :: bnds
+         if [] = v_retry_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retry_strategy)
+               v_retry_strategy
+           in
+           let bnd = "retry_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_eks_properties v_eks_properties
-         in
-         ("eks_properties", arg) :: bnds
+         if [] = v_eks_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_eks_properties)
+               v_eks_properties
+           in
+           let bnd = "eks_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

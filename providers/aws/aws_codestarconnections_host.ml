@@ -50,7 +50,9 @@ let _ = yojson_of_timeouts
 
 type vpc_configuration = {
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tls_certificate : string prop option; [@option]
   vpc_id : string prop;
 }
@@ -82,20 +84,24 @@ let yojson_of_vpc_configuration =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vpc_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -111,6 +117,7 @@ type aws_codestarconnections_host = {
   provider_type : string prop;
   timeouts : timeouts option;
   vpc_configuration : vpc_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,11 +137,14 @@ let yojson_of_aws_codestarconnections_host =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_configuration
-             v_vpc_configuration
-         in
-         ("vpc_configuration", arg) :: bnds
+         if [] = v_vpc_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_configuration)
+               v_vpc_configuration
+           in
+           let bnd = "vpc_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

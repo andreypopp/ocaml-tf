@@ -154,7 +154,8 @@ type azurerm_mssql_elasticpool = {
   tags : (string * string prop) list option; [@option]
   zone_redundant : bool prop option; [@option]
   per_database_settings : per_database_settings list;
-  sku : sku list;
+      [@default []] [@yojson_drop_default ( = )]
+  sku : sku list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -189,15 +190,21 @@ let yojson_of_azurerm_mssql_elasticpool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sku v_sku in
-         ("sku", arg) :: bnds
+         if [] = v_sku then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sku) v_sku in
+           let bnd = "sku", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_per_database_settings
-             v_per_database_settings
-         in
-         ("per_database_settings", arg) :: bnds
+         if [] = v_per_database_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_per_database_settings)
+               v_per_database_settings
+           in
+           let bnd = "per_database_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone_redundant with

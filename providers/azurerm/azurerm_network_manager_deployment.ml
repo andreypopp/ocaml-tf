@@ -64,6 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_network_manager_deployment = {
   configuration_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   location : string prop;
   network_manager_id : string prop;
@@ -132,12 +133,14 @@ let yojson_of_azurerm_network_manager_deployment =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_configuration_ids
-         in
-         ("configuration_ids", arg) :: bnds
+         if [] = v_configuration_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_configuration_ids
+           in
+           let bnd = "configuration_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_network_manager_deployment ->

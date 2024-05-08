@@ -66,7 +66,7 @@ let _ = yojson_of_secret
 
 type aws_kms_secret = {
   id : string prop option; [@option]
-  secret : secret list;
+  secret : secret list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,8 +79,11 @@ let yojson_of_aws_kms_secret =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_secret v_secret in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg = (yojson_of_list yojson_of_secret) v_secret in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

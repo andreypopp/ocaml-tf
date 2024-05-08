@@ -47,6 +47,7 @@ type service_catalog_provisioning_details = {
   provisioning_artifact_id : string prop option; [@option]
   provisioning_parameter :
     service_catalog_provisioning_details__provisioning_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,12 +65,15 @@ let yojson_of_service_catalog_provisioning_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_catalog_provisioning_details__provisioning_parameter
-             v_provisioning_parameter
-         in
-         ("provisioning_parameter", arg) :: bnds
+         if [] = v_provisioning_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_catalog_provisioning_details__provisioning_parameter)
+               v_provisioning_parameter
+           in
+           let bnd = "provisioning_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_provisioning_artifact_id with
@@ -107,6 +111,7 @@ type aws_sagemaker_project = {
   tags_all : (string * string prop) list option; [@option]
   service_catalog_provisioning_details :
     service_catalog_provisioning_details list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -127,12 +132,15 @@ let yojson_of_aws_sagemaker_project =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_catalog_provisioning_details
-             v_service_catalog_provisioning_details
-         in
-         ("service_catalog_provisioning_details", arg) :: bnds
+         if [] = v_service_catalog_provisioning_details then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_catalog_provisioning_details)
+               v_service_catalog_provisioning_details
+           in
+           let bnd = "service_catalog_provisioning_details", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

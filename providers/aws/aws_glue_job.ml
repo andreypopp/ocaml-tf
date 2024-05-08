@@ -135,9 +135,11 @@ type aws_glue_job = {
   tags_all : (string * string prop) list option; [@option]
   timeout : float prop option; [@option]
   worker_type : string prop option; [@option]
-  command : command list;
+  command : command list; [@default []] [@yojson_drop_default ( = )]
   execution_property : execution_property list;
+      [@default []] [@yojson_drop_default ( = )]
   notification_property : notification_property list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -171,22 +173,31 @@ let yojson_of_aws_glue_job =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification_property
-             v_notification_property
-         in
-         ("notification_property", arg) :: bnds
+         if [] = v_notification_property then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification_property)
+               v_notification_property
+           in
+           let bnd = "notification_property", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_execution_property
-             v_execution_property
-         in
-         ("execution_property", arg) :: bnds
+         if [] = v_execution_property then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_execution_property)
+               v_execution_property
+           in
+           let bnd = "execution_property", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_command v_command in
-         ("command", arg) :: bnds
+         if [] = v_command then bnds
+         else
+           let arg = (yojson_of_list yojson_of_command) v_command in
+           let bnd = "command", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_worker_type with

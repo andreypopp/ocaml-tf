@@ -5,6 +5,7 @@ open! Tf_core
 type contact = {
   company_name : string prop;
   emails : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   phone_number : string prop;
 }
@@ -32,10 +33,14 @@ let yojson_of_contact =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_emails
-         in
-         ("emails", arg) :: bnds
+         if [] = v_emails then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_emails
+           in
+           let bnd = "emails", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_company_name in
@@ -50,6 +55,7 @@ let _ = yojson_of_contact
 
 type shipment_address = {
   address : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   city : string prop;
   country : string prop;
   postal_code : string prop;
@@ -88,10 +94,14 @@ let yojson_of_shipment_address =
          ("city", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_address
-         in
-         ("address", arg) :: bnds
+         if [] = v_address then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_address
+           in
+           let bnd = "address", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : shipment_address -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -350,8 +360,9 @@ type azurerm_databox_edge_order = {
   device_name : string prop;
   id : string prop option; [@option]
   resource_group_name : string prop;
-  contact : contact list;
+  contact : contact list; [@default []] [@yojson_drop_default ( = )]
   shipment_address : shipment_address list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -376,15 +387,21 @@ let yojson_of_azurerm_databox_edge_order =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_shipment_address
-             v_shipment_address
-         in
-         ("shipment_address", arg) :: bnds
+         if [] = v_shipment_address then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_shipment_address)
+               v_shipment_address
+           in
+           let bnd = "shipment_address", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_contact v_contact in
-         ("contact", arg) :: bnds
+         if [] = v_contact then bnds
+         else
+           let arg = (yojson_of_list yojson_of_contact) v_contact in
+           let bnd = "contact", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

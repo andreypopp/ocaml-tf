@@ -381,9 +381,13 @@ type azurerm_synapse_workspace = {
   storage_data_lake_gen2_filesystem_id : string prop;
   tags : (string * string prop) list option; [@option]
   azure_devops_repo : azure_devops_repo list;
+      [@default []] [@yojson_drop_default ( = )]
   customer_managed_key : customer_managed_key list;
+      [@default []] [@yojson_drop_default ( = )]
   github_repo : github_repo list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -432,28 +436,42 @@ let yojson_of_azurerm_synapse_workspace =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_github_repo v_github_repo
-         in
-         ("github_repo", arg) :: bnds
+         if [] = v_github_repo then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_github_repo) v_github_repo
+           in
+           let bnd = "github_repo", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_customer_managed_key
-             v_customer_managed_key
-         in
-         ("customer_managed_key", arg) :: bnds
+         if [] = v_customer_managed_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_customer_managed_key)
+               v_customer_managed_key
+           in
+           let bnd = "customer_managed_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_azure_devops_repo
-             v_azure_devops_repo
-         in
-         ("azure_devops_repo", arg) :: bnds
+         if [] = v_azure_devops_repo then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_azure_devops_repo)
+               v_azure_devops_repo
+           in
+           let bnd = "azure_devops_repo", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

@@ -20,7 +20,9 @@ type sending_options = {
 }
 
 type suppression_options = {
-  suppressed_reasons : string prop list;  (** suppressed_reasons *)
+  suppressed_reasons : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** suppressed_reasons *)
 }
 
 type tracking_options = {
@@ -38,8 +40,10 @@ type vdm_options__dashboard_options = {
 
 type vdm_options = {
   dashboard_options : vdm_options__dashboard_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** dashboard_options *)
   guardian_options : vdm_options__guardian_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** guardian_options *)
 }
 

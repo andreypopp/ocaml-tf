@@ -2,7 +2,10 @@
 
 open! Tf_core
 
-type cors = { allowed_origins : string prop list }
+type cors = {
+  allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : cors) -> ()
@@ -14,12 +17,14 @@ let yojson_of_cors =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cors -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -211,8 +216,11 @@ let _ = yojson_of_timeouts
 
 type upstream_endpoint = {
   category_pattern : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   event_pattern : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   hub_pattern : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   url_template : string prop;
   user_assigned_identity_id : string prop option; [@option]
 }
@@ -245,28 +253,34 @@ let yojson_of_upstream_endpoint =
          ("url_template", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_hub_pattern
-         in
-         ("hub_pattern", arg) :: bnds
+         if [] = v_hub_pattern then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_hub_pattern
+           in
+           let bnd = "hub_pattern", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_event_pattern
-         in
-         ("event_pattern", arg) :: bnds
+         if [] = v_event_pattern then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_event_pattern
+           in
+           let bnd = "event_pattern", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_category_pattern
-         in
-         ("category_pattern", arg) :: bnds
+         if [] = v_category_pattern then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_category_pattern
+           in
+           let bnd = "category_pattern", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : upstream_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -292,12 +306,15 @@ type azurerm_signalr_service = {
   service_mode : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tls_client_cert_enabled : bool prop option; [@option]
-  cors : cors list;
+  cors : cors list; [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   live_trace : live_trace list;
-  sku : sku list;
+      [@default []] [@yojson_drop_default ( = )]
+  sku : sku list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   upstream_endpoint : upstream_endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -334,33 +351,50 @@ let yojson_of_azurerm_signalr_service =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_upstream_endpoint
-             v_upstream_endpoint
-         in
-         ("upstream_endpoint", arg) :: bnds
+         if [] = v_upstream_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_upstream_endpoint)
+               v_upstream_endpoint
+           in
+           let bnd = "upstream_endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sku v_sku in
-         ("sku", arg) :: bnds
+         if [] = v_sku then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sku) v_sku in
+           let bnd = "sku", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_live_trace v_live_trace
-         in
-         ("live_trace", arg) :: bnds
+         if [] = v_live_trace then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_live_trace) v_live_trace
+           in
+           let bnd = "live_trace", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_cors v_cors in
-         ("cors", arg) :: bnds
+         if [] = v_cors then bnds
+         else
+           let arg = (yojson_of_list yojson_of_cors) v_cors in
+           let bnd = "cors", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tls_client_cert_enabled with

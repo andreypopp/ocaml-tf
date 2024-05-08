@@ -70,6 +70,7 @@ type google_bigtable_table = {
   project : string prop option; [@option]
   split_keys : string prop list option; [@option]
   column_family : column_family list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -97,10 +98,13 @@ let yojson_of_google_bigtable_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_column_family v_column_family
-         in
-         ("column_family", arg) :: bnds
+         if [] = v_column_family then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_column_family) v_column_family
+           in
+           let bnd = "column_family", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_split_keys with

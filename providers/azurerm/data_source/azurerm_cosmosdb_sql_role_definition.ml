@@ -28,7 +28,10 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
-type permissions = { data_actions : string prop list }
+type permissions = {
+  data_actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : permissions) -> ()
@@ -40,12 +43,14 @@ let yojson_of_permissions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_data_actions
-         in
-         ("data_actions", arg) :: bnds
+         if [] = v_data_actions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_data_actions
+           in
+           let bnd = "data_actions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : permissions -> Ppx_yojson_conv_lib.Yojson.Safe.t)

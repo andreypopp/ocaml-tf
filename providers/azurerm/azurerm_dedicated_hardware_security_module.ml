@@ -4,6 +4,7 @@ open! Tf_core
 
 type management_network_profile = {
   network_interface_private_ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -25,12 +26,14 @@ let yojson_of_management_network_profile =
          ("subnet_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_network_interface_private_ip_addresses
-         in
-         ("network_interface_private_ip_addresses", arg) :: bnds
+         if [] = v_network_interface_private_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_network_interface_private_ip_addresses
+           in
+           let bnd = "network_interface_private_ip_addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : management_network_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -41,6 +44,7 @@ let _ = yojson_of_management_network_profile
 
 type network_profile = {
   network_interface_private_ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -62,12 +66,14 @@ let yojson_of_network_profile =
          ("subnet_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_network_interface_private_ip_addresses
-         in
-         ("network_interface_private_ip_addresses", arg) :: bnds
+         if [] = v_network_interface_private_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_network_interface_private_ip_addresses
+           in
+           let bnd = "network_interface_private_ip_addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : network_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -146,7 +152,9 @@ type azurerm_dedicated_hardware_security_module = {
   tags : (string * string prop) list option; [@option]
   zones : string prop list option; [@option]
   management_network_profile : management_network_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   network_profile : network_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -176,17 +184,24 @@ let yojson_of_azurerm_dedicated_hardware_security_module =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_profile v_network_profile
-         in
-         ("network_profile", arg) :: bnds
+         if [] = v_network_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_profile)
+               v_network_profile
+           in
+           let bnd = "network_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_management_network_profile
-             v_management_network_profile
-         in
-         ("management_network_profile", arg) :: bnds
+         if [] = v_management_network_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_management_network_profile)
+               v_management_network_profile
+           in
+           let bnd = "management_network_profile", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with

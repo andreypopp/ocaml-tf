@@ -255,8 +255,11 @@ type aws_cloudsearch_domain = {
   multi_az : bool prop option; [@option]
   name : string prop;
   endpoint_options : endpoint_options list;
+      [@default []] [@yojson_drop_default ( = )]
   index_field : index_field list;
+      [@default []] [@yojson_drop_default ( = )]
   scaling_parameters : scaling_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -282,24 +285,33 @@ let yojson_of_aws_cloudsearch_domain =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scaling_parameters
-             v_scaling_parameters
-         in
-         ("scaling_parameters", arg) :: bnds
+         if [] = v_scaling_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scaling_parameters)
+               v_scaling_parameters
+           in
+           let bnd = "scaling_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_index_field v_index_field
-         in
-         ("index_field", arg) :: bnds
+         if [] = v_index_field then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_index_field) v_index_field
+           in
+           let bnd = "index_field", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint_options
-             v_endpoint_options
-         in
-         ("endpoint_options", arg) :: bnds
+         if [] = v_endpoint_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint_options)
+               v_endpoint_options
+           in
+           let bnd = "endpoint_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

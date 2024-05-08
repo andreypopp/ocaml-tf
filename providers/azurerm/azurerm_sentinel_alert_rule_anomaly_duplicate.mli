@@ -6,7 +6,9 @@ open! Tf_core
 
 type required_data_connector = {
   connector_id : string prop;  (** connector_id *)
-  data_types : string prop list;  (** data_types *)
+  data_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** data_types *)
 }
 
 type multi_select_observation

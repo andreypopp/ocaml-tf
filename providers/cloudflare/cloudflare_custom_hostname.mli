@@ -14,7 +14,9 @@ type ssl__validation_errors = {
 type ssl__validation_records = {
   cname_name : string prop;  (** cname_name *)
   cname_target : string prop;  (** cname_target *)
-  emails : string prop list;  (** emails *)
+  emails : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** emails *)
   http_body : string prop;  (** http_body *)
   http_url : string prop;  (** http_url *)
   txt_name : string prop;  (** txt_name *)

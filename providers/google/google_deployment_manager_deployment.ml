@@ -100,7 +100,9 @@ let _ = yojson_of_target__imports
 
 type target = {
   config : target__config list;
+      [@default []] [@yojson_drop_default ( = )]
   imports : target__imports list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -113,16 +115,22 @@ let yojson_of_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__imports v_imports
-         in
-         ("imports", arg) :: bnds
+         if [] = v_imports then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__imports) v_imports
+           in
+           let bnd = "imports", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__config v_config
-         in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__config) v_config
+           in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -185,8 +193,8 @@ type google_deployment_manager_deployment = {
   name : string prop;
   preview : bool prop option; [@option]
   project : string prop option; [@option]
-  labels : labels list;
-  target : target list;
+  labels : labels list; [@default []] [@yojson_drop_default ( = )]
+  target : target list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -215,12 +223,18 @@ let yojson_of_google_deployment_manager_deployment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_target v_target in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg = (yojson_of_list yojson_of_target) v_target in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_labels v_labels in
-         ("labels", arg) :: bnds
+         if [] = v_labels then bnds
+         else
+           let arg = (yojson_of_list yojson_of_labels) v_labels in
+           let bnd = "labels", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

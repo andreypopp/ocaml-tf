@@ -165,6 +165,7 @@ type mysql_profile = {
   port : float prop option; [@option]
   username : string prop;
   ssl_config : mysql_profile__ssl_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -183,11 +184,14 @@ let yojson_of_mysql_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mysql_profile__ssl_config
-             v_ssl_config
-         in
-         ("ssl_config", arg) :: bnds
+         if [] = v_ssl_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mysql_profile__ssl_config)
+               v_ssl_config
+           in
+           let bnd = "ssl_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_username in
@@ -423,12 +427,19 @@ type google_datastream_connection_profile = {
   location : string prop;
   project : string prop option; [@option]
   bigquery_profile : bigquery_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   forward_ssh_connectivity : forward_ssh_connectivity list;
+      [@default []] [@yojson_drop_default ( = )]
   gcs_profile : gcs_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   mysql_profile : mysql_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   oracle_profile : oracle_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   postgresql_profile : postgresql_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   private_connectivity : private_connectivity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -461,50 +472,72 @@ let yojson_of_google_datastream_connection_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_connectivity
-             v_private_connectivity
-         in
-         ("private_connectivity", arg) :: bnds
+         if [] = v_private_connectivity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_connectivity)
+               v_private_connectivity
+           in
+           let bnd = "private_connectivity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_postgresql_profile
-             v_postgresql_profile
-         in
-         ("postgresql_profile", arg) :: bnds
+         if [] = v_postgresql_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_postgresql_profile)
+               v_postgresql_profile
+           in
+           let bnd = "postgresql_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_oracle_profile v_oracle_profile
-         in
-         ("oracle_profile", arg) :: bnds
+         if [] = v_oracle_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_oracle_profile)
+               v_oracle_profile
+           in
+           let bnd = "oracle_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mysql_profile v_mysql_profile
-         in
-         ("mysql_profile", arg) :: bnds
+         if [] = v_mysql_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mysql_profile) v_mysql_profile
+           in
+           let bnd = "mysql_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_gcs_profile v_gcs_profile
-         in
-         ("gcs_profile", arg) :: bnds
+         if [] = v_gcs_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_gcs_profile) v_gcs_profile
+           in
+           let bnd = "gcs_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_forward_ssh_connectivity
-             v_forward_ssh_connectivity
-         in
-         ("forward_ssh_connectivity", arg) :: bnds
+         if [] = v_forward_ssh_connectivity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_forward_ssh_connectivity)
+               v_forward_ssh_connectivity
+           in
+           let bnd = "forward_ssh_connectivity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bigquery_profile
-             v_bigquery_profile
-         in
-         ("bigquery_profile", arg) :: bnds
+         if [] = v_bigquery_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bigquery_profile)
+               v_bigquery_profile
+           in
+           let bnd = "bigquery_profile", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

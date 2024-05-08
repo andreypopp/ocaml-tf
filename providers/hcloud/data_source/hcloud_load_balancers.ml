@@ -44,6 +44,7 @@ let _ = yojson_of_load_balancers__target
 
 type load_balancers__service__http = {
   certificates : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   cookie_lifetime : float prop;
   cookie_name : string prop;
   redirect_http : bool prop;
@@ -84,12 +85,14 @@ let yojson_of_load_balancers__service__http =
          ("cookie_lifetime", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_certificates
-         in
-         ("certificates", arg) :: bnds
+         if [] = v_certificates then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_certificates
+           in
+           let bnd = "certificates", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : load_balancers__service__http ->
@@ -104,6 +107,7 @@ type load_balancers__service__health_check__http = {
   path : string prop;
   response : string prop;
   status_codes : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tls : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -127,12 +131,14 @@ let yojson_of_load_balancers__service__health_check__http =
          ("tls", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_status_codes
-         in
-         ("status_codes", arg) :: bnds
+         if [] = v_status_codes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_status_codes
+           in
+           let bnd = "status_codes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_response in
@@ -156,6 +162,7 @@ let _ = yojson_of_load_balancers__service__health_check__http
 
 type load_balancers__service__health_check = {
   http : load_balancers__service__health_check__http list;
+      [@default []] [@yojson_drop_default ( = )]
   interval : float prop;
   port : float prop;
   protocol : string prop;
@@ -200,12 +207,15 @@ let yojson_of_load_balancers__service__health_check =
          ("interval", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_load_balancers__service__health_check__http
-             v_http
-         in
-         ("http", arg) :: bnds
+         if [] = v_http then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_load_balancers__service__health_check__http)
+               v_http
+           in
+           let bnd = "http", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : load_balancers__service__health_check ->
@@ -218,7 +228,9 @@ let _ = yojson_of_load_balancers__service__health_check
 type load_balancers__service = {
   destination_port : float prop;
   health_check : load_balancers__service__health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   http : load_balancers__service__http list;
+      [@default []] [@yojson_drop_default ( = )]
   listen_port : float prop;
   protocol : string prop;
   proxyprotocol : bool prop;
@@ -253,19 +265,25 @@ let yojson_of_load_balancers__service =
          ("listen_port", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_balancers__service__http
-             v_http
-         in
-         ("http", arg) :: bnds
+         if [] = v_http then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_balancers__service__http)
+               v_http
+           in
+           let bnd = "http", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_load_balancers__service__health_check
-             v_health_check
-         in
-         ("health_check", arg) :: bnds
+         if [] = v_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_load_balancers__service__health_check)
+               v_health_check
+           in
+           let bnd = "health_check", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -306,6 +324,7 @@ let _ = yojson_of_load_balancers__algorithm
 
 type load_balancers = {
   algorithm : load_balancers__algorithm list;
+      [@default []] [@yojson_drop_default ( = )]
   delete_protection : bool prop;
   id : float prop;
   ipv4 : string prop;
@@ -318,7 +337,9 @@ type load_balancers = {
   network_ip : string prop;
   network_zone : string prop;
   service : load_balancers__service list;
+      [@default []] [@yojson_drop_default ( = )]
   target : load_balancers__target list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -346,16 +367,24 @@ let yojson_of_load_balancers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_balancers__target v_target
-         in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_balancers__target)
+               v_target
+           in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_balancers__service v_service
-         in
-         ("service", arg) :: bnds
+         if [] = v_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_balancers__service)
+               v_service
+           in
+           let bnd = "service", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_network_zone in
@@ -414,11 +443,14 @@ let yojson_of_load_balancers =
          ("delete_protection", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_balancers__algorithm
-             v_algorithm
-         in
-         ("algorithm", arg) :: bnds
+         if [] = v_algorithm then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_balancers__algorithm)
+               v_algorithm
+           in
+           let bnd = "algorithm", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : load_balancers -> Ppx_yojson_conv_lib.Yojson.Safe.t)

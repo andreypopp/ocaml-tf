@@ -44,7 +44,7 @@ type kubernetes_annotations = {
   kind : string prop;
   template_annotations : (string * string prop) list option;
       [@option]
-  metadata : metadata list;
+  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,8 +66,13 @@ let yojson_of_kubernetes_annotations =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_template_annotations with

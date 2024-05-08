@@ -28,12 +28,18 @@ type config_server_git_setting__repository__http_basic_auth = {
 type config_server_git_setting__repository = {
   http_basic_auth :
     config_server_git_setting__repository__http_basic_auth list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_basic_auth *)
   label : string prop;  (** label *)
   name : string prop;  (** name *)
-  pattern : string prop list;  (** pattern *)
-  search_paths : string prop list;  (** search_paths *)
+  pattern : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** pattern *)
+  search_paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** search_paths *)
   ssh_auth : config_server_git_setting__repository__ssh_auth list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ssh_auth *)
   uri : string prop;  (** uri *)
 }
@@ -45,20 +51,29 @@ type config_server_git_setting__http_basic_auth = {
 
 type config_server_git_setting = {
   http_basic_auth : config_server_git_setting__http_basic_auth list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_basic_auth *)
   label : string prop;  (** label *)
   repository : config_server_git_setting__repository list;
+      [@default []] [@yojson_drop_default ( = )]
       (** repository *)
-  search_paths : string prop list;  (** search_paths *)
+  search_paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** search_paths *)
   ssh_auth : config_server_git_setting__ssh_auth list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ssh_auth *)
   uri : string prop;  (** uri *)
 }
 
 type required_network_traffic_rules = {
   direction : string prop;  (** direction *)
-  fqdns : string prop list;  (** fqdns *)
-  ip_addresses : string prop list;  (** ip_addresses *)
+  fqdns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** fqdns *)
+  ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ip_addresses *)
   port : float prop;  (** port *)
   protocol : string prop;  (** protocol *)
 }

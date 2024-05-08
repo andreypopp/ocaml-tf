@@ -36,7 +36,9 @@ let _ = yojson_of_settings__acl
 
 [@@@deriving.end]
 
-type settings = { acl : settings__acl list }
+type settings = {
+  acl : settings__acl list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : settings) -> ()
@@ -48,8 +50,13 @@ let yojson_of_settings =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_settings__acl v_acl in
-         ("acl", arg) :: bnds
+         if [] = v_acl then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings__acl) v_acl
+           in
+           let bnd = "acl", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)

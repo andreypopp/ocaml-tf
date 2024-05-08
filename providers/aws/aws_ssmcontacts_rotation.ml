@@ -70,6 +70,7 @@ let _ = yojson_of_recurrence__monthly_settings__hand_off_time
 type recurrence__monthly_settings = {
   day_of_month : float prop;
   hand_off_time : recurrence__monthly_settings__hand_off_time list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -85,12 +86,15 @@ let yojson_of_recurrence__monthly_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_recurrence__monthly_settings__hand_off_time
-             v_hand_off_time
-         in
-         ("hand_off_time", arg) :: bnds
+         if [] = v_hand_off_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_recurrence__monthly_settings__hand_off_time)
+               v_hand_off_time
+           in
+           let bnd = "hand_off_time", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_day_of_month in
@@ -174,8 +178,9 @@ let _ = yojson_of_recurrence__shift_coverages__coverage_times__start
 
 type recurrence__shift_coverages__coverage_times = {
   end_ : recurrence__shift_coverages__coverage_times__end list;
-      [@key "end"]
+      [@key "end"] [@default []] [@yojson_drop_default ( = )]
   start : recurrence__shift_coverages__coverage_times__start list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -188,20 +193,26 @@ let yojson_of_recurrence__shift_coverages__coverage_times =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_recurrence__shift_coverages__coverage_times__start
-             v_start
-         in
-         ("start", arg) :: bnds
+         if [] = v_start then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_recurrence__shift_coverages__coverage_times__start)
+               v_start
+           in
+           let bnd = "start", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_recurrence__shift_coverages__coverage_times__end
-             v_end_
-         in
-         ("end", arg) :: bnds
+         if [] = v_end_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_recurrence__shift_coverages__coverage_times__end)
+               v_end_
+           in
+           let bnd = "end", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : recurrence__shift_coverages__coverage_times ->
@@ -214,6 +225,7 @@ let _ = yojson_of_recurrence__shift_coverages__coverage_times
 type recurrence__shift_coverages = {
   map_block_key : string prop;
   coverage_times : recurrence__shift_coverages__coverage_times list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -229,12 +241,15 @@ let yojson_of_recurrence__shift_coverages =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_recurrence__shift_coverages__coverage_times
-             v_coverage_times
-         in
-         ("coverage_times", arg) :: bnds
+         if [] = v_coverage_times then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_recurrence__shift_coverages__coverage_times)
+               v_coverage_times
+           in
+           let bnd = "coverage_times", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_map_block_key in
@@ -284,6 +299,7 @@ let _ = yojson_of_recurrence__weekly_settings__hand_off_time
 type recurrence__weekly_settings = {
   day_of_week : string prop;
   hand_off_time : recurrence__weekly_settings__hand_off_time list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -297,12 +313,15 @@ let yojson_of_recurrence__weekly_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_recurrence__weekly_settings__hand_off_time
-             v_hand_off_time
-         in
-         ("hand_off_time", arg) :: bnds
+         if [] = v_hand_off_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_recurrence__weekly_settings__hand_off_time)
+               v_hand_off_time
+           in
+           let bnd = "hand_off_time", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_day_of_week in
@@ -320,9 +339,13 @@ type recurrence = {
   number_of_on_calls : float prop;
   recurrence_multiplier : float prop;
   daily_settings : recurrence__daily_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   monthly_settings : recurrence__monthly_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   shift_coverages : recurrence__shift_coverages list;
+      [@default []] [@yojson_drop_default ( = )]
   weekly_settings : recurrence__weekly_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -342,32 +365,44 @@ let yojson_of_recurrence =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurrence__weekly_settings
-             v_weekly_settings
-         in
-         ("weekly_settings", arg) :: bnds
+         if [] = v_weekly_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recurrence__weekly_settings)
+               v_weekly_settings
+           in
+           let bnd = "weekly_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurrence__shift_coverages
-             v_shift_coverages
-         in
-         ("shift_coverages", arg) :: bnds
+         if [] = v_shift_coverages then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recurrence__shift_coverages)
+               v_shift_coverages
+           in
+           let bnd = "shift_coverages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurrence__monthly_settings
-             v_monthly_settings
-         in
-         ("monthly_settings", arg) :: bnds
+         if [] = v_monthly_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recurrence__monthly_settings)
+               v_monthly_settings
+           in
+           let bnd = "monthly_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurrence__daily_settings
-             v_daily_settings
-         in
-         ("daily_settings", arg) :: bnds
+         if [] = v_daily_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recurrence__daily_settings)
+               v_daily_settings
+           in
+           let bnd = "daily_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -390,11 +425,13 @@ let _ = yojson_of_recurrence
 
 type aws_ssmcontacts_rotation = {
   contact_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   start_time : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   time_zone_id : string prop;
   recurrence : recurrence list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -414,10 +451,13 @@ let yojson_of_aws_ssmcontacts_rotation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurrence v_recurrence
-         in
-         ("recurrence", arg) :: bnds
+         if [] = v_recurrence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recurrence) v_recurrence
+           in
+           let bnd = "recurrence", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_time_zone_id in
@@ -452,12 +492,14 @@ let yojson_of_aws_ssmcontacts_rotation =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_contact_ids
-         in
-         ("contact_ids", arg) :: bnds
+         if [] = v_contact_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_contact_ids
+           in
+           let bnd = "contact_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_ssmcontacts_rotation -> Ppx_yojson_conv_lib.Yojson.Safe.t)

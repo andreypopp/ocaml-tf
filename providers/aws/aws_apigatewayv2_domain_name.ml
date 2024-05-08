@@ -139,7 +139,9 @@ type aws_apigatewayv2_domain_name = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   domain_name_configuration : domain_name_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   mutual_tls_authentication : mutual_tls_authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -165,18 +167,24 @@ let yojson_of_aws_apigatewayv2_domain_name =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mutual_tls_authentication
-             v_mutual_tls_authentication
-         in
-         ("mutual_tls_authentication", arg) :: bnds
+         if [] = v_mutual_tls_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mutual_tls_authentication)
+               v_mutual_tls_authentication
+           in
+           let bnd = "mutual_tls_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_domain_name_configuration
-             v_domain_name_configuration
-         in
-         ("domain_name_configuration", arg) :: bnds
+         if [] = v_domain_name_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_domain_name_configuration)
+               v_domain_name_configuration
+           in
+           let bnd = "domain_name_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

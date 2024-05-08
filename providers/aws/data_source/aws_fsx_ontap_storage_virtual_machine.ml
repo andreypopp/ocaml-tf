@@ -2,7 +2,11 @@
 
 open! Tf_core
 
-type filter = { name : string prop; values : string prop list }
+type filter = {
+  name : string prop;
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : filter) -> ()
@@ -14,10 +18,14 @@ let yojson_of_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -32,6 +40,7 @@ let _ = yojson_of_filter
 
 type active_directory_configuration__self_managed_active_directory_configuration = {
   dns_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   domain_name : string prop;
   file_system_administrators_group : string prop;
   organizational_unit_distinguished_name : string prop;
@@ -82,10 +91,14 @@ let yojson_of_active_directory_configuration__self_managed_active_directory_conf
          ("domain_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_dns_ips
-         in
-         ("dns_ips", arg) :: bnds
+         if [] = v_dns_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_dns_ips
+           in
+           let bnd = "dns_ips", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : active_directory_configuration__self_managed_active_directory_configuration ->
@@ -101,6 +114,7 @@ type active_directory_configuration = {
   self_managed_active_directory_configuration :
     active_directory_configuration__self_managed_active_directory_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -117,12 +131,18 @@ let yojson_of_active_directory_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_active_directory_configuration__self_managed_active_directory_configuration
-             v_self_managed_active_directory_configuration
-         in
-         ("self_managed_active_directory_configuration", arg) :: bnds
+         if [] = v_self_managed_active_directory_configuration then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_active_directory_configuration__self_managed_active_directory_configuration)
+               v_self_managed_active_directory_configuration
+           in
+           let bnd =
+             "self_managed_active_directory_configuration", arg
+           in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_netbios_name in
@@ -139,6 +159,7 @@ let _ = yojson_of_active_directory_configuration
 type endpoints__smb = {
   dns_name : string prop;
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -151,12 +172,14 @@ let yojson_of_endpoints__smb =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_dns_name in
@@ -172,6 +195,7 @@ let _ = yojson_of_endpoints__smb
 type endpoints__nfs = {
   dns_name : string prop;
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,12 +208,14 @@ let yojson_of_endpoints__nfs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_dns_name in
@@ -205,6 +231,7 @@ let _ = yojson_of_endpoints__nfs
 type endpoints__management = {
   dns_name : string prop;
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -217,12 +244,14 @@ let yojson_of_endpoints__management =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_dns_name in
@@ -238,6 +267,7 @@ let _ = yojson_of_endpoints__management
 type endpoints__iscsi = {
   dns_name : string prop;
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -250,12 +280,14 @@ let yojson_of_endpoints__iscsi =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_dns_name in
@@ -270,9 +302,13 @@ let _ = yojson_of_endpoints__iscsi
 
 type endpoints = {
   iscsi : endpoints__iscsi list;
+      [@default []] [@yojson_drop_default ( = )]
   management : endpoints__management list;
+      [@default []] [@yojson_drop_default ( = )]
   nfs : endpoints__nfs list;
+      [@default []] [@yojson_drop_default ( = )]
   smb : endpoints__smb list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -290,25 +326,41 @@ let yojson_of_endpoints =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_endpoints__smb v_smb in
-         ("smb", arg) :: bnds
+         if [] = v_smb then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoints__smb) v_smb
+           in
+           let bnd = "smb", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_endpoints__nfs v_nfs in
-         ("nfs", arg) :: bnds
+         if [] = v_nfs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoints__nfs) v_nfs
+           in
+           let bnd = "nfs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoints__management
-             v_management
-         in
-         ("management", arg) :: bnds
+         if [] = v_management then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoints__management)
+               v_management
+           in
+           let bnd = "management", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoints__iscsi v_iscsi
-         in
-         ("iscsi", arg) :: bnds
+         if [] = v_iscsi then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoints__iscsi) v_iscsi
+           in
+           let bnd = "iscsi", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : endpoints -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -343,7 +395,7 @@ let _ = yojson_of_lifecycle_transition_reason
 type aws_fsx_ontap_storage_virtual_machine = {
   id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
-  filter : filter list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -356,8 +408,11 @@ let yojson_of_aws_fsx_ontap_storage_virtual_machine =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

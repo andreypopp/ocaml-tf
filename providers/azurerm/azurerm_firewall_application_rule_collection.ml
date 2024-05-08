@@ -39,6 +39,7 @@ type rule = {
   source_ip_groups : string prop list option; [@option]
   target_fqdns : string prop list option; [@option]
   protocol : rule__protocol list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,10 +60,13 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__protocol v_protocol
-         in
-         ("protocol", arg) :: bnds
+         if [] = v_protocol then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__protocol) v_protocol
+           in
+           let bnd = "protocol", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_fqdns with
@@ -190,7 +194,7 @@ type azurerm_firewall_application_rule_collection = {
   name : string prop;
   priority : float prop;
   resource_group_name : string prop;
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -217,8 +221,11 @@ let yojson_of_azurerm_firewall_application_rule_collection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

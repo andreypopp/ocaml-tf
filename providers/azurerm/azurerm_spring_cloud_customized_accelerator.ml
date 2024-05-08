@@ -86,7 +86,9 @@ type git_repository = {
   path : string prop option; [@option]
   url : string prop;
   basic_auth : git_repository__basic_auth list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_auth : git_repository__ssh_auth list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,18 +111,24 @@ let yojson_of_git_repository =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_git_repository__ssh_auth
-             v_ssh_auth
-         in
-         ("ssh_auth", arg) :: bnds
+         if [] = v_ssh_auth then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_git_repository__ssh_auth)
+               v_ssh_auth
+           in
+           let bnd = "ssh_auth", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_git_repository__basic_auth
-             v_basic_auth
-         in
-         ("basic_auth", arg) :: bnds
+         if [] = v_basic_auth then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_git_repository__basic_auth)
+               v_basic_auth
+           in
+           let bnd = "basic_auth", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_url in
@@ -251,6 +259,7 @@ type azurerm_spring_cloud_customized_accelerator = {
   name : string prop;
   spring_cloud_accelerator_id : string prop;
   git_repository : git_repository list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -279,10 +288,14 @@ let yojson_of_azurerm_spring_cloud_customized_accelerator =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_git_repository v_git_repository
-         in
-         ("git_repository", arg) :: bnds
+         if [] = v_git_repository then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_git_repository)
+               v_git_repository
+           in
+           let bnd = "git_repository", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

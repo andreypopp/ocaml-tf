@@ -135,7 +135,9 @@ type google_storage_bucket_object = {
   storage_class : string prop option; [@option]
   temporary_hold : bool prop option; [@option]
   customer_encryption : customer_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   retention : retention list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -173,15 +175,23 @@ let yojson_of_google_storage_bucket_object =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_retention v_retention in
-         ("retention", arg) :: bnds
+         if [] = v_retention then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention) v_retention
+           in
+           let bnd = "retention", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_customer_encryption
-             v_customer_encryption
-         in
-         ("customer_encryption", arg) :: bnds
+         if [] = v_customer_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_customer_encryption)
+               v_customer_encryption
+           in
+           let bnd = "customer_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_temporary_hold with

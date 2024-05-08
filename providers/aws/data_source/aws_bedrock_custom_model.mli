@@ -17,6 +17,7 @@ type validation_data_config__validator = {
 
 type validation_data_config = {
   validator : validation_data_config__validator list;
+      [@default []] [@yojson_drop_default ( = )]
       (** validator *)
 }
 

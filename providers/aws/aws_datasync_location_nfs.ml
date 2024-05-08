@@ -28,7 +28,10 @@ let _ = yojson_of_mount_options
 
 [@@@deriving.end]
 
-type on_prem_config = { agent_arns : string prop list }
+type on_prem_config = {
+  agent_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : on_prem_config) -> ()
@@ -40,12 +43,14 @@ let yojson_of_on_prem_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_agent_arns
-         in
-         ("agent_arns", arg) :: bnds
+         if [] = v_agent_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_agent_arns
+           in
+           let bnd = "agent_arns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : on_prem_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -61,7 +66,9 @@ type aws_datasync_location_nfs = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   mount_options : mount_options list;
+      [@default []] [@yojson_drop_default ( = )]
   on_prem_config : on_prem_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,16 +89,23 @@ let yojson_of_aws_datasync_location_nfs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_on_prem_config v_on_prem_config
-         in
-         ("on_prem_config", arg) :: bnds
+         if [] = v_on_prem_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_on_prem_config)
+               v_on_prem_config
+           in
+           let bnd = "on_prem_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mount_options v_mount_options
-         in
-         ("mount_options", arg) :: bnds
+         if [] = v_mount_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mount_options) v_mount_options
+           in
+           let bnd = "mount_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

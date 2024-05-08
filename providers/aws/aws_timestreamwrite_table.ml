@@ -72,6 +72,7 @@ type magnetic_store_write_properties__magnetic_store_rejected_data_location = {
   s3_configuration :
     magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,12 +89,15 @@ let yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_loca
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration
-             v_s3_configuration
-         in
-         ("s3_configuration", arg) :: bnds
+         if [] = v_s3_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration)
+               v_s3_configuration
+           in
+           let bnd = "s3_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : magnetic_store_write_properties__magnetic_store_rejected_data_location ->
@@ -109,6 +113,7 @@ type magnetic_store_write_properties = {
   magnetic_store_rejected_data_location :
     magnetic_store_write_properties__magnetic_store_rejected_data_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -125,12 +130,15 @@ let yojson_of_magnetic_store_write_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_location
-             v_magnetic_store_rejected_data_location
-         in
-         ("magnetic_store_rejected_data_location", arg) :: bnds
+         if [] = v_magnetic_store_rejected_data_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_location)
+               v_magnetic_store_rejected_data_location
+           in
+           let bnd = "magnetic_store_rejected_data_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enable_magnetic_store_writes with
@@ -237,6 +245,7 @@ let _ = yojson_of_schema__composite_partition_key
 
 type schema = {
   composite_partition_key : schema__composite_partition_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -249,11 +258,15 @@ let yojson_of_schema =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema__composite_partition_key
-             v_composite_partition_key
-         in
-         ("composite_partition_key", arg) :: bnds
+         if [] = v_composite_partition_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_schema__composite_partition_key)
+               v_composite_partition_key
+           in
+           let bnd = "composite_partition_key", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : schema -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -270,8 +283,10 @@ type aws_timestreamwrite_table = {
   tags_all : (string * string prop) list option; [@option]
   magnetic_store_write_properties :
     magnetic_store_write_properties list;
+      [@default []] [@yojson_drop_default ( = )]
   retention_properties : retention_properties list;
-  schema : schema list;
+      [@default []] [@yojson_drop_default ( = )]
+  schema : schema list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -294,22 +309,32 @@ let yojson_of_aws_timestreamwrite_table =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_schema v_schema in
-         ("schema", arg) :: bnds
+         if [] = v_schema then bnds
+         else
+           let arg = (yojson_of_list yojson_of_schema) v_schema in
+           let bnd = "schema", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_properties
-             v_retention_properties
-         in
-         ("retention_properties", arg) :: bnds
+         if [] = v_retention_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_properties)
+               v_retention_properties
+           in
+           let bnd = "retention_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_magnetic_store_write_properties
-             v_magnetic_store_write_properties
-         in
-         ("magnetic_store_write_properties", arg) :: bnds
+         if [] = v_magnetic_store_write_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_magnetic_store_write_properties)
+               v_magnetic_store_write_properties
+           in
+           let bnd = "magnetic_store_write_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

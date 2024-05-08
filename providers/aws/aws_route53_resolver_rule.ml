@@ -99,6 +99,7 @@ type aws_route53_resolver_rule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   target_ip : target_ip list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -126,8 +127,13 @@ let yojson_of_aws_route53_resolver_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_target_ip v_target_ip in
-         ("target_ip", arg) :: bnds
+         if [] = v_target_ip then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_ip) v_target_ip
+           in
+           let bnd = "target_ip", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

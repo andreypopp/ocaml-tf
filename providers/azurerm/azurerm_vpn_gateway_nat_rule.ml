@@ -143,7 +143,9 @@ type azurerm_vpn_gateway_nat_rule = {
   type_ : string prop option; [@option] [@key "type"]
   vpn_gateway_id : string prop;
   external_mapping : external_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
   internal_mapping : internal_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -176,18 +178,24 @@ let yojson_of_azurerm_vpn_gateway_nat_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_internal_mapping
-             v_internal_mapping
-         in
-         ("internal_mapping", arg) :: bnds
+         if [] = v_internal_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_internal_mapping)
+               v_internal_mapping
+           in
+           let bnd = "internal_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_external_mapping
-             v_external_mapping
-         in
-         ("external_mapping", arg) :: bnds
+         if [] = v_external_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_external_mapping)
+               v_external_mapping
+           in
+           let bnd = "external_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

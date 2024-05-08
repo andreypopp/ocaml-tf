@@ -100,7 +100,10 @@ let _ = yojson_of_source__rule_set__rule
 
 [@@@deriving.end]
 
-type source__rule_set = { rule : source__rule_set__rule list }
+type source__rule_set = {
+  rule : source__rule_set__rule list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : source__rule_set) -> ()
@@ -112,10 +115,13 @@ let yojson_of_source__rule_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__rule_set__rule v_rule
-         in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__rule_set__rule) v_rule
+           in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : source__rule_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -127,6 +133,7 @@ let _ = yojson_of_source__rule_set
 type source = {
   event_source : string prop;
   rule_set : source__rule_set list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -139,10 +146,13 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__rule_set v_rule_set
-         in
-         ("rule_set", arg) :: bnds
+         if [] = v_rule_set then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__rule_set) v_rule_set
+           in
+           let bnd = "rule_set", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_event_source in
@@ -223,9 +233,10 @@ type azurerm_security_center_automation = {
   name : string prop;
   resource_group_name : string prop;
   scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
-  action : action list;
-  source : source list;
+  action : action list; [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -255,12 +266,18 @@ let yojson_of_azurerm_security_center_automation =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg = (yojson_of_list yojson_of_action) v_action in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -279,10 +296,14 @@ let yojson_of_azurerm_security_center_automation =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
-         in
-         ("scopes", arg) :: bnds
+         if [] = v_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scopes
+           in
+           let bnd = "scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

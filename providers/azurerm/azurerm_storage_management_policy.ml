@@ -466,8 +466,11 @@ let _ = yojson_of_rule__actions__version
 
 type rule__actions = {
   base_blob : rule__actions__base_blob list;
+      [@default []] [@yojson_drop_default ( = )]
   snapshot : rule__actions__snapshot list;
+      [@default []] [@yojson_drop_default ( = )]
   version : rule__actions__version list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -484,24 +487,34 @@ let yojson_of_rule__actions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__actions__version v_version
-         in
-         ("version", arg) :: bnds
+         if [] = v_version then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__actions__version)
+               v_version
+           in
+           let bnd = "version", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__actions__snapshot
-             v_snapshot
-         in
-         ("snapshot", arg) :: bnds
+         if [] = v_snapshot then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__actions__snapshot)
+               v_snapshot
+           in
+           let bnd = "snapshot", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__actions__base_blob
-             v_base_blob
-         in
-         ("base_blob", arg) :: bnds
+         if [] = v_base_blob then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__actions__base_blob)
+               v_base_blob
+           in
+           let bnd = "base_blob", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rule__actions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -551,8 +564,10 @@ let _ = yojson_of_rule__filters__match_blob_index_tag
 
 type rule__filters = {
   blob_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix_match : string prop list option; [@option]
   match_blob_index_tag : rule__filters__match_blob_index_tag list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -569,12 +584,15 @@ let yojson_of_rule__filters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__filters__match_blob_index_tag
-             v_match_blob_index_tag
-         in
-         ("match_blob_index_tag", arg) :: bnds
+         if [] = v_match_blob_index_tag then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__filters__match_blob_index_tag)
+               v_match_blob_index_tag
+           in
+           let bnd = "match_blob_index_tag", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_prefix_match with
@@ -587,12 +605,14 @@ let yojson_of_rule__filters =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_blob_types
-         in
-         ("blob_types", arg) :: bnds
+         if [] = v_blob_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_blob_types
+           in
+           let bnd = "blob_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rule__filters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -605,7 +625,9 @@ type rule = {
   enabled : bool prop;
   name : string prop;
   actions : rule__actions list;
+      [@default []] [@yojson_drop_default ( = )]
   filters : rule__filters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -623,16 +645,22 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__filters v_filters
-         in
-         ("filters", arg) :: bnds
+         if [] = v_filters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__filters) v_filters
+           in
+           let bnd = "filters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__actions v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__actions) v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -712,7 +740,7 @@ let _ = yojson_of_timeouts
 type azurerm_storage_management_policy = {
   id : string prop option; [@option]
   storage_account_id : string prop;
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -735,8 +763,11 @@ let yojson_of_azurerm_storage_management_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

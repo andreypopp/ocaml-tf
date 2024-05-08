@@ -37,6 +37,7 @@ type scheduled_agent_updates = {
   timezone : string prop option; [@option]
   use_session_host_timezone : bool prop option; [@option]
   schedule : scheduled_agent_updates__schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,11 +55,15 @@ let yojson_of_scheduled_agent_updates =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scheduled_agent_updates__schedule
-             v_schedule
-         in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scheduled_agent_updates__schedule)
+               v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_session_host_timezone with
@@ -169,6 +174,7 @@ type azurerm_virtual_desktop_host_pool = {
   validate_environment : bool prop option; [@option]
   vm_template : string prop option; [@option]
   scheduled_agent_updates : scheduled_agent_updates list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -206,11 +212,14 @@ let yojson_of_azurerm_virtual_desktop_host_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scheduled_agent_updates
-             v_scheduled_agent_updates
-         in
-         ("scheduled_agent_updates", arg) :: bnds
+         if [] = v_scheduled_agent_updates then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scheduled_agent_updates)
+               v_scheduled_agent_updates
+           in
+           let bnd = "scheduled_agent_updates", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vm_template with

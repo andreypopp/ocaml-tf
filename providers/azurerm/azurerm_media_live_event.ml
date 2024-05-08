@@ -184,6 +184,7 @@ type input = {
   key_frame_interval_duration : string prop option; [@option]
   streaming_protocol : string prop option; [@option]
   ip_access_control_allow : input__ip_access_control_allow list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,11 +202,14 @@ let yojson_of_input =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_input__ip_access_control_allow
-             v_ip_access_control_allow
-         in
-         ("ip_access_control_allow", arg) :: bnds
+         if [] = v_ip_access_control_allow then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_input__ip_access_control_allow)
+               v_ip_access_control_allow
+           in
+           let bnd = "ip_access_control_allow", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_streaming_protocol with
@@ -323,6 +327,7 @@ type preview = {
   preview_locator : string prop option; [@option]
   streaming_policy_name : string prop option; [@option]
   ip_access_control_allow : preview__ip_access_control_allow list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -340,11 +345,15 @@ let yojson_of_preview =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_preview__ip_access_control_allow
-             v_ip_access_control_allow
-         in
-         ("ip_access_control_allow", arg) :: bnds
+         if [] = v_ip_access_control_allow then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_preview__ip_access_control_allow)
+               v_ip_access_control_allow
+           in
+           let bnd = "ip_access_control_allow", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_streaming_policy_name with
@@ -451,9 +460,11 @@ type azurerm_media_live_event = {
   transcription_languages : string prop list option; [@option]
   use_static_hostname : bool prop option; [@option]
   cross_site_access_policy : cross_site_access_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   encoding : encoding list;
-  input : input list;
-  preview : preview list;
+      [@default []] [@yojson_drop_default ( = )]
+  input : input list; [@default []] [@yojson_drop_default ( = )]
+  preview : preview list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -489,23 +500,37 @@ let yojson_of_azurerm_media_live_event =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_preview v_preview in
-         ("preview", arg) :: bnds
+         if [] = v_preview then bnds
+         else
+           let arg = (yojson_of_list yojson_of_preview) v_preview in
+           let bnd = "preview", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_input v_input in
-         ("input", arg) :: bnds
+         if [] = v_input then bnds
+         else
+           let arg = (yojson_of_list yojson_of_input) v_input in
+           let bnd = "input", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_encoding v_encoding in
-         ("encoding", arg) :: bnds
+         if [] = v_encoding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encoding) v_encoding
+           in
+           let bnd = "encoding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cross_site_access_policy
-             v_cross_site_access_policy
-         in
-         ("cross_site_access_policy", arg) :: bnds
+         if [] = v_cross_site_access_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cross_site_access_policy)
+               v_cross_site_access_policy
+           in
+           let bnd = "cross_site_access_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_static_hostname with

@@ -92,8 +92,11 @@ let _ = yojson_of_dataset__sorting
 type dataset = {
   granularity : string prop;
   aggregation : dataset__aggregation list;
+      [@default []] [@yojson_drop_default ( = )]
   grouping : dataset__grouping list;
+      [@default []] [@yojson_drop_default ( = )]
   sorting : dataset__sorting list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -111,23 +114,32 @@ let yojson_of_dataset =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dataset__sorting v_sorting
-         in
-         ("sorting", arg) :: bnds
+         if [] = v_sorting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dataset__sorting) v_sorting
+           in
+           let bnd = "sorting", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dataset__grouping v_grouping
-         in
-         ("grouping", arg) :: bnds
+         if [] = v_grouping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dataset__grouping) v_grouping
+           in
+           let bnd = "grouping", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dataset__aggregation
-             v_aggregation
-         in
-         ("aggregation", arg) :: bnds
+         if [] = v_aggregation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dataset__aggregation)
+               v_aggregation
+           in
+           let bnd = "aggregation", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_granularity in
@@ -260,9 +272,9 @@ type azurerm_subscription_cost_management_view = {
   report_type : string prop;
   subscription_id : string prop;
   timeframe : string prop;
-  dataset : dataset list;
-  kpi : kpi list;
-  pivot : pivot list;
+  dataset : dataset list; [@default []] [@yojson_drop_default ( = )]
+  kpi : kpi list; [@default []] [@yojson_drop_default ( = )]
+  pivot : pivot list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -293,16 +305,25 @@ let yojson_of_azurerm_subscription_cost_management_view =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_pivot v_pivot in
-         ("pivot", arg) :: bnds
+         if [] = v_pivot then bnds
+         else
+           let arg = (yojson_of_list yojson_of_pivot) v_pivot in
+           let bnd = "pivot", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_kpi v_kpi in
-         ("kpi", arg) :: bnds
+         if [] = v_kpi then bnds
+         else
+           let arg = (yojson_of_list yojson_of_kpi) v_kpi in
+           let bnd = "kpi", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_dataset v_dataset in
-         ("dataset", arg) :: bnds
+         if [] = v_dataset then bnds
+         else
+           let arg = (yojson_of_list yojson_of_dataset) v_dataset in
+           let bnd = "dataset", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_timeframe in

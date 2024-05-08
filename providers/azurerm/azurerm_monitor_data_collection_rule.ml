@@ -5,8 +5,10 @@ open! Tf_core
 type data_flow = {
   built_in_transform : string prop option; [@option]
   destinations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   output_stream : string prop option; [@option]
   streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   transform_kql : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -34,10 +36,14 @@ let yojson_of_data_flow =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_streams
-         in
-         ("streams", arg) :: bnds
+         if [] = v_streams then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_streams
+           in
+           let bnd = "streams", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_output_stream with
@@ -48,12 +54,14 @@ let yojson_of_data_flow =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destinations
-         in
-         ("destinations", arg) :: bnds
+         if [] = v_destinations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destinations
+           in
+           let bnd = "destinations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_built_in_transform with
@@ -117,6 +125,7 @@ let _ = yojson_of_data_sources__data_import__event_hub_data_source
 type data_sources__data_import = {
   event_hub_data_source :
     data_sources__data_import__event_hub_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -129,12 +138,15 @@ let yojson_of_data_sources__data_import =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_sources__data_import__event_hub_data_source
-             v_event_hub_data_source
-         in
-         ("event_hub_data_source", arg) :: bnds
+         if [] = v_event_hub_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_sources__data_import__event_hub_data_source)
+               v_event_hub_data_source
+           in
+           let bnd = "event_hub_data_source", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_sources__data_import -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -149,6 +161,7 @@ type data_sources__extension = {
   input_data_sources : string prop list option; [@option]
   name : string prop;
   streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,10 +180,14 @@ let yojson_of_data_sources__extension =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_streams
-         in
-         ("streams", arg) :: bnds
+         if [] = v_streams then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_streams
+           in
+           let bnd = "streams", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -211,6 +228,7 @@ type data_sources__iis_log = {
   log_directories : string prop list option; [@option]
   name : string prop;
   streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -227,10 +245,14 @@ let yojson_of_data_sources__iis_log =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_streams
-         in
-         ("streams", arg) :: bnds
+         if [] = v_streams then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_streams
+           in
+           let bnd = "streams", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -286,6 +308,7 @@ let _ = yojson_of_data_sources__log_file__settings__text
 
 type data_sources__log_file__settings = {
   text : data_sources__log_file__settings__text list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -298,11 +321,15 @@ let yojson_of_data_sources__log_file__settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_sources__log_file__settings__text v_text
-         in
-         ("text", arg) :: bnds
+         if [] = v_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_sources__log_file__settings__text)
+               v_text
+           in
+           let bnd = "text", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_sources__log_file__settings ->
@@ -314,10 +341,13 @@ let _ = yojson_of_data_sources__log_file__settings
 
 type data_sources__log_file = {
   file_patterns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   format : string prop;
   name : string prop;
   streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   settings : data_sources__log_file__settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -336,17 +366,25 @@ let yojson_of_data_sources__log_file =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_sources__log_file__settings
-             v_settings
-         in
-         ("settings", arg) :: bnds
+         if [] = v_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_sources__log_file__settings)
+               v_settings
+           in
+           let bnd = "settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_streams
-         in
-         ("streams", arg) :: bnds
+         if [] = v_streams then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_streams
+           in
+           let bnd = "streams", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -357,12 +395,14 @@ let yojson_of_data_sources__log_file =
          ("format", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_file_patterns
-         in
-         ("file_patterns", arg) :: bnds
+         if [] = v_file_patterns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_file_patterns
+           in
+           let bnd = "file_patterns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_sources__log_file -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -373,9 +413,11 @@ let _ = yojson_of_data_sources__log_file
 
 type data_sources__performance_counter = {
   counter_specifiers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   sampling_frequency_in_seconds : float prop;
   streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -394,10 +436,14 @@ let yojson_of_data_sources__performance_counter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_streams
-         in
-         ("streams", arg) :: bnds
+         if [] = v_streams then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_streams
+           in
+           let bnd = "streams", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -411,12 +457,14 @@ let yojson_of_data_sources__performance_counter =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_counter_specifiers
-         in
-         ("counter_specifiers", arg) :: bnds
+         if [] = v_counter_specifiers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_counter_specifiers
+           in
+           let bnd = "counter_specifiers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_sources__performance_counter ->
@@ -429,6 +477,7 @@ let _ = yojson_of_data_sources__performance_counter
 type data_sources__platform_telemetry = {
   name : string prop;
   streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -441,10 +490,14 @@ let yojson_of_data_sources__platform_telemetry =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_streams
-         in
-         ("streams", arg) :: bnds
+         if [] = v_streams then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_streams
+           in
+           let bnd = "streams", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -495,8 +548,10 @@ let _ =
 type data_sources__prometheus_forwarder = {
   name : string prop;
   streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   label_include_filter :
     data_sources__prometheus_forwarder__label_include_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -513,18 +568,25 @@ let yojson_of_data_sources__prometheus_forwarder =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_sources__prometheus_forwarder__label_include_filter
-             v_label_include_filter
-         in
-         ("label_include_filter", arg) :: bnds
+         if [] = v_label_include_filter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_sources__prometheus_forwarder__label_include_filter)
+               v_label_include_filter
+           in
+           let bnd = "label_include_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_streams
-         in
-         ("streams", arg) :: bnds
+         if [] = v_streams then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_streams
+           in
+           let bnd = "streams", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -540,7 +602,9 @@ let _ = yojson_of_data_sources__prometheus_forwarder
 
 type data_sources__syslog = {
   facility_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   log_levels : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   streams : string prop list option; [@option]
 }
@@ -574,20 +638,24 @@ let yojson_of_data_sources__syslog =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_log_levels
-         in
-         ("log_levels", arg) :: bnds
+         if [] = v_log_levels then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_log_levels
+           in
+           let bnd = "log_levels", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_facility_names
-         in
-         ("facility_names", arg) :: bnds
+         if [] = v_facility_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_facility_names
+           in
+           let bnd = "facility_names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_sources__syslog -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -599,7 +667,9 @@ let _ = yojson_of_data_sources__syslog
 type data_sources__windows_event_log = {
   name : string prop;
   streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_path_queries : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -616,18 +686,24 @@ let yojson_of_data_sources__windows_event_log =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_path_queries
-         in
-         ("x_path_queries", arg) :: bnds
+         if [] = v_x_path_queries then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_path_queries
+           in
+           let bnd = "x_path_queries", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_streams
-         in
-         ("streams", arg) :: bnds
+         if [] = v_streams then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_streams
+           in
+           let bnd = "streams", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -644,6 +720,7 @@ let _ = yojson_of_data_sources__windows_event_log
 type data_sources__windows_firewall_log = {
   name : string prop;
   streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -656,10 +733,14 @@ let yojson_of_data_sources__windows_firewall_log =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_streams
-         in
-         ("streams", arg) :: bnds
+         if [] = v_streams then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_streams
+           in
+           let bnd = "streams", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -675,15 +756,25 @@ let _ = yojson_of_data_sources__windows_firewall_log
 
 type data_sources = {
   data_import : data_sources__data_import list;
+      [@default []] [@yojson_drop_default ( = )]
   extension : data_sources__extension list;
+      [@default []] [@yojson_drop_default ( = )]
   iis_log : data_sources__iis_log list;
+      [@default []] [@yojson_drop_default ( = )]
   log_file : data_sources__log_file list;
+      [@default []] [@yojson_drop_default ( = )]
   performance_counter : data_sources__performance_counter list;
+      [@default []] [@yojson_drop_default ( = )]
   platform_telemetry : data_sources__platform_telemetry list;
+      [@default []] [@yojson_drop_default ( = )]
   prometheus_forwarder : data_sources__prometheus_forwarder list;
+      [@default []] [@yojson_drop_default ( = )]
   syslog : data_sources__syslog list;
+      [@default []] [@yojson_drop_default ( = )]
   windows_event_log : data_sources__windows_event_log list;
+      [@default []] [@yojson_drop_default ( = )]
   windows_firewall_log : data_sources__windows_firewall_log list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -707,73 +798,108 @@ let yojson_of_data_sources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_sources__windows_firewall_log
-             v_windows_firewall_log
-         in
-         ("windows_firewall_log", arg) :: bnds
+         if [] = v_windows_firewall_log then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_sources__windows_firewall_log)
+               v_windows_firewall_log
+           in
+           let bnd = "windows_firewall_log", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_sources__windows_event_log
-             v_windows_event_log
-         in
-         ("windows_event_log", arg) :: bnds
+         if [] = v_windows_event_log then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_sources__windows_event_log)
+               v_windows_event_log
+           in
+           let bnd = "windows_event_log", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_sources__syslog v_syslog
-         in
-         ("syslog", arg) :: bnds
+         if [] = v_syslog then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_sources__syslog) v_syslog
+           in
+           let bnd = "syslog", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_sources__prometheus_forwarder
-             v_prometheus_forwarder
-         in
-         ("prometheus_forwarder", arg) :: bnds
+         if [] = v_prometheus_forwarder then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_sources__prometheus_forwarder)
+               v_prometheus_forwarder
+           in
+           let bnd = "prometheus_forwarder", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_sources__platform_telemetry
-             v_platform_telemetry
-         in
-         ("platform_telemetry", arg) :: bnds
+         if [] = v_platform_telemetry then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_sources__platform_telemetry)
+               v_platform_telemetry
+           in
+           let bnd = "platform_telemetry", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_sources__performance_counter
-             v_performance_counter
-         in
-         ("performance_counter", arg) :: bnds
+         if [] = v_performance_counter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_sources__performance_counter)
+               v_performance_counter
+           in
+           let bnd = "performance_counter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_sources__log_file v_log_file
-         in
-         ("log_file", arg) :: bnds
+         if [] = v_log_file then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_sources__log_file)
+               v_log_file
+           in
+           let bnd = "log_file", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_sources__iis_log v_iis_log
-         in
-         ("iis_log", arg) :: bnds
+         if [] = v_iis_log then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_sources__iis_log)
+               v_iis_log
+           in
+           let bnd = "iis_log", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_sources__extension
-             v_extension
-         in
-         ("extension", arg) :: bnds
+         if [] = v_extension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_sources__extension)
+               v_extension
+           in
+           let bnd = "extension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_sources__data_import
-             v_data_import
-         in
-         ("data_import", arg) :: bnds
+         if [] = v_data_import then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_sources__data_import)
+               v_data_import
+           in
+           let bnd = "data_import", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_sources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1059,13 +1185,21 @@ let _ = yojson_of_destinations__storage_table_direct
 
 type destinations = {
   azure_monitor_metrics : destinations__azure_monitor_metrics list;
+      [@default []] [@yojson_drop_default ( = )]
   event_hub : destinations__event_hub list;
+      [@default []] [@yojson_drop_default ( = )]
   event_hub_direct : destinations__event_hub_direct list;
+      [@default []] [@yojson_drop_default ( = )]
   log_analytics : destinations__log_analytics list;
+      [@default []] [@yojson_drop_default ( = )]
   monitor_account : destinations__monitor_account list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_blob : destinations__storage_blob list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_blob_direct : destinations__storage_blob_direct list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_table_direct : destinations__storage_table_direct list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1087,62 +1221,87 @@ let yojson_of_destinations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destinations__storage_table_direct
-             v_storage_table_direct
-         in
-         ("storage_table_direct", arg) :: bnds
+         if [] = v_storage_table_direct then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destinations__storage_table_direct)
+               v_storage_table_direct
+           in
+           let bnd = "storage_table_direct", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destinations__storage_blob_direct
-             v_storage_blob_direct
-         in
-         ("storage_blob_direct", arg) :: bnds
+         if [] = v_storage_blob_direct then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destinations__storage_blob_direct)
+               v_storage_blob_direct
+           in
+           let bnd = "storage_blob_direct", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destinations__storage_blob
-             v_storage_blob
-         in
-         ("storage_blob", arg) :: bnds
+         if [] = v_storage_blob then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destinations__storage_blob)
+               v_storage_blob
+           in
+           let bnd = "storage_blob", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destinations__monitor_account
-             v_monitor_account
-         in
-         ("monitor_account", arg) :: bnds
+         if [] = v_monitor_account then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destinations__monitor_account)
+               v_monitor_account
+           in
+           let bnd = "monitor_account", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destinations__log_analytics
-             v_log_analytics
-         in
-         ("log_analytics", arg) :: bnds
+         if [] = v_log_analytics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destinations__log_analytics)
+               v_log_analytics
+           in
+           let bnd = "log_analytics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destinations__event_hub_direct
-             v_event_hub_direct
-         in
-         ("event_hub_direct", arg) :: bnds
+         if [] = v_event_hub_direct then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destinations__event_hub_direct)
+               v_event_hub_direct
+           in
+           let bnd = "event_hub_direct", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destinations__event_hub
-             v_event_hub
-         in
-         ("event_hub", arg) :: bnds
+         if [] = v_event_hub then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destinations__event_hub)
+               v_event_hub
+           in
+           let bnd = "event_hub", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destinations__azure_monitor_metrics
-             v_azure_monitor_metrics
-         in
-         ("azure_monitor_metrics", arg) :: bnds
+         if [] = v_azure_monitor_metrics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destinations__azure_monitor_metrics)
+               v_azure_monitor_metrics
+           in
+           let bnd = "azure_monitor_metrics", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : destinations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1218,6 +1377,7 @@ let _ = yojson_of_stream_declaration__column
 type stream_declaration = {
   stream_name : string prop;
   column : stream_declaration__column list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1230,11 +1390,14 @@ let yojson_of_stream_declaration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stream_declaration__column
-             v_column
-         in
-         ("column", arg) :: bnds
+         if [] = v_column then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stream_declaration__column)
+               v_column
+           in
+           let bnd = "column", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_stream_name in
@@ -1317,10 +1480,15 @@ type azurerm_monitor_data_collection_rule = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   data_flow : data_flow list;
+      [@default []] [@yojson_drop_default ( = )]
   data_sources : data_sources list;
+      [@default []] [@yojson_drop_default ( = )]
   destinations : destinations list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   stream_declaration : stream_declaration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1353,31 +1521,50 @@ let yojson_of_azurerm_monitor_data_collection_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stream_declaration
-             v_stream_declaration
-         in
-         ("stream_declaration", arg) :: bnds
+         if [] = v_stream_declaration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stream_declaration)
+               v_stream_declaration
+           in
+           let bnd = "stream_declaration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destinations v_destinations
-         in
-         ("destinations", arg) :: bnds
+         if [] = v_destinations then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destinations) v_destinations
+           in
+           let bnd = "destinations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_sources v_data_sources
-         in
-         ("data_sources", arg) :: bnds
+         if [] = v_data_sources then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_sources) v_data_sources
+           in
+           let bnd = "data_sources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_data_flow v_data_flow in
-         ("data_flow", arg) :: bnds
+         if [] = v_data_flow then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_flow) v_data_flow
+           in
+           let bnd = "data_flow", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

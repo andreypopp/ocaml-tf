@@ -8,7 +8,9 @@ type nrt_template = {
   description : string prop;  (** description *)
   query : string prop;  (** query *)
   severity : string prop;  (** severity *)
-  tactics : string prop list;  (** tactics *)
+  tactics : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** tactics *)
 }
 
 type scheduled_template = {
@@ -17,7 +19,9 @@ type scheduled_template = {
   query_frequency : string prop;  (** query_frequency *)
   query_period : string prop;  (** query_period *)
   severity : string prop;  (** severity *)
-  tactics : string prop list;  (** tactics *)
+  tactics : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** tactics *)
   trigger_operator : string prop;  (** trigger_operator *)
   trigger_threshold : float prop;  (** trigger_threshold *)
 }

@@ -180,7 +180,9 @@ let _ = yojson_of_tracing_config
 type vpc_config = {
   ipv6_allowed_for_dual_stack : bool prop;
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -203,20 +205,24 @@ let yojson_of_vpc_config =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

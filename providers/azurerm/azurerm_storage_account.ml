@@ -79,6 +79,7 @@ type azure_files_authentication = {
   directory_type : string prop;
   active_directory :
     azure_files_authentication__active_directory list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,12 +95,15 @@ let yojson_of_azure_files_authentication =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_azure_files_authentication__active_directory
-             v_active_directory
-         in
-         ("active_directory", arg) :: bnds
+         if [] = v_active_directory then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_azure_files_authentication__active_directory)
+               v_active_directory
+           in
+           let bnd = "active_directory", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -146,9 +150,13 @@ let _ = yojson_of_blob_properties__container_delete_retention_policy
 
 type blob_properties__cors_rule = {
   allowed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   exposed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age_in_seconds : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -174,36 +182,44 @@ let yojson_of_blob_properties__cors_rule =
          ("max_age_in_seconds", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_exposed_headers
-         in
-         ("exposed_headers", arg) :: bnds
+         if [] = v_exposed_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_exposed_headers
+           in
+           let bnd = "exposed_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_methods
-         in
-         ("allowed_methods", arg) :: bnds
+         if [] = v_allowed_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_methods
+           in
+           let bnd = "allowed_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_headers
-         in
-         ("allowed_headers", arg) :: bnds
+         if [] = v_allowed_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_headers
+           in
+           let bnd = "allowed_headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : blob_properties__cors_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -272,10 +288,14 @@ type blob_properties = {
   versioning_enabled : bool prop option; [@option]
   container_delete_retention_policy :
     blob_properties__container_delete_retention_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   cors_rule : blob_properties__cors_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   delete_retention_policy :
     blob_properties__delete_retention_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   restore_policy : blob_properties__restore_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -300,34 +320,47 @@ let yojson_of_blob_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_blob_properties__restore_policy
-             v_restore_policy
-         in
-         ("restore_policy", arg) :: bnds
+         if [] = v_restore_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_blob_properties__restore_policy)
+               v_restore_policy
+           in
+           let bnd = "restore_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_blob_properties__delete_retention_policy
-             v_delete_retention_policy
-         in
-         ("delete_retention_policy", arg) :: bnds
+         if [] = v_delete_retention_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_blob_properties__delete_retention_policy)
+               v_delete_retention_policy
+           in
+           let bnd = "delete_retention_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_blob_properties__cors_rule
-             v_cors_rule
-         in
-         ("cors_rule", arg) :: bnds
+         if [] = v_cors_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_blob_properties__cors_rule)
+               v_cors_rule
+           in
+           let bnd = "cors_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_blob_properties__container_delete_retention_policy
-             v_container_delete_retention_policy
-         in
-         ("container_delete_retention_policy", arg) :: bnds
+         if [] = v_container_delete_retention_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_blob_properties__container_delete_retention_policy)
+               v_container_delete_retention_policy
+           in
+           let bnd = "container_delete_retention_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_versioning_enabled with
@@ -572,6 +605,7 @@ type network_rules = {
   ip_rules : string prop list option; [@option]
   virtual_network_subnet_ids : string prop list option; [@option]
   private_link_access : network_rules__private_link_access list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -590,12 +624,15 @@ let yojson_of_network_rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_rules__private_link_access
-             v_private_link_access
-         in
-         ("private_link_access", arg) :: bnds
+         if [] = v_private_link_access then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_rules__private_link_access)
+               v_private_link_access
+           in
+           let bnd = "private_link_access", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_network_subnet_ids with
@@ -642,9 +679,13 @@ let _ = yojson_of_network_rules
 
 type queue_properties__cors_rule = {
   allowed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   exposed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age_in_seconds : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -670,36 +711,44 @@ let yojson_of_queue_properties__cors_rule =
          ("max_age_in_seconds", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_exposed_headers
-         in
-         ("exposed_headers", arg) :: bnds
+         if [] = v_exposed_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_exposed_headers
+           in
+           let bnd = "exposed_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_methods
-         in
-         ("allowed_methods", arg) :: bnds
+         if [] = v_allowed_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_methods
+           in
+           let bnd = "allowed_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_headers
-         in
-         ("allowed_headers", arg) :: bnds
+         if [] = v_allowed_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_headers
+           in
+           let bnd = "allowed_headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : queue_properties__cors_rule ->
@@ -871,9 +920,13 @@ let _ = yojson_of_queue_properties__minute_metrics
 
 type queue_properties = {
   cors_rule : queue_properties__cors_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   hour_metrics : queue_properties__hour_metrics list;
+      [@default []] [@yojson_drop_default ( = )]
   logging : queue_properties__logging list;
+      [@default []] [@yojson_drop_default ( = )]
   minute_metrics : queue_properties__minute_metrics list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -891,32 +944,45 @@ let yojson_of_queue_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_queue_properties__minute_metrics
-             v_minute_metrics
-         in
-         ("minute_metrics", arg) :: bnds
+         if [] = v_minute_metrics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_queue_properties__minute_metrics)
+               v_minute_metrics
+           in
+           let bnd = "minute_metrics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_queue_properties__logging
-             v_logging
-         in
-         ("logging", arg) :: bnds
+         if [] = v_logging then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_queue_properties__logging)
+               v_logging
+           in
+           let bnd = "logging", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_queue_properties__hour_metrics
-             v_hour_metrics
-         in
-         ("hour_metrics", arg) :: bnds
+         if [] = v_hour_metrics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_queue_properties__hour_metrics)
+               v_hour_metrics
+           in
+           let bnd = "hour_metrics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_queue_properties__cors_rule
-             v_cors_rule
-         in
-         ("cors_rule", arg) :: bnds
+         if [] = v_cors_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_queue_properties__cors_rule)
+               v_cors_rule
+           in
+           let bnd = "cors_rule", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : queue_properties -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1015,9 +1081,13 @@ let _ = yojson_of_sas_policy
 
 type share_properties__cors_rule = {
   allowed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   exposed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age_in_seconds : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -1043,36 +1113,44 @@ let yojson_of_share_properties__cors_rule =
          ("max_age_in_seconds", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_exposed_headers
-         in
-         ("exposed_headers", arg) :: bnds
+         if [] = v_exposed_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_exposed_headers
+           in
+           let bnd = "exposed_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_methods
-         in
-         ("allowed_methods", arg) :: bnds
+         if [] = v_allowed_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_methods
+           in
+           let bnd = "allowed_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_headers
-         in
-         ("allowed_headers", arg) :: bnds
+         if [] = v_allowed_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_headers
+           in
+           let bnd = "allowed_headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : share_properties__cors_rule ->
@@ -1193,8 +1271,11 @@ let _ = yojson_of_share_properties__smb
 
 type share_properties = {
   cors_rule : share_properties__cors_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   retention_policy : share_properties__retention_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   smb : share_properties__smb list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1211,25 +1292,34 @@ let yojson_of_share_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_share_properties__smb v_smb
-         in
-         ("smb", arg) :: bnds
+         if [] = v_smb then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_share_properties__smb) v_smb
+           in
+           let bnd = "smb", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_share_properties__retention_policy
-             v_retention_policy
-         in
-         ("retention_policy", arg) :: bnds
+         if [] = v_retention_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_share_properties__retention_policy)
+               v_retention_policy
+           in
+           let bnd = "retention_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_share_properties__cors_rule
-             v_cors_rule
-         in
-         ("cors_rule", arg) :: bnds
+         if [] = v_cors_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_share_properties__cors_rule)
+               v_cors_rule
+           in
+           let bnd = "cors_rule", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : share_properties -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1366,17 +1456,28 @@ type azurerm_storage_account = {
   table_encryption_key_type : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   azure_files_authentication : azure_files_authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   blob_properties : blob_properties list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_domain : custom_domain list;
+      [@default []] [@yojson_drop_default ( = )]
   customer_managed_key : customer_managed_key list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   immutability_policy : immutability_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   network_rules : network_rules list;
+      [@default []] [@yojson_drop_default ( = )]
   queue_properties : queue_properties list;
-  routing : routing list;
+      [@default []] [@yojson_drop_default ( = )]
+  routing : routing list; [@default []] [@yojson_drop_default ( = )]
   sas_policy : sas_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   share_properties : share_properties list;
+      [@default []] [@yojson_drop_default ( = )]
   static_website : static_website list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1439,77 +1540,117 @@ let yojson_of_azurerm_storage_account =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_static_website v_static_website
-         in
-         ("static_website", arg) :: bnds
+         if [] = v_static_website then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_static_website)
+               v_static_website
+           in
+           let bnd = "static_website", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_share_properties
-             v_share_properties
-         in
-         ("share_properties", arg) :: bnds
+         if [] = v_share_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_share_properties)
+               v_share_properties
+           in
+           let bnd = "share_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sas_policy v_sas_policy
-         in
-         ("sas_policy", arg) :: bnds
+         if [] = v_sas_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sas_policy) v_sas_policy
+           in
+           let bnd = "sas_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_routing v_routing in
-         ("routing", arg) :: bnds
+         if [] = v_routing then bnds
+         else
+           let arg = (yojson_of_list yojson_of_routing) v_routing in
+           let bnd = "routing", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_queue_properties
-             v_queue_properties
-         in
-         ("queue_properties", arg) :: bnds
+         if [] = v_queue_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_queue_properties)
+               v_queue_properties
+           in
+           let bnd = "queue_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_rules v_network_rules
-         in
-         ("network_rules", arg) :: bnds
+         if [] = v_network_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_rules) v_network_rules
+           in
+           let bnd = "network_rules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_immutability_policy
-             v_immutability_policy
-         in
-         ("immutability_policy", arg) :: bnds
+         if [] = v_immutability_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_immutability_policy)
+               v_immutability_policy
+           in
+           let bnd = "immutability_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_customer_managed_key
-             v_customer_managed_key
-         in
-         ("customer_managed_key", arg) :: bnds
+         if [] = v_customer_managed_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_customer_managed_key)
+               v_customer_managed_key
+           in
+           let bnd = "customer_managed_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_domain v_custom_domain
-         in
-         ("custom_domain", arg) :: bnds
+         if [] = v_custom_domain then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_domain) v_custom_domain
+           in
+           let bnd = "custom_domain", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_blob_properties v_blob_properties
-         in
-         ("blob_properties", arg) :: bnds
+         if [] = v_blob_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_blob_properties)
+               v_blob_properties
+           in
+           let bnd = "blob_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_azure_files_authentication
-             v_azure_files_authentication
-         in
-         ("azure_files_authentication", arg) :: bnds
+         if [] = v_azure_files_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_azure_files_authentication)
+               v_azure_files_authentication
+           in
+           let bnd = "azure_files_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

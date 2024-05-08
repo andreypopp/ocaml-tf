@@ -85,7 +85,8 @@ type hcloud_load_balancer = {
   name : string prop;
   network_zone : string prop option; [@option]
   algorithm : algorithm list;
-  target : target list;
+      [@default []] [@yojson_drop_default ( = )]
+  target : target list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -108,12 +109,20 @@ let yojson_of_hcloud_load_balancer =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_target v_target in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg = (yojson_of_list yojson_of_target) v_target in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_algorithm v_algorithm in
-         ("algorithm", arg) :: bnds
+         if [] = v_algorithm then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_algorithm) v_algorithm
+           in
+           let bnd = "algorithm", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_network_zone with

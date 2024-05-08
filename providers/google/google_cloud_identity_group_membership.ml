@@ -60,6 +60,7 @@ let _ = yojson_of_roles__expiry_detail
 type roles = {
   name : string prop;
   expiry_detail : roles__expiry_detail list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -72,11 +73,14 @@ let yojson_of_roles =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_roles__expiry_detail
-             v_expiry_detail
-         in
-         ("expiry_detail", arg) :: bnds
+         if [] = v_expiry_detail then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_roles__expiry_detail)
+               v_expiry_detail
+           in
+           let bnd = "expiry_detail", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -139,7 +143,8 @@ type google_cloud_identity_group_membership = {
   group : string prop;
   id : string prop option; [@option]
   preferred_member_key : preferred_member_key list;
-  roles : roles list;
+      [@default []] [@yojson_drop_default ( = )]
+  roles : roles list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -163,15 +168,21 @@ let yojson_of_google_cloud_identity_group_membership =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_roles v_roles in
-         ("roles", arg) :: bnds
+         if [] = v_roles then bnds
+         else
+           let arg = (yojson_of_list yojson_of_roles) v_roles in
+           let bnd = "roles", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_preferred_member_key
-             v_preferred_member_key
-         in
-         ("preferred_member_key", arg) :: bnds
+         if [] = v_preferred_member_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_preferred_member_key)
+               v_preferred_member_key
+           in
+           let bnd = "preferred_member_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

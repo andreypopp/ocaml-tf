@@ -56,6 +56,7 @@ type maintenance_policy__weekly_maintenance_window = {
   duration : string prop;
   start_time :
     maintenance_policy__weekly_maintenance_window__start_time list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -72,12 +73,15 @@ let yojson_of_maintenance_policy__weekly_maintenance_window =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_maintenance_policy__weekly_maintenance_window__start_time
-             v_start_time
-         in
-         ("start_time", arg) :: bnds
+         if [] = v_start_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_policy__weekly_maintenance_window__start_time)
+               v_start_time
+           in
+           let bnd = "start_time", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_duration in
@@ -101,6 +105,7 @@ type maintenance_policy = {
   update_time : string prop;
   weekly_maintenance_window :
     maintenance_policy__weekly_maintenance_window list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -118,12 +123,15 @@ let yojson_of_maintenance_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_maintenance_policy__weekly_maintenance_window
-             v_weekly_maintenance_window
-         in
-         ("weekly_maintenance_window", arg) :: bnds
+         if [] = v_weekly_maintenance_window then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_policy__weekly_maintenance_window)
+               v_weekly_maintenance_window
+           in
+           let bnd = "weekly_maintenance_window", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_update_time in

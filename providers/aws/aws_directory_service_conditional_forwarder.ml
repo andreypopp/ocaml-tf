@@ -5,6 +5,7 @@ open! Tf_core
 type aws_directory_service_conditional_forwarder = {
   directory_id : string prop;
   dns_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   remote_domain_name : string prop;
 }
@@ -38,10 +39,14 @@ let yojson_of_aws_directory_service_conditional_forwarder =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_dns_ips
-         in
-         ("dns_ips", arg) :: bnds
+         if [] = v_dns_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_dns_ips
+           in
+           let bnd = "dns_ips", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_directory_id in

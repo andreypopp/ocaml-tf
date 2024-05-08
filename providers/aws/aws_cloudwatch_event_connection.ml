@@ -221,9 +221,12 @@ let _ =
 
 type auth_parameters__invocation_http_parameters = {
   body : auth_parameters__invocation_http_parameters__body list;
+      [@default []] [@yojson_drop_default ( = )]
   header : auth_parameters__invocation_http_parameters__header list;
+      [@default []] [@yojson_drop_default ( = )]
   query_string :
     auth_parameters__invocation_http_parameters__query_string list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -240,28 +243,37 @@ let yojson_of_auth_parameters__invocation_http_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_parameters__invocation_http_parameters__query_string
-             v_query_string
-         in
-         ("query_string", arg) :: bnds
+         if [] = v_query_string then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_parameters__invocation_http_parameters__query_string)
+               v_query_string
+           in
+           let bnd = "query_string", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_parameters__invocation_http_parameters__header
-             v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_parameters__invocation_http_parameters__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_parameters__invocation_http_parameters__body
-             v_body
-         in
-         ("body", arg) :: bnds
+         if [] = v_body then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_parameters__invocation_http_parameters__body)
+               v_body
+           in
+           let bnd = "body", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_parameters__invocation_http_parameters ->
@@ -465,10 +477,13 @@ let _ =
 
 type auth_parameters__oauth__oauth_http_parameters = {
   body : auth_parameters__oauth__oauth_http_parameters__body list;
+      [@default []] [@yojson_drop_default ( = )]
   header :
     auth_parameters__oauth__oauth_http_parameters__header list;
+      [@default []] [@yojson_drop_default ( = )]
   query_string :
     auth_parameters__oauth__oauth_http_parameters__query_string list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -485,28 +500,37 @@ let yojson_of_auth_parameters__oauth__oauth_http_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_parameters__oauth__oauth_http_parameters__query_string
-             v_query_string
-         in
-         ("query_string", arg) :: bnds
+         if [] = v_query_string then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_parameters__oauth__oauth_http_parameters__query_string)
+               v_query_string
+           in
+           let bnd = "query_string", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_parameters__oauth__oauth_http_parameters__header
-             v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_parameters__oauth__oauth_http_parameters__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_parameters__oauth__oauth_http_parameters__body
-             v_body
-         in
-         ("body", arg) :: bnds
+         if [] = v_body then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_parameters__oauth__oauth_http_parameters__body)
+               v_body
+           in
+           let bnd = "body", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_parameters__oauth__oauth_http_parameters ->
@@ -520,8 +544,10 @@ type auth_parameters__oauth = {
   authorization_endpoint : string prop;
   http_method : string prop;
   client_parameters : auth_parameters__oauth__client_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   oauth_http_parameters :
     auth_parameters__oauth__oauth_http_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -539,20 +565,26 @@ let yojson_of_auth_parameters__oauth =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_parameters__oauth__oauth_http_parameters
-             v_oauth_http_parameters
-         in
-         ("oauth_http_parameters", arg) :: bnds
+         if [] = v_oauth_http_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_parameters__oauth__oauth_http_parameters)
+               v_oauth_http_parameters
+           in
+           let bnd = "oauth_http_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_parameters__oauth__client_parameters
-             v_client_parameters
-         in
-         ("client_parameters", arg) :: bnds
+         if [] = v_client_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_parameters__oauth__client_parameters)
+               v_client_parameters
+           in
+           let bnd = "client_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_http_method in
@@ -573,10 +605,14 @@ let _ = yojson_of_auth_parameters__oauth
 
 type auth_parameters = {
   api_key : auth_parameters__api_key list;
+      [@default []] [@yojson_drop_default ( = )]
   basic : auth_parameters__basic list;
+      [@default []] [@yojson_drop_default ( = )]
   invocation_http_parameters :
     auth_parameters__invocation_http_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   oauth : auth_parameters__oauth list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -594,31 +630,45 @@ let yojson_of_auth_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_parameters__oauth v_oauth
-         in
-         ("oauth", arg) :: bnds
+         if [] = v_oauth then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_parameters__oauth)
+               v_oauth
+           in
+           let bnd = "oauth", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_parameters__invocation_http_parameters
-             v_invocation_http_parameters
-         in
-         ("invocation_http_parameters", arg) :: bnds
+         if [] = v_invocation_http_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_parameters__invocation_http_parameters)
+               v_invocation_http_parameters
+           in
+           let bnd = "invocation_http_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_parameters__basic v_basic
-         in
-         ("basic", arg) :: bnds
+         if [] = v_basic then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_parameters__basic)
+               v_basic
+           in
+           let bnd = "basic", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_parameters__api_key
-             v_api_key
-         in
-         ("api_key", arg) :: bnds
+         if [] = v_api_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_parameters__api_key)
+               v_api_key
+           in
+           let bnd = "api_key", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_parameters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -633,6 +683,7 @@ type aws_cloudwatch_event_connection = {
   id : string prop option; [@option]
   name : string prop;
   auth_parameters : auth_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -651,10 +702,14 @@ let yojson_of_aws_cloudwatch_event_connection =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_parameters v_auth_parameters
-         in
-         ("auth_parameters", arg) :: bnds
+         if [] = v_auth_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_parameters)
+               v_auth_parameters
+           in
+           let bnd = "auth_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

@@ -104,6 +104,7 @@ type cloud_storage_config = {
   max_bytes : float prop option; [@option]
   max_duration : string prop option; [@option]
   avro_config : cloud_storage_config__avro_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -123,11 +124,15 @@ let yojson_of_cloud_storage_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cloud_storage_config__avro_config
-             v_avro_config
-         in
-         ("avro_config", arg) :: bnds
+         if [] = v_avro_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cloud_storage_config__avro_config)
+               v_avro_config
+           in
+           let bnd = "avro_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_max_duration with
@@ -298,7 +303,9 @@ type push_config = {
   attributes : (string * string prop) list option; [@option]
   push_endpoint : string prop;
   no_wrapper : push_config__no_wrapper list;
+      [@default []] [@yojson_drop_default ( = )]
   oidc_token : push_config__oidc_token list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -316,18 +323,24 @@ let yojson_of_push_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_push_config__oidc_token
-             v_oidc_token
-         in
-         ("oidc_token", arg) :: bnds
+         if [] = v_oidc_token then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_push_config__oidc_token)
+               v_oidc_token
+           in
+           let bnd = "oidc_token", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_push_config__no_wrapper
-             v_no_wrapper
-         in
-         ("no_wrapper", arg) :: bnds
+         if [] = v_no_wrapper then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_push_config__no_wrapper)
+               v_no_wrapper
+           in
+           let bnd = "no_wrapper", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_push_endpoint in
@@ -455,11 +468,17 @@ type google_pubsub_subscription = {
   retain_acked_messages : bool prop option; [@option]
   topic : string prop;
   bigquery_config : bigquery_config list;
+      [@default []] [@yojson_drop_default ( = )]
   cloud_storage_config : cloud_storage_config list;
+      [@default []] [@yojson_drop_default ( = )]
   dead_letter_policy : dead_letter_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   expiration_policy : expiration_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   push_config : push_config list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_policy : retry_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -496,43 +515,62 @@ let yojson_of_google_pubsub_subscription =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retry_policy v_retry_policy
-         in
-         ("retry_policy", arg) :: bnds
+         if [] = v_retry_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retry_policy) v_retry_policy
+           in
+           let bnd = "retry_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_push_config v_push_config
-         in
-         ("push_config", arg) :: bnds
+         if [] = v_push_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_push_config) v_push_config
+           in
+           let bnd = "push_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_expiration_policy
-             v_expiration_policy
-         in
-         ("expiration_policy", arg) :: bnds
+         if [] = v_expiration_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_expiration_policy)
+               v_expiration_policy
+           in
+           let bnd = "expiration_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dead_letter_policy
-             v_dead_letter_policy
-         in
-         ("dead_letter_policy", arg) :: bnds
+         if [] = v_dead_letter_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dead_letter_policy)
+               v_dead_letter_policy
+           in
+           let bnd = "dead_letter_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cloud_storage_config
-             v_cloud_storage_config
-         in
-         ("cloud_storage_config", arg) :: bnds
+         if [] = v_cloud_storage_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cloud_storage_config)
+               v_cloud_storage_config
+           in
+           let bnd = "cloud_storage_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bigquery_config v_bigquery_config
-         in
-         ("bigquery_config", arg) :: bnds
+         if [] = v_bigquery_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bigquery_config)
+               v_bigquery_config
+           in
+           let bnd = "bigquery_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topic in

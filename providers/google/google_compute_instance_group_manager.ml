@@ -450,6 +450,7 @@ type version = {
   instance_template : string prop;
   name : string prop option; [@option]
   target_size : version__target_size list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -466,11 +467,14 @@ let yojson_of_version =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_version__target_size
-             v_target_size
-         in
-         ("target_size", arg) :: bnds
+         if [] = v_target_size then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_version__target_size)
+               v_target_size
+           in
+           let bnd = "target_size", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -543,6 +547,7 @@ let _ = yojson_of_status__stateful__per_instance_configs
 type status__stateful = {
   has_stateful_config : bool prop;
   per_instance_configs : status__stateful__per_instance_configs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -558,12 +563,15 @@ let yojson_of_status__stateful =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_status__stateful__per_instance_configs
-             v_per_instance_configs
-         in
-         ("per_instance_configs", arg) :: bnds
+         if [] = v_per_instance_configs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_status__stateful__per_instance_configs)
+               v_per_instance_configs
+           in
+           let bnd = "per_instance_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -603,9 +611,12 @@ let _ = yojson_of_status__all_instances_config
 
 type status = {
   all_instances_config : status__all_instances_config list;
+      [@default []] [@yojson_drop_default ( = )]
   is_stable : bool prop;
   stateful : status__stateful list;
+      [@default []] [@yojson_drop_default ( = )]
   version_target : status__version_target list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -623,28 +634,37 @@ let yojson_of_status =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__version_target
-             v_version_target
-         in
-         ("version_target", arg) :: bnds
+         if [] = v_version_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__version_target)
+               v_version_target
+           in
+           let bnd = "version_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__stateful v_stateful
-         in
-         ("stateful", arg) :: bnds
+         if [] = v_stateful then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__stateful) v_stateful
+           in
+           let bnd = "stateful", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_is_stable in
          ("is_stable", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__all_instances_config
-             v_all_instances_config
-         in
-         ("all_instances_config", arg) :: bnds
+         if [] = v_all_instances_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__all_instances_config)
+               v_all_instances_config
+           in
+           let bnd = "all_instances_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -666,15 +686,23 @@ type google_compute_instance_group_manager = {
   wait_for_instances_status : string prop option; [@option]
   zone : string prop option; [@option]
   all_instances_config : all_instances_config list;
+      [@default []] [@yojson_drop_default ( = )]
   auto_healing_policies : auto_healing_policies list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_lifecycle_policy : instance_lifecycle_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   named_port : named_port list;
+      [@default []] [@yojson_drop_default ( = )]
   stateful_disk : stateful_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   stateful_external_ip : stateful_external_ip list;
+      [@default []] [@yojson_drop_default ( = )]
   stateful_internal_ip : stateful_internal_ip list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   update_policy : update_policy list;
-  version : version list;
+      [@default []] [@yojson_drop_default ( = )]
+  version : version list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -710,65 +738,92 @@ let yojson_of_google_compute_instance_group_manager =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_version v_version in
-         ("version", arg) :: bnds
+         if [] = v_version then bnds
+         else
+           let arg = (yojson_of_list yojson_of_version) v_version in
+           let bnd = "version", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_update_policy v_update_policy
-         in
-         ("update_policy", arg) :: bnds
+         if [] = v_update_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_update_policy) v_update_policy
+           in
+           let bnd = "update_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stateful_internal_ip
-             v_stateful_internal_ip
-         in
-         ("stateful_internal_ip", arg) :: bnds
+         if [] = v_stateful_internal_ip then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stateful_internal_ip)
+               v_stateful_internal_ip
+           in
+           let bnd = "stateful_internal_ip", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stateful_external_ip
-             v_stateful_external_ip
-         in
-         ("stateful_external_ip", arg) :: bnds
+         if [] = v_stateful_external_ip then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stateful_external_ip)
+               v_stateful_external_ip
+           in
+           let bnd = "stateful_external_ip", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stateful_disk v_stateful_disk
-         in
-         ("stateful_disk", arg) :: bnds
+         if [] = v_stateful_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stateful_disk) v_stateful_disk
+           in
+           let bnd = "stateful_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_named_port v_named_port
-         in
-         ("named_port", arg) :: bnds
+         if [] = v_named_port then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_named_port) v_named_port
+           in
+           let bnd = "named_port", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_lifecycle_policy
-             v_instance_lifecycle_policy
-         in
-         ("instance_lifecycle_policy", arg) :: bnds
+         if [] = v_instance_lifecycle_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instance_lifecycle_policy)
+               v_instance_lifecycle_policy
+           in
+           let bnd = "instance_lifecycle_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_healing_policies
-             v_auto_healing_policies
-         in
-         ("auto_healing_policies", arg) :: bnds
+         if [] = v_auto_healing_policies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_healing_policies)
+               v_auto_healing_policies
+           in
+           let bnd = "auto_healing_policies", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_all_instances_config
-             v_all_instances_config
-         in
-         ("all_instances_config", arg) :: bnds
+         if [] = v_all_instances_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_all_instances_config)
+               v_all_instances_config
+           in
+           let bnd = "all_instances_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

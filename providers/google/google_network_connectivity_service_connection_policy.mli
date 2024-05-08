@@ -12,7 +12,9 @@ type psc_connections__error_info = {
 
 type psc_connections__error = {
   code : float prop;  (** code *)
-  details : (string * string prop) list list;  (** details *)
+  details : (string * string prop) list list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** details *)
   message : string prop;  (** message *)
 }
 
@@ -22,8 +24,12 @@ type psc_connections = {
       (** consumer_forwarding_rule *)
   consumer_target_project : string prop;
       (** consumer_target_project *)
-  error : psc_connections__error list;  (** error *)
-  error_info : psc_connections__error_info list;  (** error_info *)
+  error : psc_connections__error list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** error *)
+  error_info : psc_connections__error_info list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** error_info *)
   error_type : string prop;  (** error_type *)
   gce_operation : string prop;  (** gce_operation *)
   psc_connection_id : string prop;  (** psc_connection_id *)

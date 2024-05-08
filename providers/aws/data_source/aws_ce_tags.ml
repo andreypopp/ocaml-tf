@@ -166,8 +166,11 @@ let _ = yojson_of_filter__and__tags
 
 type filter__and = {
   cost_category : filter__and__cost_category list;
+      [@default []] [@yojson_drop_default ( = )]
   dimension : filter__and__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : filter__and__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,24 +187,33 @@ let yojson_of_filter__and =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__and__tags v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__and__tags) v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__and__dimension
-             v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__and__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__and__cost_category
-             v_cost_category
-         in
-         ("cost_category", arg) :: bnds
+         if [] = v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__and__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : filter__and -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -482,8 +494,11 @@ let _ = yojson_of_filter__not__tags
 
 type filter__not = {
   cost_category : filter__not__cost_category list;
+      [@default []] [@yojson_drop_default ( = )]
   dimension : filter__not__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : filter__not__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -500,24 +515,33 @@ let yojson_of_filter__not =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__not__tags v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__not__tags) v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__not__dimension
-             v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__not__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__not__cost_category
-             v_cost_category
-         in
-         ("cost_category", arg) :: bnds
+         if [] = v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__not__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : filter__not -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -690,8 +714,11 @@ let _ = yojson_of_filter__or__tags
 
 type filter__or = {
   cost_category : filter__or__cost_category list;
+      [@default []] [@yojson_drop_default ( = )]
   dimension : filter__or__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : filter__or__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -708,23 +735,33 @@ let yojson_of_filter__or =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__or__tags v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__or__tags) v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__or__dimension v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__or__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__or__cost_category
-             v_cost_category
-         in
-         ("cost_category", arg) :: bnds
+         if [] = v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__or__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : filter__or -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -788,12 +825,16 @@ let _ = yojson_of_filter__tags
 [@@@deriving.end]
 
 type filter = {
-  and_ : filter__and list; [@key "and"]
+  and_ : filter__and list;
+      [@key "and"] [@default []] [@yojson_drop_default ( = )]
   cost_category : filter__cost_category list;
+      [@default []] [@yojson_drop_default ( = )]
   dimension : filter__dimension list;
-  not : filter__not list;
-  or_ : filter__or list; [@key "or"]
-  tags : filter__tags list;
+      [@default []] [@yojson_drop_default ( = )]
+  not : filter__not list; [@default []] [@yojson_drop_default ( = )]
+  or_ : filter__or list;
+      [@key "or"] [@default []] [@yojson_drop_default ( = )]
+  tags : filter__tags list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -813,33 +854,53 @@ let yojson_of_filter =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter__tags v_tags in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__tags) v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter__or v_or_ in
-         ("or", arg) :: bnds
+         if [] = v_or_ then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter__or) v_or_ in
+           let bnd = "or", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter__not v_not in
-         ("not", arg) :: bnds
+         if [] = v_not then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter__not) v_not in
+           let bnd = "not", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__dimension v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__dimension) v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__cost_category
-             v_cost_category
-         in
-         ("cost_category", arg) :: bnds
+         if [] = v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter__and v_and_ in
-         ("and", arg) :: bnds
+         if [] = v_and_ then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter__and) v_and_ in
+           let bnd = "and", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -918,9 +979,10 @@ type aws_ce_tags = {
   id : string prop option; [@option]
   search_string : string prop option; [@option]
   tag_key : string prop option; [@option]
-  filter : filter list;
-  sort_by : sort_by list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  sort_by : sort_by list; [@default []] [@yojson_drop_default ( = )]
   time_period : time_period list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -940,18 +1002,27 @@ let yojson_of_aws_ce_tags =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_time_period v_time_period
-         in
-         ("time_period", arg) :: bnds
+         if [] = v_time_period then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_time_period) v_time_period
+           in
+           let bnd = "time_period", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sort_by v_sort_by in
-         ("sort_by", arg) :: bnds
+         if [] = v_sort_by then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sort_by) v_sort_by in
+           let bnd = "sort_by", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tag_key with

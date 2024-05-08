@@ -30,8 +30,11 @@ let _ = yojson_of_timeouts
 
 type install_patches__windows = {
   classifications_to_include : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   kb_numbers_to_exclude : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   kb_numbers_to_include : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,28 +51,34 @@ let yojson_of_install_patches__windows =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_kb_numbers_to_include
-         in
-         ("kb_numbers_to_include", arg) :: bnds
+         if [] = v_kb_numbers_to_include then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_kb_numbers_to_include
+           in
+           let bnd = "kb_numbers_to_include", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_kb_numbers_to_exclude
-         in
-         ("kb_numbers_to_exclude", arg) :: bnds
+         if [] = v_kb_numbers_to_exclude then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_kb_numbers_to_exclude
+           in
+           let bnd = "kb_numbers_to_exclude", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_classifications_to_include
-         in
-         ("classifications_to_include", arg) :: bnds
+         if [] = v_classifications_to_include then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_classifications_to_include
+           in
+           let bnd = "classifications_to_include", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : install_patches__windows -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -80,8 +89,11 @@ let _ = yojson_of_install_patches__windows
 
 type install_patches__linux = {
   classifications_to_include : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   package_names_mask_to_exclude : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   package_names_mask_to_include : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -100,28 +112,34 @@ let yojson_of_install_patches__linux =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_package_names_mask_to_include
-         in
-         ("package_names_mask_to_include", arg) :: bnds
+         if [] = v_package_names_mask_to_include then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_package_names_mask_to_include
+           in
+           let bnd = "package_names_mask_to_include", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_package_names_mask_to_exclude
-         in
-         ("package_names_mask_to_exclude", arg) :: bnds
+         if [] = v_package_names_mask_to_exclude then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_package_names_mask_to_exclude
+           in
+           let bnd = "package_names_mask_to_exclude", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_classifications_to_include
-         in
-         ("classifications_to_include", arg) :: bnds
+         if [] = v_classifications_to_include then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_classifications_to_include
+           in
+           let bnd = "classifications_to_include", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : install_patches__linux -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -132,8 +150,10 @@ let _ = yojson_of_install_patches__linux
 
 type install_patches = {
   linux : install_patches__linux list;
+      [@default []] [@yojson_drop_default ( = )]
   reboot : string prop;
   windows : install_patches__windows list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -146,21 +166,28 @@ let yojson_of_install_patches =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_install_patches__windows
-             v_windows
-         in
-         ("windows", arg) :: bnds
+         if [] = v_windows then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_install_patches__windows)
+               v_windows
+           in
+           let bnd = "windows", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_reboot in
          ("reboot", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_install_patches__linux v_linux
-         in
-         ("linux", arg) :: bnds
+         if [] = v_linux then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_install_patches__linux)
+               v_linux
+           in
+           let bnd = "linux", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : install_patches -> Ppx_yojson_conv_lib.Yojson.Safe.t)

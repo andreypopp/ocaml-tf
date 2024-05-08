@@ -5,6 +5,7 @@ open! Tf_core
 type destination_configuration = {
   from_port : float prop;
   protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   to_port : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -26,12 +27,14 @@ let yojson_of_destination_configuration =
          ("to_port", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_protocols
-         in
-         ("protocols", arg) :: bnds
+         if [] = v_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_protocols
+           in
+           let bnd = "protocols", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_from_port in
@@ -114,7 +117,9 @@ type aws_globalaccelerator_custom_routing_endpoint_group = {
   id : string prop option; [@option]
   listener_arn : string prop;
   destination_configuration : destination_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   endpoint_configuration : endpoint_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -140,18 +145,24 @@ let yojson_of_aws_globalaccelerator_custom_routing_endpoint_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint_configuration
-             v_endpoint_configuration
-         in
-         ("endpoint_configuration", arg) :: bnds
+         if [] = v_endpoint_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint_configuration)
+               v_endpoint_configuration
+           in
+           let bnd = "endpoint_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_configuration
-             v_destination_configuration
-         in
-         ("destination_configuration", arg) :: bnds
+         if [] = v_destination_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_configuration)
+               v_destination_configuration
+           in
+           let bnd = "destination_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_listener_arn in

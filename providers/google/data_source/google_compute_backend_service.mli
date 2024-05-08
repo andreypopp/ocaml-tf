@@ -28,14 +28,18 @@ type cdn_policy__negative_caching_policy = {
 type cdn_policy__cache_key_policy = {
   include_host : bool prop;  (** include_host *)
   include_http_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** include_http_headers *)
   include_named_cookies : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** include_named_cookies *)
   include_protocol : bool prop;  (** include_protocol *)
   include_query_string : bool prop;  (** include_query_string *)
   query_string_blacklist : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** query_string_blacklist *)
   query_string_whitelist : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** query_string_whitelist *)
 }
 
@@ -46,8 +50,10 @@ type cdn_policy__bypass_cache_on_request_headers = {
 type cdn_policy = {
   bypass_cache_on_request_headers :
     cdn_policy__bypass_cache_on_request_headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** bypass_cache_on_request_headers *)
   cache_key_policy : cdn_policy__cache_key_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** cache_key_policy *)
   cache_mode : string prop;  (** cache_mode *)
   client_ttl : float prop;  (** client_ttl *)
@@ -55,6 +61,7 @@ type cdn_policy = {
   max_ttl : float prop;  (** max_ttl *)
   negative_caching : bool prop;  (** negative_caching *)
   negative_caching_policy : cdn_policy__negative_caching_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** negative_caching_policy *)
   serve_while_stale : float prop;  (** serve_while_stale *)
   signed_url_cache_max_age_sec : float prop;
@@ -78,11 +85,14 @@ type consistent_hash__http_cookie__ttl = {
 type consistent_hash__http_cookie = {
   name : string prop;  (** name *)
   path : string prop;  (** path *)
-  ttl : consistent_hash__http_cookie__ttl list;  (** ttl *)
+  ttl : consistent_hash__http_cookie__ttl list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ttl *)
 }
 
 type consistent_hash = {
   http_cookie : consistent_hash__http_cookie list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_cookie *)
   http_header_name : string prop;  (** http_header_name *)
   minimum_ring_size : float prop;  (** minimum_ring_size *)
@@ -106,8 +116,11 @@ type locality_lb_policies__custom_policy = {
 
 type locality_lb_policies = {
   custom_policy : locality_lb_policies__custom_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** custom_policy *)
-  policy : locality_lb_policies__policy list;  (** policy *)
+  policy : locality_lb_policies__policy list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** policy *)
 }
 
 type log_config = {
@@ -127,6 +140,7 @@ type outlier_detection__base_ejection_time = {
 
 type outlier_detection = {
   base_ejection_time : outlier_detection__base_ejection_time list;
+      [@default []] [@yojson_drop_default ( = )]
       (** base_ejection_time *)
   consecutive_errors : float prop;  (** consecutive_errors *)
   consecutive_gateway_failure : float prop;
@@ -136,7 +150,9 @@ type outlier_detection = {
   enforcing_consecutive_gateway_failure : float prop;
       (** enforcing_consecutive_gateway_failure *)
   enforcing_success_rate : float prop;  (** enforcing_success_rate *)
-  interval : outlier_detection__interval list;  (** interval *)
+  interval : outlier_detection__interval list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** interval *)
   max_ejection_percent : float prop;  (** max_ejection_percent *)
   success_rate_minimum_hosts : float prop;
       (** success_rate_minimum_hosts *)
@@ -148,7 +164,9 @@ type outlier_detection = {
 
 type security_settings = {
   client_tls_policy : string prop;  (** client_tls_policy *)
-  subject_alt_names : string prop list;  (** subject_alt_names *)
+  subject_alt_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** subject_alt_names *)
 }
 
 type google_compute_backend_service

@@ -119,7 +119,7 @@ type azurerm_cdn_frontdoor_custom_domain = {
   id : string prop option; [@option]
   name : string prop;
   timeouts : timeouts option;
-  tls : tls list;
+  tls : tls list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -140,8 +140,11 @@ let yojson_of_azurerm_cdn_frontdoor_custom_domain =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_tls v_tls in
-         ("tls", arg) :: bnds
+         if [] = v_tls then bnds
+         else
+           let arg = (yojson_of_list yojson_of_tls) v_tls in
+           let bnd = "tls", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

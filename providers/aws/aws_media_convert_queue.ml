@@ -49,6 +49,7 @@ type aws_media_convert_queue = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   reservation_plan_settings : reservation_plan_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,11 +71,14 @@ let yojson_of_aws_media_convert_queue =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_reservation_plan_settings
-             v_reservation_plan_settings
-         in
-         ("reservation_plan_settings", arg) :: bnds
+         if [] = v_reservation_plan_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_reservation_plan_settings)
+               v_reservation_plan_settings
+           in
+           let bnd = "reservation_plan_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

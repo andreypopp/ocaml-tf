@@ -176,7 +176,7 @@ type azurerm_bot_channel_directline = {
   id : string prop option; [@option]
   location : string prop;
   resource_group_name : string prop;
-  site : site list;
+  site : site list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -201,8 +201,11 @@ let yojson_of_azurerm_bot_channel_directline =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_site v_site in
-         ("site", arg) :: bnds
+         if [] = v_site then bnds
+         else
+           let arg = (yojson_of_list yojson_of_site) v_site in
+           let bnd = "site", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -110,7 +110,7 @@ let _ = yojson_of_zones
 
 type cloudflare_zones = {
   id : string prop option; [@option]
-  filter : filter list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -123,8 +123,11 @@ let yojson_of_cloudflare_zones =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

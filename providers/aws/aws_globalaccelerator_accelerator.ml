@@ -91,6 +91,7 @@ let _ = yojson_of_timeouts
 
 type ip_sets = {
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_family : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -108,12 +109,14 @@ let yojson_of_ip_sets =
          ("ip_family", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : ip_sets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -131,6 +134,7 @@ type aws_globalaccelerator_accelerator = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   attributes : attributes list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -158,10 +162,13 @@ let yojson_of_aws_globalaccelerator_accelerator =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attributes v_attributes
-         in
-         ("attributes", arg) :: bnds
+         if [] = v_attributes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attributes) v_attributes
+           in
+           let bnd = "attributes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

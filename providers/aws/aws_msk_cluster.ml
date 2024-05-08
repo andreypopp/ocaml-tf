@@ -83,6 +83,7 @@ type broker_node_group_info__connectivity_info__vpc_connectivity__client_authent
   sasl :
     broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication__sasl
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -99,12 +100,15 @@ let yojson_of_broker_node_group_info__connectivity_info__vpc_connectivity__clien
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication__sasl
-             v_sasl
-         in
-         ("sasl", arg) :: bnds
+         if [] = v_sasl then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication__sasl)
+               v_sasl
+           in
+           let bnd = "sasl", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tls with
@@ -127,6 +131,7 @@ type broker_node_group_info__connectivity_info__vpc_connectivity = {
   client_authentication :
     broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -143,12 +148,15 @@ let yojson_of_broker_node_group_info__connectivity_info__vpc_connectivity
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication
-             v_client_authentication
-         in
-         ("client_authentication", arg) :: bnds
+         if [] = v_client_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_broker_node_group_info__connectivity_info__vpc_connectivity__client_authentication)
+               v_client_authentication
+           in
+           let bnd = "client_authentication", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : broker_node_group_info__connectivity_info__vpc_connectivity ->
@@ -162,8 +170,10 @@ let _ =
 type broker_node_group_info__connectivity_info = {
   public_access :
     broker_node_group_info__connectivity_info__public_access list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_connectivity :
     broker_node_group_info__connectivity_info__vpc_connectivity list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -179,20 +189,26 @@ let yojson_of_broker_node_group_info__connectivity_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_broker_node_group_info__connectivity_info__vpc_connectivity
-             v_vpc_connectivity
-         in
-         ("vpc_connectivity", arg) :: bnds
+         if [] = v_vpc_connectivity then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_broker_node_group_info__connectivity_info__vpc_connectivity)
+               v_vpc_connectivity
+           in
+           let bnd = "vpc_connectivity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_broker_node_group_info__connectivity_info__public_access
-             v_public_access
-         in
-         ("public_access", arg) :: bnds
+         if [] = v_public_access then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_broker_node_group_info__connectivity_info__public_access)
+               v_public_access
+           in
+           let bnd = "public_access", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : broker_node_group_info__connectivity_info ->
@@ -251,6 +267,7 @@ type broker_node_group_info__storage_info__ebs_storage_info = {
   provisioned_throughput :
     broker_node_group_info__storage_info__ebs_storage_info__provisioned_throughput
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -269,12 +286,15 @@ let yojson_of_broker_node_group_info__storage_info__ebs_storage_info
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_broker_node_group_info__storage_info__ebs_storage_info__provisioned_throughput
-             v_provisioned_throughput
-         in
-         ("provisioned_throughput", arg) :: bnds
+         if [] = v_provisioned_throughput then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_broker_node_group_info__storage_info__ebs_storage_info__provisioned_throughput)
+               v_provisioned_throughput
+           in
+           let bnd = "provisioned_throughput", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_volume_size with
@@ -296,6 +316,7 @@ let _ =
 type broker_node_group_info__storage_info = {
   ebs_storage_info :
     broker_node_group_info__storage_info__ebs_storage_info list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -308,12 +329,15 @@ let yojson_of_broker_node_group_info__storage_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_broker_node_group_info__storage_info__ebs_storage_info
-             v_ebs_storage_info
-         in
-         ("ebs_storage_info", arg) :: bnds
+         if [] = v_ebs_storage_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_broker_node_group_info__storage_info__ebs_storage_info)
+               v_ebs_storage_info
+           in
+           let bnd = "ebs_storage_info", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : broker_node_group_info__storage_info ->
@@ -326,10 +350,14 @@ let _ = yojson_of_broker_node_group_info__storage_info
 type broker_node_group_info = {
   az_distribution : string prop option; [@option]
   client_subnets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_type : string prop;
   security_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   connectivity_info : broker_node_group_info__connectivity_info list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_info : broker_node_group_info__storage_info list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -349,40 +377,50 @@ let yojson_of_broker_node_group_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_broker_node_group_info__storage_info
-             v_storage_info
-         in
-         ("storage_info", arg) :: bnds
+         if [] = v_storage_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_broker_node_group_info__storage_info)
+               v_storage_info
+           in
+           let bnd = "storage_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_broker_node_group_info__connectivity_info
-             v_connectivity_info
-         in
-         ("connectivity_info", arg) :: bnds
+         if [] = v_connectivity_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_broker_node_group_info__connectivity_info)
+               v_connectivity_info
+           in
+           let bnd = "connectivity_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_groups
-         in
-         ("security_groups", arg) :: bnds
+         if [] = v_security_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_groups
+           in
+           let bnd = "security_groups", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_instance_type in
          ("instance_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_client_subnets
-         in
-         ("client_subnets", arg) :: bnds
+         if [] = v_client_subnets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_client_subnets
+           in
+           let bnd = "client_subnets", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_az_distribution with
@@ -470,7 +508,9 @@ let _ = yojson_of_client_authentication__tls
 type client_authentication = {
   unauthenticated : bool prop option; [@option]
   sasl : client_authentication__sasl list;
+      [@default []] [@yojson_drop_default ( = )]
   tls : client_authentication__tls list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -487,17 +527,24 @@ let yojson_of_client_authentication =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_authentication__tls v_tls
-         in
-         ("tls", arg) :: bnds
+         if [] = v_tls then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_authentication__tls)
+               v_tls
+           in
+           let bnd = "tls", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_authentication__sasl
-             v_sasl
-         in
-         ("sasl", arg) :: bnds
+         if [] = v_sasl then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_authentication__sasl)
+               v_sasl
+           in
+           let bnd = "sasl", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_unauthenticated with
@@ -585,6 +632,7 @@ let _ = yojson_of_encryption_info__encryption_in_transit
 type encryption_info = {
   encryption_at_rest_kms_key_arn : string prop option; [@option]
   encryption_in_transit : encryption_info__encryption_in_transit list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -601,12 +649,15 @@ let yojson_of_encryption_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_encryption_info__encryption_in_transit
-             v_encryption_in_transit
-         in
-         ("encryption_in_transit", arg) :: bnds
+         if [] = v_encryption_in_transit then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_encryption_info__encryption_in_transit)
+               v_encryption_in_transit
+           in
+           let bnd = "encryption_in_transit", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_encryption_at_rest_kms_key_arn with
@@ -736,8 +787,11 @@ let _ = yojson_of_logging_info__broker_logs__s3
 
 type logging_info__broker_logs = {
   cloudwatch_logs : logging_info__broker_logs__cloudwatch_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   firehose : logging_info__broker_logs__firehose list;
+      [@default []] [@yojson_drop_default ( = )]
   s3 : logging_info__broker_logs__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -754,26 +808,36 @@ let yojson_of_logging_info__broker_logs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging_info__broker_logs__s3
-             v_s3
-         in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging_info__broker_logs__s3)
+               v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logging_info__broker_logs__firehose v_firehose
-         in
-         ("firehose", arg) :: bnds
+         if [] = v_firehose then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logging_info__broker_logs__firehose)
+               v_firehose
+           in
+           let bnd = "firehose", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logging_info__broker_logs__cloudwatch_logs
-             v_cloudwatch_logs
-         in
-         ("cloudwatch_logs", arg) :: bnds
+         if [] = v_cloudwatch_logs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logging_info__broker_logs__cloudwatch_logs)
+               v_cloudwatch_logs
+           in
+           let bnd = "cloudwatch_logs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logging_info__broker_logs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -782,7 +846,10 @@ let _ = yojson_of_logging_info__broker_logs
 
 [@@@deriving.end]
 
-type logging_info = { broker_logs : logging_info__broker_logs list }
+type logging_info = {
+  broker_logs : logging_info__broker_logs list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : logging_info) -> ()
@@ -794,11 +861,14 @@ let yojson_of_logging_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging_info__broker_logs
-             v_broker_logs
-         in
-         ("broker_logs", arg) :: bnds
+         if [] = v_broker_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging_info__broker_logs)
+               v_broker_logs
+           in
+           let bnd = "broker_logs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logging_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -863,7 +933,9 @@ let _ = yojson_of_open_monitoring__prometheus__node_exporter
 
 type open_monitoring__prometheus = {
   jmx_exporter : open_monitoring__prometheus__jmx_exporter list;
+      [@default []] [@yojson_drop_default ( = )]
   node_exporter : open_monitoring__prometheus__node_exporter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -879,20 +951,26 @@ let yojson_of_open_monitoring__prometheus =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_open_monitoring__prometheus__node_exporter
-             v_node_exporter
-         in
-         ("node_exporter", arg) :: bnds
+         if [] = v_node_exporter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_open_monitoring__prometheus__node_exporter)
+               v_node_exporter
+           in
+           let bnd = "node_exporter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_open_monitoring__prometheus__jmx_exporter
-             v_jmx_exporter
-         in
-         ("jmx_exporter", arg) :: bnds
+         if [] = v_jmx_exporter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_open_monitoring__prometheus__jmx_exporter)
+               v_jmx_exporter
+           in
+           let bnd = "jmx_exporter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : open_monitoring__prometheus ->
@@ -904,6 +982,7 @@ let _ = yojson_of_open_monitoring__prometheus
 
 type open_monitoring = {
   prometheus : open_monitoring__prometheus list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -916,11 +995,14 @@ let yojson_of_open_monitoring =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_open_monitoring__prometheus
-             v_prometheus
-         in
-         ("prometheus", arg) :: bnds
+         if [] = v_prometheus then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_open_monitoring__prometheus)
+               v_prometheus
+           in
+           let bnd = "prometheus", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : open_monitoring -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -985,11 +1067,17 @@ type aws_msk_cluster = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   broker_node_group_info : broker_node_group_info list;
+      [@default []] [@yojson_drop_default ( = )]
   client_authentication : client_authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   configuration_info : configuration_info list;
+      [@default []] [@yojson_drop_default ( = )]
   encryption_info : encryption_info list;
+      [@default []] [@yojson_drop_default ( = )]
   logging_info : logging_info list;
+      [@default []] [@yojson_drop_default ( = )]
   open_monitoring : open_monitoring list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1023,43 +1111,63 @@ let yojson_of_aws_msk_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_open_monitoring v_open_monitoring
-         in
-         ("open_monitoring", arg) :: bnds
+         if [] = v_open_monitoring then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_open_monitoring)
+               v_open_monitoring
+           in
+           let bnd = "open_monitoring", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging_info v_logging_info
-         in
-         ("logging_info", arg) :: bnds
+         if [] = v_logging_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging_info) v_logging_info
+           in
+           let bnd = "logging_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_info v_encryption_info
-         in
-         ("encryption_info", arg) :: bnds
+         if [] = v_encryption_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_info)
+               v_encryption_info
+           in
+           let bnd = "encryption_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration_info
-             v_configuration_info
-         in
-         ("configuration_info", arg) :: bnds
+         if [] = v_configuration_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration_info)
+               v_configuration_info
+           in
+           let bnd = "configuration_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_authentication
-             v_client_authentication
-         in
-         ("client_authentication", arg) :: bnds
+         if [] = v_client_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_authentication)
+               v_client_authentication
+           in
+           let bnd = "client_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_broker_node_group_info
-             v_broker_node_group_info
-         in
-         ("broker_node_group_info", arg) :: bnds
+         if [] = v_broker_node_group_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_broker_node_group_info)
+               v_broker_node_group_info
+           in
+           let bnd = "broker_node_group_info", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

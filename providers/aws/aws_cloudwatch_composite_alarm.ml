@@ -54,6 +54,7 @@ type aws_cloudwatch_composite_alarm = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   actions_suppressor : actions_suppressor list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,11 +79,14 @@ let yojson_of_aws_cloudwatch_composite_alarm =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_actions_suppressor
-             v_actions_suppressor
-         in
-         ("actions_suppressor", arg) :: bnds
+         if [] = v_actions_suppressor then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_actions_suppressor)
+               v_actions_suppressor
+           in
+           let bnd = "actions_suppressor", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

@@ -68,6 +68,7 @@ type aws_ssm_resource_data_sync = {
   id : string prop option; [@option]
   name : string prop;
   s3_destination : s3_destination list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -81,10 +82,14 @@ let yojson_of_aws_ssm_resource_data_sync =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_s3_destination v_s3_destination
-         in
-         ("s3_destination", arg) :: bnds
+         if [] = v_s3_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3_destination)
+               v_s3_destination
+           in
+           let bnd = "s3_destination", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

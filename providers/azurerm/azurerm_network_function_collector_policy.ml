@@ -2,7 +2,10 @@
 
 open! Tf_core
 
-type ipfx_emission = { destination_types : string prop list }
+type ipfx_emission = {
+  destination_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : ipfx_emission) -> ()
@@ -14,12 +17,14 @@ let yojson_of_ipfx_emission =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_types
-         in
-         ("destination_types", arg) :: bnds
+         if [] = v_destination_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_types
+           in
+           let bnd = "destination_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : ipfx_emission -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -28,7 +33,10 @@ let _ = yojson_of_ipfx_emission
 
 [@@@deriving.end]
 
-type ipfx_ingestion = { source_resource_ids : string prop list }
+type ipfx_ingestion = {
+  source_resource_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : ipfx_ingestion) -> ()
@@ -40,12 +48,14 @@ let yojson_of_ipfx_ingestion =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_resource_ids
-         in
-         ("source_resource_ids", arg) :: bnds
+         if [] = v_source_resource_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_resource_ids
+           in
+           let bnd = "source_resource_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : ipfx_ingestion -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -121,7 +131,9 @@ type azurerm_network_function_collector_policy = {
   tags : (string * string prop) list option; [@option]
   traffic_collector_id : string prop;
   ipfx_emission : ipfx_emission list;
+      [@default []] [@yojson_drop_default ( = )]
   ipfx_ingestion : ipfx_ingestion list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -148,16 +160,23 @@ let yojson_of_azurerm_network_function_collector_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ipfx_ingestion v_ipfx_ingestion
-         in
-         ("ipfx_ingestion", arg) :: bnds
+         if [] = v_ipfx_ingestion then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ipfx_ingestion)
+               v_ipfx_ingestion
+           in
+           let bnd = "ipfx_ingestion", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ipfx_emission v_ipfx_emission
-         in
-         ("ipfx_emission", arg) :: bnds
+         if [] = v_ipfx_emission then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ipfx_emission) v_ipfx_emission
+           in
+           let bnd = "ipfx_emission", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

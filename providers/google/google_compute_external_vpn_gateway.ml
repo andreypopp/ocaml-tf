@@ -93,6 +93,7 @@ type google_compute_external_vpn_gateway = {
   project : string prop option; [@option]
   redundancy_type : string prop option; [@option]
   interface : interface list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -119,8 +120,13 @@ let yojson_of_google_compute_external_vpn_gateway =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_interface v_interface in
-         ("interface", arg) :: bnds
+         if [] = v_interface then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_interface) v_interface
+           in
+           let bnd = "interface", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_redundancy_type with

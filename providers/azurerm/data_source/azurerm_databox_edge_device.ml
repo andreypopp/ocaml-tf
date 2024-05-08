@@ -31,6 +31,7 @@ let _ = yojson_of_timeouts
 type device_properties = {
   capacity : float prop;
   configured_role_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   culture : string prop;
   hcs_version : string prop;
   model : string prop;
@@ -102,12 +103,14 @@ let yojson_of_device_properties =
          ("culture", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_configured_role_types
-         in
-         ("configured_role_types", arg) :: bnds
+         if [] = v_configured_role_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_configured_role_types
+           in
+           let bnd = "configured_role_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_capacity in

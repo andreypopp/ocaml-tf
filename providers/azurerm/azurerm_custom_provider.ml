@@ -158,10 +158,12 @@ type azurerm_custom_provider = {
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
-  action : action list;
+  action : action list; [@default []] [@yojson_drop_default ( = )]
   resource_type : resource_type list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   validation : validation list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,24 +186,33 @@ let yojson_of_azurerm_custom_provider =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_validation v_validation
-         in
-         ("validation", arg) :: bnds
+         if [] = v_validation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_validation) v_validation
+           in
+           let bnd = "validation", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resource_type v_resource_type
-         in
-         ("resource_type", arg) :: bnds
+         if [] = v_resource_type then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resource_type) v_resource_type
+           in
+           let bnd = "resource_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg = (yojson_of_list yojson_of_action) v_action in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

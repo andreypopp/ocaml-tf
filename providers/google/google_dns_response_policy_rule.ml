@@ -56,7 +56,10 @@ let _ = yojson_of_local_data__local_datas
 
 [@@@deriving.end]
 
-type local_data = { local_datas : local_data__local_datas list }
+type local_data = {
+  local_datas : local_data__local_datas list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : local_data) -> ()
@@ -68,11 +71,14 @@ let yojson_of_local_data =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_local_data__local_datas
-             v_local_datas
-         in
-         ("local_datas", arg) :: bnds
+         if [] = v_local_datas then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_local_data__local_datas)
+               v_local_datas
+           in
+           let bnd = "local_datas", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : local_data -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -134,6 +140,7 @@ type google_dns_response_policy_rule = {
   response_policy : string prop;
   rule_name : string prop;
   local_data : local_data list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -159,10 +166,13 @@ let yojson_of_google_dns_response_policy_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_local_data v_local_data
-         in
-         ("local_data", arg) :: bnds
+         if [] = v_local_data then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_local_data) v_local_data
+           in
+           let bnd = "local_data", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_rule_name in

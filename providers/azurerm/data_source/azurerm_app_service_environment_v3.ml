@@ -57,7 +57,8 @@ let _ = yojson_of_cluster_setting
 type inbound_network_dependencies = {
   description : string prop;
   ip_addresses : string prop list;
-  ports : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+  ports : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,18 +75,24 @@ let yojson_of_inbound_network_dependencies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_ports
-         in
-         ("ports", arg) :: bnds
+         if [] = v_ports then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ports
+           in
+           let bnd = "ports", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_description in

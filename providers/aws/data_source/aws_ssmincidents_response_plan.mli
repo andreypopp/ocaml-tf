@@ -6,7 +6,9 @@ open! Tf_core
 
 type action__ssm_automation__parameter = {
   name : string prop;  (** name *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type action__ssm_automation = {
@@ -15,13 +17,16 @@ type action__ssm_automation = {
   dynamic_parameters : (string * string prop) list;
       (** dynamic_parameters *)
   parameter : action__ssm_automation__parameter list;
+      [@default []] [@yojson_drop_default ( = )]
       (** parameter *)
   role_arn : string prop;  (** role_arn *)
   target_account : string prop;  (** target_account *)
 }
 
 type action = {
-  ssm_automation : action__ssm_automation list;  (** ssm_automation *)
+  ssm_automation : action__ssm_automation list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ssm_automation *)
 }
 
 type incident_template__notification_target = {
@@ -33,6 +38,7 @@ type incident_template = {
   impact : float prop;  (** impact *)
   incident_tags : (string * string prop) list;  (** incident_tags *)
   notification_target : incident_template__notification_target list;
+      [@default []] [@yojson_drop_default ( = )]
       (** notification_target *)
   summary : string prop;  (** summary *)
   title : string prop;  (** title *)
@@ -45,7 +51,9 @@ type integration__pagerduty = {
 }
 
 type integration = {
-  pagerduty : integration__pagerduty list;  (** pagerduty *)
+  pagerduty : integration__pagerduty list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** pagerduty *)
 }
 
 type aws_ssmincidents_response_plan

@@ -115,6 +115,7 @@ type azurerm_private_dns_resolver_inbound_endpoint = {
   private_dns_resolver_id : string prop;
   tags : (string * string prop) list option; [@option]
   ip_configurations : ip_configurations list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -140,11 +141,14 @@ let yojson_of_azurerm_private_dns_resolver_inbound_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ip_configurations
-             v_ip_configurations
-         in
-         ("ip_configurations", arg) :: bnds
+         if [] = v_ip_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ip_configurations)
+               v_ip_configurations
+           in
+           let bnd = "ip_configurations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

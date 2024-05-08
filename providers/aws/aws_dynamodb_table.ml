@@ -155,6 +155,7 @@ let _ = yojson_of_import_table__input_format_options__csv
 
 type import_table__input_format_options = {
   csv : import_table__input_format_options__csv list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,11 +168,15 @@ let yojson_of_import_table__input_format_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_import_table__input_format_options__csv v_csv
-         in
-         ("csv", arg) :: bnds
+         if [] = v_csv then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_import_table__input_format_options__csv)
+               v_csv
+           in
+           let bnd = "csv", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : import_table__input_format_options ->
@@ -232,7 +237,9 @@ type import_table = {
   input_compression_type : string prop option; [@option]
   input_format : string prop;
   input_format_options : import_table__input_format_options list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_bucket_source : import_table__s3_bucket_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -250,19 +257,25 @@ let yojson_of_import_table =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_import_table__s3_bucket_source
-             v_s3_bucket_source
-         in
-         ("s3_bucket_source", arg) :: bnds
+         if [] = v_s3_bucket_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_import_table__s3_bucket_source)
+               v_s3_bucket_source
+           in
+           let bnd = "s3_bucket_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_import_table__input_format_options
-             v_input_format_options
-         in
-         ("input_format_options", arg) :: bnds
+         if [] = v_input_format_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_import_table__input_format_options)
+               v_input_format_options
+           in
+           let bnd = "input_format_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_input_format in
@@ -545,14 +558,20 @@ type aws_dynamodb_table = {
   tags_all : (string * string prop) list option; [@option]
   write_capacity : float prop option; [@option]
   attribute : attribute list;
+      [@default []] [@yojson_drop_default ( = )]
   global_secondary_index : global_secondary_index list;
+      [@default []] [@yojson_drop_default ( = )]
   import_table : import_table list;
+      [@default []] [@yojson_drop_default ( = )]
   local_secondary_index : local_secondary_index list;
+      [@default []] [@yojson_drop_default ( = )]
   point_in_time_recovery : point_in_time_recovery list;
-  replica : replica list;
+      [@default []] [@yojson_drop_default ( = )]
+  replica : replica list; [@default []] [@yojson_drop_default ( = )]
   server_side_encryption : server_side_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  ttl : ttl list;
+  ttl : ttl list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -591,54 +610,80 @@ let yojson_of_aws_dynamodb_table =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_ttl v_ttl in
-         ("ttl", arg) :: bnds
+         if [] = v_ttl then bnds
+         else
+           let arg = (yojson_of_list yojson_of_ttl) v_ttl in
+           let bnd = "ttl", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_server_side_encryption
-             v_server_side_encryption
-         in
-         ("server_side_encryption", arg) :: bnds
+         if [] = v_server_side_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_server_side_encryption)
+               v_server_side_encryption
+           in
+           let bnd = "server_side_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_replica v_replica in
-         ("replica", arg) :: bnds
+         if [] = v_replica then bnds
+         else
+           let arg = (yojson_of_list yojson_of_replica) v_replica in
+           let bnd = "replica", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_point_in_time_recovery
-             v_point_in_time_recovery
-         in
-         ("point_in_time_recovery", arg) :: bnds
+         if [] = v_point_in_time_recovery then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_point_in_time_recovery)
+               v_point_in_time_recovery
+           in
+           let bnd = "point_in_time_recovery", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_local_secondary_index
-             v_local_secondary_index
-         in
-         ("local_secondary_index", arg) :: bnds
+         if [] = v_local_secondary_index then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_local_secondary_index)
+               v_local_secondary_index
+           in
+           let bnd = "local_secondary_index", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_import_table v_import_table
-         in
-         ("import_table", arg) :: bnds
+         if [] = v_import_table then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_import_table) v_import_table
+           in
+           let bnd = "import_table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_global_secondary_index
-             v_global_secondary_index
-         in
-         ("global_secondary_index", arg) :: bnds
+         if [] = v_global_secondary_index then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_global_secondary_index)
+               v_global_secondary_index
+           in
+           let bnd = "global_secondary_index", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_attribute v_attribute in
-         ("attribute", arg) :: bnds
+         if [] = v_attribute then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attribute) v_attribute
+           in
+           let bnd = "attribute", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_write_capacity with

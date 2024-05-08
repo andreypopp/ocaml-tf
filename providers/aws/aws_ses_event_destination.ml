@@ -98,10 +98,14 @@ type aws_ses_event_destination = {
   enabled : bool prop option; [@option]
   id : string prop option; [@option]
   matching_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   cloudwatch_destination : cloudwatch_destination list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_destination : kinesis_destination list;
+      [@default []] [@yojson_drop_default ( = )]
   sns_destination : sns_destination list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -123,36 +127,48 @@ let yojson_of_aws_ses_event_destination =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sns_destination v_sns_destination
-         in
-         ("sns_destination", arg) :: bnds
+         if [] = v_sns_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sns_destination)
+               v_sns_destination
+           in
+           let bnd = "sns_destination", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kinesis_destination
-             v_kinesis_destination
-         in
-         ("kinesis_destination", arg) :: bnds
+         if [] = v_kinesis_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kinesis_destination)
+               v_kinesis_destination
+           in
+           let bnd = "kinesis_destination", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cloudwatch_destination
-             v_cloudwatch_destination
-         in
-         ("cloudwatch_destination", arg) :: bnds
+         if [] = v_cloudwatch_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cloudwatch_destination)
+               v_cloudwatch_destination
+           in
+           let bnd = "cloudwatch_destination", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_matching_types
-         in
-         ("matching_types", arg) :: bnds
+         if [] = v_matching_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_matching_types
+           in
+           let bnd = "matching_types", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

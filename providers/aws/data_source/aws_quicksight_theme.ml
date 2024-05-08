@@ -166,6 +166,7 @@ let _ = yojson_of_configuration__typography__font_families
 
 type configuration__typography = {
   font_families : configuration__typography__font_families list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -178,12 +179,15 @@ let yojson_of_configuration__typography =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__typography__font_families
-             v_font_families
-         in
-         ("font_families", arg) :: bnds
+         if [] = v_font_families then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__typography__font_families)
+               v_font_families
+           in
+           let bnd = "font_families", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration__typography -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -240,7 +244,9 @@ let _ = yojson_of_configuration__sheet__tile_layout__gutter
 
 type configuration__sheet__tile_layout = {
   gutter : configuration__sheet__tile_layout__gutter list;
+      [@default []] [@yojson_drop_default ( = )]
   margin : configuration__sheet__tile_layout__margin list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -253,20 +259,26 @@ let yojson_of_configuration__sheet__tile_layout =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__sheet__tile_layout__margin
-             v_margin
-         in
-         ("margin", arg) :: bnds
+         if [] = v_margin then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__sheet__tile_layout__margin)
+               v_margin
+           in
+           let bnd = "margin", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__sheet__tile_layout__gutter
-             v_gutter
-         in
-         ("gutter", arg) :: bnds
+         if [] = v_gutter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__sheet__tile_layout__gutter)
+               v_gutter
+           in
+           let bnd = "gutter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration__sheet__tile_layout ->
@@ -301,6 +313,7 @@ let _ = yojson_of_configuration__sheet__tile__border
 
 type configuration__sheet__tile = {
   border : configuration__sheet__tile__border list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -313,11 +326,15 @@ let yojson_of_configuration__sheet__tile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__sheet__tile__border v_border
-         in
-         ("border", arg) :: bnds
+         if [] = v_border then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__sheet__tile__border)
+               v_border
+           in
+           let bnd = "border", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration__sheet__tile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -328,7 +345,9 @@ let _ = yojson_of_configuration__sheet__tile
 
 type configuration__sheet = {
   tile : configuration__sheet__tile list;
+      [@default []] [@yojson_drop_default ( = )]
   tile_layout : configuration__sheet__tile_layout list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -341,17 +360,25 @@ let yojson_of_configuration__sheet =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration__sheet__tile_layout
-             v_tile_layout
-         in
-         ("tile_layout", arg) :: bnds
+         if [] = v_tile_layout then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__sheet__tile_layout)
+               v_tile_layout
+           in
+           let bnd = "tile_layout", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration__sheet__tile v_tile
-         in
-         ("tile", arg) :: bnds
+         if [] = v_tile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration__sheet__tile)
+               v_tile
+           in
+           let bnd = "tile", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration__sheet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -362,8 +389,10 @@ let _ = yojson_of_configuration__sheet
 
 type configuration__data_color_palette = {
   colors : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   empty_fill_color : string prop;
   min_max_gradient : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -380,12 +409,14 @@ let yojson_of_configuration__data_color_palette =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_min_max_gradient
-         in
-         ("min_max_gradient", arg) :: bnds
+         if [] = v_min_max_gradient then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_min_max_gradient
+           in
+           let bnd = "min_max_gradient", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -394,10 +425,14 @@ let yojson_of_configuration__data_color_palette =
          ("empty_fill_color", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_colors
-         in
-         ("colors", arg) :: bnds
+         if [] = v_colors then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_colors
+           in
+           let bnd = "colors", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration__data_color_palette ->
@@ -409,9 +444,13 @@ let _ = yojson_of_configuration__data_color_palette
 
 type configuration = {
   data_color_palette : configuration__data_color_palette list;
+      [@default []] [@yojson_drop_default ( = )]
   sheet : configuration__sheet list;
+      [@default []] [@yojson_drop_default ( = )]
   typography : configuration__typography list;
+      [@default []] [@yojson_drop_default ( = )]
   ui_color_palette : configuration__ui_color_palette list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -429,31 +468,45 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration__ui_color_palette
-             v_ui_color_palette
-         in
-         ("ui_color_palette", arg) :: bnds
+         if [] = v_ui_color_palette then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__ui_color_palette)
+               v_ui_color_palette
+           in
+           let bnd = "ui_color_palette", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration__typography
-             v_typography
-         in
-         ("typography", arg) :: bnds
+         if [] = v_typography then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration__typography)
+               v_typography
+           in
+           let bnd = "typography", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration__sheet v_sheet
-         in
-         ("sheet", arg) :: bnds
+         if [] = v_sheet then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration__sheet) v_sheet
+           in
+           let bnd = "sheet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration__data_color_palette
-             v_data_color_palette
-         in
-         ("data_color_palette", arg) :: bnds
+         if [] = v_data_color_palette then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__data_color_palette)
+               v_data_color_palette
+           in
+           let bnd = "data_color_palette", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -464,6 +517,7 @@ let _ = yojson_of_configuration
 
 type permissions = {
   actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   principal : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -481,10 +535,14 @@ let yojson_of_permissions =
          ("principal", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : permissions -> Ppx_yojson_conv_lib.Yojson.Safe.t)

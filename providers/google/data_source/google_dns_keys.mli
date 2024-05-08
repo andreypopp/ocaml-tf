@@ -15,7 +15,9 @@ type key_signing_keys = {
   algorithm : string prop;  (** algorithm *)
   creation_time : string prop;  (** creation_time *)
   description : string prop;  (** description *)
-  digests : key_signing_keys__digests list;  (** digests *)
+  digests : key_signing_keys__digests list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** digests *)
   ds_record : string prop;  (** ds_record *)
   id : string prop;  (** id *)
   is_active : bool prop;  (** is_active *)
@@ -33,7 +35,9 @@ type zone_signing_keys = {
   algorithm : string prop;  (** algorithm *)
   creation_time : string prop;  (** creation_time *)
   description : string prop;  (** description *)
-  digests : zone_signing_keys__digests list;  (** digests *)
+  digests : zone_signing_keys__digests list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** digests *)
   id : string prop;  (** id *)
   is_active : bool prop;  (** is_active *)
   key_length : float prop;  (** key_length *)

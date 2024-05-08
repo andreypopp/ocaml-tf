@@ -84,6 +84,7 @@ let _ = yojson_of_circuit
 
 type management_cluster = {
   hosts : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : float prop;
   size : float prop;
 }
@@ -106,10 +107,14 @@ let yojson_of_management_cluster =
          ("id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_hosts
-         in
-         ("hosts", arg) :: bnds
+         if [] = v_hosts then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_hosts
+           in
+           let bnd = "hosts", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : management_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)

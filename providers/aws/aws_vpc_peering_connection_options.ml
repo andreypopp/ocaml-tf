@@ -68,7 +68,9 @@ type aws_vpc_peering_connection_options = {
   id : string prop option; [@option]
   vpc_peering_connection_id : string prop;
   accepter : accepter list;
+      [@default []] [@yojson_drop_default ( = )]
   requester : requester list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -86,12 +88,22 @@ let yojson_of_aws_vpc_peering_connection_options =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_requester v_requester in
-         ("requester", arg) :: bnds
+         if [] = v_requester then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_requester) v_requester
+           in
+           let bnd = "requester", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_accepter v_accepter in
-         ("accepter", arg) :: bnds
+         if [] = v_accepter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_accepter) v_accepter
+           in
+           let bnd = "accepter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

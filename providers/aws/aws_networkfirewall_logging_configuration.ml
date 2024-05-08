@@ -54,6 +54,7 @@ let _ = yojson_of_logging_configuration__log_destination_config
 type logging_configuration = {
   log_destination_config :
     logging_configuration__log_destination_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,12 +67,15 @@ let yojson_of_logging_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logging_configuration__log_destination_config
-             v_log_destination_config
-         in
-         ("log_destination_config", arg) :: bnds
+         if [] = v_log_destination_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logging_configuration__log_destination_config)
+               v_log_destination_config
+           in
+           let bnd = "log_destination_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logging_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -84,6 +88,7 @@ type aws_networkfirewall_logging_configuration = {
   firewall_arn : string prop;
   id : string prop option; [@option]
   logging_configuration : logging_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -100,11 +105,14 @@ let yojson_of_aws_networkfirewall_logging_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging_configuration
-             v_logging_configuration
-         in
-         ("logging_configuration", arg) :: bnds
+         if [] = v_logging_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging_configuration)
+               v_logging_configuration
+           in
+           let bnd = "logging_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

@@ -244,6 +244,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_lab_service_plan = {
   allowed_regions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   default_network_subnet_id : string prop option; [@option]
   id : string prop option; [@option]
   location : string prop;
@@ -252,8 +253,10 @@ type azurerm_lab_service_plan = {
   shared_gallery_id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   default_auto_shutdown : default_auto_shutdown list;
+      [@default []] [@yojson_drop_default ( = )]
   default_connection : default_connection list;
-  support : support list;
+      [@default []] [@yojson_drop_default ( = )]
+  support : support list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -284,22 +287,31 @@ let yojson_of_azurerm_lab_service_plan =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_support v_support in
-         ("support", arg) :: bnds
+         if [] = v_support then bnds
+         else
+           let arg = (yojson_of_list yojson_of_support) v_support in
+           let bnd = "support", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_connection
-             v_default_connection
-         in
-         ("default_connection", arg) :: bnds
+         if [] = v_default_connection then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_connection)
+               v_default_connection
+           in
+           let bnd = "default_connection", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_auto_shutdown
-             v_default_auto_shutdown
-         in
-         ("default_auto_shutdown", arg) :: bnds
+         if [] = v_default_auto_shutdown then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_auto_shutdown)
+               v_default_auto_shutdown
+           in
+           let bnd = "default_auto_shutdown", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -356,12 +368,14 @@ let yojson_of_azurerm_lab_service_plan =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_regions
-         in
-         ("allowed_regions", arg) :: bnds
+         if [] = v_allowed_regions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_regions
+           in
+           let bnd = "allowed_regions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_lab_service_plan -> Ppx_yojson_conv_lib.Yojson.Safe.t)

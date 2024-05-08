@@ -65,8 +65,10 @@ let _ = yojson_of_metadata__config__algorithm_config__tree_ah_config
 type metadata__config__algorithm_config = {
   brute_force_config :
     metadata__config__algorithm_config__brute_force_config list;
+      [@default []] [@yojson_drop_default ( = )]
   tree_ah_config :
     metadata__config__algorithm_config__tree_ah_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,20 +84,26 @@ let yojson_of_metadata__config__algorithm_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_metadata__config__algorithm_config__tree_ah_config
-             v_tree_ah_config
-         in
-         ("tree_ah_config", arg) :: bnds
+         if [] = v_tree_ah_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_metadata__config__algorithm_config__tree_ah_config)
+               v_tree_ah_config
+           in
+           let bnd = "tree_ah_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_metadata__config__algorithm_config__brute_force_config
-             v_brute_force_config
-         in
-         ("brute_force_config", arg) :: bnds
+         if [] = v_brute_force_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_metadata__config__algorithm_config__brute_force_config)
+               v_brute_force_config
+           in
+           let bnd = "brute_force_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : metadata__config__algorithm_config ->
@@ -112,6 +120,7 @@ type metadata__config = {
   feature_norm_type : string prop option; [@option]
   shard_size : string prop option; [@option]
   algorithm_config : metadata__config__algorithm_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -131,12 +140,15 @@ let yojson_of_metadata__config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_metadata__config__algorithm_config
-             v_algorithm_config
-         in
-         ("algorithm_config", arg) :: bnds
+         if [] = v_algorithm_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_metadata__config__algorithm_config)
+               v_algorithm_config
+           in
+           let bnd = "algorithm_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shard_size with
@@ -185,6 +197,7 @@ type metadata = {
   contents_delta_uri : string prop;
   is_complete_overwrite : bool prop option; [@option]
   config : metadata__config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,10 +214,13 @@ let yojson_of_metadata =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metadata__config v_config
-         in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata__config) v_config
+           in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_is_complete_overwrite with
@@ -350,6 +366,7 @@ type google_vertex_ai_index = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   metadata : metadata list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -377,8 +394,13 @@ let yojson_of_google_vertex_ai_index =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

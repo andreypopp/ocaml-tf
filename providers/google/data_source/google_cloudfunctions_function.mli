@@ -11,6 +11,7 @@ type event_trigger__failure_policy = {
 type event_trigger = {
   event_type : string prop;  (** event_type *)
   failure_policy : event_trigger__failure_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** failure_policy *)
   resource : string prop;  (** resource *)
 }
@@ -31,7 +32,9 @@ type secret_volumes = {
   mount_path : string prop;  (** mount_path *)
   project_id : string prop;  (** project_id *)
   secret : string prop;  (** secret *)
-  versions : secret_volumes__versions list;  (** versions *)
+  versions : secret_volumes__versions list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** versions *)
 }
 
 type source_repository = {

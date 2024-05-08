@@ -72,6 +72,7 @@ type ipv6 = {
   route_filter_id : string prop option; [@option]
   secondary_peer_address_prefix : string prop;
   microsoft_peering : ipv6__microsoft_peering list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -91,11 +92,14 @@ let yojson_of_ipv6 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ipv6__microsoft_peering
-             v_microsoft_peering
-         in
-         ("microsoft_peering", arg) :: bnds
+         if [] = v_microsoft_peering then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ipv6__microsoft_peering)
+               v_microsoft_peering
+           in
+           let bnd = "microsoft_peering", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -137,6 +141,7 @@ let _ = yojson_of_ipv6
 type microsoft_peering_config = {
   advertised_communities : string prop list option; [@option]
   advertised_public_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   customer_asn : float prop option; [@option]
   routing_registry_name : string prop option; [@option]
 }
@@ -172,12 +177,14 @@ let yojson_of_microsoft_peering_config =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_advertised_public_prefixes
-         in
-         ("advertised_public_prefixes", arg) :: bnds
+         if [] = v_advertised_public_prefixes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_advertised_public_prefixes
+           in
+           let bnd = "advertised_public_prefixes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_advertised_communities with
@@ -268,8 +275,9 @@ type azurerm_express_route_circuit_peering = {
   secondary_peer_address_prefix : string prop option; [@option]
   shared_key : string prop option; [@option]
   vlan_id : float prop;
-  ipv6 : ipv6 list;
+  ipv6 : ipv6 list; [@default []] [@yojson_drop_default ( = )]
   microsoft_peering_config : microsoft_peering_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -303,15 +311,21 @@ let yojson_of_azurerm_express_route_circuit_peering =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_microsoft_peering_config
-             v_microsoft_peering_config
-         in
-         ("microsoft_peering_config", arg) :: bnds
+         if [] = v_microsoft_peering_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_microsoft_peering_config)
+               v_microsoft_peering_config
+           in
+           let bnd = "microsoft_peering_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_ipv6 v_ipv6 in
-         ("ipv6", arg) :: bnds
+         if [] = v_ipv6 then bnds
+         else
+           let arg = (yojson_of_list yojson_of_ipv6) v_ipv6 in
+           let bnd = "ipv6", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_vlan_id in

@@ -57,7 +57,9 @@ type basic_sli = {
   method_ : string prop list option; [@option] [@key "method"]
   version : string prop list option; [@option]
   availability : basic_sli__availability list;
+      [@default []] [@yojson_drop_default ( = )]
   latency : basic_sli__latency list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,17 +78,23 @@ let yojson_of_basic_sli =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_basic_sli__latency v_latency
-         in
-         ("latency", arg) :: bnds
+         if [] = v_latency then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_basic_sli__latency) v_latency
+           in
+           let bnd = "latency", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_basic_sli__availability
-             v_availability
-         in
-         ("availability", arg) :: bnds
+         if [] = v_availability then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_basic_sli__availability)
+               v_availability
+           in
+           let bnd = "availability", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -166,6 +174,7 @@ let _ = yojson_of_request_based_sli__distribution_cut__range
 type request_based_sli__distribution_cut = {
   distribution_filter : string prop;
   range : request_based_sli__distribution_cut__range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -179,12 +188,15 @@ let yojson_of_request_based_sli__distribution_cut =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_request_based_sli__distribution_cut__range
-             v_range
-         in
-         ("range", arg) :: bnds
+         if [] = v_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_request_based_sli__distribution_cut__range)
+               v_range
+           in
+           let bnd = "range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -253,7 +265,9 @@ let _ = yojson_of_request_based_sli__good_total_ratio
 
 type request_based_sli = {
   distribution_cut : request_based_sli__distribution_cut list;
+      [@default []] [@yojson_drop_default ( = )]
   good_total_ratio : request_based_sli__good_total_ratio list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -269,20 +283,26 @@ let yojson_of_request_based_sli =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_request_based_sli__good_total_ratio
-             v_good_total_ratio
-         in
-         ("good_total_ratio", arg) :: bnds
+         if [] = v_good_total_ratio then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_request_based_sli__good_total_ratio)
+               v_good_total_ratio
+           in
+           let bnd = "good_total_ratio", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_request_based_sli__distribution_cut
-             v_distribution_cut
-         in
-         ("distribution_cut", arg) :: bnds
+         if [] = v_distribution_cut then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_request_based_sli__distribution_cut)
+               v_distribution_cut
+           in
+           let bnd = "distribution_cut", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : request_based_sli -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -408,9 +428,11 @@ type windows_based_sli__good_total_ratio_threshold__basic_sli_performance = {
   availability :
     windows_based_sli__good_total_ratio_threshold__basic_sli_performance__availability
     list;
+      [@default []] [@yojson_drop_default ( = )]
   latency :
     windows_based_sli__good_total_ratio_threshold__basic_sli_performance__latency
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -433,20 +455,26 @@ let yojson_of_windows_based_sli__good_total_ratio_threshold__basic_sli_performan
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__good_total_ratio_threshold__basic_sli_performance__latency
-             v_latency
-         in
-         ("latency", arg) :: bnds
+         if [] = v_latency then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__good_total_ratio_threshold__basic_sli_performance__latency)
+               v_latency
+           in
+           let bnd = "latency", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__good_total_ratio_threshold__basic_sli_performance__availability
-             v_availability
-         in
-         ("availability", arg) :: bnds
+         if [] = v_availability then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__good_total_ratio_threshold__basic_sli_performance__availability)
+               v_availability
+           in
+           let bnd = "availability", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -535,6 +563,7 @@ type windows_based_sli__good_total_ratio_threshold__performance__distribution_cu
   range :
     windows_based_sli__good_total_ratio_threshold__performance__distribution_cut__range
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -552,12 +581,15 @@ let yojson_of_windows_based_sli__good_total_ratio_threshold__performance__distri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__good_total_ratio_threshold__performance__distribution_cut__range
-             v_range
-         in
-         ("range", arg) :: bnds
+         if [] = v_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__good_total_ratio_threshold__performance__distribution_cut__range)
+               v_range
+           in
+           let bnd = "range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -634,9 +666,11 @@ type windows_based_sli__good_total_ratio_threshold__performance = {
   distribution_cut :
     windows_based_sli__good_total_ratio_threshold__performance__distribution_cut
     list;
+      [@default []] [@yojson_drop_default ( = )]
   good_total_ratio :
     windows_based_sli__good_total_ratio_threshold__performance__good_total_ratio
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -655,20 +689,26 @@ let yojson_of_windows_based_sli__good_total_ratio_threshold__performance
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__good_total_ratio_threshold__performance__good_total_ratio
-             v_good_total_ratio
-         in
-         ("good_total_ratio", arg) :: bnds
+         if [] = v_good_total_ratio then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__good_total_ratio_threshold__performance__good_total_ratio)
+               v_good_total_ratio
+           in
+           let bnd = "good_total_ratio", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__good_total_ratio_threshold__performance__distribution_cut
-             v_distribution_cut
-         in
-         ("distribution_cut", arg) :: bnds
+         if [] = v_distribution_cut then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__good_total_ratio_threshold__performance__distribution_cut)
+               v_distribution_cut
+           in
+           let bnd = "distribution_cut", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : windows_based_sli__good_total_ratio_threshold__performance ->
@@ -684,8 +724,10 @@ type windows_based_sli__good_total_ratio_threshold = {
   basic_sli_performance :
     windows_based_sli__good_total_ratio_threshold__basic_sli_performance
     list;
+      [@default []] [@yojson_drop_default ( = )]
   performance :
     windows_based_sli__good_total_ratio_threshold__performance list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -702,20 +744,26 @@ let yojson_of_windows_based_sli__good_total_ratio_threshold =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__good_total_ratio_threshold__performance
-             v_performance
-         in
-         ("performance", arg) :: bnds
+         if [] = v_performance then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__good_total_ratio_threshold__performance)
+               v_performance
+           in
+           let bnd = "performance", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__good_total_ratio_threshold__basic_sli_performance
-             v_basic_sli_performance
-         in
-         ("basic_sli_performance", arg) :: bnds
+         if [] = v_basic_sli_performance then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__good_total_ratio_threshold__basic_sli_performance)
+               v_basic_sli_performance
+           in
+           let bnd = "basic_sli_performance", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_threshold with
@@ -775,6 +823,7 @@ let _ = yojson_of_windows_based_sli__metric_mean_in_range__range
 type windows_based_sli__metric_mean_in_range = {
   time_series : string prop;
   range : windows_based_sli__metric_mean_in_range__range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -787,12 +836,15 @@ let yojson_of_windows_based_sli__metric_mean_in_range =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__metric_mean_in_range__range
-             v_range
-         in
-         ("range", arg) :: bnds
+         if [] = v_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__metric_mean_in_range__range)
+               v_range
+           in
+           let bnd = "range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_time_series in
@@ -847,6 +899,7 @@ let _ = yojson_of_windows_based_sli__metric_sum_in_range__range
 type windows_based_sli__metric_sum_in_range = {
   time_series : string prop;
   range : windows_based_sli__metric_sum_in_range__range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -859,12 +912,15 @@ let yojson_of_windows_based_sli__metric_sum_in_range =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__metric_sum_in_range__range
-             v_range
-         in
-         ("range", arg) :: bnds
+         if [] = v_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__metric_sum_in_range__range)
+               v_range
+           in
+           let bnd = "range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_time_series in
@@ -883,9 +939,12 @@ type windows_based_sli = {
   window_period : string prop option; [@option]
   good_total_ratio_threshold :
     windows_based_sli__good_total_ratio_threshold list;
+      [@default []] [@yojson_drop_default ( = )]
   metric_mean_in_range :
     windows_based_sli__metric_mean_in_range list;
+      [@default []] [@yojson_drop_default ( = )]
   metric_sum_in_range : windows_based_sli__metric_sum_in_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -904,28 +963,37 @@ let yojson_of_windows_based_sli =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__metric_sum_in_range
-             v_metric_sum_in_range
-         in
-         ("metric_sum_in_range", arg) :: bnds
+         if [] = v_metric_sum_in_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__metric_sum_in_range)
+               v_metric_sum_in_range
+           in
+           let bnd = "metric_sum_in_range", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__metric_mean_in_range
-             v_metric_mean_in_range
-         in
-         ("metric_mean_in_range", arg) :: bnds
+         if [] = v_metric_mean_in_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__metric_mean_in_range)
+               v_metric_mean_in_range
+           in
+           let bnd = "metric_mean_in_range", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_windows_based_sli__good_total_ratio_threshold
-             v_good_total_ratio_threshold
-         in
-         ("good_total_ratio_threshold", arg) :: bnds
+         if [] = v_good_total_ratio_threshold then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_windows_based_sli__good_total_ratio_threshold)
+               v_good_total_ratio_threshold
+           in
+           let bnd = "good_total_ratio_threshold", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_window_period with
@@ -961,9 +1029,12 @@ type google_monitoring_slo = {
   slo_id : string prop option; [@option]
   user_labels : (string * string prop) list option; [@option]
   basic_sli : basic_sli list;
+      [@default []] [@yojson_drop_default ( = )]
   request_based_sli : request_based_sli list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   windows_based_sli : windows_based_sli list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -990,26 +1061,37 @@ let yojson_of_google_monitoring_slo =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_windows_based_sli
-             v_windows_based_sli
-         in
-         ("windows_based_sli", arg) :: bnds
+         if [] = v_windows_based_sli then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_windows_based_sli)
+               v_windows_based_sli
+           in
+           let bnd = "windows_based_sli", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_request_based_sli
-             v_request_based_sli
-         in
-         ("request_based_sli", arg) :: bnds
+         if [] = v_request_based_sli then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_request_based_sli)
+               v_request_based_sli
+           in
+           let bnd = "request_based_sli", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_basic_sli v_basic_sli in
-         ("basic_sli", arg) :: bnds
+         if [] = v_basic_sli then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_basic_sli) v_basic_sli
+           in
+           let bnd = "basic_sli", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_labels with

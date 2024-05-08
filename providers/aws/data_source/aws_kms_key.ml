@@ -65,7 +65,9 @@ let _ = yojson_of_multi_region_configuration__primary_key
 type multi_region_configuration = {
   multi_region_key_type : string prop;
   primary_key : multi_region_configuration__primary_key list;
+      [@default []] [@yojson_drop_default ( = )]
   replica_keys : multi_region_configuration__replica_keys list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,20 +84,26 @@ let yojson_of_multi_region_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_multi_region_configuration__replica_keys
-             v_replica_keys
-         in
-         ("replica_keys", arg) :: bnds
+         if [] = v_replica_keys then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_multi_region_configuration__replica_keys)
+               v_replica_keys
+           in
+           let bnd = "replica_keys", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_multi_region_configuration__primary_key
-             v_primary_key
-         in
-         ("primary_key", arg) :: bnds
+         if [] = v_primary_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_multi_region_configuration__primary_key)
+               v_primary_key
+           in
+           let bnd = "primary_key", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

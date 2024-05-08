@@ -71,7 +71,10 @@ let _ = yojson_of_logging__s3_logs
 
 [@@@deriving.end]
 
-type logging = { s3_logs : logging__s3_logs list }
+type logging = {
+  s3_logs : logging__s3_logs list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : logging) -> ()
@@ -83,10 +86,13 @@ let yojson_of_logging =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging__s3_logs v_s3_logs
-         in
-         ("s3_logs", arg) :: bnds
+         if [] = v_s3_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging__s3_logs) v_s3_logs
+           in
+           let bnd = "s3_logs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logging -> Ppx_yojson_conv_lib.Yojson.Safe.t)

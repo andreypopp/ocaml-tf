@@ -21,8 +21,11 @@ type bigquery_table_spec__table_spec = {
 type bigquery_table_spec = {
   table_source_type : string prop;  (** table_source_type *)
   table_spec : bigquery_table_spec__table_spec list;
+      [@default []] [@yojson_drop_default ( = )]
       (** table_spec *)
-  view_spec : bigquery_table_spec__view_spec list;  (** view_spec *)
+  view_spec : bigquery_table_spec__view_spec list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** view_spec *)
 }
 
 type gcs_fileset_spec__sample_gcs_file_specs = {

@@ -15,7 +15,12 @@ type signed_object__s3 = {
   key : string prop;  (** key *)
 }
 
-type signed_object = { s3 : signed_object__s3 list  (** s3 *) }
+type signed_object = {
+  s3 : signed_object__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** s3 *)
+}
+
 type destination__s3
 
 val destination__s3 :

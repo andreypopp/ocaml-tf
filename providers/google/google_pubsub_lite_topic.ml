@@ -41,6 +41,7 @@ let _ = yojson_of_partition_config__capacity
 type partition_config = {
   count : float prop;
   capacity : partition_config__capacity list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,11 +54,14 @@ let yojson_of_partition_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_partition_config__capacity
-             v_capacity
-         in
-         ("capacity", arg) :: bnds
+         if [] = v_capacity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_partition_config__capacity)
+               v_capacity
+           in
+           let bnd = "capacity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_count in
@@ -189,8 +193,11 @@ type google_pubsub_lite_topic = {
   region : string prop option; [@option]
   zone : string prop option; [@option]
   partition_config : partition_config list;
+      [@default []] [@yojson_drop_default ( = )]
   reservation_config : reservation_config list;
+      [@default []] [@yojson_drop_default ( = )]
   retention_config : retention_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -218,25 +225,34 @@ let yojson_of_google_pubsub_lite_topic =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_config
-             v_retention_config
-         in
-         ("retention_config", arg) :: bnds
+         if [] = v_retention_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_config)
+               v_retention_config
+           in
+           let bnd = "retention_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_reservation_config
-             v_reservation_config
-         in
-         ("reservation_config", arg) :: bnds
+         if [] = v_reservation_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_reservation_config)
+               v_reservation_config
+           in
+           let bnd = "reservation_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_partition_config
-             v_partition_config
-         in
-         ("partition_config", arg) :: bnds
+         if [] = v_partition_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_partition_config)
+               v_partition_config
+           in
+           let bnd = "partition_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

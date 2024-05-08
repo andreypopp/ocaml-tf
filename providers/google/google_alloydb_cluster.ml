@@ -158,6 +158,7 @@ type automated_backup_policy__weekly_schedule = {
   days_of_week : string prop list option; [@option]
   start_times :
     automated_backup_policy__weekly_schedule__start_times list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -171,12 +172,15 @@ let yojson_of_automated_backup_policy__weekly_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_automated_backup_policy__weekly_schedule__start_times
-             v_start_times
-         in
-         ("start_times", arg) :: bnds
+         if [] = v_start_times then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_automated_backup_policy__weekly_schedule__start_times)
+               v_start_times
+           in
+           let bnd = "start_times", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_days_of_week with
@@ -203,11 +207,15 @@ type automated_backup_policy = {
   location : string prop option; [@option]
   encryption_config :
     automated_backup_policy__encryption_config list;
+      [@default []] [@yojson_drop_default ( = )]
   quantity_based_retention :
     automated_backup_policy__quantity_based_retention list;
+      [@default []] [@yojson_drop_default ( = )]
   time_based_retention :
     automated_backup_policy__time_based_retention list;
+      [@default []] [@yojson_drop_default ( = )]
   weekly_schedule : automated_backup_policy__weekly_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -229,36 +237,48 @@ let yojson_of_automated_backup_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_automated_backup_policy__weekly_schedule
-             v_weekly_schedule
-         in
-         ("weekly_schedule", arg) :: bnds
+         if [] = v_weekly_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_automated_backup_policy__weekly_schedule)
+               v_weekly_schedule
+           in
+           let bnd = "weekly_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_automated_backup_policy__time_based_retention
-             v_time_based_retention
-         in
-         ("time_based_retention", arg) :: bnds
+         if [] = v_time_based_retention then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_automated_backup_policy__time_based_retention)
+               v_time_based_retention
+           in
+           let bnd = "time_based_retention", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_automated_backup_policy__quantity_based_retention
-             v_quantity_based_retention
-         in
-         ("quantity_based_retention", arg) :: bnds
+         if [] = v_quantity_based_retention then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_automated_backup_policy__quantity_based_retention)
+               v_quantity_based_retention
+           in
+           let bnd = "quantity_based_retention", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_automated_backup_policy__encryption_config
-             v_encryption_config
-         in
-         ("encryption_config", arg) :: bnds
+         if [] = v_encryption_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_automated_backup_policy__encryption_config)
+               v_encryption_config
+           in
+           let bnd = "encryption_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_location with
@@ -341,6 +361,7 @@ type continuous_backup_config = {
   recovery_window_days : float prop option; [@option]
   encryption_config :
     continuous_backup_config__encryption_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -357,12 +378,15 @@ let yojson_of_continuous_backup_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_continuous_backup_config__encryption_config
-             v_encryption_config
-         in
-         ("encryption_config", arg) :: bnds
+         if [] = v_encryption_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_continuous_backup_config__encryption_config)
+               v_encryption_config
+           in
+           let bnd = "encryption_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_recovery_window_days with
@@ -635,6 +659,7 @@ let _ = yojson_of_backup_source
 type continuous_backup_info__encryption_info = {
   encryption_type : string prop;
   kms_key_versions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -650,12 +675,14 @@ let yojson_of_continuous_backup_info__encryption_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_kms_key_versions
-         in
-         ("kms_key_versions", arg) :: bnds
+         if [] = v_kms_key_versions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_kms_key_versions
+           in
+           let bnd = "kms_key_versions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -675,7 +702,9 @@ type continuous_backup_info = {
   earliest_restorable_time : string prop;
   enabled_time : string prop;
   encryption_info : continuous_backup_info__encryption_info list;
+      [@default []] [@yojson_drop_default ( = )]
   schedule : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -693,20 +722,25 @@ let yojson_of_continuous_backup_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_schedule
-         in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_continuous_backup_info__encryption_info
-             v_encryption_info
-         in
-         ("encryption_info", arg) :: bnds
+         if [] = v_encryption_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_continuous_backup_info__encryption_info)
+               v_encryption_info
+           in
+           let bnd = "encryption_info", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_enabled_time in
@@ -728,6 +762,7 @@ let _ = yojson_of_continuous_backup_info
 type encryption_info = {
   encryption_type : string prop;
   kms_key_versions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -743,12 +778,14 @@ let yojson_of_encryption_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_kms_key_versions
-         in
-         ("kms_key_versions", arg) :: bnds
+         if [] = v_kms_key_versions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_kms_key_versions
+           in
+           let bnd = "kms_key_versions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -815,14 +852,22 @@ type google_alloydb_cluster = {
   network : string prop option; [@option]
   project : string prop option; [@option]
   automated_backup_policy : automated_backup_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   continuous_backup_config : continuous_backup_config list;
+      [@default []] [@yojson_drop_default ( = )]
   encryption_config : encryption_config list;
+      [@default []] [@yojson_drop_default ( = )]
   initial_user : initial_user list;
+      [@default []] [@yojson_drop_default ( = )]
   network_config : network_config list;
+      [@default []] [@yojson_drop_default ( = )]
   restore_backup_source : restore_backup_source list;
+      [@default []] [@yojson_drop_default ( = )]
   restore_continuous_backup_source :
     restore_continuous_backup_source list;
+      [@default []] [@yojson_drop_default ( = )]
   secondary_config : secondary_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -863,58 +908,84 @@ let yojson_of_google_alloydb_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secondary_config
-             v_secondary_config
-         in
-         ("secondary_config", arg) :: bnds
+         if [] = v_secondary_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secondary_config)
+               v_secondary_config
+           in
+           let bnd = "secondary_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restore_continuous_backup_source
-             v_restore_continuous_backup_source
-         in
-         ("restore_continuous_backup_source", arg) :: bnds
+         if [] = v_restore_continuous_backup_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_continuous_backup_source)
+               v_restore_continuous_backup_source
+           in
+           let bnd = "restore_continuous_backup_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restore_backup_source
-             v_restore_backup_source
-         in
-         ("restore_backup_source", arg) :: bnds
+         if [] = v_restore_backup_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restore_backup_source)
+               v_restore_backup_source
+           in
+           let bnd = "restore_backup_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_config v_network_config
-         in
-         ("network_config", arg) :: bnds
+         if [] = v_network_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_config)
+               v_network_config
+           in
+           let bnd = "network_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_initial_user v_initial_user
-         in
-         ("initial_user", arg) :: bnds
+         if [] = v_initial_user then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_initial_user) v_initial_user
+           in
+           let bnd = "initial_user", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_config
-             v_encryption_config
-         in
-         ("encryption_config", arg) :: bnds
+         if [] = v_encryption_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_config)
+               v_encryption_config
+           in
+           let bnd = "encryption_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_continuous_backup_config
-             v_continuous_backup_config
-         in
-         ("continuous_backup_config", arg) :: bnds
+         if [] = v_continuous_backup_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_continuous_backup_config)
+               v_continuous_backup_config
+           in
+           let bnd = "continuous_backup_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_automated_backup_policy
-             v_automated_backup_policy
-         in
-         ("automated_backup_policy", arg) :: bnds
+         if [] = v_automated_backup_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_automated_backup_policy)
+               v_automated_backup_policy
+           in
+           let bnd = "automated_backup_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

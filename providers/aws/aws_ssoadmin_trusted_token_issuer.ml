@@ -62,6 +62,7 @@ let _ =
 type trusted_token_issuer_configuration = {
   oidc_jwt_configuration :
     trusted_token_issuer_configuration__oidc_jwt_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,12 +75,15 @@ let yojson_of_trusted_token_issuer_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_trusted_token_issuer_configuration__oidc_jwt_configuration
-             v_oidc_jwt_configuration
-         in
-         ("oidc_jwt_configuration", arg) :: bnds
+         if [] = v_oidc_jwt_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trusted_token_issuer_configuration__oidc_jwt_configuration)
+               v_oidc_jwt_configuration
+           in
+           let bnd = "oidc_jwt_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : trusted_token_issuer_configuration ->
@@ -97,6 +101,7 @@ type aws_ssoadmin_trusted_token_issuer = {
   trusted_token_issuer_type : string prop;
   trusted_token_issuer_configuration :
     trusted_token_issuer_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -117,12 +122,15 @@ let yojson_of_aws_ssoadmin_trusted_token_issuer =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_trusted_token_issuer_configuration
-             v_trusted_token_issuer_configuration
-         in
-         ("trusted_token_issuer_configuration", arg) :: bnds
+         if [] = v_trusted_token_issuer_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trusted_token_issuer_configuration)
+               v_trusted_token_issuer_configuration
+           in
+           let bnd = "trusted_token_issuer_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

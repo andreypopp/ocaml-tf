@@ -146,7 +146,9 @@ let _ = yojson_of_build_config__source__storage_source
 
 type build_config__source = {
   repo_source : build_config__source__repo_source list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_source : build_config__source__storage_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -162,19 +164,26 @@ let yojson_of_build_config__source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_build_config__source__storage_source
-             v_storage_source
-         in
-         ("storage_source", arg) :: bnds
+         if [] = v_storage_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build_config__source__storage_source)
+               v_storage_source
+           in
+           let bnd = "storage_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build_config__source__repo_source
-             v_repo_source
-         in
-         ("repo_source", arg) :: bnds
+         if [] = v_repo_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build_config__source__repo_source)
+               v_repo_source
+           in
+           let bnd = "repo_source", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build_config__source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -191,6 +200,7 @@ type build_config = {
   runtime : string prop option; [@option]
   worker_pool : string prop option; [@option]
   source : build_config__source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,10 +220,13 @@ let yojson_of_build_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build_config__source v_source
-         in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build_config__source) v_source
+           in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_worker_pool with
@@ -320,6 +333,7 @@ type event_trigger = {
   service_account_email : string prop option; [@option]
   trigger_region : string prop option; [@option]
   event_filters : event_trigger__event_filters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -339,11 +353,14 @@ let yojson_of_event_trigger =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_trigger__event_filters
-             v_event_filters
-         in
-         ("event_filters", arg) :: bnds
+         if [] = v_event_filters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_trigger__event_filters)
+               v_event_filters
+           in
+           let bnd = "event_filters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_trigger_region with
@@ -472,6 +489,7 @@ type service_config__secret_volumes = {
   project_id : string prop;
   secret : string prop;
   versions : service_config__secret_volumes__versions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -489,12 +507,15 @@ let yojson_of_service_config__secret_volumes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_config__secret_volumes__versions
-             v_versions
-         in
-         ("versions", arg) :: bnds
+         if [] = v_versions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_config__secret_volumes__versions)
+               v_versions
+           in
+           let bnd = "versions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_secret in
@@ -533,7 +554,9 @@ type service_config = {
   vpc_connector_egress_settings : string prop option; [@option]
   secret_environment_variables :
     service_config__secret_environment_variables list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_volumes : service_config__secret_volumes list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -565,19 +588,25 @@ let yojson_of_service_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_config__secret_volumes
-             v_secret_volumes
-         in
-         ("secret_volumes", arg) :: bnds
+         if [] = v_secret_volumes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_config__secret_volumes)
+               v_secret_volumes
+           in
+           let bnd = "secret_volumes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_config__secret_environment_variables
-             v_secret_environment_variables
-         in
-         ("secret_environment_variables", arg) :: bnds
+         if [] = v_secret_environment_variables then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_config__secret_environment_variables)
+               v_secret_environment_variables
+           in
+           let bnd = "secret_environment_variables", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_connector_egress_settings with
@@ -753,8 +782,11 @@ type google_cloudfunctions2_function = {
   name : string prop;
   project : string prop option; [@option]
   build_config : build_config list;
+      [@default []] [@yojson_drop_default ( = )]
   event_trigger : event_trigger list;
+      [@default []] [@yojson_drop_default ( = )]
   service_config : service_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -784,22 +816,32 @@ let yojson_of_google_cloudfunctions2_function =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_config v_service_config
-         in
-         ("service_config", arg) :: bnds
+         if [] = v_service_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_config)
+               v_service_config
+           in
+           let bnd = "service_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_trigger v_event_trigger
-         in
-         ("event_trigger", arg) :: bnds
+         if [] = v_event_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_trigger) v_event_trigger
+           in
+           let bnd = "event_trigger", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build_config v_build_config
-         in
-         ("build_config", arg) :: bnds
+         if [] = v_build_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build_config) v_build_config
+           in
+           let bnd = "build_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

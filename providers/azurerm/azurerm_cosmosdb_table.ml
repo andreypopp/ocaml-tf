@@ -97,6 +97,7 @@ type azurerm_cosmosdb_table = {
   resource_group_name : string prop;
   throughput : float prop option; [@option]
   autoscale_settings : autoscale_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -122,11 +123,14 @@ let yojson_of_azurerm_cosmosdb_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_autoscale_settings
-             v_autoscale_settings
-         in
-         ("autoscale_settings", arg) :: bnds
+         if [] = v_autoscale_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscale_settings)
+               v_autoscale_settings
+           in
+           let bnd = "autoscale_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_throughput with

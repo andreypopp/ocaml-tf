@@ -4,6 +4,7 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -21,12 +22,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -407,10 +410,14 @@ type azurerm_mssql_database = {
       [@option]
   zone_redundant : bool prop option; [@option]
   identity : identity list;
-  import : import list;
+      [@default []] [@yojson_drop_default ( = )]
+  import : import list; [@default []] [@yojson_drop_default ( = )]
   long_term_retention_policy : long_term_retention_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   short_term_retention_policy : short_term_retention_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   threat_detection_policy : threat_detection_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -470,33 +477,50 @@ let yojson_of_azurerm_mssql_database =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threat_detection_policy
-             v_threat_detection_policy
-         in
-         ("threat_detection_policy", arg) :: bnds
+         if [] = v_threat_detection_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_threat_detection_policy)
+               v_threat_detection_policy
+           in
+           let bnd = "threat_detection_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_short_term_retention_policy
-             v_short_term_retention_policy
-         in
-         ("short_term_retention_policy", arg) :: bnds
+         if [] = v_short_term_retention_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_short_term_retention_policy)
+               v_short_term_retention_policy
+           in
+           let bnd = "short_term_retention_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_long_term_retention_policy
-             v_long_term_retention_policy
-         in
-         ("long_term_retention_policy", arg) :: bnds
+         if [] = v_long_term_retention_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_long_term_retention_policy)
+               v_long_term_retention_policy
+           in
+           let bnd = "long_term_retention_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_import v_import in
-         ("import", arg) :: bnds
+         if [] = v_import then bnds
+         else
+           let arg = (yojson_of_list yojson_of_import) v_import in
+           let bnd = "import", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone_redundant with

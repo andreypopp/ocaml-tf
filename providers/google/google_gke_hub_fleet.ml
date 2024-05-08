@@ -41,6 +41,7 @@ type default_cluster_config__binary_authorization_config = {
   policy_bindings :
     default_cluster_config__binary_authorization_config__policy_bindings
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,12 +58,15 @@ let yojson_of_default_cluster_config__binary_authorization_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_cluster_config__binary_authorization_config__policy_bindings
-             v_policy_bindings
-         in
-         ("policy_bindings", arg) :: bnds
+         if [] = v_policy_bindings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_cluster_config__binary_authorization_config__policy_bindings)
+               v_policy_bindings
+           in
+           let bnd = "policy_bindings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_evaluation_mode with
@@ -122,8 +126,10 @@ let _ = yojson_of_default_cluster_config__security_posture_config
 type default_cluster_config = {
   binary_authorization_config :
     default_cluster_config__binary_authorization_config list;
+      [@default []] [@yojson_drop_default ( = )]
   security_posture_config :
     default_cluster_config__security_posture_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -139,20 +145,26 @@ let yojson_of_default_cluster_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_cluster_config__security_posture_config
-             v_security_posture_config
-         in
-         ("security_posture_config", arg) :: bnds
+         if [] = v_security_posture_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_cluster_config__security_posture_config)
+               v_security_posture_config
+           in
+           let bnd = "security_posture_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_cluster_config__binary_authorization_config
-             v_binary_authorization_config
-         in
-         ("binary_authorization_config", arg) :: bnds
+         if [] = v_binary_authorization_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_cluster_config__binary_authorization_config)
+               v_binary_authorization_config
+           in
+           let bnd = "binary_authorization_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : default_cluster_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -233,6 +245,7 @@ type google_gke_hub_fleet = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   default_cluster_config : default_cluster_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -256,11 +269,14 @@ let yojson_of_google_gke_hub_fleet =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_cluster_config
-             v_default_cluster_config
-         in
-         ("default_cluster_config", arg) :: bnds
+         if [] = v_default_cluster_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_cluster_config)
+               v_default_cluster_config
+           in
+           let bnd = "default_cluster_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

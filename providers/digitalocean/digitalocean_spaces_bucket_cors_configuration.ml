@@ -5,7 +5,9 @@ open! Tf_core
 type cors_rule = {
   allowed_headers : string prop list option; [@option]
   allowed_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   expose_headers : string prop list option; [@option]
   id : string prop option; [@option]
   max_age_seconds : float prop option; [@option]
@@ -54,20 +56,24 @@ let yojson_of_cors_rule =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_methods
-         in
-         ("allowed_methods", arg) :: bnds
+         if [] = v_allowed_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_methods
+           in
+           let bnd = "allowed_methods", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allowed_headers with
@@ -91,6 +97,7 @@ type digitalocean_spaces_bucket_cors_configuration = {
   id : string prop option; [@option]
   region : string prop;
   cors_rule : cors_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -108,8 +115,13 @@ let yojson_of_digitalocean_spaces_bucket_cors_configuration =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_cors_rule v_cors_rule in
-         ("cors_rule", arg) :: bnds
+         if [] = v_cors_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cors_rule) v_cors_rule
+           in
+           let bnd = "cors_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_region in

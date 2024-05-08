@@ -67,6 +67,7 @@ type azurerm_network_manager_admin_rule_collection = {
   id : string prop option; [@option]
   name : string prop;
   network_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   security_admin_configuration_id : string prop;
   timeouts : timeouts option;
 }
@@ -100,12 +101,14 @@ let yojson_of_azurerm_network_manager_admin_rule_collection =
          ("security_admin_configuration_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_network_group_ids
-         in
-         ("network_group_ids", arg) :: bnds
+         if [] = v_network_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_network_group_ids
+           in
+           let bnd = "network_group_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

@@ -54,6 +54,7 @@ let _ = yojson_of_conversation_logs__log_settings
 type conversation_logs = {
   iam_role_arn : string prop;
   log_settings : conversation_logs__log_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,11 +68,15 @@ let yojson_of_conversation_logs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_conversation_logs__log_settings
-             v_log_settings
-         in
-         ("log_settings", arg) :: bnds
+         if [] = v_log_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conversation_logs__log_settings)
+               v_log_settings
+           in
+           let bnd = "log_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_iam_role_arn in
@@ -137,6 +142,7 @@ type aws_lex_bot_alias = {
   id : string prop option; [@option]
   name : string prop;
   conversation_logs : conversation_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -162,11 +168,14 @@ let yojson_of_aws_lex_bot_alias =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_conversation_logs
-             v_conversation_logs
-         in
-         ("conversation_logs", arg) :: bnds
+         if [] = v_conversation_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_conversation_logs)
+               v_conversation_logs
+           in
+           let bnd = "conversation_logs", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

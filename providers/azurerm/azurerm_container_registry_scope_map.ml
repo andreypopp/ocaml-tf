@@ -64,6 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_container_registry_scope_map = {
   actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   container_registry_name : string prop;
   description : string prop option; [@option]
   id : string prop option; [@option]
@@ -126,10 +127,14 @@ let yojson_of_azurerm_container_registry_scope_map =
          ("container_registry_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_container_registry_scope_map ->

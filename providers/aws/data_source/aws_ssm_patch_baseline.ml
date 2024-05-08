@@ -5,6 +5,7 @@ open! Tf_core
 type approval_rule__patch_filter = {
   key : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,10 +18,14 @@ let yojson_of_approval_rule__patch_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -40,6 +45,7 @@ type approval_rule = {
   compliance_level : string prop;
   enable_non_security : bool prop;
   patch_filter : approval_rule__patch_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,11 +64,14 @@ let yojson_of_approval_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_approval_rule__patch_filter
-             v_patch_filter
-         in
-         ("patch_filter", arg) :: bnds
+         if [] = v_patch_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_approval_rule__patch_filter)
+               v_patch_filter
+           in
+           let bnd = "patch_filter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -95,7 +104,11 @@ let _ = yojson_of_approval_rule
 
 [@@@deriving.end]
 
-type global_filter = { key : string prop; values : string prop list }
+type global_filter = {
+  key : string prop;
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : global_filter) -> ()
@@ -107,10 +120,14 @@ let yojson_of_global_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -127,6 +144,7 @@ type source = {
   configuration : string prop;
   name : string prop;
   products : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -143,12 +161,14 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_products
-         in
-         ("products", arg) :: bnds
+         if [] = v_products then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_products
+           in
+           let bnd = "products", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

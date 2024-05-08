@@ -4,8 +4,10 @@ open! Tf_core
 
 type aws_autoscaling_notification = {
   group_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   notifications : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   topic_arn : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -28,12 +30,14 @@ let yojson_of_aws_autoscaling_notification =
          ("topic_arn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_notifications
-         in
-         ("notifications", arg) :: bnds
+         if [] = v_notifications then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_notifications
+           in
+           let bnd = "notifications", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with
@@ -44,12 +48,14 @@ let yojson_of_aws_autoscaling_notification =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_group_names
-         in
-         ("group_names", arg) :: bnds
+         if [] = v_group_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_group_names
+           in
+           let bnd = "group_names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_autoscaling_notification ->

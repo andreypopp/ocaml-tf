@@ -108,8 +108,9 @@ type kubernetes = {
   tls_server_name : string prop option; [@option]
   token : string prop option; [@option]
   username : string prop option; [@option]
-  exec : exec list;
+  exec : exec list; [@default []] [@yojson_drop_default ( = )]
   experiments : experiments list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -142,14 +143,20 @@ let yojson_of_kubernetes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_experiments v_experiments
-         in
-         ("experiments", arg) :: bnds
+         if [] = v_experiments then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_experiments) v_experiments
+           in
+           let bnd = "experiments", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_exec v_exec in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_exec) v_exec in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_username with

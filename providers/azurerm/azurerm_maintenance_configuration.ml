@@ -119,7 +119,9 @@ let _ = yojson_of_install_patches__windows
 type install_patches = {
   reboot : string prop option; [@option]
   linux : install_patches__linux list;
+      [@default []] [@yojson_drop_default ( = )]
   windows : install_patches__windows list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -132,17 +134,24 @@ let yojson_of_install_patches =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_install_patches__windows
-             v_windows
-         in
-         ("windows", arg) :: bnds
+         if [] = v_windows then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_install_patches__windows)
+               v_windows
+           in
+           let bnd = "windows", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_install_patches__linux v_linux
-         in
-         ("linux", arg) :: bnds
+         if [] = v_linux then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_install_patches__linux)
+               v_linux
+           in
+           let bnd = "linux", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_reboot with
@@ -294,8 +303,9 @@ type azurerm_maintenance_configuration = {
   tags : (string * string prop) list option; [@option]
   visibility : string prop option; [@option]
   install_patches : install_patches list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  window : window list;
+  window : window list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -321,18 +331,25 @@ let yojson_of_azurerm_maintenance_configuration =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_window v_window in
-         ("window", arg) :: bnds
+         if [] = v_window then bnds
+         else
+           let arg = (yojson_of_list yojson_of_window) v_window in
+           let bnd = "window", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_install_patches v_install_patches
-         in
-         ("install_patches", arg) :: bnds
+         if [] = v_install_patches then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_install_patches)
+               v_install_patches
+           in
+           let bnd = "install_patches", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_visibility with

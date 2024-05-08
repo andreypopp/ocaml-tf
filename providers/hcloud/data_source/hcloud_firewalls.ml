@@ -5,10 +5,12 @@ open! Tf_core
 type firewalls__rule = {
   description : string prop;
   destination_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   direction : string prop;
   port : string prop;
   protocol : string prop;
   source_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28,12 +30,14 @@ let yojson_of_firewalls__rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_ips
-         in
-         ("source_ips", arg) :: bnds
+         if [] = v_source_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_ips
+           in
+           let bnd = "source_ips", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_protocol in
@@ -48,12 +52,14 @@ let yojson_of_firewalls__rule =
          ("direction", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_ips
-         in
-         ("destination_ips", arg) :: bnds
+         if [] = v_destination_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_ips
+           in
+           let bnd = "destination_ips", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_description in
@@ -99,10 +105,12 @@ let _ = yojson_of_firewalls__apply_to
 
 type firewalls = {
   apply_to : firewalls__apply_to list;
+      [@default []] [@yojson_drop_default ( = )]
   id : float prop;
   labels : (string * string prop) list;
   name : string prop;
   rule : firewalls__rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,8 +129,13 @@ let yojson_of_firewalls =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_firewalls__rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_firewalls__rule) v_rule
+           in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -145,10 +158,14 @@ let yojson_of_firewalls =
          ("id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_firewalls__apply_to v_apply_to
-         in
-         ("apply_to", arg) :: bnds
+         if [] = v_apply_to then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_firewalls__apply_to)
+               v_apply_to
+           in
+           let bnd = "apply_to", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : firewalls -> Ppx_yojson_conv_lib.Yojson.Safe.t)

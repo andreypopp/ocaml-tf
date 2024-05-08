@@ -35,6 +35,7 @@ type aws_waf_ipset = {
   id : string prop option; [@option]
   name : string prop;
   ip_set_descriptors : ip_set_descriptors list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -51,11 +52,14 @@ let yojson_of_aws_waf_ipset =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ip_set_descriptors
-             v_ip_set_descriptors
-         in
-         ("ip_set_descriptors", arg) :: bnds
+         if [] = v_ip_set_descriptors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ip_set_descriptors)
+               v_ip_set_descriptors
+           in
+           let bnd = "ip_set_descriptors", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

@@ -129,6 +129,7 @@ type google_secure_source_manager_instance = {
   location : string prop;
   project : string prop option; [@option]
   private_config : private_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -155,10 +156,14 @@ let yojson_of_google_secure_source_manager_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_config v_private_config
-         in
-         ("private_config", arg) :: bnds
+         if [] = v_private_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_config)
+               v_private_config
+           in
+           let bnd = "private_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

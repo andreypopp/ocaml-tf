@@ -108,7 +108,9 @@ let _ = yojson_of_timeouts
 
 type cross_tenant_scopes = {
   management_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subscriptions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tenant_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -130,20 +132,24 @@ let yojson_of_cross_tenant_scopes =
          ("tenant_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subscriptions
-         in
-         ("subscriptions", arg) :: bnds
+         if [] = v_subscriptions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subscriptions
+           in
+           let bnd = "subscriptions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_management_groups
-         in
-         ("management_groups", arg) :: bnds
+         if [] = v_management_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_management_groups
+           in
+           let bnd = "management_groups", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cross_tenant_scopes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -159,8 +165,9 @@ type azurerm_network_manager = {
   name : string prop;
   resource_group_name : string prop;
   scope_accesses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
-  scope : scope list;
+  scope : scope list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -188,8 +195,11 @@ let yojson_of_azurerm_network_manager =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_scope v_scope in
-         ("scope", arg) :: bnds
+         if [] = v_scope then bnds
+         else
+           let arg = (yojson_of_list yojson_of_scope) v_scope in
+           let bnd = "scope", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -208,12 +218,14 @@ let yojson_of_azurerm_network_manager =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_scope_accesses
-         in
-         ("scope_accesses", arg) :: bnds
+         if [] = v_scope_accesses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scope_accesses
+           in
+           let bnd = "scope_accesses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

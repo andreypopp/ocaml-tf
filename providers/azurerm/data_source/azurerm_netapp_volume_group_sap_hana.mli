@@ -31,16 +31,23 @@ type volume = {
   capacity_pool_id : string prop;  (** capacity_pool_id *)
   data_protection_replication :
     volume__data_protection_replication list;
+      [@default []] [@yojson_drop_default ( = )]
       (** data_protection_replication *)
   data_protection_snapshot_policy :
     volume__data_protection_snapshot_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** data_protection_snapshot_policy *)
   export_policy_rule : volume__export_policy_rule list;
+      [@default []] [@yojson_drop_default ( = )]
       (** export_policy_rule *)
   id : string prop;  (** id *)
-  mount_ip_addresses : string prop list;  (** mount_ip_addresses *)
+  mount_ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** mount_ip_addresses *)
   name : string prop;  (** name *)
-  protocols : string prop list;  (** protocols *)
+  protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** protocols *)
   proximity_placement_group_id : string prop;
       (** proximity_placement_group_id *)
   security_style : string prop;  (** security_style *)

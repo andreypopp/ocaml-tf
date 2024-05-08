@@ -35,6 +35,7 @@ let _ = yojson_of_cookies_config__cookies
 type cookies_config = {
   cookie_behavior : string prop;
   cookies : cookies_config__cookies list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,10 +48,14 @@ let yojson_of_cookies_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cookies_config__cookies v_cookies
-         in
-         ("cookies", arg) :: bnds
+         if [] = v_cookies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cookies_config__cookies)
+               v_cookies
+           in
+           let bnd = "cookies", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -98,6 +103,7 @@ let _ = yojson_of_headers_config__headers
 type headers_config = {
   header_behavior : string prop option; [@option]
   headers : headers_config__headers list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,10 +116,14 @@ let yojson_of_headers_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_headers_config__headers v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_headers_config__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_header_behavior with
@@ -164,6 +174,7 @@ let _ = yojson_of_query_strings_config__query_strings
 type query_strings_config = {
   query_string_behavior : string prop;
   query_strings : query_strings_config__query_strings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -179,12 +190,15 @@ let yojson_of_query_strings_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_query_strings_config__query_strings
-             v_query_strings
-         in
-         ("query_strings", arg) :: bnds
+         if [] = v_query_strings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_query_strings_config__query_strings)
+               v_query_strings
+           in
+           let bnd = "query_strings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -204,8 +218,11 @@ type aws_cloudfront_origin_request_policy = {
   id : string prop option; [@option]
   name : string prop;
   cookies_config : cookies_config list;
+      [@default []] [@yojson_drop_default ( = )]
   headers_config : headers_config list;
+      [@default []] [@yojson_drop_default ( = )]
   query_strings_config : query_strings_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -225,23 +242,34 @@ let yojson_of_aws_cloudfront_origin_request_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_query_strings_config
-             v_query_strings_config
-         in
-         ("query_strings_config", arg) :: bnds
+         if [] = v_query_strings_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_query_strings_config)
+               v_query_strings_config
+           in
+           let bnd = "query_strings_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_headers_config v_headers_config
-         in
-         ("headers_config", arg) :: bnds
+         if [] = v_headers_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_headers_config)
+               v_headers_config
+           in
+           let bnd = "headers_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cookies_config v_cookies_config
-         in
-         ("cookies_config", arg) :: bnds
+         if [] = v_cookies_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cookies_config)
+               v_cookies_config
+           in
+           let bnd = "cookies_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

@@ -320,8 +320,11 @@ let _ = yojson_of_metastores__oozie
 
 type metastores = {
   ambari : metastores__ambari list;
+      [@default []] [@yojson_drop_default ( = )]
   hive : metastores__hive list;
+      [@default []] [@yojson_drop_default ( = )]
   oozie : metastores__oozie list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -334,22 +337,31 @@ let yojson_of_metastores =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metastores__oozie v_oozie
-         in
-         ("oozie", arg) :: bnds
+         if [] = v_oozie then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metastores__oozie) v_oozie
+           in
+           let bnd = "oozie", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metastores__hive v_hive
-         in
-         ("hive", arg) :: bnds
+         if [] = v_hive then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metastores__hive) v_hive
+           in
+           let bnd = "hive", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metastores__ambari v_ambari
-         in
-         ("ambari", arg) :: bnds
+         if [] = v_ambari then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metastores__ambari) v_ambari
+           in
+           let bnd = "ambari", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : metastores -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -588,10 +600,13 @@ type roles__edge_node = {
   target_instance_count : float prop;
   vm_size : string prop;
   https_endpoints : roles__edge_node__https_endpoints list;
+      [@default []] [@yojson_drop_default ( = )]
   install_script_action :
     roles__edge_node__install_script_action list;
+      [@default []] [@yojson_drop_default ( = )]
   uninstall_script_actions :
     roles__edge_node__uninstall_script_actions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -610,27 +625,37 @@ let yojson_of_roles__edge_node =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_roles__edge_node__uninstall_script_actions
-             v_uninstall_script_actions
-         in
-         ("uninstall_script_actions", arg) :: bnds
+         if [] = v_uninstall_script_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_roles__edge_node__uninstall_script_actions)
+               v_uninstall_script_actions
+           in
+           let bnd = "uninstall_script_actions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_roles__edge_node__install_script_action
-             v_install_script_action
-         in
-         ("install_script_action", arg) :: bnds
+         if [] = v_install_script_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_roles__edge_node__install_script_action)
+               v_install_script_action
+           in
+           let bnd = "install_script_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_roles__edge_node__https_endpoints
-             v_https_endpoints
-         in
-         ("https_endpoints", arg) :: bnds
+         if [] = v_https_endpoints then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_roles__edge_node__https_endpoints)
+               v_https_endpoints
+           in
+           let bnd = "https_endpoints", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_vm_size in
@@ -696,6 +721,7 @@ type roles__head_node = {
   virtual_network_id : string prop option; [@option]
   vm_size : string prop;
   script_actions : roles__head_node__script_actions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -716,11 +742,15 @@ let yojson_of_roles__head_node =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_roles__head_node__script_actions
-             v_script_actions
-         in
-         ("script_actions", arg) :: bnds
+         if [] = v_script_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_roles__head_node__script_actions)
+               v_script_actions
+           in
+           let bnd = "script_actions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_vm_size in
@@ -809,7 +839,7 @@ let _ = yojson_of_roles__worker_node__autoscale__capacity
 [@@@deriving.end]
 
 type roles__worker_node__autoscale__recurrence__schedule = {
-  days : string prop list;
+  days : string prop list; [@default []] [@yojson_drop_default ( = )]
   target_instance_count : float prop;
   time : string prop;
 }
@@ -839,10 +869,14 @@ let yojson_of_roles__worker_node__autoscale__recurrence__schedule =
          ("target_instance_count", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_days
-         in
-         ("days", arg) :: bnds
+         if [] = v_days then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_days
+           in
+           let bnd = "days", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : roles__worker_node__autoscale__recurrence__schedule ->
@@ -855,6 +889,7 @@ let _ = yojson_of_roles__worker_node__autoscale__recurrence__schedule
 type roles__worker_node__autoscale__recurrence = {
   timezone : string prop;
   schedule : roles__worker_node__autoscale__recurrence__schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -867,12 +902,15 @@ let yojson_of_roles__worker_node__autoscale__recurrence =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_roles__worker_node__autoscale__recurrence__schedule
-             v_schedule
-         in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_roles__worker_node__autoscale__recurrence__schedule)
+               v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_timezone in
@@ -888,7 +926,9 @@ let _ = yojson_of_roles__worker_node__autoscale__recurrence
 
 type roles__worker_node__autoscale = {
   capacity : roles__worker_node__autoscale__capacity list;
+      [@default []] [@yojson_drop_default ( = )]
   recurrence : roles__worker_node__autoscale__recurrence list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -901,20 +941,26 @@ let yojson_of_roles__worker_node__autoscale =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_roles__worker_node__autoscale__recurrence
-             v_recurrence
-         in
-         ("recurrence", arg) :: bnds
+         if [] = v_recurrence then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_roles__worker_node__autoscale__recurrence)
+               v_recurrence
+           in
+           let bnd = "recurrence", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_roles__worker_node__autoscale__capacity
-             v_capacity
-         in
-         ("capacity", arg) :: bnds
+         if [] = v_capacity then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_roles__worker_node__autoscale__capacity)
+               v_capacity
+           in
+           let bnd = "capacity", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : roles__worker_node__autoscale ->
@@ -972,7 +1018,9 @@ type roles__worker_node = {
   virtual_network_id : string prop option; [@option]
   vm_size : string prop;
   autoscale : roles__worker_node__autoscale list;
+      [@default []] [@yojson_drop_default ( = )]
   script_actions : roles__worker_node__script_actions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -995,19 +1043,25 @@ let yojson_of_roles__worker_node =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_roles__worker_node__script_actions
-             v_script_actions
-         in
-         ("script_actions", arg) :: bnds
+         if [] = v_script_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_roles__worker_node__script_actions)
+               v_script_actions
+           in
+           let bnd = "script_actions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_roles__worker_node__autoscale
-             v_autoscale
-         in
-         ("autoscale", arg) :: bnds
+         if [] = v_autoscale then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_roles__worker_node__autoscale)
+               v_autoscale
+           in
+           let bnd = "autoscale", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_vm_size in
@@ -1111,6 +1165,7 @@ type roles__zookeeper_node = {
   virtual_network_id : string prop option; [@option]
   vm_size : string prop;
   script_actions : roles__zookeeper_node__script_actions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1131,12 +1186,15 @@ let yojson_of_roles__zookeeper_node =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_roles__zookeeper_node__script_actions
-             v_script_actions
-         in
-         ("script_actions", arg) :: bnds
+         if [] = v_script_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_roles__zookeeper_node__script_actions)
+               v_script_actions
+           in
+           let bnd = "script_actions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_vm_size in
@@ -1189,9 +1247,13 @@ let _ = yojson_of_roles__zookeeper_node
 
 type roles = {
   edge_node : roles__edge_node list;
+      [@default []] [@yojson_drop_default ( = )]
   head_node : roles__head_node list;
+      [@default []] [@yojson_drop_default ( = )]
   worker_node : roles__worker_node list;
+      [@default []] [@yojson_drop_default ( = )]
   zookeeper_node : roles__zookeeper_node list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1209,29 +1271,42 @@ let yojson_of_roles =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_roles__zookeeper_node
-             v_zookeeper_node
-         in
-         ("zookeeper_node", arg) :: bnds
+         if [] = v_zookeeper_node then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_roles__zookeeper_node)
+               v_zookeeper_node
+           in
+           let bnd = "zookeeper_node", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_roles__worker_node v_worker_node
-         in
-         ("worker_node", arg) :: bnds
+         if [] = v_worker_node then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_roles__worker_node)
+               v_worker_node
+           in
+           let bnd = "worker_node", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_roles__head_node v_head_node
-         in
-         ("head_node", arg) :: bnds
+         if [] = v_head_node then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_roles__head_node) v_head_node
+           in
+           let bnd = "head_node", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_roles__edge_node v_edge_node
-         in
-         ("edge_node", arg) :: bnds
+         if [] = v_edge_node then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_roles__edge_node) v_edge_node
+           in
+           let bnd = "edge_node", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : roles -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1247,6 +1322,7 @@ type security_profile = {
   domain_user_password : string prop;
   domain_username : string prop;
   ldaps_urls : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   msi_resource_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1274,12 +1350,14 @@ let yojson_of_security_profile =
          ("msi_resource_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ldaps_urls
-         in
-         ("ldaps_urls", arg) :: bnds
+         if [] = v_ldaps_urls then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ldaps_urls
+           in
+           let bnd = "ldaps_urls", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1491,17 +1569,25 @@ type azurerm_hdinsight_hadoop_cluster = {
   tier : string prop;
   tls_min_version : string prop option; [@option]
   component_version : component_version list;
+      [@default []] [@yojson_drop_default ( = )]
   compute_isolation : compute_isolation list;
+      [@default []] [@yojson_drop_default ( = )]
   disk_encryption : disk_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   extension : extension list;
-  gateway : gateway list;
+      [@default []] [@yojson_drop_default ( = )]
+  gateway : gateway list; [@default []] [@yojson_drop_default ( = )]
   metastores : metastores list;
-  monitor : monitor list;
-  network : network list;
-  roles : roles list;
+      [@default []] [@yojson_drop_default ( = )]
+  monitor : monitor list; [@default []] [@yojson_drop_default ( = )]
+  network : network list; [@default []] [@yojson_drop_default ( = )]
+  roles : roles list; [@default []] [@yojson_drop_default ( = )]
   security_profile : security_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_account : storage_account list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_account_gen2 : storage_account_gen2 list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1541,70 +1627,110 @@ let yojson_of_azurerm_hdinsight_hadoop_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_account_gen2
-             v_storage_account_gen2
-         in
-         ("storage_account_gen2", arg) :: bnds
+         if [] = v_storage_account_gen2 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_account_gen2)
+               v_storage_account_gen2
+           in
+           let bnd = "storage_account_gen2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_account v_storage_account
-         in
-         ("storage_account", arg) :: bnds
+         if [] = v_storage_account then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_account)
+               v_storage_account
+           in
+           let bnd = "storage_account", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_security_profile
-             v_security_profile
-         in
-         ("security_profile", arg) :: bnds
+         if [] = v_security_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_security_profile)
+               v_security_profile
+           in
+           let bnd = "security_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_roles v_roles in
-         ("roles", arg) :: bnds
+         if [] = v_roles then bnds
+         else
+           let arg = (yojson_of_list yojson_of_roles) v_roles in
+           let bnd = "roles", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_network v_network in
-         ("network", arg) :: bnds
+         if [] = v_network then bnds
+         else
+           let arg = (yojson_of_list yojson_of_network) v_network in
+           let bnd = "network", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_monitor v_monitor in
-         ("monitor", arg) :: bnds
+         if [] = v_monitor then bnds
+         else
+           let arg = (yojson_of_list yojson_of_monitor) v_monitor in
+           let bnd = "monitor", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metastores v_metastores
-         in
-         ("metastores", arg) :: bnds
+         if [] = v_metastores then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metastores) v_metastores
+           in
+           let bnd = "metastores", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_gateway v_gateway in
-         ("gateway", arg) :: bnds
+         if [] = v_gateway then bnds
+         else
+           let arg = (yojson_of_list yojson_of_gateway) v_gateway in
+           let bnd = "gateway", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_extension v_extension in
-         ("extension", arg) :: bnds
+         if [] = v_extension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_extension) v_extension
+           in
+           let bnd = "extension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_disk_encryption v_disk_encryption
-         in
-         ("disk_encryption", arg) :: bnds
+         if [] = v_disk_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_disk_encryption)
+               v_disk_encryption
+           in
+           let bnd = "disk_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_compute_isolation
-             v_compute_isolation
-         in
-         ("compute_isolation", arg) :: bnds
+         if [] = v_compute_isolation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_compute_isolation)
+               v_compute_isolation
+           in
+           let bnd = "compute_isolation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_component_version
-             v_component_version
-         in
-         ("component_version", arg) :: bnds
+         if [] = v_component_version then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_component_version)
+               v_component_version
+           in
+           let bnd = "component_version", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tls_min_version with

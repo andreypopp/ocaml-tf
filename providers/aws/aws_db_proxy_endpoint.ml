@@ -57,6 +57,7 @@ type aws_db_proxy_endpoint = {
   target_role : string prop option; [@option]
   vpc_security_group_ids : string prop list option; [@option]
   vpc_subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -84,12 +85,14 @@ let yojson_of_aws_db_proxy_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_vpc_subnet_ids
-         in
-         ("vpc_subnet_ids", arg) :: bnds
+         if [] = v_vpc_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_vpc_subnet_ids
+           in
+           let bnd = "vpc_subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_security_group_ids with

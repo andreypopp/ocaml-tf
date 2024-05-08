@@ -31,6 +31,7 @@ type event_handler = {
   url_template : string prop;
   user_event_pattern : string prop option; [@option]
   auth : event_handler__auth list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,10 +49,13 @@ let yojson_of_event_handler =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_handler__auth v_auth
-         in
-         ("auth", arg) :: bnds
+         if [] = v_auth then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_handler__auth) v_auth
+           in
+           let bnd = "auth", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_event_pattern with
@@ -206,7 +210,9 @@ type azurerm_web_pubsub_hub = {
   name : string prop;
   web_pubsub_id : string prop;
   event_handler : event_handler list;
+      [@default []] [@yojson_drop_default ( = )]
   event_listener : event_listener list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -233,16 +239,23 @@ let yojson_of_azurerm_web_pubsub_hub =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_listener v_event_listener
-         in
-         ("event_listener", arg) :: bnds
+         if [] = v_event_listener then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_listener)
+               v_event_listener
+           in
+           let bnd = "event_listener", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_handler v_event_handler
-         in
-         ("event_handler", arg) :: bnds
+         if [] = v_event_handler then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_handler) v_event_handler
+           in
+           let bnd = "event_handler", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_web_pubsub_id in

@@ -27,6 +27,7 @@ let _ = yojson_of_principal_info__service_account
 
 type principal_info = {
   service_account : principal_info__service_account list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,11 +40,15 @@ let yojson_of_principal_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_principal_info__service_account
-             v_service_account
-         in
-         ("service_account", arg) :: bnds
+         if [] = v_service_account then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_principal_info__service_account)
+               v_service_account
+           in
+           let bnd = "service_account", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : principal_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -106,6 +111,7 @@ type google_beyondcorp_app_connector = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   principal_info : principal_info list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -132,10 +138,14 @@ let yojson_of_google_beyondcorp_app_connector =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_principal_info v_principal_info
-         in
-         ("principal_info", arg) :: bnds
+         if [] = v_principal_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_principal_info)
+               v_principal_info
+           in
+           let bnd = "principal_info", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

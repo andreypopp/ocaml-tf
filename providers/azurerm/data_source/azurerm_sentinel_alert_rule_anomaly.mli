@@ -7,8 +7,12 @@ open! Tf_core
 type multi_select_observation = {
   description : string prop;  (** description *)
   name : string prop;  (** name *)
-  supported_values : string prop list;  (** supported_values *)
-  values : string prop list;  (** values *)
+  supported_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** supported_values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type prioritized_exclude_observation = {
@@ -20,13 +24,17 @@ type prioritized_exclude_observation = {
 
 type required_data_connector = {
   connector_id : string prop;  (** connector_id *)
-  data_types : string prop list;  (** data_types *)
+  data_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** data_types *)
 }
 
 type single_select_observation = {
   description : string prop;  (** description *)
   name : string prop;  (** name *)
-  supported_values : string prop list;  (** supported_values *)
+  supported_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** supported_values *)
   value : string prop;  (** value *)
 }
 

@@ -271,9 +271,13 @@ type digitalocean_loadbalancer = {
   type_ : string prop option; [@option] [@key "type"]
   vpc_uuid : string prop option; [@option]
   firewall : firewall list;
+      [@default []] [@yojson_drop_default ( = )]
   forwarding_rule : forwarding_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   healthcheck : healthcheck list;
+      [@default []] [@yojson_drop_default ( = )]
   sticky_sessions : sticky_sessions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -308,26 +312,42 @@ let yojson_of_digitalocean_loadbalancer =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sticky_sessions v_sticky_sessions
-         in
-         ("sticky_sessions", arg) :: bnds
+         if [] = v_sticky_sessions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sticky_sessions)
+               v_sticky_sessions
+           in
+           let bnd = "sticky_sessions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_healthcheck v_healthcheck
-         in
-         ("healthcheck", arg) :: bnds
+         if [] = v_healthcheck then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_healthcheck) v_healthcheck
+           in
+           let bnd = "healthcheck", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_forwarding_rule v_forwarding_rule
-         in
-         ("forwarding_rule", arg) :: bnds
+         if [] = v_forwarding_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_forwarding_rule)
+               v_forwarding_rule
+           in
+           let bnd = "forwarding_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_firewall v_firewall in
-         ("firewall", arg) :: bnds
+         if [] = v_firewall then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_firewall) v_firewall
+           in
+           let bnd = "firewall", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_uuid with

@@ -17,8 +17,11 @@ type machine_types__accelerators = {
 
 type machine_types = {
   accelerators : machine_types__accelerators list;
+      [@default []] [@yojson_drop_default ( = )]
       (** accelerators *)
-  deprecated : machine_types__deprecated list;  (** deprecated *)
+  deprecated : machine_types__deprecated list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** deprecated *)
   description : string prop;  (** description *)
   guest_cpus : float prop;  (** guest_cpus *)
   is_shared_cpus : bool prop;  (** is_shared_cpus *)

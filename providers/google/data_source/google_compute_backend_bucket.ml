@@ -34,7 +34,9 @@ let _ = yojson_of_cdn_policy__negative_caching_policy
 
 type cdn_policy__cache_key_policy = {
   include_http_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   query_string_whitelist : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,20 +52,24 @@ let yojson_of_cdn_policy__cache_key_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_query_string_whitelist
-         in
-         ("query_string_whitelist", arg) :: bnds
+         if [] = v_query_string_whitelist then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_query_string_whitelist
+           in
+           let bnd = "query_string_whitelist", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_include_http_headers
-         in
-         ("include_http_headers", arg) :: bnds
+         if [] = v_include_http_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_include_http_headers
+           in
+           let bnd = "include_http_headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cdn_policy__cache_key_policy ->
@@ -101,13 +107,16 @@ let _ = yojson_of_cdn_policy__bypass_cache_on_request_headers
 type cdn_policy = {
   bypass_cache_on_request_headers :
     cdn_policy__bypass_cache_on_request_headers list;
+      [@default []] [@yojson_drop_default ( = )]
   cache_key_policy : cdn_policy__cache_key_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   cache_mode : string prop;
   client_ttl : float prop;
   default_ttl : float prop;
   max_ttl : float prop;
   negative_caching : bool prop;
   negative_caching_policy : cdn_policy__negative_caching_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   request_coalescing : bool prop;
   serve_while_stale : float prop;
   signed_url_cache_max_age_sec : float prop;
@@ -155,12 +164,15 @@ let yojson_of_cdn_policy =
          ("request_coalescing", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cdn_policy__negative_caching_policy
-             v_negative_caching_policy
-         in
-         ("negative_caching_policy", arg) :: bnds
+         if [] = v_negative_caching_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cdn_policy__negative_caching_policy)
+               v_negative_caching_policy
+           in
+           let bnd = "negative_caching_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -185,19 +197,25 @@ let yojson_of_cdn_policy =
          ("cache_mode", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cdn_policy__cache_key_policy
-             v_cache_key_policy
-         in
-         ("cache_key_policy", arg) :: bnds
+         if [] = v_cache_key_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cdn_policy__cache_key_policy)
+               v_cache_key_policy
+           in
+           let bnd = "cache_key_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cdn_policy__bypass_cache_on_request_headers
-             v_bypass_cache_on_request_headers
-         in
-         ("bypass_cache_on_request_headers", arg) :: bnds
+         if [] = v_bypass_cache_on_request_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cdn_policy__bypass_cache_on_request_headers)
+               v_bypass_cache_on_request_headers
+           in
+           let bnd = "bypass_cache_on_request_headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cdn_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)

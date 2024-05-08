@@ -11,6 +11,7 @@ type service_location = {
   esrp_addresses : string prop list option; [@option]
   location : string prop;
   operator_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31,12 +32,14 @@ let yojson_of_service_location =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_operator_addresses
-         in
-         ("operator_addresses", arg) :: bnds
+         if [] = v_operator_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_operator_addresses
+           in
+           let bnd = "operator_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_location in
@@ -158,9 +161,11 @@ type azurerm_voice_services_communications_gateway = {
   name : string prop;
   on_prem_mcp_enabled : bool prop option; [@option]
   platforms : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   service_location : service_location list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -197,11 +202,14 @@ let yojson_of_azurerm_voice_services_communications_gateway =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_location
-             v_service_location
-         in
-         ("service_location", arg) :: bnds
+         if [] = v_service_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_location)
+               v_service_location
+           in
+           let bnd = "service_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -226,12 +234,14 @@ let yojson_of_azurerm_voice_services_communications_gateway =
          ("resource_group_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_platforms
-         in
-         ("platforms", arg) :: bnds
+         if [] = v_platforms then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_platforms
+           in
+           let bnd = "platforms", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_on_prem_mcp_enabled with

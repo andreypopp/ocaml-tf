@@ -28,6 +28,7 @@ let _ = yojson_of_event_trigger__failure_policy
 type event_trigger = {
   event_type : string prop;
   failure_policy : event_trigger__failure_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   resource : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -49,11 +50,14 @@ let yojson_of_event_trigger =
          ("resource", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_trigger__failure_policy
-             v_failure_policy
-         in
-         ("failure_policy", arg) :: bnds
+         if [] = v_failure_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_trigger__failure_policy)
+               v_failure_policy
+           in
+           let bnd = "failure_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_event_type in
@@ -145,6 +149,7 @@ type secret_volumes = {
   project_id : string prop;
   secret : string prop;
   versions : secret_volumes__versions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -162,11 +167,14 @@ let yojson_of_secret_volumes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secret_volumes__versions
-             v_versions
-         in
-         ("versions", arg) :: bnds
+         if [] = v_versions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secret_volumes__versions)
+               v_versions
+           in
+           let bnd = "versions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_secret in

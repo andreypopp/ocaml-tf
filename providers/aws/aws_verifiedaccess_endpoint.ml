@@ -214,8 +214,11 @@ type aws_verifiedaccess_endpoint = {
   tags_all : (string * string prop) list option; [@option]
   verified_access_group_id : string prop;
   load_balancer_options : load_balancer_options list;
+      [@default []] [@yojson_drop_default ( = )]
   network_interface_options : network_interface_options list;
+      [@default []] [@yojson_drop_default ( = )]
   sse_specification : sse_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -250,25 +253,34 @@ let yojson_of_aws_verifiedaccess_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sse_specification
-             v_sse_specification
-         in
-         ("sse_specification", arg) :: bnds
+         if [] = v_sse_specification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sse_specification)
+               v_sse_specification
+           in
+           let bnd = "sse_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_interface_options
-             v_network_interface_options
-         in
-         ("network_interface_options", arg) :: bnds
+         if [] = v_network_interface_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_interface_options)
+               v_network_interface_options
+           in
+           let bnd = "network_interface_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_balancer_options
-             v_load_balancer_options
-         in
-         ("load_balancer_options", arg) :: bnds
+         if [] = v_load_balancer_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_balancer_options)
+               v_load_balancer_options
+           in
+           let bnd = "load_balancer_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

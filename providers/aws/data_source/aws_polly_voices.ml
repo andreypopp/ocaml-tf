@@ -17,7 +17,7 @@ type aws_polly_voices = {
   engine : string prop option; [@option]
   include_additional_language_codes : bool prop option; [@option]
   language_code : string prop option; [@option]
-  voices : voices list;
+  voices : voices list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36,8 +36,11 @@ let yojson_of_aws_polly_voices =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_voices v_voices in
-         ("voices", arg) :: bnds
+         if [] = v_voices then bnds
+         else
+           let arg = (yojson_of_list yojson_of_voices) v_voices in
+           let bnd = "voices", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_language_code with

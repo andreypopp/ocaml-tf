@@ -68,7 +68,7 @@ let _ = yojson_of_timeouts
 type aws_s3control_multi_region_access_point_policy = {
   account_id : string prop option; [@option]
   id : string prop option; [@option]
-  details : details list;
+  details : details list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -92,8 +92,11 @@ let yojson_of_aws_s3control_multi_region_access_point_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_details v_details in
-         ("details", arg) :: bnds
+         if [] = v_details then bnds
+         else
+           let arg = (yojson_of_list yojson_of_details) v_details in
+           let bnd = "details", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

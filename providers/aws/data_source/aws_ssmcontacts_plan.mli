@@ -17,14 +17,18 @@ type stage__target__channel_target_info = {
 
 type stage__target = {
   channel_target_info : stage__target__channel_target_info list;
+      [@default []] [@yojson_drop_default ( = )]
       (** channel_target_info *)
   contact_target_info : stage__target__contact_target_info list;
+      [@default []] [@yojson_drop_default ( = )]
       (** contact_target_info *)
 }
 
 type stage = {
   duration_in_minutes : float prop;  (** duration_in_minutes *)
-  target : stage__target list;  (** target *)
+  target : stage__target list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** target *)
 }
 
 type aws_ssmcontacts_plan

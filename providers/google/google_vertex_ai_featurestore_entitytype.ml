@@ -148,11 +148,15 @@ let _ = yojson_of_monitoring_config__snapshot_analysis
 type monitoring_config = {
   categorical_threshold_config :
     monitoring_config__categorical_threshold_config list;
+      [@default []] [@yojson_drop_default ( = )]
   import_features_analysis :
     monitoring_config__import_features_analysis list;
+      [@default []] [@yojson_drop_default ( = )]
   numerical_threshold_config :
     monitoring_config__numerical_threshold_config list;
+      [@default []] [@yojson_drop_default ( = )]
   snapshot_analysis : monitoring_config__snapshot_analysis list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -170,36 +174,48 @@ let yojson_of_monitoring_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_monitoring_config__snapshot_analysis
-             v_snapshot_analysis
-         in
-         ("snapshot_analysis", arg) :: bnds
+         if [] = v_snapshot_analysis then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_monitoring_config__snapshot_analysis)
+               v_snapshot_analysis
+           in
+           let bnd = "snapshot_analysis", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_monitoring_config__numerical_threshold_config
-             v_numerical_threshold_config
-         in
-         ("numerical_threshold_config", arg) :: bnds
+         if [] = v_numerical_threshold_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_monitoring_config__numerical_threshold_config)
+               v_numerical_threshold_config
+           in
+           let bnd = "numerical_threshold_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_monitoring_config__import_features_analysis
-             v_import_features_analysis
-         in
-         ("import_features_analysis", arg) :: bnds
+         if [] = v_import_features_analysis then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_monitoring_config__import_features_analysis)
+               v_import_features_analysis
+           in
+           let bnd = "import_features_analysis", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_monitoring_config__categorical_threshold_config
-             v_categorical_threshold_config
-         in
-         ("categorical_threshold_config", arg) :: bnds
+         if [] = v_categorical_threshold_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_monitoring_config__categorical_threshold_config)
+               v_categorical_threshold_config
+           in
+           let bnd = "categorical_threshold_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : monitoring_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -261,6 +277,7 @@ type google_vertex_ai_featurestore_entitytype = {
   labels : (string * string prop) list option; [@option]
   name : string prop option; [@option]
   monitoring_config : monitoring_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -286,11 +303,14 @@ let yojson_of_google_vertex_ai_featurestore_entitytype =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitoring_config
-             v_monitoring_config
-         in
-         ("monitoring_config", arg) :: bnds
+         if [] = v_monitoring_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitoring_config)
+               v_monitoring_config
+           in
+           let bnd = "monitoring_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with

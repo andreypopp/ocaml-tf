@@ -129,8 +129,11 @@ type rule = {
   status : string prop option; [@option]
   abort_incomplete_multipart_upload :
     rule__abort_incomplete_multipart_upload list;
+      [@default []] [@yojson_drop_default ( = )]
   expiration : rule__expiration list;
+      [@default []] [@yojson_drop_default ( = )]
   filter : rule__filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,22 +153,33 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule__filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__filter) v_filter
+           in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__expiration v_expiration
-         in
-         ("expiration", arg) :: bnds
+         if [] = v_expiration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__expiration) v_expiration
+           in
+           let bnd = "expiration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__abort_incomplete_multipart_upload
-             v_abort_incomplete_multipart_upload
-         in
-         ("abort_incomplete_multipart_upload", arg) :: bnds
+         if [] = v_abort_incomplete_multipart_upload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__abort_incomplete_multipart_upload)
+               v_abort_incomplete_multipart_upload
+           in
+           let bnd = "abort_incomplete_multipart_upload", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_status with
@@ -189,7 +203,7 @@ let _ = yojson_of_rule
 type aws_s3control_bucket_lifecycle_configuration = {
   bucket : string prop;
   id : string prop option; [@option]
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -202,8 +216,11 @@ let yojson_of_aws_s3control_bucket_lifecycle_configuration =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

@@ -41,6 +41,7 @@ type log = {
   resource_log_enabled : bool prop option; [@option]
   subscription_log_enabled : bool prop option; [@option]
   filter : log__filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,8 +59,13 @@ let yojson_of_log =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_log__filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log__filter) v_filter
+           in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_subscription_log_enabled with
@@ -126,7 +132,10 @@ let _ = yojson_of_metric__filter
 
 [@@@deriving.end]
 
-type metric = { filter : metric__filter list }
+type metric = {
+  filter : metric__filter list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : metric) -> ()
@@ -138,10 +147,13 @@ let yojson_of_metric =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metric__filter v_filter
-         in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metric__filter) v_filter
+           in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : metric -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -214,8 +226,8 @@ type azurerm_datadog_monitor_tag_rule = {
   datadog_monitor_id : string prop;
   id : string prop option; [@option]
   name : string prop option; [@option]
-  log : log list;
-  metric : metric list;
+  log : log list; [@default []] [@yojson_drop_default ( = )]
+  metric : metric list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -240,12 +252,18 @@ let yojson_of_azurerm_datadog_monitor_tag_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metric v_metric in
-         ("metric", arg) :: bnds
+         if [] = v_metric then bnds
+         else
+           let arg = (yojson_of_list yojson_of_metric) v_metric in
+           let bnd = "metric", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_log v_log in
-         ("log", arg) :: bnds
+         if [] = v_log then bnds
+         else
+           let arg = (yojson_of_list yojson_of_log) v_log in
+           let bnd = "log", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with

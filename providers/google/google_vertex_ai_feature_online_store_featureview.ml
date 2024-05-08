@@ -4,6 +4,7 @@ open! Tf_core
 
 type big_query_source = {
   entity_id_columns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   uri : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -21,12 +22,14 @@ let yojson_of_big_query_source =
          ("uri", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_entity_id_columns
-         in
-         ("entity_id_columns", arg) :: bnds
+         if [] = v_entity_id_columns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_entity_id_columns
+           in
+           let bnd = "entity_id_columns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : big_query_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -38,6 +41,7 @@ let _ = yojson_of_big_query_source
 type feature_registry_source__feature_groups = {
   feature_group_id : string prop;
   feature_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,12 +57,14 @@ let yojson_of_feature_registry_source__feature_groups =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_feature_ids
-         in
-         ("feature_ids", arg) :: bnds
+         if [] = v_feature_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_feature_ids
+           in
+           let bnd = "feature_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -76,6 +82,7 @@ let _ = yojson_of_feature_registry_source__feature_groups
 
 type feature_registry_source = {
   feature_groups : feature_registry_source__feature_groups list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,12 +95,15 @@ let yojson_of_feature_registry_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_feature_registry_source__feature_groups
-             v_feature_groups
-         in
-         ("feature_groups", arg) :: bnds
+         if [] = v_feature_groups then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_feature_registry_source__feature_groups)
+               v_feature_groups
+           in
+           let bnd = "feature_groups", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : feature_registry_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -182,8 +192,11 @@ type google_vertex_ai_feature_online_store_featureview = {
   project : string prop option; [@option]
   region : string prop;
   big_query_source : big_query_source list;
+      [@default []] [@yojson_drop_default ( = )]
   feature_registry_source : feature_registry_source list;
+      [@default []] [@yojson_drop_default ( = )]
   sync_config : sync_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -213,24 +226,33 @@ let yojson_of_google_vertex_ai_feature_online_store_featureview =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sync_config v_sync_config
-         in
-         ("sync_config", arg) :: bnds
+         if [] = v_sync_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sync_config) v_sync_config
+           in
+           let bnd = "sync_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_feature_registry_source
-             v_feature_registry_source
-         in
-         ("feature_registry_source", arg) :: bnds
+         if [] = v_feature_registry_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_feature_registry_source)
+               v_feature_registry_source
+           in
+           let bnd = "feature_registry_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_big_query_source
-             v_big_query_source
-         in
-         ("big_query_source", arg) :: bnds
+         if [] = v_big_query_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_big_query_source)
+               v_big_query_source
+           in
+           let bnd = "big_query_source", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_region in

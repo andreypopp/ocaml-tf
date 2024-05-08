@@ -191,8 +191,11 @@ type aws_apigatewayv2_stage = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   access_log_settings : access_log_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   default_route_settings : default_route_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   route_settings : route_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -219,24 +222,34 @@ let yojson_of_aws_apigatewayv2_stage =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_route_settings v_route_settings
-         in
-         ("route_settings", arg) :: bnds
+         if [] = v_route_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_route_settings)
+               v_route_settings
+           in
+           let bnd = "route_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_route_settings
-             v_default_route_settings
-         in
-         ("default_route_settings", arg) :: bnds
+         if [] = v_default_route_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_route_settings)
+               v_default_route_settings
+           in
+           let bnd = "default_route_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access_log_settings
-             v_access_log_settings
-         in
-         ("access_log_settings", arg) :: bnds
+         if [] = v_access_log_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_log_settings)
+               v_access_log_settings
+           in
+           let bnd = "access_log_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

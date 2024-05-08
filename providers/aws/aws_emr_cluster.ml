@@ -186,8 +186,10 @@ type core_instance_fleet__instance_type_configs = {
   weighted_capacity : float prop option; [@option]
   configurations :
     core_instance_fleet__instance_type_configs__configurations list;
+      [@default []] [@yojson_drop_default ( = )]
   ebs_config :
     core_instance_fleet__instance_type_configs__ebs_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -208,20 +210,26 @@ let yojson_of_core_instance_fleet__instance_type_configs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_core_instance_fleet__instance_type_configs__ebs_config
-             v_ebs_config
-         in
-         ("ebs_config", arg) :: bnds
+         if [] = v_ebs_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_core_instance_fleet__instance_type_configs__ebs_config)
+               v_ebs_config
+           in
+           let bnd = "ebs_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_core_instance_fleet__instance_type_configs__configurations
-             v_configurations
-         in
-         ("configurations", arg) :: bnds
+         if [] = v_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_core_instance_fleet__instance_type_configs__configurations)
+               v_configurations
+           in
+           let bnd = "configurations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weighted_capacity with
@@ -357,9 +365,11 @@ type core_instance_fleet__launch_specifications = {
   on_demand_specification :
     core_instance_fleet__launch_specifications__on_demand_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
   spot_specification :
     core_instance_fleet__launch_specifications__spot_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -375,20 +385,26 @@ let yojson_of_core_instance_fleet__launch_specifications =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_core_instance_fleet__launch_specifications__spot_specification
-             v_spot_specification
-         in
-         ("spot_specification", arg) :: bnds
+         if [] = v_spot_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_core_instance_fleet__launch_specifications__spot_specification)
+               v_spot_specification
+           in
+           let bnd = "spot_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_core_instance_fleet__launch_specifications__on_demand_specification
-             v_on_demand_specification
-         in
-         ("on_demand_specification", arg) :: bnds
+         if [] = v_on_demand_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_core_instance_fleet__launch_specifications__on_demand_specification)
+               v_on_demand_specification
+           in
+           let bnd = "on_demand_specification", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : core_instance_fleet__launch_specifications ->
@@ -404,8 +420,10 @@ type core_instance_fleet = {
   target_spot_capacity : float prop option; [@option]
   instance_type_configs :
     core_instance_fleet__instance_type_configs list;
+      [@default []] [@yojson_drop_default ( = )]
   launch_specifications :
     core_instance_fleet__launch_specifications list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -424,20 +442,26 @@ let yojson_of_core_instance_fleet =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_core_instance_fleet__launch_specifications
-             v_launch_specifications
-         in
-         ("launch_specifications", arg) :: bnds
+         if [] = v_launch_specifications then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_core_instance_fleet__launch_specifications)
+               v_launch_specifications
+           in
+           let bnd = "launch_specifications", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_core_instance_fleet__instance_type_configs
-             v_instance_type_configs
-         in
-         ("instance_type_configs", arg) :: bnds
+         if [] = v_instance_type_configs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_core_instance_fleet__instance_type_configs)
+               v_instance_type_configs
+           in
+           let bnd = "instance_type_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_spot_capacity with
@@ -540,6 +564,7 @@ type core_instance_group = {
   instance_type : string prop;
   name : string prop option; [@option]
   ebs_config : core_instance_group__ebs_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -559,11 +584,15 @@ let yojson_of_core_instance_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_core_instance_group__ebs_config
-             v_ebs_config
-         in
-         ("ebs_config", arg) :: bnds
+         if [] = v_ebs_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_core_instance_group__ebs_config)
+               v_ebs_config
+           in
+           let bnd = "ebs_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -906,8 +935,10 @@ type master_instance_fleet__instance_type_configs = {
   weighted_capacity : float prop option; [@option]
   configurations :
     master_instance_fleet__instance_type_configs__configurations list;
+      [@default []] [@yojson_drop_default ( = )]
   ebs_config :
     master_instance_fleet__instance_type_configs__ebs_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -928,20 +959,26 @@ let yojson_of_master_instance_fleet__instance_type_configs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_master_instance_fleet__instance_type_configs__ebs_config
-             v_ebs_config
-         in
-         ("ebs_config", arg) :: bnds
+         if [] = v_ebs_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_master_instance_fleet__instance_type_configs__ebs_config)
+               v_ebs_config
+           in
+           let bnd = "ebs_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_master_instance_fleet__instance_type_configs__configurations
-             v_configurations
-         in
-         ("configurations", arg) :: bnds
+         if [] = v_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_master_instance_fleet__instance_type_configs__configurations)
+               v_configurations
+           in
+           let bnd = "configurations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weighted_capacity with
@@ -1077,9 +1114,11 @@ type master_instance_fleet__launch_specifications = {
   on_demand_specification :
     master_instance_fleet__launch_specifications__on_demand_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
   spot_specification :
     master_instance_fleet__launch_specifications__spot_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1095,20 +1134,26 @@ let yojson_of_master_instance_fleet__launch_specifications =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_master_instance_fleet__launch_specifications__spot_specification
-             v_spot_specification
-         in
-         ("spot_specification", arg) :: bnds
+         if [] = v_spot_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_master_instance_fleet__launch_specifications__spot_specification)
+               v_spot_specification
+           in
+           let bnd = "spot_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_master_instance_fleet__launch_specifications__on_demand_specification
-             v_on_demand_specification
-         in
-         ("on_demand_specification", arg) :: bnds
+         if [] = v_on_demand_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_master_instance_fleet__launch_specifications__on_demand_specification)
+               v_on_demand_specification
+           in
+           let bnd = "on_demand_specification", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : master_instance_fleet__launch_specifications ->
@@ -1124,8 +1169,10 @@ type master_instance_fleet = {
   target_spot_capacity : float prop option; [@option]
   instance_type_configs :
     master_instance_fleet__instance_type_configs list;
+      [@default []] [@yojson_drop_default ( = )]
   launch_specifications :
     master_instance_fleet__launch_specifications list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1144,20 +1191,26 @@ let yojson_of_master_instance_fleet =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_master_instance_fleet__launch_specifications
-             v_launch_specifications
-         in
-         ("launch_specifications", arg) :: bnds
+         if [] = v_launch_specifications then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_master_instance_fleet__launch_specifications)
+               v_launch_specifications
+           in
+           let bnd = "launch_specifications", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_master_instance_fleet__instance_type_configs
-             v_instance_type_configs
-         in
-         ("instance_type_configs", arg) :: bnds
+         if [] = v_instance_type_configs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_master_instance_fleet__instance_type_configs)
+               v_instance_type_configs
+           in
+           let bnd = "instance_type_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_spot_capacity with
@@ -1259,6 +1312,7 @@ type master_instance_group = {
   instance_type : string prop;
   name : string prop option; [@option]
   ebs_config : master_instance_group__ebs_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1277,11 +1331,15 @@ let yojson_of_master_instance_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_master_instance_group__ebs_config
-             v_ebs_config
-         in
-         ("ebs_config", arg) :: bnds
+         if [] = v_ebs_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_master_instance_group__ebs_config)
+               v_ebs_config
+           in
+           let bnd = "ebs_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -1353,7 +1411,7 @@ let _ = yojson_of_placement_group_config
 [@@@deriving.end]
 
 type step__hadoop_jar_step = {
-  args : string prop list;
+  args : string prop list; [@default []] [@yojson_drop_default ( = )]
   jar : string prop;
   main_class : string prop;
   properties : (string * string prop) list;
@@ -1394,10 +1452,14 @@ let yojson_of_step__hadoop_jar_step =
          ("jar", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_args
-         in
-         ("args", arg) :: bnds
+         if [] = v_args then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_args
+           in
+           let bnd = "args", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : step__hadoop_jar_step -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1409,6 +1471,7 @@ let _ = yojson_of_step__hadoop_jar_step
 type step = {
   action_on_failure : string prop;
   hadoop_jar_step : step__hadoop_jar_step list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1430,11 +1493,14 @@ let yojson_of_step =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_step__hadoop_jar_step
-             v_hadoop_jar_step
-         in
-         ("hadoop_jar_step", arg) :: bnds
+         if [] = v_hadoop_jar_step then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_step__hadoop_jar_step)
+               v_hadoop_jar_step
+           in
+           let bnd = "hadoop_jar_step", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1476,13 +1542,21 @@ type aws_emr_cluster = {
   termination_protection : bool prop option; [@option]
   visible_to_all_users : bool prop option; [@option]
   auto_termination_policy : auto_termination_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   bootstrap_action : bootstrap_action list;
+      [@default []] [@yojson_drop_default ( = )]
   core_instance_fleet : core_instance_fleet list;
+      [@default []] [@yojson_drop_default ( = )]
   core_instance_group : core_instance_group list;
+      [@default []] [@yojson_drop_default ( = )]
   ec2_attributes : ec2_attributes list;
+      [@default []] [@yojson_drop_default ( = )]
   kerberos_attributes : kerberos_attributes list;
+      [@default []] [@yojson_drop_default ( = )]
   master_instance_fleet : master_instance_fleet list;
+      [@default []] [@yojson_drop_default ( = )]
   master_instance_group : master_instance_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1529,59 +1603,84 @@ let yojson_of_aws_emr_cluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_master_instance_group
-             v_master_instance_group
-         in
-         ("master_instance_group", arg) :: bnds
+         if [] = v_master_instance_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_master_instance_group)
+               v_master_instance_group
+           in
+           let bnd = "master_instance_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_master_instance_fleet
-             v_master_instance_fleet
-         in
-         ("master_instance_fleet", arg) :: bnds
+         if [] = v_master_instance_fleet then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_master_instance_fleet)
+               v_master_instance_fleet
+           in
+           let bnd = "master_instance_fleet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kerberos_attributes
-             v_kerberos_attributes
-         in
-         ("kerberos_attributes", arg) :: bnds
+         if [] = v_kerberos_attributes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kerberos_attributes)
+               v_kerberos_attributes
+           in
+           let bnd = "kerberos_attributes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ec2_attributes v_ec2_attributes
-         in
-         ("ec2_attributes", arg) :: bnds
+         if [] = v_ec2_attributes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ec2_attributes)
+               v_ec2_attributes
+           in
+           let bnd = "ec2_attributes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_core_instance_group
-             v_core_instance_group
-         in
-         ("core_instance_group", arg) :: bnds
+         if [] = v_core_instance_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_core_instance_group)
+               v_core_instance_group
+           in
+           let bnd = "core_instance_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_core_instance_fleet
-             v_core_instance_fleet
-         in
-         ("core_instance_fleet", arg) :: bnds
+         if [] = v_core_instance_fleet then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_core_instance_fleet)
+               v_core_instance_fleet
+           in
+           let bnd = "core_instance_fleet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bootstrap_action
-             v_bootstrap_action
-         in
-         ("bootstrap_action", arg) :: bnds
+         if [] = v_bootstrap_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bootstrap_action)
+               v_bootstrap_action
+           in
+           let bnd = "bootstrap_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_termination_policy
-             v_auto_termination_policy
-         in
-         ("auto_termination_policy", arg) :: bnds
+         if [] = v_auto_termination_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_termination_policy)
+               v_auto_termination_policy
+           in
+           let bnd = "auto_termination_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_visible_to_all_users with

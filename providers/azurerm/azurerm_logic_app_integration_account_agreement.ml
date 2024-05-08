@@ -128,7 +128,9 @@ type azurerm_logic_app_integration_account_agreement = {
   name : string prop;
   resource_group_name : string prop;
   guest_identity : guest_identity list;
+      [@default []] [@yojson_drop_default ( = )]
   host_identity : host_identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -160,16 +162,23 @@ let yojson_of_azurerm_logic_app_integration_account_agreement =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_host_identity v_host_identity
-         in
-         ("host_identity", arg) :: bnds
+         if [] = v_host_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_host_identity) v_host_identity
+           in
+           let bnd = "host_identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_guest_identity v_guest_identity
-         in
-         ("guest_identity", arg) :: bnds
+         if [] = v_guest_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_guest_identity)
+               v_guest_identity
+           in
+           let bnd = "guest_identity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

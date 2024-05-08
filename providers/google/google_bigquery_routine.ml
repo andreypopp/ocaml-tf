@@ -326,8 +326,11 @@ type google_bigquery_routine = {
   routine_id : string prop;
   routine_type : string prop;
   arguments : arguments list;
+      [@default []] [@yojson_drop_default ( = )]
   remote_function_options : remote_function_options list;
+      [@default []] [@yojson_drop_default ( = )]
   spark_options : spark_options list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -362,21 +365,32 @@ let yojson_of_google_bigquery_routine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spark_options v_spark_options
-         in
-         ("spark_options", arg) :: bnds
+         if [] = v_spark_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spark_options) v_spark_options
+           in
+           let bnd = "spark_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_remote_function_options
-             v_remote_function_options
-         in
-         ("remote_function_options", arg) :: bnds
+         if [] = v_remote_function_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_remote_function_options)
+               v_remote_function_options
+           in
+           let bnd = "remote_function_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_arguments v_arguments in
-         ("arguments", arg) :: bnds
+         if [] = v_arguments then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_arguments) v_arguments
+           in
+           let bnd = "arguments", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_routine_type in

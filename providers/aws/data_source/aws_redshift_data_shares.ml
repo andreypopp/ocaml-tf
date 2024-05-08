@@ -13,7 +13,10 @@ let _ = yojson_of_data_shares
 
 [@@@deriving.end]
 
-type aws_redshift_data_shares = { data_shares : data_shares list }
+type aws_redshift_data_shares = {
+  data_shares : data_shares list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : aws_redshift_data_shares) -> ()
@@ -25,10 +28,13 @@ let yojson_of_aws_redshift_data_shares =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_shares v_data_shares
-         in
-         ("data_shares", arg) :: bnds
+         if [] = v_data_shares then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_shares) v_data_shares
+           in
+           let bnd = "data_shares", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_redshift_data_shares -> Ppx_yojson_conv_lib.Yojson.Safe.t)

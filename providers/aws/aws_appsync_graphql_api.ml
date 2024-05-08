@@ -172,10 +172,13 @@ type additional_authentication_provider = {
   authentication_type : string prop;
   lambda_authorizer_config :
     additional_authentication_provider__lambda_authorizer_config list;
+      [@default []] [@yojson_drop_default ( = )]
   openid_connect_config :
     additional_authentication_provider__openid_connect_config list;
+      [@default []] [@yojson_drop_default ( = )]
   user_pool_config :
     additional_authentication_provider__user_pool_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -193,28 +196,37 @@ let yojson_of_additional_authentication_provider =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_additional_authentication_provider__user_pool_config
-             v_user_pool_config
-         in
-         ("user_pool_config", arg) :: bnds
+         if [] = v_user_pool_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_additional_authentication_provider__user_pool_config)
+               v_user_pool_config
+           in
+           let bnd = "user_pool_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_additional_authentication_provider__openid_connect_config
-             v_openid_connect_config
-         in
-         ("openid_connect_config", arg) :: bnds
+         if [] = v_openid_connect_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_additional_authentication_provider__openid_connect_config)
+               v_openid_connect_config
+           in
+           let bnd = "openid_connect_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_additional_authentication_provider__lambda_authorizer_config
-             v_lambda_authorizer_config
-         in
-         ("lambda_authorizer_config", arg) :: bnds
+         if [] = v_lambda_authorizer_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_additional_authentication_provider__lambda_authorizer_config)
+               v_lambda_authorizer_config
+           in
+           let bnd = "lambda_authorizer_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -450,10 +462,15 @@ type aws_appsync_graphql_api = {
   xray_enabled : bool prop option; [@option]
   additional_authentication_provider :
     additional_authentication_provider list;
+      [@default []] [@yojson_drop_default ( = )]
   lambda_authorizer_config : lambda_authorizer_config list;
+      [@default []] [@yojson_drop_default ( = )]
   log_config : log_config list;
+      [@default []] [@yojson_drop_default ( = )]
   openid_connect_config : openid_connect_config list;
+      [@default []] [@yojson_drop_default ( = )]
   user_pool_config : user_pool_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -484,39 +501,54 @@ let yojson_of_aws_appsync_graphql_api =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_user_pool_config
-             v_user_pool_config
-         in
-         ("user_pool_config", arg) :: bnds
+         if [] = v_user_pool_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_user_pool_config)
+               v_user_pool_config
+           in
+           let bnd = "user_pool_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_openid_connect_config
-             v_openid_connect_config
-         in
-         ("openid_connect_config", arg) :: bnds
+         if [] = v_openid_connect_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_openid_connect_config)
+               v_openid_connect_config
+           in
+           let bnd = "openid_connect_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_config v_log_config
-         in
-         ("log_config", arg) :: bnds
+         if [] = v_log_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_config) v_log_config
+           in
+           let bnd = "log_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lambda_authorizer_config
-             v_lambda_authorizer_config
-         in
-         ("lambda_authorizer_config", arg) :: bnds
+         if [] = v_lambda_authorizer_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lambda_authorizer_config)
+               v_lambda_authorizer_config
+           in
+           let bnd = "lambda_authorizer_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_additional_authentication_provider
-             v_additional_authentication_provider
-         in
-         ("additional_authentication_provider", arg) :: bnds
+         if [] = v_additional_authentication_provider then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_additional_authentication_provider)
+               v_additional_authentication_provider
+           in
+           let bnd = "additional_authentication_provider", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_xray_enabled with

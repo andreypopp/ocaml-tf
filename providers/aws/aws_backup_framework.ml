@@ -104,7 +104,9 @@ let _ = yojson_of_control__scope
 type control = {
   name : string prop;
   input_parameter : control__input_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
   scope : control__scope list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,15 +123,23 @@ let yojson_of_control =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_control__scope v_scope in
-         ("scope", arg) :: bnds
+         if [] = v_scope then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control__scope) v_scope
+           in
+           let bnd = "scope", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control__input_parameter
-             v_input_parameter
-         in
-         ("input_parameter", arg) :: bnds
+         if [] = v_input_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control__input_parameter)
+               v_input_parameter
+           in
+           let bnd = "input_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -194,7 +204,7 @@ type aws_backup_framework = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  control : control list;
+  control : control list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -220,8 +230,11 @@ let yojson_of_aws_backup_framework =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_control v_control in
-         ("control", arg) :: bnds
+         if [] = v_control then bnds
+         else
+           let arg = (yojson_of_list yojson_of_control) v_control in
+           let bnd = "control", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

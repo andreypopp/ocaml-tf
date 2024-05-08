@@ -99,6 +99,7 @@ type azurerm_iot_time_series_insights_reference_data_set = {
   tags : (string * string prop) list option; [@option]
   time_series_insights_environment_id : string prop;
   key_property : key_property list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -128,10 +129,13 @@ let yojson_of_azurerm_iot_time_series_insights_reference_data_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_key_property v_key_property
-         in
-         ("key_property", arg) :: bnds
+         if [] = v_key_property then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_property) v_key_property
+           in
+           let bnd = "key_property", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -98,6 +98,7 @@ type google_apigee_environment = {
   org_id : string prop;
   type_ : string prop option; [@option] [@key "type"]
   node_config : node_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -126,10 +127,13 @@ let yojson_of_google_apigee_environment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_config v_node_config
-         in
-         ("node_config", arg) :: bnds
+         if [] = v_node_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_config) v_node_config
+           in
+           let bnd = "node_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

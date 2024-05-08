@@ -8,6 +8,7 @@ type catalog_target = {
   dlq_event_queue_arn : string prop option; [@option]
   event_queue_arn : string prop option; [@option]
   tables : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26,10 +27,14 @@ let yojson_of_catalog_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_tables
-         in
-         ("tables", arg) :: bnds
+         if [] = v_tables then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_tables
+           in
+           let bnd = "tables", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_event_queue_arn with
@@ -70,6 +75,7 @@ type delta_target = {
   connection_name : string prop option; [@option]
   create_native_delta_table : bool prop option; [@option]
   delta_tables : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   write_manifest : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -92,12 +98,14 @@ let yojson_of_delta_target =
          ("write_manifest", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_delta_tables
-         in
-         ("delta_tables", arg) :: bnds
+         if [] = v_delta_tables then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_delta_tables
+           in
+           let bnd = "delta_tables", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_create_native_delta_table with
@@ -172,7 +180,7 @@ type hudi_target = {
   connection_name : string prop option; [@option]
   exclusions : string prop list option; [@option]
   maximum_traversal_depth : float prop;
-  paths : string prop list;
+  paths : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -190,10 +198,14 @@ let yojson_of_hudi_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_paths
-         in
-         ("paths", arg) :: bnds
+         if [] = v_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_paths
+           in
+           let bnd = "paths", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -230,7 +242,7 @@ type iceberg_target = {
   connection_name : string prop option; [@option]
   exclusions : string prop list option; [@option]
   maximum_traversal_depth : float prop;
-  paths : string prop list;
+  paths : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -248,10 +260,14 @@ let yojson_of_iceberg_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_paths
-         in
-         ("paths", arg) :: bnds
+         if [] = v_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_paths
+           in
+           let bnd = "paths", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -616,17 +632,29 @@ type aws_glue_crawler = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   catalog_target : catalog_target list;
+      [@default []] [@yojson_drop_default ( = )]
   delta_target : delta_target list;
+      [@default []] [@yojson_drop_default ( = )]
   dynamodb_target : dynamodb_target list;
+      [@default []] [@yojson_drop_default ( = )]
   hudi_target : hudi_target list;
+      [@default []] [@yojson_drop_default ( = )]
   iceberg_target : iceberg_target list;
+      [@default []] [@yojson_drop_default ( = )]
   jdbc_target : jdbc_target list;
+      [@default []] [@yojson_drop_default ( = )]
   lake_formation_configuration : lake_formation_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   lineage_configuration : lineage_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   mongodb_target : mongodb_target list;
+      [@default []] [@yojson_drop_default ( = )]
   recrawl_policy : recrawl_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_target : s3_target list;
+      [@default []] [@yojson_drop_default ( = )]
   schema_change_policy : schema_change_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -664,77 +692,120 @@ let yojson_of_aws_glue_crawler =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema_change_policy
-             v_schema_change_policy
-         in
-         ("schema_change_policy", arg) :: bnds
+         if [] = v_schema_change_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schema_change_policy)
+               v_schema_change_policy
+           in
+           let bnd = "schema_change_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_s3_target v_s3_target in
-         ("s3_target", arg) :: bnds
+         if [] = v_s3_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3_target) v_s3_target
+           in
+           let bnd = "s3_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recrawl_policy v_recrawl_policy
-         in
-         ("recrawl_policy", arg) :: bnds
+         if [] = v_recrawl_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recrawl_policy)
+               v_recrawl_policy
+           in
+           let bnd = "recrawl_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mongodb_target v_mongodb_target
-         in
-         ("mongodb_target", arg) :: bnds
+         if [] = v_mongodb_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mongodb_target)
+               v_mongodb_target
+           in
+           let bnd = "mongodb_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lineage_configuration
-             v_lineage_configuration
-         in
-         ("lineage_configuration", arg) :: bnds
+         if [] = v_lineage_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lineage_configuration)
+               v_lineage_configuration
+           in
+           let bnd = "lineage_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lake_formation_configuration
-             v_lake_formation_configuration
-         in
-         ("lake_formation_configuration", arg) :: bnds
+         if [] = v_lake_formation_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lake_formation_configuration)
+               v_lake_formation_configuration
+           in
+           let bnd = "lake_formation_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_jdbc_target v_jdbc_target
-         in
-         ("jdbc_target", arg) :: bnds
+         if [] = v_jdbc_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_jdbc_target) v_jdbc_target
+           in
+           let bnd = "jdbc_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_iceberg_target v_iceberg_target
-         in
-         ("iceberg_target", arg) :: bnds
+         if [] = v_iceberg_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_iceberg_target)
+               v_iceberg_target
+           in
+           let bnd = "iceberg_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hudi_target v_hudi_target
-         in
-         ("hudi_target", arg) :: bnds
+         if [] = v_hudi_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hudi_target) v_hudi_target
+           in
+           let bnd = "hudi_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dynamodb_target v_dynamodb_target
-         in
-         ("dynamodb_target", arg) :: bnds
+         if [] = v_dynamodb_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dynamodb_target)
+               v_dynamodb_target
+           in
+           let bnd = "dynamodb_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delta_target v_delta_target
-         in
-         ("delta_target", arg) :: bnds
+         if [] = v_delta_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_delta_target) v_delta_target
+           in
+           let bnd = "delta_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_catalog_target v_catalog_target
-         in
-         ("catalog_target", arg) :: bnds
+         if [] = v_catalog_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_catalog_target)
+               v_catalog_target
+           in
+           let bnd = "catalog_target", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

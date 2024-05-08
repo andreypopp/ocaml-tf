@@ -85,6 +85,7 @@ type google_bigquery_reservation = {
   project : string prop option; [@option]
   slot_capacity : float prop;
   autoscale : autoscale list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -114,8 +115,13 @@ let yojson_of_google_bigquery_reservation =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_autoscale v_autoscale in
-         ("autoscale", arg) :: bnds
+         if [] = v_autoscale then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscale) v_autoscale
+           in
+           let bnd = "autoscale", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_slot_capacity in

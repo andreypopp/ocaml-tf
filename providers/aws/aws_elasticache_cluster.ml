@@ -132,6 +132,7 @@ type aws_elasticache_cluster = {
   tags_all : (string * string prop) list option; [@option]
   transit_encryption_enabled : bool prop option; [@option]
   log_delivery_configuration : log_delivery_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -176,11 +177,14 @@ let yojson_of_aws_elasticache_cluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_delivery_configuration
-             v_log_delivery_configuration
-         in
-         ("log_delivery_configuration", arg) :: bnds
+         if [] = v_log_delivery_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_delivery_configuration)
+               v_log_delivery_configuration
+           in
+           let bnd = "log_delivery_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_transit_encryption_enabled with

@@ -24,10 +24,14 @@ type nodes__status__addresses = {
 }
 
 type nodes__status = {
-  addresses : nodes__status__addresses list;  (** addresses *)
+  addresses : nodes__status__addresses list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** addresses *)
   allocatable : (string * string prop) list;  (** allocatable *)
   capacity : (string * string prop) list;  (** capacity *)
-  node_info : nodes__status__node_info list;  (** node_info *)
+  node_info : nodes__status__node_info list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** node_info *)
 }
 
 type nodes__spec__taints = {
@@ -38,9 +42,13 @@ type nodes__spec__taints = {
 
 type nodes__spec = {
   pod_cidr : string prop;  (** pod_cidr *)
-  pod_cidrs : string prop list;  (** pod_cidrs *)
+  pod_cidrs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** pod_cidrs *)
   provider_id : string prop;  (** provider_id *)
-  taints : nodes__spec__taints list;  (** taints *)
+  taints : nodes__spec__taints list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** taints *)
   unschedulable : bool prop;  (** unschedulable *)
 }
 
@@ -54,9 +62,14 @@ type nodes__metadata = {
 }
 
 type nodes = {
-  metadata : nodes__metadata list;  (** metadata *)
-  spec : nodes__spec list;  (** spec *)
-  status : nodes__status list;  (** status *)
+  metadata : nodes__metadata list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** metadata *)
+  spec : nodes__spec list; [@default []] [@yojson_drop_default ( = )]
+      (** spec *)
+  status : nodes__status list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** status *)
 }
 
 type metadata

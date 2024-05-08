@@ -104,7 +104,7 @@ type azurerm_elastic_san = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   zones : string prop list option; [@option]
-  sku : sku list;
+  sku : sku list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -133,8 +133,11 @@ let yojson_of_azurerm_elastic_san =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sku v_sku in
-         ("sku", arg) :: bnds
+         if [] = v_sku then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sku) v_sku in
+           let bnd = "sku", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with

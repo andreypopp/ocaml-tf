@@ -132,8 +132,10 @@ let _ = yojson_of_data_quality_baseline_config__statistics_resource
 type data_quality_baseline_config = {
   constraints_resource :
     data_quality_baseline_config__constraints_resource list;
+      [@default []] [@yojson_drop_default ( = )]
   statistics_resource :
     data_quality_baseline_config__statistics_resource list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -149,20 +151,26 @@ let yojson_of_data_quality_baseline_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_quality_baseline_config__statistics_resource
-             v_statistics_resource
-         in
-         ("statistics_resource", arg) :: bnds
+         if [] = v_statistics_resource then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_quality_baseline_config__statistics_resource)
+               v_statistics_resource
+           in
+           let bnd = "statistics_resource", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_quality_baseline_config__constraints_resource
-             v_constraints_resource
-         in
-         ("constraints_resource", arg) :: bnds
+         if [] = v_constraints_resource then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_quality_baseline_config__constraints_resource)
+               v_constraints_resource
+           in
+           let bnd = "constraints_resource", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_quality_baseline_config ->
@@ -244,9 +252,11 @@ type data_quality_job_input__batch_transform_input__dataset_format = {
   csv :
     data_quality_job_input__batch_transform_input__dataset_format__csv
     list;
+      [@default []] [@yojson_drop_default ( = )]
   json :
     data_quality_job_input__batch_transform_input__dataset_format__json
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -263,20 +273,26 @@ let yojson_of_data_quality_job_input__batch_transform_input__dataset_format
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_quality_job_input__batch_transform_input__dataset_format__json
-             v_json
-         in
-         ("json", arg) :: bnds
+         if [] = v_json then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_quality_job_input__batch_transform_input__dataset_format__json)
+               v_json
+           in
+           let bnd = "json", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_quality_job_input__batch_transform_input__dataset_format__csv
-             v_csv
-         in
-         ("csv", arg) :: bnds
+         if [] = v_csv then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_quality_job_input__batch_transform_input__dataset_format__csv)
+               v_csv
+           in
+           let bnd = "csv", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_quality_job_input__batch_transform_input__dataset_format ->
@@ -295,6 +311,7 @@ type data_quality_job_input__batch_transform_input = {
   dataset_format :
     data_quality_job_input__batch_transform_input__dataset_format
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -314,12 +331,15 @@ let yojson_of_data_quality_job_input__batch_transform_input =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_quality_job_input__batch_transform_input__dataset_format
-             v_dataset_format
-         in
-         ("dataset_format", arg) :: bnds
+         if [] = v_dataset_format then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_quality_job_input__batch_transform_input__dataset_format)
+               v_dataset_format
+           in
+           let bnd = "dataset_format", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_s3_input_mode with
@@ -420,7 +440,9 @@ let _ = yojson_of_data_quality_job_input__endpoint_input
 type data_quality_job_input = {
   batch_transform_input :
     data_quality_job_input__batch_transform_input list;
+      [@default []] [@yojson_drop_default ( = )]
   endpoint_input : data_quality_job_input__endpoint_input list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -436,20 +458,26 @@ let yojson_of_data_quality_job_input =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_quality_job_input__endpoint_input
-             v_endpoint_input
-         in
-         ("endpoint_input", arg) :: bnds
+         if [] = v_endpoint_input then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_quality_job_input__endpoint_input)
+               v_endpoint_input
+           in
+           let bnd = "endpoint_input", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_quality_job_input__batch_transform_input
-             v_batch_transform_input
-         in
-         ("batch_transform_input", arg) :: bnds
+         if [] = v_batch_transform_input then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_quality_job_input__batch_transform_input)
+               v_batch_transform_input
+           in
+           let bnd = "batch_transform_input", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_quality_job_input -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -514,6 +542,7 @@ type data_quality_job_output_config__monitoring_outputs = {
   s3_output :
     data_quality_job_output_config__monitoring_outputs__s3_output
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -527,12 +556,15 @@ let yojson_of_data_quality_job_output_config__monitoring_outputs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_quality_job_output_config__monitoring_outputs__s3_output
-             v_s3_output
-         in
-         ("s3_output", arg) :: bnds
+         if [] = v_s3_output then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_quality_job_output_config__monitoring_outputs__s3_output)
+               v_s3_output
+           in
+           let bnd = "s3_output", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_quality_job_output_config__monitoring_outputs ->
@@ -546,6 +578,7 @@ type data_quality_job_output_config = {
   kms_key_id : string prop option; [@option]
   monitoring_outputs :
     data_quality_job_output_config__monitoring_outputs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -561,12 +594,15 @@ let yojson_of_data_quality_job_output_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_quality_job_output_config__monitoring_outputs
-             v_monitoring_outputs
-         in
-         ("monitoring_outputs", arg) :: bnds
+         if [] = v_monitoring_outputs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_quality_job_output_config__monitoring_outputs)
+               v_monitoring_outputs
+           in
+           let bnd = "monitoring_outputs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_kms_key_id with
@@ -637,6 +673,7 @@ let _ = yojson_of_job_resources__cluster_config
 
 type job_resources = {
   cluster_config : job_resources__cluster_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -649,11 +686,14 @@ let yojson_of_job_resources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_job_resources__cluster_config
-             v_cluster_config
-         in
-         ("cluster_config", arg) :: bnds
+         if [] = v_cluster_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_job_resources__cluster_config)
+               v_cluster_config
+           in
+           let bnd = "cluster_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : job_resources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -664,7 +704,9 @@ let _ = yojson_of_job_resources
 
 type network_config__vpc_config = {
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -680,18 +722,24 @@ let yojson_of_network_config__vpc_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
-         in
-         ("subnets", arg) :: bnds
+         if [] = v_subnets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnets
+           in
+           let bnd = "subnets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : network_config__vpc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -705,6 +753,7 @@ type network_config = {
       [@option]
   enable_network_isolation : bool prop option; [@option]
   vpc_config : network_config__vpc_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -722,11 +771,14 @@ let yojson_of_network_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_config__vpc_config
-             v_vpc_config
-         in
-         ("vpc_config", arg) :: bnds
+         if [] = v_vpc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_config__vpc_config)
+               v_vpc_config
+           in
+           let bnd = "vpc_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enable_network_isolation with
@@ -789,13 +841,20 @@ type aws_sagemaker_data_quality_job_definition = {
   tags_all : (string * string prop) list option; [@option]
   data_quality_app_specification :
     data_quality_app_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   data_quality_baseline_config : data_quality_baseline_config list;
+      [@default []] [@yojson_drop_default ( = )]
   data_quality_job_input : data_quality_job_input list;
+      [@default []] [@yojson_drop_default ( = )]
   data_quality_job_output_config :
     data_quality_job_output_config list;
+      [@default []] [@yojson_drop_default ( = )]
   job_resources : job_resources list;
+      [@default []] [@yojson_drop_default ( = )]
   network_config : network_config list;
+      [@default []] [@yojson_drop_default ( = )]
   stopping_condition : stopping_condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -823,51 +882,73 @@ let yojson_of_aws_sagemaker_data_quality_job_definition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stopping_condition
-             v_stopping_condition
-         in
-         ("stopping_condition", arg) :: bnds
+         if [] = v_stopping_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stopping_condition)
+               v_stopping_condition
+           in
+           let bnd = "stopping_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_config v_network_config
-         in
-         ("network_config", arg) :: bnds
+         if [] = v_network_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_config)
+               v_network_config
+           in
+           let bnd = "network_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_job_resources v_job_resources
-         in
-         ("job_resources", arg) :: bnds
+         if [] = v_job_resources then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_job_resources) v_job_resources
+           in
+           let bnd = "job_resources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_quality_job_output_config
-             v_data_quality_job_output_config
-         in
-         ("data_quality_job_output_config", arg) :: bnds
+         if [] = v_data_quality_job_output_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_quality_job_output_config)
+               v_data_quality_job_output_config
+           in
+           let bnd = "data_quality_job_output_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_quality_job_input
-             v_data_quality_job_input
-         in
-         ("data_quality_job_input", arg) :: bnds
+         if [] = v_data_quality_job_input then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_quality_job_input)
+               v_data_quality_job_input
+           in
+           let bnd = "data_quality_job_input", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_quality_baseline_config
-             v_data_quality_baseline_config
-         in
-         ("data_quality_baseline_config", arg) :: bnds
+         if [] = v_data_quality_baseline_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_quality_baseline_config)
+               v_data_quality_baseline_config
+           in
+           let bnd = "data_quality_baseline_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_quality_app_specification
-             v_data_quality_app_specification
-         in
-         ("data_quality_app_specification", arg) :: bnds
+         if [] = v_data_quality_app_specification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_quality_app_specification)
+               v_data_quality_app_specification
+           in
+           let bnd = "data_quality_app_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

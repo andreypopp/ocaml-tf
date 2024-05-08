@@ -177,6 +177,7 @@ type source = {
   script_uri : string prop option; [@option]
   script_uri_managed_identity :
     source__script_uri_managed_identity list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -194,12 +195,15 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source__script_uri_managed_identity
-             v_script_uri_managed_identity
-         in
-         ("script_uri_managed_identity", arg) :: bnds
+         if [] = v_script_uri_managed_identity then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source__script_uri_managed_identity)
+               v_script_uri_managed_identity
+           in
+           let bnd = "script_uri_managed_identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_script_uri with
@@ -369,10 +373,14 @@ type azurerm_virtual_machine_run_command = {
   tags : (string * string prop) list option; [@option]
   virtual_machine_id : string prop;
   error_blob_managed_identity : error_blob_managed_identity list;
+      [@default []] [@yojson_drop_default ( = )]
   output_blob_managed_identity : output_blob_managed_identity list;
+      [@default []] [@yojson_drop_default ( = )]
   parameter : parameter list;
+      [@default []] [@yojson_drop_default ( = )]
   protected_parameter : protected_parameter list;
-  source : source list;
+      [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -406,33 +414,50 @@ let yojson_of_azurerm_virtual_machine_run_command =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_protected_parameter
-             v_protected_parameter
-         in
-         ("protected_parameter", arg) :: bnds
+         if [] = v_protected_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_protected_parameter)
+               v_protected_parameter
+           in
+           let bnd = "protected_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_parameter v_parameter in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_parameter) v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_output_blob_managed_identity
-             v_output_blob_managed_identity
-         in
-         ("output_blob_managed_identity", arg) :: bnds
+         if [] = v_output_blob_managed_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_output_blob_managed_identity)
+               v_output_blob_managed_identity
+           in
+           let bnd = "output_blob_managed_identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_blob_managed_identity
-             v_error_blob_managed_identity
-         in
-         ("error_blob_managed_identity", arg) :: bnds
+         if [] = v_error_blob_managed_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_blob_managed_identity)
+               v_error_blob_managed_identity
+           in
+           let bnd = "error_blob_managed_identity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

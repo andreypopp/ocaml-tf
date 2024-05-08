@@ -48,6 +48,7 @@ type aws_elasticache_user = {
   user_id : string prop;
   user_name : string prop option; [@option]
   authentication_mode : authentication_mode list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -69,11 +70,14 @@ let yojson_of_aws_elasticache_user =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authentication_mode
-             v_authentication_mode
-         in
-         ("authentication_mode", arg) :: bnds
+         if [] = v_authentication_mode then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authentication_mode)
+               v_authentication_mode
+           in
+           let bnd = "authentication_mode", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_name with

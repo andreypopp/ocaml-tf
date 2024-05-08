@@ -134,6 +134,7 @@ type sync_config = {
   conflict_handler : string prop option; [@option]
   lambda_conflict_handler_config :
     sync_config__lambda_conflict_handler_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -151,12 +152,15 @@ let yojson_of_sync_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_sync_config__lambda_conflict_handler_config
-             v_lambda_conflict_handler_config
-         in
-         ("lambda_conflict_handler_config", arg) :: bnds
+         if [] = v_lambda_conflict_handler_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_sync_config__lambda_conflict_handler_config)
+               v_lambda_conflict_handler_config
+           in
+           let bnd = "lambda_conflict_handler_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_conflict_handler with
@@ -193,9 +197,12 @@ type aws_appsync_resolver = {
   response_template : string prop option; [@option]
   type_ : string prop; [@key "type"]
   caching_config : caching_config list;
+      [@default []] [@yojson_drop_default ( = )]
   pipeline_config : pipeline_config list;
-  runtime : runtime list;
+      [@default []] [@yojson_drop_default ( = )]
+  runtime : runtime list; [@default []] [@yojson_drop_default ( = )]
   sync_config : sync_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -223,26 +230,40 @@ let yojson_of_aws_appsync_resolver =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sync_config v_sync_config
-         in
-         ("sync_config", arg) :: bnds
+         if [] = v_sync_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sync_config) v_sync_config
+           in
+           let bnd = "sync_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_runtime v_runtime in
-         ("runtime", arg) :: bnds
+         if [] = v_runtime then bnds
+         else
+           let arg = (yojson_of_list yojson_of_runtime) v_runtime in
+           let bnd = "runtime", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pipeline_config v_pipeline_config
-         in
-         ("pipeline_config", arg) :: bnds
+         if [] = v_pipeline_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pipeline_config)
+               v_pipeline_config
+           in
+           let bnd = "pipeline_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_caching_config v_caching_config
-         in
-         ("caching_config", arg) :: bnds
+         if [] = v_caching_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_caching_config)
+               v_caching_config
+           in
+           let bnd = "caching_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

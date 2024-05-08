@@ -85,6 +85,7 @@ type retention_rule = {
   name : string prop;
   priority : float prop;
   criteria : retention_rule__criteria list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -102,11 +103,14 @@ let yojson_of_retention_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_rule__criteria
-             v_criteria
-         in
-         ("criteria", arg) :: bnds
+         if [] = v_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_rule__criteria)
+               v_criteria
+           in
+           let bnd = "criteria", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_priority in
@@ -175,6 +179,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_data_protection_backup_policy_postgresql = {
   backup_repeating_time_intervals : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   default_retention_duration : string prop;
   id : string prop option; [@option]
   name : string prop;
@@ -182,6 +187,7 @@ type azurerm_data_protection_backup_policy_postgresql = {
   time_zone : string prop option; [@option]
   vault_name : string prop;
   retention_rule : retention_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -211,10 +217,14 @@ let yojson_of_azurerm_data_protection_backup_policy_postgresql =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_rule v_retention_rule
-         in
-         ("retention_rule", arg) :: bnds
+         if [] = v_retention_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_rule)
+               v_retention_rule
+           in
+           let bnd = "retention_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_vault_name in
@@ -254,12 +264,14 @@ let yojson_of_azurerm_data_protection_backup_policy_postgresql =
          ("default_retention_duration", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_backup_repeating_time_intervals
-         in
-         ("backup_repeating_time_intervals", arg) :: bnds
+         if [] = v_backup_repeating_time_intervals then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_backup_repeating_time_intervals
+           in
+           let bnd = "backup_repeating_time_intervals", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_data_protection_backup_policy_postgresql ->

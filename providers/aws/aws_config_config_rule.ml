@@ -189,7 +189,9 @@ type source = {
   owner : string prop;
   source_identifier : string prop option; [@option]
   custom_policy_details : source__custom_policy_details list;
+      [@default []] [@yojson_drop_default ( = )]
   source_detail : source__source_detail list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -207,18 +209,24 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__source_detail
-             v_source_detail
-         in
-         ("source_detail", arg) :: bnds
+         if [] = v_source_detail then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__source_detail)
+               v_source_detail
+           in
+           let bnd = "source_detail", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__custom_policy_details
-             v_custom_policy_details
-         in
-         ("custom_policy_details", arg) :: bnds
+         if [] = v_custom_policy_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__custom_policy_details)
+               v_custom_policy_details
+           in
+           let bnd = "custom_policy_details", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_identifier with
@@ -248,8 +256,9 @@ type aws_config_config_rule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   evaluation_mode : evaluation_mode list;
-  scope : scope list;
-  source : source list;
+      [@default []] [@yojson_drop_default ( = )]
+  scope : scope list; [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -273,18 +282,28 @@ let yojson_of_aws_config_config_rule =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_scope v_scope in
-         ("scope", arg) :: bnds
+         if [] = v_scope then bnds
+         else
+           let arg = (yojson_of_list yojson_of_scope) v_scope in
+           let bnd = "scope", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_evaluation_mode v_evaluation_mode
-         in
-         ("evaluation_mode", arg) :: bnds
+         if [] = v_evaluation_mode then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_evaluation_mode)
+               v_evaluation_mode
+           in
+           let bnd = "evaluation_mode", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

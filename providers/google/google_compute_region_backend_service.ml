@@ -263,7 +263,9 @@ type cdn_policy = {
   serve_while_stale : float prop option; [@option]
   signed_url_cache_max_age_sec : float prop option; [@option]
   cache_key_policy : cdn_policy__cache_key_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   negative_caching_policy : cdn_policy__negative_caching_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -286,19 +288,25 @@ let yojson_of_cdn_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cdn_policy__negative_caching_policy
-             v_negative_caching_policy
-         in
-         ("negative_caching_policy", arg) :: bnds
+         if [] = v_negative_caching_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cdn_policy__negative_caching_policy)
+               v_negative_caching_policy
+           in
+           let bnd = "negative_caching_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cdn_policy__cache_key_policy
-             v_cache_key_policy
-         in
-         ("cache_key_policy", arg) :: bnds
+         if [] = v_cache_key_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cdn_policy__cache_key_policy)
+               v_cache_key_policy
+           in
+           let bnd = "cache_key_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_signed_url_cache_max_age_sec with
@@ -471,6 +479,7 @@ type consistent_hash__http_cookie = {
   name : string prop option; [@option]
   path : string prop option; [@option]
   ttl : consistent_hash__http_cookie__ttl list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -483,11 +492,15 @@ let yojson_of_consistent_hash__http_cookie =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_consistent_hash__http_cookie__ttl
-             v_ttl
-         in
-         ("ttl", arg) :: bnds
+         if [] = v_ttl then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_consistent_hash__http_cookie__ttl)
+               v_ttl
+           in
+           let bnd = "ttl", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_path with
@@ -517,6 +530,7 @@ type consistent_hash = {
   http_header_name : string prop option; [@option]
   minimum_ring_size : float prop option; [@option]
   http_cookie : consistent_hash__http_cookie list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -533,11 +547,14 @@ let yojson_of_consistent_hash =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_consistent_hash__http_cookie
-             v_http_cookie
-         in
-         ("http_cookie", arg) :: bnds
+         if [] = v_http_cookie then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_consistent_hash__http_cookie)
+               v_http_cookie
+           in
+           let bnd = "http_cookie", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_minimum_ring_size with
@@ -766,7 +783,9 @@ type outlier_detection = {
   success_rate_request_volume : float prop option; [@option]
   success_rate_stdev_factor : float prop option; [@option]
   base_ejection_time : outlier_detection__base_ejection_time list;
+      [@default []] [@yojson_drop_default ( = )]
   interval : outlier_detection__interval list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -792,19 +811,25 @@ let yojson_of_outlier_detection =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_outlier_detection__interval
-             v_interval
-         in
-         ("interval", arg) :: bnds
+         if [] = v_interval then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_outlier_detection__interval)
+               v_interval
+           in
+           let bnd = "interval", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_outlier_detection__base_ejection_time
-             v_base_ejection_time
-         in
-         ("base_ejection_time", arg) :: bnds
+         if [] = v_base_ejection_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_outlier_detection__base_ejection_time)
+               v_base_ejection_time
+           in
+           let bnd = "base_ejection_time", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_success_rate_stdev_factor with
@@ -950,14 +975,20 @@ type google_compute_region_backend_service = {
   region : string prop option; [@option]
   session_affinity : string prop option; [@option]
   timeout_sec : float prop option; [@option]
-  backend : backend list;
+  backend : backend list; [@default []] [@yojson_drop_default ( = )]
   cdn_policy : cdn_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   circuit_breakers : circuit_breakers list;
+      [@default []] [@yojson_drop_default ( = )]
   consistent_hash : consistent_hash list;
+      [@default []] [@yojson_drop_default ( = )]
   failover_policy : failover_policy list;
-  iap : iap list;
+      [@default []] [@yojson_drop_default ( = )]
+  iap : iap list; [@default []] [@yojson_drop_default ( = )]
   log_config : log_config list;
+      [@default []] [@yojson_drop_default ( = )]
   outlier_detection : outlier_detection list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1002,50 +1033,76 @@ let yojson_of_google_compute_region_backend_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_outlier_detection
-             v_outlier_detection
-         in
-         ("outlier_detection", arg) :: bnds
+         if [] = v_outlier_detection then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_outlier_detection)
+               v_outlier_detection
+           in
+           let bnd = "outlier_detection", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_config v_log_config
-         in
-         ("log_config", arg) :: bnds
+         if [] = v_log_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_config) v_log_config
+           in
+           let bnd = "log_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_iap v_iap in
-         ("iap", arg) :: bnds
+         if [] = v_iap then bnds
+         else
+           let arg = (yojson_of_list yojson_of_iap) v_iap in
+           let bnd = "iap", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_failover_policy v_failover_policy
-         in
-         ("failover_policy", arg) :: bnds
+         if [] = v_failover_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_failover_policy)
+               v_failover_policy
+           in
+           let bnd = "failover_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_consistent_hash v_consistent_hash
-         in
-         ("consistent_hash", arg) :: bnds
+         if [] = v_consistent_hash then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_consistent_hash)
+               v_consistent_hash
+           in
+           let bnd = "consistent_hash", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_circuit_breakers
-             v_circuit_breakers
-         in
-         ("circuit_breakers", arg) :: bnds
+         if [] = v_circuit_breakers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_circuit_breakers)
+               v_circuit_breakers
+           in
+           let bnd = "circuit_breakers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cdn_policy v_cdn_policy
-         in
-         ("cdn_policy", arg) :: bnds
+         if [] = v_cdn_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cdn_policy) v_cdn_policy
+           in
+           let bnd = "cdn_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_backend v_backend in
-         ("backend", arg) :: bnds
+         if [] = v_backend then bnds
+         else
+           let arg = (yojson_of_list yojson_of_backend) v_backend in
+           let bnd = "backend", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_sec with

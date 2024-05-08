@@ -30,6 +30,7 @@ let _ = yojson_of_timeouts
 
 type action = {
   action_group : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_webhook_payload : string prop;
   email_subject : string prop;
 }
@@ -58,12 +59,14 @@ let yojson_of_action =
          ("custom_webhook_payload", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_action_group
-         in
-         ("action_group", arg) :: bnds
+         if [] = v_action_group then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_action_group
+           in
+           let bnd = "action_group", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -120,6 +123,7 @@ let _ = yojson_of_trigger__metric_trigger
 
 type trigger = {
   metric_trigger : trigger__metric_trigger list;
+      [@default []] [@yojson_drop_default ( = )]
   operator : string prop;
   threshold : float prop;
 }
@@ -146,11 +150,14 @@ let yojson_of_trigger =
          ("operator", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trigger__metric_trigger
-             v_metric_trigger
-         in
-         ("metric_trigger", arg) :: bnds
+         if [] = v_metric_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trigger__metric_trigger)
+               v_metric_trigger
+           in
+           let bnd = "metric_trigger", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : trigger -> Ppx_yojson_conv_lib.Yojson.Safe.t)

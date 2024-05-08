@@ -273,6 +273,7 @@ let _ = yojson_of_resources__autoscaling_groups
 
 type resources = {
   autoscaling_groups : resources__autoscaling_groups list;
+      [@default []] [@yojson_drop_default ( = )]
   remote_access_security_group_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -297,11 +298,14 @@ let yojson_of_resources =
          ("remote_access_security_group_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resources__autoscaling_groups
-             v_autoscaling_groups
-         in
-         ("autoscaling_groups", arg) :: bnds
+         if [] = v_autoscaling_groups then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resources__autoscaling_groups)
+               v_autoscaling_groups
+           in
+           let bnd = "autoscaling_groups", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : resources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -324,15 +328,20 @@ type aws_eks_node_group = {
   node_role_arn : string prop;
   release_version : string prop option; [@option]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   version : string prop option; [@option]
   launch_template : launch_template list;
+      [@default []] [@yojson_drop_default ( = )]
   remote_access : remote_access list;
+      [@default []] [@yojson_drop_default ( = )]
   scaling_config : scaling_config list;
-  taint : taint list;
+      [@default []] [@yojson_drop_default ( = )]
+  taint : taint list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   update_config : update_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -368,36 +377,53 @@ let yojson_of_aws_eks_node_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_update_config v_update_config
-         in
-         ("update_config", arg) :: bnds
+         if [] = v_update_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_update_config) v_update_config
+           in
+           let bnd = "update_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_taint v_taint in
-         ("taint", arg) :: bnds
+         if [] = v_taint then bnds
+         else
+           let arg = (yojson_of_list yojson_of_taint) v_taint in
+           let bnd = "taint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scaling_config v_scaling_config
-         in
-         ("scaling_config", arg) :: bnds
+         if [] = v_scaling_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scaling_config)
+               v_scaling_config
+           in
+           let bnd = "scaling_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_remote_access v_remote_access
-         in
-         ("remote_access", arg) :: bnds
+         if [] = v_remote_access then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_remote_access) v_remote_access
+           in
+           let bnd = "remote_access", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_launch_template v_launch_template
-         in
-         ("launch_template", arg) :: bnds
+         if [] = v_launch_template then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_launch_template)
+               v_launch_template
+           in
+           let bnd = "launch_template", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -440,12 +466,14 @@ let yojson_of_aws_eks_node_group =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_release_version with

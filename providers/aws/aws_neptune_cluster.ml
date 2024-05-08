@@ -123,6 +123,7 @@ type aws_neptune_cluster = {
   vpc_security_group_ids : string prop list option; [@option]
   serverless_v2_scaling_configuration :
     serverless_v2_scaling_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -180,12 +181,15 @@ let yojson_of_aws_neptune_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serverless_v2_scaling_configuration
-             v_serverless_v2_scaling_configuration
-         in
-         ("serverless_v2_scaling_configuration", arg) :: bnds
+         if [] = v_serverless_v2_scaling_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serverless_v2_scaling_configuration)
+               v_serverless_v2_scaling_configuration
+           in
+           let bnd = "serverless_v2_scaling_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_security_group_ids with

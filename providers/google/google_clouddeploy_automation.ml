@@ -106,7 +106,9 @@ let _ = yojson_of_rules__promote_release_rule
 
 type rules = {
   advance_rollout_rule : rules__advance_rollout_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   promote_release_rule : rules__promote_release_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,18 +124,24 @@ let yojson_of_rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rules__promote_release_rule
-             v_promote_release_rule
-         in
-         ("promote_release_rule", arg) :: bnds
+         if [] = v_promote_release_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rules__promote_release_rule)
+               v_promote_release_rule
+           in
+           let bnd = "promote_release_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rules__advance_rollout_rule
-             v_advance_rollout_rule
-         in
-         ("advance_rollout_rule", arg) :: bnds
+         if [] = v_advance_rollout_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rules__advance_rollout_rule)
+               v_advance_rollout_rule
+           in
+           let bnd = "advance_rollout_rule", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -187,7 +195,10 @@ let _ = yojson_of_selector__targets
 
 [@@@deriving.end]
 
-type selector = { targets : selector__targets list }
+type selector = {
+  targets : selector__targets list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : selector) -> ()
@@ -199,10 +210,13 @@ let yojson_of_selector =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_selector__targets v_targets
-         in
-         ("targets", arg) :: bnds
+         if [] = v_targets then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_selector__targets) v_targets
+           in
+           let bnd = "targets", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : selector -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -268,8 +282,9 @@ type google_clouddeploy_automation = {
   project : string prop option; [@option]
   service_account : string prop;
   suspended : bool prop option; [@option]
-  rules : rules list;
+  rules : rules list; [@default []] [@yojson_drop_default ( = )]
   selector : selector list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -301,12 +316,20 @@ let yojson_of_google_clouddeploy_automation =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_selector v_selector in
-         ("selector", arg) :: bnds
+         if [] = v_selector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_selector) v_selector
+           in
+           let bnd = "selector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rules v_rules in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rules) v_rules in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_suspended with

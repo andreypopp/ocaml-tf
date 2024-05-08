@@ -96,7 +96,7 @@ type azurerm_function_app_function = {
   language : string prop option; [@option]
   name : string prop;
   test_data : string prop option; [@option]
-  file : file list;
+  file : file list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -124,8 +124,11 @@ let yojson_of_azurerm_function_app_function =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_file v_file in
-         ("file", arg) :: bnds
+         if [] = v_file then bnds
+         else
+           let arg = (yojson_of_list yojson_of_file) v_file in
+           let bnd = "file", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_test_data with

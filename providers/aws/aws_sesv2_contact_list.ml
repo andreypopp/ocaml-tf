@@ -59,7 +59,7 @@ type aws_sesv2_contact_list = {
   id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  topic : topic list;
+  topic : topic list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,8 +79,11 @@ let yojson_of_aws_sesv2_contact_list =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_topic v_topic in
-         ("topic", arg) :: bnds
+         if [] = v_topic then bnds
+         else
+           let arg = (yojson_of_list yojson_of_topic) v_topic in
+           let bnd = "topic", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

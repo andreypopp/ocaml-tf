@@ -16,6 +16,7 @@ let _ = yojson_of_templates
 type aws_servicequotas_templates = {
   region : string prop;
   templates : templates list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28,8 +29,13 @@ let yojson_of_aws_servicequotas_templates =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_templates v_templates in
-         ("templates", arg) :: bnds
+         if [] = v_templates then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_templates) v_templates
+           in
+           let bnd = "templates", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_region in

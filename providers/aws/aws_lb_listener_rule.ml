@@ -345,7 +345,9 @@ let _ = yojson_of_action__forward__target_group
 
 type action__forward = {
   stickiness : action__forward__stickiness list;
+      [@default []] [@yojson_drop_default ( = )]
   target_group : action__forward__target_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -358,18 +360,24 @@ let yojson_of_action__forward =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__forward__target_group
-             v_target_group
-         in
-         ("target_group", arg) :: bnds
+         if [] = v_target_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__forward__target_group)
+               v_target_group
+           in
+           let bnd = "target_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__forward__stickiness
-             v_stickiness
-         in
-         ("stickiness", arg) :: bnds
+         if [] = v_stickiness then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__forward__stickiness)
+               v_stickiness
+           in
+           let bnd = "stickiness", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : action__forward -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -459,10 +467,15 @@ type action = {
   target_group_arn : string prop option; [@option]
   type_ : string prop; [@key "type"]
   authenticate_cognito : action__authenticate_cognito list;
+      [@default []] [@yojson_drop_default ( = )]
   authenticate_oidc : action__authenticate_oidc list;
+      [@default []] [@yojson_drop_default ( = )]
   fixed_response : action__fixed_response list;
+      [@default []] [@yojson_drop_default ( = )]
   forward : action__forward list;
+      [@default []] [@yojson_drop_default ( = )]
   redirect : action__redirect list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -484,37 +497,52 @@ let yojson_of_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__redirect v_redirect
-         in
-         ("redirect", arg) :: bnds
+         if [] = v_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__redirect) v_redirect
+           in
+           let bnd = "redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__forward v_forward
-         in
-         ("forward", arg) :: bnds
+         if [] = v_forward then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__forward) v_forward
+           in
+           let bnd = "forward", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__fixed_response
-             v_fixed_response
-         in
-         ("fixed_response", arg) :: bnds
+         if [] = v_fixed_response then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__fixed_response)
+               v_fixed_response
+           in
+           let bnd = "fixed_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__authenticate_oidc
-             v_authenticate_oidc
-         in
-         ("authenticate_oidc", arg) :: bnds
+         if [] = v_authenticate_oidc then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__authenticate_oidc)
+               v_authenticate_oidc
+           in
+           let bnd = "authenticate_oidc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__authenticate_cognito
-             v_authenticate_cognito
-         in
-         ("authenticate_cognito", arg) :: bnds
+         if [] = v_authenticate_cognito then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__authenticate_cognito)
+               v_authenticate_cognito
+           in
+           let bnd = "authenticate_cognito", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -543,7 +571,10 @@ let _ = yojson_of_action
 
 [@@@deriving.end]
 
-type condition__host_header = { values : string prop list }
+type condition__host_header = {
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : condition__host_header) -> ()
@@ -555,10 +586,14 @@ let yojson_of_condition__host_header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : condition__host_header -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -570,6 +605,7 @@ let _ = yojson_of_condition__host_header
 type condition__http_header = {
   http_header_name : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -582,10 +618,14 @@ let yojson_of_condition__http_header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -600,7 +640,10 @@ let _ = yojson_of_condition__http_header
 
 [@@@deriving.end]
 
-type condition__http_request_method = { values : string prop list }
+type condition__http_request_method = {
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : condition__http_request_method) -> ()
@@ -612,10 +655,14 @@ let yojson_of_condition__http_request_method =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : condition__http_request_method ->
@@ -625,7 +672,10 @@ let _ = yojson_of_condition__http_request_method
 
 [@@@deriving.end]
 
-type condition__path_pattern = { values : string prop list }
+type condition__path_pattern = {
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : condition__path_pattern) -> ()
@@ -637,10 +687,14 @@ let yojson_of_condition__path_pattern =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : condition__path_pattern -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -682,7 +736,10 @@ let _ = yojson_of_condition__query_string
 
 [@@@deriving.end]
 
-type condition__source_ip = { values : string prop list }
+type condition__source_ip = {
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : condition__source_ip) -> ()
@@ -694,10 +751,14 @@ let yojson_of_condition__source_ip =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : condition__source_ip -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -708,11 +769,17 @@ let _ = yojson_of_condition__source_ip
 
 type condition = {
   host_header : condition__host_header list;
+      [@default []] [@yojson_drop_default ( = )]
   http_header : condition__http_header list;
+      [@default []] [@yojson_drop_default ( = )]
   http_request_method : condition__http_request_method list;
+      [@default []] [@yojson_drop_default ( = )]
   path_pattern : condition__path_pattern list;
+      [@default []] [@yojson_drop_default ( = )]
   query_string : condition__query_string list;
+      [@default []] [@yojson_drop_default ( = )]
   source_ip : condition__source_ip list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -732,45 +799,64 @@ let yojson_of_condition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__source_ip v_source_ip
-         in
-         ("source_ip", arg) :: bnds
+         if [] = v_source_ip then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__source_ip)
+               v_source_ip
+           in
+           let bnd = "source_ip", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__query_string
-             v_query_string
-         in
-         ("query_string", arg) :: bnds
+         if [] = v_query_string then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__query_string)
+               v_query_string
+           in
+           let bnd = "query_string", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__path_pattern
-             v_path_pattern
-         in
-         ("path_pattern", arg) :: bnds
+         if [] = v_path_pattern then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__path_pattern)
+               v_path_pattern
+           in
+           let bnd = "path_pattern", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__http_request_method
-             v_http_request_method
-         in
-         ("http_request_method", arg) :: bnds
+         if [] = v_http_request_method then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__http_request_method)
+               v_http_request_method
+           in
+           let bnd = "http_request_method", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__host_header
-             v_host_header
-         in
-         ("host_header", arg) :: bnds
+         if [] = v_host_header then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__host_header)
+               v_host_header
+           in
+           let bnd = "host_header", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -785,8 +871,9 @@ type aws_lb_listener_rule = {
   priority : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  action : action list;
+  action : action list; [@default []] [@yojson_drop_default ( = )]
   condition : condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -807,12 +894,20 @@ let yojson_of_aws_lb_listener_rule =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_condition v_condition in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition) v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg = (yojson_of_list yojson_of_action) v_action in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

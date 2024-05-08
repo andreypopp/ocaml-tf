@@ -130,6 +130,7 @@ let _ = yojson_of_cloudwatch_configuration__log_streams
 type cloudwatch_configuration = {
   enabled : bool prop option; [@option]
   log_streams : cloudwatch_configuration__log_streams list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -142,12 +143,15 @@ let yojson_of_cloudwatch_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cloudwatch_configuration__log_streams
-             v_log_streams
-         in
-         ("log_streams", arg) :: bnds
+         if [] = v_log_streams then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cloudwatch_configuration__log_streams)
+               v_log_streams
+           in
+           let bnd = "log_streams", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enabled with
@@ -433,7 +437,9 @@ let _ = yojson_of_load_based_auto_scaling__upscaling
 type load_based_auto_scaling = {
   enable : bool prop option; [@option]
   downscaling : load_based_auto_scaling__downscaling list;
+      [@default []] [@yojson_drop_default ( = )]
   upscaling : load_based_auto_scaling__upscaling list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -450,19 +456,26 @@ let yojson_of_load_based_auto_scaling =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_load_based_auto_scaling__upscaling v_upscaling
-         in
-         ("upscaling", arg) :: bnds
+         if [] = v_upscaling then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_load_based_auto_scaling__upscaling)
+               v_upscaling
+           in
+           let bnd = "upscaling", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_load_based_auto_scaling__downscaling
-             v_downscaling
-         in
-         ("downscaling", arg) :: bnds
+         if [] = v_downscaling then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_load_based_auto_scaling__downscaling)
+               v_downscaling
+           in
+           let bnd = "downscaling", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enable with
@@ -509,8 +522,11 @@ type aws_opsworks_haproxy_layer = {
   tags_all : (string * string prop) list option; [@option]
   use_ebs_optimized_instances : bool prop option; [@option]
   cloudwatch_configuration : cloudwatch_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   ebs_volume : ebs_volume list;
+      [@default []] [@yojson_drop_default ( = )]
   load_based_auto_scaling : load_based_auto_scaling list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -555,24 +571,33 @@ let yojson_of_aws_opsworks_haproxy_layer =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_based_auto_scaling
-             v_load_based_auto_scaling
-         in
-         ("load_based_auto_scaling", arg) :: bnds
+         if [] = v_load_based_auto_scaling then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_based_auto_scaling)
+               v_load_based_auto_scaling
+           in
+           let bnd = "load_based_auto_scaling", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ebs_volume v_ebs_volume
-         in
-         ("ebs_volume", arg) :: bnds
+         if [] = v_ebs_volume then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ebs_volume) v_ebs_volume
+           in
+           let bnd = "ebs_volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cloudwatch_configuration
-             v_cloudwatch_configuration
-         in
-         ("cloudwatch_configuration", arg) :: bnds
+         if [] = v_cloudwatch_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cloudwatch_configuration)
+               v_cloudwatch_configuration
+           in
+           let bnd = "cloudwatch_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_ebs_optimized_instances with

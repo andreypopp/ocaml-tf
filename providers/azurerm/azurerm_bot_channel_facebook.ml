@@ -95,7 +95,7 @@ type azurerm_bot_channel_facebook = {
   id : string prop option; [@option]
   location : string prop;
   resource_group_name : string prop;
-  page : page list;
+  page : page list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -122,8 +122,11 @@ let yojson_of_azurerm_bot_channel_facebook =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_page v_page in
-         ("page", arg) :: bnds
+         if [] = v_page then bnds
+         else
+           let arg = (yojson_of_list yojson_of_page) v_page in
+           let bnd = "page", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

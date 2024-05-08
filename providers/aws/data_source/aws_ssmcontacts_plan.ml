@@ -71,7 +71,9 @@ let _ = yojson_of_stage__target__channel_target_info
 
 type stage__target = {
   channel_target_info : stage__target__channel_target_info list;
+      [@default []] [@yojson_drop_default ( = )]
   contact_target_info : stage__target__contact_target_info list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -87,20 +89,26 @@ let yojson_of_stage__target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_stage__target__contact_target_info
-             v_contact_target_info
-         in
-         ("contact_target_info", arg) :: bnds
+         if [] = v_contact_target_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_stage__target__contact_target_info)
+               v_contact_target_info
+           in
+           let bnd = "contact_target_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_stage__target__channel_target_info
-             v_channel_target_info
-         in
-         ("channel_target_info", arg) :: bnds
+         if [] = v_channel_target_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_stage__target__channel_target_info)
+               v_channel_target_info
+           in
+           let bnd = "channel_target_info", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : stage__target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -112,6 +120,7 @@ let _ = yojson_of_stage__target
 type stage = {
   duration_in_minutes : float prop;
   target : stage__target list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -127,8 +136,13 @@ let yojson_of_stage =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_stage__target v_target in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stage__target) v_target
+           in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

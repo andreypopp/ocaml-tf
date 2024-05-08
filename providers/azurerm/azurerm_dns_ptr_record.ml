@@ -66,6 +66,7 @@ type azurerm_dns_ptr_record = {
   id : string prop option; [@option]
   name : string prop;
   records : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   ttl : float prop;
@@ -126,10 +127,14 @@ let yojson_of_azurerm_dns_ptr_record =
          ("resource_group_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_records
-         in
-         ("records", arg) :: bnds
+         if [] = v_records then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_records
+           in
+           let bnd = "records", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

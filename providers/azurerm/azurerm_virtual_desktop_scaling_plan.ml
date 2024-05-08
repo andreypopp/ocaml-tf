@@ -38,6 +38,7 @@ let _ = yojson_of_host_pool
 
 type schedule = {
   days_of_week : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   off_peak_load_balancing_algorithm : string prop;
   off_peak_start_time : string prop;
@@ -209,12 +210,14 @@ let yojson_of_schedule =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_days_of_week
-         in
-         ("days_of_week", arg) :: bnds
+         if [] = v_days_of_week then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_days_of_week
+           in
+           let bnd = "days_of_week", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -294,7 +297,9 @@ type azurerm_virtual_desktop_scaling_plan = {
   tags : (string * string prop) list option; [@option]
   time_zone : string prop;
   host_pool : host_pool list;
+      [@default []] [@yojson_drop_default ( = )]
   schedule : schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -325,12 +330,22 @@ let yojson_of_azurerm_virtual_desktop_scaling_plan =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_schedule v_schedule in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule) v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_host_pool v_host_pool in
-         ("host_pool", arg) :: bnds
+         if [] = v_host_pool then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_host_pool) v_host_pool
+           in
+           let bnd = "host_pool", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_time_zone in

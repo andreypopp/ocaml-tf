@@ -36,6 +36,7 @@ type key_signing_keys = {
   creation_time : string prop;
   description : string prop;
   digests : key_signing_keys__digests list;
+      [@default []] [@yojson_drop_default ( = )]
   ds_record : string prop;
   id : string prop;
   is_active : bool prop;
@@ -89,11 +90,14 @@ let yojson_of_key_signing_keys =
          ("ds_record", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_key_signing_keys__digests
-             v_digests
-         in
-         ("digests", arg) :: bnds
+         if [] = v_digests then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_signing_keys__digests)
+               v_digests
+           in
+           let bnd = "digests", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_description in
@@ -148,6 +152,7 @@ type zone_signing_keys = {
   creation_time : string prop;
   description : string prop;
   digests : zone_signing_keys__digests list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop;
   is_active : bool prop;
   key_length : float prop;
@@ -195,11 +200,14 @@ let yojson_of_zone_signing_keys =
          ("id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_zone_signing_keys__digests
-             v_digests
-         in
-         ("digests", arg) :: bnds
+         if [] = v_digests then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_zone_signing_keys__digests)
+               v_digests
+           in
+           let bnd = "digests", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_description in

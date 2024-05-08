@@ -106,7 +106,8 @@ type azurerm_redis_enterprise_database = {
   name : string prop option; [@option]
   port : float prop option; [@option]
   resource_group_name : string prop option; [@option]
-  module_ : module_ list; [@key "module"]
+  module_ : module_ list;
+      [@key "module"] [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -138,8 +139,11 @@ let yojson_of_azurerm_redis_enterprise_database =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_module_ v_module_ in
-         ("module", arg) :: bnds
+         if [] = v_module_ then bnds
+         else
+           let arg = (yojson_of_list yojson_of_module_) v_module_ in
+           let bnd = "module", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resource_group_name with

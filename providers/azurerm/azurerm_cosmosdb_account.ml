@@ -186,9 +186,13 @@ let _ = yojson_of_consistency_policy
 
 type cors_rule = {
   allowed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   exposed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age_in_seconds : float prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -216,36 +220,44 @@ let yojson_of_cors_rule =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_exposed_headers
-         in
-         ("exposed_headers", arg) :: bnds
+         if [] = v_exposed_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_exposed_headers
+           in
+           let bnd = "exposed_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_methods
-         in
-         ("allowed_methods", arg) :: bnds
+         if [] = v_allowed_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_methods
+           in
+           let bnd = "allowed_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_headers
-         in
-         ("allowed_headers", arg) :: bnds
+         if [] = v_allowed_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_headers
+           in
+           let bnd = "allowed_headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cors_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -408,7 +420,9 @@ type restore = {
   source_cosmosdb_account_id : string prop;
   tables_to_restore : string prop list option; [@option]
   database : restore__database list;
+      [@default []] [@yojson_drop_default ( = )]
   gremlin_database : restore__gremlin_database list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -427,17 +441,23 @@ let yojson_of_restore =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restore__gremlin_database
-             v_gremlin_database
-         in
-         ("gremlin_database", arg) :: bnds
+         if [] = v_gremlin_database then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restore__gremlin_database)
+               v_gremlin_database
+           in
+           let bnd = "gremlin_database", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restore__database v_database
-         in
-         ("database", arg) :: bnds
+         if [] = v_database then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restore__database) v_database
+           in
+           let bnd = "database", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tables_to_restore with
@@ -592,16 +612,24 @@ type azurerm_cosmosdb_account = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   analytical_storage : analytical_storage list;
-  backup : backup list;
+      [@default []] [@yojson_drop_default ( = )]
+  backup : backup list; [@default []] [@yojson_drop_default ( = )]
   capabilities : capabilities list;
+      [@default []] [@yojson_drop_default ( = )]
   capacity : capacity list;
+      [@default []] [@yojson_drop_default ( = )]
   consistency_policy : consistency_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   cors_rule : cors_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   geo_location : geo_location list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
-  restore : restore list;
+      [@default []] [@yojson_drop_default ( = )]
+  restore : restore list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   virtual_network_rule : virtual_network_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -656,61 +684,97 @@ let yojson_of_azurerm_cosmosdb_account =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_virtual_network_rule
-             v_virtual_network_rule
-         in
-         ("virtual_network_rule", arg) :: bnds
+         if [] = v_virtual_network_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_virtual_network_rule)
+               v_virtual_network_rule
+           in
+           let bnd = "virtual_network_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_restore v_restore in
-         ("restore", arg) :: bnds
+         if [] = v_restore then bnds
+         else
+           let arg = (yojson_of_list yojson_of_restore) v_restore in
+           let bnd = "restore", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_geo_location v_geo_location
-         in
-         ("geo_location", arg) :: bnds
+         if [] = v_geo_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_geo_location) v_geo_location
+           in
+           let bnd = "geo_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_cors_rule v_cors_rule in
-         ("cors_rule", arg) :: bnds
+         if [] = v_cors_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cors_rule) v_cors_rule
+           in
+           let bnd = "cors_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_consistency_policy
-             v_consistency_policy
-         in
-         ("consistency_policy", arg) :: bnds
+         if [] = v_consistency_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_consistency_policy)
+               v_consistency_policy
+           in
+           let bnd = "consistency_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_capacity v_capacity in
-         ("capacity", arg) :: bnds
+         if [] = v_capacity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_capacity) v_capacity
+           in
+           let bnd = "capacity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_capabilities v_capabilities
-         in
-         ("capabilities", arg) :: bnds
+         if [] = v_capabilities then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_capabilities) v_capabilities
+           in
+           let bnd = "capabilities", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_backup v_backup in
-         ("backup", arg) :: bnds
+         if [] = v_backup then bnds
+         else
+           let arg = (yojson_of_list yojson_of_backup) v_backup in
+           let bnd = "backup", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_analytical_storage
-             v_analytical_storage
-         in
-         ("analytical_storage", arg) :: bnds
+         if [] = v_analytical_storage then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_analytical_storage)
+               v_analytical_storage
+           in
+           let bnd = "analytical_storage", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

@@ -11,7 +11,9 @@ type bgp_settings = {
 }
 
 type custom_route = {
-  address_prefixes : string prop list;  (** address_prefixes *)
+  address_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** address_prefixes *)
 }
 
 type ip_configuration = {
@@ -38,15 +40,20 @@ type vpn_client_configuration = {
   aad_audience : string prop;  (** aad_audience *)
   aad_issuer : string prop;  (** aad_issuer *)
   aad_tenant : string prop;  (** aad_tenant *)
-  address_space : string prop list;  (** address_space *)
+  address_space : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** address_space *)
   radius_server_address : string prop;  (** radius_server_address *)
   radius_server_secret : string prop;  (** radius_server_secret *)
   revoked_certificate :
     vpn_client_configuration__revoked_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
       (** revoked_certificate *)
   root_certificate : vpn_client_configuration__root_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
       (** root_certificate *)
   vpn_client_protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** vpn_client_protocols *)
 }
 

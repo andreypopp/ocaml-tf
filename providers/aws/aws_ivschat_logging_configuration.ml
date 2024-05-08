@@ -81,8 +81,11 @@ let _ = yojson_of_destination_configuration__s3
 
 type destination_configuration = {
   cloudwatch_logs : destination_configuration__cloudwatch_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   firehose : destination_configuration__firehose list;
+      [@default []] [@yojson_drop_default ( = )]
   s3 : destination_configuration__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -99,26 +102,36 @@ let yojson_of_destination_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_configuration__s3
-             v_s3
-         in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_configuration__s3)
+               v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_configuration__firehose v_firehose
-         in
-         ("firehose", arg) :: bnds
+         if [] = v_firehose then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_configuration__firehose)
+               v_firehose
+           in
+           let bnd = "firehose", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_configuration__cloudwatch_logs
-             v_cloudwatch_logs
-         in
-         ("cloudwatch_logs", arg) :: bnds
+         if [] = v_cloudwatch_logs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_configuration__cloudwatch_logs)
+               v_cloudwatch_logs
+           in
+           let bnd = "cloudwatch_logs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : destination_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -179,6 +192,7 @@ type aws_ivschat_logging_configuration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   destination_configuration : destination_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -203,11 +217,14 @@ let yojson_of_aws_ivschat_logging_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_configuration
-             v_destination_configuration
-         in
-         ("destination_configuration", arg) :: bnds
+         if [] = v_destination_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_configuration)
+               v_destination_configuration
+           in
+           let bnd = "destination_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

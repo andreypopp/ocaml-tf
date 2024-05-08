@@ -84,8 +84,8 @@ type cloudflare_email_routing_rule = {
   name : string prop;
   priority : float prop option; [@option]
   zone_id : string prop;
-  action : action list;
-  matcher : matcher list;
+  action : action list; [@default []] [@yojson_drop_default ( = )]
+  matcher : matcher list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -105,12 +105,18 @@ let yojson_of_cloudflare_email_routing_rule =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_matcher v_matcher in
-         ("matcher", arg) :: bnds
+         if [] = v_matcher then bnds
+         else
+           let arg = (yojson_of_list yojson_of_matcher) v_matcher in
+           let bnd = "matcher", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg = (yojson_of_list yojson_of_action) v_action in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in

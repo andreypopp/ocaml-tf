@@ -159,9 +159,11 @@ type policy_sets__policies__constraint__org_policy_constraint__policy_rules = {
   condition :
     policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   values :
     policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,20 +186,26 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_r
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
-             v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules__values)
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enforce with
@@ -237,6 +245,7 @@ type policy_sets__policies__constraint__org_policy_constraint = {
   policy_rules :
     policy_sets__policies__constraint__org_policy_constraint__policy_rules
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -255,12 +264,15 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules
-             v_policy_rules
-         in
-         ("policy_rules", arg) :: bnds
+         if [] = v_policy_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules)
+               v_policy_rules
+           in
+           let bnd = "policy_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -283,8 +295,10 @@ type policy_sets__policies__constraint__org_policy_constraint_custom__custom_con
   description : string prop option; [@option]
   display_name : string prop option; [@option]
   method_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   resource_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -309,24 +323,28 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__c
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_resource_types
-         in
-         ("resource_types", arg) :: bnds
+         if [] = v_resource_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_resource_types
+           in
+           let bnd = "resource_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_method_types
-         in
-         ("method_types", arg) :: bnds
+         if [] = v_method_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_method_types
+           in
+           let bnd = "method_types", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_display_name with
@@ -480,9 +498,11 @@ type policy_sets__policies__constraint__org_policy_constraint_custom__policy_rul
   condition :
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   values :
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -505,20 +525,26 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__p
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
-             v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values)
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enforce with
@@ -557,9 +583,11 @@ type policy_sets__policies__constraint__org_policy_constraint_custom = {
   custom_constraint :
     policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
     list;
+      [@default []] [@yojson_drop_default ( = )]
   policy_rules :
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -579,20 +607,26 @@ let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
-             v_policy_rules
-         in
-         ("policy_rules", arg) :: bnds
+         if [] = v_policy_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules)
+               v_policy_rules
+           in
+           let bnd = "policy_rules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
-             v_custom_constraint
-         in
-         ("custom_constraint", arg) :: bnds
+         if [] = v_custom_constraint then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint)
+               v_custom_constraint
+           in
+           let bnd = "custom_constraint", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : policy_sets__policies__constraint__org_policy_constraint_custom ->
@@ -670,6 +704,7 @@ type policy_sets__policies__constraint__security_health_analytics_custom_module_
   value_expression :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -686,12 +721,15 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
-             v_value_expression
-         in
-         ("value_expression", arg) :: bnds
+         if [] = v_value_expression then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression)
+               v_value_expression
+           in
+           let bnd = "value_expression", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -710,6 +748,7 @@ type policy_sets__policies__constraint__security_health_analytics_custom_module_
   properties :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -726,12 +765,15 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
-             v_properties
-         in
-         ("properties", arg) :: bnds
+         if [] = v_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties)
+               v_properties
+           in
+           let bnd = "properties", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output ->
@@ -806,6 +848,7 @@ let _ =
 
 type policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector = {
   resource_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -822,12 +865,14 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_resource_types
-         in
-         ("resource_types", arg) :: bnds
+         if [] = v_resource_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_resource_types
+           in
+           let bnd = "resource_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector ->
@@ -845,12 +890,15 @@ type policy_sets__policies__constraint__security_health_analytics_custom_module_
   custom_output :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
     list;
+      [@default []] [@yojson_drop_default ( = )]
   predicate :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
     list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_selector :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -874,28 +922,37 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
-             v_resource_selector
-         in
-         ("resource_selector", arg) :: bnds
+         if [] = v_resource_selector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector)
+               v_resource_selector
+           in
+           let bnd = "resource_selector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
-             v_predicate
-         in
-         ("predicate", arg) :: bnds
+         if [] = v_predicate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate)
+               v_predicate
+           in
+           let bnd = "predicate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
-             v_custom_output
-         in
-         ("custom_output", arg) :: bnds
+         if [] = v_custom_output then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output)
+               v_custom_output
+           in
+           let bnd = "custom_output", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_severity in
@@ -932,6 +989,7 @@ type policy_sets__policies__constraint__security_health_analytics_custom_module 
   config :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -952,12 +1010,15 @@ let yojson_of_policy_sets__policies__constraint__security_health_analytics_custo
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config
-             v_config
-         in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config)
+               v_config
+           in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_module_enablement_state with
@@ -1029,15 +1090,19 @@ let _ =
 type policy_sets__policies__constraint = {
   org_policy_constraint :
     policy_sets__policies__constraint__org_policy_constraint list;
+      [@default []] [@yojson_drop_default ( = )]
   org_policy_constraint_custom :
     policy_sets__policies__constraint__org_policy_constraint_custom
     list;
+      [@default []] [@yojson_drop_default ( = )]
   security_health_analytics_custom_module :
     policy_sets__policies__constraint__security_health_analytics_custom_module
     list;
+      [@default []] [@yojson_drop_default ( = )]
   security_health_analytics_module :
     policy_sets__policies__constraint__security_health_analytics_module
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1057,36 +1122,50 @@ let yojson_of_policy_sets__policies__constraint =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__security_health_analytics_module
-             v_security_health_analytics_module
-         in
-         ("security_health_analytics_module", arg) :: bnds
+         if [] = v_security_health_analytics_module then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__security_health_analytics_module)
+               v_security_health_analytics_module
+           in
+           let bnd = "security_health_analytics_module", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module
-             v_security_health_analytics_custom_module
-         in
-         ("security_health_analytics_custom_module", arg) :: bnds
+         if [] = v_security_health_analytics_custom_module then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module)
+               v_security_health_analytics_custom_module
+           in
+           let bnd =
+             "security_health_analytics_custom_module", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom
-             v_org_policy_constraint_custom
-         in
-         ("org_policy_constraint_custom", arg) :: bnds
+         if [] = v_org_policy_constraint_custom then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom)
+               v_org_policy_constraint_custom
+           in
+           let bnd = "org_policy_constraint_custom", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__constraint__org_policy_constraint
-             v_org_policy_constraint
-         in
-         ("org_policy_constraint", arg) :: bnds
+         if [] = v_org_policy_constraint then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint__org_policy_constraint)
+               v_org_policy_constraint
+           in
+           let bnd = "org_policy_constraint", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : policy_sets__policies__constraint ->
@@ -1101,8 +1180,9 @@ type policy_sets__policies = {
   policy_id : string prop;
   compliance_standards :
     policy_sets__policies__compliance_standards list;
+      [@default []] [@yojson_drop_default ( = )]
   constraint_ : policy_sets__policies__constraint list;
-      [@key "constraint"]
+      [@key "constraint"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1120,19 +1200,26 @@ let yojson_of_policy_sets__policies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policy_sets__policies__constraint
-             v_constraint_
-         in
-         ("constraint", arg) :: bnds
+         if [] = v_constraint_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__constraint)
+               v_constraint_
+           in
+           let bnd = "constraint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_sets__policies__compliance_standards
-             v_compliance_standards
-         in
-         ("compliance_standards", arg) :: bnds
+         if [] = v_compliance_standards then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_sets__policies__compliance_standards)
+               v_compliance_standards
+           in
+           let bnd = "compliance_standards", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_policy_id in
@@ -1157,6 +1244,7 @@ type policy_sets = {
   description : string prop option; [@option]
   policy_set_id : string prop;
   policies : policy_sets__policies list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1173,10 +1261,14 @@ let yojson_of_policy_sets =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policy_sets__policies v_policies
-         in
-         ("policies", arg) :: bnds
+         if [] = v_policies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_policy_sets__policies)
+               v_policies
+           in
+           let bnd = "policies", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_policy_set_id in
@@ -1251,6 +1343,7 @@ type google_securityposture_posture = {
   posture_id : string prop;
   state : string prop;
   policy_sets : policy_sets list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1277,10 +1370,13 @@ let yojson_of_google_securityposture_posture =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policy_sets v_policy_sets
-         in
-         ("policy_sets", arg) :: bnds
+         if [] = v_policy_sets then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_policy_sets) v_policy_sets
+           in
+           let bnd = "policy_sets", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_state in

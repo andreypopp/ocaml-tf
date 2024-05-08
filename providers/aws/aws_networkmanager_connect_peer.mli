@@ -13,9 +13,12 @@ type configuration__bgp_configurations = {
 
 type configuration = {
   bgp_configurations : configuration__bgp_configurations list;
+      [@default []] [@yojson_drop_default ( = )]
       (** bgp_configurations *)
   core_network_address : string prop;  (** core_network_address *)
-  inside_cidr_blocks : string prop list;  (** inside_cidr_blocks *)
+  inside_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** inside_cidr_blocks *)
   peer_address : string prop;  (** peer_address *)
   protocol : string prop;  (** protocol *)
 }

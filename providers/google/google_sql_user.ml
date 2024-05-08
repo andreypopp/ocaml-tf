@@ -145,6 +145,7 @@ let _ = yojson_of_timeouts
 type sql_server_user_details = {
   disabled : bool prop;
   server_roles : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -157,12 +158,14 @@ let yojson_of_sql_server_user_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_server_roles
-         in
-         ("server_roles", arg) :: bnds
+         if [] = v_server_roles then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_server_roles
+           in
+           let bnd = "server_roles", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_disabled in
@@ -185,6 +188,7 @@ type google_sql_user = {
   project : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   password_policy : password_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -213,10 +217,14 @@ let yojson_of_google_sql_user =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_password_policy v_password_policy
-         in
-         ("password_policy", arg) :: bnds
+         if [] = v_password_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_password_policy)
+               v_password_policy
+           in
+           let bnd = "password_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

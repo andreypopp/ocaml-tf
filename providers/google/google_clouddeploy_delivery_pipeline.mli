@@ -10,7 +10,9 @@ type condition__targets_type_condition = {
 }
 
 type condition__targets_present_condition = {
-  missing_targets : string prop list;  (** missing_targets *)
+  missing_targets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** missing_targets *)
   status : bool prop;  (** status *)
   update_time : string prop;  (** update_time *)
 }
@@ -23,11 +25,14 @@ type condition__pipeline_ready_condition = {
 type condition = {
   pipeline_ready_condition :
     condition__pipeline_ready_condition list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pipeline_ready_condition *)
   targets_present_condition :
     condition__targets_present_condition list;
+      [@default []] [@yojson_drop_default ( = )]
       (** targets_present_condition *)
   targets_type_condition : condition__targets_type_condition list;
+      [@default []] [@yojson_drop_default ( = )]
       (** targets_type_condition *)
 }
 

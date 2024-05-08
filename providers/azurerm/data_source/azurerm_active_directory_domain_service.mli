@@ -6,6 +6,7 @@ open! Tf_core
 
 type notifications = {
   additional_recipients : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** additional_recipients *)
   notify_dc_admins : bool prop;  (** notify_dc_admins *)
   notify_global_admins : bool prop;  (** notify_global_admins *)
@@ -13,6 +14,7 @@ type notifications = {
 
 type replica_sets = {
   domain_controller_ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** domain_controller_ip_addresses *)
   external_access_ip_address : string prop;
       (** external_access_ip_address *)

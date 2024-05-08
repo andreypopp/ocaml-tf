@@ -81,6 +81,7 @@ type elements__amazon_transcribe_call_analytics_processor_configuration = {
   post_call_analytics_settings :
     elements__amazon_transcribe_call_analytics_processor_configuration__post_call_analytics_settings
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -113,12 +114,15 @@ let yojson_of_elements__amazon_transcribe_call_analytics_processor_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_elements__amazon_transcribe_call_analytics_processor_configuration__post_call_analytics_settings
-             v_post_call_analytics_settings
-         in
-         ("post_call_analytics_settings", arg) :: bnds
+         if [] = v_post_call_analytics_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_elements__amazon_transcribe_call_analytics_processor_configuration__post_call_analytics_settings)
+               v_post_call_analytics_settings
+           in
+           let bnd = "post_call_analytics_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vocabulary_name with
@@ -544,20 +548,28 @@ type elements = {
   amazon_transcribe_call_analytics_processor_configuration :
     elements__amazon_transcribe_call_analytics_processor_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   amazon_transcribe_processor_configuration :
     elements__amazon_transcribe_processor_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_data_stream_sink_configuration :
     elements__kinesis_data_stream_sink_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   lambda_function_sink_configuration :
     elements__lambda_function_sink_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_recording_sink_configuration :
     elements__s3_recording_sink_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   sns_topic_sink_configuration :
     elements__sns_topic_sink_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   sqs_queue_sink_configuration :
     elements__sqs_queue_sink_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   voice_analytics_processor_configuration :
     elements__voice_analytics_processor_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -586,70 +598,103 @@ let yojson_of_elements =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_elements__voice_analytics_processor_configuration
-             v_voice_analytics_processor_configuration
-         in
-         ("voice_analytics_processor_configuration", arg) :: bnds
+         if [] = v_voice_analytics_processor_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_elements__voice_analytics_processor_configuration)
+               v_voice_analytics_processor_configuration
+           in
+           let bnd =
+             "voice_analytics_processor_configuration", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_elements__sqs_queue_sink_configuration
-             v_sqs_queue_sink_configuration
-         in
-         ("sqs_queue_sink_configuration", arg) :: bnds
+         if [] = v_sqs_queue_sink_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_elements__sqs_queue_sink_configuration)
+               v_sqs_queue_sink_configuration
+           in
+           let bnd = "sqs_queue_sink_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_elements__sns_topic_sink_configuration
-             v_sns_topic_sink_configuration
-         in
-         ("sns_topic_sink_configuration", arg) :: bnds
+         if [] = v_sns_topic_sink_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_elements__sns_topic_sink_configuration)
+               v_sns_topic_sink_configuration
+           in
+           let bnd = "sns_topic_sink_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_elements__s3_recording_sink_configuration
-             v_s3_recording_sink_configuration
-         in
-         ("s3_recording_sink_configuration", arg) :: bnds
+         if [] = v_s3_recording_sink_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_elements__s3_recording_sink_configuration)
+               v_s3_recording_sink_configuration
+           in
+           let bnd = "s3_recording_sink_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_elements__lambda_function_sink_configuration
-             v_lambda_function_sink_configuration
-         in
-         ("lambda_function_sink_configuration", arg) :: bnds
+         if [] = v_lambda_function_sink_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_elements__lambda_function_sink_configuration)
+               v_lambda_function_sink_configuration
+           in
+           let bnd = "lambda_function_sink_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_elements__kinesis_data_stream_sink_configuration
-             v_kinesis_data_stream_sink_configuration
-         in
-         ("kinesis_data_stream_sink_configuration", arg) :: bnds
+         if [] = v_kinesis_data_stream_sink_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_elements__kinesis_data_stream_sink_configuration)
+               v_kinesis_data_stream_sink_configuration
+           in
+           let bnd = "kinesis_data_stream_sink_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_elements__amazon_transcribe_processor_configuration
-             v_amazon_transcribe_processor_configuration
-         in
-         ("amazon_transcribe_processor_configuration", arg) :: bnds
+         if [] = v_amazon_transcribe_processor_configuration then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_elements__amazon_transcribe_processor_configuration)
+               v_amazon_transcribe_processor_configuration
+           in
+           let bnd =
+             "amazon_transcribe_processor_configuration", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_elements__amazon_transcribe_call_analytics_processor_configuration
-             v_amazon_transcribe_call_analytics_processor_configuration
-         in
-         ( "amazon_transcribe_call_analytics_processor_configuration",
-           arg )
-         :: bnds
+         if
+           []
+           = v_amazon_transcribe_call_analytics_processor_configuration
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_elements__amazon_transcribe_call_analytics_processor_configuration)
+               v_amazon_transcribe_call_analytics_processor_configuration
+           in
+           let bnd =
+             ( "amazon_transcribe_call_analytics_processor_configuration",
+               arg )
+           in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -694,6 +739,7 @@ let _ =
 
 type real_time_alert_configuration__rules__keyword_match_configuration = {
   keywords : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   negate : bool prop option; [@option]
   rule_name : string prop;
 }
@@ -728,12 +774,14 @@ let yojson_of_real_time_alert_configuration__rules__keyword_match_configuration
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_keywords
-         in
-         ("keywords", arg) :: bnds
+         if [] = v_keywords then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_keywords
+           in
+           let bnd = "keywords", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : real_time_alert_configuration__rules__keyword_match_configuration ->
@@ -795,12 +843,15 @@ type real_time_alert_configuration__rules = {
   issue_detection_configuration :
     real_time_alert_configuration__rules__issue_detection_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   keyword_match_configuration :
     real_time_alert_configuration__rules__keyword_match_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   sentiment_configuration :
     real_time_alert_configuration__rules__sentiment_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -819,28 +870,37 @@ let yojson_of_real_time_alert_configuration__rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_real_time_alert_configuration__rules__sentiment_configuration
-             v_sentiment_configuration
-         in
-         ("sentiment_configuration", arg) :: bnds
+         if [] = v_sentiment_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_real_time_alert_configuration__rules__sentiment_configuration)
+               v_sentiment_configuration
+           in
+           let bnd = "sentiment_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_real_time_alert_configuration__rules__keyword_match_configuration
-             v_keyword_match_configuration
-         in
-         ("keyword_match_configuration", arg) :: bnds
+         if [] = v_keyword_match_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_real_time_alert_configuration__rules__keyword_match_configuration)
+               v_keyword_match_configuration
+           in
+           let bnd = "keyword_match_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_real_time_alert_configuration__rules__issue_detection_configuration
-             v_issue_detection_configuration
-         in
-         ("issue_detection_configuration", arg) :: bnds
+         if [] = v_issue_detection_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_real_time_alert_configuration__rules__issue_detection_configuration)
+               v_issue_detection_configuration
+           in
+           let bnd = "issue_detection_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -857,6 +917,7 @@ let _ = yojson_of_real_time_alert_configuration__rules
 type real_time_alert_configuration = {
   disabled : bool prop option; [@option]
   rules : real_time_alert_configuration__rules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -869,11 +930,15 @@ let yojson_of_real_time_alert_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_real_time_alert_configuration__rules v_rules
-         in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_real_time_alert_configuration__rules)
+               v_rules
+           in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_disabled with
@@ -943,7 +1008,9 @@ type aws_chimesdkmediapipelines_media_insights_pipeline_configuration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   elements : elements list;
+      [@default []] [@yojson_drop_default ( = )]
   real_time_alert_configuration : real_time_alert_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -974,15 +1041,23 @@ let yojson_of_aws_chimesdkmediapipelines_media_insights_pipeline_configuration
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_real_time_alert_configuration
-             v_real_time_alert_configuration
-         in
-         ("real_time_alert_configuration", arg) :: bnds
+         if [] = v_real_time_alert_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_real_time_alert_configuration)
+               v_real_time_alert_configuration
+           in
+           let bnd = "real_time_alert_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_elements v_elements in
-         ("elements", arg) :: bnds
+         if [] = v_elements then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_elements) v_elements
+           in
+           let bnd = "elements", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

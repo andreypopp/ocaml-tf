@@ -7,6 +7,7 @@ type placement_groups = {
   labels : (string * string prop) list;
   name : string prop;
   servers : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -30,10 +31,14 @@ let yojson_of_placement_groups =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_float) v_servers
-         in
-         ("servers", arg) :: bnds
+         if [] = v_servers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_servers
+           in
+           let bnd = "servers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

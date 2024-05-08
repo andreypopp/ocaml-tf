@@ -45,7 +45,7 @@ let _ = yojson_of_tag
 type aws_autoscaling_group_tag = {
   autoscaling_group_name : string prop;
   id : string prop option; [@option]
-  tag : tag list;
+  tag : tag list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -62,8 +62,11 @@ let yojson_of_aws_autoscaling_group_tag =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_tag v_tag in
-         ("tag", arg) :: bnds
+         if [] = v_tag then bnds
+         else
+           let arg = (yojson_of_list yojson_of_tag) v_tag in
+           let bnd = "tag", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

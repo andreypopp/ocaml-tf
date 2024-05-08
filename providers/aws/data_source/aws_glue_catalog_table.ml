@@ -5,7 +5,7 @@ open! Tf_core
 type partition_index = {
   index_name : string prop;
   index_status : string prop;
-  keys : string prop list;
+  keys : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22,10 +22,14 @@ let yojson_of_partition_index =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_keys
-         in
-         ("keys", arg) :: bnds
+         if [] = v_keys then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_keys
+           in
+           let bnd = "keys", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_index_status in
@@ -108,8 +112,10 @@ let _ = yojson_of_storage_descriptor__sort_columns
 
 type storage_descriptor__skewed_info = {
   skewed_column_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   skewed_column_value_location_maps : (string * string prop) list;
   skewed_column_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -127,12 +133,14 @@ let yojson_of_storage_descriptor__skewed_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_skewed_column_values
-         in
-         ("skewed_column_values", arg) :: bnds
+         if [] = v_skewed_column_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_skewed_column_values
+           in
+           let bnd = "skewed_column_values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -147,12 +155,14 @@ let yojson_of_storage_descriptor__skewed_info =
          ("skewed_column_value_location_maps", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_skewed_column_names
-         in
-         ("skewed_column_names", arg) :: bnds
+         if [] = v_skewed_column_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_skewed_column_names
+           in
+           let bnd = "skewed_column_names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : storage_descriptor__skewed_info ->
@@ -253,6 +263,7 @@ let _ = yojson_of_storage_descriptor__schema_reference__schema_id
 
 type storage_descriptor__schema_reference = {
   schema_id : storage_descriptor__schema_reference__schema_id list;
+      [@default []] [@yojson_drop_default ( = )]
   schema_version_id : string prop;
   schema_version_number : float prop;
 }
@@ -283,12 +294,15 @@ let yojson_of_storage_descriptor__schema_reference =
          ("schema_version_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_descriptor__schema_reference__schema_id
-             v_schema_id
-         in
-         ("schema_id", arg) :: bnds
+         if [] = v_schema_id then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_descriptor__schema_reference__schema_id)
+               v_schema_id
+           in
+           let bnd = "schema_id", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : storage_descriptor__schema_reference ->
@@ -353,7 +367,9 @@ let _ = yojson_of_storage_descriptor__columns
 
 type storage_descriptor = {
   bucket_columns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   columns : storage_descriptor__columns list;
+      [@default []] [@yojson_drop_default ( = )]
   compressed : bool prop;
   input_format : string prop;
   location : string prop;
@@ -361,9 +377,13 @@ type storage_descriptor = {
   output_format : string prop;
   parameters : (string * string prop) list;
   schema_reference : storage_descriptor__schema_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   ser_de_info : storage_descriptor__ser_de_info list;
+      [@default []] [@yojson_drop_default ( = )]
   skewed_info : storage_descriptor__skewed_info list;
+      [@default []] [@yojson_drop_default ( = )]
   sort_columns : storage_descriptor__sort_columns list;
+      [@default []] [@yojson_drop_default ( = )]
   stored_as_sub_directories : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -397,33 +417,48 @@ let yojson_of_storage_descriptor =
          ("stored_as_sub_directories", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_descriptor__sort_columns
-             v_sort_columns
-         in
-         ("sort_columns", arg) :: bnds
+         if [] = v_sort_columns then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_descriptor__sort_columns)
+               v_sort_columns
+           in
+           let bnd = "sort_columns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_descriptor__skewed_info
-             v_skewed_info
-         in
-         ("skewed_info", arg) :: bnds
+         if [] = v_skewed_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_descriptor__skewed_info)
+               v_skewed_info
+           in
+           let bnd = "skewed_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_descriptor__ser_de_info
-             v_ser_de_info
-         in
-         ("ser_de_info", arg) :: bnds
+         if [] = v_ser_de_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_descriptor__ser_de_info)
+               v_ser_de_info
+           in
+           let bnd = "ser_de_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_descriptor__schema_reference
-             v_schema_reference
-         in
-         ("schema_reference", arg) :: bnds
+         if [] = v_schema_reference then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_descriptor__schema_reference)
+               v_schema_reference
+           in
+           let bnd = "schema_reference", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -460,19 +495,24 @@ let yojson_of_storage_descriptor =
          ("compressed", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_descriptor__columns
-             v_columns
-         in
-         ("columns", arg) :: bnds
+         if [] = v_columns then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_descriptor__columns)
+               v_columns
+           in
+           let bnd = "columns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_bucket_columns
-         in
-         ("bucket_columns", arg) :: bnds
+         if [] = v_bucket_columns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_bucket_columns
+           in
+           let bnd = "bucket_columns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : storage_descriptor -> Ppx_yojson_conv_lib.Yojson.Safe.t)

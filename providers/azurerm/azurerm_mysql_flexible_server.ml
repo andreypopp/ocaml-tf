@@ -103,6 +103,7 @@ let _ = yojson_of_high_availability
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -120,12 +121,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -324,10 +327,14 @@ type azurerm_mysql_flexible_server = {
   version : string prop option; [@option]
   zone : string prop option; [@option]
   customer_managed_key : customer_managed_key list;
+      [@default []] [@yojson_drop_default ( = )]
   high_availability : high_availability list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_window : maintenance_window list;
-  storage : storage list;
+      [@default []] [@yojson_drop_default ( = )]
+  storage : storage list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -371,33 +378,50 @@ let yojson_of_azurerm_mysql_flexible_server =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_storage v_storage in
-         ("storage", arg) :: bnds
+         if [] = v_storage then bnds
+         else
+           let arg = (yojson_of_list yojson_of_storage) v_storage in
+           let bnd = "storage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_window
-             v_maintenance_window
-         in
-         ("maintenance_window", arg) :: bnds
+         if [] = v_maintenance_window then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_window)
+               v_maintenance_window
+           in
+           let bnd = "maintenance_window", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_high_availability
-             v_high_availability
-         in
-         ("high_availability", arg) :: bnds
+         if [] = v_high_availability then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_high_availability)
+               v_high_availability
+           in
+           let bnd = "high_availability", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_customer_managed_key
-             v_customer_managed_key
-         in
-         ("customer_managed_key", arg) :: bnds
+         if [] = v_customer_managed_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_customer_managed_key)
+               v_customer_managed_key
+           in
+           let bnd = "customer_managed_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

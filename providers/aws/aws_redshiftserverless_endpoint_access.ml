@@ -55,6 +55,7 @@ let _ = yojson_of_vpc_endpoint__network_interface
 
 type vpc_endpoint = {
   network_interface : vpc_endpoint__network_interface list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_endpoint_id : string prop;
   vpc_id : string prop;
 }
@@ -83,11 +84,15 @@ let yojson_of_vpc_endpoint =
          ("vpc_endpoint_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_endpoint__network_interface
-             v_network_interface
-         in
-         ("network_interface", arg) :: bnds
+         if [] = v_network_interface then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_vpc_endpoint__network_interface)
+               v_network_interface
+           in
+           let bnd = "network_interface", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vpc_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -101,6 +106,7 @@ type aws_redshiftserverless_endpoint_access = {
   id : string prop option; [@option]
   owner_account : string prop option; [@option]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_security_group_ids : string prop list option; [@option]
   workgroup_name : string prop;
 }
@@ -138,12 +144,14 @@ let yojson_of_aws_redshiftserverless_endpoint_access =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_owner_account with

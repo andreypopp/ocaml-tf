@@ -149,7 +149,9 @@ type google_compute_snapshot = {
   storage_locations : string prop list option; [@option]
   zone : string prop option; [@option]
   snapshot_encryption_key : snapshot_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
   source_disk_encryption_key : source_disk_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -180,18 +182,24 @@ let yojson_of_google_compute_snapshot =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_disk_encryption_key
-             v_source_disk_encryption_key
-         in
-         ("source_disk_encryption_key", arg) :: bnds
+         if [] = v_source_disk_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_disk_encryption_key)
+               v_source_disk_encryption_key
+           in
+           let bnd = "source_disk_encryption_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_snapshot_encryption_key
-             v_snapshot_encryption_key
-         in
-         ("snapshot_encryption_key", arg) :: bnds
+         if [] = v_snapshot_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_snapshot_encryption_key)
+               v_snapshot_encryption_key
+           in
+           let bnd = "snapshot_encryption_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

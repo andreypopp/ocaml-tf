@@ -2,7 +2,10 @@
 
 open! Tf_core
 
-type permissions = { data_actions : string prop list }
+type permissions = {
+  data_actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : permissions) -> ()
@@ -14,12 +17,14 @@ let yojson_of_permissions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_data_actions
-         in
-         ("data_actions", arg) :: bnds
+         if [] = v_data_actions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_data_actions
+           in
+           let bnd = "data_actions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : permissions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -91,12 +96,14 @@ let _ = yojson_of_timeouts
 type azurerm_cosmosdb_sql_role_definition = {
   account_name : string prop;
   assignable_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
   role_definition_id : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   permissions : permissions list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -124,10 +131,13 @@ let yojson_of_azurerm_cosmosdb_sql_role_definition =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_permissions v_permissions
-         in
-         ("permissions", arg) :: bnds
+         if [] = v_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_permissions) v_permissions
+           in
+           let bnd = "permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with
@@ -164,12 +174,14 @@ let yojson_of_azurerm_cosmosdb_sql_role_definition =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_assignable_scopes
-         in
-         ("assignable_scopes", arg) :: bnds
+         if [] = v_assignable_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_assignable_scopes
+           in
+           let bnd = "assignable_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_account_name in

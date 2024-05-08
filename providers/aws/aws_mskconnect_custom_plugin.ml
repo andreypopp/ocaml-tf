@@ -44,7 +44,9 @@ let _ = yojson_of_location__s3
 
 [@@@deriving.end]
 
-type location = { s3 : location__s3 list }
+type location = {
+  s3 : location__s3 list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : location) -> ()
@@ -56,8 +58,11 @@ let yojson_of_location =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_location__s3 v_s3 in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg = (yojson_of_list yojson_of_location__s3) v_s3 in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : location -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -109,6 +114,7 @@ type aws_mskconnect_custom_plugin = {
   id : string prop option; [@option]
   name : string prop;
   location : location list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -133,8 +139,13 @@ let yojson_of_aws_mskconnect_custom_plugin =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_location v_location in
-         ("location", arg) :: bnds
+         if [] = v_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_location) v_location
+           in
+           let bnd = "location", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

@@ -133,8 +133,10 @@ let _ =
 type managed_disk__target_disk_encryption = {
   disk_encryption_key :
     managed_disk__target_disk_encryption__disk_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
   key_encryption_key :
     managed_disk__target_disk_encryption__key_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,20 +152,26 @@ let yojson_of_managed_disk__target_disk_encryption =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_managed_disk__target_disk_encryption__key_encryption_key
-             v_key_encryption_key
-         in
-         ("key_encryption_key", arg) :: bnds
+         if [] = v_key_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_managed_disk__target_disk_encryption__key_encryption_key)
+               v_key_encryption_key
+           in
+           let bnd = "key_encryption_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_managed_disk__target_disk_encryption__disk_encryption_key
-             v_disk_encryption_key
-         in
-         ("disk_encryption_key", arg) :: bnds
+         if [] = v_disk_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_managed_disk__target_disk_encryption__disk_encryption_key)
+               v_disk_encryption_key
+           in
+           let bnd = "disk_encryption_key", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : managed_disk__target_disk_encryption ->
@@ -177,6 +185,7 @@ type managed_disk = {
   disk_id : string prop;
   staging_storage_account_id : string prop;
   target_disk_encryption : managed_disk__target_disk_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   target_disk_encryption_set_id : string prop;
   target_disk_type : string prop;
   target_replica_disk_type : string prop;
@@ -227,12 +236,15 @@ let yojson_of_managed_disk =
          ("target_disk_encryption_set_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_managed_disk__target_disk_encryption
-             v_target_disk_encryption
-         in
-         ("target_disk_encryption", arg) :: bnds
+         if [] = v_target_disk_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_managed_disk__target_disk_encryption)
+               v_target_disk_encryption
+           in
+           let bnd = "target_disk_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -4,6 +4,7 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -21,12 +22,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -191,9 +194,11 @@ type single_server_configuration__virtual_machine_configuration = {
   image :
     single_server_configuration__virtual_machine_configuration__image
     list;
+      [@default []] [@yojson_drop_default ( = )]
   os_profile :
     single_server_configuration__virtual_machine_configuration__os_profile
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -213,20 +218,26 @@ let yojson_of_single_server_configuration__virtual_machine_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_single_server_configuration__virtual_machine_configuration__os_profile
-             v_os_profile
-         in
-         ("os_profile", arg) :: bnds
+         if [] = v_os_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_single_server_configuration__virtual_machine_configuration__os_profile)
+               v_os_profile
+           in
+           let bnd = "os_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_single_server_configuration__virtual_machine_configuration__image
-             v_image
-         in
-         ("image", arg) :: bnds
+         if [] = v_image then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_single_server_configuration__virtual_machine_configuration__image)
+               v_image
+           in
+           let bnd = "image", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -245,6 +256,7 @@ let _ =
 
 type single_server_configuration__virtual_machine_resource_names__data_disk = {
   names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -266,10 +278,14 @@ let yojson_of_single_server_configuration__virtual_machine_resource_names__data_
          ("volume_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_names
-         in
-         ("names", arg) :: bnds
+         if [] = v_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_names
+           in
+           let bnd = "names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : single_server_configuration__virtual_machine_resource_names__data_disk ->
@@ -288,6 +304,7 @@ type single_server_configuration__virtual_machine_resource_names = {
   data_disk :
     single_server_configuration__virtual_machine_resource_names__data_disk
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -310,12 +327,15 @@ let yojson_of_single_server_configuration__virtual_machine_resource_names
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_single_server_configuration__virtual_machine_resource_names__data_disk
-             v_data_disk
-         in
-         ("data_disk", arg) :: bnds
+         if [] = v_data_disk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_single_server_configuration__virtual_machine_resource_names__data_disk)
+               v_data_disk
+           in
+           let bnd = "data_disk", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_machine_name with
@@ -367,10 +387,13 @@ type single_server_configuration = {
   subnet_id : string prop;
   disk_volume_configuration :
     single_server_configuration__disk_volume_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_machine_configuration :
     single_server_configuration__virtual_machine_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_machine_resource_names :
     single_server_configuration__virtual_machine_resource_names list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -393,28 +416,37 @@ let yojson_of_single_server_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_single_server_configuration__virtual_machine_resource_names
-             v_virtual_machine_resource_names
-         in
-         ("virtual_machine_resource_names", arg) :: bnds
+         if [] = v_virtual_machine_resource_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_single_server_configuration__virtual_machine_resource_names)
+               v_virtual_machine_resource_names
+           in
+           let bnd = "virtual_machine_resource_names", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_single_server_configuration__virtual_machine_configuration
-             v_virtual_machine_configuration
-         in
-         ("virtual_machine_configuration", arg) :: bnds
+         if [] = v_virtual_machine_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_single_server_configuration__virtual_machine_configuration)
+               v_virtual_machine_configuration
+           in
+           let bnd = "virtual_machine_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_single_server_configuration__disk_volume_configuration
-             v_disk_volume_configuration
-         in
-         ("disk_volume_configuration", arg) :: bnds
+         if [] = v_disk_volume_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_single_server_configuration__disk_volume_configuration)
+               v_disk_volume_configuration
+           in
+           let bnd = "disk_volume_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_subnet_id in
@@ -522,7 +554,9 @@ type azurerm_workloads_sap_single_node_virtual_instance = {
   sap_product : string prop;
   tags : (string * string prop) list option; [@option]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   single_server_configuration : single_server_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -555,15 +589,23 @@ let yojson_of_azurerm_workloads_sap_single_node_virtual_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_single_server_configuration
-             v_single_server_configuration
-         in
-         ("single_server_configuration", arg) :: bnds
+         if [] = v_single_server_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_single_server_configuration)
+               v_single_server_configuration
+           in
+           let bnd = "single_server_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

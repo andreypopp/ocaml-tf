@@ -35,6 +35,7 @@ type aws_amplify_domain_association = {
   id : string prop option; [@option]
   wait_for_verification : bool prop option; [@option]
   sub_domain : sub_domain list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,10 +55,13 @@ let yojson_of_aws_amplify_domain_association =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sub_domain v_sub_domain
-         in
-         ("sub_domain", arg) :: bnds
+         if [] = v_sub_domain then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sub_domain) v_sub_domain
+           in
+           let bnd = "sub_domain", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_wait_for_verification with

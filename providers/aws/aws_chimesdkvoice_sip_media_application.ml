@@ -31,6 +31,7 @@ type aws_chimesdkvoice_sip_media_application = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   endpoints : endpoints list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,8 +51,13 @@ let yojson_of_aws_chimesdkvoice_sip_media_application =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_endpoints v_endpoints in
-         ("endpoints", arg) :: bnds
+         if [] = v_endpoints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoints) v_endpoints
+           in
+           let bnd = "endpoints", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

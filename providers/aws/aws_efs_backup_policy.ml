@@ -28,6 +28,7 @@ type aws_efs_backup_policy = {
   file_system_id : string prop;
   id : string prop option; [@option]
   backup_policy : backup_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -44,10 +45,13 @@ let yojson_of_aws_efs_backup_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backup_policy v_backup_policy
-         in
-         ("backup_policy", arg) :: bnds
+         if [] = v_backup_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backup_policy) v_backup_policy
+           in
+           let bnd = "backup_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

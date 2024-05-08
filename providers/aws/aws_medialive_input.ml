@@ -157,6 +157,7 @@ let _ = yojson_of_timeouts
 type vpc = {
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,12 +173,14 @@ let yojson_of_vpc =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_security_group_ids with
@@ -205,11 +208,14 @@ type aws_medialive_input = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   destinations : destinations list;
+      [@default []] [@yojson_drop_default ( = )]
   input_devices : input_devices list;
+      [@default []] [@yojson_drop_default ( = )]
   media_connect_flows : media_connect_flows list;
-  sources : sources list;
+      [@default []] [@yojson_drop_default ( = )]
+  sources : sources list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  vpc : vpc list;
+  vpc : vpc list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,35 +242,50 @@ let yojson_of_aws_medialive_input =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_vpc v_vpc in
-         ("vpc", arg) :: bnds
+         if [] = v_vpc then bnds
+         else
+           let arg = (yojson_of_list yojson_of_vpc) v_vpc in
+           let bnd = "vpc", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sources v_sources in
-         ("sources", arg) :: bnds
+         if [] = v_sources then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sources) v_sources in
+           let bnd = "sources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_media_connect_flows
-             v_media_connect_flows
-         in
-         ("media_connect_flows", arg) :: bnds
+         if [] = v_media_connect_flows then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_media_connect_flows)
+               v_media_connect_flows
+           in
+           let bnd = "media_connect_flows", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_input_devices v_input_devices
-         in
-         ("input_devices", arg) :: bnds
+         if [] = v_input_devices then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_input_devices) v_input_devices
+           in
+           let bnd = "input_devices", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destinations v_destinations
-         in
-         ("destinations", arg) :: bnds
+         if [] = v_destinations then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destinations) v_destinations
+           in
+           let bnd = "destinations", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

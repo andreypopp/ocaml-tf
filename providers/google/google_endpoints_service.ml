@@ -94,6 +94,7 @@ let _ = yojson_of_apis__methods
 
 type apis = {
   methods : apis__methods list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   syntax : string prop;
   version : string prop;
@@ -126,10 +127,13 @@ let yojson_of_apis =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_apis__methods v_methods
-         in
-         ("methods", arg) :: bnds
+         if [] = v_methods then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_apis__methods) v_methods
+           in
+           let bnd = "methods", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : apis -> Ppx_yojson_conv_lib.Yojson.Safe.t)

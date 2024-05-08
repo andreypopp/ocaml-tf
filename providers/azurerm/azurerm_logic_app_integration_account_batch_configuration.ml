@@ -39,6 +39,7 @@ type release_criteria__recurrence__schedule = {
   month_days : float prop list option; [@option]
   week_days : string prop list option; [@option]
   monthly : release_criteria__recurrence__schedule__monthly list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,12 +58,15 @@ let yojson_of_release_criteria__recurrence__schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_release_criteria__recurrence__schedule__monthly
-             v_monthly
-         in
-         ("monthly", arg) :: bnds
+         if [] = v_monthly then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_release_criteria__recurrence__schedule__monthly)
+               v_monthly
+           in
+           let bnd = "monthly", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_week_days with
@@ -119,6 +123,7 @@ type release_criteria__recurrence = {
   start_time : string prop option; [@option]
   time_zone : string prop option; [@option]
   schedule : release_criteria__recurrence__schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -138,12 +143,15 @@ let yojson_of_release_criteria__recurrence =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_release_criteria__recurrence__schedule
-             v_schedule
-         in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_release_criteria__recurrence__schedule)
+               v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_time_zone with
@@ -189,6 +197,7 @@ type release_criteria = {
   batch_size : float prop option; [@option]
   message_count : float prop option; [@option]
   recurrence : release_criteria__recurrence list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -205,11 +214,14 @@ let yojson_of_release_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_release_criteria__recurrence
-             v_recurrence
-         in
-         ("recurrence", arg) :: bnds
+         if [] = v_recurrence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_release_criteria__recurrence)
+               v_recurrence
+           in
+           let bnd = "recurrence", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_message_count with
@@ -302,6 +314,7 @@ type azurerm_logic_app_integration_account_batch_configuration = {
   name : string prop;
   resource_group_name : string prop;
   release_criteria : release_criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -331,11 +344,14 @@ let yojson_of_azurerm_logic_app_integration_account_batch_configuration
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_release_criteria
-             v_release_criteria
-         in
-         ("release_criteria", arg) :: bnds
+         if [] = v_release_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_release_criteria)
+               v_release_criteria
+           in
+           let bnd = "release_criteria", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

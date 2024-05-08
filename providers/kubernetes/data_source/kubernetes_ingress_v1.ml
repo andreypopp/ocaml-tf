@@ -80,6 +80,7 @@ let _ = yojson_of_metadata
 
 type spec__tls = {
   hosts : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -97,10 +98,14 @@ let yojson_of_spec__tls =
          ("secret_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_hosts
-         in
-         ("hosts", arg) :: bnds
+         if [] = v_hosts then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_hosts
+           in
+           let bnd = "hosts", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__tls -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -143,6 +148,7 @@ let _ = yojson_of_spec__rule__http__path__backend__service__port
 type spec__rule__http__path__backend__service = {
   name : string prop;
   port : spec__rule__http__path__backend__service__port list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -155,12 +161,15 @@ let yojson_of_spec__rule__http__path__backend__service =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__rule__http__path__backend__service__port
-             v_port
-         in
-         ("port", arg) :: bnds
+         if [] = v_port then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__rule__http__path__backend__service__port)
+               v_port
+           in
+           let bnd = "port", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -211,7 +220,9 @@ let _ = yojson_of_spec__rule__http__path__backend__resource
 
 type spec__rule__http__path__backend = {
   resource : spec__rule__http__path__backend__resource list;
+      [@default []] [@yojson_drop_default ( = )]
   service : spec__rule__http__path__backend__service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -224,20 +235,26 @@ let yojson_of_spec__rule__http__path__backend =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__rule__http__path__backend__service
-             v_service
-         in
-         ("service", arg) :: bnds
+         if [] = v_service then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__rule__http__path__backend__service)
+               v_service
+           in
+           let bnd = "service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__rule__http__path__backend__resource
-             v_resource
-         in
-         ("resource", arg) :: bnds
+         if [] = v_resource then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__rule__http__path__backend__resource)
+               v_resource
+           in
+           let bnd = "resource", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__rule__http__path__backend ->
@@ -249,6 +266,7 @@ let _ = yojson_of_spec__rule__http__path__backend
 
 type spec__rule__http__path = {
   backend : spec__rule__http__path__backend list;
+      [@default []] [@yojson_drop_default ( = )]
   path : string prop;
   path_type : string prop;
 }
@@ -272,11 +290,15 @@ let yojson_of_spec__rule__http__path =
          ("path", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__rule__http__path__backend
-             v_backend
-         in
-         ("backend", arg) :: bnds
+         if [] = v_backend then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__rule__http__path__backend)
+               v_backend
+           in
+           let bnd = "backend", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__rule__http__path -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -285,7 +307,10 @@ let _ = yojson_of_spec__rule__http__path
 
 [@@@deriving.end]
 
-type spec__rule__http = { path : spec__rule__http__path list }
+type spec__rule__http = {
+  path : spec__rule__http__path list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : spec__rule__http) -> ()
@@ -297,10 +322,13 @@ let yojson_of_spec__rule__http =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__rule__http__path v_path
-         in
-         ("path", arg) :: bnds
+         if [] = v_path then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__rule__http__path) v_path
+           in
+           let bnd = "path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__rule__http -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -312,6 +340,7 @@ let _ = yojson_of_spec__rule__http
 type spec__rule = {
   host : string prop;
   http : spec__rule__http list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -324,10 +353,13 @@ let yojson_of_spec__rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__rule__http v_http
-         in
-         ("http", arg) :: bnds
+         if [] = v_http then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__rule__http) v_http
+           in
+           let bnd = "http", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_host in
@@ -373,6 +405,7 @@ let _ = yojson_of_spec__default_backend__service__port
 type spec__default_backend__service = {
   name : string prop;
   port : spec__default_backend__service__port list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -385,11 +418,15 @@ let yojson_of_spec__default_backend__service =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__default_backend__service__port v_port
-         in
-         ("port", arg) :: bnds
+         if [] = v_port then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__default_backend__service__port)
+               v_port
+           in
+           let bnd = "port", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -440,7 +477,9 @@ let _ = yojson_of_spec__default_backend__resource
 
 type spec__default_backend = {
   resource : spec__default_backend__resource list;
+      [@default []] [@yojson_drop_default ( = )]
   service : spec__default_backend__service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -453,18 +492,25 @@ let yojson_of_spec__default_backend =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__default_backend__service
-             v_service
-         in
-         ("service", arg) :: bnds
+         if [] = v_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__default_backend__service)
+               v_service
+           in
+           let bnd = "service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__default_backend__resource
-             v_resource
-         in
-         ("resource", arg) :: bnds
+         if [] = v_resource then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__default_backend__resource)
+               v_resource
+           in
+           let bnd = "resource", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__default_backend -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -475,9 +521,10 @@ let _ = yojson_of_spec__default_backend
 
 type spec = {
   default_backend : spec__default_backend list;
+      [@default []] [@yojson_drop_default ( = )]
   ingress_class_name : string prop;
-  rule : spec__rule list;
-  tls : spec__tls list;
+  rule : spec__rule list; [@default []] [@yojson_drop_default ( = )]
+  tls : spec__tls list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -495,12 +542,18 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__tls v_tls in
-         ("tls", arg) :: bnds
+         if [] = v_tls then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec__tls) v_tls in
+           let bnd = "tls", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec__rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -509,11 +562,14 @@ let yojson_of_spec =
          ("ingress_class_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__default_backend
-             v_default_backend
-         in
-         ("default_backend", arg) :: bnds
+         if [] = v_default_backend then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__default_backend)
+               v_default_backend
+           in
+           let bnd = "default_backend", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -554,6 +610,7 @@ let _ = yojson_of_status__load_balancer__ingress
 
 type status__load_balancer = {
   ingress : status__load_balancer__ingress list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -566,11 +623,14 @@ let yojson_of_status__load_balancer =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__load_balancer__ingress
-             v_ingress
-         in
-         ("ingress", arg) :: bnds
+         if [] = v_ingress then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__load_balancer__ingress)
+               v_ingress
+           in
+           let bnd = "ingress", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : status__load_balancer -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -579,7 +639,10 @@ let _ = yojson_of_status__load_balancer
 
 [@@@deriving.end]
 
-type status = { load_balancer : status__load_balancer list }
+type status = {
+  load_balancer : status__load_balancer list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : status) -> ()
@@ -591,11 +654,14 @@ let yojson_of_status =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__load_balancer
-             v_load_balancer
-         in
-         ("load_balancer", arg) :: bnds
+         if [] = v_load_balancer then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__load_balancer)
+               v_load_balancer
+           in
+           let bnd = "load_balancer", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -606,7 +672,7 @@ let _ = yojson_of_status
 
 type kubernetes_ingress_v1 = {
   id : string prop option; [@option]
-  metadata : metadata list;
+  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -619,8 +685,13 @@ let yojson_of_kubernetes_ingress_v1 =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

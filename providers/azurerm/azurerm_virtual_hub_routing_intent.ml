@@ -4,6 +4,7 @@ open! Tf_core
 
 type routing_policy = {
   destinations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   next_hop : string prop;
 }
@@ -30,12 +31,14 @@ let yojson_of_routing_policy =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destinations
-         in
-         ("destinations", arg) :: bnds
+         if [] = v_destinations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destinations
+           in
+           let bnd = "destinations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : routing_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -109,6 +112,7 @@ type azurerm_virtual_hub_routing_intent = {
   name : string prop;
   virtual_hub_id : string prop;
   routing_policy : routing_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -132,10 +136,14 @@ let yojson_of_azurerm_virtual_hub_routing_intent =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing_policy v_routing_policy
-         in
-         ("routing_policy", arg) :: bnds
+         if [] = v_routing_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_routing_policy)
+               v_routing_policy
+           in
+           let bnd = "routing_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

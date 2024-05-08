@@ -13,6 +13,7 @@ type launch_template = {
 type remote_access = {
   ec2_ssh_key : string prop;  (** ec2_ssh_key *)
   source_security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** source_security_group_ids *)
 }
 
@@ -22,6 +23,7 @@ type resources__autoscaling_groups = {
 
 type resources = {
   autoscaling_groups : resources__autoscaling_groups list;
+      [@default []] [@yojson_drop_default ( = )]
       (** autoscaling_groups *)
   remote_access_security_group_id : string prop;
       (** remote_access_security_group_id *)

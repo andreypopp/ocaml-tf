@@ -158,8 +158,10 @@ type azurerm_network_watcher_flow_log = {
   tags : (string * string prop) list option; [@option]
   version : float prop option; [@option]
   retention_policy : retention_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   traffic_analytics : traffic_analytics list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,22 +188,28 @@ let yojson_of_azurerm_network_watcher_flow_log =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_traffic_analytics
-             v_traffic_analytics
-         in
-         ("traffic_analytics", arg) :: bnds
+         if [] = v_traffic_analytics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_traffic_analytics)
+               v_traffic_analytics
+           in
+           let bnd = "traffic_analytics", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_policy
-             v_retention_policy
-         in
-         ("retention_policy", arg) :: bnds
+         if [] = v_retention_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_policy)
+               v_retention_policy
+           in
+           let bnd = "retention_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with

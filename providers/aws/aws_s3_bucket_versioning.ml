@@ -41,6 +41,7 @@ type aws_s3_bucket_versioning = {
   id : string prop option; [@option]
   mfa : string prop option; [@option]
   versioning_configuration : versioning_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,11 +60,14 @@ let yojson_of_aws_s3_bucket_versioning =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_versioning_configuration
-             v_versioning_configuration
-         in
-         ("versioning_configuration", arg) :: bnds
+         if [] = v_versioning_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_versioning_configuration)
+               v_versioning_configuration
+           in
+           let bnd = "versioning_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_mfa with

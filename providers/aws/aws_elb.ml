@@ -223,8 +223,11 @@ type aws_elb = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   access_logs : access_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   health_check : health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   listener : listener list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -263,20 +266,31 @@ let yojson_of_aws_elb =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_listener v_listener in
-         ("listener", arg) :: bnds
+         if [] = v_listener then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_listener) v_listener
+           in
+           let bnd = "listener", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_health_check v_health_check
-         in
-         ("health_check", arg) :: bnds
+         if [] = v_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_health_check) v_health_check
+           in
+           let bnd = "health_check", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access_logs v_access_logs
-         in
-         ("access_logs", arg) :: bnds
+         if [] = v_access_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_logs) v_access_logs
+           in
+           let bnd = "access_logs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

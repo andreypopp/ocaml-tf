@@ -88,7 +88,7 @@ type google_vpc_access_connector = {
   network : string prop option; [@option]
   project : string prop option; [@option]
   region : string prop option; [@option]
-  subnet : subnet list;
+  subnet : subnet list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -120,8 +120,11 @@ let yojson_of_google_vpc_access_connector =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_subnet v_subnet in
-         ("subnet", arg) :: bnds
+         if [] = v_subnet then bnds
+         else
+           let arg = (yojson_of_list yojson_of_subnet) v_subnet in
+           let bnd = "subnet", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

@@ -6,14 +6,20 @@ open! Tf_core
 
 type model_summaries = {
   customizations_supported : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** customizations_supported *)
   inference_types_supported : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** inference_types_supported *)
-  input_modalities : string prop list;  (** input_modalities *)
+  input_modalities : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** input_modalities *)
   model_arn : string prop;  (** model_arn *)
   model_id : string prop;  (** model_id *)
   model_name : string prop;  (** model_name *)
-  output_modalities : string prop list;  (** output_modalities *)
+  output_modalities : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** output_modalities *)
   provider_name : string prop;  (** provider_name *)
   response_streaming_supported : bool prop;
       (** response_streaming_supported *)

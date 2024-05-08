@@ -9,7 +9,9 @@ type node_info_list = {
   broker_id : float prop;  (** broker_id *)
   client_subnet : string prop;  (** client_subnet *)
   client_vpc_ip_address : string prop;  (** client_vpc_ip_address *)
-  endpoints : string prop list;  (** endpoints *)
+  endpoints : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** endpoints *)
   node_arn : string prop;  (** node_arn *)
 }
 

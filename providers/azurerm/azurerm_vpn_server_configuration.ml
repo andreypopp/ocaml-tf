@@ -274,8 +274,11 @@ let _ = yojson_of_radius__server_root_certificate
 
 type radius = {
   client_root_certificate : radius__client_root_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   server : radius__server list;
+      [@default []] [@yojson_drop_default ( = )]
   server_root_certificate : radius__server_root_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -292,24 +295,35 @@ let yojson_of_radius =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_radius__server_root_certificate
-             v_server_root_certificate
-         in
-         ("server_root_certificate", arg) :: bnds
+         if [] = v_server_root_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_radius__server_root_certificate)
+               v_server_root_certificate
+           in
+           let bnd = "server_root_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_radius__server v_server
-         in
-         ("server", arg) :: bnds
+         if [] = v_server then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_radius__server) v_server
+           in
+           let bnd = "server", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_radius__client_root_certificate
-             v_client_root_certificate
-         in
-         ("client_root_certificate", arg) :: bnds
+         if [] = v_client_root_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_radius__client_root_certificate)
+               v_client_root_certificate
+           in
+           let bnd = "client_root_certificate", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : radius -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -385,13 +399,18 @@ type azurerm_vpn_server_configuration = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   vpn_authentication_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpn_protocols : string prop list option; [@option]
   azure_active_directory_authentication :
     azure_active_directory_authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   client_revoked_certificate : client_revoked_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   client_root_certificate : client_root_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   ipsec_policy : ipsec_policy list;
-  radius : radius list;
+      [@default []] [@yojson_drop_default ( = )]
+  radius : radius list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -424,36 +443,51 @@ let yojson_of_azurerm_vpn_server_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_radius v_radius in
-         ("radius", arg) :: bnds
+         if [] = v_radius then bnds
+         else
+           let arg = (yojson_of_list yojson_of_radius) v_radius in
+           let bnd = "radius", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ipsec_policy v_ipsec_policy
-         in
-         ("ipsec_policy", arg) :: bnds
+         if [] = v_ipsec_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ipsec_policy) v_ipsec_policy
+           in
+           let bnd = "ipsec_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_root_certificate
-             v_client_root_certificate
-         in
-         ("client_root_certificate", arg) :: bnds
+         if [] = v_client_root_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_root_certificate)
+               v_client_root_certificate
+           in
+           let bnd = "client_root_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_revoked_certificate
-             v_client_revoked_certificate
-         in
-         ("client_revoked_certificate", arg) :: bnds
+         if [] = v_client_revoked_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_revoked_certificate)
+               v_client_revoked_certificate
+           in
+           let bnd = "client_revoked_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_azure_active_directory_authentication
-             v_azure_active_directory_authentication
-         in
-         ("azure_active_directory_authentication", arg) :: bnds
+         if [] = v_azure_active_directory_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_azure_active_directory_authentication)
+               v_azure_active_directory_authentication
+           in
+           let bnd = "azure_active_directory_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpn_protocols with
@@ -466,12 +500,14 @@ let yojson_of_azurerm_vpn_server_configuration =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_vpn_authentication_types
-         in
-         ("vpn_authentication_types", arg) :: bnds
+         if [] = v_vpn_authentication_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_vpn_authentication_types
+           in
+           let bnd = "vpn_authentication_types", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

@@ -135,6 +135,7 @@ type azurerm_application_insights_workbook_template = {
   tags : (string * string prop) list option; [@option]
   template_data : string prop;
   galleries : galleries list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -165,8 +166,13 @@ let yojson_of_azurerm_application_insights_workbook_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_galleries v_galleries in
-         ("galleries", arg) :: bnds
+         if [] = v_galleries then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_galleries) v_galleries
+           in
+           let bnd = "galleries", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_template_data in

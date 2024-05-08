@@ -81,6 +81,7 @@ type template__template__containers__env__value_source = {
   secret_key_ref :
     template__template__containers__env__value_source__secret_key_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,12 +95,15 @@ let yojson_of_template__template__containers__env__value_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__template__containers__env__value_source__secret_key_ref
-             v_secret_key_ref
-         in
-         ("secret_key_ref", arg) :: bnds
+         if [] = v_secret_key_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__template__containers__env__value_source__secret_key_ref)
+               v_secret_key_ref
+           in
+           let bnd = "secret_key_ref", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : template__template__containers__env__value_source ->
@@ -114,6 +118,7 @@ type template__template__containers__env = {
   value : string prop option; [@option]
   value_source :
     template__template__containers__env__value_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,12 +135,15 @@ let yojson_of_template__template__containers__env =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__template__containers__env__value_source
-             v_value_source
-         in
-         ("value_source", arg) :: bnds
+         if [] = v_value_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__template__containers__env__value_source)
+               v_value_source
+           in
+           let bnd = "value_source", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_value with
@@ -269,9 +277,13 @@ type template__template__containers = {
   name : string prop option; [@option]
   working_dir : string prop option; [@option]
   env : template__template__containers__env list;
+      [@default []] [@yojson_drop_default ( = )]
   ports : template__template__containers__ports list;
+      [@default []] [@yojson_drop_default ( = )]
   resources : template__template__containers__resources list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_mounts : template__template__containers__volume_mounts list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -294,34 +306,48 @@ let yojson_of_template__template__containers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__template__containers__volume_mounts
-             v_volume_mounts
-         in
-         ("volume_mounts", arg) :: bnds
+         if [] = v_volume_mounts then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__template__containers__volume_mounts)
+               v_volume_mounts
+           in
+           let bnd = "volume_mounts", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__template__containers__resources
-             v_resources
-         in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__template__containers__resources)
+               v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__template__containers__ports v_ports
-         in
-         ("ports", arg) :: bnds
+         if [] = v_ports then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__template__containers__ports)
+               v_ports
+           in
+           let bnd = "ports", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__template__containers__env v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__template__containers__env)
+               v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_working_dir with
@@ -446,6 +472,7 @@ type template__template__volumes__secret = {
   default_mode : float prop option; [@option]
   secret : string prop;
   items : template__template__volumes__secret__items list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -462,12 +489,15 @@ let yojson_of_template__template__volumes__secret =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__template__volumes__secret__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__template__volumes__secret__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_secret in
@@ -493,7 +523,9 @@ type template__template__volumes = {
   name : string prop;
   cloud_sql_instance :
     template__template__volumes__cloud_sql_instance list;
+      [@default []] [@yojson_drop_default ( = )]
   secret : template__template__volumes__secret list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -510,19 +542,26 @@ let yojson_of_template__template__volumes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__template__volumes__secret v_secret
-         in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__template__volumes__secret)
+               v_secret
+           in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__template__volumes__cloud_sql_instance
-             v_cloud_sql_instance
-         in
-         ("cloud_sql_instance", arg) :: bnds
+         if [] = v_cloud_sql_instance then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__template__volumes__cloud_sql_instance)
+               v_cloud_sql_instance
+           in
+           let bnd = "cloud_sql_instance", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -595,6 +634,7 @@ type template__template__vpc_access = {
   egress : string prop option; [@option]
   network_interfaces :
     template__template__vpc_access__network_interfaces list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -611,12 +651,15 @@ let yojson_of_template__template__vpc_access =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__template__vpc_access__network_interfaces
-             v_network_interfaces
-         in
-         ("network_interfaces", arg) :: bnds
+         if [] = v_network_interfaces then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__template__vpc_access__network_interfaces)
+               v_network_interfaces
+           in
+           let bnd = "network_interfaces", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_egress with
@@ -649,8 +692,11 @@ type template__template = {
   service_account : string prop option; [@option]
   timeout : string prop option; [@option]
   containers : template__template__containers list;
+      [@default []] [@yojson_drop_default ( = )]
   volumes : template__template__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_access : template__template__vpc_access list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -672,25 +718,34 @@ let yojson_of_template__template =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__template__vpc_access
-             v_vpc_access
-         in
-         ("vpc_access", arg) :: bnds
+         if [] = v_vpc_access then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__template__vpc_access)
+               v_vpc_access
+           in
+           let bnd = "vpc_access", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__template__volumes
-             v_volumes
-         in
-         ("volumes", arg) :: bnds
+         if [] = v_volumes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__template__volumes)
+               v_volumes
+           in
+           let bnd = "volumes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__template__containers
-             v_containers
-         in
-         ("containers", arg) :: bnds
+         if [] = v_containers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__template__containers)
+               v_containers
+           in
+           let bnd = "containers", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout with
@@ -745,6 +800,7 @@ type template = {
   parallelism : float prop option; [@option]
   task_count : float prop option; [@option]
   template : template__template list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -763,10 +819,13 @@ let yojson_of_template =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__template v_template
-         in
-         ("template", arg) :: bnds
+         if [] = v_template then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__template) v_template
+           in
+           let bnd = "template", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_task_count with
@@ -1068,7 +1127,9 @@ type google_cloud_run_v2_job = {
   name : string prop;
   project : string prop option; [@option]
   binary_authorization : binary_authorization list;
+      [@default []] [@yojson_drop_default ( = )]
   template : template list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1099,15 +1160,23 @@ let yojson_of_google_cloud_run_v2_job =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_template v_template in
-         ("template", arg) :: bnds
+         if [] = v_template then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template) v_template
+           in
+           let bnd = "template", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_binary_authorization
-             v_binary_authorization
-         in
-         ("binary_authorization", arg) :: bnds
+         if [] = v_binary_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_binary_authorization)
+               v_binary_authorization
+           in
+           let bnd = "binary_authorization", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

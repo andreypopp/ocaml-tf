@@ -168,11 +168,15 @@ let _ =
 type config_server_git_setting__repository = {
   http_basic_auth :
     config_server_git_setting__repository__http_basic_auth list;
+      [@default []] [@yojson_drop_default ( = )]
   label : string prop;
   name : string prop;
   pattern : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   search_paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_auth : config_server_git_setting__repository__ssh_auth list;
+      [@default []] [@yojson_drop_default ( = )]
   uri : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -198,26 +202,35 @@ let yojson_of_config_server_git_setting__repository =
          ("uri", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_server_git_setting__repository__ssh_auth
-             v_ssh_auth
-         in
-         ("ssh_auth", arg) :: bnds
+         if [] = v_ssh_auth then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_server_git_setting__repository__ssh_auth)
+               v_ssh_auth
+           in
+           let bnd = "ssh_auth", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_search_paths
-         in
-         ("search_paths", arg) :: bnds
+         if [] = v_search_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_search_paths
+           in
+           let bnd = "search_paths", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_pattern
-         in
-         ("pattern", arg) :: bnds
+         if [] = v_pattern then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_pattern
+           in
+           let bnd = "pattern", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -228,12 +241,15 @@ let yojson_of_config_server_git_setting__repository =
          ("label", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_server_git_setting__repository__http_basic_auth
-             v_http_basic_auth
-         in
-         ("http_basic_auth", arg) :: bnds
+         if [] = v_http_basic_auth then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_server_git_setting__repository__http_basic_auth)
+               v_http_basic_auth
+           in
+           let bnd = "http_basic_auth", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config_server_git_setting__repository ->
@@ -275,10 +291,14 @@ let _ = yojson_of_config_server_git_setting__http_basic_auth
 
 type config_server_git_setting = {
   http_basic_auth : config_server_git_setting__http_basic_auth list;
+      [@default []] [@yojson_drop_default ( = )]
   label : string prop;
   repository : config_server_git_setting__repository list;
+      [@default []] [@yojson_drop_default ( = )]
   search_paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_auth : config_server_git_setting__ssh_auth list;
+      [@default []] [@yojson_drop_default ( = )]
   uri : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -303,39 +323,51 @@ let yojson_of_config_server_git_setting =
          ("uri", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_server_git_setting__ssh_auth v_ssh_auth
-         in
-         ("ssh_auth", arg) :: bnds
+         if [] = v_ssh_auth then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_server_git_setting__ssh_auth)
+               v_ssh_auth
+           in
+           let bnd = "ssh_auth", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_search_paths
-         in
-         ("search_paths", arg) :: bnds
+         if [] = v_search_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_search_paths
+           in
+           let bnd = "search_paths", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_server_git_setting__repository
-             v_repository
-         in
-         ("repository", arg) :: bnds
+         if [] = v_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_server_git_setting__repository)
+               v_repository
+           in
+           let bnd = "repository", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_label in
          ("label", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_server_git_setting__http_basic_auth
-             v_http_basic_auth
-         in
-         ("http_basic_auth", arg) :: bnds
+         if [] = v_http_basic_auth then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_server_git_setting__http_basic_auth)
+               v_http_basic_auth
+           in
+           let bnd = "http_basic_auth", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config_server_git_setting -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -347,7 +379,9 @@ let _ = yojson_of_config_server_git_setting
 type required_network_traffic_rules = {
   direction : string prop;
   fqdns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   port : float prop;
   protocol : string prop;
 }
@@ -376,18 +410,24 @@ let yojson_of_required_network_traffic_rules =
          ("port", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_fqdns
-         in
-         ("fqdns", arg) :: bnds
+         if [] = v_fqdns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fqdns
+           in
+           let bnd = "fqdns", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_direction in

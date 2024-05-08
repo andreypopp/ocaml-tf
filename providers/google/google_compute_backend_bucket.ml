@@ -125,8 +125,11 @@ type cdn_policy = {
   signed_url_cache_max_age_sec : float prop option; [@option]
   bypass_cache_on_request_headers :
     cdn_policy__bypass_cache_on_request_headers list;
+      [@default []] [@yojson_drop_default ( = )]
   cache_key_policy : cdn_policy__cache_key_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   negative_caching_policy : cdn_policy__negative_caching_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -152,27 +155,36 @@ let yojson_of_cdn_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cdn_policy__negative_caching_policy
-             v_negative_caching_policy
-         in
-         ("negative_caching_policy", arg) :: bnds
+         if [] = v_negative_caching_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cdn_policy__negative_caching_policy)
+               v_negative_caching_policy
+           in
+           let bnd = "negative_caching_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cdn_policy__cache_key_policy
-             v_cache_key_policy
-         in
-         ("cache_key_policy", arg) :: bnds
+         if [] = v_cache_key_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cdn_policy__cache_key_policy)
+               v_cache_key_policy
+           in
+           let bnd = "cache_key_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cdn_policy__bypass_cache_on_request_headers
-             v_bypass_cache_on_request_headers
-         in
-         ("bypass_cache_on_request_headers", arg) :: bnds
+         if [] = v_bypass_cache_on_request_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cdn_policy__bypass_cache_on_request_headers)
+               v_bypass_cache_on_request_headers
+           in
+           let bnd = "bypass_cache_on_request_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_signed_url_cache_max_age_sec with
@@ -302,6 +314,7 @@ type google_compute_backend_bucket = {
   name : string prop;
   project : string prop option; [@option]
   cdn_policy : cdn_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -331,10 +344,13 @@ let yojson_of_google_compute_backend_bucket =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cdn_policy v_cdn_policy
-         in
-         ("cdn_policy", arg) :: bnds
+         if [] = v_cdn_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cdn_policy) v_cdn_policy
+           in
+           let bnd = "cdn_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

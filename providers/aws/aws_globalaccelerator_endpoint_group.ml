@@ -142,7 +142,9 @@ type aws_globalaccelerator_endpoint_group = {
   threshold_count : float prop option; [@option]
   traffic_dial_percentage : float prop option; [@option]
   endpoint_configuration : endpoint_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   port_override : port_override list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -174,17 +176,23 @@ let yojson_of_aws_globalaccelerator_endpoint_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_port_override v_port_override
-         in
-         ("port_override", arg) :: bnds
+         if [] = v_port_override then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_port_override) v_port_override
+           in
+           let bnd = "port_override", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint_configuration
-             v_endpoint_configuration
-         in
-         ("endpoint_configuration", arg) :: bnds
+         if [] = v_endpoint_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint_configuration)
+               v_endpoint_configuration
+           in
+           let bnd = "endpoint_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_traffic_dial_percentage with

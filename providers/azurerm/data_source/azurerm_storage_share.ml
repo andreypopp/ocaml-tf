@@ -82,7 +82,7 @@ type azurerm_storage_share = {
   metadata : (string * string prop) list option; [@option]
   name : string prop;
   storage_account_name : string prop;
-  acl : acl list;
+  acl : acl list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -107,8 +107,11 @@ let yojson_of_azurerm_storage_share =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_acl v_acl in
-         ("acl", arg) :: bnds
+         if [] = v_acl then bnds
+         else
+           let arg = (yojson_of_list yojson_of_acl) v_acl in
+           let bnd = "acl", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

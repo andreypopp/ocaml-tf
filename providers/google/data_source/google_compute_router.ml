@@ -34,7 +34,9 @@ let _ = yojson_of_bgp__advertised_ip_ranges
 type bgp = {
   advertise_mode : string prop;
   advertised_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   advertised_ip_ranges : bgp__advertised_ip_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
   asn : float prop;
   keepalive_interval : float prop;
 }
@@ -65,19 +67,24 @@ let yojson_of_bgp =
          ("asn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bgp__advertised_ip_ranges
-             v_advertised_ip_ranges
-         in
-         ("advertised_ip_ranges", arg) :: bnds
+         if [] = v_advertised_ip_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bgp__advertised_ip_ranges)
+               v_advertised_ip_ranges
+           in
+           let bnd = "advertised_ip_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_advertised_groups
-         in
-         ("advertised_groups", arg) :: bnds
+         if [] = v_advertised_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_advertised_groups
+           in
+           let bnd = "advertised_groups", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

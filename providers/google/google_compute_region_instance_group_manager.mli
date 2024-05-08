@@ -15,6 +15,7 @@ type status__stateful__per_instance_configs = {
 type status__stateful = {
   has_stateful_config : bool prop;  (** has_stateful_config *)
   per_instance_configs : status__stateful__per_instance_configs list;
+      [@default []] [@yojson_drop_default ( = )]
       (** per_instance_configs *)
 }
 
@@ -24,10 +25,15 @@ type status__all_instances_config = {
 
 type status = {
   all_instances_config : status__all_instances_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** all_instances_config *)
   is_stable : bool prop;  (** is_stable *)
-  stateful : status__stateful list;  (** stateful *)
-  version_target : status__version_target list;  (** version_target *)
+  stateful : status__stateful list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** stateful *)
+  version_target : status__version_target list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** version_target *)
 }
 
 type all_instances_config

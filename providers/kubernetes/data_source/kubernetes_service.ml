@@ -107,6 +107,7 @@ let _ = yojson_of_spec__session_affinity_config__client_ip
 
 type spec__session_affinity_config = {
   client_ip : spec__session_affinity_config__client_ip list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,12 +120,15 @@ let yojson_of_spec__session_affinity_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__session_affinity_config__client_ip
-             v_client_ip
-         in
-         ("client_ip", arg) :: bnds
+         if [] = v_client_ip then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__session_affinity_config__client_ip)
+               v_client_ip
+           in
+           let bnd = "client_ip", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__session_affinity_config ->
@@ -194,21 +198,26 @@ type spec = {
   allocate_load_balancer_node_ports : bool prop;
   cluster_ip : string prop;
   cluster_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   external_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   external_name : string prop;
   external_traffic_policy : string prop;
   health_check_node_port : float prop;
   internal_traffic_policy : string prop;
   ip_families : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_family_policy : string prop;
   load_balancer_class : string prop;
   load_balancer_ip : string prop;
   load_balancer_source_ranges : string prop list;
-  port : spec__port list;
+      [@default []] [@yojson_drop_default ( = )]
+  port : spec__port list; [@default []] [@yojson_drop_default ( = )]
   publish_not_ready_addresses : bool prop;
   selector : (string * string prop) list;
   session_affinity : string prop;
   session_affinity_config : spec__session_affinity_config list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -247,11 +256,14 @@ let yojson_of_spec =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__session_affinity_config
-             v_session_affinity_config
-         in
-         ("session_affinity_config", arg) :: bnds
+         if [] = v_session_affinity_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__session_affinity_config)
+               v_session_affinity_config
+           in
+           let bnd = "session_affinity_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -279,16 +291,21 @@ let yojson_of_spec =
          ("publish_not_ready_addresses", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__port v_port in
-         ("port", arg) :: bnds
+         if [] = v_port then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec__port) v_port in
+           let bnd = "port", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_load_balancer_source_ranges
-         in
-         ("load_balancer_source_ranges", arg) :: bnds
+         if [] = v_load_balancer_source_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_load_balancer_source_ranges
+           in
+           let bnd = "load_balancer_source_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -309,12 +326,14 @@ let yojson_of_spec =
          ("ip_family_policy", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_families
-         in
-         ("ip_families", arg) :: bnds
+         if [] = v_ip_families then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_families
+           in
+           let bnd = "ip_families", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -339,20 +358,24 @@ let yojson_of_spec =
          ("external_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_external_ips
-         in
-         ("external_ips", arg) :: bnds
+         if [] = v_external_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_external_ips
+           in
+           let bnd = "external_ips", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cluster_ips
-         in
-         ("cluster_ips", arg) :: bnds
+         if [] = v_cluster_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cluster_ips
+           in
+           let bnd = "cluster_ips", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_cluster_ip in
@@ -404,6 +427,7 @@ let _ = yojson_of_status__load_balancer__ingress
 
 type status__load_balancer = {
   ingress : status__load_balancer__ingress list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -416,11 +440,14 @@ let yojson_of_status__load_balancer =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__load_balancer__ingress
-             v_ingress
-         in
-         ("ingress", arg) :: bnds
+         if [] = v_ingress then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__load_balancer__ingress)
+               v_ingress
+           in
+           let bnd = "ingress", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : status__load_balancer -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -429,7 +456,10 @@ let _ = yojson_of_status__load_balancer
 
 [@@@deriving.end]
 
-type status = { load_balancer : status__load_balancer list }
+type status = {
+  load_balancer : status__load_balancer list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : status) -> ()
@@ -441,11 +471,14 @@ let yojson_of_status =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__load_balancer
-             v_load_balancer
-         in
-         ("load_balancer", arg) :: bnds
+         if [] = v_load_balancer then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__load_balancer)
+               v_load_balancer
+           in
+           let bnd = "load_balancer", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -456,7 +489,7 @@ let _ = yojson_of_status
 
 type kubernetes_service = {
   id : string prop option; [@option]
-  metadata : metadata list;
+  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -469,8 +502,13 @@ let yojson_of_kubernetes_service =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

@@ -6,8 +6,11 @@ open! Tf_core
 
 type inbound_network_dependencies = {
   description : string prop;  (** description *)
-  ip_addresses : string prop list;  (** ip_addresses *)
-  ports : string prop list;  (** ports *)
+  ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ip_addresses *)
+  ports : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** ports *)
 }
 
 type cluster_setting

@@ -113,6 +113,7 @@ type azurerm_mobile_network_slice = {
   tags : (string * string prop) list option; [@option]
   single_network_slice_selection_assistance_information :
     single_network_slice_selection_assistance_information list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -140,14 +141,21 @@ let yojson_of_azurerm_mobile_network_slice =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_single_network_slice_selection_assistance_information
-             v_single_network_slice_selection_assistance_information
-         in
-         ( "single_network_slice_selection_assistance_information",
-           arg )
-         :: bnds
+         if
+           []
+           = v_single_network_slice_selection_assistance_information
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_single_network_slice_selection_assistance_information)
+               v_single_network_slice_selection_assistance_information
+           in
+           let bnd =
+             ( "single_network_slice_selection_assistance_information",
+               arg )
+           in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

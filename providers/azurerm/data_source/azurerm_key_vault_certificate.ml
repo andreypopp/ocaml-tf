@@ -30,8 +30,10 @@ let _ = yojson_of_timeouts
 
 type certificate_policy__x509_certificate_properties__subject_alternative_names = {
   dns_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   emails : string prop list;
-  upns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+  upns : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,24 +50,34 @@ let yojson_of_certificate_policy__x509_certificate_properties__subject_alternati
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_upns
-         in
-         ("upns", arg) :: bnds
+         if [] = v_upns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_upns
+           in
+           let bnd = "upns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_emails
-         in
-         ("emails", arg) :: bnds
+         if [] = v_emails then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_emails
+           in
+           let bnd = "emails", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_dns_names
-         in
-         ("dns_names", arg) :: bnds
+         if [] = v_dns_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_dns_names
+           in
+           let bnd = "dns_names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : certificate_policy__x509_certificate_properties__subject_alternative_names ->
@@ -78,11 +90,14 @@ let _ =
 
 type certificate_policy__x509_certificate_properties = {
   extended_key_usage : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   key_usage : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subject : string prop;
   subject_alternative_names :
     certificate_policy__x509_certificate_properties__subject_alternative_names
     list;
+      [@default []] [@yojson_drop_default ( = )]
   validity_in_months : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -109,32 +124,39 @@ let yojson_of_certificate_policy__x509_certificate_properties =
          ("validity_in_months", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_policy__x509_certificate_properties__subject_alternative_names
-             v_subject_alternative_names
-         in
-         ("subject_alternative_names", arg) :: bnds
+         if [] = v_subject_alternative_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_policy__x509_certificate_properties__subject_alternative_names)
+               v_subject_alternative_names
+           in
+           let bnd = "subject_alternative_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_subject in
          ("subject", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_key_usage
-         in
-         ("key_usage", arg) :: bnds
+         if [] = v_key_usage then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_key_usage
+           in
+           let bnd = "key_usage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_extended_key_usage
-         in
-         ("extended_key_usage", arg) :: bnds
+         if [] = v_extended_key_usage then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_extended_key_usage
+           in
+           let bnd = "extended_key_usage", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : certificate_policy__x509_certificate_properties ->
@@ -233,7 +255,9 @@ let _ = yojson_of_certificate_policy__lifetime_action__action
 
 type certificate_policy__lifetime_action = {
   action : certificate_policy__lifetime_action__action list;
+      [@default []] [@yojson_drop_default ( = )]
   trigger : certificate_policy__lifetime_action__trigger list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -246,20 +270,26 @@ let yojson_of_certificate_policy__lifetime_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_policy__lifetime_action__trigger
-             v_trigger
-         in
-         ("trigger", arg) :: bnds
+         if [] = v_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_policy__lifetime_action__trigger)
+               v_trigger
+           in
+           let bnd = "trigger", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_policy__lifetime_action__action
-             v_action
-         in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_policy__lifetime_action__action)
+               v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : certificate_policy__lifetime_action ->
@@ -345,11 +375,16 @@ let _ = yojson_of_certificate_policy__issuer_parameters
 
 type certificate_policy = {
   issuer_parameters : certificate_policy__issuer_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   key_properties : certificate_policy__key_properties list;
+      [@default []] [@yojson_drop_default ( = )]
   lifetime_action : certificate_policy__lifetime_action list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_properties : certificate_policy__secret_properties list;
+      [@default []] [@yojson_drop_default ( = )]
   x509_certificate_properties :
     certificate_policy__x509_certificate_properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -368,44 +403,59 @@ let yojson_of_certificate_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_policy__x509_certificate_properties
-             v_x509_certificate_properties
-         in
-         ("x509_certificate_properties", arg) :: bnds
+         if [] = v_x509_certificate_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_policy__x509_certificate_properties)
+               v_x509_certificate_properties
+           in
+           let bnd = "x509_certificate_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_policy__secret_properties
-             v_secret_properties
-         in
-         ("secret_properties", arg) :: bnds
+         if [] = v_secret_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_policy__secret_properties)
+               v_secret_properties
+           in
+           let bnd = "secret_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_policy__lifetime_action
-             v_lifetime_action
-         in
-         ("lifetime_action", arg) :: bnds
+         if [] = v_lifetime_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_policy__lifetime_action)
+               v_lifetime_action
+           in
+           let bnd = "lifetime_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_policy__key_properties
-             v_key_properties
-         in
-         ("key_properties", arg) :: bnds
+         if [] = v_key_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_policy__key_properties)
+               v_key_properties
+           in
+           let bnd = "key_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_policy__issuer_parameters
-             v_issuer_parameters
-         in
-         ("issuer_parameters", arg) :: bnds
+         if [] = v_issuer_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_policy__issuer_parameters)
+               v_issuer_parameters
+           in
+           let bnd = "issuer_parameters", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : certificate_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)

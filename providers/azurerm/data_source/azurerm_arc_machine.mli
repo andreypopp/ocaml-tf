@@ -16,15 +16,20 @@ type agent__extensions_allow_list = {
 
 type agent = {
   extensions_allow_list : agent__extensions_allow_list list;
+      [@default []] [@yojson_drop_default ( = )]
       (** extensions_allow_list *)
   extensions_block_list : agent__extensions_block_list list;
+      [@default []] [@yojson_drop_default ( = )]
       (** extensions_block_list *)
   extensions_enabled : bool prop;  (** extensions_enabled *)
   guest_configuration_enabled : bool prop;
       (** guest_configuration_enabled *)
   incoming_connections_ports : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** incoming_connections_ports *)
-  proxy_bypass : string prop list;  (** proxy_bypass *)
+  proxy_bypass : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** proxy_bypass *)
   proxy_url : string prop;  (** proxy_url *)
 }
 
@@ -49,7 +54,9 @@ type os_profile__windows__patch = {
 }
 
 type os_profile__windows = {
-  patch : os_profile__windows__patch list;  (** patch *)
+  patch : os_profile__windows__patch list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** patch *)
 }
 
 type os_profile__linux__patch = {
@@ -58,13 +65,19 @@ type os_profile__linux__patch = {
 }
 
 type os_profile__linux = {
-  patch : os_profile__linux__patch list;  (** patch *)
+  patch : os_profile__linux__patch list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** patch *)
 }
 
 type os_profile = {
   computer_name : string prop;  (** computer_name *)
-  linux : os_profile__linux list;  (** linux *)
-  windows : os_profile__windows list;  (** windows *)
+  linux : os_profile__linux list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** linux *)
+  windows : os_profile__windows list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** windows *)
 }
 
 type service_status__guest_configuration_service = {
@@ -79,9 +92,11 @@ type service_status__extension_service = {
 
 type service_status = {
   extension_service : service_status__extension_service list;
+      [@default []] [@yojson_drop_default ( = )]
       (** extension_service *)
   guest_configuration_service :
     service_status__guest_configuration_service list;
+      [@default []] [@yojson_drop_default ( = )]
       (** guest_configuration_service *)
 }
 

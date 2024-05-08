@@ -4,6 +4,7 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -21,12 +22,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -211,13 +214,17 @@ type azurerm_mobile_network_packet_core_control_plane = {
   name : string prop;
   resource_group_name : string prop;
   site_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   sku : string prop;
   software_version : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   user_equipment_mtu_in_bytes : float prop option; [@option]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   local_diagnostics_access : local_diagnostics_access list;
+      [@default []] [@yojson_drop_default ( = )]
   platform : platform list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -260,19 +267,32 @@ let yojson_of_azurerm_mobile_network_packet_core_control_plane =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_platform v_platform in
-         ("platform", arg) :: bnds
+         if [] = v_platform then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_platform) v_platform
+           in
+           let bnd = "platform", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_local_diagnostics_access
-             v_local_diagnostics_access
-         in
-         ("local_diagnostics_access", arg) :: bnds
+         if [] = v_local_diagnostics_access then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_local_diagnostics_access)
+               v_local_diagnostics_access
+           in
+           let bnd = "local_diagnostics_access", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_equipment_mtu_in_bytes with
@@ -311,12 +331,14 @@ let yojson_of_azurerm_mobile_network_packet_core_control_plane =
          ("sku", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_site_ids
-         in
-         ("site_ids", arg) :: bnds
+         if [] = v_site_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_site_ids
+           in
+           let bnd = "site_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

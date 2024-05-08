@@ -108,6 +108,7 @@ type traffic_config__single_weight_config = {
   session_stickiness_config :
     traffic_config__single_weight_config__session_stickiness_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -123,12 +124,15 @@ let yojson_of_traffic_config__single_weight_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_traffic_config__single_weight_config__session_stickiness_config
-             v_session_stickiness_config
-         in
-         ("session_stickiness_config", arg) :: bnds
+         if [] = v_session_stickiness_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_traffic_config__single_weight_config__session_stickiness_config)
+               v_session_stickiness_config
+           in
+           let bnd = "session_stickiness_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_weight in
@@ -145,7 +149,9 @@ let _ = yojson_of_traffic_config__single_weight_config
 type traffic_config = {
   type_ : string prop; [@key "type"]
   single_header_config : traffic_config__single_header_config list;
+      [@default []] [@yojson_drop_default ( = )]
   single_weight_config : traffic_config__single_weight_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -162,20 +168,26 @@ let yojson_of_traffic_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_traffic_config__single_weight_config
-             v_single_weight_config
-         in
-         ("single_weight_config", arg) :: bnds
+         if [] = v_single_weight_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_traffic_config__single_weight_config)
+               v_single_weight_config
+           in
+           let bnd = "single_weight_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_traffic_config__single_header_config
-             v_single_header_config
-         in
-         ("single_header_config", arg) :: bnds
+         if [] = v_single_header_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_traffic_config__single_header_config)
+               v_single_header_config
+           in
+           let bnd = "single_header_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -192,7 +204,9 @@ type aws_cloudfront_continuous_deployment_policy = {
   enabled : bool prop;
   staging_distribution_dns_names :
     staging_distribution_dns_names list;
+      [@default []] [@yojson_drop_default ( = )]
   traffic_config : traffic_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,17 +224,24 @@ let yojson_of_aws_cloudfront_continuous_deployment_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_traffic_config v_traffic_config
-         in
-         ("traffic_config", arg) :: bnds
+         if [] = v_traffic_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_traffic_config)
+               v_traffic_config
+           in
+           let bnd = "traffic_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_staging_distribution_dns_names
-             v_staging_distribution_dns_names
-         in
-         ("staging_distribution_dns_names", arg) :: bnds
+         if [] = v_staging_distribution_dns_names then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_staging_distribution_dns_names)
+               v_staging_distribution_dns_names
+           in
+           let bnd = "staging_distribution_dns_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in

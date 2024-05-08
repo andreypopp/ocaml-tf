@@ -71,6 +71,7 @@ type azurerm_integration_service_environment = {
   sku_name : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   virtual_network_subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -98,12 +99,14 @@ let yojson_of_azurerm_integration_service_environment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_virtual_network_subnet_ids
-         in
-         ("virtual_network_subnet_ids", arg) :: bnds
+         if [] = v_virtual_network_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_virtual_network_subnet_ids
+           in
+           let bnd = "virtual_network_subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

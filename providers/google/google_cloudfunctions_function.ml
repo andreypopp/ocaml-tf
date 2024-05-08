@@ -29,6 +29,7 @@ type event_trigger = {
   event_type : string prop;
   resource : string prop;
   failure_policy : event_trigger__failure_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -45,11 +46,14 @@ let yojson_of_event_trigger =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_trigger__failure_policy
-             v_failure_policy
-         in
-         ("failure_policy", arg) :: bnds
+         if [] = v_failure_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_trigger__failure_policy)
+               v_failure_policy
+           in
+           let bnd = "failure_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_resource in
@@ -149,6 +153,7 @@ type secret_volumes = {
   project_id : string prop option; [@option]
   secret : string prop;
   versions : secret_volumes__versions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -166,11 +171,14 @@ let yojson_of_secret_volumes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secret_volumes__versions
-             v_versions
-         in
-         ("versions", arg) :: bnds
+         if [] = v_versions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secret_volumes__versions)
+               v_versions
+           in
+           let bnd = "versions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_secret in
@@ -308,9 +316,13 @@ type google_cloudfunctions_function = {
   vpc_connector : string prop option; [@option]
   vpc_connector_egress_settings : string prop option; [@option]
   event_trigger : event_trigger list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_environment_variables : secret_environment_variables list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_volumes : secret_volumes list;
+      [@default []] [@yojson_drop_default ( = )]
   source_repository : source_repository list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -362,30 +374,43 @@ let yojson_of_google_cloudfunctions_function =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_repository
-             v_source_repository
-         in
-         ("source_repository", arg) :: bnds
+         if [] = v_source_repository then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_repository)
+               v_source_repository
+           in
+           let bnd = "source_repository", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secret_volumes v_secret_volumes
-         in
-         ("secret_volumes", arg) :: bnds
+         if [] = v_secret_volumes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secret_volumes)
+               v_secret_volumes
+           in
+           let bnd = "secret_volumes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secret_environment_variables
-             v_secret_environment_variables
-         in
-         ("secret_environment_variables", arg) :: bnds
+         if [] = v_secret_environment_variables then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secret_environment_variables)
+               v_secret_environment_variables
+           in
+           let bnd = "secret_environment_variables", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_trigger v_event_trigger
-         in
-         ("event_trigger", arg) :: bnds
+         if [] = v_event_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_trigger) v_event_trigger
+           in
+           let bnd = "event_trigger", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_connector_egress_settings with

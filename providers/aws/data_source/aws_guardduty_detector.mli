@@ -11,6 +11,7 @@ type features__additional_configuration = {
 
 type features = {
   additional_configuration : features__additional_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** additional_configuration *)
   name : string prop;  (** name *)
   status : string prop;  (** status *)

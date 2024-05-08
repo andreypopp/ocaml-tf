@@ -104,6 +104,7 @@ type s3_job_definition__bucket_criteria__excludes__and__tag_criterion = {
   tag_values :
     s3_job_definition__bucket_criteria__excludes__and__tag_criterion__tag_values
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -120,12 +121,15 @@ let yojson_of_s3_job_definition__bucket_criteria__excludes__and__tag_criterion
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria__excludes__and__tag_criterion__tag_values
-             v_tag_values
-         in
-         ("tag_values", arg) :: bnds
+         if [] = v_tag_values then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria__excludes__and__tag_criterion__tag_values)
+               v_tag_values
+           in
+           let bnd = "tag_values", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_comparator with
@@ -148,9 +152,11 @@ type s3_job_definition__bucket_criteria__excludes__and = {
   simple_criterion :
     s3_job_definition__bucket_criteria__excludes__and__simple_criterion
     list;
+      [@default []] [@yojson_drop_default ( = )]
   tag_criterion :
     s3_job_definition__bucket_criteria__excludes__and__tag_criterion
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,20 +173,26 @@ let yojson_of_s3_job_definition__bucket_criteria__excludes__and =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria__excludes__and__tag_criterion
-             v_tag_criterion
-         in
-         ("tag_criterion", arg) :: bnds
+         if [] = v_tag_criterion then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria__excludes__and__tag_criterion)
+               v_tag_criterion
+           in
+           let bnd = "tag_criterion", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria__excludes__and__simple_criterion
-             v_simple_criterion
-         in
-         ("simple_criterion", arg) :: bnds
+         if [] = v_simple_criterion then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria__excludes__and__simple_criterion)
+               v_simple_criterion
+           in
+           let bnd = "simple_criterion", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition__bucket_criteria__excludes__and ->
@@ -192,7 +204,7 @@ let _ = yojson_of_s3_job_definition__bucket_criteria__excludes__and
 
 type s3_job_definition__bucket_criteria__excludes = {
   and_ : s3_job_definition__bucket_criteria__excludes__and list;
-      [@key "and"]
+      [@key "and"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -205,12 +217,15 @@ let yojson_of_s3_job_definition__bucket_criteria__excludes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria__excludes__and
-             v_and_
-         in
-         ("and", arg) :: bnds
+         if [] = v_and_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria__excludes__and)
+               v_and_
+           in
+           let bnd = "and", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition__bucket_criteria__excludes ->
@@ -322,6 +337,7 @@ type s3_job_definition__bucket_criteria__includes__and__tag_criterion = {
   tag_values :
     s3_job_definition__bucket_criteria__includes__and__tag_criterion__tag_values
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -338,12 +354,15 @@ let yojson_of_s3_job_definition__bucket_criteria__includes__and__tag_criterion
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria__includes__and__tag_criterion__tag_values
-             v_tag_values
-         in
-         ("tag_values", arg) :: bnds
+         if [] = v_tag_values then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria__includes__and__tag_criterion__tag_values)
+               v_tag_values
+           in
+           let bnd = "tag_values", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_comparator with
@@ -366,9 +385,11 @@ type s3_job_definition__bucket_criteria__includes__and = {
   simple_criterion :
     s3_job_definition__bucket_criteria__includes__and__simple_criterion
     list;
+      [@default []] [@yojson_drop_default ( = )]
   tag_criterion :
     s3_job_definition__bucket_criteria__includes__and__tag_criterion
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -385,20 +406,26 @@ let yojson_of_s3_job_definition__bucket_criteria__includes__and =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria__includes__and__tag_criterion
-             v_tag_criterion
-         in
-         ("tag_criterion", arg) :: bnds
+         if [] = v_tag_criterion then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria__includes__and__tag_criterion)
+               v_tag_criterion
+           in
+           let bnd = "tag_criterion", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria__includes__and__simple_criterion
-             v_simple_criterion
-         in
-         ("simple_criterion", arg) :: bnds
+         if [] = v_simple_criterion then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria__includes__and__simple_criterion)
+               v_simple_criterion
+           in
+           let bnd = "simple_criterion", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition__bucket_criteria__includes__and ->
@@ -410,7 +437,7 @@ let _ = yojson_of_s3_job_definition__bucket_criteria__includes__and
 
 type s3_job_definition__bucket_criteria__includes = {
   and_ : s3_job_definition__bucket_criteria__includes__and list;
-      [@key "and"]
+      [@key "and"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -423,12 +450,15 @@ let yojson_of_s3_job_definition__bucket_criteria__includes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria__includes__and
-             v_and_
-         in
-         ("and", arg) :: bnds
+         if [] = v_and_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria__includes__and)
+               v_and_
+           in
+           let bnd = "and", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition__bucket_criteria__includes ->
@@ -440,7 +470,9 @@ let _ = yojson_of_s3_job_definition__bucket_criteria__includes
 
 type s3_job_definition__bucket_criteria = {
   excludes : s3_job_definition__bucket_criteria__excludes list;
+      [@default []] [@yojson_drop_default ( = )]
   includes : s3_job_definition__bucket_criteria__includes list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -453,20 +485,26 @@ let yojson_of_s3_job_definition__bucket_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria__includes
-             v_includes
-         in
-         ("includes", arg) :: bnds
+         if [] = v_includes then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria__includes)
+               v_includes
+           in
+           let bnd = "includes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria__excludes
-             v_excludes
-         in
-         ("excludes", arg) :: bnds
+         if [] = v_excludes then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria__excludes)
+               v_excludes
+           in
+           let bnd = "excludes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition__bucket_criteria ->
@@ -479,6 +517,7 @@ let _ = yojson_of_s3_job_definition__bucket_criteria
 type s3_job_definition__bucket_definitions = {
   account_id : string prop;
   buckets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -491,10 +530,14 @@ let yojson_of_s3_job_definition__bucket_definitions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_buckets
-         in
-         ("buckets", arg) :: bnds
+         if [] = v_buckets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_buckets
+           in
+           let bnd = "buckets", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_account_id in
@@ -612,6 +655,7 @@ type s3_job_definition__scoping__excludes__and__tag_scope_term = {
   tag_values :
     s3_job_definition__scoping__excludes__and__tag_scope_term__tag_values
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -632,12 +676,15 @@ let yojson_of_s3_job_definition__scoping__excludes__and__tag_scope_term
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__scoping__excludes__and__tag_scope_term__tag_values
-             v_tag_values
-         in
-         ("tag_values", arg) :: bnds
+         if [] = v_tag_values then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__scoping__excludes__and__tag_scope_term__tag_values)
+               v_tag_values
+           in
+           let bnd = "tag_values", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target with
@@ -675,8 +722,10 @@ let _ =
 type s3_job_definition__scoping__excludes__and = {
   simple_scope_term :
     s3_job_definition__scoping__excludes__and__simple_scope_term list;
+      [@default []] [@yojson_drop_default ( = )]
   tag_scope_term :
     s3_job_definition__scoping__excludes__and__tag_scope_term list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -692,20 +741,26 @@ let yojson_of_s3_job_definition__scoping__excludes__and =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__scoping__excludes__and__tag_scope_term
-             v_tag_scope_term
-         in
-         ("tag_scope_term", arg) :: bnds
+         if [] = v_tag_scope_term then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__scoping__excludes__and__tag_scope_term)
+               v_tag_scope_term
+           in
+           let bnd = "tag_scope_term", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__scoping__excludes__and__simple_scope_term
-             v_simple_scope_term
-         in
-         ("simple_scope_term", arg) :: bnds
+         if [] = v_simple_scope_term then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__scoping__excludes__and__simple_scope_term)
+               v_simple_scope_term
+           in
+           let bnd = "simple_scope_term", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition__scoping__excludes__and ->
@@ -716,7 +771,8 @@ let _ = yojson_of_s3_job_definition__scoping__excludes__and
 [@@@deriving.end]
 
 type s3_job_definition__scoping__excludes = {
-  and_ : s3_job_definition__scoping__excludes__and list; [@key "and"]
+  and_ : s3_job_definition__scoping__excludes__and list;
+      [@key "and"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -729,12 +785,15 @@ let yojson_of_s3_job_definition__scoping__excludes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__scoping__excludes__and
-             v_and_
-         in
-         ("and", arg) :: bnds
+         if [] = v_and_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__scoping__excludes__and)
+               v_and_
+           in
+           let bnd = "and", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition__scoping__excludes ->
@@ -848,6 +907,7 @@ type s3_job_definition__scoping__includes__and__tag_scope_term = {
   tag_values :
     s3_job_definition__scoping__includes__and__tag_scope_term__tag_values
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -868,12 +928,15 @@ let yojson_of_s3_job_definition__scoping__includes__and__tag_scope_term
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__scoping__includes__and__tag_scope_term__tag_values
-             v_tag_values
-         in
-         ("tag_values", arg) :: bnds
+         if [] = v_tag_values then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__scoping__includes__and__tag_scope_term__tag_values)
+               v_tag_values
+           in
+           let bnd = "tag_values", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target with
@@ -911,8 +974,10 @@ let _ =
 type s3_job_definition__scoping__includes__and = {
   simple_scope_term :
     s3_job_definition__scoping__includes__and__simple_scope_term list;
+      [@default []] [@yojson_drop_default ( = )]
   tag_scope_term :
     s3_job_definition__scoping__includes__and__tag_scope_term list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -928,20 +993,26 @@ let yojson_of_s3_job_definition__scoping__includes__and =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__scoping__includes__and__tag_scope_term
-             v_tag_scope_term
-         in
-         ("tag_scope_term", arg) :: bnds
+         if [] = v_tag_scope_term then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__scoping__includes__and__tag_scope_term)
+               v_tag_scope_term
+           in
+           let bnd = "tag_scope_term", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__scoping__includes__and__simple_scope_term
-             v_simple_scope_term
-         in
-         ("simple_scope_term", arg) :: bnds
+         if [] = v_simple_scope_term then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__scoping__includes__and__simple_scope_term)
+               v_simple_scope_term
+           in
+           let bnd = "simple_scope_term", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition__scoping__includes__and ->
@@ -952,7 +1023,8 @@ let _ = yojson_of_s3_job_definition__scoping__includes__and
 [@@@deriving.end]
 
 type s3_job_definition__scoping__includes = {
-  and_ : s3_job_definition__scoping__includes__and list; [@key "and"]
+  and_ : s3_job_definition__scoping__includes__and list;
+      [@key "and"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -965,12 +1037,15 @@ let yojson_of_s3_job_definition__scoping__includes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__scoping__includes__and
-             v_and_
-         in
-         ("and", arg) :: bnds
+         if [] = v_and_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__scoping__includes__and)
+               v_and_
+           in
+           let bnd = "and", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition__scoping__includes ->
@@ -982,7 +1057,9 @@ let _ = yojson_of_s3_job_definition__scoping__includes
 
 type s3_job_definition__scoping = {
   excludes : s3_job_definition__scoping__excludes list;
+      [@default []] [@yojson_drop_default ( = )]
   includes : s3_job_definition__scoping__includes list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -995,20 +1072,26 @@ let yojson_of_s3_job_definition__scoping =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__scoping__includes
-             v_includes
-         in
-         ("includes", arg) :: bnds
+         if [] = v_includes then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__scoping__includes)
+               v_includes
+           in
+           let bnd = "includes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__scoping__excludes
-             v_excludes
-         in
-         ("excludes", arg) :: bnds
+         if [] = v_excludes then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__scoping__excludes)
+               v_excludes
+           in
+           let bnd = "excludes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition__scoping -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1019,8 +1102,11 @@ let _ = yojson_of_s3_job_definition__scoping
 
 type s3_job_definition = {
   bucket_criteria : s3_job_definition__bucket_criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   bucket_definitions : s3_job_definition__bucket_definitions list;
+      [@default []] [@yojson_drop_default ( = )]
   scoping : s3_job_definition__scoping list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1037,27 +1123,36 @@ let yojson_of_s3_job_definition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_s3_job_definition__scoping
-             v_scoping
-         in
-         ("scoping", arg) :: bnds
+         if [] = v_scoping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3_job_definition__scoping)
+               v_scoping
+           in
+           let bnd = "scoping", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_definitions
-             v_bucket_definitions
-         in
-         ("bucket_definitions", arg) :: bnds
+         if [] = v_bucket_definitions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_definitions)
+               v_bucket_definitions
+           in
+           let bnd = "bucket_definitions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_job_definition__bucket_criteria
-             v_bucket_criteria
-         in
-         ("bucket_criteria", arg) :: bnds
+         if [] = v_bucket_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_job_definition__bucket_criteria)
+               v_bucket_criteria
+           in
+           let bnd = "bucket_criteria", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3_job_definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1173,7 +1268,9 @@ type aws_macie2_classification_job = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   s3_job_definition : s3_job_definition list;
+      [@default []] [@yojson_drop_default ( = )]
   schedule_frequency : schedule_frequency list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1200,18 +1297,24 @@ let yojson_of_aws_macie2_classification_job =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schedule_frequency
-             v_schedule_frequency
-         in
-         ("schedule_frequency", arg) :: bnds
+         if [] = v_schedule_frequency then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule_frequency)
+               v_schedule_frequency
+           in
+           let bnd = "schedule_frequency", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_s3_job_definition
-             v_s3_job_definition
-         in
-         ("s3_job_definition", arg) :: bnds
+         if [] = v_s3_job_definition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3_job_definition)
+               v_s3_job_definition
+           in
+           let bnd = "s3_job_definition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

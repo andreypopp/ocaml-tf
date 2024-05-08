@@ -78,8 +78,8 @@ type aws_s3_bucket_intelligent_tiering_configuration = {
   id : string prop option; [@option]
   name : string prop;
   status : string prop option; [@option]
-  filter : filter list;
-  tiering : tiering list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  tiering : tiering list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -100,12 +100,18 @@ let yojson_of_aws_s3_bucket_intelligent_tiering_configuration =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_tiering v_tiering in
-         ("tiering", arg) :: bnds
+         if [] = v_tiering then bnds
+         else
+           let arg = (yojson_of_list yojson_of_tiering) v_tiering in
+           let bnd = "tiering", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_status with

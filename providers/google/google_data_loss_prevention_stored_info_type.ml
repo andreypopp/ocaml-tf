@@ -25,7 +25,9 @@ let _ = yojson_of_dictionary__cloud_storage_path
 
 [@@@deriving.end]
 
-type dictionary__word_list = { words : string prop list }
+type dictionary__word_list = {
+  words : string prop list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : dictionary__word_list) -> ()
@@ -37,10 +39,14 @@ let yojson_of_dictionary__word_list =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_words
-         in
-         ("words", arg) :: bnds
+         if [] = v_words then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_words
+           in
+           let bnd = "words", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : dictionary__word_list -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -51,7 +57,9 @@ let _ = yojson_of_dictionary__word_list
 
 type dictionary = {
   cloud_storage_path : dictionary__cloud_storage_path list;
+      [@default []] [@yojson_drop_default ( = )]
   word_list : dictionary__word_list list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,17 +75,24 @@ let yojson_of_dictionary =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dictionary__word_list v_word_list
-         in
-         ("word_list", arg) :: bnds
+         if [] = v_word_list then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dictionary__word_list)
+               v_word_list
+           in
+           let bnd = "word_list", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dictionary__cloud_storage_path
-             v_cloud_storage_path
-         in
-         ("cloud_storage_path", arg) :: bnds
+         if [] = v_cloud_storage_path then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dictionary__cloud_storage_path)
+               v_cloud_storage_path
+           in
+           let bnd = "cloud_storage_path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : dictionary -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -154,7 +169,9 @@ let _ = yojson_of_large_custom_dictionary__big_query_field__table
 
 type large_custom_dictionary__big_query_field = {
   field : large_custom_dictionary__big_query_field__field list;
+      [@default []] [@yojson_drop_default ( = )]
   table : large_custom_dictionary__big_query_field__table list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,20 +184,26 @@ let yojson_of_large_custom_dictionary__big_query_field =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_large_custom_dictionary__big_query_field__table
-             v_table
-         in
-         ("table", arg) :: bnds
+         if [] = v_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_large_custom_dictionary__big_query_field__table)
+               v_table
+           in
+           let bnd = "table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_large_custom_dictionary__big_query_field__field
-             v_field
-         in
-         ("field", arg) :: bnds
+         if [] = v_field then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_large_custom_dictionary__big_query_field__field)
+               v_field
+           in
+           let bnd = "field", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : large_custom_dictionary__big_query_field ->
@@ -241,9 +264,12 @@ let _ = yojson_of_large_custom_dictionary__output_path
 
 type large_custom_dictionary = {
   big_query_field : large_custom_dictionary__big_query_field list;
+      [@default []] [@yojson_drop_default ( = )]
   cloud_storage_file_set :
     large_custom_dictionary__cloud_storage_file_set list;
+      [@default []] [@yojson_drop_default ( = )]
   output_path : large_custom_dictionary__output_path list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -260,28 +286,37 @@ let yojson_of_large_custom_dictionary =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_large_custom_dictionary__output_path
-             v_output_path
-         in
-         ("output_path", arg) :: bnds
+         if [] = v_output_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_large_custom_dictionary__output_path)
+               v_output_path
+           in
+           let bnd = "output_path", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_large_custom_dictionary__cloud_storage_file_set
-             v_cloud_storage_file_set
-         in
-         ("cloud_storage_file_set", arg) :: bnds
+         if [] = v_cloud_storage_file_set then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_large_custom_dictionary__cloud_storage_file_set)
+               v_cloud_storage_file_set
+           in
+           let bnd = "cloud_storage_file_set", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_large_custom_dictionary__big_query_field
-             v_big_query_field
-         in
-         ("big_query_field", arg) :: bnds
+         if [] = v_big_query_field then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_large_custom_dictionary__big_query_field)
+               v_big_query_field
+           in
+           let bnd = "big_query_field", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : large_custom_dictionary -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -378,8 +413,10 @@ type google_data_loss_prevention_stored_info_type = {
   parent : string prop;
   stored_info_type_id : string prop option; [@option]
   dictionary : dictionary list;
+      [@default []] [@yojson_drop_default ( = )]
   large_custom_dictionary : large_custom_dictionary list;
-  regex : regex list;
+      [@default []] [@yojson_drop_default ( = )]
+  regex : regex list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -407,21 +444,30 @@ let yojson_of_google_data_loss_prevention_stored_info_type =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_regex v_regex in
-         ("regex", arg) :: bnds
+         if [] = v_regex then bnds
+         else
+           let arg = (yojson_of_list yojson_of_regex) v_regex in
+           let bnd = "regex", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_large_custom_dictionary
-             v_large_custom_dictionary
-         in
-         ("large_custom_dictionary", arg) :: bnds
+         if [] = v_large_custom_dictionary then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_large_custom_dictionary)
+               v_large_custom_dictionary
+           in
+           let bnd = "large_custom_dictionary", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dictionary v_dictionary
-         in
-         ("dictionary", arg) :: bnds
+         if [] = v_dictionary then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dictionary) v_dictionary
+           in
+           let bnd = "dictionary", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_stored_info_type_id with

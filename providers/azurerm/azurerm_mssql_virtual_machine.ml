@@ -58,6 +58,7 @@ type assessment = {
   enabled : bool prop option; [@option]
   run_immediately : bool prop option; [@option]
   schedule : assessment__schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,10 +75,14 @@ let yojson_of_assessment =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_assessment__schedule v_schedule
-         in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_assessment__schedule)
+               v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_run_immediately with
@@ -178,6 +183,7 @@ type auto_backup = {
   storage_blob_endpoint : string prop;
   system_databases_backup_enabled : bool prop option; [@option]
   manual_schedule : auto_backup__manual_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,11 +205,14 @@ let yojson_of_auto_backup =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_backup__manual_schedule
-             v_manual_schedule
-         in
-         ("manual_schedule", arg) :: bnds
+         if [] = v_manual_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_backup__manual_schedule)
+               v_manual_schedule
+           in
+           let bnd = "manual_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_system_databases_backup_enabled with
@@ -443,7 +452,7 @@ let _ = yojson_of_sql_instance
 
 type storage_configuration__data_settings = {
   default_file_path : string prop;
-  luns : float prop list;
+  luns : float prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -456,10 +465,13 @@ let yojson_of_storage_configuration__data_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_float) v_luns
-         in
-         ("luns", arg) :: bnds
+         if [] = v_luns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float)) v_luns
+           in
+           let bnd = "luns", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -477,7 +489,7 @@ let _ = yojson_of_storage_configuration__data_settings
 
 type storage_configuration__log_settings = {
   default_file_path : string prop;
-  luns : float prop list;
+  luns : float prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -490,10 +502,13 @@ let yojson_of_storage_configuration__log_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_float) v_luns
-         in
-         ("luns", arg) :: bnds
+         if [] = v_luns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float)) v_luns
+           in
+           let bnd = "luns", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -516,7 +531,7 @@ type storage_configuration__temp_db_settings = {
   default_file_path : string prop;
   log_file_growth_mb : float prop option; [@option]
   log_file_size_mb : float prop option; [@option]
-  luns : float prop list;
+  luns : float prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -537,10 +552,13 @@ let yojson_of_storage_configuration__temp_db_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_float) v_luns
-         in
-         ("luns", arg) :: bnds
+         if [] = v_luns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float)) v_luns
+           in
+           let bnd = "luns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_log_file_size_mb with
@@ -601,8 +619,11 @@ type storage_configuration = {
   storage_workload_type : string prop;
   system_db_on_data_disk_enabled : bool prop option; [@option]
   data_settings : storage_configuration__data_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   log_settings : storage_configuration__log_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   temp_db_settings : storage_configuration__temp_db_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -623,28 +644,37 @@ let yojson_of_storage_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_configuration__temp_db_settings
-             v_temp_db_settings
-         in
-         ("temp_db_settings", arg) :: bnds
+         if [] = v_temp_db_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_configuration__temp_db_settings)
+               v_temp_db_settings
+           in
+           let bnd = "temp_db_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_configuration__log_settings
-             v_log_settings
-         in
-         ("log_settings", arg) :: bnds
+         if [] = v_log_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_configuration__log_settings)
+               v_log_settings
+           in
+           let bnd = "log_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_configuration__data_settings
-             v_data_settings
-         in
-         ("data_settings", arg) :: bnds
+         if [] = v_data_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_configuration__data_settings)
+               v_data_settings
+           in
+           let bnd = "data_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_system_db_on_data_disk_enabled with
@@ -792,13 +822,20 @@ type azurerm_mssql_virtual_machine = {
   tags : (string * string prop) list option; [@option]
   virtual_machine_id : string prop;
   assessment : assessment list;
+      [@default []] [@yojson_drop_default ( = )]
   auto_backup : auto_backup list;
+      [@default []] [@yojson_drop_default ( = )]
   auto_patching : auto_patching list;
+      [@default []] [@yojson_drop_default ( = )]
   key_vault_credential : key_vault_credential list;
+      [@default []] [@yojson_drop_default ( = )]
   sql_instance : sql_instance list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_configuration : storage_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   wsfc_domain_credential : wsfc_domain_credential list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -832,53 +869,74 @@ let yojson_of_azurerm_mssql_virtual_machine =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_wsfc_domain_credential
-             v_wsfc_domain_credential
-         in
-         ("wsfc_domain_credential", arg) :: bnds
+         if [] = v_wsfc_domain_credential then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_wsfc_domain_credential)
+               v_wsfc_domain_credential
+           in
+           let bnd = "wsfc_domain_credential", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_configuration
-             v_storage_configuration
-         in
-         ("storage_configuration", arg) :: bnds
+         if [] = v_storage_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_configuration)
+               v_storage_configuration
+           in
+           let bnd = "storage_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sql_instance v_sql_instance
-         in
-         ("sql_instance", arg) :: bnds
+         if [] = v_sql_instance then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sql_instance) v_sql_instance
+           in
+           let bnd = "sql_instance", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_key_vault_credential
-             v_key_vault_credential
-         in
-         ("key_vault_credential", arg) :: bnds
+         if [] = v_key_vault_credential then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_vault_credential)
+               v_key_vault_credential
+           in
+           let bnd = "key_vault_credential", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_patching v_auto_patching
-         in
-         ("auto_patching", arg) :: bnds
+         if [] = v_auto_patching then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_patching) v_auto_patching
+           in
+           let bnd = "auto_patching", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_backup v_auto_backup
-         in
-         ("auto_backup", arg) :: bnds
+         if [] = v_auto_backup then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_backup) v_auto_backup
+           in
+           let bnd = "auto_backup", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_assessment v_assessment
-         in
-         ("assessment", arg) :: bnds
+         if [] = v_assessment then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_assessment) v_assessment
+           in
+           let bnd = "assessment", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

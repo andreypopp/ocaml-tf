@@ -83,7 +83,9 @@ let _ = yojson_of_scope__aws_services
 
 type scope = {
   aws_accounts : scope__aws_accounts list;
+      [@default []] [@yojson_drop_default ( = )]
   aws_services : scope__aws_services list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -97,18 +99,24 @@ let yojson_of_scope =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scope__aws_services
-             v_aws_services
-         in
-         ("aws_services", arg) :: bnds
+         if [] = v_aws_services then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scope__aws_services)
+               v_aws_services
+           in
+           let bnd = "aws_services", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scope__aws_accounts
-             v_aws_accounts
-         in
-         ("aws_accounts", arg) :: bnds
+         if [] = v_aws_accounts then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scope__aws_accounts)
+               v_aws_accounts
+           in
+           let bnd = "aws_accounts", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : scope -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -173,11 +181,12 @@ type aws_auditmanager_assessment = {
   description : string prop option; [@option]
   framework_id : string prop;
   name : string prop;
-  roles : roles list;
+  roles : roles list; [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   assessment_reports_destination :
     assessment_reports_destination list;
-  scope : scope list;
+      [@default []] [@yojson_drop_default ( = )]
+  scope : scope list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,15 +208,21 @@ let yojson_of_aws_auditmanager_assessment =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_scope v_scope in
-         ("scope", arg) :: bnds
+         if [] = v_scope then bnds
+         else
+           let arg = (yojson_of_list yojson_of_scope) v_scope in
+           let bnd = "scope", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_assessment_reports_destination
-             v_assessment_reports_destination
-         in
-         ("assessment_reports_destination", arg) :: bnds
+         if [] = v_assessment_reports_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_assessment_reports_destination)
+               v_assessment_reports_destination
+           in
+           let bnd = "assessment_reports_destination", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -226,8 +241,11 @@ let yojson_of_aws_auditmanager_assessment =
              bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_roles v_roles in
-         ("roles", arg) :: bnds
+         if [] = v_roles then bnds
+         else
+           let arg = (yojson_of_list yojson_of_roles) v_roles in
+           let bnd = "roles", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

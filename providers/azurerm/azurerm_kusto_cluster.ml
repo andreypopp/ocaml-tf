@@ -231,10 +231,13 @@ type azurerm_kusto_cluster = {
   trusted_external_tenants : string prop list option; [@option]
   zones : string prop list option; [@option]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   optimized_auto_scale : optimized_auto_scale list;
-  sku : sku list;
+      [@default []] [@yojson_drop_default ( = )]
+  sku : sku list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   virtual_network_configuration : virtual_network_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -275,30 +278,44 @@ let yojson_of_azurerm_kusto_cluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_virtual_network_configuration
-             v_virtual_network_configuration
-         in
-         ("virtual_network_configuration", arg) :: bnds
+         if [] = v_virtual_network_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_virtual_network_configuration)
+               v_virtual_network_configuration
+           in
+           let bnd = "virtual_network_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sku v_sku in
-         ("sku", arg) :: bnds
+         if [] = v_sku then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sku) v_sku in
+           let bnd = "sku", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_optimized_auto_scale
-             v_optimized_auto_scale
-         in
-         ("optimized_auto_scale", arg) :: bnds
+         if [] = v_optimized_auto_scale then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_optimized_auto_scale)
+               v_optimized_auto_scale
+           in
+           let bnd = "optimized_auto_scale", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with

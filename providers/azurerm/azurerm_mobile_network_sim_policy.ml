@@ -42,6 +42,7 @@ type slice__data_network = {
   allocation_and_retention_priority_level : float prop option;
       [@option]
   allowed_services_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   data_network_id : string prop;
   default_session_type : string prop option; [@option]
   max_buffered_packets : float prop option; [@option]
@@ -50,6 +51,7 @@ type slice__data_network = {
   qos_indicator : float prop;
   session_aggregate_maximum_bit_rate :
     slice__data_network__session_aggregate_maximum_bit_rate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,12 +78,15 @@ let yojson_of_slice__data_network =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_slice__data_network__session_aggregate_maximum_bit_rate
-             v_session_aggregate_maximum_bit_rate
-         in
-         ("session_aggregate_maximum_bit_rate", arg) :: bnds
+         if [] = v_session_aggregate_maximum_bit_rate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_slice__data_network__session_aggregate_maximum_bit_rate)
+               v_session_aggregate_maximum_bit_rate
+           in
+           let bnd = "session_aggregate_maximum_bit_rate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_qos_indicator in
@@ -126,12 +131,14 @@ let yojson_of_slice__data_network =
          ("data_network_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_services_ids
-         in
-         ("allowed_services_ids", arg) :: bnds
+         if [] = v_allowed_services_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_services_ids
+           in
+           let bnd = "allowed_services_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allocation_and_retention_priority_level with
@@ -164,6 +171,7 @@ type slice = {
   default_data_network_id : string prop;
   slice_id : string prop;
   data_network : slice__data_network list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -180,11 +188,14 @@ let yojson_of_slice =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_slice__data_network
-             v_data_network
-         in
-         ("data_network", arg) :: bnds
+         if [] = v_data_network then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_slice__data_network)
+               v_data_network
+           in
+           let bnd = "data_network", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_slice_id in
@@ -303,10 +314,11 @@ type azurerm_mobile_network_sim_policy = {
       [@option]
   registration_timer_in_seconds : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
-  slice : slice list;
+  slice : slice list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   user_equipment_aggregate_maximum_bit_rate :
     user_equipment_aggregate_maximum_bit_rate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -334,20 +346,29 @@ let yojson_of_azurerm_mobile_network_sim_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_user_equipment_aggregate_maximum_bit_rate
-             v_user_equipment_aggregate_maximum_bit_rate
-         in
-         ("user_equipment_aggregate_maximum_bit_rate", arg) :: bnds
+         if [] = v_user_equipment_aggregate_maximum_bit_rate then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_user_equipment_aggregate_maximum_bit_rate)
+               v_user_equipment_aggregate_maximum_bit_rate
+           in
+           let bnd =
+             "user_equipment_aggregate_maximum_bit_rate", arg
+           in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_slice v_slice in
-         ("slice", arg) :: bnds
+         if [] = v_slice then bnds
+         else
+           let arg = (yojson_of_list yojson_of_slice) v_slice in
+           let bnd = "slice", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

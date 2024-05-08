@@ -87,7 +87,9 @@ let _ = yojson_of_blocking_functions__triggers
 type blocking_functions = {
   forward_inbound_credentials :
     blocking_functions__forward_inbound_credentials list;
+      [@default []] [@yojson_drop_default ( = )]
   triggers : blocking_functions__triggers list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -103,19 +105,25 @@ let yojson_of_blocking_functions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_blocking_functions__triggers
-             v_triggers
-         in
-         ("triggers", arg) :: bnds
+         if [] = v_triggers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_blocking_functions__triggers)
+               v_triggers
+           in
+           let bnd = "triggers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_blocking_functions__forward_inbound_credentials
-             v_forward_inbound_credentials
-         in
-         ("forward_inbound_credentials", arg) :: bnds
+         if [] = v_forward_inbound_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_blocking_functions__forward_inbound_credentials)
+               v_forward_inbound_credentials
+           in
+           let bnd = "forward_inbound_credentials", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : blocking_functions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -164,7 +172,10 @@ let _ = yojson_of_client__permissions
 
 [@@@deriving.end]
 
-type client = { permissions : client__permissions list }
+type client = {
+  permissions : client__permissions list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : client) -> ()
@@ -176,10 +187,14 @@ let yojson_of_client =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client__permissions v_permissions
-         in
-         ("permissions", arg) :: bnds
+         if [] = v_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client__permissions)
+               v_permissions
+           in
+           let bnd = "permissions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : client -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -221,6 +236,7 @@ type mfa__provider_configs = {
   state : string prop option; [@option]
   totp_provider_config :
     mfa__provider_configs__totp_provider_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,12 +252,15 @@ let yojson_of_mfa__provider_configs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_mfa__provider_configs__totp_provider_config
-             v_totp_provider_config
-         in
-         ("totp_provider_config", arg) :: bnds
+         if [] = v_totp_provider_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_mfa__provider_configs__totp_provider_config)
+               v_totp_provider_config
+           in
+           let bnd = "totp_provider_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_state with
@@ -262,6 +281,7 @@ type mfa = {
   enabled_providers : string prop list option; [@option]
   state : string prop option; [@option]
   provider_configs : mfa__provider_configs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -278,11 +298,14 @@ let yojson_of_mfa =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mfa__provider_configs
-             v_provider_configs
-         in
-         ("provider_configs", arg) :: bnds
+         if [] = v_provider_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mfa__provider_configs)
+               v_provider_configs
+           in
+           let bnd = "provider_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_state with
@@ -340,6 +363,7 @@ let _ = yojson_of_monitoring__request_logging
 
 type monitoring = {
   request_logging : monitoring__request_logging list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -352,11 +376,14 @@ let yojson_of_monitoring =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitoring__request_logging
-             v_request_logging
-         in
-         ("request_logging", arg) :: bnds
+         if [] = v_request_logging then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitoring__request_logging)
+               v_request_logging
+           in
+           let bnd = "request_logging", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : monitoring -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -458,6 +485,7 @@ let _ = yojson_of_quota__sign_up_quota_config
 
 type quota = {
   sign_up_quota_config : quota__sign_up_quota_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -470,11 +498,14 @@ let yojson_of_quota =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_quota__sign_up_quota_config
-             v_sign_up_quota_config
-         in
-         ("sign_up_quota_config", arg) :: bnds
+         if [] = v_sign_up_quota_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_quota__sign_up_quota_config)
+               v_sign_up_quota_config
+           in
+           let bnd = "sign_up_quota_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : quota -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -638,8 +669,11 @@ let _ = yojson_of_sign_in__hash_config
 type sign_in = {
   allow_duplicate_emails : bool prop option; [@option]
   anonymous : sign_in__anonymous list;
+      [@default []] [@yojson_drop_default ( = )]
   email : sign_in__email list;
+      [@default []] [@yojson_drop_default ( = )]
   phone_number : sign_in__phone_number list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -657,21 +691,33 @@ let yojson_of_sign_in =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sign_in__phone_number
-             v_phone_number
-         in
-         ("phone_number", arg) :: bnds
+         if [] = v_phone_number then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sign_in__phone_number)
+               v_phone_number
+           in
+           let bnd = "phone_number", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sign_in__email v_email in
-         ("email", arg) :: bnds
+         if [] = v_email then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sign_in__email) v_email
+           in
+           let bnd = "email", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sign_in__anonymous v_anonymous
-         in
-         ("anonymous", arg) :: bnds
+         if [] = v_anonymous then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sign_in__anonymous)
+               v_anonymous
+           in
+           let bnd = "anonymous", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_duplicate_emails with
@@ -752,7 +798,9 @@ let _ = yojson_of_sms_region_config__allowlist_only
 
 type sms_region_config = {
   allow_by_default : sms_region_config__allow_by_default list;
+      [@default []] [@yojson_drop_default ( = )]
   allowlist_only : sms_region_config__allowlist_only list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -768,19 +816,26 @@ let yojson_of_sms_region_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sms_region_config__allowlist_only
-             v_allowlist_only
-         in
-         ("allowlist_only", arg) :: bnds
+         if [] = v_allowlist_only then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_sms_region_config__allowlist_only)
+               v_allowlist_only
+           in
+           let bnd = "allowlist_only", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_sms_region_config__allow_by_default
-             v_allow_by_default
-         in
-         ("allow_by_default", arg) :: bnds
+         if [] = v_allow_by_default then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_sms_region_config__allow_by_default)
+               v_allow_by_default
+           in
+           let bnd = "allow_by_default", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : sms_region_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -841,13 +896,17 @@ type google_identity_platform_config = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   blocking_functions : blocking_functions list;
-  client : client list;
-  mfa : mfa list;
+      [@default []] [@yojson_drop_default ( = )]
+  client : client list; [@default []] [@yojson_drop_default ( = )]
+  mfa : mfa list; [@default []] [@yojson_drop_default ( = )]
   monitoring : monitoring list;
+      [@default []] [@yojson_drop_default ( = )]
   multi_tenant : multi_tenant list;
-  quota : quota list;
-  sign_in : sign_in list;
+      [@default []] [@yojson_drop_default ( = )]
+  quota : quota list; [@default []] [@yojson_drop_default ( = )]
+  sign_in : sign_in list; [@default []] [@yojson_drop_default ( = )]
   sms_region_config : sms_region_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -879,46 +938,70 @@ let yojson_of_google_identity_platform_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sms_region_config
-             v_sms_region_config
-         in
-         ("sms_region_config", arg) :: bnds
+         if [] = v_sms_region_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sms_region_config)
+               v_sms_region_config
+           in
+           let bnd = "sms_region_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sign_in v_sign_in in
-         ("sign_in", arg) :: bnds
+         if [] = v_sign_in then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sign_in) v_sign_in in
+           let bnd = "sign_in", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_quota v_quota in
-         ("quota", arg) :: bnds
+         if [] = v_quota then bnds
+         else
+           let arg = (yojson_of_list yojson_of_quota) v_quota in
+           let bnd = "quota", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_multi_tenant v_multi_tenant
-         in
-         ("multi_tenant", arg) :: bnds
+         if [] = v_multi_tenant then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_multi_tenant) v_multi_tenant
+           in
+           let bnd = "multi_tenant", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitoring v_monitoring
-         in
-         ("monitoring", arg) :: bnds
+         if [] = v_monitoring then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitoring) v_monitoring
+           in
+           let bnd = "monitoring", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_mfa v_mfa in
-         ("mfa", arg) :: bnds
+         if [] = v_mfa then bnds
+         else
+           let arg = (yojson_of_list yojson_of_mfa) v_mfa in
+           let bnd = "mfa", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_client v_client in
-         ("client", arg) :: bnds
+         if [] = v_client then bnds
+         else
+           let arg = (yojson_of_list yojson_of_client) v_client in
+           let bnd = "client", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_blocking_functions
-             v_blocking_functions
-         in
-         ("blocking_functions", arg) :: bnds
+         if [] = v_blocking_functions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_blocking_functions)
+               v_blocking_functions
+           in
+           let bnd = "blocking_functions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

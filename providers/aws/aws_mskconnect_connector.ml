@@ -65,7 +65,9 @@ type capacity__autoscaling = {
   mcu_count : float prop option; [@option]
   min_worker_count : float prop;
   scale_in_policy : capacity__autoscaling__scale_in_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   scale_out_policy : capacity__autoscaling__scale_out_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -84,20 +86,26 @@ let yojson_of_capacity__autoscaling =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_capacity__autoscaling__scale_out_policy
-             v_scale_out_policy
-         in
-         ("scale_out_policy", arg) :: bnds
+         if [] = v_scale_out_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_capacity__autoscaling__scale_out_policy)
+               v_scale_out_policy
+           in
+           let bnd = "scale_out_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_capacity__autoscaling__scale_in_policy
-             v_scale_in_policy
-         in
-         ("scale_in_policy", arg) :: bnds
+         if [] = v_scale_in_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_capacity__autoscaling__scale_in_policy)
+               v_scale_in_policy
+           in
+           let bnd = "scale_in_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -162,7 +170,9 @@ let _ = yojson_of_capacity__provisioned_capacity
 
 type capacity = {
   autoscaling : capacity__autoscaling list;
+      [@default []] [@yojson_drop_default ( = )]
   provisioned_capacity : capacity__provisioned_capacity list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -178,18 +188,24 @@ let yojson_of_capacity =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_capacity__provisioned_capacity
-             v_provisioned_capacity
-         in
-         ("provisioned_capacity", arg) :: bnds
+         if [] = v_provisioned_capacity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_capacity__provisioned_capacity)
+               v_provisioned_capacity
+           in
+           let bnd = "provisioned_capacity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_capacity__autoscaling
-             v_autoscaling
-         in
-         ("autoscaling", arg) :: bnds
+         if [] = v_autoscaling then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_capacity__autoscaling)
+               v_autoscaling
+           in
+           let bnd = "autoscaling", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : capacity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -200,7 +216,9 @@ let _ = yojson_of_capacity
 
 type kafka_cluster__apache_kafka_cluster__vpc = {
   security_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -213,18 +231,24 @@ let yojson_of_kafka_cluster__apache_kafka_cluster__vpc =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
-         in
-         ("subnets", arg) :: bnds
+         if [] = v_subnets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnets
+           in
+           let bnd = "subnets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_groups
-         in
-         ("security_groups", arg) :: bnds
+         if [] = v_security_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_groups
+           in
+           let bnd = "security_groups", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : kafka_cluster__apache_kafka_cluster__vpc ->
@@ -237,6 +261,7 @@ let _ = yojson_of_kafka_cluster__apache_kafka_cluster__vpc
 type kafka_cluster__apache_kafka_cluster = {
   bootstrap_servers : string prop;
   vpc : kafka_cluster__apache_kafka_cluster__vpc list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -249,11 +274,15 @@ let yojson_of_kafka_cluster__apache_kafka_cluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_kafka_cluster__apache_kafka_cluster__vpc v_vpc
-         in
-         ("vpc", arg) :: bnds
+         if [] = v_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_kafka_cluster__apache_kafka_cluster__vpc)
+               v_vpc
+           in
+           let bnd = "vpc", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -271,6 +300,7 @@ let _ = yojson_of_kafka_cluster__apache_kafka_cluster
 
 type kafka_cluster = {
   apache_kafka_cluster : kafka_cluster__apache_kafka_cluster list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -283,12 +313,15 @@ let yojson_of_kafka_cluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_kafka_cluster__apache_kafka_cluster
-             v_apache_kafka_cluster
-         in
-         ("apache_kafka_cluster", arg) :: bnds
+         if [] = v_apache_kafka_cluster then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_kafka_cluster__apache_kafka_cluster)
+               v_apache_kafka_cluster
+           in
+           let bnd = "apache_kafka_cluster", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : kafka_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -470,8 +503,11 @@ let _ = yojson_of_log_delivery__worker_log_delivery__s3
 type log_delivery__worker_log_delivery = {
   cloudwatch_logs :
     log_delivery__worker_log_delivery__cloudwatch_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   firehose : log_delivery__worker_log_delivery__firehose list;
+      [@default []] [@yojson_drop_default ( = )]
   s3 : log_delivery__worker_log_delivery__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -488,27 +524,37 @@ let yojson_of_log_delivery__worker_log_delivery =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_log_delivery__worker_log_delivery__s3 v_s3
-         in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_log_delivery__worker_log_delivery__s3)
+               v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_log_delivery__worker_log_delivery__firehose
-             v_firehose
-         in
-         ("firehose", arg) :: bnds
+         if [] = v_firehose then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_log_delivery__worker_log_delivery__firehose)
+               v_firehose
+           in
+           let bnd = "firehose", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_log_delivery__worker_log_delivery__cloudwatch_logs
-             v_cloudwatch_logs
-         in
-         ("cloudwatch_logs", arg) :: bnds
+         if [] = v_cloudwatch_logs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_log_delivery__worker_log_delivery__cloudwatch_logs)
+               v_cloudwatch_logs
+           in
+           let bnd = "cloudwatch_logs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : log_delivery__worker_log_delivery ->
@@ -520,6 +566,7 @@ let _ = yojson_of_log_delivery__worker_log_delivery
 
 type log_delivery = {
   worker_log_delivery : log_delivery__worker_log_delivery list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -532,11 +579,15 @@ let yojson_of_log_delivery =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_delivery__worker_log_delivery
-             v_worker_log_delivery
-         in
-         ("worker_log_delivery", arg) :: bnds
+         if [] = v_worker_log_delivery then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_log_delivery__worker_log_delivery)
+               v_worker_log_delivery
+           in
+           let bnd = "worker_log_delivery", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : log_delivery -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -574,7 +625,10 @@ let _ = yojson_of_plugin__custom_plugin
 
 [@@@deriving.end]
 
-type plugin = { custom_plugin : plugin__custom_plugin list }
+type plugin = {
+  custom_plugin : plugin__custom_plugin list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : plugin) -> ()
@@ -586,11 +640,14 @@ let yojson_of_plugin =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_plugin__custom_plugin
-             v_custom_plugin
-         in
-         ("custom_plugin", arg) :: bnds
+         if [] = v_custom_plugin then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_plugin__custom_plugin)
+               v_custom_plugin
+           in
+           let bnd = "custom_plugin", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : plugin -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -682,15 +739,21 @@ type aws_mskconnect_connector = {
   name : string prop;
   service_execution_role_arn : string prop;
   capacity : capacity list;
+      [@default []] [@yojson_drop_default ( = )]
   kafka_cluster : kafka_cluster list;
+      [@default []] [@yojson_drop_default ( = )]
   kafka_cluster_client_authentication :
     kafka_cluster_client_authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   kafka_cluster_encryption_in_transit :
     kafka_cluster_encryption_in_transit list;
+      [@default []] [@yojson_drop_default ( = )]
   log_delivery : log_delivery list;
-  plugin : plugin list;
+      [@default []] [@yojson_drop_default ( = )]
+  plugin : plugin list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   worker_configuration : worker_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -720,51 +783,74 @@ let yojson_of_aws_mskconnect_connector =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_worker_configuration
-             v_worker_configuration
-         in
-         ("worker_configuration", arg) :: bnds
+         if [] = v_worker_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_worker_configuration)
+               v_worker_configuration
+           in
+           let bnd = "worker_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_plugin v_plugin in
-         ("plugin", arg) :: bnds
+         if [] = v_plugin then bnds
+         else
+           let arg = (yojson_of_list yojson_of_plugin) v_plugin in
+           let bnd = "plugin", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_delivery v_log_delivery
-         in
-         ("log_delivery", arg) :: bnds
+         if [] = v_log_delivery then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_delivery) v_log_delivery
+           in
+           let bnd = "log_delivery", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_kafka_cluster_encryption_in_transit
-             v_kafka_cluster_encryption_in_transit
-         in
-         ("kafka_cluster_encryption_in_transit", arg) :: bnds
+         if [] = v_kafka_cluster_encryption_in_transit then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_kafka_cluster_encryption_in_transit)
+               v_kafka_cluster_encryption_in_transit
+           in
+           let bnd = "kafka_cluster_encryption_in_transit", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_kafka_cluster_client_authentication
-             v_kafka_cluster_client_authentication
-         in
-         ("kafka_cluster_client_authentication", arg) :: bnds
+         if [] = v_kafka_cluster_client_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_kafka_cluster_client_authentication)
+               v_kafka_cluster_client_authentication
+           in
+           let bnd = "kafka_cluster_client_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kafka_cluster v_kafka_cluster
-         in
-         ("kafka_cluster", arg) :: bnds
+         if [] = v_kafka_cluster then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kafka_cluster) v_kafka_cluster
+           in
+           let bnd = "kafka_cluster", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_capacity v_capacity in
-         ("capacity", arg) :: bnds
+         if [] = v_capacity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_capacity) v_capacity
+           in
+           let bnd = "capacity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

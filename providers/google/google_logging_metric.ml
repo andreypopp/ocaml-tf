@@ -2,7 +2,9 @@
 
 open! Tf_core
 
-type bucket_options__explicit_buckets = { bounds : float prop list }
+type bucket_options__explicit_buckets = {
+  bounds : float prop list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : bucket_options__explicit_buckets) -> ()
@@ -14,10 +16,14 @@ let yojson_of_bucket_options__explicit_buckets =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_float) v_bounds
-         in
-         ("bounds", arg) :: bnds
+         if [] = v_bounds then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_bounds
+           in
+           let bnd = "bounds", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : bucket_options__explicit_buckets ->
@@ -111,8 +117,11 @@ let _ = yojson_of_bucket_options__linear_buckets
 
 type bucket_options = {
   explicit_buckets : bucket_options__explicit_buckets list;
+      [@default []] [@yojson_drop_default ( = )]
   exponential_buckets : bucket_options__exponential_buckets list;
+      [@default []] [@yojson_drop_default ( = )]
   linear_buckets : bucket_options__linear_buckets list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -129,26 +138,36 @@ let yojson_of_bucket_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bucket_options__linear_buckets
-             v_linear_buckets
-         in
-         ("linear_buckets", arg) :: bnds
+         if [] = v_linear_buckets then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bucket_options__linear_buckets)
+               v_linear_buckets
+           in
+           let bnd = "linear_buckets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_bucket_options__exponential_buckets
-             v_exponential_buckets
-         in
-         ("exponential_buckets", arg) :: bnds
+         if [] = v_exponential_buckets then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bucket_options__exponential_buckets)
+               v_exponential_buckets
+           in
+           let bnd = "exponential_buckets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bucket_options__explicit_buckets
-             v_explicit_buckets
-         in
-         ("explicit_buckets", arg) :: bnds
+         if [] = v_explicit_buckets then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bucket_options__explicit_buckets)
+               v_explicit_buckets
+           in
+           let bnd = "explicit_buckets", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : bucket_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -209,6 +228,7 @@ type metric_descriptor = {
   unit : string prop option; [@option]
   value_type : string prop;
   labels : metric_descriptor__labels list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -227,11 +247,14 @@ let yojson_of_metric_descriptor =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metric_descriptor__labels
-             v_labels
-         in
-         ("labels", arg) :: bnds
+         if [] = v_labels then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metric_descriptor__labels)
+               v_labels
+           in
+           let bnd = "labels", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_value_type in
@@ -321,7 +344,9 @@ type google_logging_metric = {
   project : string prop option; [@option]
   value_extractor : string prop option; [@option]
   bucket_options : bucket_options list;
+      [@default []] [@yojson_drop_default ( = )]
   metric_descriptor : metric_descriptor list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -352,17 +377,24 @@ let yojson_of_google_logging_metric =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metric_descriptor
-             v_metric_descriptor
-         in
-         ("metric_descriptor", arg) :: bnds
+         if [] = v_metric_descriptor then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metric_descriptor)
+               v_metric_descriptor
+           in
+           let bnd = "metric_descriptor", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bucket_options v_bucket_options
-         in
-         ("bucket_options", arg) :: bnds
+         if [] = v_bucket_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bucket_options)
+               v_bucket_options
+           in
+           let bnd = "bucket_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_value_extractor with

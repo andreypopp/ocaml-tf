@@ -53,6 +53,7 @@ type aws_iam_role = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   inline_policy : inline_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,10 +80,13 @@ let yojson_of_aws_iam_role =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inline_policy v_inline_policy
-         in
-         ("inline_policy", arg) :: bnds
+         if [] = v_inline_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_inline_policy) v_inline_policy
+           in
+           let bnd = "inline_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

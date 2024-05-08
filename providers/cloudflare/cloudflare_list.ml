@@ -110,7 +110,9 @@ type item__value = {
   asn : float prop option; [@option]
   ip : string prop option; [@option]
   hostname : item__value__hostname list;
+      [@default []] [@yojson_drop_default ( = )]
   redirect : item__value__redirect list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,16 +130,24 @@ let yojson_of_item__value =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_item__value__redirect v_redirect
-         in
-         ("redirect", arg) :: bnds
+         if [] = v_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_item__value__redirect)
+               v_redirect
+           in
+           let bnd = "redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_item__value__hostname v_hostname
-         in
-         ("hostname", arg) :: bnds
+         if [] = v_hostname then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_item__value__hostname)
+               v_hostname
+           in
+           let bnd = "hostname", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_ip with
@@ -164,7 +174,7 @@ let _ = yojson_of_item__value
 
 type item = {
   comment : string prop option; [@option]
-  value : item__value list;
+  value : item__value list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -177,8 +187,13 @@ let yojson_of_item =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_item__value v_value in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_item__value) v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_comment with
@@ -201,7 +216,7 @@ type cloudflare_list = {
   id : string prop option; [@option]
   kind : string prop;
   name : string prop;
-  item : item list;
+  item : item list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -221,8 +236,11 @@ let yojson_of_cloudflare_list =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_item v_item in
-         ("item", arg) :: bnds
+         if [] = v_item then bnds
+         else
+           let arg = (yojson_of_list yojson_of_item) v_item in
+           let bnd = "item", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

@@ -56,6 +56,7 @@ type criteria__dimension = {
   name : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -68,10 +69,14 @@ let yojson_of_criteria__dimension =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -135,7 +140,9 @@ type criteria = {
   threshold : float prop;
   time_aggregation_method : string prop;
   dimension : criteria__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   failing_periods : criteria__failing_periods list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -157,17 +164,24 @@ let yojson_of_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_criteria__failing_periods
-             v_failing_periods
-         in
-         ("failing_periods", arg) :: bnds
+         if [] = v_failing_periods then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria__failing_periods)
+               v_failing_periods
+           in
+           let bnd = "failing_periods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_criteria__dimension v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -283,14 +297,16 @@ type azurerm_monitor_scheduled_query_rules_alert_v2 = {
   query_time_range_override : string prop option; [@option]
   resource_group_name : string prop;
   scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   severity : float prop;
   skip_query_validation : bool prop option; [@option]
   tags : (string * string prop) list option; [@option]
   target_resource_types : string prop list option; [@option]
   window_duration : string prop;
   workspace_alerts_storage_enabled : bool prop option; [@option]
-  action : action list;
+  action : action list; [@default []] [@yojson_drop_default ( = )]
   criteria : criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -333,12 +349,20 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2 =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_criteria v_criteria in
-         ("criteria", arg) :: bnds
+         if [] = v_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria) v_criteria
+           in
+           let bnd = "criteria", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg = (yojson_of_list yojson_of_action) v_action in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_workspace_alerts_storage_enabled with
@@ -393,10 +417,14 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_alert_v2 =
          ("severity", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
-         in
-         ("scopes", arg) :: bnds
+         if [] = v_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scopes
+           in
+           let bnd = "scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

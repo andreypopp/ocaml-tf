@@ -34,6 +34,7 @@ type spec__grpc_route__action__target = {
   port : float prop option; [@option]
   virtual_service :
     spec__grpc_route__action__target__virtual_service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,12 +47,15 @@ let yojson_of_spec__grpc_route__action__target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__grpc_route__action__target__virtual_service
-             v_virtual_service
-         in
-         ("virtual_service", arg) :: bnds
+         if [] = v_virtual_service then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__grpc_route__action__target__virtual_service)
+               v_virtual_service
+           in
+           let bnd = "virtual_service", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_port with
@@ -71,6 +75,7 @@ let _ = yojson_of_spec__grpc_route__action__target
 
 type spec__grpc_route__action = {
   target : spec__grpc_route__action__target list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -83,11 +88,15 @@ let yojson_of_spec__grpc_route__action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__grpc_route__action__target
-             v_target
-         in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__grpc_route__action__target)
+               v_target
+           in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__grpc_route__action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -131,7 +140,9 @@ let _ = yojson_of_spec__grpc_route__match
 
 type spec__grpc_route = {
   action : spec__grpc_route__action list;
-  match_ : spec__grpc_route__match list; [@key "match"]
+      [@default []] [@yojson_drop_default ( = )]
+  match_ : spec__grpc_route__match list;
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,16 +155,24 @@ let yojson_of_spec__grpc_route =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__grpc_route__match v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__grpc_route__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__grpc_route__action v_action
-         in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__grpc_route__action)
+               v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__grpc_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -254,8 +273,11 @@ let _ = yojson_of_spec__http2_route__action__rewrite__prefix
 
 type spec__http2_route__action__rewrite = {
   hostname : spec__http2_route__action__rewrite__hostname list;
+      [@default []] [@yojson_drop_default ( = )]
   path : spec__http2_route__action__rewrite__path list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix : spec__http2_route__action__rewrite__prefix list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -268,28 +290,37 @@ let yojson_of_spec__http2_route__action__rewrite =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http2_route__action__rewrite__prefix
-             v_prefix
-         in
-         ("prefix", arg) :: bnds
+         if [] = v_prefix then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__action__rewrite__prefix)
+               v_prefix
+           in
+           let bnd = "prefix", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http2_route__action__rewrite__path
-             v_path
-         in
-         ("path", arg) :: bnds
+         if [] = v_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__action__rewrite__path)
+               v_path
+           in
+           let bnd = "path", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http2_route__action__rewrite__hostname
-             v_hostname
-         in
-         ("hostname", arg) :: bnds
+         if [] = v_hostname then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__action__rewrite__hostname)
+               v_hostname
+           in
+           let bnd = "hostname", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__http2_route__action__rewrite ->
@@ -331,6 +362,7 @@ type spec__http2_route__action__target = {
   port : float prop option; [@option]
   virtual_service :
     spec__http2_route__action__target__virtual_service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -343,12 +375,15 @@ let yojson_of_spec__http2_route__action__target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http2_route__action__target__virtual_service
-             v_virtual_service
-         in
-         ("virtual_service", arg) :: bnds
+         if [] = v_virtual_service then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__action__target__virtual_service)
+               v_virtual_service
+           in
+           let bnd = "virtual_service", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_port with
@@ -368,7 +403,9 @@ let _ = yojson_of_spec__http2_route__action__target
 
 type spec__http2_route__action = {
   rewrite : spec__http2_route__action__rewrite list;
+      [@default []] [@yojson_drop_default ( = )]
   target : spec__http2_route__action__target list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -381,18 +418,26 @@ let yojson_of_spec__http2_route__action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http2_route__action__target
-             v_target
-         in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__action__target)
+               v_target
+           in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http2_route__action__rewrite v_rewrite
-         in
-         ("rewrite", arg) :: bnds
+         if [] = v_rewrite then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__action__rewrite)
+               v_rewrite
+           in
+           let bnd = "rewrite", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__http2_route__action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -438,6 +483,7 @@ type spec__http2_route__match__header__match = {
   regex : string prop option; [@option]
   suffix : string prop option; [@option]
   range : spec__http2_route__match__header__match__range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -456,12 +502,15 @@ let yojson_of_spec__http2_route__match__header__match =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http2_route__match__header__match__range
-             v_range
-         in
-         ("range", arg) :: bnds
+         if [] = v_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__match__header__match__range)
+               v_range
+           in
+           let bnd = "range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_suffix with
@@ -507,7 +556,7 @@ type spec__http2_route__match__header = {
   invert : bool prop option; [@option]
   name : string prop;
   match_ : spec__http2_route__match__header__match list;
-      [@key "match"]
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -520,12 +569,15 @@ let yojson_of_spec__http2_route__match__header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http2_route__match__header__match
-             v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__match__header__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -656,7 +708,7 @@ let _ = yojson_of_spec__http2_route__match__query_parameter__match
 type spec__http2_route__match__query_parameter = {
   name : string prop;
   match_ : spec__http2_route__match__query_parameter__match list;
-      [@key "match"]
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -669,12 +721,15 @@ let yojson_of_spec__http2_route__match__query_parameter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http2_route__match__query_parameter__match
-             v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__match__query_parameter__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -692,9 +747,13 @@ type spec__http2_route__match = {
   port : float prop option; [@option]
   prefix : string prop option; [@option]
   header : spec__http2_route__match__header list;
+      [@default []] [@yojson_drop_default ( = )]
   hostname : spec__http2_route__match__hostname list;
+      [@default []] [@yojson_drop_default ( = )]
   path : spec__http2_route__match__path list;
+      [@default []] [@yojson_drop_default ( = )]
   query_parameter : spec__http2_route__match__query_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -714,33 +773,47 @@ let yojson_of_spec__http2_route__match =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http2_route__match__query_parameter
-             v_query_parameter
-         in
-         ("query_parameter", arg) :: bnds
+         if [] = v_query_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__match__query_parameter)
+               v_query_parameter
+           in
+           let bnd = "query_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http2_route__match__path
-             v_path
-         in
-         ("path", arg) :: bnds
+         if [] = v_path then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__http2_route__match__path)
+               v_path
+           in
+           let bnd = "path", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http2_route__match__hostname v_hostname
-         in
-         ("hostname", arg) :: bnds
+         if [] = v_hostname then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__match__hostname)
+               v_hostname
+           in
+           let bnd = "hostname", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http2_route__match__header
-             v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http2_route__match__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_prefix with
@@ -767,7 +840,9 @@ let _ = yojson_of_spec__http2_route__match
 
 type spec__http2_route = {
   action : spec__http2_route__action list;
-  match_ : spec__http2_route__match list; [@key "match"]
+      [@default []] [@yojson_drop_default ( = )]
+  match_ : spec__http2_route__match list;
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -780,17 +855,24 @@ let yojson_of_spec__http2_route =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http2_route__match v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__http2_route__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http2_route__action
-             v_action
-         in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__http2_route__action)
+               v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__http2_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -891,8 +973,11 @@ let _ = yojson_of_spec__http_route__action__rewrite__prefix
 
 type spec__http_route__action__rewrite = {
   hostname : spec__http_route__action__rewrite__hostname list;
+      [@default []] [@yojson_drop_default ( = )]
   path : spec__http_route__action__rewrite__path list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix : spec__http_route__action__rewrite__prefix list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -905,27 +990,37 @@ let yojson_of_spec__http_route__action__rewrite =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http_route__action__rewrite__prefix
-             v_prefix
-         in
-         ("prefix", arg) :: bnds
+         if [] = v_prefix then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__action__rewrite__prefix)
+               v_prefix
+           in
+           let bnd = "prefix", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http_route__action__rewrite__path v_path
-         in
-         ("path", arg) :: bnds
+         if [] = v_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__action__rewrite__path)
+               v_path
+           in
+           let bnd = "path", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http_route__action__rewrite__hostname
-             v_hostname
-         in
-         ("hostname", arg) :: bnds
+         if [] = v_hostname then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__action__rewrite__hostname)
+               v_hostname
+           in
+           let bnd = "hostname", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__http_route__action__rewrite ->
@@ -967,6 +1062,7 @@ type spec__http_route__action__target = {
   port : float prop option; [@option]
   virtual_service :
     spec__http_route__action__target__virtual_service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -979,12 +1075,15 @@ let yojson_of_spec__http_route__action__target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http_route__action__target__virtual_service
-             v_virtual_service
-         in
-         ("virtual_service", arg) :: bnds
+         if [] = v_virtual_service then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__action__target__virtual_service)
+               v_virtual_service
+           in
+           let bnd = "virtual_service", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_port with
@@ -1004,7 +1103,9 @@ let _ = yojson_of_spec__http_route__action__target
 
 type spec__http_route__action = {
   rewrite : spec__http_route__action__rewrite list;
+      [@default []] [@yojson_drop_default ( = )]
   target : spec__http_route__action__target list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1017,18 +1118,26 @@ let yojson_of_spec__http_route__action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http_route__action__target
-             v_target
-         in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__action__target)
+               v_target
+           in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http_route__action__rewrite
-             v_rewrite
-         in
-         ("rewrite", arg) :: bnds
+         if [] = v_rewrite then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__action__rewrite)
+               v_rewrite
+           in
+           let bnd = "rewrite", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__http_route__action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1073,6 +1182,7 @@ type spec__http_route__match__header__match = {
   regex : string prop option; [@option]
   suffix : string prop option; [@option]
   range : spec__http_route__match__header__match__range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1091,12 +1201,15 @@ let yojson_of_spec__http_route__match__header__match =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http_route__match__header__match__range
-             v_range
-         in
-         ("range", arg) :: bnds
+         if [] = v_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__match__header__match__range)
+               v_range
+           in
+           let bnd = "range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_suffix with
@@ -1141,7 +1254,8 @@ let _ = yojson_of_spec__http_route__match__header__match
 type spec__http_route__match__header = {
   invert : bool prop option; [@option]
   name : string prop;
-  match_ : spec__http_route__match__header__match list; [@key "match"]
+  match_ : spec__http_route__match__header__match list;
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1154,12 +1268,15 @@ let yojson_of_spec__http_route__match__header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http_route__match__header__match
-             v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__match__header__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1290,7 +1407,7 @@ let _ = yojson_of_spec__http_route__match__query_parameter__match
 type spec__http_route__match__query_parameter = {
   name : string prop;
   match_ : spec__http_route__match__query_parameter__match list;
-      [@key "match"]
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1303,12 +1420,15 @@ let yojson_of_spec__http_route__match__query_parameter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http_route__match__query_parameter__match
-             v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__match__query_parameter__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1326,9 +1446,13 @@ type spec__http_route__match = {
   port : float prop option; [@option]
   prefix : string prop option; [@option]
   header : spec__http_route__match__header list;
+      [@default []] [@yojson_drop_default ( = )]
   hostname : spec__http_route__match__hostname list;
+      [@default []] [@yojson_drop_default ( = )]
   path : spec__http_route__match__path list;
+      [@default []] [@yojson_drop_default ( = )]
   query_parameter : spec__http_route__match__query_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1348,33 +1472,47 @@ let yojson_of_spec__http_route__match =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__http_route__match__query_parameter
-             v_query_parameter
-         in
-         ("query_parameter", arg) :: bnds
+         if [] = v_query_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__match__query_parameter)
+               v_query_parameter
+           in
+           let bnd = "query_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http_route__match__path
-             v_path
-         in
-         ("path", arg) :: bnds
+         if [] = v_path then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__http_route__match__path)
+               v_path
+           in
+           let bnd = "path", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http_route__match__hostname
-             v_hostname
-         in
-         ("hostname", arg) :: bnds
+         if [] = v_hostname then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__match__hostname)
+               v_hostname
+           in
+           let bnd = "hostname", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http_route__match__header
-             v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__http_route__match__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_prefix with
@@ -1401,7 +1539,9 @@ let _ = yojson_of_spec__http_route__match
 
 type spec__http_route = {
   action : spec__http_route__action list;
-  match_ : spec__http_route__match list; [@key "match"]
+      [@default []] [@yojson_drop_default ( = )]
+  match_ : spec__http_route__match list;
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1414,16 +1554,24 @@ let yojson_of_spec__http_route =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http_route__match v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__http_route__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http_route__action v_action
-         in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__http_route__action)
+               v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__http_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1435,8 +1583,11 @@ let _ = yojson_of_spec__http_route
 type spec = {
   priority : float prop option; [@option]
   grpc_route : spec__grpc_route list;
+      [@default []] [@yojson_drop_default ( = )]
   http2_route : spec__http2_route list;
+      [@default []] [@yojson_drop_default ( = )]
   http_route : spec__http_route list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1454,22 +1605,32 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http_route v_http_route
-         in
-         ("http_route", arg) :: bnds
+         if [] = v_http_route then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__http_route) v_http_route
+           in
+           let bnd = "http_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__http2_route v_http2_route
-         in
-         ("http2_route", arg) :: bnds
+         if [] = v_http2_route then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__http2_route)
+               v_http2_route
+           in
+           let bnd = "http2_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__grpc_route v_grpc_route
-         in
-         ("grpc_route", arg) :: bnds
+         if [] = v_grpc_route then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__grpc_route) v_grpc_route
+           in
+           let bnd = "grpc_route", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_priority with
@@ -1494,7 +1655,7 @@ type aws_appmesh_gateway_route = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   virtual_gateway_name : string prop;
-  spec : spec list;
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1516,8 +1677,11 @@ let yojson_of_aws_appmesh_gateway_route =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

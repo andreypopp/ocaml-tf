@@ -6,7 +6,13 @@ open! Tf_core
 
 type certificate_authority = { data : string prop  (** data *) }
 type identity__oidc = { issuer : string prop  (** issuer *) }
-type identity = { oidc : identity__oidc list  (** oidc *) }
+
+type identity = {
+  oidc : identity__oidc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** oidc *)
+}
+
 type access_config
 
 val access_config :

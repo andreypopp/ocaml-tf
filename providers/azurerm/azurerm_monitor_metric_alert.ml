@@ -98,6 +98,7 @@ type criteria__dimension = {
   name : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,10 +111,14 @@ let yojson_of_criteria__dimension =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -138,6 +143,7 @@ type criteria = {
   skip_metric_validation : bool prop option; [@option]
   threshold : float prop;
   dimension : criteria__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -158,10 +164,14 @@ let yojson_of_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_criteria__dimension v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_threshold in
@@ -204,6 +214,7 @@ type dynamic_criteria__dimension = {
   name : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -216,10 +227,14 @@ let yojson_of_dynamic_criteria__dimension =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -248,6 +263,7 @@ type dynamic_criteria = {
   operator : string prop;
   skip_metric_validation : bool prop option; [@option]
   dimension : dynamic_criteria__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -271,11 +287,14 @@ let yojson_of_dynamic_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dynamic_criteria__dimension
-             v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dynamic_criteria__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_skip_metric_validation with
@@ -409,16 +428,20 @@ type azurerm_monitor_metric_alert = {
   name : string prop;
   resource_group_name : string prop;
   scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   severity : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   target_resource_location : string prop option; [@option]
   target_resource_type : string prop option; [@option]
   window_size : string prop option; [@option]
-  action : action list;
+  action : action list; [@default []] [@yojson_drop_default ( = )]
   application_insights_web_test_location_availability_criteria :
     application_insights_web_test_location_availability_criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   criteria : criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   dynamic_criteria : dynamic_criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -456,29 +479,47 @@ let yojson_of_azurerm_monitor_metric_alert =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dynamic_criteria
-             v_dynamic_criteria
-         in
-         ("dynamic_criteria", arg) :: bnds
+         if [] = v_dynamic_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dynamic_criteria)
+               v_dynamic_criteria
+           in
+           let bnd = "dynamic_criteria", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_criteria v_criteria in
-         ("criteria", arg) :: bnds
+         if [] = v_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria) v_criteria
+           in
+           let bnd = "criteria", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_insights_web_test_location_availability_criteria
-             v_application_insights_web_test_location_availability_criteria
-         in
-         ( "application_insights_web_test_location_availability_criteria",
-           arg )
-         :: bnds
+         if
+           []
+           = v_application_insights_web_test_location_availability_criteria
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_insights_web_test_location_availability_criteria)
+               v_application_insights_web_test_location_availability_criteria
+           in
+           let bnd =
+             ( "application_insights_web_test_location_availability_criteria",
+               arg )
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg = (yojson_of_list yojson_of_action) v_action in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_window_size with
@@ -529,10 +570,14 @@ let yojson_of_azurerm_monitor_metric_alert =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
-         in
-         ("scopes", arg) :: bnds
+         if [] = v_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scopes
+           in
+           let bnd = "scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

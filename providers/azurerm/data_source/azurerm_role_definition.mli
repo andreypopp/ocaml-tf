@@ -5,12 +5,20 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type permissions = {
-  actions : string prop list;  (** actions *)
+  actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** actions *)
   condition : string prop;  (** condition *)
   condition_version : string prop;  (** condition_version *)
-  data_actions : string prop list;  (** data_actions *)
-  not_actions : string prop list;  (** not_actions *)
-  not_data_actions : string prop list;  (** not_data_actions *)
+  data_actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** data_actions *)
+  not_actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** not_actions *)
+  not_data_actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** not_data_actions *)
 }
 
 type timeouts

@@ -84,6 +84,7 @@ type aws_glue_partition_index = {
   id : string prop option; [@option]
   table_name : string prop;
   partition_index : partition_index list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -108,10 +109,14 @@ let yojson_of_aws_glue_partition_index =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_partition_index v_partition_index
-         in
-         ("partition_index", arg) :: bnds
+         if [] = v_partition_index then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_partition_index)
+               v_partition_index
+           in
+           let bnd = "partition_index", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_table_name in

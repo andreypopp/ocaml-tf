@@ -7,6 +7,7 @@ open! Tf_core
 type image_versions = {
   image_version_id : string prop;  (** image_version_id *)
   supported_python_versions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** supported_python_versions *)
 }
 

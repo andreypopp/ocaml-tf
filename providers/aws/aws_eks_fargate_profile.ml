@@ -89,6 +89,7 @@ type aws_eks_fargate_profile = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   selector : selector list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -116,8 +117,13 @@ let yojson_of_aws_eks_fargate_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_selector v_selector in
-         ("selector", arg) :: bnds
+         if [] = v_selector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_selector) v_selector
+           in
+           let bnd = "selector", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

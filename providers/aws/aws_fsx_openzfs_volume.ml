@@ -5,6 +5,7 @@ open! Tf_core
 type nfs_exports__client_configurations = {
   clients : string prop;
   options : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,10 +18,14 @@ let yojson_of_nfs_exports__client_configurations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_options
-         in
-         ("options", arg) :: bnds
+         if [] = v_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_options
+           in
+           let bnd = "options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_clients in
@@ -36,6 +41,7 @@ let _ = yojson_of_nfs_exports__client_configurations
 
 type nfs_exports = {
   client_configurations : nfs_exports__client_configurations list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,12 +54,15 @@ let yojson_of_nfs_exports =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_nfs_exports__client_configurations
-             v_client_configurations
-         in
-         ("client_configurations", arg) :: bnds
+         if [] = v_client_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_nfs_exports__client_configurations)
+               v_client_configurations
+           in
+           let bnd = "client_configurations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : nfs_exports -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -196,9 +205,12 @@ type aws_fsx_openzfs_volume = {
   tags_all : (string * string prop) list option; [@option]
   volume_type : string prop option; [@option]
   nfs_exports : nfs_exports list;
+      [@default []] [@yojson_drop_default ( = )]
   origin_snapshot : origin_snapshot list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   user_and_group_quotas : user_and_group_quotas list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -230,27 +242,37 @@ let yojson_of_aws_fsx_openzfs_volume =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_user_and_group_quotas
-             v_user_and_group_quotas
-         in
-         ("user_and_group_quotas", arg) :: bnds
+         if [] = v_user_and_group_quotas then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_user_and_group_quotas)
+               v_user_and_group_quotas
+           in
+           let bnd = "user_and_group_quotas", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_origin_snapshot v_origin_snapshot
-         in
-         ("origin_snapshot", arg) :: bnds
+         if [] = v_origin_snapshot then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_origin_snapshot)
+               v_origin_snapshot
+           in
+           let bnd = "origin_snapshot", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_nfs_exports v_nfs_exports
-         in
-         ("nfs_exports", arg) :: bnds
+         if [] = v_nfs_exports then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_nfs_exports) v_nfs_exports
+           in
+           let bnd = "nfs_exports", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_volume_type with

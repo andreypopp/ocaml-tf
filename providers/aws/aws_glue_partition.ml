@@ -210,9 +210,13 @@ type storage_descriptor = {
   parameters : (string * string prop) list option; [@option]
   stored_as_sub_directories : bool prop option; [@option]
   columns : storage_descriptor__columns list;
+      [@default []] [@yojson_drop_default ( = )]
   ser_de_info : storage_descriptor__ser_de_info list;
+      [@default []] [@yojson_drop_default ( = )]
   skewed_info : storage_descriptor__skewed_info list;
+      [@default []] [@yojson_drop_default ( = )]
   sort_columns : storage_descriptor__sort_columns list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -238,32 +242,47 @@ let yojson_of_storage_descriptor =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_descriptor__sort_columns
-             v_sort_columns
-         in
-         ("sort_columns", arg) :: bnds
+         if [] = v_sort_columns then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_descriptor__sort_columns)
+               v_sort_columns
+           in
+           let bnd = "sort_columns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_descriptor__skewed_info
-             v_skewed_info
-         in
-         ("skewed_info", arg) :: bnds
+         if [] = v_skewed_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_descriptor__skewed_info)
+               v_skewed_info
+           in
+           let bnd = "skewed_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_descriptor__ser_de_info
-             v_ser_de_info
-         in
-         ("ser_de_info", arg) :: bnds
+         if [] = v_ser_de_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_descriptor__ser_de_info)
+               v_ser_de_info
+           in
+           let bnd = "ser_de_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_descriptor__columns
-             v_columns
-         in
-         ("columns", arg) :: bnds
+         if [] = v_columns then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_descriptor__columns)
+               v_columns
+           in
+           let bnd = "columns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_stored_as_sub_directories with
@@ -352,8 +371,10 @@ type aws_glue_partition = {
   id : string prop option; [@option]
   parameters : (string * string prop) list option; [@option]
   partition_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   table_name : string prop;
   storage_descriptor : storage_descriptor list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -374,23 +395,28 @@ let yojson_of_aws_glue_partition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_descriptor
-             v_storage_descriptor
-         in
-         ("storage_descriptor", arg) :: bnds
+         if [] = v_storage_descriptor then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_descriptor)
+               v_storage_descriptor
+           in
+           let bnd = "storage_descriptor", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_table_name in
          ("table_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_partition_values
-         in
-         ("partition_values", arg) :: bnds
+         if [] = v_partition_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_partition_values
+           in
+           let bnd = "partition_values", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_parameters with

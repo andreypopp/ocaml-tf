@@ -93,6 +93,7 @@ type aws_config_organization_conformance_pack = {
   template_body : string prop option; [@option]
   template_s3_uri : string prop option; [@option]
   input_parameter : input_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -120,10 +121,14 @@ let yojson_of_aws_config_organization_conformance_pack =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_input_parameter v_input_parameter
-         in
-         ("input_parameter", arg) :: bnds
+         if [] = v_input_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_input_parameter)
+               v_input_parameter
+           in
+           let bnd = "input_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_template_s3_uri with

@@ -10,6 +10,7 @@ type resources__autoscaling_groups = {
 
 type resources = {
   autoscaling_groups : resources__autoscaling_groups list;
+      [@default []] [@yojson_drop_default ( = )]
       (** autoscaling_groups *)
   remote_access_security_group_id : string prop;
       (** remote_access_security_group_id *)

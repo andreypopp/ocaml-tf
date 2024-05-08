@@ -47,6 +47,7 @@ type aws_xray_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   insights_configuration : insights_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,11 +67,14 @@ let yojson_of_aws_xray_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_insights_configuration
-             v_insights_configuration
-         in
-         ("insights_configuration", arg) :: bnds
+         if [] = v_insights_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_insights_configuration)
+               v_insights_configuration
+           in
+           let bnd = "insights_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

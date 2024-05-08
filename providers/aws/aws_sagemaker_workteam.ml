@@ -43,6 +43,7 @@ let _ = yojson_of_member_definition__cognito_member_definition
 
 type member_definition__oidc_member_definition = {
   groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,10 +56,14 @@ let yojson_of_member_definition__oidc_member_definition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_groups
-         in
-         ("groups", arg) :: bnds
+         if [] = v_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_groups
+           in
+           let bnd = "groups", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : member_definition__oidc_member_definition ->
@@ -71,8 +76,10 @@ let _ = yojson_of_member_definition__oidc_member_definition
 type member_definition = {
   cognito_member_definition :
     member_definition__cognito_member_definition list;
+      [@default []] [@yojson_drop_default ( = )]
   oidc_member_definition :
     member_definition__oidc_member_definition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,20 +95,26 @@ let yojson_of_member_definition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_member_definition__oidc_member_definition
-             v_oidc_member_definition
-         in
-         ("oidc_member_definition", arg) :: bnds
+         if [] = v_oidc_member_definition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_member_definition__oidc_member_definition)
+               v_oidc_member_definition
+           in
+           let bnd = "oidc_member_definition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_member_definition__cognito_member_definition
-             v_cognito_member_definition
-         in
-         ("cognito_member_definition", arg) :: bnds
+         if [] = v_cognito_member_definition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_member_definition__cognito_member_definition)
+               v_cognito_member_definition
+           in
+           let bnd = "cognito_member_definition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : member_definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -146,7 +159,9 @@ type aws_sagemaker_workteam = {
   workforce_name : string prop;
   workteam_name : string prop;
   member_definition : member_definition list;
+      [@default []] [@yojson_drop_default ( = )]
   notification_configuration : notification_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,18 +183,24 @@ let yojson_of_aws_sagemaker_workteam =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification_configuration
-             v_notification_configuration
-         in
-         ("notification_configuration", arg) :: bnds
+         if [] = v_notification_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification_configuration)
+               v_notification_configuration
+           in
+           let bnd = "notification_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_member_definition
-             v_member_definition
-         in
-         ("member_definition", arg) :: bnds
+         if [] = v_member_definition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_member_definition)
+               v_member_definition
+           in
+           let bnd = "member_definition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_workteam_name in

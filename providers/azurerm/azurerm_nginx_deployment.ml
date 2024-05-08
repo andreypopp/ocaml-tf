@@ -239,10 +239,15 @@ type azurerm_nginx_deployment = {
   sku : string prop;
   tags : (string * string prop) list option; [@option]
   frontend_private : frontend_private list;
+      [@default []] [@yojson_drop_default ( = )]
   frontend_public : frontend_public list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   logging_storage_account : logging_storage_account list;
+      [@default []] [@yojson_drop_default ( = )]
   network_interface : network_interface list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -278,35 +283,53 @@ let yojson_of_azurerm_nginx_deployment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_interface
-             v_network_interface
-         in
-         ("network_interface", arg) :: bnds
+         if [] = v_network_interface then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_interface)
+               v_network_interface
+           in
+           let bnd = "network_interface", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging_storage_account
-             v_logging_storage_account
-         in
-         ("logging_storage_account", arg) :: bnds
+         if [] = v_logging_storage_account then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging_storage_account)
+               v_logging_storage_account
+           in
+           let bnd = "logging_storage_account", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_frontend_public v_frontend_public
-         in
-         ("frontend_public", arg) :: bnds
+         if [] = v_frontend_public then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_frontend_public)
+               v_frontend_public
+           in
+           let bnd = "frontend_public", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_frontend_private
-             v_frontend_private
-         in
-         ("frontend_private", arg) :: bnds
+         if [] = v_frontend_private then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_frontend_private)
+               v_frontend_private
+           in
+           let bnd = "frontend_private", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

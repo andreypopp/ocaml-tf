@@ -39,6 +39,7 @@ let _ = yojson_of_portal_options__sign_in_options
 type portal_options = {
   visibility : string prop option; [@option]
   sign_in_options : portal_options__sign_in_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,11 +55,15 @@ let yojson_of_portal_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_portal_options__sign_in_options
-             v_sign_in_options
-         in
-         ("sign_in_options", arg) :: bnds
+         if [] = v_sign_in_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_portal_options__sign_in_options)
+               v_sign_in_options
+           in
+           let bnd = "sign_in_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_visibility with
@@ -84,6 +89,7 @@ type aws_ssoadmin_application = {
   status : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   portal_options : portal_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -105,10 +111,14 @@ let yojson_of_aws_ssoadmin_application =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_portal_options v_portal_options
-         in
-         ("portal_options", arg) :: bnds
+         if [] = v_portal_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_portal_options)
+               v_portal_options
+           in
+           let bnd = "portal_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

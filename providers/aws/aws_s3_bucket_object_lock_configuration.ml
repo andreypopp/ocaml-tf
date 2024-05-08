@@ -48,7 +48,10 @@ let _ = yojson_of_rule__default_retention
 
 [@@@deriving.end]
 
-type rule = { default_retention : rule__default_retention list }
+type rule = {
+  default_retention : rule__default_retention list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : rule) -> ()
@@ -60,11 +63,14 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__default_retention
-             v_default_retention
-         in
-         ("default_retention", arg) :: bnds
+         if [] = v_default_retention then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__default_retention)
+               v_default_retention
+           in
+           let bnd = "default_retention", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -79,7 +85,7 @@ type aws_s3_bucket_object_lock_configuration = {
   id : string prop option; [@option]
   object_lock_enabled : string prop option; [@option]
   token : string prop option; [@option]
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -99,8 +105,11 @@ let yojson_of_aws_s3_bucket_object_lock_configuration =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_token with

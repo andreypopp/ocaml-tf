@@ -45,6 +45,7 @@ let _ =
 type restrictions__android_key_restrictions = {
   allowed_applications :
     restrictions__android_key_restrictions__allowed_applications list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,12 +58,15 @@ let yojson_of_restrictions__android_key_restrictions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restrictions__android_key_restrictions__allowed_applications
-             v_allowed_applications
-         in
-         ("allowed_applications", arg) :: bnds
+         if [] = v_allowed_applications then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restrictions__android_key_restrictions__allowed_applications)
+               v_allowed_applications
+           in
+           let bnd = "allowed_applications", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : restrictions__android_key_restrictions ->
@@ -109,6 +113,7 @@ let _ = yojson_of_restrictions__api_targets
 
 type restrictions__browser_key_restrictions = {
   allowed_referrers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,12 +126,14 @@ let yojson_of_restrictions__browser_key_restrictions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_referrers
-         in
-         ("allowed_referrers", arg) :: bnds
+         if [] = v_allowed_referrers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_referrers
+           in
+           let bnd = "allowed_referrers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : restrictions__browser_key_restrictions ->
@@ -138,6 +145,7 @@ let _ = yojson_of_restrictions__browser_key_restrictions
 
 type restrictions__ios_key_restrictions = {
   allowed_bundle_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,12 +158,14 @@ let yojson_of_restrictions__ios_key_restrictions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_bundle_ids
-         in
-         ("allowed_bundle_ids", arg) :: bnds
+         if [] = v_allowed_bundle_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_bundle_ids
+           in
+           let bnd = "allowed_bundle_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : restrictions__ios_key_restrictions ->
@@ -167,6 +177,7 @@ let _ = yojson_of_restrictions__ios_key_restrictions
 
 type restrictions__server_key_restrictions = {
   allowed_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -179,12 +190,14 @@ let yojson_of_restrictions__server_key_restrictions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_ips
-         in
-         ("allowed_ips", arg) :: bnds
+         if [] = v_allowed_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_ips
+           in
+           let bnd = "allowed_ips", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : restrictions__server_key_restrictions ->
@@ -197,12 +210,17 @@ let _ = yojson_of_restrictions__server_key_restrictions
 type restrictions = {
   android_key_restrictions :
     restrictions__android_key_restrictions list;
+      [@default []] [@yojson_drop_default ( = )]
   api_targets : restrictions__api_targets list;
+      [@default []] [@yojson_drop_default ( = )]
   browser_key_restrictions :
     restrictions__browser_key_restrictions list;
+      [@default []] [@yojson_drop_default ( = )]
   ios_key_restrictions : restrictions__ios_key_restrictions list;
+      [@default []] [@yojson_drop_default ( = )]
   server_key_restrictions :
     restrictions__server_key_restrictions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -221,43 +239,58 @@ let yojson_of_restrictions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restrictions__server_key_restrictions
-             v_server_key_restrictions
-         in
-         ("server_key_restrictions", arg) :: bnds
+         if [] = v_server_key_restrictions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restrictions__server_key_restrictions)
+               v_server_key_restrictions
+           in
+           let bnd = "server_key_restrictions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restrictions__ios_key_restrictions
-             v_ios_key_restrictions
-         in
-         ("ios_key_restrictions", arg) :: bnds
+         if [] = v_ios_key_restrictions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restrictions__ios_key_restrictions)
+               v_ios_key_restrictions
+           in
+           let bnd = "ios_key_restrictions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restrictions__browser_key_restrictions
-             v_browser_key_restrictions
-         in
-         ("browser_key_restrictions", arg) :: bnds
+         if [] = v_browser_key_restrictions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restrictions__browser_key_restrictions)
+               v_browser_key_restrictions
+           in
+           let bnd = "browser_key_restrictions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restrictions__api_targets
-             v_api_targets
-         in
-         ("api_targets", arg) :: bnds
+         if [] = v_api_targets then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restrictions__api_targets)
+               v_api_targets
+           in
+           let bnd = "api_targets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restrictions__android_key_restrictions
-             v_android_key_restrictions
-         in
-         ("android_key_restrictions", arg) :: bnds
+         if [] = v_android_key_restrictions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restrictions__android_key_restrictions)
+               v_android_key_restrictions
+           in
+           let bnd = "android_key_restrictions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : restrictions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -318,6 +351,7 @@ type google_apikeys_key = {
   name : string prop;
   project : string prop option; [@option]
   restrictions : restrictions list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -342,10 +376,13 @@ let yojson_of_google_apikeys_key =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restrictions v_restrictions
-         in
-         ("restrictions", arg) :: bnds
+         if [] = v_restrictions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restrictions) v_restrictions
+           in
+           let bnd = "restrictions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

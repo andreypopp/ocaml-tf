@@ -4,6 +4,7 @@ open! Tf_core
 
 type route = {
   address_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   next_hop_ip_address : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -26,12 +27,14 @@ let yojson_of_route =
          ("next_hop_ip_address", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_address_prefixes
-         in
-         ("address_prefixes", arg) :: bnds
+         if [] = v_address_prefixes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_address_prefixes
+           in
+           let bnd = "address_prefixes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -112,7 +115,7 @@ type azurerm_virtual_hub = {
   virtual_router_auto_scale_min_capacity : float prop option;
       [@option]
   virtual_wan_id : string prop option; [@option]
-  route : route list;
+  route : route list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -144,8 +147,11 @@ let yojson_of_azurerm_virtual_hub =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_route v_route in
-         ("route", arg) :: bnds
+         if [] = v_route then bnds
+         else
+           let arg = (yojson_of_list yojson_of_route) v_route in
+           let bnd = "route", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_wan_id with

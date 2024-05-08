@@ -7,7 +7,9 @@ open! Tf_core
 type certificates = {
   certificate : string prop;  (** certificate *)
   created : string prop;  (** created *)
-  domain_names : string prop list;  (** domain_names *)
+  domain_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** domain_names *)
   fingerprint : string prop;  (** fingerprint *)
   id : float prop;  (** id *)
   labels : (string * string prop) list;  (** labels *)

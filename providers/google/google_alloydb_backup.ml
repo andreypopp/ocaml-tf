@@ -79,6 +79,7 @@ let _ = yojson_of_timeouts
 type encryption_info = {
   encryption_type : string prop;
   kms_key_versions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,12 +95,14 @@ let yojson_of_encryption_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_kms_key_versions
-         in
-         ("kms_key_versions", arg) :: bnds
+         if [] = v_kms_key_versions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_kms_key_versions
+           in
+           let bnd = "kms_key_versions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -162,6 +165,7 @@ type google_alloydb_backup = {
   project : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   encryption_config : encryption_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -192,11 +196,14 @@ let yojson_of_google_alloydb_backup =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_config
-             v_encryption_config
-         in
-         ("encryption_config", arg) :: bnds
+         if [] = v_encryption_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_config)
+               v_encryption_config
+           in
+           let bnd = "encryption_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

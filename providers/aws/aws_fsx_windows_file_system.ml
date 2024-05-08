@@ -92,6 +92,7 @@ let _ = yojson_of_disk_iops_configuration
 
 type self_managed_active_directory = {
   dns_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   domain_name : string prop;
   file_system_administrators_group : string prop option; [@option]
   organizational_unit_distinguished_name : string prop option;
@@ -149,10 +150,14 @@ let yojson_of_self_managed_active_directory =
          ("domain_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_dns_ips
-         in
-         ("dns_ips", arg) :: bnds
+         if [] = v_dns_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_dns_ips
+           in
+           let bnd = "dns_ips", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : self_managed_active_directory ->
@@ -224,13 +229,17 @@ type aws_fsx_windows_file_system = {
   storage_capacity : float prop option; [@option]
   storage_type : string prop option; [@option]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   throughput_capacity : float prop;
   weekly_maintenance_start_time : string prop option; [@option]
   audit_log_configuration : audit_log_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   disk_iops_configuration : disk_iops_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   self_managed_active_directory : self_managed_active_directory list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -276,25 +285,34 @@ let yojson_of_aws_fsx_windows_file_system =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_self_managed_active_directory
-             v_self_managed_active_directory
-         in
-         ("self_managed_active_directory", arg) :: bnds
+         if [] = v_self_managed_active_directory then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_self_managed_active_directory)
+               v_self_managed_active_directory
+           in
+           let bnd = "self_managed_active_directory", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_disk_iops_configuration
-             v_disk_iops_configuration
-         in
-         ("disk_iops_configuration", arg) :: bnds
+         if [] = v_disk_iops_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_disk_iops_configuration)
+               v_disk_iops_configuration
+           in
+           let bnd = "disk_iops_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_audit_log_configuration
-             v_audit_log_configuration
-         in
-         ("audit_log_configuration", arg) :: bnds
+         if [] = v_audit_log_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_audit_log_configuration)
+               v_audit_log_configuration
+           in
+           let bnd = "audit_log_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weekly_maintenance_start_time with
@@ -343,12 +361,14 @@ let yojson_of_aws_fsx_windows_file_system =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_storage_type with

@@ -10,6 +10,7 @@ type repository = {
   name : string prop;
   password : string prop option; [@option]
   patterns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   private_key : string prop option; [@option]
   search_paths : string prop list option; [@option]
   strict_host_key_checking : bool prop option; [@option]
@@ -78,12 +79,14 @@ let yojson_of_repository =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_patterns
-         in
-         ("patterns", arg) :: bnds
+         if [] = v_patterns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_patterns
+           in
+           let bnd = "patterns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_password with
@@ -199,6 +202,7 @@ type azurerm_spring_cloud_configuration_service = {
   refresh_interval_in_seconds : float prop option; [@option]
   spring_cloud_service_id : string prop;
   repository : repository list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -224,10 +228,13 @@ let yojson_of_azurerm_spring_cloud_configuration_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_repository v_repository
-         in
-         ("repository", arg) :: bnds
+         if [] = v_repository then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_repository) v_repository
+           in
+           let bnd = "repository", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

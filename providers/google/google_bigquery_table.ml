@@ -305,14 +305,21 @@ type external_data_configuration = {
   schema : string prop option; [@option]
   source_format : string prop option; [@option]
   source_uris : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   avro_options : external_data_configuration__avro_options list;
+      [@default []] [@yojson_drop_default ( = )]
   csv_options : external_data_configuration__csv_options list;
+      [@default []] [@yojson_drop_default ( = )]
   google_sheets_options :
     external_data_configuration__google_sheets_options list;
+      [@default []] [@yojson_drop_default ( = )]
   hive_partitioning_options :
     external_data_configuration__hive_partitioning_options list;
+      [@default []] [@yojson_drop_default ( = )]
   json_options : external_data_configuration__json_options list;
+      [@default []] [@yojson_drop_default ( = )]
   parquet_options : external_data_configuration__parquet_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -344,60 +351,80 @@ let yojson_of_external_data_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_external_data_configuration__parquet_options
-             v_parquet_options
-         in
-         ("parquet_options", arg) :: bnds
+         if [] = v_parquet_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_data_configuration__parquet_options)
+               v_parquet_options
+           in
+           let bnd = "parquet_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_external_data_configuration__json_options
-             v_json_options
-         in
-         ("json_options", arg) :: bnds
+         if [] = v_json_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_data_configuration__json_options)
+               v_json_options
+           in
+           let bnd = "json_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_external_data_configuration__hive_partitioning_options
-             v_hive_partitioning_options
-         in
-         ("hive_partitioning_options", arg) :: bnds
+         if [] = v_hive_partitioning_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_data_configuration__hive_partitioning_options)
+               v_hive_partitioning_options
+           in
+           let bnd = "hive_partitioning_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_external_data_configuration__google_sheets_options
-             v_google_sheets_options
-         in
-         ("google_sheets_options", arg) :: bnds
+         if [] = v_google_sheets_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_data_configuration__google_sheets_options)
+               v_google_sheets_options
+           in
+           let bnd = "google_sheets_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_external_data_configuration__csv_options
-             v_csv_options
-         in
-         ("csv_options", arg) :: bnds
+         if [] = v_csv_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_data_configuration__csv_options)
+               v_csv_options
+           in
+           let bnd = "csv_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_external_data_configuration__avro_options
-             v_avro_options
-         in
-         ("avro_options", arg) :: bnds
+         if [] = v_avro_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_data_configuration__avro_options)
+               v_avro_options
+           in
+           let bnd = "avro_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_uris
-         in
-         ("source_uris", arg) :: bnds
+         if [] = v_source_uris then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_uris
+           in
+           let bnd = "source_uris", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_format with
@@ -585,6 +612,7 @@ let _ = yojson_of_range_partitioning__range
 type range_partitioning = {
   field : string prop;
   range : range_partitioning__range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -597,10 +625,14 @@ let yojson_of_range_partitioning =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_range_partitioning__range v_range
-         in
-         ("range", arg) :: bnds
+         if [] = v_range then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_range_partitioning__range)
+               v_range
+           in
+           let bnd = "range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_field in
@@ -695,8 +727,10 @@ type table_constraints__foreign_keys = {
   name : string prop option; [@option]
   column_references :
     table_constraints__foreign_keys__column_references list;
+      [@default []] [@yojson_drop_default ( = )]
   referenced_table :
     table_constraints__foreign_keys__referenced_table list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -713,20 +747,26 @@ let yojson_of_table_constraints__foreign_keys =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_table_constraints__foreign_keys__referenced_table
-             v_referenced_table
-         in
-         ("referenced_table", arg) :: bnds
+         if [] = v_referenced_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_table_constraints__foreign_keys__referenced_table)
+               v_referenced_table
+           in
+           let bnd = "referenced_table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_table_constraints__foreign_keys__column_references
-             v_column_references
-         in
-         ("column_references", arg) :: bnds
+         if [] = v_column_references then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_table_constraints__foreign_keys__column_references)
+               v_column_references
+           in
+           let bnd = "column_references", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -744,7 +784,10 @@ let _ = yojson_of_table_constraints__foreign_keys
 
 [@@@deriving.end]
 
-type table_constraints__primary_key = { columns : string prop list }
+type table_constraints__primary_key = {
+  columns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : table_constraints__primary_key) -> ()
@@ -756,10 +799,14 @@ let yojson_of_table_constraints__primary_key =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_columns
-         in
-         ("columns", arg) :: bnds
+         if [] = v_columns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_columns
+           in
+           let bnd = "columns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : table_constraints__primary_key ->
@@ -771,7 +818,9 @@ let _ = yojson_of_table_constraints__primary_key
 
 type table_constraints = {
   foreign_keys : table_constraints__foreign_keys list;
+      [@default []] [@yojson_drop_default ( = )]
   primary_key : table_constraints__primary_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -785,18 +834,25 @@ let yojson_of_table_constraints =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_table_constraints__primary_key
-             v_primary_key
-         in
-         ("primary_key", arg) :: bnds
+         if [] = v_primary_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_table_constraints__primary_key)
+               v_primary_key
+           in
+           let bnd = "primary_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_table_constraints__foreign_keys
-             v_foreign_keys
-         in
-         ("foreign_keys", arg) :: bnds
+         if [] = v_foreign_keys then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_table_constraints__foreign_keys)
+               v_foreign_keys
+           in
+           let bnd = "foreign_keys", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : table_constraints -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -963,13 +1019,20 @@ type google_bigquery_table = {
   schema : string prop option; [@option]
   table_id : string prop;
   encryption_configuration : encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   external_data_configuration : external_data_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   materialized_view : materialized_view list;
+      [@default []] [@yojson_drop_default ( = )]
   range_partitioning : range_partitioning list;
+      [@default []] [@yojson_drop_default ( = )]
   table_constraints : table_constraints list;
+      [@default []] [@yojson_drop_default ( = )]
   table_replication_info : table_replication_info list;
+      [@default []] [@yojson_drop_default ( = )]
   time_partitioning : time_partitioning list;
-  view : view list;
+      [@default []] [@yojson_drop_default ( = )]
+  view : view list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1004,57 +1067,81 @@ let yojson_of_google_bigquery_table =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_view v_view in
-         ("view", arg) :: bnds
+         if [] = v_view then bnds
+         else
+           let arg = (yojson_of_list yojson_of_view) v_view in
+           let bnd = "view", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_time_partitioning
-             v_time_partitioning
-         in
-         ("time_partitioning", arg) :: bnds
+         if [] = v_time_partitioning then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_time_partitioning)
+               v_time_partitioning
+           in
+           let bnd = "time_partitioning", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_table_replication_info
-             v_table_replication_info
-         in
-         ("table_replication_info", arg) :: bnds
+         if [] = v_table_replication_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_table_replication_info)
+               v_table_replication_info
+           in
+           let bnd = "table_replication_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_table_constraints
-             v_table_constraints
-         in
-         ("table_constraints", arg) :: bnds
+         if [] = v_table_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_table_constraints)
+               v_table_constraints
+           in
+           let bnd = "table_constraints", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_range_partitioning
-             v_range_partitioning
-         in
-         ("range_partitioning", arg) :: bnds
+         if [] = v_range_partitioning then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_range_partitioning)
+               v_range_partitioning
+           in
+           let bnd = "range_partitioning", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_materialized_view
-             v_materialized_view
-         in
-         ("materialized_view", arg) :: bnds
+         if [] = v_materialized_view then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_materialized_view)
+               v_materialized_view
+           in
+           let bnd = "materialized_view", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_external_data_configuration
-             v_external_data_configuration
-         in
-         ("external_data_configuration", arg) :: bnds
+         if [] = v_external_data_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_external_data_configuration)
+               v_external_data_configuration
+           in
+           let bnd = "external_data_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_configuration
-             v_encryption_configuration
-         in
-         ("encryption_configuration", arg) :: bnds
+         if [] = v_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_configuration)
+               v_encryption_configuration
+           in
+           let bnd = "encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_table_id in

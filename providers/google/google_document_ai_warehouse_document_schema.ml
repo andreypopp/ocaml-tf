@@ -18,6 +18,7 @@ let _ = yojson_of_property_definitions__date_time_type_options
 
 type property_definitions__enum_type_options = {
   possible_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   validation_check_disabled : bool prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -42,12 +43,14 @@ let yojson_of_property_definitions__enum_type_options =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_possible_values
-         in
-         ("possible_values", arg) :: bnds
+         if [] = v_possible_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_possible_values
+           in
+           let bnd = "possible_values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : property_definitions__enum_type_options ->
@@ -121,6 +124,7 @@ let _ =
 
 type property_definitions__property_type_options__property_definitions__enum_type_options = {
   possible_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   validation_check_disabled : bool prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -149,12 +153,14 @@ let yojson_of_property_definitions__property_type_options__property_definitions_
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_possible_values
-         in
-         ("possible_values", arg) :: bnds
+         if [] = v_possible_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_possible_values
+           in
+           let bnd = "possible_values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : property_definitions__property_type_options__property_definitions__enum_type_options ->
@@ -320,27 +326,35 @@ type property_definitions__property_type_options__property_definitions = {
   date_time_type_options :
     property_definitions__property_type_options__property_definitions__date_time_type_options
     list;
+      [@default []] [@yojson_drop_default ( = )]
   enum_type_options :
     property_definitions__property_type_options__property_definitions__enum_type_options
     list;
+      [@default []] [@yojson_drop_default ( = )]
   float_type_options :
     property_definitions__property_type_options__property_definitions__float_type_options
     list;
+      [@default []] [@yojson_drop_default ( = )]
   integer_type_options :
     property_definitions__property_type_options__property_definitions__integer_type_options
     list;
+      [@default []] [@yojson_drop_default ( = )]
   map_type_options :
     property_definitions__property_type_options__property_definitions__map_type_options
     list;
+      [@default []] [@yojson_drop_default ( = )]
   schema_sources :
     property_definitions__property_type_options__property_definitions__schema_sources
     list;
+      [@default []] [@yojson_drop_default ( = )]
   text_type_options :
     property_definitions__property_type_options__property_definitions__text_type_options
     list;
+      [@default []] [@yojson_drop_default ( = )]
   timestamp_type_options :
     property_definitions__property_type_options__property_definitions__timestamp_type_options
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -374,68 +388,92 @@ let yojson_of_property_definitions__property_type_options__property_definitions
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__property_type_options__property_definitions__timestamp_type_options
-             v_timestamp_type_options
-         in
-         ("timestamp_type_options", arg) :: bnds
+         if [] = v_timestamp_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__property_type_options__property_definitions__timestamp_type_options)
+               v_timestamp_type_options
+           in
+           let bnd = "timestamp_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__property_type_options__property_definitions__text_type_options
-             v_text_type_options
-         in
-         ("text_type_options", arg) :: bnds
+         if [] = v_text_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__property_type_options__property_definitions__text_type_options)
+               v_text_type_options
+           in
+           let bnd = "text_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__property_type_options__property_definitions__schema_sources
-             v_schema_sources
-         in
-         ("schema_sources", arg) :: bnds
+         if [] = v_schema_sources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__property_type_options__property_definitions__schema_sources)
+               v_schema_sources
+           in
+           let bnd = "schema_sources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__property_type_options__property_definitions__map_type_options
-             v_map_type_options
-         in
-         ("map_type_options", arg) :: bnds
+         if [] = v_map_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__property_type_options__property_definitions__map_type_options)
+               v_map_type_options
+           in
+           let bnd = "map_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__property_type_options__property_definitions__integer_type_options
-             v_integer_type_options
-         in
-         ("integer_type_options", arg) :: bnds
+         if [] = v_integer_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__property_type_options__property_definitions__integer_type_options)
+               v_integer_type_options
+           in
+           let bnd = "integer_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__property_type_options__property_definitions__float_type_options
-             v_float_type_options
-         in
-         ("float_type_options", arg) :: bnds
+         if [] = v_float_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__property_type_options__property_definitions__float_type_options)
+               v_float_type_options
+           in
+           let bnd = "float_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__property_type_options__property_definitions__enum_type_options
-             v_enum_type_options
-         in
-         ("enum_type_options", arg) :: bnds
+         if [] = v_enum_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__property_type_options__property_definitions__enum_type_options)
+               v_enum_type_options
+           in
+           let bnd = "enum_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__property_type_options__property_definitions__date_time_type_options
-             v_date_time_type_options
-         in
-         ("date_time_type_options", arg) :: bnds
+         if [] = v_date_time_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__property_type_options__property_definitions__date_time_type_options)
+               v_date_time_type_options
+           in
+           let bnd = "date_time_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retrieval_importance with
@@ -510,6 +548,7 @@ type property_definitions__property_type_options = {
   property_definitions :
     property_definitions__property_type_options__property_definitions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -522,12 +561,15 @@ let yojson_of_property_definitions__property_type_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__property_type_options__property_definitions
-             v_property_definitions
-         in
-         ("property_definitions", arg) :: bnds
+         if [] = v_property_definitions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__property_type_options__property_definitions)
+               v_property_definitions
+           in
+           let bnd = "property_definitions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : property_definitions__property_type_options ->
@@ -614,17 +656,26 @@ type property_definitions = {
   retrieval_importance : string prop option; [@option]
   date_time_type_options :
     property_definitions__date_time_type_options list;
+      [@default []] [@yojson_drop_default ( = )]
   enum_type_options : property_definitions__enum_type_options list;
+      [@default []] [@yojson_drop_default ( = )]
   float_type_options : property_definitions__float_type_options list;
+      [@default []] [@yojson_drop_default ( = )]
   integer_type_options :
     property_definitions__integer_type_options list;
+      [@default []] [@yojson_drop_default ( = )]
   map_type_options : property_definitions__map_type_options list;
+      [@default []] [@yojson_drop_default ( = )]
   property_type_options :
     property_definitions__property_type_options list;
+      [@default []] [@yojson_drop_default ( = )]
   schema_sources : property_definitions__schema_sources list;
+      [@default []] [@yojson_drop_default ( = )]
   text_type_options : property_definitions__text_type_options list;
+      [@default []] [@yojson_drop_default ( = )]
   timestamp_type_options :
     property_definitions__timestamp_type_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -655,76 +706,103 @@ let yojson_of_property_definitions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__timestamp_type_options
-             v_timestamp_type_options
-         in
-         ("timestamp_type_options", arg) :: bnds
+         if [] = v_timestamp_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__timestamp_type_options)
+               v_timestamp_type_options
+           in
+           let bnd = "timestamp_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__text_type_options
-             v_text_type_options
-         in
-         ("text_type_options", arg) :: bnds
+         if [] = v_text_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__text_type_options)
+               v_text_type_options
+           in
+           let bnd = "text_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__schema_sources
-             v_schema_sources
-         in
-         ("schema_sources", arg) :: bnds
+         if [] = v_schema_sources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__schema_sources)
+               v_schema_sources
+           in
+           let bnd = "schema_sources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__property_type_options
-             v_property_type_options
-         in
-         ("property_type_options", arg) :: bnds
+         if [] = v_property_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__property_type_options)
+               v_property_type_options
+           in
+           let bnd = "property_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__map_type_options
-             v_map_type_options
-         in
-         ("map_type_options", arg) :: bnds
+         if [] = v_map_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__map_type_options)
+               v_map_type_options
+           in
+           let bnd = "map_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__integer_type_options
-             v_integer_type_options
-         in
-         ("integer_type_options", arg) :: bnds
+         if [] = v_integer_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__integer_type_options)
+               v_integer_type_options
+           in
+           let bnd = "integer_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__float_type_options
-             v_float_type_options
-         in
-         ("float_type_options", arg) :: bnds
+         if [] = v_float_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__float_type_options)
+               v_float_type_options
+           in
+           let bnd = "float_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__enum_type_options
-             v_enum_type_options
-         in
-         ("enum_type_options", arg) :: bnds
+         if [] = v_enum_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__enum_type_options)
+               v_enum_type_options
+           in
+           let bnd = "enum_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_property_definitions__date_time_type_options
-             v_date_time_type_options
-         in
-         ("date_time_type_options", arg) :: bnds
+         if [] = v_date_time_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_property_definitions__date_time_type_options)
+               v_date_time_type_options
+           in
+           let bnd = "date_time_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retrieval_importance with
@@ -837,6 +915,7 @@ type google_document_ai_warehouse_document_schema = {
   location : string prop;
   project_number : string prop;
   property_definitions : property_definitions list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -862,11 +941,14 @@ let yojson_of_google_document_ai_warehouse_document_schema =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_property_definitions
-             v_property_definitions
-         in
-         ("property_definitions", arg) :: bnds
+         if [] = v_property_definitions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_property_definitions)
+               v_property_definitions
+           in
+           let bnd = "property_definitions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

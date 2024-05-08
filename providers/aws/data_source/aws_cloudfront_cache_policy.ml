@@ -3,7 +3,7 @@
 open! Tf_core
 
 type parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings = {
-  items : string prop list;
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20,10 +20,14 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__query_strings_con
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings ->
@@ -39,6 +43,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__query_strings_config = {
   query_strings :
     parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,12 +63,15 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__query_strings_con
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings
-             v_query_strings
-         in
-         ("query_strings", arg) :: bnds
+         if [] = v_query_strings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_parameters_in_cache_key_and_forwarded_to_origin__query_strings_config__query_strings)
+               v_query_strings
+           in
+           let bnd = "query_strings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -81,7 +89,7 @@ let _ =
 [@@@deriving.end]
 
 type parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers = {
-  items : string prop list;
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -98,10 +106,14 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__headers_config__h
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers ->
@@ -117,6 +129,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__headers_config = {
   headers :
     parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,12 +146,15 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__headers_config
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers
-             v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_parameters_in_cache_key_and_forwarded_to_origin__headers_config__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -156,7 +172,7 @@ let _ =
 [@@@deriving.end]
 
 type parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies = {
-  items : string prop list;
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -173,10 +189,14 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__cookies_config__c
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies ->
@@ -192,6 +212,7 @@ type parameters_in_cache_key_and_forwarded_to_origin__cookies_config = {
   cookies :
     parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -208,12 +229,15 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin__cookies_config
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies
-             v_cookies
-         in
-         ("cookies", arg) :: bnds
+         if [] = v_cookies then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_parameters_in_cache_key_and_forwarded_to_origin__cookies_config__cookies)
+               v_cookies
+           in
+           let bnd = "cookies", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -234,14 +258,17 @@ type parameters_in_cache_key_and_forwarded_to_origin = {
   cookies_config :
     parameters_in_cache_key_and_forwarded_to_origin__cookies_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   enable_accept_encoding_brotli : bool prop;
   enable_accept_encoding_gzip : bool prop;
   headers_config :
     parameters_in_cache_key_and_forwarded_to_origin__headers_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   query_strings_config :
     parameters_in_cache_key_and_forwarded_to_origin__query_strings_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -262,20 +289,26 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_parameters_in_cache_key_and_forwarded_to_origin__query_strings_config
-             v_query_strings_config
-         in
-         ("query_strings_config", arg) :: bnds
+         if [] = v_query_strings_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_parameters_in_cache_key_and_forwarded_to_origin__query_strings_config)
+               v_query_strings_config
+           in
+           let bnd = "query_strings_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_parameters_in_cache_key_and_forwarded_to_origin__headers_config
-             v_headers_config
-         in
-         ("headers_config", arg) :: bnds
+         if [] = v_headers_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_parameters_in_cache_key_and_forwarded_to_origin__headers_config)
+               v_headers_config
+           in
+           let bnd = "headers_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -292,12 +325,15 @@ let yojson_of_parameters_in_cache_key_and_forwarded_to_origin =
          ("enable_accept_encoding_brotli", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_parameters_in_cache_key_and_forwarded_to_origin__cookies_config
-             v_cookies_config
-         in
-         ("cookies_config", arg) :: bnds
+         if [] = v_cookies_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_parameters_in_cache_key_and_forwarded_to_origin__cookies_config)
+               v_cookies_config
+           in
+           let bnd = "cookies_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : parameters_in_cache_key_and_forwarded_to_origin ->

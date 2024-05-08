@@ -47,6 +47,7 @@ let _ = yojson_of_s3_destination
 type aws_macie2_classification_export_configuration = {
   id : string prop option; [@option]
   s3_destination : s3_destination list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,10 +61,14 @@ let yojson_of_aws_macie2_classification_export_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_s3_destination v_s3_destination
-         in
-         ("s3_destination", arg) :: bnds
+         if [] = v_s3_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3_destination)
+               v_s3_destination
+           in
+           let bnd = "s3_destination", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

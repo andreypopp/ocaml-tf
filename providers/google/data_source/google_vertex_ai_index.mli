@@ -20,11 +20,11 @@ type metadata__config__algorithm_config__tree_ah_config = {
 }
 type metadata__config__algorithm_config__brute_force_config
 type metadata__config__algorithm_config = {
-  brute_force_config: metadata__config__algorithm_config__brute_force_config list;  (** brute_force_config *)
-  tree_ah_config: metadata__config__algorithm_config__tree_ah_config list;  (** tree_ah_config *)
+  brute_force_config: metadata__config__algorithm_config__brute_force_config list; [@default []] [@yojson_drop_default ( = )] (** brute_force_config *)
+  tree_ah_config: metadata__config__algorithm_config__tree_ah_config list; [@default []] [@yojson_drop_default ( = )] (** tree_ah_config *)
 }
 type metadata__config = {
-  algorithm_config: metadata__config__algorithm_config list;  (** algorithm_config *)
+  algorithm_config: metadata__config__algorithm_config list; [@default []] [@yojson_drop_default ( = )] (** algorithm_config *)
   approximate_neighbors_count: float prop;  (** approximate_neighbors_count *)
   dimensions: float prop;  (** dimensions *)
   distance_measure_type: string prop;  (** distance_measure_type *)
@@ -32,7 +32,7 @@ type metadata__config = {
   shard_size: string prop;  (** shard_size *)
 }
 type metadata = {
-  config: metadata__config list;  (** config *)
+  config: metadata__config list; [@default []] [@yojson_drop_default ( = )] (** config *)
   contents_delta_uri: string prop;  (** contents_delta_uri *)
   is_complete_overwrite: bool prop;  (** is_complete_overwrite *)
 }

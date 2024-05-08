@@ -56,6 +56,7 @@ let _ = yojson_of_tunnel1_log_options__cloudwatch_log_options
 type tunnel1_log_options = {
   cloudwatch_log_options :
     tunnel1_log_options__cloudwatch_log_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -68,12 +69,15 @@ let yojson_of_tunnel1_log_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_tunnel1_log_options__cloudwatch_log_options
-             v_cloudwatch_log_options
-         in
-         ("cloudwatch_log_options", arg) :: bnds
+         if [] = v_cloudwatch_log_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_tunnel1_log_options__cloudwatch_log_options)
+               v_cloudwatch_log_options
+           in
+           let bnd = "cloudwatch_log_options", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : tunnel1_log_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -136,6 +140,7 @@ let _ = yojson_of_tunnel2_log_options__cloudwatch_log_options
 type tunnel2_log_options = {
   cloudwatch_log_options :
     tunnel2_log_options__cloudwatch_log_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,12 +153,15 @@ let yojson_of_tunnel2_log_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_tunnel2_log_options__cloudwatch_log_options
-             v_cloudwatch_log_options
-         in
-         ("cloudwatch_log_options", arg) :: bnds
+         if [] = v_cloudwatch_log_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_tunnel2_log_options__cloudwatch_log_options)
+               v_cloudwatch_log_options
+           in
+           let bnd = "cloudwatch_log_options", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : tunnel2_log_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -335,7 +343,9 @@ type aws_vpn_connection = {
   type_ : string prop; [@key "type"]
   vpn_gateway_id : string prop option; [@option]
   tunnel1_log_options : tunnel1_log_options list;
+      [@default []] [@yojson_drop_default ( = )]
   tunnel2_log_options : tunnel2_log_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -428,18 +438,24 @@ let yojson_of_aws_vpn_connection =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tunnel2_log_options
-             v_tunnel2_log_options
-         in
-         ("tunnel2_log_options", arg) :: bnds
+         if [] = v_tunnel2_log_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tunnel2_log_options)
+               v_tunnel2_log_options
+           in
+           let bnd = "tunnel2_log_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tunnel1_log_options
-             v_tunnel1_log_options
-         in
-         ("tunnel1_log_options", arg) :: bnds
+         if [] = v_tunnel1_log_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tunnel1_log_options)
+               v_tunnel1_log_options
+           in
+           let bnd = "tunnel1_log_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpn_gateway_id with

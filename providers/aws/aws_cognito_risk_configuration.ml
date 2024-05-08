@@ -108,10 +108,13 @@ let _ =
 type account_takeover_risk_configuration__actions = {
   high_action :
     account_takeover_risk_configuration__actions__high_action list;
+      [@default []] [@yojson_drop_default ( = )]
   low_action :
     account_takeover_risk_configuration__actions__low_action list;
+      [@default []] [@yojson_drop_default ( = )]
   medium_action :
     account_takeover_risk_configuration__actions__medium_action list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,28 +131,37 @@ let yojson_of_account_takeover_risk_configuration__actions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_account_takeover_risk_configuration__actions__medium_action
-             v_medium_action
-         in
-         ("medium_action", arg) :: bnds
+         if [] = v_medium_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_account_takeover_risk_configuration__actions__medium_action)
+               v_medium_action
+           in
+           let bnd = "medium_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_account_takeover_risk_configuration__actions__low_action
-             v_low_action
-         in
-         ("low_action", arg) :: bnds
+         if [] = v_low_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_account_takeover_risk_configuration__actions__low_action)
+               v_low_action
+           in
+           let bnd = "low_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_account_takeover_risk_configuration__actions__high_action
-             v_high_action
-         in
-         ("high_action", arg) :: bnds
+         if [] = v_high_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_account_takeover_risk_configuration__actions__high_action)
+               v_high_action
+           in
+           let bnd = "high_action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : account_takeover_risk_configuration__actions ->
@@ -298,12 +310,15 @@ type account_takeover_risk_configuration__notify_configuration = {
   block_email :
     account_takeover_risk_configuration__notify_configuration__block_email
     list;
+      [@default []] [@yojson_drop_default ( = )]
   mfa_email :
     account_takeover_risk_configuration__notify_configuration__mfa_email
     list;
+      [@default []] [@yojson_drop_default ( = )]
   no_action_email :
     account_takeover_risk_configuration__notify_configuration__no_action_email
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -326,28 +341,37 @@ let yojson_of_account_takeover_risk_configuration__notify_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_account_takeover_risk_configuration__notify_configuration__no_action_email
-             v_no_action_email
-         in
-         ("no_action_email", arg) :: bnds
+         if [] = v_no_action_email then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_account_takeover_risk_configuration__notify_configuration__no_action_email)
+               v_no_action_email
+           in
+           let bnd = "no_action_email", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_account_takeover_risk_configuration__notify_configuration__mfa_email
-             v_mfa_email
-         in
-         ("mfa_email", arg) :: bnds
+         if [] = v_mfa_email then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_account_takeover_risk_configuration__notify_configuration__mfa_email)
+               v_mfa_email
+           in
+           let bnd = "mfa_email", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_account_takeover_risk_configuration__notify_configuration__block_email
-             v_block_email
-         in
-         ("block_email", arg) :: bnds
+         if [] = v_block_email then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_account_takeover_risk_configuration__notify_configuration__block_email)
+               v_block_email
+           in
+           let bnd = "block_email", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_source_arn in
@@ -380,8 +404,10 @@ let _ =
 
 type account_takeover_risk_configuration = {
   actions : account_takeover_risk_configuration__actions list;
+      [@default []] [@yojson_drop_default ( = )]
   notify_configuration :
     account_takeover_risk_configuration__notify_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -397,20 +423,26 @@ let yojson_of_account_takeover_risk_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_account_takeover_risk_configuration__notify_configuration
-             v_notify_configuration
-         in
-         ("notify_configuration", arg) :: bnds
+         if [] = v_notify_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_account_takeover_risk_configuration__notify_configuration)
+               v_notify_configuration
+           in
+           let bnd = "notify_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_account_takeover_risk_configuration__actions
-             v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_account_takeover_risk_configuration__actions)
+               v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : account_takeover_risk_configuration ->
@@ -449,6 +481,7 @@ let _ = yojson_of_compromised_credentials_risk_configuration__actions
 type compromised_credentials_risk_configuration = {
   event_filter : string prop list option; [@option]
   actions : compromised_credentials_risk_configuration__actions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -461,12 +494,15 @@ let yojson_of_compromised_credentials_risk_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_compromised_credentials_risk_configuration__actions
-             v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_compromised_credentials_risk_configuration__actions)
+               v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_event_filter with
@@ -537,9 +573,12 @@ type aws_cognito_risk_configuration = {
   user_pool_id : string prop;
   account_takeover_risk_configuration :
     account_takeover_risk_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   compromised_credentials_risk_configuration :
     compromised_credentials_risk_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   risk_exception_configuration : risk_exception_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -561,27 +600,39 @@ let yojson_of_aws_cognito_risk_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_risk_exception_configuration
-             v_risk_exception_configuration
-         in
-         ("risk_exception_configuration", arg) :: bnds
+         if [] = v_risk_exception_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_risk_exception_configuration)
+               v_risk_exception_configuration
+           in
+           let bnd = "risk_exception_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_compromised_credentials_risk_configuration
-             v_compromised_credentials_risk_configuration
-         in
-         ("compromised_credentials_risk_configuration", arg) :: bnds
+         if [] = v_compromised_credentials_risk_configuration then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_compromised_credentials_risk_configuration)
+               v_compromised_credentials_risk_configuration
+           in
+           let bnd =
+             "compromised_credentials_risk_configuration", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_account_takeover_risk_configuration
-             v_account_takeover_risk_configuration
-         in
-         ("account_takeover_risk_configuration", arg) :: bnds
+         if [] = v_account_takeover_risk_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_account_takeover_risk_configuration)
+               v_account_takeover_risk_configuration
+           in
+           let bnd = "account_takeover_risk_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_user_pool_id in

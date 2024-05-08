@@ -5,8 +5,12 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type endpoint_configuration = {
-  types : string prop list;  (** types *)
-  vpc_endpoint_ids : string prop list;  (** vpc_endpoint_ids *)
+  types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** types *)
+  vpc_endpoint_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** vpc_endpoint_ids *)
 }
 
 type aws_api_gateway_rest_api

@@ -16,6 +16,7 @@ type azure_files_authentication__active_directory = {
 type azure_files_authentication = {
   active_directory :
     azure_files_authentication__active_directory list;
+      [@default []] [@yojson_drop_default ( = )]
       (** active_directory *)
   directory_type : string prop;  (** directory_type *)
 }
@@ -23,7 +24,9 @@ type azure_files_authentication = {
 type custom_domain = { name : string prop  (** name *) }
 
 type identity = {
-  identity_ids : string prop list;  (** identity_ids *)
+  identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** identity_ids *)
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)

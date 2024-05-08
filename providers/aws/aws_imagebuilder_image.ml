@@ -50,6 +50,7 @@ type image_scanning_configuration = {
   image_scanning_enabled : bool prop option; [@option]
   ecr_configuration :
     image_scanning_configuration__ecr_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,12 +66,15 @@ let yojson_of_image_scanning_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_image_scanning_configuration__ecr_configuration
-             v_ecr_configuration
-         in
-         ("ecr_configuration", arg) :: bnds
+         if [] = v_ecr_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_image_scanning_configuration__ecr_configuration)
+               v_ecr_configuration
+           in
+           let bnd = "ecr_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_image_scanning_enabled with
@@ -156,6 +160,7 @@ let _ = yojson_of_timeouts
 
 type output_resources__containers = {
   image_uris : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   region : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -173,12 +178,14 @@ let yojson_of_output_resources__containers =
          ("region", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_image_uris
-         in
-         ("image_uris", arg) :: bnds
+         if [] = v_image_uris then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_image_uris
+           in
+           let bnd = "image_uris", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : output_resources__containers ->
@@ -240,7 +247,9 @@ let _ = yojson_of_output_resources__amis
 
 type output_resources = {
   amis : output_resources__amis list;
+      [@default []] [@yojson_drop_default ( = )]
   containers : output_resources__containers list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -253,17 +262,23 @@ let yojson_of_output_resources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_output_resources__containers
-             v_containers
-         in
-         ("containers", arg) :: bnds
+         if [] = v_containers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_output_resources__containers)
+               v_containers
+           in
+           let bnd = "containers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_output_resources__amis v_amis
-         in
-         ("amis", arg) :: bnds
+         if [] = v_amis then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_output_resources__amis) v_amis
+           in
+           let bnd = "amis", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : output_resources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -282,7 +297,9 @@ type aws_imagebuilder_image = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   image_scanning_configuration : image_scanning_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   image_tests_configuration : image_tests_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -315,18 +332,24 @@ let yojson_of_aws_imagebuilder_image =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_image_tests_configuration
-             v_image_tests_configuration
-         in
-         ("image_tests_configuration", arg) :: bnds
+         if [] = v_image_tests_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_image_tests_configuration)
+               v_image_tests_configuration
+           in
+           let bnd = "image_tests_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_image_scanning_configuration
-             v_image_scanning_configuration
-         in
-         ("image_scanning_configuration", arg) :: bnds
+         if [] = v_image_scanning_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_image_scanning_configuration)
+               v_image_scanning_configuration
+           in
+           let bnd = "image_scanning_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

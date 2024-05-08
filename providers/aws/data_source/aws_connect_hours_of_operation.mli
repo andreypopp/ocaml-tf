@@ -16,8 +16,12 @@ type config__end_time = {
 
 type config = {
   day : string prop;  (** day *)
-  end_time : config__end_time list;  (** end_time *)
-  start_time : config__start_time list;  (** start_time *)
+  end_time : config__end_time list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** end_time *)
+  start_time : config__start_time list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** start_time *)
 }
 
 type aws_connect_hours_of_operation

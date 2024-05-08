@@ -32,6 +32,7 @@ type aws_ssmcontacts_contact_channel = {
   name : string prop;
   type_ : string prop; [@key "type"]
   delivery_address : delivery_address list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,11 +51,14 @@ let yojson_of_aws_ssmcontacts_contact_channel =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delivery_address
-             v_delivery_address
-         in
-         ("delivery_address", arg) :: bnds
+         if [] = v_delivery_address then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_delivery_address)
+               v_delivery_address
+           in
+           let bnd = "delivery_address", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

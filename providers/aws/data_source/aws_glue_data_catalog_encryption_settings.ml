@@ -89,8 +89,10 @@ type data_catalog_encryption_settings = {
   connection_password_encryption :
     data_catalog_encryption_settings__connection_password_encryption
     list;
+      [@default []] [@yojson_drop_default ( = )]
   encryption_at_rest :
     data_catalog_encryption_settings__encryption_at_rest list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -107,20 +109,26 @@ let yojson_of_data_catalog_encryption_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_catalog_encryption_settings__encryption_at_rest
-             v_encryption_at_rest
-         in
-         ("encryption_at_rest", arg) :: bnds
+         if [] = v_encryption_at_rest then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_catalog_encryption_settings__encryption_at_rest)
+               v_encryption_at_rest
+           in
+           let bnd = "encryption_at_rest", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_data_catalog_encryption_settings__connection_password_encryption
-             v_connection_password_encryption
-         in
-         ("connection_password_encryption", arg) :: bnds
+         if [] = v_connection_password_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_catalog_encryption_settings__connection_password_encryption)
+               v_connection_password_encryption
+           in
+           let bnd = "connection_password_encryption", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_catalog_encryption_settings ->

@@ -76,6 +76,7 @@ type auth_settings__microsoft = {
   client_secret : string prop;
   client_secret_setting_name : string prop;
   oauth_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -93,12 +94,14 @@ let yojson_of_auth_settings__microsoft =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_oauth_scopes
-         in
-         ("oauth_scopes", arg) :: bnds
+         if [] = v_oauth_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_oauth_scopes
+           in
+           let bnd = "oauth_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -127,6 +130,7 @@ type auth_settings__google = {
   client_secret : string prop;
   client_secret_setting_name : string prop;
   oauth_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,12 +148,14 @@ let yojson_of_auth_settings__google =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_oauth_scopes
-         in
-         ("oauth_scopes", arg) :: bnds
+         if [] = v_oauth_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_oauth_scopes
+           in
+           let bnd = "oauth_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -178,6 +184,7 @@ type auth_settings__github = {
   client_secret : string prop;
   client_secret_setting_name : string prop;
   oauth_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,12 +202,14 @@ let yojson_of_auth_settings__github =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_oauth_scopes
-         in
-         ("oauth_scopes", arg) :: bnds
+         if [] = v_oauth_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_oauth_scopes
+           in
+           let bnd = "oauth_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -229,6 +238,7 @@ type auth_settings__facebook = {
   app_secret : string prop;
   app_secret_setting_name : string prop;
   oauth_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -246,12 +256,14 @@ let yojson_of_auth_settings__facebook =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_oauth_scopes
-         in
-         ("oauth_scopes", arg) :: bnds
+         if [] = v_oauth_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_oauth_scopes
+           in
+           let bnd = "oauth_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -276,6 +288,7 @@ let _ = yojson_of_auth_settings__facebook
 
 type auth_settings__active_directory = {
   allowed_audiences : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   client_id : string prop;
   client_secret : string prop;
   client_secret_setting_name : string prop;
@@ -311,12 +324,14 @@ let yojson_of_auth_settings__active_directory =
          ("client_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_audiences
-         in
-         ("allowed_audiences", arg) :: bnds
+         if [] = v_allowed_audiences then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_audiences
+           in
+           let bnd = "allowed_audiences", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_settings__active_directory ->
@@ -328,19 +343,26 @@ let _ = yojson_of_auth_settings__active_directory
 
 type auth_settings = {
   active_directory : auth_settings__active_directory list;
+      [@default []] [@yojson_drop_default ( = )]
   additional_login_parameters : (string * string prop) list;
   allowed_external_redirect_urls : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   default_provider : string prop;
   enabled : bool prop;
   facebook : auth_settings__facebook list;
+      [@default []] [@yojson_drop_default ( = )]
   github : auth_settings__github list;
+      [@default []] [@yojson_drop_default ( = )]
   google : auth_settings__google list;
+      [@default []] [@yojson_drop_default ( = )]
   issuer : string prop;
   microsoft : auth_settings__microsoft list;
+      [@default []] [@yojson_drop_default ( = )]
   runtime_version : string prop;
   token_refresh_extension_hours : float prop;
   token_store_enabled : bool prop;
   twitter : auth_settings__twitter list;
+      [@default []] [@yojson_drop_default ( = )]
   unauthenticated_client_action : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -380,10 +402,14 @@ let yojson_of_auth_settings =
          ("unauthenticated_client_action", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings__twitter v_twitter
-         in
-         ("twitter", arg) :: bnds
+         if [] = v_twitter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings__twitter)
+               v_twitter
+           in
+           let bnd = "twitter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -405,34 +431,48 @@ let yojson_of_auth_settings =
          ("runtime_version", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings__microsoft
-             v_microsoft
-         in
-         ("microsoft", arg) :: bnds
+         if [] = v_microsoft then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings__microsoft)
+               v_microsoft
+           in
+           let bnd = "microsoft", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_issuer in
          ("issuer", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings__google v_google
-         in
-         ("google", arg) :: bnds
+         if [] = v_google then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings__google)
+               v_google
+           in
+           let bnd = "google", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings__github v_github
-         in
-         ("github", arg) :: bnds
+         if [] = v_github then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings__github)
+               v_github
+           in
+           let bnd = "github", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings__facebook
-             v_facebook
-         in
-         ("facebook", arg) :: bnds
+         if [] = v_facebook then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings__facebook)
+               v_facebook
+           in
+           let bnd = "facebook", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in
@@ -445,12 +485,14 @@ let yojson_of_auth_settings =
          ("default_provider", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_external_redirect_urls
-         in
-         ("allowed_external_redirect_urls", arg) :: bnds
+         if [] = v_allowed_external_redirect_urls then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_external_redirect_urls
+           in
+           let bnd = "allowed_external_redirect_urls", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -465,11 +507,15 @@ let yojson_of_auth_settings =
          ("additional_login_parameters", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings__active_directory
-             v_active_directory
-         in
-         ("active_directory", arg) :: bnds
+         if [] = v_active_directory then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_settings__active_directory)
+               v_active_directory
+           in
+           let bnd = "active_directory", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -516,9 +562,11 @@ let _ = yojson_of_auth_settings_v2__twitter_v2
 
 type auth_settings_v2__microsoft_v2 = {
   allowed_audiences : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   client_id : string prop;
   client_secret_setting_name : string prop;
   login_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -536,12 +584,14 @@ let yojson_of_auth_settings_v2__microsoft_v2 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_login_scopes
-         in
-         ("login_scopes", arg) :: bnds
+         if [] = v_login_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_login_scopes
+           in
+           let bnd = "login_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -555,12 +605,14 @@ let yojson_of_auth_settings_v2__microsoft_v2 =
          ("client_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_audiences
-         in
-         ("allowed_audiences", arg) :: bnds
+         if [] = v_allowed_audiences then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_audiences
+           in
+           let bnd = "allowed_audiences", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_settings_v2__microsoft_v2 ->
@@ -572,6 +624,7 @@ let _ = yojson_of_auth_settings_v2__microsoft_v2
 
 type auth_settings_v2__login = {
   allowed_external_redirect_urls : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   cookie_expiration_convention : string prop;
   cookie_expiration_time : string prop;
   logout_endpoint : string prop;
@@ -670,12 +723,14 @@ let yojson_of_auth_settings_v2__login =
          ("cookie_expiration_convention", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_external_redirect_urls
-         in
-         ("allowed_external_redirect_urls", arg) :: bnds
+         if [] = v_allowed_external_redirect_urls then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_external_redirect_urls
+           in
+           let bnd = "allowed_external_redirect_urls", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_settings_v2__login -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -686,9 +741,11 @@ let _ = yojson_of_auth_settings_v2__login
 
 type auth_settings_v2__google_v2 = {
   allowed_audiences : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   client_id : string prop;
   client_secret_setting_name : string prop;
   login_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -706,12 +763,14 @@ let yojson_of_auth_settings_v2__google_v2 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_login_scopes
-         in
-         ("login_scopes", arg) :: bnds
+         if [] = v_login_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_login_scopes
+           in
+           let bnd = "login_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -725,12 +784,14 @@ let yojson_of_auth_settings_v2__google_v2 =
          ("client_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_audiences
-         in
-         ("allowed_audiences", arg) :: bnds
+         if [] = v_allowed_audiences then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_audiences
+           in
+           let bnd = "allowed_audiences", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_settings_v2__google_v2 ->
@@ -744,6 +805,7 @@ type auth_settings_v2__github_v2 = {
   client_id : string prop;
   client_secret_setting_name : string prop;
   login_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -760,12 +822,14 @@ let yojson_of_auth_settings_v2__github_v2 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_login_scopes
-         in
-         ("login_scopes", arg) :: bnds
+         if [] = v_login_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_login_scopes
+           in
+           let bnd = "login_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -791,6 +855,7 @@ type auth_settings_v2__facebook_v2 = {
   app_secret_setting_name : string prop;
   graph_api_version : string prop;
   login_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -808,12 +873,14 @@ let yojson_of_auth_settings_v2__facebook_v2 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_login_scopes
-         in
-         ("login_scopes", arg) :: bnds
+         if [] = v_login_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_login_scopes
+           in
+           let bnd = "login_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -850,6 +917,7 @@ type auth_settings_v2__custom_oidc_v2 = {
   name_claim_type : string prop;
   openid_configuration_endpoint : string prop;
   scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   token_endpoint : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -882,10 +950,14 @@ let yojson_of_auth_settings_v2__custom_oidc_v2 =
          ("token_endpoint", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
-         in
-         ("scopes", arg) :: bnds
+         if [] = v_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scopes
+           in
+           let bnd = "scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -976,6 +1048,7 @@ type auth_settings_v2__apple_v2 = {
   client_id : string prop;
   client_secret_setting_name : string prop;
   login_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -992,12 +1065,14 @@ let yojson_of_auth_settings_v2__apple_v2 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_login_scopes
-         in
-         ("login_scopes", arg) :: bnds
+         if [] = v_login_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_login_scopes
+           in
+           let bnd = "login_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1019,14 +1094,20 @@ let _ = yojson_of_auth_settings_v2__apple_v2
 
 type auth_settings_v2__active_directory_v2 = {
   allowed_applications : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_audiences : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_identities : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   client_id : string prop;
   client_secret_certificate_thumbprint : string prop;
   client_secret_setting_name : string prop;
   jwt_allowed_client_applications : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   jwt_allowed_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   login_parameters : (string * string prop) list;
   tenant_auth_endpoint : string prop;
   www_authentication_disabled : bool prop;
@@ -1082,20 +1163,24 @@ let yojson_of_auth_settings_v2__active_directory_v2 =
          ("login_parameters", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_jwt_allowed_groups
-         in
-         ("jwt_allowed_groups", arg) :: bnds
+         if [] = v_jwt_allowed_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_jwt_allowed_groups
+           in
+           let bnd = "jwt_allowed_groups", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_jwt_allowed_client_applications
-         in
-         ("jwt_allowed_client_applications", arg) :: bnds
+         if [] = v_jwt_allowed_client_applications then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_jwt_allowed_client_applications
+           in
+           let bnd = "jwt_allowed_client_applications", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1116,36 +1201,44 @@ let yojson_of_auth_settings_v2__active_directory_v2 =
          ("client_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_identities
-         in
-         ("allowed_identities", arg) :: bnds
+         if [] = v_allowed_identities then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_identities
+           in
+           let bnd = "allowed_identities", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_groups
-         in
-         ("allowed_groups", arg) :: bnds
+         if [] = v_allowed_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_groups
+           in
+           let bnd = "allowed_groups", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_audiences
-         in
-         ("allowed_audiences", arg) :: bnds
+         if [] = v_allowed_audiences then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_audiences
+           in
+           let bnd = "allowed_audiences", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_applications
-         in
-         ("allowed_applications", arg) :: bnds
+         if [] = v_allowed_applications then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_applications
+           in
+           let bnd = "allowed_applications", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_settings_v2__active_directory_v2 ->
@@ -1157,27 +1250,38 @@ let _ = yojson_of_auth_settings_v2__active_directory_v2
 
 type auth_settings_v2 = {
   active_directory_v2 : auth_settings_v2__active_directory_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
   apple_v2 : auth_settings_v2__apple_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
   auth_enabled : bool prop;
   azure_static_web_app_v2 :
     auth_settings_v2__azure_static_web_app_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
   config_file_path : string prop;
   custom_oidc_v2 : auth_settings_v2__custom_oidc_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
   default_provider : string prop;
   excluded_paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   facebook_v2 : auth_settings_v2__facebook_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
   forward_proxy_convention : string prop;
   forward_proxy_custom_host_header_name : string prop;
   forward_proxy_custom_scheme_header_name : string prop;
   github_v2 : auth_settings_v2__github_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
   google_v2 : auth_settings_v2__google_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
   http_route_api_prefix : string prop;
   login : auth_settings_v2__login list;
+      [@default []] [@yojson_drop_default ( = )]
   microsoft_v2 : auth_settings_v2__microsoft_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
   require_authentication : bool prop;
   require_https : bool prop;
   runtime_version : string prop;
   twitter_v2 : auth_settings_v2__twitter_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
   unauthenticated_action : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1222,11 +1326,14 @@ let yojson_of_auth_settings_v2 =
          ("unauthenticated_action", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings_v2__twitter_v2
-             v_twitter_v2
-         in
-         ("twitter_v2", arg) :: bnds
+         if [] = v_twitter_v2 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings_v2__twitter_v2)
+               v_twitter_v2
+           in
+           let bnd = "twitter_v2", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1245,17 +1352,24 @@ let yojson_of_auth_settings_v2 =
          ("require_authentication", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings_v2__microsoft_v2
-             v_microsoft_v2
-         in
-         ("microsoft_v2", arg) :: bnds
+         if [] = v_microsoft_v2 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings_v2__microsoft_v2)
+               v_microsoft_v2
+           in
+           let bnd = "microsoft_v2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings_v2__login v_login
-         in
-         ("login", arg) :: bnds
+         if [] = v_login then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings_v2__login)
+               v_login
+           in
+           let bnd = "login", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1264,18 +1378,24 @@ let yojson_of_auth_settings_v2 =
          ("http_route_api_prefix", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings_v2__google_v2
-             v_google_v2
-         in
-         ("google_v2", arg) :: bnds
+         if [] = v_google_v2 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings_v2__google_v2)
+               v_google_v2
+           in
+           let bnd = "google_v2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings_v2__github_v2
-             v_github_v2
-         in
-         ("github_v2", arg) :: bnds
+         if [] = v_github_v2 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings_v2__github_v2)
+               v_github_v2
+           in
+           let bnd = "github_v2", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1298,19 +1418,24 @@ let yojson_of_auth_settings_v2 =
          ("forward_proxy_convention", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings_v2__facebook_v2
-             v_facebook_v2
-         in
-         ("facebook_v2", arg) :: bnds
+         if [] = v_facebook_v2 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings_v2__facebook_v2)
+               v_facebook_v2
+           in
+           let bnd = "facebook_v2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_excluded_paths
-         in
-         ("excluded_paths", arg) :: bnds
+         if [] = v_excluded_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_excluded_paths
+           in
+           let bnd = "excluded_paths", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1319,11 +1444,15 @@ let yojson_of_auth_settings_v2 =
          ("default_provider", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings_v2__custom_oidc_v2
-             v_custom_oidc_v2
-         in
-         ("custom_oidc_v2", arg) :: bnds
+         if [] = v_custom_oidc_v2 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_settings_v2__custom_oidc_v2)
+               v_custom_oidc_v2
+           in
+           let bnd = "custom_oidc_v2", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1332,31 +1461,40 @@ let yojson_of_auth_settings_v2 =
          ("config_file_path", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_settings_v2__azure_static_web_app_v2
-             v_azure_static_web_app_v2
-         in
-         ("azure_static_web_app_v2", arg) :: bnds
+         if [] = v_azure_static_web_app_v2 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_settings_v2__azure_static_web_app_v2)
+               v_azure_static_web_app_v2
+           in
+           let bnd = "azure_static_web_app_v2", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_auth_enabled in
          ("auth_enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_settings_v2__apple_v2
-             v_apple_v2
-         in
-         ("apple_v2", arg) :: bnds
+         if [] = v_apple_v2 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_settings_v2__apple_v2)
+               v_apple_v2
+           in
+           let bnd = "apple_v2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_settings_v2__active_directory_v2
-             v_active_directory_v2
-         in
-         ("active_directory_v2", arg) :: bnds
+         if [] = v_active_directory_v2 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_settings_v2__active_directory_v2)
+               v_active_directory_v2
+           in
+           let bnd = "active_directory_v2", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_settings_v2 -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1435,6 +1573,7 @@ type backup = {
   enabled : bool prop;
   name : string prop;
   schedule : backup__schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_account_url : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1459,10 +1598,13 @@ let yojson_of_backup =
          ("storage_account_url", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backup__schedule v_schedule
-         in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backup__schedule) v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1515,6 +1657,7 @@ let _ = yojson_of_connection_string
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   principal_id : string prop;
   tenant_id : string prop;
   type_ : string prop; [@key "type"]
@@ -1547,12 +1690,14 @@ let yojson_of_identity =
          ("principal_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1633,7 +1778,9 @@ let _ = yojson_of_logs__http_logs__azure_blob_storage
 
 type logs__http_logs = {
   azure_blob_storage : logs__http_logs__azure_blob_storage list;
+      [@default []] [@yojson_drop_default ( = )]
   file_system : logs__http_logs__file_system list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1649,19 +1796,25 @@ let yojson_of_logs__http_logs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logs__http_logs__file_system
-             v_file_system
-         in
-         ("file_system", arg) :: bnds
+         if [] = v_file_system then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logs__http_logs__file_system)
+               v_file_system
+           in
+           let bnd = "file_system", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logs__http_logs__azure_blob_storage
-             v_azure_blob_storage
-         in
-         ("azure_blob_storage", arg) :: bnds
+         if [] = v_azure_blob_storage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logs__http_logs__azure_blob_storage)
+               v_azure_blob_storage
+           in
+           let bnd = "azure_blob_storage", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logs__http_logs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1714,6 +1867,7 @@ let _ = yojson_of_logs__application_logs__azure_blob_storage
 type logs__application_logs = {
   azure_blob_storage :
     logs__application_logs__azure_blob_storage list;
+      [@default []] [@yojson_drop_default ( = )]
   file_system_level : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1736,12 +1890,15 @@ let yojson_of_logs__application_logs =
          ("file_system_level", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logs__application_logs__azure_blob_storage
-             v_azure_blob_storage
-         in
-         ("azure_blob_storage", arg) :: bnds
+         if [] = v_azure_blob_storage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logs__application_logs__azure_blob_storage)
+               v_azure_blob_storage
+           in
+           let bnd = "azure_blob_storage", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logs__application_logs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1752,9 +1909,11 @@ let _ = yojson_of_logs__application_logs
 
 type logs = {
   application_logs : logs__application_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   detailed_error_messages : bool prop;
   failed_request_tracing : bool prop;
   http_logs : logs__http_logs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1772,10 +1931,13 @@ let yojson_of_logs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logs__http_logs v_http_logs
-         in
-         ("http_logs", arg) :: bnds
+         if [] = v_http_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logs__http_logs) v_http_logs
+           in
+           let bnd = "http_logs", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1790,11 +1952,14 @@ let yojson_of_logs =
          ("detailed_error_messages", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logs__application_logs
-             v_application_logs
-         in
-         ("application_logs", arg) :: bnds
+         if [] = v_application_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logs__application_logs)
+               v_application_logs
+           in
+           let bnd = "application_logs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1805,9 +1970,13 @@ let _ = yojson_of_logs
 
 type site_config__scm_ip_restriction__headers = {
   x_azure_fdid : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_fd_health_probe : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_forwarded_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_forwarded_host : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1825,36 +1994,44 @@ let yojson_of_site_config__scm_ip_restriction__headers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_forwarded_host
-         in
-         ("x_forwarded_host", arg) :: bnds
+         if [] = v_x_forwarded_host then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_forwarded_host
+           in
+           let bnd = "x_forwarded_host", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_forwarded_for
-         in
-         ("x_forwarded_for", arg) :: bnds
+         if [] = v_x_forwarded_for then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_forwarded_for
+           in
+           let bnd = "x_forwarded_for", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_fd_health_probe
-         in
-         ("x_fd_health_probe", arg) :: bnds
+         if [] = v_x_fd_health_probe then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_fd_health_probe
+           in
+           let bnd = "x_fd_health_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_azure_fdid
-         in
-         ("x_azure_fdid", arg) :: bnds
+         if [] = v_x_azure_fdid then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_azure_fdid
+           in
+           let bnd = "x_azure_fdid", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : site_config__scm_ip_restriction__headers ->
@@ -1868,6 +2045,7 @@ type site_config__scm_ip_restriction = {
   action : string prop;
   description : string prop;
   headers : site_config__scm_ip_restriction__headers list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_address : string prop;
   name : string prop;
   priority : float prop;
@@ -1917,12 +2095,15 @@ let yojson_of_site_config__scm_ip_restriction =
          ("ip_address", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_site_config__scm_ip_restriction__headers
-             v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__scm_ip_restriction__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_description in
@@ -1942,9 +2123,13 @@ let _ = yojson_of_site_config__scm_ip_restriction
 
 type site_config__ip_restriction__headers = {
   x_azure_fdid : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_fd_health_probe : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_forwarded_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   x_forwarded_host : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1962,36 +2147,44 @@ let yojson_of_site_config__ip_restriction__headers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_forwarded_host
-         in
-         ("x_forwarded_host", arg) :: bnds
+         if [] = v_x_forwarded_host then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_forwarded_host
+           in
+           let bnd = "x_forwarded_host", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_forwarded_for
-         in
-         ("x_forwarded_for", arg) :: bnds
+         if [] = v_x_forwarded_for then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_forwarded_for
+           in
+           let bnd = "x_forwarded_for", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_fd_health_probe
-         in
-         ("x_fd_health_probe", arg) :: bnds
+         if [] = v_x_fd_health_probe then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_fd_health_probe
+           in
+           let bnd = "x_fd_health_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_x_azure_fdid
-         in
-         ("x_azure_fdid", arg) :: bnds
+         if [] = v_x_azure_fdid then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_x_azure_fdid
+           in
+           let bnd = "x_azure_fdid", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : site_config__ip_restriction__headers ->
@@ -2005,6 +2198,7 @@ type site_config__ip_restriction = {
   action : string prop;
   description : string prop;
   headers : site_config__ip_restriction__headers list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_address : string prop;
   name : string prop;
   priority : float prop;
@@ -2054,11 +2248,15 @@ let yojson_of_site_config__ip_restriction =
          ("ip_address", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_site_config__ip_restriction__headers v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__ip_restriction__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_description in
@@ -2078,6 +2276,7 @@ let _ = yojson_of_site_config__ip_restriction
 
 type site_config__cors = {
   allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   support_credentials : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -2100,12 +2299,14 @@ let yojson_of_site_config__cors =
          ("support_credentials", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : site_config__cors -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2258,10 +2459,13 @@ let _ = yojson_of_site_config__auto_heal_setting__trigger__requests
 
 type site_config__auto_heal_setting__trigger = {
   requests : site_config__auto_heal_setting__trigger__requests list;
+      [@default []] [@yojson_drop_default ( = )]
   slow_request :
     site_config__auto_heal_setting__trigger__slow_request list;
+      [@default []] [@yojson_drop_default ( = )]
   status_code :
     site_config__auto_heal_setting__trigger__status_code list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2278,28 +2482,37 @@ let yojson_of_site_config__auto_heal_setting__trigger =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_site_config__auto_heal_setting__trigger__status_code
-             v_status_code
-         in
-         ("status_code", arg) :: bnds
+         if [] = v_status_code then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__auto_heal_setting__trigger__status_code)
+               v_status_code
+           in
+           let bnd = "status_code", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_site_config__auto_heal_setting__trigger__slow_request
-             v_slow_request
-         in
-         ("slow_request", arg) :: bnds
+         if [] = v_slow_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__auto_heal_setting__trigger__slow_request)
+               v_slow_request
+           in
+           let bnd = "slow_request", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_site_config__auto_heal_setting__trigger__requests
-             v_requests
-         in
-         ("requests", arg) :: bnds
+         if [] = v_requests then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__auto_heal_setting__trigger__requests)
+               v_requests
+           in
+           let bnd = "requests", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : site_config__auto_heal_setting__trigger ->
@@ -2348,7 +2561,9 @@ let _ = yojson_of_site_config__auto_heal_setting__action
 
 type site_config__auto_heal_setting = {
   action : site_config__auto_heal_setting__action list;
+      [@default []] [@yojson_drop_default ( = )]
   trigger : site_config__auto_heal_setting__trigger list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2361,20 +2576,26 @@ let yojson_of_site_config__auto_heal_setting =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_site_config__auto_heal_setting__trigger
-             v_trigger
-         in
-         ("trigger", arg) :: bnds
+         if [] = v_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__auto_heal_setting__trigger)
+               v_trigger
+           in
+           let bnd = "trigger", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_site_config__auto_heal_setting__action
-             v_action
-         in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__auto_heal_setting__action)
+               v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : site_config__auto_heal_setting ->
@@ -2517,18 +2738,23 @@ type site_config = {
   api_management_api_id : string prop;
   app_command_line : string prop;
   application_stack : site_config__application_stack list;
+      [@default []] [@yojson_drop_default ( = )]
   auto_heal_enabled : bool prop;
   auto_heal_setting : site_config__auto_heal_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   container_registry_managed_identity_client_id : string prop;
   container_registry_use_managed_identity : bool prop;
   cors : site_config__cors list;
+      [@default []] [@yojson_drop_default ( = )]
   default_documents : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   detailed_error_logging_enabled : bool prop;
   ftps_state : string prop;
   health_check_eviction_time_in_min : float prop;
   health_check_path : string prop;
   http2_enabled : bool prop;
   ip_restriction : site_config__ip_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_restriction_default_action : string prop;
   linux_fx_version : string prop;
   load_balancing_mode : string prop;
@@ -2538,6 +2764,7 @@ type site_config = {
   remote_debugging_enabled : bool prop;
   remote_debugging_version : string prop;
   scm_ip_restriction : site_config__scm_ip_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
   scm_ip_restriction_default_action : string prop;
   scm_minimum_tls_version : string prop;
   scm_type : string prop;
@@ -2645,11 +2872,15 @@ let yojson_of_site_config =
          ("scm_ip_restriction_default_action", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_site_config__scm_ip_restriction
-             v_scm_ip_restriction
-         in
-         ("scm_ip_restriction", arg) :: bnds
+         if [] = v_scm_ip_restriction then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_site_config__scm_ip_restriction)
+               v_scm_ip_restriction
+           in
+           let bnd = "scm_ip_restriction", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2701,11 +2932,14 @@ let yojson_of_site_config =
          ("ip_restriction_default_action", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_site_config__ip_restriction
-             v_ip_restriction
-         in
-         ("ip_restriction", arg) :: bnds
+         if [] = v_ip_restriction then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_site_config__ip_restriction)
+               v_ip_restriction
+           in
+           let bnd = "ip_restriction", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_http2_enabled in
@@ -2736,18 +2970,23 @@ let yojson_of_site_config =
          ("detailed_error_logging_enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_default_documents
-         in
-         ("default_documents", arg) :: bnds
+         if [] = v_default_documents then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_default_documents
+           in
+           let bnd = "default_documents", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_site_config__cors v_cors
-         in
-         ("cors", arg) :: bnds
+         if [] = v_cors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_site_config__cors) v_cors
+           in
+           let bnd = "cors", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2765,11 +3004,14 @@ let yojson_of_site_config =
          :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_site_config__auto_heal_setting
-             v_auto_heal_setting
-         in
-         ("auto_heal_setting", arg) :: bnds
+         if [] = v_auto_heal_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_site_config__auto_heal_setting)
+               v_auto_heal_setting
+           in
+           let bnd = "auto_heal_setting", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2778,11 +3020,14 @@ let yojson_of_site_config =
          ("auto_heal_enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_site_config__application_stack
-             v_application_stack
-         in
-         ("application_stack", arg) :: bnds
+         if [] = v_application_stack then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_site_config__application_stack)
+               v_application_stack
+           in
+           let bnd = "application_stack", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2841,7 +3086,9 @@ let _ = yojson_of_site_credential
 
 type sticky_settings = {
   app_setting_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   connection_string_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2857,20 +3104,24 @@ let yojson_of_sticky_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_connection_string_names
-         in
-         ("connection_string_names", arg) :: bnds
+         if [] = v_connection_string_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_connection_string_names
+           in
+           let bnd = "connection_string_names", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_app_setting_names
-         in
-         ("app_setting_names", arg) :: bnds
+         if [] = v_app_setting_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_app_setting_names
+           in
+           let bnd = "app_setting_names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : sticky_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)

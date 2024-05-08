@@ -18,6 +18,7 @@ let _ = yojson_of_column_level_permission_rules
 
 type column_groups__geo_spatial_column_group = {
   columns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   country_code : string prop;
   name : string prop;
 }
@@ -44,10 +45,14 @@ let yojson_of_column_groups__geo_spatial_column_group =
          ("country_code", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_columns
-         in
-         ("columns", arg) :: bnds
+         if [] = v_columns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_columns
+           in
+           let bnd = "columns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : column_groups__geo_spatial_column_group ->
@@ -60,6 +65,7 @@ let _ = yojson_of_column_groups__geo_spatial_column_group
 type column_groups = {
   geo_spatial_column_group :
     column_groups__geo_spatial_column_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -72,12 +78,15 @@ let yojson_of_column_groups =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_column_groups__geo_spatial_column_group
-             v_geo_spatial_column_group
-         in
-         ("geo_spatial_column_group", arg) :: bnds
+         if [] = v_geo_spatial_column_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_column_groups__geo_spatial_column_group)
+               v_geo_spatial_column_group
+           in
+           let bnd = "geo_spatial_column_group", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : column_groups -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -129,6 +138,7 @@ let _ = yojson_of_data_set_usage_configuration
 
 type field_folders = {
   columns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   description : string prop;
   field_folders_id : string prop;
 }
@@ -157,10 +167,14 @@ let yojson_of_field_folders =
          ("description", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_columns
-         in
-         ("columns", arg) :: bnds
+         if [] = v_columns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_columns
+           in
+           let bnd = "columns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : field_folders -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -233,11 +247,13 @@ type logical_table_map__source__join_instruction = {
   left_join_key_properties :
     logical_table_map__source__join_instruction__left_join_key_properties
     list;
+      [@default []] [@yojson_drop_default ( = )]
   left_operand : string prop;
   on_clause : string prop;
   right_join_key_properties :
     logical_table_map__source__join_instruction__right_join_key_properties
     list;
+      [@default []] [@yojson_drop_default ( = )]
   right_operand : string prop;
   type_ : string prop; [@key "type"]
 }
@@ -267,12 +283,15 @@ let yojson_of_logical_table_map__source__join_instruction =
          ("right_operand", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__source__join_instruction__right_join_key_properties
-             v_right_join_key_properties
-         in
-         ("right_join_key_properties", arg) :: bnds
+         if [] = v_right_join_key_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__source__join_instruction__right_join_key_properties)
+               v_right_join_key_properties
+           in
+           let bnd = "right_join_key_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_on_clause in
@@ -283,12 +302,15 @@ let yojson_of_logical_table_map__source__join_instruction =
          ("left_operand", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__source__join_instruction__left_join_key_properties
-             v_left_join_key_properties
-         in
-         ("left_join_key_properties", arg) :: bnds
+         if [] = v_left_join_key_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__source__join_instruction__left_join_key_properties)
+               v_left_join_key_properties
+           in
+           let bnd = "left_join_key_properties", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logical_table_map__source__join_instruction ->
@@ -302,6 +324,7 @@ type logical_table_map__source = {
   data_set_arn : string prop;
   join_instruction :
     logical_table_map__source__join_instruction list;
+      [@default []] [@yojson_drop_default ( = )]
   physical_table_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -325,12 +348,15 @@ let yojson_of_logical_table_map__source =
          ("physical_table_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__source__join_instruction
-             v_join_instruction
-         in
-         ("join_instruction", arg) :: bnds
+         if [] = v_join_instruction then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__source__join_instruction)
+               v_join_instruction
+           in
+           let bnd = "join_instruction", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_data_set_arn in
@@ -346,6 +372,7 @@ let _ = yojson_of_logical_table_map__source
 type logical_table_map__data_transforms__untag_column_operation = {
   column_name : string prop;
   tag_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -361,12 +388,14 @@ let yojson_of_logical_table_map__data_transforms__untag_column_operation
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_tag_names
-         in
-         ("tag_names", arg) :: bnds
+         if [] = v_tag_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_tag_names
+           in
+           let bnd = "tag_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_column_name in
@@ -415,6 +444,7 @@ type logical_table_map__data_transforms__tag_column_operation__tags = {
   column_description :
     logical_table_map__data_transforms__tag_column_operation__tags__column_description
     list;
+      [@default []] [@yojson_drop_default ( = )]
   column_geographic_role : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -441,12 +471,15 @@ let yojson_of_logical_table_map__data_transforms__tag_column_operation__tags
          ("column_geographic_role", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms__tag_column_operation__tags__column_description
-             v_column_description
-         in
-         ("column_description", arg) :: bnds
+         if [] = v_column_description then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms__tag_column_operation__tags__column_description)
+               v_column_description
+           in
+           let bnd = "column_description", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logical_table_map__data_transforms__tag_column_operation__tags ->
@@ -462,6 +495,7 @@ type logical_table_map__data_transforms__tag_column_operation = {
   tags :
     logical_table_map__data_transforms__tag_column_operation__tags
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -477,12 +511,15 @@ let yojson_of_logical_table_map__data_transforms__tag_column_operation
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms__tag_column_operation__tags
-             v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms__tag_column_operation__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_column_name in
@@ -539,6 +576,7 @@ let _ =
 
 type logical_table_map__data_transforms__project_operation = {
   projected_columns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -553,12 +591,14 @@ let yojson_of_logical_table_map__data_transforms__project_operation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_projected_columns
-         in
-         ("projected_columns", arg) :: bnds
+         if [] = v_projected_columns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_projected_columns
+           in
+           let bnd = "projected_columns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logical_table_map__data_transforms__project_operation ->
@@ -646,6 +686,7 @@ type logical_table_map__data_transforms__create_columns_operation = {
   columns :
     logical_table_map__data_transforms__create_columns_operation__columns
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -662,12 +703,15 @@ let yojson_of_logical_table_map__data_transforms__create_columns_operation
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms__create_columns_operation__columns
-             v_columns
-         in
-         ("columns", arg) :: bnds
+         if [] = v_columns then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms__create_columns_operation__columns)
+               v_columns
+           in
+           let bnd = "columns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logical_table_map__data_transforms__create_columns_operation ->
@@ -728,18 +772,25 @@ type logical_table_map__data_transforms = {
   cast_column_type_operation :
     logical_table_map__data_transforms__cast_column_type_operation
     list;
+      [@default []] [@yojson_drop_default ( = )]
   create_columns_operation :
     logical_table_map__data_transforms__create_columns_operation list;
+      [@default []] [@yojson_drop_default ( = )]
   filter_operation :
     logical_table_map__data_transforms__filter_operation list;
+      [@default []] [@yojson_drop_default ( = )]
   project_operation :
     logical_table_map__data_transforms__project_operation list;
+      [@default []] [@yojson_drop_default ( = )]
   rename_column_operation :
     logical_table_map__data_transforms__rename_column_operation list;
+      [@default []] [@yojson_drop_default ( = )]
   tag_column_operation :
     logical_table_map__data_transforms__tag_column_operation list;
+      [@default []] [@yojson_drop_default ( = )]
   untag_column_operation :
     logical_table_map__data_transforms__untag_column_operation list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -760,60 +811,81 @@ let yojson_of_logical_table_map__data_transforms =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms__untag_column_operation
-             v_untag_column_operation
-         in
-         ("untag_column_operation", arg) :: bnds
+         if [] = v_untag_column_operation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms__untag_column_operation)
+               v_untag_column_operation
+           in
+           let bnd = "untag_column_operation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms__tag_column_operation
-             v_tag_column_operation
-         in
-         ("tag_column_operation", arg) :: bnds
+         if [] = v_tag_column_operation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms__tag_column_operation)
+               v_tag_column_operation
+           in
+           let bnd = "tag_column_operation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms__rename_column_operation
-             v_rename_column_operation
-         in
-         ("rename_column_operation", arg) :: bnds
+         if [] = v_rename_column_operation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms__rename_column_operation)
+               v_rename_column_operation
+           in
+           let bnd = "rename_column_operation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms__project_operation
-             v_project_operation
-         in
-         ("project_operation", arg) :: bnds
+         if [] = v_project_operation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms__project_operation)
+               v_project_operation
+           in
+           let bnd = "project_operation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms__filter_operation
-             v_filter_operation
-         in
-         ("filter_operation", arg) :: bnds
+         if [] = v_filter_operation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms__filter_operation)
+               v_filter_operation
+           in
+           let bnd = "filter_operation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms__create_columns_operation
-             v_create_columns_operation
-         in
-         ("create_columns_operation", arg) :: bnds
+         if [] = v_create_columns_operation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms__create_columns_operation)
+               v_create_columns_operation
+           in
+           let bnd = "create_columns_operation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms__cast_column_type_operation
-             v_cast_column_type_operation
-         in
-         ("cast_column_type_operation", arg) :: bnds
+         if [] = v_cast_column_type_operation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms__cast_column_type_operation)
+               v_cast_column_type_operation
+           in
+           let bnd = "cast_column_type_operation", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logical_table_map__data_transforms ->
@@ -826,8 +898,10 @@ let _ = yojson_of_logical_table_map__data_transforms
 type logical_table_map = {
   alias : string prop;
   data_transforms : logical_table_map__data_transforms list;
+      [@default []] [@yojson_drop_default ( = )]
   logical_table_map_id : string prop;
   source : logical_table_map__source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -845,11 +919,14 @@ let yojson_of_logical_table_map =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logical_table_map__source
-             v_source
-         in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logical_table_map__source)
+               v_source
+           in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -858,12 +935,15 @@ let yojson_of_logical_table_map =
          ("logical_table_map_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logical_table_map__data_transforms
-             v_data_transforms
-         in
-         ("data_transforms", arg) :: bnds
+         if [] = v_data_transforms then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logical_table_map__data_transforms)
+               v_data_transforms
+           in
+           let bnd = "data_transforms", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_alias in
@@ -878,6 +958,7 @@ let _ = yojson_of_logical_table_map
 
 type permissions = {
   actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   principal : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -895,10 +976,14 @@ let yojson_of_permissions =
          ("principal", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : permissions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -994,8 +1079,10 @@ let _ = yojson_of_physical_table_map__s3_source__input_columns
 type physical_table_map__s3_source = {
   data_source_arn : string prop;
   input_columns : physical_table_map__s3_source__input_columns list;
+      [@default []] [@yojson_drop_default ( = )]
   upload_settings :
     physical_table_map__s3_source__upload_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1012,20 +1099,26 @@ let yojson_of_physical_table_map__s3_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_physical_table_map__s3_source__upload_settings
-             v_upload_settings
-         in
-         ("upload_settings", arg) :: bnds
+         if [] = v_upload_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_physical_table_map__s3_source__upload_settings)
+               v_upload_settings
+           in
+           let bnd = "upload_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_physical_table_map__s3_source__input_columns
-             v_input_columns
-         in
-         ("input_columns", arg) :: bnds
+         if [] = v_input_columns then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_physical_table_map__s3_source__input_columns)
+               v_input_columns
+           in
+           let bnd = "input_columns", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1077,6 +1170,7 @@ type physical_table_map__relational_table = {
   data_source_arn : string prop;
   input_columns :
     physical_table_map__relational_table__input_columns list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   schema : string prop;
 }
@@ -1105,12 +1199,15 @@ let yojson_of_physical_table_map__relational_table =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_physical_table_map__relational_table__input_columns
-             v_input_columns
-         in
-         ("input_columns", arg) :: bnds
+         if [] = v_input_columns then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_physical_table_map__relational_table__input_columns)
+               v_input_columns
+           in
+           let bnd = "input_columns", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1162,6 +1259,7 @@ let _ = yojson_of_physical_table_map__custom_sql__columns
 
 type physical_table_map__custom_sql = {
   columns : physical_table_map__custom_sql__columns list;
+      [@default []] [@yojson_drop_default ( = )]
   data_source_arn : string prop;
   name : string prop;
   sql_query : string prop;
@@ -1196,12 +1294,15 @@ let yojson_of_physical_table_map__custom_sql =
          ("data_source_arn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_physical_table_map__custom_sql__columns
-             v_columns
-         in
-         ("columns", arg) :: bnds
+         if [] = v_columns then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_physical_table_map__custom_sql__columns)
+               v_columns
+           in
+           let bnd = "columns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : physical_table_map__custom_sql ->
@@ -1213,9 +1314,12 @@ let _ = yojson_of_physical_table_map__custom_sql
 
 type physical_table_map = {
   custom_sql : physical_table_map__custom_sql list;
+      [@default []] [@yojson_drop_default ( = )]
   physical_table_map_id : string prop;
   relational_table : physical_table_map__relational_table list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_source : physical_table_map__s3_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1233,19 +1337,25 @@ let yojson_of_physical_table_map =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_physical_table_map__s3_source
-             v_s3_source
-         in
-         ("s3_source", arg) :: bnds
+         if [] = v_s3_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_physical_table_map__s3_source)
+               v_s3_source
+           in
+           let bnd = "s3_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_physical_table_map__relational_table
-             v_relational_table
-         in
-         ("relational_table", arg) :: bnds
+         if [] = v_relational_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_physical_table_map__relational_table)
+               v_relational_table
+           in
+           let bnd = "relational_table", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1254,11 +1364,14 @@ let yojson_of_physical_table_map =
          ("physical_table_map_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_physical_table_map__custom_sql
-             v_custom_sql
-         in
-         ("custom_sql", arg) :: bnds
+         if [] = v_custom_sql then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_physical_table_map__custom_sql)
+               v_custom_sql
+           in
+           let bnd = "custom_sql", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : physical_table_map -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1376,6 +1489,7 @@ let _ = yojson_of_row_level_permission_tag_configuration__tag_rules
 type row_level_permission_tag_configuration = {
   status : string prop;
   tag_rules : row_level_permission_tag_configuration__tag_rules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1388,12 +1502,15 @@ let yojson_of_row_level_permission_tag_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_row_level_permission_tag_configuration__tag_rules
-             v_tag_rules
-         in
-         ("tag_rules", arg) :: bnds
+         if [] = v_tag_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_row_level_permission_tag_configuration__tag_rules)
+               v_tag_rules
+           in
+           let bnd = "tag_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_status in
@@ -1414,6 +1531,7 @@ type aws_quicksight_data_set = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   column_level_permission_rules : column_level_permission_rules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1434,11 +1552,14 @@ let yojson_of_aws_quicksight_data_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_column_level_permission_rules
-             v_column_level_permission_rules
-         in
-         ("column_level_permission_rules", arg) :: bnds
+         if [] = v_column_level_permission_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_column_level_permission_rules)
+               v_column_level_permission_rules
+           in
+           let bnd = "column_level_permission_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

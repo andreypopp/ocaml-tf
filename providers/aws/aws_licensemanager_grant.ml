@@ -4,6 +4,7 @@ open! Tf_core
 
 type aws_licensemanager_grant = {
   allowed_operations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   license_arn : string prop;
   name : string prop;
@@ -46,12 +47,14 @@ let yojson_of_aws_licensemanager_grant =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_operations
-         in
-         ("allowed_operations", arg) :: bnds
+         if [] = v_allowed_operations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_operations
+           in
+           let bnd = "allowed_operations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_licensemanager_grant -> Ppx_yojson_conv_lib.Yojson.Safe.t)

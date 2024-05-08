@@ -109,7 +109,9 @@ type instance_type_configs = {
   instance_type : string prop;
   weighted_capacity : float prop option; [@option]
   configurations : instance_type_configs__configurations list;
+      [@default []] [@yojson_drop_default ( = )]
   ebs_config : instance_type_configs__ebs_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,19 +132,26 @@ let yojson_of_instance_type_configs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_type_configs__ebs_config
-             v_ebs_config
-         in
-         ("ebs_config", arg) :: bnds
+         if [] = v_ebs_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_type_configs__ebs_config)
+               v_ebs_config
+           in
+           let bnd = "ebs_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_type_configs__configurations
-             v_configurations
-         in
-         ("configurations", arg) :: bnds
+         if [] = v_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_type_configs__configurations)
+               v_configurations
+           in
+           let bnd = "configurations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weighted_capacity with
@@ -267,7 +276,9 @@ let _ = yojson_of_launch_specifications__spot_specification
 type launch_specifications = {
   on_demand_specification :
     launch_specifications__on_demand_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   spot_specification : launch_specifications__spot_specification list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -283,20 +294,26 @@ let yojson_of_launch_specifications =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_specifications__spot_specification
-             v_spot_specification
-         in
-         ("spot_specification", arg) :: bnds
+         if [] = v_spot_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_specifications__spot_specification)
+               v_spot_specification
+           in
+           let bnd = "spot_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_specifications__on_demand_specification
-             v_on_demand_specification
-         in
-         ("on_demand_specification", arg) :: bnds
+         if [] = v_on_demand_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_specifications__on_demand_specification)
+               v_on_demand_specification
+           in
+           let bnd = "on_demand_specification", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : launch_specifications -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -312,7 +329,9 @@ type aws_emr_instance_fleet = {
   target_on_demand_capacity : float prop option; [@option]
   target_spot_capacity : float prop option; [@option]
   instance_type_configs : instance_type_configs list;
+      [@default []] [@yojson_drop_default ( = )]
   launch_specifications : launch_specifications list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -333,18 +352,24 @@ let yojson_of_aws_emr_instance_fleet =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_launch_specifications
-             v_launch_specifications
-         in
-         ("launch_specifications", arg) :: bnds
+         if [] = v_launch_specifications then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_launch_specifications)
+               v_launch_specifications
+           in
+           let bnd = "launch_specifications", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_type_configs
-             v_instance_type_configs
-         in
-         ("instance_type_configs", arg) :: bnds
+         if [] = v_instance_type_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instance_type_configs)
+               v_instance_type_configs
+           in
+           let bnd = "instance_type_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_spot_capacity with

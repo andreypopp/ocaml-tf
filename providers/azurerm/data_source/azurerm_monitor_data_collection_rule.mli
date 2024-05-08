@@ -6,28 +6,44 @@ open! Tf_core
 
 type data_flow = {
   built_in_transform : string prop;  (** built_in_transform *)
-  destinations : string prop list;  (** destinations *)
+  destinations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** destinations *)
   output_stream : string prop;  (** output_stream *)
-  streams : string prop list;  (** streams *)
+  streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** streams *)
   transform_kql : string prop;  (** transform_kql *)
 }
 
 type data_sources__windows_firewall_log = {
   name : string prop;  (** name *)
-  streams : string prop list;  (** streams *)
+  streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** streams *)
 }
 
 type data_sources__windows_event_log = {
   name : string prop;  (** name *)
-  streams : string prop list;  (** streams *)
-  x_path_queries : string prop list;  (** x_path_queries *)
+  streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** streams *)
+  x_path_queries : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_path_queries *)
 }
 
 type data_sources__syslog = {
-  facility_names : string prop list;  (** facility_names *)
-  log_levels : string prop list;  (** log_levels *)
+  facility_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** facility_names *)
+  log_levels : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** log_levels *)
   name : string prop;  (** name *)
-  streams : string prop list;  (** streams *)
+  streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** streams *)
 }
 
 type data_sources__prometheus_forwarder__label_include_filter = {
@@ -38,22 +54,31 @@ type data_sources__prometheus_forwarder__label_include_filter = {
 type data_sources__prometheus_forwarder = {
   label_include_filter :
     data_sources__prometheus_forwarder__label_include_filter list;
+      [@default []] [@yojson_drop_default ( = )]
       (** label_include_filter *)
   name : string prop;  (** name *)
-  streams : string prop list;  (** streams *)
+  streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** streams *)
 }
 
 type data_sources__platform_telemetry = {
   name : string prop;  (** name *)
-  streams : string prop list;  (** streams *)
+  streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** streams *)
 }
 
 type data_sources__performance_counter = {
-  counter_specifiers : string prop list;  (** counter_specifiers *)
+  counter_specifiers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** counter_specifiers *)
   name : string prop;  (** name *)
   sampling_frequency_in_seconds : float prop;
       (** sampling_frequency_in_seconds *)
-  streams : string prop list;  (** streams *)
+  streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** streams *)
 }
 
 type data_sources__log_file__settings__text = {
@@ -62,29 +87,45 @@ type data_sources__log_file__settings__text = {
 }
 
 type data_sources__log_file__settings = {
-  text : data_sources__log_file__settings__text list;  (** text *)
+  text : data_sources__log_file__settings__text list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** text *)
 }
 
 type data_sources__log_file = {
-  file_patterns : string prop list;  (** file_patterns *)
+  file_patterns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** file_patterns *)
   format : string prop;  (** format *)
   name : string prop;  (** name *)
-  settings : data_sources__log_file__settings list;  (** settings *)
-  streams : string prop list;  (** streams *)
+  settings : data_sources__log_file__settings list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** settings *)
+  streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** streams *)
 }
 
 type data_sources__iis_log = {
-  log_directories : string prop list;  (** log_directories *)
+  log_directories : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** log_directories *)
   name : string prop;  (** name *)
-  streams : string prop list;  (** streams *)
+  streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** streams *)
 }
 
 type data_sources__extension = {
   extension_json : string prop;  (** extension_json *)
   extension_name : string prop;  (** extension_name *)
-  input_data_sources : string prop list;  (** input_data_sources *)
+  input_data_sources : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** input_data_sources *)
   name : string prop;  (** name *)
-  streams : string prop list;  (** streams *)
+  streams : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** streams *)
 }
 
 type data_sources__data_import__event_hub_data_source = {
@@ -96,24 +137,40 @@ type data_sources__data_import__event_hub_data_source = {
 type data_sources__data_import = {
   event_hub_data_source :
     data_sources__data_import__event_hub_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
       (** event_hub_data_source *)
 }
 
 type data_sources = {
-  data_import : data_sources__data_import list;  (** data_import *)
-  extension : data_sources__extension list;  (** extension *)
-  iis_log : data_sources__iis_log list;  (** iis_log *)
-  log_file : data_sources__log_file list;  (** log_file *)
+  data_import : data_sources__data_import list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** data_import *)
+  extension : data_sources__extension list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** extension *)
+  iis_log : data_sources__iis_log list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** iis_log *)
+  log_file : data_sources__log_file list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** log_file *)
   performance_counter : data_sources__performance_counter list;
+      [@default []] [@yojson_drop_default ( = )]
       (** performance_counter *)
   platform_telemetry : data_sources__platform_telemetry list;
+      [@default []] [@yojson_drop_default ( = )]
       (** platform_telemetry *)
   prometheus_forwarder : data_sources__prometheus_forwarder list;
+      [@default []] [@yojson_drop_default ( = )]
       (** prometheus_forwarder *)
-  syslog : data_sources__syslog list;  (** syslog *)
+  syslog : data_sources__syslog list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** syslog *)
   windows_event_log : data_sources__windows_event_log list;
+      [@default []] [@yojson_drop_default ( = )]
       (** windows_event_log *)
   windows_firewall_log : data_sources__windows_firewall_log list;
+      [@default []] [@yojson_drop_default ( = )]
       (** windows_firewall_log *)
 }
 
@@ -161,24 +218,35 @@ type destinations__azure_monitor_metrics = {
 
 type destinations = {
   azure_monitor_metrics : destinations__azure_monitor_metrics list;
+      [@default []] [@yojson_drop_default ( = )]
       (** azure_monitor_metrics *)
-  event_hub : destinations__event_hub list;  (** event_hub *)
+  event_hub : destinations__event_hub list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** event_hub *)
   event_hub_direct : destinations__event_hub_direct list;
+      [@default []] [@yojson_drop_default ( = )]
       (** event_hub_direct *)
   log_analytics : destinations__log_analytics list;
+      [@default []] [@yojson_drop_default ( = )]
       (** log_analytics *)
   monitor_account : destinations__monitor_account list;
+      [@default []] [@yojson_drop_default ( = )]
       (** monitor_account *)
   storage_blob : destinations__storage_blob list;
+      [@default []] [@yojson_drop_default ( = )]
       (** storage_blob *)
   storage_blob_direct : destinations__storage_blob_direct list;
+      [@default []] [@yojson_drop_default ( = )]
       (** storage_blob_direct *)
   storage_table_direct : destinations__storage_table_direct list;
+      [@default []] [@yojson_drop_default ( = )]
       (** storage_table_direct *)
 }
 
 type identity = {
-  identity_ids : string prop list;  (** identity_ids *)
+  identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** identity_ids *)
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -190,7 +258,9 @@ type stream_declaration__column = {
 }
 
 type stream_declaration = {
-  column : stream_declaration__column list;  (** column *)
+  column : stream_declaration__column list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** column *)
   stream_name : string prop;  (** stream_name *)
 }
 

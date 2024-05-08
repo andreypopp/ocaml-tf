@@ -50,6 +50,7 @@ type network_address_port_translation = {
   udp_port_reuse_minimum_hold_time_in_seconds : float prop option;
       [@option]
   port_range : network_address_port_translation__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,12 +76,15 @@ let yojson_of_network_address_port_translation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_address_port_translation__port_range
-             v_port_range
-         in
-         ("port_range", arg) :: bnds
+         if [] = v_port_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_address_port_translation__port_range)
+               v_port_range
+           in
+           let bnd = "port_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_udp_port_reuse_minimum_hold_time_in_seconds with
@@ -204,6 +208,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_mobile_network_attached_data_network = {
   dns_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   location : string prop;
   mobile_network_data_network_name : string prop;
@@ -220,6 +225,7 @@ type azurerm_mobile_network_attached_data_network = {
   user_plane_access_name : string prop option; [@option]
   network_address_port_translation :
     network_address_port_translation list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -260,11 +266,15 @@ let yojson_of_azurerm_mobile_network_attached_data_network =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_address_port_translation
-             v_network_address_port_translation
-         in
-         ("network_address_port_translation", arg) :: bnds
+         if [] = v_network_address_port_translation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_address_port_translation)
+               v_network_address_port_translation
+           in
+           let bnd = "network_address_port_translation", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_plane_access_name with
@@ -363,12 +373,14 @@ let yojson_of_azurerm_mobile_network_attached_data_network =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_dns_addresses
-         in
-         ("dns_addresses", arg) :: bnds
+         if [] = v_dns_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_dns_addresses
+           in
+           let bnd = "dns_addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_mobile_network_attached_data_network ->

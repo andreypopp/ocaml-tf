@@ -34,6 +34,7 @@ let _ = yojson_of_notifications__slack
 type notifications = {
   email : string prop list option; [@option]
   slack : notifications__slack list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,10 +47,13 @@ let yojson_of_notifications =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notifications__slack v_slack
-         in
-         ("slack", arg) :: bnds
+         if [] = v_slack then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notifications__slack) v_slack
+           in
+           let bnd = "slack", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_email with
@@ -76,6 +80,7 @@ type digitalocean_uptime_alert = {
   threshold : float prop option; [@option]
   type_ : string prop; [@key "type"]
   notifications : notifications list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -96,10 +101,13 @@ let yojson_of_digitalocean_uptime_alert =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notifications v_notifications
-         in
-         ("notifications", arg) :: bnds
+         if [] = v_notifications then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notifications) v_notifications
+           in
+           let bnd = "notifications", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

@@ -91,6 +91,7 @@ let _ = yojson_of_origin_steering
 type origins__header = {
   header : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -103,10 +104,14 @@ let yojson_of_origins__header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_header in
@@ -125,6 +130,7 @@ type origins = {
   name : string prop;
   weight : float prop option; [@option]
   header : origins__header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -143,10 +149,13 @@ let yojson_of_origins =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_origins__header v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_origins__header) v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weight with
@@ -192,8 +201,10 @@ type cloudflare_load_balancer_pool = {
   name : string prop;
   notification_email : string prop option; [@option]
   load_shedding : load_shedding list;
+      [@default []] [@yojson_drop_default ( = )]
   origin_steering : origin_steering list;
-  origins : origins list;
+      [@default []] [@yojson_drop_default ( = )]
+  origins : origins list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -221,20 +232,30 @@ let yojson_of_cloudflare_load_balancer_pool =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_origins v_origins in
-         ("origins", arg) :: bnds
+         if [] = v_origins then bnds
+         else
+           let arg = (yojson_of_list yojson_of_origins) v_origins in
+           let bnd = "origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_origin_steering v_origin_steering
-         in
-         ("origin_steering", arg) :: bnds
+         if [] = v_origin_steering then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_origin_steering)
+               v_origin_steering
+           in
+           let bnd = "origin_steering", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_shedding v_load_shedding
-         in
-         ("load_shedding", arg) :: bnds
+         if [] = v_load_shedding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_shedding) v_load_shedding
+           in
+           let bnd = "load_shedding", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_notification_email with

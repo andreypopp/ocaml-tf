@@ -217,8 +217,11 @@ type aws_lb = {
   tags_all : (string * string prop) list option; [@option]
   xff_header_processing_mode : string prop option; [@option]
   access_logs : access_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   connection_logs : connection_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_mapping : subnet_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -269,22 +272,33 @@ let yojson_of_aws_lb =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_subnet_mapping v_subnet_mapping
-         in
-         ("subnet_mapping", arg) :: bnds
+         if [] = v_subnet_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subnet_mapping)
+               v_subnet_mapping
+           in
+           let bnd = "subnet_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_connection_logs v_connection_logs
-         in
-         ("connection_logs", arg) :: bnds
+         if [] = v_connection_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_connection_logs)
+               v_connection_logs
+           in
+           let bnd = "connection_logs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access_logs v_access_logs
-         in
-         ("access_logs", arg) :: bnds
+         if [] = v_access_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_logs) v_access_logs
+           in
+           let bnd = "access_logs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_xff_header_processing_mode with

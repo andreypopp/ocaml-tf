@@ -156,9 +156,10 @@ type google_compute_firewall = {
   source_tags : string prop list option; [@option]
   target_service_accounts : string prop list option; [@option]
   target_tags : string prop list option; [@option]
-  allow : allow list;
-  deny : deny list;
+  allow : allow list; [@default []] [@yojson_drop_default ( = )]
+  deny : deny list; [@default []] [@yojson_drop_default ( = )]
   log_config : log_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -196,18 +197,27 @@ let yojson_of_google_compute_firewall =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_config v_log_config
-         in
-         ("log_config", arg) :: bnds
+         if [] = v_log_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_config) v_log_config
+           in
+           let bnd = "log_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_deny v_deny in
-         ("deny", arg) :: bnds
+         if [] = v_deny then bnds
+         else
+           let arg = (yojson_of_list yojson_of_deny) v_deny in
+           let bnd = "deny", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_allow v_allow in
-         ("allow", arg) :: bnds
+         if [] = v_allow then bnds
+         else
+           let arg = (yojson_of_list yojson_of_allow) v_allow in
+           let bnd = "allow", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_tags with

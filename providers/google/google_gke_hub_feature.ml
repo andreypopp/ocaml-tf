@@ -191,9 +191,11 @@ type fleet_default_member_config__configmanagement__config_sync = {
   git :
     fleet_default_member_config__configmanagement__config_sync__git
     list;
+      [@default []] [@yojson_drop_default ( = )]
   oci :
     fleet_default_member_config__configmanagement__config_sync__oci
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -209,20 +211,26 @@ let yojson_of_fleet_default_member_config__configmanagement__config_sync
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__configmanagement__config_sync__oci
-             v_oci
-         in
-         ("oci", arg) :: bnds
+         if [] = v_oci then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__configmanagement__config_sync__oci)
+               v_oci
+           in
+           let bnd = "oci", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__configmanagement__config_sync__git
-             v_git
-         in
-         ("git", arg) :: bnds
+         if [] = v_git then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__configmanagement__config_sync__git)
+               v_git
+           in
+           let bnd = "git", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_format with
@@ -245,6 +253,7 @@ type fleet_default_member_config__configmanagement = {
   version : string prop option; [@option]
   config_sync :
     fleet_default_member_config__configmanagement__config_sync list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -257,12 +266,15 @@ let yojson_of_fleet_default_member_config__configmanagement =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__configmanagement__config_sync
-             v_config_sync
-         in
-         ("config_sync", arg) :: bnds
+         if [] = v_config_sync then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__configmanagement__config_sync)
+               v_config_sync
+           in
+           let bnd = "config_sync", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -393,9 +405,11 @@ type fleet_default_member_config__policycontroller__policy_controller_hub_config
   limits :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
     list;
+      [@default []] [@yojson_drop_default ( = )]
   requests :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -412,20 +426,26 @@ let yojson_of_fleet_default_member_config__policycontroller__policy_controller_h
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
-             v_requests
-         in
-         ("requests", arg) :: bnds
+         if [] = v_requests then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests)
+               v_requests
+           in
+           let bnd = "requests", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
-             v_limits
-         in
-         ("limits", arg) :: bnds
+         if [] = v_limits then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits)
+               v_limits
+           in
+           let bnd = "limits", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources ->
@@ -509,9 +529,11 @@ type fleet_default_member_config__policycontroller__policy_controller_hub_config
   container_resources :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources
     list;
+      [@default []] [@yojson_drop_default ( = )]
   pod_toleration :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__pod_toleration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -534,20 +556,26 @@ let yojson_of_fleet_default_member_config__policycontroller__policy_controller_h
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__pod_toleration
-             v_pod_toleration
-         in
-         ("pod_toleration", arg) :: bnds
+         if [] = v_pod_toleration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__pod_toleration)
+               v_pod_toleration
+           in
+           let bnd = "pod_toleration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources
-             v_container_resources
-         in
-         ("container_resources", arg) :: bnds
+         if [] = v_container_resources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs__container_resources)
+               v_container_resources
+           in
+           let bnd = "container_resources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_replica_count with
@@ -696,9 +724,11 @@ type fleet_default_member_config__policycontroller__policy_controller_hub_config
   bundles :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__bundles
     list;
+      [@default []] [@yojson_drop_default ( = )]
   template_library :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__template_library
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -716,20 +746,26 @@ let yojson_of_fleet_default_member_config__policycontroller__policy_controller_h
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__template_library
-             v_template_library
-         in
-         ("template_library", arg) :: bnds
+         if [] = v_template_library then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__template_library)
+               v_template_library
+           in
+           let bnd = "template_library", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__bundles
-             v_bundles
-         in
-         ("bundles", arg) :: bnds
+         if [] = v_bundles then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content__bundles)
+               v_bundles
+           in
+           let bnd = "bundles", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content ->
@@ -751,12 +787,15 @@ type fleet_default_member_config__policycontroller__policy_controller_hub_config
   deployment_configs :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs
     list;
+      [@default []] [@yojson_drop_default ( = )]
   monitoring :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__monitoring
     list;
+      [@default []] [@yojson_drop_default ( = )]
   policy_content :
     fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -784,28 +823,37 @@ let yojson_of_fleet_default_member_config__policycontroller__policy_controller_h
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content
-             v_policy_content
-         in
-         ("policy_content", arg) :: bnds
+         if [] = v_policy_content then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__policy_content)
+               v_policy_content
+           in
+           let bnd = "policy_content", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__monitoring
-             v_monitoring
-         in
-         ("monitoring", arg) :: bnds
+         if [] = v_monitoring then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__monitoring)
+               v_monitoring
+           in
+           let bnd = "monitoring", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs
-             v_deployment_configs
-         in
-         ("deployment_configs", arg) :: bnds
+         if [] = v_deployment_configs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config__deployment_configs)
+               v_deployment_configs
+           in
+           let bnd = "deployment_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_referential_rules_enabled with
@@ -875,6 +923,7 @@ type fleet_default_member_config__policycontroller = {
   policy_controller_hub_config :
     fleet_default_member_config__policycontroller__policy_controller_hub_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -890,12 +939,15 @@ let yojson_of_fleet_default_member_config__policycontroller =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config
-             v_policy_controller_hub_config
-         in
-         ("policy_controller_hub_config", arg) :: bnds
+         if [] = v_policy_controller_hub_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller__policy_controller_hub_config)
+               v_policy_controller_hub_config
+           in
+           let bnd = "policy_controller_hub_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -916,9 +968,12 @@ let _ = yojson_of_fleet_default_member_config__policycontroller
 type fleet_default_member_config = {
   configmanagement :
     fleet_default_member_config__configmanagement list;
+      [@default []] [@yojson_drop_default ( = )]
   mesh : fleet_default_member_config__mesh list;
+      [@default []] [@yojson_drop_default ( = )]
   policycontroller :
     fleet_default_member_config__policycontroller list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -935,27 +990,37 @@ let yojson_of_fleet_default_member_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__policycontroller
-             v_policycontroller
-         in
-         ("policycontroller", arg) :: bnds
+         if [] = v_policycontroller then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__policycontroller)
+               v_policycontroller
+           in
+           let bnd = "policycontroller", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_fleet_default_member_config__mesh
-             v_mesh
-         in
-         ("mesh", arg) :: bnds
+         if [] = v_mesh then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__mesh)
+               v_mesh
+           in
+           let bnd = "mesh", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fleet_default_member_config__configmanagement
-             v_configmanagement
-         in
-         ("configmanagement", arg) :: bnds
+         if [] = v_configmanagement then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fleet_default_member_config__configmanagement)
+               v_configmanagement
+           in
+           let bnd = "configmanagement", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fleet_default_member_config ->
@@ -1030,7 +1095,9 @@ let _ =
 type spec__clusterupgrade__gke_upgrade_overrides = {
   post_conditions :
     spec__clusterupgrade__gke_upgrade_overrides__post_conditions list;
+      [@default []] [@yojson_drop_default ( = )]
   upgrade : spec__clusterupgrade__gke_upgrade_overrides__upgrade list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1043,20 +1110,26 @@ let yojson_of_spec__clusterupgrade__gke_upgrade_overrides =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__clusterupgrade__gke_upgrade_overrides__upgrade
-             v_upgrade
-         in
-         ("upgrade", arg) :: bnds
+         if [] = v_upgrade then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__clusterupgrade__gke_upgrade_overrides__upgrade)
+               v_upgrade
+           in
+           let bnd = "upgrade", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__clusterupgrade__gke_upgrade_overrides__post_conditions
-             v_post_conditions
-         in
-         ("post_conditions", arg) :: bnds
+         if [] = v_post_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__clusterupgrade__gke_upgrade_overrides__post_conditions)
+               v_post_conditions
+           in
+           let bnd = "post_conditions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__clusterupgrade__gke_upgrade_overrides ->
@@ -1093,9 +1166,12 @@ let _ = yojson_of_spec__clusterupgrade__post_conditions
 
 type spec__clusterupgrade = {
   upstream_fleets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   gke_upgrade_overrides :
     spec__clusterupgrade__gke_upgrade_overrides list;
+      [@default []] [@yojson_drop_default ( = )]
   post_conditions : spec__clusterupgrade__post_conditions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1112,28 +1188,36 @@ let yojson_of_spec__clusterupgrade =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__clusterupgrade__post_conditions
-             v_post_conditions
-         in
-         ("post_conditions", arg) :: bnds
+         if [] = v_post_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__clusterupgrade__post_conditions)
+               v_post_conditions
+           in
+           let bnd = "post_conditions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__clusterupgrade__gke_upgrade_overrides
-             v_gke_upgrade_overrides
-         in
-         ("gke_upgrade_overrides", arg) :: bnds
+         if [] = v_gke_upgrade_overrides then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__clusterupgrade__gke_upgrade_overrides)
+               v_gke_upgrade_overrides
+           in
+           let bnd = "gke_upgrade_overrides", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_upstream_fleets
-         in
-         ("upstream_fleets", arg) :: bnds
+         if [] = v_upstream_fleets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_upstream_fleets
+           in
+           let bnd = "upstream_fleets", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__clusterupgrade -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1212,9 +1296,11 @@ let _ =
 type spec__fleetobservability__logging_config = {
   default_config :
     spec__fleetobservability__logging_config__default_config list;
+      [@default []] [@yojson_drop_default ( = )]
   fleet_scope_logs_config :
     spec__fleetobservability__logging_config__fleet_scope_logs_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1230,20 +1316,26 @@ let yojson_of_spec__fleetobservability__logging_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__fleetobservability__logging_config__fleet_scope_logs_config
-             v_fleet_scope_logs_config
-         in
-         ("fleet_scope_logs_config", arg) :: bnds
+         if [] = v_fleet_scope_logs_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__fleetobservability__logging_config__fleet_scope_logs_config)
+               v_fleet_scope_logs_config
+           in
+           let bnd = "fleet_scope_logs_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__fleetobservability__logging_config__default_config
-             v_default_config
-         in
-         ("default_config", arg) :: bnds
+         if [] = v_default_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__fleetobservability__logging_config__default_config)
+               v_default_config
+           in
+           let bnd = "default_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__fleetobservability__logging_config ->
@@ -1255,6 +1347,7 @@ let _ = yojson_of_spec__fleetobservability__logging_config
 
 type spec__fleetobservability = {
   logging_config : spec__fleetobservability__logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1267,12 +1360,15 @@ let yojson_of_spec__fleetobservability =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__fleetobservability__logging_config
-             v_logging_config
-         in
-         ("logging_config", arg) :: bnds
+         if [] = v_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__fleetobservability__logging_config)
+               v_logging_config
+           in
+           let bnd = "logging_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__fleetobservability -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1307,8 +1403,11 @@ let _ = yojson_of_spec__multiclusteringress
 
 type spec = {
   clusterupgrade : spec__clusterupgrade list;
+      [@default []] [@yojson_drop_default ( = )]
   fleetobservability : spec__fleetobservability list;
+      [@default []] [@yojson_drop_default ( = )]
   multiclusteringress : spec__multiclusteringress list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1325,25 +1424,34 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__multiclusteringress
-             v_multiclusteringress
-         in
-         ("multiclusteringress", arg) :: bnds
+         if [] = v_multiclusteringress then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__multiclusteringress)
+               v_multiclusteringress
+           in
+           let bnd = "multiclusteringress", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__fleetobservability
-             v_fleetobservability
-         in
-         ("fleetobservability", arg) :: bnds
+         if [] = v_fleetobservability then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__fleetobservability)
+               v_fleetobservability
+           in
+           let bnd = "fleetobservability", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__clusterupgrade
-             v_clusterupgrade
-         in
-         ("clusterupgrade", arg) :: bnds
+         if [] = v_clusterupgrade then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__clusterupgrade)
+               v_clusterupgrade
+           in
+           let bnd = "clusterupgrade", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1465,7 +1573,10 @@ let _ = yojson_of_state__state
 
 [@@@deriving.end]
 
-type state = { state : state__state list }
+type state = {
+  state : state__state list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : state) -> ()
@@ -1477,8 +1588,13 @@ let yojson_of_state =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_state__state v_state in
-         ("state", arg) :: bnds
+         if [] = v_state then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_state__state) v_state
+           in
+           let bnd = "state", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : state -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1494,7 +1610,8 @@ type google_gke_hub_feature = {
   name : string prop option; [@option]
   project : string prop option; [@option]
   fleet_default_member_config : fleet_default_member_config list;
-  spec : spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1521,15 +1638,21 @@ let yojson_of_google_gke_hub_feature =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_fleet_default_member_config
-             v_fleet_default_member_config
-         in
-         ("fleet_default_member_config", arg) :: bnds
+         if [] = v_fleet_default_member_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_fleet_default_member_config)
+               v_fleet_default_member_config
+           in
+           let bnd = "fleet_default_member_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

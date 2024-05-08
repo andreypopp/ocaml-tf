@@ -249,10 +249,15 @@ type aws_elastictranscoder_pipeline = {
   output_bucket : string prop option; [@option]
   role : string prop;
   content_config : content_config list;
+      [@default []] [@yojson_drop_default ( = )]
   content_config_permissions : content_config_permissions list;
+      [@default []] [@yojson_drop_default ( = )]
   notifications : notifications list;
+      [@default []] [@yojson_drop_default ( = )]
   thumbnail_config : thumbnail_config list;
+      [@default []] [@yojson_drop_default ( = )]
   thumbnail_config_permissions : thumbnail_config_permissions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -277,37 +282,53 @@ let yojson_of_aws_elastictranscoder_pipeline =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_thumbnail_config_permissions
-             v_thumbnail_config_permissions
-         in
-         ("thumbnail_config_permissions", arg) :: bnds
+         if [] = v_thumbnail_config_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_thumbnail_config_permissions)
+               v_thumbnail_config_permissions
+           in
+           let bnd = "thumbnail_config_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_thumbnail_config
-             v_thumbnail_config
-         in
-         ("thumbnail_config", arg) :: bnds
+         if [] = v_thumbnail_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_thumbnail_config)
+               v_thumbnail_config
+           in
+           let bnd = "thumbnail_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notifications v_notifications
-         in
-         ("notifications", arg) :: bnds
+         if [] = v_notifications then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notifications) v_notifications
+           in
+           let bnd = "notifications", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_content_config_permissions
-             v_content_config_permissions
-         in
-         ("content_config_permissions", arg) :: bnds
+         if [] = v_content_config_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_content_config_permissions)
+               v_content_config_permissions
+           in
+           let bnd = "content_config_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_content_config v_content_config
-         in
-         ("content_config", arg) :: bnds
+         if [] = v_content_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_content_config)
+               v_content_config
+           in
+           let bnd = "content_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_role in

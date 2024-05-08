@@ -215,6 +215,7 @@ type connector_profile_config__connector_profile_credentials__custom_connector__
   oauth_request :
     connector_profile_config__connector_profile_credentials__custom_connector__oauth2__oauth_request
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -237,12 +238,15 @@ let yojson_of_connector_profile_config__connector_profile_credentials__custom_co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__custom_connector__oauth2__oauth_request
-             v_oauth_request
-         in
-         ("oauth_request", arg) :: bnds
+         if [] = v_oauth_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__custom_connector__oauth2__oauth_request)
+               v_oauth_request
+           in
+           let bnd = "oauth_request", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_refresh_token with
@@ -290,15 +294,19 @@ type connector_profile_config__connector_profile_credentials__custom_connector =
   api_key :
     connector_profile_config__connector_profile_credentials__custom_connector__api_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
   basic :
     connector_profile_config__connector_profile_credentials__custom_connector__basic
     list;
+      [@default []] [@yojson_drop_default ( = )]
   custom :
     connector_profile_config__connector_profile_credentials__custom_connector__custom
     list;
+      [@default []] [@yojson_drop_default ( = )]
   oauth2 :
     connector_profile_config__connector_profile_credentials__custom_connector__oauth2
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -321,36 +329,48 @@ let yojson_of_connector_profile_config__connector_profile_credentials__custom_co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__custom_connector__oauth2
-             v_oauth2
-         in
-         ("oauth2", arg) :: bnds
+         if [] = v_oauth2 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__custom_connector__oauth2)
+               v_oauth2
+           in
+           let bnd = "oauth2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__custom_connector__custom
-             v_custom
-         in
-         ("custom", arg) :: bnds
+         if [] = v_custom then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__custom_connector__custom)
+               v_custom
+           in
+           let bnd = "custom", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__custom_connector__basic
-             v_basic
-         in
-         ("basic", arg) :: bnds
+         if [] = v_basic then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__custom_connector__basic)
+               v_basic
+           in
+           let bnd = "basic", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__custom_connector__api_key
-             v_api_key
-         in
-         ("api_key", arg) :: bnds
+         if [] = v_api_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__custom_connector__api_key)
+               v_api_key
+           in
+           let bnd = "api_key", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -485,6 +505,7 @@ type connector_profile_config__connector_profile_credentials__google_analytics =
   oauth_request :
     connector_profile_config__connector_profile_credentials__google_analytics__oauth_request
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -507,12 +528,15 @@ let yojson_of_connector_profile_config__connector_profile_credentials__google_an
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__google_analytics__oauth_request
-             v_oauth_request
-         in
-         ("oauth_request", arg) :: bnds
+         if [] = v_oauth_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__google_analytics__oauth_request)
+               v_oauth_request
+           in
+           let bnd = "oauth_request", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_refresh_token with
@@ -596,6 +620,7 @@ type connector_profile_config__connector_profile_credentials__honeycode = {
   oauth_request :
     connector_profile_config__connector_profile_credentials__honeycode__oauth_request
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -616,12 +641,15 @@ let yojson_of_connector_profile_config__connector_profile_credentials__honeycode
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__honeycode__oauth_request
-             v_oauth_request
-         in
-         ("oauth_request", arg) :: bnds
+         if [] = v_oauth_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__honeycode__oauth_request)
+               v_oauth_request
+           in
+           let bnd = "oauth_request", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_refresh_token with
@@ -750,6 +778,7 @@ type connector_profile_config__connector_profile_credentials__marketo = {
   oauth_request :
     connector_profile_config__connector_profile_credentials__marketo__oauth_request
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -771,12 +800,15 @@ let yojson_of_connector_profile_config__connector_profile_credentials__marketo
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__marketo__oauth_request
-             v_oauth_request
-         in
-         ("oauth_request", arg) :: bnds
+         if [] = v_oauth_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__marketo__oauth_request)
+               v_oauth_request
+           in
+           let bnd = "oauth_request", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_client_secret in
@@ -890,6 +922,7 @@ type connector_profile_config__connector_profile_credentials__salesforce = {
   oauth_request :
     connector_profile_config__connector_profile_credentials__salesforce__oauth_request
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -913,12 +946,15 @@ let yojson_of_connector_profile_config__connector_profile_credentials__salesforc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__salesforce__oauth_request
-             v_oauth_request
-         in
-         ("oauth_request", arg) :: bnds
+         if [] = v_oauth_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__salesforce__oauth_request)
+               v_oauth_request
+           in
+           let bnd = "oauth_request", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_refresh_token with
@@ -1055,6 +1091,7 @@ type connector_profile_config__connector_profile_credentials__sapo_data__oauth_c
   oauth_request :
     connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials__oauth_request
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1077,12 +1114,15 @@ let yojson_of_connector_profile_config__connector_profile_credentials__sapo_data
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials__oauth_request
-             v_oauth_request
-         in
-         ("oauth_request", arg) :: bnds
+         if [] = v_oauth_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials__oauth_request)
+               v_oauth_request
+           in
+           let bnd = "oauth_request", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_refresh_token with
@@ -1121,9 +1161,11 @@ type connector_profile_config__connector_profile_credentials__sapo_data = {
   basic_auth_credentials :
     connector_profile_config__connector_profile_credentials__sapo_data__basic_auth_credentials
     list;
+      [@default []] [@yojson_drop_default ( = )]
   oauth_credentials :
     connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1143,20 +1185,26 @@ let yojson_of_connector_profile_config__connector_profile_credentials__sapo_data
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials
-             v_oauth_credentials
-         in
-         ("oauth_credentials", arg) :: bnds
+         if [] = v_oauth_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__sapo_data__oauth_credentials)
+               v_oauth_credentials
+           in
+           let bnd = "oauth_credentials", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__sapo_data__basic_auth_credentials
-             v_basic_auth_credentials
-         in
-         ("basic_auth_credentials", arg) :: bnds
+         if [] = v_basic_auth_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__sapo_data__basic_auth_credentials)
+               v_basic_auth_credentials
+           in
+           let bnd = "basic_auth_credentials", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : connector_profile_config__connector_profile_credentials__sapo_data ->
@@ -1282,6 +1330,7 @@ type connector_profile_config__connector_profile_credentials__slack = {
   oauth_request :
     connector_profile_config__connector_profile_credentials__slack__oauth_request
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1303,12 +1352,15 @@ let yojson_of_connector_profile_config__connector_profile_credentials__slack
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__slack__oauth_request
-             v_oauth_request
-         in
-         ("oauth_request", arg) :: bnds
+         if [] = v_oauth_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__slack__oauth_request)
+               v_oauth_request
+           in
+           let bnd = "oauth_request", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_client_secret in
@@ -1487,6 +1539,7 @@ type connector_profile_config__connector_profile_credentials__zendesk = {
   oauth_request :
     connector_profile_config__connector_profile_credentials__zendesk__oauth_request
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1508,12 +1561,15 @@ let yojson_of_connector_profile_config__connector_profile_credentials__zendesk
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__zendesk__oauth_request
-             v_oauth_request
-         in
-         ("oauth_request", arg) :: bnds
+         if [] = v_oauth_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__zendesk__oauth_request)
+               v_oauth_request
+           in
+           let bnd = "oauth_request", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_client_secret in
@@ -1544,57 +1600,75 @@ type connector_profile_config__connector_profile_credentials = {
   amplitude :
     connector_profile_config__connector_profile_credentials__amplitude
     list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_connector :
     connector_profile_config__connector_profile_credentials__custom_connector
     list;
+      [@default []] [@yojson_drop_default ( = )]
   datadog :
     connector_profile_config__connector_profile_credentials__datadog
     list;
+      [@default []] [@yojson_drop_default ( = )]
   dynatrace :
     connector_profile_config__connector_profile_credentials__dynatrace
     list;
+      [@default []] [@yojson_drop_default ( = )]
   google_analytics :
     connector_profile_config__connector_profile_credentials__google_analytics
     list;
+      [@default []] [@yojson_drop_default ( = )]
   honeycode :
     connector_profile_config__connector_profile_credentials__honeycode
     list;
+      [@default []] [@yojson_drop_default ( = )]
   infor_nexus :
     connector_profile_config__connector_profile_credentials__infor_nexus
     list;
+      [@default []] [@yojson_drop_default ( = )]
   marketo :
     connector_profile_config__connector_profile_credentials__marketo
     list;
+      [@default []] [@yojson_drop_default ( = )]
   redshift :
     connector_profile_config__connector_profile_credentials__redshift
     list;
+      [@default []] [@yojson_drop_default ( = )]
   salesforce :
     connector_profile_config__connector_profile_credentials__salesforce
     list;
+      [@default []] [@yojson_drop_default ( = )]
   sapo_data :
     connector_profile_config__connector_profile_credentials__sapo_data
     list;
+      [@default []] [@yojson_drop_default ( = )]
   service_now :
     connector_profile_config__connector_profile_credentials__service_now
     list;
+      [@default []] [@yojson_drop_default ( = )]
   singular :
     connector_profile_config__connector_profile_credentials__singular
     list;
+      [@default []] [@yojson_drop_default ( = )]
   slack :
     connector_profile_config__connector_profile_credentials__slack
     list;
+      [@default []] [@yojson_drop_default ( = )]
   snowflake :
     connector_profile_config__connector_profile_credentials__snowflake
     list;
+      [@default []] [@yojson_drop_default ( = )]
   trendmicro :
     connector_profile_config__connector_profile_credentials__trendmicro
     list;
+      [@default []] [@yojson_drop_default ( = )]
   veeva :
     connector_profile_config__connector_profile_credentials__veeva
     list;
+      [@default []] [@yojson_drop_default ( = )]
   zendesk :
     connector_profile_config__connector_profile_credentials__zendesk
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1629,148 +1703,202 @@ let yojson_of_connector_profile_config__connector_profile_credentials
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__zendesk
-             v_zendesk
-         in
-         ("zendesk", arg) :: bnds
+         if [] = v_zendesk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__zendesk)
+               v_zendesk
+           in
+           let bnd = "zendesk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__veeva
-             v_veeva
-         in
-         ("veeva", arg) :: bnds
+         if [] = v_veeva then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__veeva)
+               v_veeva
+           in
+           let bnd = "veeva", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__trendmicro
-             v_trendmicro
-         in
-         ("trendmicro", arg) :: bnds
+         if [] = v_trendmicro then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__trendmicro)
+               v_trendmicro
+           in
+           let bnd = "trendmicro", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__snowflake
-             v_snowflake
-         in
-         ("snowflake", arg) :: bnds
+         if [] = v_snowflake then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__snowflake)
+               v_snowflake
+           in
+           let bnd = "snowflake", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__slack
-             v_slack
-         in
-         ("slack", arg) :: bnds
+         if [] = v_slack then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__slack)
+               v_slack
+           in
+           let bnd = "slack", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__singular
-             v_singular
-         in
-         ("singular", arg) :: bnds
+         if [] = v_singular then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__singular)
+               v_singular
+           in
+           let bnd = "singular", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__service_now
-             v_service_now
-         in
-         ("service_now", arg) :: bnds
+         if [] = v_service_now then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__service_now)
+               v_service_now
+           in
+           let bnd = "service_now", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__sapo_data
-             v_sapo_data
-         in
-         ("sapo_data", arg) :: bnds
+         if [] = v_sapo_data then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__sapo_data)
+               v_sapo_data
+           in
+           let bnd = "sapo_data", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__salesforce
-             v_salesforce
-         in
-         ("salesforce", arg) :: bnds
+         if [] = v_salesforce then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__salesforce)
+               v_salesforce
+           in
+           let bnd = "salesforce", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__redshift
-             v_redshift
-         in
-         ("redshift", arg) :: bnds
+         if [] = v_redshift then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__redshift)
+               v_redshift
+           in
+           let bnd = "redshift", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__marketo
-             v_marketo
-         in
-         ("marketo", arg) :: bnds
+         if [] = v_marketo then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__marketo)
+               v_marketo
+           in
+           let bnd = "marketo", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__infor_nexus
-             v_infor_nexus
-         in
-         ("infor_nexus", arg) :: bnds
+         if [] = v_infor_nexus then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__infor_nexus)
+               v_infor_nexus
+           in
+           let bnd = "infor_nexus", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__honeycode
-             v_honeycode
-         in
-         ("honeycode", arg) :: bnds
+         if [] = v_honeycode then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__honeycode)
+               v_honeycode
+           in
+           let bnd = "honeycode", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__google_analytics
-             v_google_analytics
-         in
-         ("google_analytics", arg) :: bnds
+         if [] = v_google_analytics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__google_analytics)
+               v_google_analytics
+           in
+           let bnd = "google_analytics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__dynatrace
-             v_dynatrace
-         in
-         ("dynatrace", arg) :: bnds
+         if [] = v_dynatrace then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__dynatrace)
+               v_dynatrace
+           in
+           let bnd = "dynatrace", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__datadog
-             v_datadog
-         in
-         ("datadog", arg) :: bnds
+         if [] = v_datadog then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__datadog)
+               v_datadog
+           in
+           let bnd = "datadog", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__custom_connector
-             v_custom_connector
-         in
-         ("custom_connector", arg) :: bnds
+         if [] = v_custom_connector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__custom_connector)
+               v_custom_connector
+           in
+           let bnd = "custom_connector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials__amplitude
-             v_amplitude
-         in
-         ("amplitude", arg) :: bnds
+         if [] = v_amplitude then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials__amplitude)
+               v_amplitude
+           in
+           let bnd = "amplitude", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : connector_profile_config__connector_profile_credentials ->
@@ -1865,6 +1993,7 @@ type connector_profile_config__connector_profile_properties__custom_connector = 
   oauth2_properties :
     connector_profile_config__connector_profile_properties__custom_connector__oauth2_properties
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1884,12 +2013,15 @@ let yojson_of_connector_profile_config__connector_profile_properties__custom_con
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__custom_connector__oauth2_properties
-             v_oauth2_properties
-         in
-         ("oauth2_properties", arg) :: bnds
+         if [] = v_oauth2_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__custom_connector__oauth2_properties)
+               v_oauth2_properties
+           in
+           let bnd = "oauth2_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_profile_properties with
@@ -2213,6 +2345,7 @@ let _ =
 type connector_profile_config__connector_profile_properties__sapo_data__oauth_properties = {
   auth_code_url : string prop;
   oauth_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   token_url : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -2238,12 +2371,14 @@ let yojson_of_connector_profile_config__connector_profile_properties__sapo_data_
          ("token_url", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_oauth_scopes
-         in
-         ("oauth_scopes", arg) :: bnds
+         if [] = v_oauth_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_oauth_scopes
+           in
+           let bnd = "oauth_scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_auth_code_url in
@@ -2268,6 +2403,7 @@ type connector_profile_config__connector_profile_properties__sapo_data = {
   oauth_properties :
     connector_profile_config__connector_profile_properties__sapo_data__oauth_properties
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2292,12 +2428,15 @@ let yojson_of_connector_profile_config__connector_profile_properties__sapo_data
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__sapo_data__oauth_properties
-             v_oauth_properties
-         in
-         ("oauth_properties", arg) :: bnds
+         if [] = v_oauth_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__sapo_data__oauth_properties)
+               v_oauth_properties
+           in
+           let bnd = "oauth_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_private_link_service_name with
@@ -2592,57 +2731,75 @@ type connector_profile_config__connector_profile_properties = {
   amplitude :
     connector_profile_config__connector_profile_properties__amplitude
     list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_connector :
     connector_profile_config__connector_profile_properties__custom_connector
     list;
+      [@default []] [@yojson_drop_default ( = )]
   datadog :
     connector_profile_config__connector_profile_properties__datadog
     list;
+      [@default []] [@yojson_drop_default ( = )]
   dynatrace :
     connector_profile_config__connector_profile_properties__dynatrace
     list;
+      [@default []] [@yojson_drop_default ( = )]
   google_analytics :
     connector_profile_config__connector_profile_properties__google_analytics
     list;
+      [@default []] [@yojson_drop_default ( = )]
   honeycode :
     connector_profile_config__connector_profile_properties__honeycode
     list;
+      [@default []] [@yojson_drop_default ( = )]
   infor_nexus :
     connector_profile_config__connector_profile_properties__infor_nexus
     list;
+      [@default []] [@yojson_drop_default ( = )]
   marketo :
     connector_profile_config__connector_profile_properties__marketo
     list;
+      [@default []] [@yojson_drop_default ( = )]
   redshift :
     connector_profile_config__connector_profile_properties__redshift
     list;
+      [@default []] [@yojson_drop_default ( = )]
   salesforce :
     connector_profile_config__connector_profile_properties__salesforce
     list;
+      [@default []] [@yojson_drop_default ( = )]
   sapo_data :
     connector_profile_config__connector_profile_properties__sapo_data
     list;
+      [@default []] [@yojson_drop_default ( = )]
   service_now :
     connector_profile_config__connector_profile_properties__service_now
     list;
+      [@default []] [@yojson_drop_default ( = )]
   singular :
     connector_profile_config__connector_profile_properties__singular
     list;
+      [@default []] [@yojson_drop_default ( = )]
   slack :
     connector_profile_config__connector_profile_properties__slack
     list;
+      [@default []] [@yojson_drop_default ( = )]
   snowflake :
     connector_profile_config__connector_profile_properties__snowflake
     list;
+      [@default []] [@yojson_drop_default ( = )]
   trendmicro :
     connector_profile_config__connector_profile_properties__trendmicro
     list;
+      [@default []] [@yojson_drop_default ( = )]
   veeva :
     connector_profile_config__connector_profile_properties__veeva
     list;
+      [@default []] [@yojson_drop_default ( = )]
   zendesk :
     connector_profile_config__connector_profile_properties__zendesk
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2677,148 +2834,202 @@ let yojson_of_connector_profile_config__connector_profile_properties
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__zendesk
-             v_zendesk
-         in
-         ("zendesk", arg) :: bnds
+         if [] = v_zendesk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__zendesk)
+               v_zendesk
+           in
+           let bnd = "zendesk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__veeva
-             v_veeva
-         in
-         ("veeva", arg) :: bnds
+         if [] = v_veeva then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__veeva)
+               v_veeva
+           in
+           let bnd = "veeva", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__trendmicro
-             v_trendmicro
-         in
-         ("trendmicro", arg) :: bnds
+         if [] = v_trendmicro then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__trendmicro)
+               v_trendmicro
+           in
+           let bnd = "trendmicro", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__snowflake
-             v_snowflake
-         in
-         ("snowflake", arg) :: bnds
+         if [] = v_snowflake then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__snowflake)
+               v_snowflake
+           in
+           let bnd = "snowflake", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__slack
-             v_slack
-         in
-         ("slack", arg) :: bnds
+         if [] = v_slack then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__slack)
+               v_slack
+           in
+           let bnd = "slack", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__singular
-             v_singular
-         in
-         ("singular", arg) :: bnds
+         if [] = v_singular then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__singular)
+               v_singular
+           in
+           let bnd = "singular", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__service_now
-             v_service_now
-         in
-         ("service_now", arg) :: bnds
+         if [] = v_service_now then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__service_now)
+               v_service_now
+           in
+           let bnd = "service_now", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__sapo_data
-             v_sapo_data
-         in
-         ("sapo_data", arg) :: bnds
+         if [] = v_sapo_data then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__sapo_data)
+               v_sapo_data
+           in
+           let bnd = "sapo_data", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__salesforce
-             v_salesforce
-         in
-         ("salesforce", arg) :: bnds
+         if [] = v_salesforce then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__salesforce)
+               v_salesforce
+           in
+           let bnd = "salesforce", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__redshift
-             v_redshift
-         in
-         ("redshift", arg) :: bnds
+         if [] = v_redshift then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__redshift)
+               v_redshift
+           in
+           let bnd = "redshift", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__marketo
-             v_marketo
-         in
-         ("marketo", arg) :: bnds
+         if [] = v_marketo then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__marketo)
+               v_marketo
+           in
+           let bnd = "marketo", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__infor_nexus
-             v_infor_nexus
-         in
-         ("infor_nexus", arg) :: bnds
+         if [] = v_infor_nexus then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__infor_nexus)
+               v_infor_nexus
+           in
+           let bnd = "infor_nexus", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__honeycode
-             v_honeycode
-         in
-         ("honeycode", arg) :: bnds
+         if [] = v_honeycode then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__honeycode)
+               v_honeycode
+           in
+           let bnd = "honeycode", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__google_analytics
-             v_google_analytics
-         in
-         ("google_analytics", arg) :: bnds
+         if [] = v_google_analytics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__google_analytics)
+               v_google_analytics
+           in
+           let bnd = "google_analytics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__dynatrace
-             v_dynatrace
-         in
-         ("dynatrace", arg) :: bnds
+         if [] = v_dynatrace then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__dynatrace)
+               v_dynatrace
+           in
+           let bnd = "dynatrace", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__datadog
-             v_datadog
-         in
-         ("datadog", arg) :: bnds
+         if [] = v_datadog then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__datadog)
+               v_datadog
+           in
+           let bnd = "datadog", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__custom_connector
-             v_custom_connector
-         in
-         ("custom_connector", arg) :: bnds
+         if [] = v_custom_connector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__custom_connector)
+               v_custom_connector
+           in
+           let bnd = "custom_connector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties__amplitude
-             v_amplitude
-         in
-         ("amplitude", arg) :: bnds
+         if [] = v_amplitude then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties__amplitude)
+               v_amplitude
+           in
+           let bnd = "amplitude", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : connector_profile_config__connector_profile_properties ->
@@ -2832,8 +3043,10 @@ let _ =
 type connector_profile_config = {
   connector_profile_credentials :
     connector_profile_config__connector_profile_credentials list;
+      [@default []] [@yojson_drop_default ( = )]
   connector_profile_properties :
     connector_profile_config__connector_profile_properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2850,20 +3063,26 @@ let yojson_of_connector_profile_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_properties
-             v_connector_profile_properties
-         in
-         ("connector_profile_properties", arg) :: bnds
+         if [] = v_connector_profile_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_properties)
+               v_connector_profile_properties
+           in
+           let bnd = "connector_profile_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connector_profile_config__connector_profile_credentials
-             v_connector_profile_credentials
-         in
-         ("connector_profile_credentials", arg) :: bnds
+         if [] = v_connector_profile_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connector_profile_config__connector_profile_credentials)
+               v_connector_profile_credentials
+           in
+           let bnd = "connector_profile_credentials", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : connector_profile_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2880,6 +3099,7 @@ type aws_appflow_connector_profile = {
   kms_arn : string prop option; [@option]
   name : string prop;
   connector_profile_config : connector_profile_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2900,11 +3120,14 @@ let yojson_of_aws_appflow_connector_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_connector_profile_config
-             v_connector_profile_config
-         in
-         ("connector_profile_config", arg) :: bnds
+         if [] = v_connector_profile_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_connector_profile_config)
+               v_connector_profile_config
+           in
+           let bnd = "connector_profile_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

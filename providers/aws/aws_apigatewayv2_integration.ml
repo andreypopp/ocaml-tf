@@ -86,7 +86,9 @@ type aws_apigatewayv2_integration = {
   template_selection_expression : string prop option; [@option]
   timeout_milliseconds : float prop option; [@option]
   response_parameters : response_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   tls_config : tls_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -120,17 +122,23 @@ let yojson_of_aws_apigatewayv2_integration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tls_config v_tls_config
-         in
-         ("tls_config", arg) :: bnds
+         if [] = v_tls_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tls_config) v_tls_config
+           in
+           let bnd = "tls_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_response_parameters
-             v_response_parameters
-         in
-         ("response_parameters", arg) :: bnds
+         if [] = v_response_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_response_parameters)
+               v_response_parameters
+           in
+           let bnd = "response_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_milliseconds with

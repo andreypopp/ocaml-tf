@@ -134,7 +134,10 @@ let _ = yojson_of_certs_info__cert_info
 
 [@@@deriving.end]
 
-type certs_info = { cert_info : certs_info__cert_info list }
+type certs_info = {
+  cert_info : certs_info__cert_info list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : certs_info) -> ()
@@ -146,10 +149,14 @@ let yojson_of_certs_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_certs_info__cert_info v_cert_info
-         in
-         ("cert_info", arg) :: bnds
+         if [] = v_cert_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_certs_info__cert_info)
+               v_cert_info
+           in
+           let bnd = "cert_info", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : certs_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -228,6 +235,7 @@ type google_apigee_keystores_aliases_key_cert_file = {
   org_id : string prop;
   password : string prop option; [@option]
   certs_info : certs_info list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -256,10 +264,13 @@ let yojson_of_google_apigee_keystores_aliases_key_cert_file =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_certs_info v_certs_info
-         in
-         ("certs_info", arg) :: bnds
+         if [] = v_certs_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_certs_info) v_certs_info
+           in
+           let bnd = "certs_info", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_password with

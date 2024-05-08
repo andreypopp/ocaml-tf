@@ -77,6 +77,7 @@ type permission_scope = {
   resource_name : string prop;
   service : string prop;
   permissions : permission_scope__permissions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -93,11 +94,14 @@ let yojson_of_permission_scope =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_permission_scope__permissions
-             v_permissions
-         in
-         ("permissions", arg) :: bnds
+         if [] = v_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_permission_scope__permissions)
+               v_permissions
+           in
+           let bnd = "permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_service in
@@ -215,7 +219,9 @@ type azurerm_storage_account_local_user = {
   ssh_password_enabled : bool prop option; [@option]
   storage_account_id : string prop;
   permission_scope : permission_scope list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_authorized_key : ssh_authorized_key list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -243,18 +249,24 @@ let yojson_of_azurerm_storage_account_local_user =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssh_authorized_key
-             v_ssh_authorized_key
-         in
-         ("ssh_authorized_key", arg) :: bnds
+         if [] = v_ssh_authorized_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssh_authorized_key)
+               v_ssh_authorized_key
+           in
+           let bnd = "ssh_authorized_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_permission_scope
-             v_permission_scope
-         in
-         ("permission_scope", arg) :: bnds
+         if [] = v_permission_scope then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_permission_scope)
+               v_permission_scope
+           in
+           let bnd = "permission_scope", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -10,7 +10,7 @@ type credentials__credential_pair = {
 
 type credentials = {
   copy_source_arn: string  prop option; [@option]
-  credential_pair: credentials__credential_pair list;
+  credential_pair: credentials__credential_pair list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -104,7 +104,7 @@ type parameters__s3__manifest_file_location = {
 [@@@deriving.end]
 
 type parameters__s3 = {
-  manifest_file_location: parameters__s3__manifest_file_location list;
+  manifest_file_location: parameters__s3__manifest_file_location list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -147,31 +147,31 @@ type parameters__twitter = {
 [@@@deriving.end]
 
 type parameters = {
-  amazon_elasticsearch: parameters__amazon_elasticsearch list;
-  athena: parameters__athena list;
-  aurora: parameters__aurora list;
-  aurora_postgresql: parameters__aurora_postgresql list;
-  aws_iot_analytics: parameters__aws_iot_analytics list;
-  jira: parameters__jira list;
-  maria_db: parameters__maria_db list;
-  mysql: parameters__mysql list;
-  oracle: parameters__oracle list;
-  postgresql: parameters__postgresql list;
-  presto: parameters__presto list;
-  rds: parameters__rds list;
-  redshift: parameters__redshift list;
-  s3: parameters__s3 list;
-  service_now: parameters__service_now list;
-  snowflake: parameters__snowflake list;
-  spark: parameters__spark list;
-  sql_server: parameters__sql_server list;
-  teradata: parameters__teradata list;
-  twitter: parameters__twitter list;
+  amazon_elasticsearch: parameters__amazon_elasticsearch list; [@default []] [@yojson_drop_default ( = )]
+  athena: parameters__athena list; [@default []] [@yojson_drop_default ( = )]
+  aurora: parameters__aurora list; [@default []] [@yojson_drop_default ( = )]
+  aurora_postgresql: parameters__aurora_postgresql list; [@default []] [@yojson_drop_default ( = )]
+  aws_iot_analytics: parameters__aws_iot_analytics list; [@default []] [@yojson_drop_default ( = )]
+  jira: parameters__jira list; [@default []] [@yojson_drop_default ( = )]
+  maria_db: parameters__maria_db list; [@default []] [@yojson_drop_default ( = )]
+  mysql: parameters__mysql list; [@default []] [@yojson_drop_default ( = )]
+  oracle: parameters__oracle list; [@default []] [@yojson_drop_default ( = )]
+  postgresql: parameters__postgresql list; [@default []] [@yojson_drop_default ( = )]
+  presto: parameters__presto list; [@default []] [@yojson_drop_default ( = )]
+  rds: parameters__rds list; [@default []] [@yojson_drop_default ( = )]
+  redshift: parameters__redshift list; [@default []] [@yojson_drop_default ( = )]
+  s3: parameters__s3 list; [@default []] [@yojson_drop_default ( = )]
+  service_now: parameters__service_now list; [@default []] [@yojson_drop_default ( = )]
+  snowflake: parameters__snowflake list; [@default []] [@yojson_drop_default ( = )]
+  spark: parameters__spark list; [@default []] [@yojson_drop_default ( = )]
+  sql_server: parameters__sql_server list; [@default []] [@yojson_drop_default ( = )]
+  teradata: parameters__teradata list; [@default []] [@yojson_drop_default ( = )]
+  twitter: parameters__twitter list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type permission = {
-  actions: string  prop list; 
+  actions: string  prop list; [@default []] [@yojson_drop_default ( = )]
   principal: string prop; 
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
@@ -194,11 +194,11 @@ type aws_quicksight_data_source = {
   tags: (string * string   prop) list option; [@option]
   tags_all: (string * string   prop) list option; [@option]
   type_: string prop; [@key "type"]
-  credentials: credentials list;
-  parameters: parameters list;
-  permission: permission list;
-  ssl_properties: ssl_properties list;
-  vpc_connection_properties: vpc_connection_properties list;
+  credentials: credentials list; [@default []] [@yojson_drop_default ( = )]
+  parameters: parameters list; [@default []] [@yojson_drop_default ( = )]
+  permission: permission list; [@default []] [@yojson_drop_default ( = )]
+  ssl_properties: ssl_properties list; [@default []] [@yojson_drop_default ( = )]
+  vpc_connection_properties: vpc_connection_properties list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 

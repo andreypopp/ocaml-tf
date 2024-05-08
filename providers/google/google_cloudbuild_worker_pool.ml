@@ -144,8 +144,10 @@ type google_cloudbuild_worker_pool = {
   name : string prop;
   project : string prop option; [@option]
   network_config : network_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   worker_config : worker_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,20 +170,27 @@ let yojson_of_google_cloudbuild_worker_pool =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_worker_config v_worker_config
-         in
-         ("worker_config", arg) :: bnds
+         if [] = v_worker_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_worker_config) v_worker_config
+           in
+           let bnd = "worker_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_config v_network_config
-         in
-         ("network_config", arg) :: bnds
+         if [] = v_network_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_config)
+               v_network_config
+           in
+           let bnd = "network_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

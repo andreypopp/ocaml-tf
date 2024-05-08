@@ -36,6 +36,7 @@ type certificate_authority_config = {
   certificate_authority_service_config :
     certificate_authority_config__certificate_authority_service_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -51,12 +52,15 @@ let yojson_of_certificate_authority_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_authority_config__certificate_authority_service_config
-             v_certificate_authority_service_config
-         in
-         ("certificate_authority_service_config", arg) :: bnds
+         if [] = v_certificate_authority_service_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_authority_config__certificate_authority_service_config)
+               v_certificate_authority_service_config
+           in
+           let bnd = "certificate_authority_service_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : certificate_authority_config ->
@@ -123,6 +127,7 @@ type google_certificate_manager_certificate_issuance_config = {
   project : string prop option; [@option]
   rotation_window_percentage : float prop;
   certificate_authority_config : certificate_authority_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -155,11 +160,14 @@ let yojson_of_google_certificate_manager_certificate_issuance_config
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_certificate_authority_config
-             v_certificate_authority_config
-         in
-         ("certificate_authority_config", arg) :: bnds
+         if [] = v_certificate_authority_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_certificate_authority_config)
+               v_certificate_authority_config
+           in
+           let bnd = "certificate_authority_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -98,6 +98,7 @@ type azurerm_storage_account_blob_container_sas = {
   ip_address : string prop option; [@option]
   start : string prop;
   permissions : permissions list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -130,10 +131,13 @@ let yojson_of_azurerm_storage_account_blob_container_sas =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_permissions v_permissions
-         in
-         ("permissions", arg) :: bnds
+         if [] = v_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_permissions) v_permissions
+           in
+           let bnd = "permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_start in

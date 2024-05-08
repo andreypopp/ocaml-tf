@@ -85,6 +85,7 @@ let _ = yojson_of_root_directory__creation_info
 type root_directory = {
   path : string prop option; [@option]
   creation_info : root_directory__creation_info list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -97,11 +98,14 @@ let yojson_of_root_directory =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_root_directory__creation_info
-             v_creation_info
-         in
-         ("creation_info", arg) :: bnds
+         if [] = v_creation_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_root_directory__creation_info)
+               v_creation_info
+           in
+           let bnd = "creation_info", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_path with
@@ -124,7 +128,9 @@ type aws_efs_access_point = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   posix_user : posix_user list;
+      [@default []] [@yojson_drop_default ( = )]
   root_directory : root_directory list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,16 +150,23 @@ let yojson_of_aws_efs_access_point =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_root_directory v_root_directory
-         in
-         ("root_directory", arg) :: bnds
+         if [] = v_root_directory then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_root_directory)
+               v_root_directory
+           in
+           let bnd = "root_directory", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_posix_user v_posix_user
-         in
-         ("posix_user", arg) :: bnds
+         if [] = v_posix_user then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_posix_user) v_posix_user
+           in
+           let bnd = "posix_user", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

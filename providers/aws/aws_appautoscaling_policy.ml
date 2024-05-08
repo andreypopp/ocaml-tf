@@ -59,6 +59,7 @@ type step_scaling_policy_configuration = {
   min_adjustment_magnitude : float prop option; [@option]
   step_adjustment :
     step_scaling_policy_configuration__step_adjustment list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -77,12 +78,15 @@ let yojson_of_step_scaling_policy_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_step_scaling_policy_configuration__step_adjustment
-             v_step_adjustment
-         in
-         ("step_adjustment", arg) :: bnds
+         if [] = v_step_adjustment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_step_scaling_policy_configuration__step_adjustment)
+               v_step_adjustment
+           in
+           let bnd = "step_adjustment", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_min_adjustment_magnitude with
@@ -200,6 +204,7 @@ type target_tracking_scaling_policy_configuration__customized_metric_specificati
   dimensions :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -220,12 +225,15 @@ let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_sp
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions
-             v_dimensions
-         in
-         ("dimensions", arg) :: bnds
+         if [] = v_dimensions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions)
+               v_dimensions
+           in
+           let bnd = "dimensions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_namespace in
@@ -250,6 +258,7 @@ type target_tracking_scaling_policy_configuration__customized_metric_specificati
   metric :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -266,12 +275,15 @@ let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_sp
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric
-             v_metric
-         in
-         ("metric", arg) :: bnds
+         if [] = v_metric then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric)
+               v_metric
+           in
+           let bnd = "metric", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_unit with
@@ -302,6 +314,7 @@ type target_tracking_scaling_policy_configuration__customized_metric_specificati
   metric_stat :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -324,12 +337,15 @@ let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_sp
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat
-             v_metric_stat
-         in
-         ("metric_stat", arg) :: bnds
+         if [] = v_metric_stat then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat)
+               v_metric_stat
+           in
+           let bnd = "metric_stat", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_return_data with
@@ -376,9 +392,11 @@ type target_tracking_scaling_policy_configuration__customized_metric_specificati
   dimensions :
     target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions
     list;
+      [@default []] [@yojson_drop_default ( = )]
   metrics :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -402,20 +420,26 @@ let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_sp
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
-             v_metrics
-         in
-         ("metrics", arg) :: bnds
+         if [] = v_metrics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics)
+               v_metrics
+           in
+           let bnd = "metrics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions
-             v_dimensions
-         in
-         ("dimensions", arg) :: bnds
+         if [] = v_dimensions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions)
+               v_dimensions
+           in
+           let bnd = "dimensions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_unit with
@@ -510,9 +534,11 @@ type target_tracking_scaling_policy_configuration = {
   customized_metric_specification :
     target_tracking_scaling_policy_configuration__customized_metric_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
   predefined_metric_specification :
     target_tracking_scaling_policy_configuration__predefined_metric_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -534,20 +560,26 @@ let yojson_of_target_tracking_scaling_policy_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_tracking_scaling_policy_configuration__predefined_metric_specification
-             v_predefined_metric_specification
-         in
-         ("predefined_metric_specification", arg) :: bnds
+         if [] = v_predefined_metric_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_tracking_scaling_policy_configuration__predefined_metric_specification)
+               v_predefined_metric_specification
+           in
+           let bnd = "predefined_metric_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification
-             v_customized_metric_specification
-         in
-         ("customized_metric_specification", arg) :: bnds
+         if [] = v_customized_metric_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification)
+               v_customized_metric_specification
+           in
+           let bnd = "customized_metric_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_target_value in
@@ -594,8 +626,10 @@ type aws_appautoscaling_policy = {
   service_namespace : string prop;
   step_scaling_policy_configuration :
     step_scaling_policy_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   target_tracking_scaling_policy_configuration :
     target_tracking_scaling_policy_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -619,20 +653,29 @@ let yojson_of_aws_appautoscaling_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_tracking_scaling_policy_configuration
-             v_target_tracking_scaling_policy_configuration
-         in
-         ("target_tracking_scaling_policy_configuration", arg)
-         :: bnds
+         if [] = v_target_tracking_scaling_policy_configuration then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_tracking_scaling_policy_configuration)
+               v_target_tracking_scaling_policy_configuration
+           in
+           let bnd =
+             "target_tracking_scaling_policy_configuration", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_step_scaling_policy_configuration
-             v_step_scaling_policy_configuration
-         in
-         ("step_scaling_policy_configuration", arg) :: bnds
+         if [] = v_step_scaling_policy_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_step_scaling_policy_configuration)
+               v_step_scaling_policy_configuration
+           in
+           let bnd = "step_scaling_policy_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

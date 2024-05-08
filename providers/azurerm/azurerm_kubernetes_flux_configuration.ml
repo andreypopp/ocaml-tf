@@ -107,7 +107,9 @@ type blob_storage = {
   sync_interval_in_seconds : float prop option; [@option]
   timeout_in_seconds : float prop option; [@option]
   managed_identity : blob_storage__managed_identity list;
+      [@default []] [@yojson_drop_default ( = )]
   service_principal : blob_storage__service_principal list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -129,18 +131,25 @@ let yojson_of_blob_storage =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_blob_storage__service_principal
-             v_service_principal
-         in
-         ("service_principal", arg) :: bnds
+         if [] = v_service_principal then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_blob_storage__service_principal)
+               v_service_principal
+           in
+           let bnd = "service_principal", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_blob_storage__managed_identity
-             v_managed_identity
-         in
-         ("managed_identity", arg) :: bnds
+         if [] = v_managed_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_blob_storage__managed_identity)
+               v_managed_identity
+           in
+           let bnd = "managed_identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_in_seconds with
@@ -573,9 +582,12 @@ type azurerm_kubernetes_flux_configuration = {
   namespace : string prop;
   scope : string prop option; [@option]
   blob_storage : blob_storage list;
-  bucket : bucket list;
+      [@default []] [@yojson_drop_default ( = )]
+  bucket : bucket list; [@default []] [@yojson_drop_default ( = )]
   git_repository : git_repository list;
+      [@default []] [@yojson_drop_default ( = )]
   kustomizations : kustomizations list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -606,26 +618,40 @@ let yojson_of_azurerm_kubernetes_flux_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kustomizations v_kustomizations
-         in
-         ("kustomizations", arg) :: bnds
+         if [] = v_kustomizations then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kustomizations)
+               v_kustomizations
+           in
+           let bnd = "kustomizations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_git_repository v_git_repository
-         in
-         ("git_repository", arg) :: bnds
+         if [] = v_git_repository then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_git_repository)
+               v_git_repository
+           in
+           let bnd = "git_repository", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_bucket v_bucket in
-         ("bucket", arg) :: bnds
+         if [] = v_bucket then bnds
+         else
+           let arg = (yojson_of_list yojson_of_bucket) v_bucket in
+           let bnd = "bucket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_blob_storage v_blob_storage
-         in
-         ("blob_storage", arg) :: bnds
+         if [] = v_blob_storage then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_blob_storage) v_blob_storage
+           in
+           let bnd = "blob_storage", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scope with

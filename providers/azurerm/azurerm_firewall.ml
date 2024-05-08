@@ -202,9 +202,12 @@ type azurerm_firewall = {
   threat_intel_mode : string prop option; [@option]
   zones : string prop list option; [@option]
   ip_configuration : ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   management_ip_configuration : management_ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   virtual_hub : virtual_hub list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -235,28 +238,37 @@ let yojson_of_azurerm_firewall =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_virtual_hub v_virtual_hub
-         in
-         ("virtual_hub", arg) :: bnds
+         if [] = v_virtual_hub then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_virtual_hub) v_virtual_hub
+           in
+           let bnd = "virtual_hub", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_management_ip_configuration
-             v_management_ip_configuration
-         in
-         ("management_ip_configuration", arg) :: bnds
+         if [] = v_management_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_management_ip_configuration)
+               v_management_ip_configuration
+           in
+           let bnd = "management_ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ip_configuration
-             v_ip_configuration
-         in
-         ("ip_configuration", arg) :: bnds
+         if [] = v_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ip_configuration)
+               v_ip_configuration
+           in
+           let bnd = "ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with

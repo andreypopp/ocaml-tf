@@ -85,6 +85,7 @@ let _ = yojson_of_cloud_storage_config__avro_config
 
 type cloud_storage_config = {
   avro_config : cloud_storage_config__avro_config list;
+      [@default []] [@yojson_drop_default ( = )]
   bucket : string prop;
   filename_prefix : string prop;
   filename_suffix : string prop;
@@ -139,11 +140,15 @@ let yojson_of_cloud_storage_config =
          ("bucket", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cloud_storage_config__avro_config
-             v_avro_config
-         in
-         ("avro_config", arg) :: bnds
+         if [] = v_avro_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cloud_storage_config__avro_config)
+               v_avro_config
+           in
+           let bnd = "avro_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cloud_storage_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -269,7 +274,9 @@ let _ = yojson_of_push_config__no_wrapper
 type push_config = {
   attributes : (string * string prop) list;
   no_wrapper : push_config__no_wrapper list;
+      [@default []] [@yojson_drop_default ( = )]
   oidc_token : push_config__oidc_token list;
+      [@default []] [@yojson_drop_default ( = )]
   push_endpoint : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -292,18 +299,24 @@ let yojson_of_push_config =
          ("push_endpoint", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_push_config__oidc_token
-             v_oidc_token
-         in
-         ("oidc_token", arg) :: bnds
+         if [] = v_oidc_token then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_push_config__oidc_token)
+               v_oidc_token
+           in
+           let bnd = "oidc_token", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_push_config__no_wrapper
-             v_no_wrapper
-         in
-         ("no_wrapper", arg) :: bnds
+         if [] = v_no_wrapper then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_push_config__no_wrapper)
+               v_no_wrapper
+           in
+           let bnd = "no_wrapper", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

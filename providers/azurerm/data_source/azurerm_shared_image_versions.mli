@@ -17,7 +17,9 @@ type images = {
   managed_image_id : string prop;  (** managed_image_id *)
   name : string prop;  (** name *)
   tags : (string * string prop) list;  (** tags *)
-  target_region : images__target_region list;  (** target_region *)
+  target_region : images__target_region list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** target_region *)
 }
 
 type timeouts

@@ -87,9 +87,11 @@ let _ =
 type custom_actions__include_skaffold_modules = {
   configs : string prop list option; [@option]
   git : custom_actions__include_skaffold_modules__git list;
+      [@default []] [@yojson_drop_default ( = )]
   google_cloud_storage :
     custom_actions__include_skaffold_modules__google_cloud_storage
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,20 +108,26 @@ let yojson_of_custom_actions__include_skaffold_modules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_custom_actions__include_skaffold_modules__google_cloud_storage
-             v_google_cloud_storage
-         in
-         ("google_cloud_storage", arg) :: bnds
+         if [] = v_google_cloud_storage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_custom_actions__include_skaffold_modules__google_cloud_storage)
+               v_google_cloud_storage
+           in
+           let bnd = "google_cloud_storage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_custom_actions__include_skaffold_modules__git
-             v_git
-         in
-         ("git", arg) :: bnds
+         if [] = v_git then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_custom_actions__include_skaffold_modules__git)
+               v_git
+           in
+           let bnd = "git", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_configs with
@@ -144,6 +152,7 @@ type custom_actions = {
   render_action : string prop option; [@option]
   include_skaffold_modules :
     custom_actions__include_skaffold_modules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -160,12 +169,15 @@ let yojson_of_custom_actions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_custom_actions__include_skaffold_modules
-             v_include_skaffold_modules
-         in
-         ("include_skaffold_modules", arg) :: bnds
+         if [] = v_include_skaffold_modules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_custom_actions__include_skaffold_modules)
+               v_include_skaffold_modules
+           in
+           let bnd = "include_skaffold_modules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_render_action with
@@ -241,6 +253,7 @@ type google_clouddeploy_custom_target_type = {
   name : string prop;
   project : string prop option; [@option]
   custom_actions : custom_actions list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -268,10 +281,14 @@ let yojson_of_google_clouddeploy_custom_target_type =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_actions v_custom_actions
-         in
-         ("custom_actions", arg) :: bnds
+         if [] = v_custom_actions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_actions)
+               v_custom_actions
+           in
+           let bnd = "custom_actions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

@@ -95,6 +95,7 @@ type azurerm_api_management_authorization_server = {
   api_management_name : string prop;
   authorization_endpoint : string prop;
   authorization_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   bearer_token_sending_methods : string prop list option; [@option]
   client_authentication_method : string prop list option; [@option]
   client_id : string prop;
@@ -104,6 +105,7 @@ type azurerm_api_management_authorization_server = {
   description : string prop option; [@option]
   display_name : string prop;
   grant_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
@@ -113,6 +115,7 @@ type azurerm_api_management_authorization_server = {
   token_endpoint : string prop option; [@option]
   timeouts : timeouts option;
   token_body_parameter : token_body_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -147,11 +150,14 @@ let yojson_of_azurerm_api_management_authorization_server =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_token_body_parameter
-             v_token_body_parameter
-         in
-         ("token_body_parameter", arg) :: bnds
+         if [] = v_token_body_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_token_body_parameter)
+               v_token_body_parameter
+           in
+           let bnd = "token_body_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
@@ -208,12 +214,14 @@ let yojson_of_azurerm_api_management_authorization_server =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_grant_types
-         in
-         ("grant_types", arg) :: bnds
+         if [] = v_grant_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_grant_types
+           in
+           let bnd = "grant_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_display_name in
@@ -275,12 +283,14 @@ let yojson_of_azurerm_api_management_authorization_server =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_authorization_methods
-         in
-         ("authorization_methods", arg) :: bnds
+         if [] = v_authorization_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_authorization_methods
+           in
+           let bnd = "authorization_methods", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

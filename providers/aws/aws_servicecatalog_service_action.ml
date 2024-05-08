@@ -130,6 +130,7 @@ type aws_servicecatalog_service_action = {
   id : string prop option; [@option]
   name : string prop;
   definition : definition list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -154,10 +155,13 @@ let yojson_of_aws_servicecatalog_service_action =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_definition v_definition
-         in
-         ("definition", arg) :: bnds
+         if [] = v_definition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_definition) v_definition
+           in
+           let bnd = "definition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

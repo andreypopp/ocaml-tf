@@ -6,8 +6,10 @@ open! Tf_core
 
 type control__scope = {
   compliance_resource_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** compliance_resource_ids *)
   compliance_resource_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** compliance_resource_types *)
   tags : (string * string prop) list;  (** tags *)
 }
@@ -19,9 +21,12 @@ type control__input_parameter = {
 
 type control = {
   input_parameter : control__input_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
       (** input_parameter *)
   name : string prop;  (** name *)
-  scope : control__scope list;  (** scope *)
+  scope : control__scope list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** scope *)
 }
 
 type aws_backup_framework

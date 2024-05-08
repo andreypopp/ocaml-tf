@@ -34,6 +34,7 @@ let _ = yojson_of_github_config__authorizer_credential
 type github_config = {
   app_installation_id : float prop option; [@option]
   authorizer_credential : github_config__authorizer_credential list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,12 +50,15 @@ let yojson_of_github_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_github_config__authorizer_credential
-             v_authorizer_credential
-         in
-         ("authorizer_credential", arg) :: bnds
+         if [] = v_authorizer_credential then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_github_config__authorizer_credential)
+               v_authorizer_credential
+           in
+           let bnd = "authorizer_credential", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_app_installation_id with
@@ -107,6 +111,7 @@ type github_enterprise_config = {
   webhook_secret_secret_version : string prop option; [@option]
   service_directory_config :
     github_enterprise_config__service_directory_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -129,12 +134,15 @@ let yojson_of_github_enterprise_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_github_enterprise_config__service_directory_config
-             v_service_directory_config
-         in
-         ("service_directory_config", arg) :: bnds
+         if [] = v_service_directory_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_github_enterprise_config__service_directory_config)
+               v_service_directory_config
+           in
+           let bnd = "service_directory_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_webhook_secret_secret_version with
@@ -281,10 +289,13 @@ type gitlab_config = {
   ssl_ca : string prop option; [@option]
   webhook_secret_secret_version : string prop;
   authorizer_credential : gitlab_config__authorizer_credential list;
+      [@default []] [@yojson_drop_default ( = )]
   read_authorizer_credential :
     gitlab_config__read_authorizer_credential list;
+      [@default []] [@yojson_drop_default ( = )]
   service_directory_config :
     gitlab_config__service_directory_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -305,28 +316,37 @@ let yojson_of_gitlab_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_gitlab_config__service_directory_config
-             v_service_directory_config
-         in
-         ("service_directory_config", arg) :: bnds
+         if [] = v_service_directory_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_gitlab_config__service_directory_config)
+               v_service_directory_config
+           in
+           let bnd = "service_directory_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_gitlab_config__read_authorizer_credential
-             v_read_authorizer_credential
-         in
-         ("read_authorizer_credential", arg) :: bnds
+         if [] = v_read_authorizer_credential then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_gitlab_config__read_authorizer_credential)
+               v_read_authorizer_credential
+           in
+           let bnd = "read_authorizer_credential", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_gitlab_config__authorizer_credential
-             v_authorizer_credential
-         in
-         ("authorizer_credential", arg) :: bnds
+         if [] = v_authorizer_credential then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_gitlab_config__authorizer_credential)
+               v_authorizer_credential
+           in
+           let bnd = "authorizer_credential", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -450,8 +470,11 @@ type google_cloudbuildv2_connection = {
   name : string prop;
   project : string prop option; [@option]
   github_config : github_config list;
+      [@default []] [@yojson_drop_default ( = )]
   github_enterprise_config : github_enterprise_config list;
+      [@default []] [@yojson_drop_default ( = )]
   gitlab_config : gitlab_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -480,23 +503,32 @@ let yojson_of_google_cloudbuildv2_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_gitlab_config v_gitlab_config
-         in
-         ("gitlab_config", arg) :: bnds
+         if [] = v_gitlab_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_gitlab_config) v_gitlab_config
+           in
+           let bnd = "gitlab_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_github_enterprise_config
-             v_github_enterprise_config
-         in
-         ("github_enterprise_config", arg) :: bnds
+         if [] = v_github_enterprise_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_github_enterprise_config)
+               v_github_enterprise_config
+           in
+           let bnd = "github_enterprise_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_github_config v_github_config
-         in
-         ("github_config", arg) :: bnds
+         if [] = v_github_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_github_config) v_github_config
+           in
+           let bnd = "github_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

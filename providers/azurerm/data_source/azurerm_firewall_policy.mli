@@ -8,12 +8,18 @@ type dns = {
   network_rule_fqdn_enabled : bool prop;
       (** network_rule_fqdn_enabled *)
   proxy_enabled : bool prop;  (** proxy_enabled *)
-  servers : string prop list;  (** servers *)
+  servers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** servers *)
 }
 
 type threat_intelligence_allowlist = {
-  fqdns : string prop list;  (** fqdns *)
-  ip_addresses : string prop list;  (** ip_addresses *)
+  fqdns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** fqdns *)
+  ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ip_addresses *)
 }
 
 type timeouts

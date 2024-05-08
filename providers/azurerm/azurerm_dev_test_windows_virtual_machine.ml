@@ -152,7 +152,9 @@ type azurerm_dev_test_windows_virtual_machine = {
   tags : (string * string prop) list option; [@option]
   username : string prop;
   gallery_image_reference : gallery_image_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   inbound_nat_rule : inbound_nat_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -189,18 +191,24 @@ let yojson_of_azurerm_dev_test_windows_virtual_machine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inbound_nat_rule
-             v_inbound_nat_rule
-         in
-         ("inbound_nat_rule", arg) :: bnds
+         if [] = v_inbound_nat_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_inbound_nat_rule)
+               v_inbound_nat_rule
+           in
+           let bnd = "inbound_nat_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_gallery_image_reference
-             v_gallery_image_reference
-         in
-         ("gallery_image_reference", arg) :: bnds
+         if [] = v_gallery_image_reference then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_gallery_image_reference)
+               v_gallery_image_reference
+           in
+           let bnd = "gallery_image_reference", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_username in

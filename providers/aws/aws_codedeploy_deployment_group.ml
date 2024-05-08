@@ -222,12 +222,15 @@ let _ =
 type blue_green_deployment_config = {
   deployment_ready_option :
     blue_green_deployment_config__deployment_ready_option list;
+      [@default []] [@yojson_drop_default ( = )]
   green_fleet_provisioning_option :
     blue_green_deployment_config__green_fleet_provisioning_option
     list;
+      [@default []] [@yojson_drop_default ( = )]
   terminate_blue_instances_on_deployment_success :
     blue_green_deployment_config__terminate_blue_instances_on_deployment_success
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -246,29 +249,40 @@ let yojson_of_blue_green_deployment_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_blue_green_deployment_config__terminate_blue_instances_on_deployment_success
-             v_terminate_blue_instances_on_deployment_success
-         in
-         ("terminate_blue_instances_on_deployment_success", arg)
-         :: bnds
+         if [] = v_terminate_blue_instances_on_deployment_success
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_blue_green_deployment_config__terminate_blue_instances_on_deployment_success)
+               v_terminate_blue_instances_on_deployment_success
+           in
+           let bnd =
+             "terminate_blue_instances_on_deployment_success", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_blue_green_deployment_config__green_fleet_provisioning_option
-             v_green_fleet_provisioning_option
-         in
-         ("green_fleet_provisioning_option", arg) :: bnds
+         if [] = v_green_fleet_provisioning_option then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_blue_green_deployment_config__green_fleet_provisioning_option)
+               v_green_fleet_provisioning_option
+           in
+           let bnd = "green_fleet_provisioning_option", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_blue_green_deployment_config__deployment_ready_option
-             v_deployment_ready_option
-         in
-         ("deployment_ready_option", arg) :: bnds
+         if [] = v_deployment_ready_option then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_blue_green_deployment_config__deployment_ready_option)
+               v_deployment_ready_option
+           in
+           let bnd = "deployment_ready_option", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : blue_green_deployment_config ->
@@ -413,6 +427,7 @@ let _ = yojson_of_ec2_tag_set__ec2_tag_filter
 
 type ec2_tag_set = {
   ec2_tag_filter : ec2_tag_set__ec2_tag_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -425,11 +440,14 @@ let yojson_of_ec2_tag_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ec2_tag_set__ec2_tag_filter
-             v_ec2_tag_filter
-         in
-         ("ec2_tag_filter", arg) :: bnds
+         if [] = v_ec2_tag_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ec2_tag_set__ec2_tag_filter)
+               v_ec2_tag_filter
+           in
+           let bnd = "ec2_tag_filter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : ec2_tag_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -528,6 +546,7 @@ let _ = yojson_of_load_balancer_info__target_group_info
 
 type load_balancer_info__target_group_pair_info__prod_traffic_route = {
   listener_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -544,12 +563,14 @@ let yojson_of_load_balancer_info__target_group_pair_info__prod_traffic_route
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_listener_arns
-         in
-         ("listener_arns", arg) :: bnds
+         if [] = v_listener_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_listener_arns
+           in
+           let bnd = "listener_arns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : load_balancer_info__target_group_pair_info__prod_traffic_route ->
@@ -591,6 +612,7 @@ let _ =
 
 type load_balancer_info__target_group_pair_info__test_traffic_route = {
   listener_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -607,12 +629,14 @@ let yojson_of_load_balancer_info__target_group_pair_info__test_traffic_route
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_listener_arns
-         in
-         ("listener_arns", arg) :: bnds
+         if [] = v_listener_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_listener_arns
+           in
+           let bnd = "listener_arns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : load_balancer_info__target_group_pair_info__test_traffic_route ->
@@ -627,11 +651,14 @@ type load_balancer_info__target_group_pair_info = {
   prod_traffic_route :
     load_balancer_info__target_group_pair_info__prod_traffic_route
     list;
+      [@default []] [@yojson_drop_default ( = )]
   target_group :
     load_balancer_info__target_group_pair_info__target_group list;
+      [@default []] [@yojson_drop_default ( = )]
   test_traffic_route :
     load_balancer_info__target_group_pair_info__test_traffic_route
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -648,28 +675,37 @@ let yojson_of_load_balancer_info__target_group_pair_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_load_balancer_info__target_group_pair_info__test_traffic_route
-             v_test_traffic_route
-         in
-         ("test_traffic_route", arg) :: bnds
+         if [] = v_test_traffic_route then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_load_balancer_info__target_group_pair_info__test_traffic_route)
+               v_test_traffic_route
+           in
+           let bnd = "test_traffic_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_load_balancer_info__target_group_pair_info__target_group
-             v_target_group
-         in
-         ("target_group", arg) :: bnds
+         if [] = v_target_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_load_balancer_info__target_group_pair_info__target_group)
+               v_target_group
+           in
+           let bnd = "target_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_load_balancer_info__target_group_pair_info__prod_traffic_route
-             v_prod_traffic_route
-         in
-         ("prod_traffic_route", arg) :: bnds
+         if [] = v_prod_traffic_route then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_load_balancer_info__target_group_pair_info__prod_traffic_route)
+               v_prod_traffic_route
+           in
+           let bnd = "prod_traffic_route", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : load_balancer_info__target_group_pair_info ->
@@ -681,9 +717,12 @@ let _ = yojson_of_load_balancer_info__target_group_pair_info
 
 type load_balancer_info = {
   elb_info : load_balancer_info__elb_info list;
+      [@default []] [@yojson_drop_default ( = )]
   target_group_info : load_balancer_info__target_group_info list;
+      [@default []] [@yojson_drop_default ( = )]
   target_group_pair_info :
     load_balancer_info__target_group_pair_info list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -700,27 +739,36 @@ let yojson_of_load_balancer_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_load_balancer_info__target_group_pair_info
-             v_target_group_pair_info
-         in
-         ("target_group_pair_info", arg) :: bnds
+         if [] = v_target_group_pair_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_load_balancer_info__target_group_pair_info)
+               v_target_group_pair_info
+           in
+           let bnd = "target_group_pair_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_load_balancer_info__target_group_info
-             v_target_group_info
-         in
-         ("target_group_info", arg) :: bnds
+         if [] = v_target_group_info then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_load_balancer_info__target_group_info)
+               v_target_group_info
+           in
+           let bnd = "target_group_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_balancer_info__elb_info
-             v_elb_info
-         in
-         ("elb_info", arg) :: bnds
+         if [] = v_elb_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_balancer_info__elb_info)
+               v_elb_info
+           in
+           let bnd = "elb_info", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : load_balancer_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -778,6 +826,7 @@ let _ = yojson_of_on_premises_instance_tag_filter
 
 type trigger_configuration = {
   trigger_events : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   trigger_name : string prop;
   trigger_target_arn : string prop;
 }
@@ -806,12 +855,14 @@ let yojson_of_trigger_configuration =
          ("trigger_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_trigger_events
-         in
-         ("trigger_events", arg) :: bnds
+         if [] = v_trigger_events then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_trigger_events
+           in
+           let bnd = "trigger_events", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : trigger_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -831,16 +882,26 @@ type aws_codedeploy_deployment_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   alarm_configuration : alarm_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   auto_rollback_configuration : auto_rollback_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   blue_green_deployment_config : blue_green_deployment_config list;
+      [@default []] [@yojson_drop_default ( = )]
   deployment_style : deployment_style list;
+      [@default []] [@yojson_drop_default ( = )]
   ec2_tag_filter : ec2_tag_filter list;
+      [@default []] [@yojson_drop_default ( = )]
   ec2_tag_set : ec2_tag_set list;
+      [@default []] [@yojson_drop_default ( = )]
   ecs_service : ecs_service list;
+      [@default []] [@yojson_drop_default ( = )]
   load_balancer_info : load_balancer_info list;
+      [@default []] [@yojson_drop_default ( = )]
   on_premises_instance_tag_filter :
     on_premises_instance_tag_filter list;
+      [@default []] [@yojson_drop_default ( = )]
   trigger_configuration : trigger_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -874,71 +935,103 @@ let yojson_of_aws_codedeploy_deployment_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trigger_configuration
-             v_trigger_configuration
-         in
-         ("trigger_configuration", arg) :: bnds
+         if [] = v_trigger_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trigger_configuration)
+               v_trigger_configuration
+           in
+           let bnd = "trigger_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_on_premises_instance_tag_filter
-             v_on_premises_instance_tag_filter
-         in
-         ("on_premises_instance_tag_filter", arg) :: bnds
+         if [] = v_on_premises_instance_tag_filter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_premises_instance_tag_filter)
+               v_on_premises_instance_tag_filter
+           in
+           let bnd = "on_premises_instance_tag_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_balancer_info
-             v_load_balancer_info
-         in
-         ("load_balancer_info", arg) :: bnds
+         if [] = v_load_balancer_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_balancer_info)
+               v_load_balancer_info
+           in
+           let bnd = "load_balancer_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ecs_service v_ecs_service
-         in
-         ("ecs_service", arg) :: bnds
+         if [] = v_ecs_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ecs_service) v_ecs_service
+           in
+           let bnd = "ecs_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ec2_tag_set v_ec2_tag_set
-         in
-         ("ec2_tag_set", arg) :: bnds
+         if [] = v_ec2_tag_set then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ec2_tag_set) v_ec2_tag_set
+           in
+           let bnd = "ec2_tag_set", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ec2_tag_filter v_ec2_tag_filter
-         in
-         ("ec2_tag_filter", arg) :: bnds
+         if [] = v_ec2_tag_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ec2_tag_filter)
+               v_ec2_tag_filter
+           in
+           let bnd = "ec2_tag_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_deployment_style
-             v_deployment_style
-         in
-         ("deployment_style", arg) :: bnds
+         if [] = v_deployment_style then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_deployment_style)
+               v_deployment_style
+           in
+           let bnd = "deployment_style", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_blue_green_deployment_config
-             v_blue_green_deployment_config
-         in
-         ("blue_green_deployment_config", arg) :: bnds
+         if [] = v_blue_green_deployment_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_blue_green_deployment_config)
+               v_blue_green_deployment_config
+           in
+           let bnd = "blue_green_deployment_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_rollback_configuration
-             v_auto_rollback_configuration
-         in
-         ("auto_rollback_configuration", arg) :: bnds
+         if [] = v_auto_rollback_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_rollback_configuration)
+               v_auto_rollback_configuration
+           in
+           let bnd = "auto_rollback_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_alarm_configuration
-             v_alarm_configuration
-         in
-         ("alarm_configuration", arg) :: bnds
+         if [] = v_alarm_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_alarm_configuration)
+               v_alarm_configuration
+           in
+           let bnd = "alarm_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

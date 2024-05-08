@@ -47,6 +47,7 @@ let _ = yojson_of_source__files
 type source = {
   language : string prop option; [@option]
   files : source__files list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,8 +60,13 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source__files v_files in
-         ("files", arg) :: bnds
+         if [] = v_files then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__files) v_files
+           in
+           let bnd = "files", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_language with
@@ -114,7 +120,10 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
-type metadata = { services : string prop list }
+type metadata = {
+  services : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : metadata) -> ()
@@ -126,12 +135,14 @@ let yojson_of_metadata =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_services
-         in
-         ("services", arg) :: bnds
+         if [] = v_services then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_services
+           in
+           let bnd = "services", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -143,7 +154,7 @@ let _ = yojson_of_metadata
 type google_firebaserules_ruleset = {
   id : string prop option; [@option]
   project : string prop option; [@option]
-  source : source list;
+  source : source list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -166,8 +177,11 @@ let yojson_of_google_firebaserules_ruleset =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

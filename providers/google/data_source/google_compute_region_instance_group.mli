@@ -11,7 +11,9 @@ type instances__named_ports = {
 
 type instances = {
   instance : string prop;  (** instance *)
-  named_ports : instances__named_ports list;  (** named_ports *)
+  named_ports : instances__named_ports list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** named_ports *)
   status : string prop;  (** status *)
 }
 

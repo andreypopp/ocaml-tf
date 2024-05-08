@@ -111,9 +111,11 @@ type configuration__result_configuration = {
   output_location : string prop option; [@option]
   acl_configuration :
     configuration__result_configuration__acl_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   encryption_configuration :
     configuration__result_configuration__encryption_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -131,20 +133,26 @@ let yojson_of_configuration__result_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__result_configuration__encryption_configuration
-             v_encryption_configuration
-         in
-         ("encryption_configuration", arg) :: bnds
+         if [] = v_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__result_configuration__encryption_configuration)
+               v_encryption_configuration
+           in
+           let bnd = "encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__result_configuration__acl_configuration
-             v_acl_configuration
-         in
-         ("acl_configuration", arg) :: bnds
+         if [] = v_acl_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__result_configuration__acl_configuration)
+               v_acl_configuration
+           in
+           let bnd = "acl_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_output_location with
@@ -177,7 +185,9 @@ type configuration = {
   publish_cloudwatch_metrics_enabled : bool prop option; [@option]
   requester_pays_enabled : bool prop option; [@option]
   engine_version : configuration__engine_version list;
+      [@default []] [@yojson_drop_default ( = )]
   result_configuration : configuration__result_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,19 +211,25 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__result_configuration
-             v_result_configuration
-         in
-         ("result_configuration", arg) :: bnds
+         if [] = v_result_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__result_configuration)
+               v_result_configuration
+           in
+           let bnd = "result_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration__engine_version
-             v_engine_version
-         in
-         ("engine_version", arg) :: bnds
+         if [] = v_engine_version then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration__engine_version)
+               v_engine_version
+           in
+           let bnd = "engine_version", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_requester_pays_enabled with
@@ -271,6 +287,7 @@ type aws_athena_workgroup = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   configuration : configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -292,10 +309,13 @@ let yojson_of_aws_athena_workgroup =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration v_configuration
-         in
-         ("configuration", arg) :: bnds
+         if [] = v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

@@ -160,8 +160,11 @@ type google_bigquery_data_transfer_config = {
   schedule : string prop option; [@option]
   service_account_name : string prop option; [@option]
   email_preferences : email_preferences list;
+      [@default []] [@yojson_drop_default ( = )]
   schedule_options : schedule_options list;
+      [@default []] [@yojson_drop_default ( = )]
   sensitive_params : sensitive_params list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -196,25 +199,34 @@ let yojson_of_google_bigquery_data_transfer_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sensitive_params
-             v_sensitive_params
-         in
-         ("sensitive_params", arg) :: bnds
+         if [] = v_sensitive_params then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sensitive_params)
+               v_sensitive_params
+           in
+           let bnd = "sensitive_params", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schedule_options
-             v_schedule_options
-         in
-         ("schedule_options", arg) :: bnds
+         if [] = v_schedule_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule_options)
+               v_schedule_options
+           in
+           let bnd = "schedule_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_email_preferences
-             v_email_preferences
-         in
-         ("email_preferences", arg) :: bnds
+         if [] = v_email_preferences then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_email_preferences)
+               v_email_preferences
+           in
+           let bnd = "email_preferences", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service_account_name with

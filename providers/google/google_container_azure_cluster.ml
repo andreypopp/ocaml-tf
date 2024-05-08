@@ -49,7 +49,9 @@ let _ = yojson_of_authorization__admin_users
 
 type authorization = {
   admin_groups : authorization__admin_groups list;
+      [@default []] [@yojson_drop_default ( = )]
   admin_users : authorization__admin_users list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,18 +65,24 @@ let yojson_of_authorization =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authorization__admin_users
-             v_admin_users
-         in
-         ("admin_users", arg) :: bnds
+         if [] = v_admin_users then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authorization__admin_users)
+               v_admin_users
+           in
+           let bnd = "admin_users", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authorization__admin_groups
-             v_admin_groups
-         in
-         ("admin_groups", arg) :: bnds
+         if [] = v_admin_groups then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authorization__admin_groups)
+               v_admin_groups
+           in
+           let bnd = "admin_groups", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : authorization -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -295,11 +303,17 @@ type control_plane = {
   version : string prop;
   vm_size : string prop option; [@option]
   database_encryption : control_plane__database_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   main_volume : control_plane__main_volume list;
+      [@default []] [@yojson_drop_default ( = )]
   proxy_config : control_plane__proxy_config list;
+      [@default []] [@yojson_drop_default ( = )]
   replica_placements : control_plane__replica_placements list;
+      [@default []] [@yojson_drop_default ( = )]
   root_volume : control_plane__root_volume list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_config : control_plane__ssh_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -323,47 +337,66 @@ let yojson_of_control_plane =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_plane__ssh_config
-             v_ssh_config
-         in
-         ("ssh_config", arg) :: bnds
+         if [] = v_ssh_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_plane__ssh_config)
+               v_ssh_config
+           in
+           let bnd = "ssh_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_plane__root_volume
-             v_root_volume
-         in
-         ("root_volume", arg) :: bnds
+         if [] = v_root_volume then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_plane__root_volume)
+               v_root_volume
+           in
+           let bnd = "root_volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_plane__replica_placements
-             v_replica_placements
-         in
-         ("replica_placements", arg) :: bnds
+         if [] = v_replica_placements then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_control_plane__replica_placements)
+               v_replica_placements
+           in
+           let bnd = "replica_placements", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_plane__proxy_config
-             v_proxy_config
-         in
-         ("proxy_config", arg) :: bnds
+         if [] = v_proxy_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_plane__proxy_config)
+               v_proxy_config
+           in
+           let bnd = "proxy_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_plane__main_volume
-             v_main_volume
-         in
-         ("main_volume", arg) :: bnds
+         if [] = v_main_volume then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_plane__main_volume)
+               v_main_volume
+           in
+           let bnd = "main_volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_control_plane__database_encryption
-             v_database_encryption
-         in
-         ("database_encryption", arg) :: bnds
+         if [] = v_database_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_control_plane__database_encryption)
+               v_database_encryption
+           in
+           let bnd = "database_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vm_size with
@@ -432,7 +465,9 @@ let _ = yojson_of_fleet
 
 type networking = {
   pod_address_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   service_address_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_network_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -456,20 +491,24 @@ let yojson_of_networking =
          ("virtual_network_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_service_address_cidr_blocks
-         in
-         ("service_address_cidr_blocks", arg) :: bnds
+         if [] = v_service_address_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_service_address_cidr_blocks
+           in
+           let bnd = "service_address_cidr_blocks", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_pod_address_cidr_blocks
-         in
-         ("pod_address_cidr_blocks", arg) :: bnds
+         if [] = v_pod_address_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_pod_address_cidr_blocks
+           in
+           let bnd = "pod_address_cidr_blocks", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : networking -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -575,10 +614,14 @@ type google_container_azure_cluster = {
   project : string prop option; [@option]
   resource_group_id : string prop;
   authorization : authorization list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_services_authentication : azure_services_authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   control_plane : control_plane list;
-  fleet : fleet list;
+      [@default []] [@yojson_drop_default ( = )]
+  fleet : fleet list; [@default []] [@yojson_drop_default ( = )]
   networking : networking list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -613,33 +656,48 @@ let yojson_of_google_container_azure_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_networking v_networking
-         in
-         ("networking", arg) :: bnds
+         if [] = v_networking then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_networking) v_networking
+           in
+           let bnd = "networking", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_fleet v_fleet in
-         ("fleet", arg) :: bnds
+         if [] = v_fleet then bnds
+         else
+           let arg = (yojson_of_list yojson_of_fleet) v_fleet in
+           let bnd = "fleet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_plane v_control_plane
-         in
-         ("control_plane", arg) :: bnds
+         if [] = v_control_plane then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_plane) v_control_plane
+           in
+           let bnd = "control_plane", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_azure_services_authentication
-             v_azure_services_authentication
-         in
-         ("azure_services_authentication", arg) :: bnds
+         if [] = v_azure_services_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_azure_services_authentication)
+               v_azure_services_authentication
+           in
+           let bnd = "azure_services_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authorization v_authorization
-         in
-         ("authorization", arg) :: bnds
+         if [] = v_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authorization) v_authorization
+           in
+           let bnd = "authorization", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

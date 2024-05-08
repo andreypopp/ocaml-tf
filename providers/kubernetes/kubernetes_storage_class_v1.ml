@@ -45,6 +45,7 @@ let _ = yojson_of_allowed_topologies__match_label_expressions
 type allowed_topologies = {
   match_label_expressions :
     allowed_topologies__match_label_expressions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,12 +58,15 @@ let yojson_of_allowed_topologies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_allowed_topologies__match_label_expressions
-             v_match_label_expressions
-         in
-         ("match_label_expressions", arg) :: bnds
+         if [] = v_match_label_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_allowed_topologies__match_label_expressions)
+               v_match_label_expressions
+           in
+           let bnd = "match_label_expressions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : allowed_topologies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -156,7 +160,8 @@ type kubernetes_storage_class_v1 = {
   storage_provisioner : string prop;
   volume_binding_mode : string prop option; [@option]
   allowed_topologies : allowed_topologies list;
-  metadata : metadata list;
+      [@default []] [@yojson_drop_default ( = )]
+  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -179,15 +184,23 @@ let yojson_of_kubernetes_storage_class_v1 =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_allowed_topologies
-             v_allowed_topologies
-         in
-         ("allowed_topologies", arg) :: bnds
+         if [] = v_allowed_topologies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_allowed_topologies)
+               v_allowed_topologies
+           in
+           let bnd = "allowed_topologies", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_volume_binding_mode with

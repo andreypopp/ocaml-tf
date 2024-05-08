@@ -300,8 +300,11 @@ type cdn_policy = {
   signed_url_cache_max_age_sec : float prop option; [@option]
   bypass_cache_on_request_headers :
     cdn_policy__bypass_cache_on_request_headers list;
+      [@default []] [@yojson_drop_default ( = )]
   cache_key_policy : cdn_policy__cache_key_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   negative_caching_policy : cdn_policy__negative_caching_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -326,27 +329,36 @@ let yojson_of_cdn_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cdn_policy__negative_caching_policy
-             v_negative_caching_policy
-         in
-         ("negative_caching_policy", arg) :: bnds
+         if [] = v_negative_caching_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cdn_policy__negative_caching_policy)
+               v_negative_caching_policy
+           in
+           let bnd = "negative_caching_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cdn_policy__cache_key_policy
-             v_cache_key_policy
-         in
-         ("cache_key_policy", arg) :: bnds
+         if [] = v_cache_key_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cdn_policy__cache_key_policy)
+               v_cache_key_policy
+           in
+           let bnd = "cache_key_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cdn_policy__bypass_cache_on_request_headers
-             v_bypass_cache_on_request_headers
-         in
-         ("bypass_cache_on_request_headers", arg) :: bnds
+         if [] = v_bypass_cache_on_request_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cdn_policy__bypass_cache_on_request_headers)
+               v_bypass_cache_on_request_headers
+           in
+           let bnd = "bypass_cache_on_request_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_signed_url_cache_max_age_sec with
@@ -519,6 +531,7 @@ type consistent_hash__http_cookie = {
   name : string prop option; [@option]
   path : string prop option; [@option]
   ttl : consistent_hash__http_cookie__ttl list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -531,11 +544,15 @@ let yojson_of_consistent_hash__http_cookie =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_consistent_hash__http_cookie__ttl
-             v_ttl
-         in
-         ("ttl", arg) :: bnds
+         if [] = v_ttl then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_consistent_hash__http_cookie__ttl)
+               v_ttl
+           in
+           let bnd = "ttl", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_path with
@@ -565,6 +582,7 @@ type consistent_hash = {
   http_header_name : string prop option; [@option]
   minimum_ring_size : float prop option; [@option]
   http_cookie : consistent_hash__http_cookie list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -581,11 +599,14 @@ let yojson_of_consistent_hash =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_consistent_hash__http_cookie
-             v_http_cookie
-         in
-         ("http_cookie", arg) :: bnds
+         if [] = v_http_cookie then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_consistent_hash__http_cookie)
+               v_http_cookie
+           in
+           let bnd = "http_cookie", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_minimum_ring_size with
@@ -705,7 +726,9 @@ let _ = yojson_of_locality_lb_policies__policy
 
 type locality_lb_policies = {
   custom_policy : locality_lb_policies__custom_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   policy : locality_lb_policies__policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -718,19 +741,25 @@ let yojson_of_locality_lb_policies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_locality_lb_policies__policy
-             v_policy
-         in
-         ("policy", arg) :: bnds
+         if [] = v_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_locality_lb_policies__policy)
+               v_policy
+           in
+           let bnd = "policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_locality_lb_policies__custom_policy
-             v_custom_policy
-         in
-         ("custom_policy", arg) :: bnds
+         if [] = v_custom_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_locality_lb_policies__custom_policy)
+               v_custom_policy
+           in
+           let bnd = "custom_policy", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : locality_lb_policies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -856,7 +885,9 @@ type outlier_detection = {
   success_rate_request_volume : float prop option; [@option]
   success_rate_stdev_factor : float prop option; [@option]
   base_ejection_time : outlier_detection__base_ejection_time list;
+      [@default []] [@yojson_drop_default ( = )]
   interval : outlier_detection__interval list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -882,19 +913,25 @@ let yojson_of_outlier_detection =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_outlier_detection__interval
-             v_interval
-         in
-         ("interval", arg) :: bnds
+         if [] = v_interval then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_outlier_detection__interval)
+               v_interval
+           in
+           let bnd = "interval", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_outlier_detection__base_ejection_time
-             v_base_ejection_time
-         in
-         ("base_ejection_time", arg) :: bnds
+         if [] = v_base_ejection_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_outlier_detection__base_ejection_time)
+               v_base_ejection_time
+           in
+           let bnd = "base_ejection_time", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_success_rate_stdev_factor with
@@ -980,6 +1017,7 @@ let _ = yojson_of_outlier_detection
 type security_settings = {
   client_tls_policy : string prop;
   subject_alt_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -995,12 +1033,14 @@ let yojson_of_security_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subject_alt_names
-         in
-         ("subject_alt_names", arg) :: bnds
+         if [] = v_subject_alt_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subject_alt_names
+           in
+           let bnd = "subject_alt_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1081,15 +1121,22 @@ type google_compute_backend_service = {
   security_policy : string prop option; [@option]
   session_affinity : string prop option; [@option]
   timeout_sec : float prop option; [@option]
-  backend : backend list;
+  backend : backend list; [@default []] [@yojson_drop_default ( = )]
   cdn_policy : cdn_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   circuit_breakers : circuit_breakers list;
+      [@default []] [@yojson_drop_default ( = )]
   consistent_hash : consistent_hash list;
-  iap : iap list;
+      [@default []] [@yojson_drop_default ( = )]
+  iap : iap list; [@default []] [@yojson_drop_default ( = )]
   locality_lb_policies : locality_lb_policies list;
+      [@default []] [@yojson_drop_default ( = )]
   log_config : log_config list;
+      [@default []] [@yojson_drop_default ( = )]
   outlier_detection : outlier_detection list;
+      [@default []] [@yojson_drop_default ( = )]
   security_settings : security_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1138,58 +1185,86 @@ let yojson_of_google_compute_backend_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_security_settings
-             v_security_settings
-         in
-         ("security_settings", arg) :: bnds
+         if [] = v_security_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_security_settings)
+               v_security_settings
+           in
+           let bnd = "security_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_outlier_detection
-             v_outlier_detection
-         in
-         ("outlier_detection", arg) :: bnds
+         if [] = v_outlier_detection then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_outlier_detection)
+               v_outlier_detection
+           in
+           let bnd = "outlier_detection", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_config v_log_config
-         in
-         ("log_config", arg) :: bnds
+         if [] = v_log_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_config) v_log_config
+           in
+           let bnd = "log_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_locality_lb_policies
-             v_locality_lb_policies
-         in
-         ("locality_lb_policies", arg) :: bnds
+         if [] = v_locality_lb_policies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_locality_lb_policies)
+               v_locality_lb_policies
+           in
+           let bnd = "locality_lb_policies", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_iap v_iap in
-         ("iap", arg) :: bnds
+         if [] = v_iap then bnds
+         else
+           let arg = (yojson_of_list yojson_of_iap) v_iap in
+           let bnd = "iap", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_consistent_hash v_consistent_hash
-         in
-         ("consistent_hash", arg) :: bnds
+         if [] = v_consistent_hash then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_consistent_hash)
+               v_consistent_hash
+           in
+           let bnd = "consistent_hash", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_circuit_breakers
-             v_circuit_breakers
-         in
-         ("circuit_breakers", arg) :: bnds
+         if [] = v_circuit_breakers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_circuit_breakers)
+               v_circuit_breakers
+           in
+           let bnd = "circuit_breakers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cdn_policy v_cdn_policy
-         in
-         ("cdn_policy", arg) :: bnds
+         if [] = v_cdn_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cdn_policy) v_cdn_policy
+           in
+           let bnd = "cdn_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_backend v_backend in
-         ("backend", arg) :: bnds
+         if [] = v_backend then bnds
+         else
+           let arg = (yojson_of_list yojson_of_backend) v_backend in
+           let bnd = "backend", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_sec with

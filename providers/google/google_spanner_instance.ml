@@ -110,7 +110,9 @@ let _ = yojson_of_autoscaling_config__autoscaling_targets
 
 type autoscaling_config = {
   autoscaling_limits : autoscaling_config__autoscaling_limits list;
+      [@default []] [@yojson_drop_default ( = )]
   autoscaling_targets : autoscaling_config__autoscaling_targets list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,20 +128,26 @@ let yojson_of_autoscaling_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_autoscaling_config__autoscaling_targets
-             v_autoscaling_targets
-         in
-         ("autoscaling_targets", arg) :: bnds
+         if [] = v_autoscaling_targets then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_autoscaling_config__autoscaling_targets)
+               v_autoscaling_targets
+           in
+           let bnd = "autoscaling_targets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_autoscaling_config__autoscaling_limits
-             v_autoscaling_limits
-         in
-         ("autoscaling_limits", arg) :: bnds
+         if [] = v_autoscaling_limits then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_autoscaling_config__autoscaling_limits)
+               v_autoscaling_limits
+           in
+           let bnd = "autoscaling_limits", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : autoscaling_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -205,6 +213,7 @@ type google_spanner_instance = {
   processing_units : float prop option; [@option]
   project : string prop option; [@option]
   autoscaling_config : autoscaling_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -234,11 +243,14 @@ let yojson_of_google_spanner_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_autoscaling_config
-             v_autoscaling_config
-         in
-         ("autoscaling_config", arg) :: bnds
+         if [] = v_autoscaling_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscaling_config)
+               v_autoscaling_config
+           in
+           let bnd = "autoscaling_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

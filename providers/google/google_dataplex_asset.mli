@@ -16,7 +16,9 @@ type discovery_status = {
   last_run_time : string prop;  (** last_run_time *)
   message : string prop;  (** message *)
   state : string prop;  (** state *)
-  stats : discovery_status__stats list;  (** stats *)
+  stats : discovery_status__stats list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** stats *)
   update_time : string prop;  (** update_time *)
 }
 

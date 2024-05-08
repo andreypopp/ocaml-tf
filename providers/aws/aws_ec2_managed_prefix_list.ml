@@ -42,7 +42,7 @@ type aws_ec2_managed_prefix_list = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  entry : entry list;
+  entry : entry list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,8 +63,11 @@ let yojson_of_aws_ec2_managed_prefix_list =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_entry v_entry in
-         ("entry", arg) :: bnds
+         if [] = v_entry then bnds
+         else
+           let arg = (yojson_of_list yojson_of_entry) v_entry in
+           let bnd = "entry", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

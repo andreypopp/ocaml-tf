@@ -24,7 +24,10 @@ let _ = yojson_of_spec__egress_filter
 
 [@@@deriving.end]
 
-type spec = { egress_filter : spec__egress_filter list }
+type spec = {
+  egress_filter : spec__egress_filter list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : spec) -> ()
@@ -36,11 +39,14 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__egress_filter
-             v_egress_filter
-         in
-         ("egress_filter", arg) :: bnds
+         if [] = v_egress_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__egress_filter)
+               v_egress_filter
+           in
+           let bnd = "egress_filter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)

@@ -2,7 +2,11 @@
 
 open! Tf_core
 
-type targets = { key : string prop; values : string prop list }
+type targets = {
+  key : string prop;
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : targets) -> ()
@@ -14,10 +18,14 @@ let yojson_of_targets =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -37,7 +45,7 @@ type aws_ssm_maintenance_window_target = {
   owner_information : string prop option; [@option]
   resource_type : string prop;
   window_id : string prop;
-  targets : targets list;
+  targets : targets list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,8 +66,11 @@ let yojson_of_aws_ssm_maintenance_window_target =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_targets v_targets in
-         ("targets", arg) :: bnds
+         if [] = v_targets then bnds
+         else
+           let arg = (yojson_of_list yojson_of_targets) v_targets in
+           let bnd = "targets", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_window_id in

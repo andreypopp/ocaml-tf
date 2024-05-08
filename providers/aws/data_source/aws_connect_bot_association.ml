@@ -38,7 +38,7 @@ let _ = yojson_of_lex_bot
 type aws_connect_bot_association = {
   id : string prop option; [@option]
   instance_id : string prop;
-  lex_bot : lex_bot list;
+  lex_bot : lex_bot list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -52,8 +52,11 @@ let yojson_of_aws_connect_bot_association =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_lex_bot v_lex_bot in
-         ("lex_bot", arg) :: bnds
+         if [] = v_lex_bot then bnds
+         else
+           let arg = (yojson_of_list yojson_of_lex_bot) v_lex_bot in
+           let bnd = "lex_bot", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_instance_id in

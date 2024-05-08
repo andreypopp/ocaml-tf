@@ -41,6 +41,7 @@ let _ = yojson_of_lock_configuration__unlock_delay
 
 type lock_configuration = {
   unlock_delay : lock_configuration__unlock_delay list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,11 +54,15 @@ let yojson_of_lock_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lock_configuration__unlock_delay
-             v_unlock_delay
-         in
-         ("unlock_delay", arg) :: bnds
+         if [] = v_unlock_delay then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_lock_configuration__unlock_delay)
+               v_unlock_delay
+           in
+           let bnd = "unlock_delay", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : lock_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -192,8 +197,11 @@ type aws_rbin_rule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   lock_configuration : lock_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_tags : resource_tags list;
+      [@default []] [@yojson_drop_default ( = )]
   retention_period : retention_period list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -220,24 +228,33 @@ let yojson_of_aws_rbin_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_period
-             v_retention_period
-         in
-         ("retention_period", arg) :: bnds
+         if [] = v_retention_period then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_period)
+               v_retention_period
+           in
+           let bnd = "retention_period", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resource_tags v_resource_tags
-         in
-         ("resource_tags", arg) :: bnds
+         if [] = v_resource_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resource_tags) v_resource_tags
+           in
+           let bnd = "resource_tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lock_configuration
-             v_lock_configuration
-         in
-         ("lock_configuration", arg) :: bnds
+         if [] = v_lock_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lock_configuration)
+               v_lock_configuration
+           in
+           let bnd = "lock_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

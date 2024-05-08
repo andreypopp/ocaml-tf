@@ -244,6 +244,7 @@ type saas_app__custom_attribute = {
   name_format : string prop option; [@option]
   required : bool prop option; [@option]
   source : saas_app__custom_attribute__source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -262,11 +263,15 @@ let yojson_of_saas_app__custom_attribute =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_saas_app__custom_attribute__source v_source
-         in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_saas_app__custom_attribute__source)
+               v_source
+           in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_required with
@@ -320,6 +325,7 @@ type saas_app = {
   scopes : string prop list option; [@option]
   sp_entity_id : string prop option; [@option]
   custom_attribute : saas_app__custom_attribute list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -345,11 +351,14 @@ let yojson_of_saas_app =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_saas_app__custom_attribute
-             v_custom_attribute
-         in
-         ("custom_attribute", arg) :: bnds
+         if [] = v_custom_attribute then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_saas_app__custom_attribute)
+               v_custom_attribute
+           in
+           let bnd = "custom_attribute", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_sp_entity_id with
@@ -480,9 +489,12 @@ type cloudflare_access_application = {
   type_ : string prop option; [@option] [@key "type"]
   zone_id : string prop option; [@option]
   cors_headers : cors_headers list;
+      [@default []] [@yojson_drop_default ( = )]
   footer_links : footer_links list;
+      [@default []] [@yojson_drop_default ( = )]
   landing_page_design : landing_page_design list;
-  saas_app : saas_app list;
+      [@default []] [@yojson_drop_default ( = )]
+  saas_app : saas_app list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -526,27 +538,41 @@ let yojson_of_cloudflare_access_application =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_saas_app v_saas_app in
-         ("saas_app", arg) :: bnds
+         if [] = v_saas_app then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_saas_app) v_saas_app
+           in
+           let bnd = "saas_app", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_landing_page_design
-             v_landing_page_design
-         in
-         ("landing_page_design", arg) :: bnds
+         if [] = v_landing_page_design then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_landing_page_design)
+               v_landing_page_design
+           in
+           let bnd = "landing_page_design", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_footer_links v_footer_links
-         in
-         ("footer_links", arg) :: bnds
+         if [] = v_footer_links then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_footer_links) v_footer_links
+           in
+           let bnd = "footer_links", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cors_headers v_cors_headers
-         in
-         ("cors_headers", arg) :: bnds
+         if [] = v_cors_headers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cors_headers) v_cors_headers
+           in
+           let bnd = "cors_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone_id with

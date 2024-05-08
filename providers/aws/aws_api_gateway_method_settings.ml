@@ -135,7 +135,7 @@ type aws_api_gateway_method_settings = {
   method_path : string prop;
   rest_api_id : string prop;
   stage_name : string prop;
-  settings : settings list;
+  settings : settings list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -154,8 +154,13 @@ let yojson_of_aws_api_gateway_method_settings =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_settings v_settings in
-         ("settings", arg) :: bnds
+         if [] = v_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings) v_settings
+           in
+           let bnd = "settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_stage_name in

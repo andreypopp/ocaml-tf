@@ -41,6 +41,7 @@ type byte_match_tuples = {
   target_string : string prop option; [@option]
   text_transformation : string prop;
   field_to_match : byte_match_tuples__field_to_match list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,11 +59,15 @@ let yojson_of_byte_match_tuples =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_byte_match_tuples__field_to_match
-             v_field_to_match
-         in
-         ("field_to_match", arg) :: bnds
+         if [] = v_field_to_match then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_byte_match_tuples__field_to_match)
+               v_field_to_match
+           in
+           let bnd = "field_to_match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -95,6 +100,7 @@ type aws_wafregional_byte_match_set = {
   id : string prop option; [@option]
   name : string prop;
   byte_match_tuples : byte_match_tuples list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -111,11 +117,14 @@ let yojson_of_aws_wafregional_byte_match_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_byte_match_tuples
-             v_byte_match_tuples
-         in
-         ("byte_match_tuples", arg) :: bnds
+         if [] = v_byte_match_tuples then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_byte_match_tuples)
+               v_byte_match_tuples
+           in
+           let bnd = "byte_match_tuples", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

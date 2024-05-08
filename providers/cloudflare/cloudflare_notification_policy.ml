@@ -501,9 +501,12 @@ type cloudflare_notification_policy = {
   id : string prop option; [@option]
   name : string prop;
   email_integration : email_integration list;
-  filters : filters list;
+      [@default []] [@yojson_drop_default ( = )]
+  filters : filters list; [@default []] [@yojson_drop_default ( = )]
   pagerduty_integration : pagerduty_integration list;
+      [@default []] [@yojson_drop_default ( = )]
   webhooks_integration : webhooks_integration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -527,29 +530,41 @@ let yojson_of_cloudflare_notification_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_webhooks_integration
-             v_webhooks_integration
-         in
-         ("webhooks_integration", arg) :: bnds
+         if [] = v_webhooks_integration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_webhooks_integration)
+               v_webhooks_integration
+           in
+           let bnd = "webhooks_integration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pagerduty_integration
-             v_pagerduty_integration
-         in
-         ("pagerduty_integration", arg) :: bnds
+         if [] = v_pagerduty_integration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pagerduty_integration)
+               v_pagerduty_integration
+           in
+           let bnd = "pagerduty_integration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filters v_filters in
-         ("filters", arg) :: bnds
+         if [] = v_filters then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filters) v_filters in
+           let bnd = "filters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_email_integration
-             v_email_integration
-         in
-         ("email_integration", arg) :: bnds
+         if [] = v_email_integration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_email_integration)
+               v_email_integration
+           in
+           let bnd = "email_integration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

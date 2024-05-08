@@ -127,6 +127,7 @@ type azurerm_lab_service_schedule = {
   stop_time : string prop;
   time_zone : string prop;
   recurrence : recurrence list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -154,10 +155,13 @@ let yojson_of_azurerm_lab_service_schedule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurrence v_recurrence
-         in
-         ("recurrence", arg) :: bnds
+         if [] = v_recurrence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recurrence) v_recurrence
+           in
+           let bnd = "recurrence", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_time_zone in

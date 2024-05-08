@@ -17,8 +17,12 @@ type status__error_result = {
 }
 
 type status = {
-  error_result : status__error_result list;  (** error_result *)
-  errors : status__errors list;  (** errors *)
+  error_result : status__error_result list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** error_result *)
+  errors : status__errors list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** errors *)
   state : string prop;  (** state *)
 }
 

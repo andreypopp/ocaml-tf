@@ -44,6 +44,7 @@ type data_repository_association = {
   file_cache_path : string prop;
   tags : (string * string prop) list option; [@option]
   nfs : data_repository_association__nfs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,11 +64,15 @@ let yojson_of_data_repository_association =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_repository_association__nfs
-             v_nfs
-         in
-         ("nfs", arg) :: bnds
+         if [] = v_nfs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_repository_association__nfs)
+               v_nfs
+           in
+           let bnd = "nfs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -178,6 +183,7 @@ type lustre_configuration = {
   weekly_maintenance_start_time : string prop option; [@option]
   metadata_configuration :
     lustre_configuration__metadata_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,12 +202,15 @@ let yojson_of_lustre_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_lustre_configuration__metadata_configuration
-             v_metadata_configuration
-         in
-         ("metadata_configuration", arg) :: bnds
+         if [] = v_metadata_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_lustre_configuration__metadata_configuration)
+               v_metadata_configuration
+           in
+           let bnd = "metadata_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weekly_maintenance_start_time with
@@ -287,10 +296,13 @@ type aws_fsx_file_cache = {
   security_group_ids : string prop list option; [@option]
   storage_capacity : float prop;
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   data_repository_association : data_repository_association list;
+      [@default []] [@yojson_drop_default ( = )]
   lustre_configuration : lustre_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -323,18 +335,24 @@ let yojson_of_aws_fsx_file_cache =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lustre_configuration
-             v_lustre_configuration
-         in
-         ("lustre_configuration", arg) :: bnds
+         if [] = v_lustre_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lustre_configuration)
+               v_lustre_configuration
+           in
+           let bnd = "lustre_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_repository_association
-             v_data_repository_association
-         in
-         ("data_repository_association", arg) :: bnds
+         if [] = v_data_repository_association then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_repository_association)
+               v_data_repository_association
+           in
+           let bnd = "data_repository_association", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -369,12 +387,14 @@ let yojson_of_aws_fsx_file_cache =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -197,9 +197,11 @@ type spec__node_affinity__required__node_selector_term = {
   match_expressions :
     spec__node_affinity__required__node_selector_term__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
   match_fields :
     spec__node_affinity__required__node_selector_term__match_fields
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -216,20 +218,26 @@ let yojson_of_spec__node_affinity__required__node_selector_term =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__node_affinity__required__node_selector_term__match_fields
-             v_match_fields
-         in
-         ("match_fields", arg) :: bnds
+         if [] = v_match_fields then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__node_affinity__required__node_selector_term__match_fields)
+               v_match_fields
+           in
+           let bnd = "match_fields", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__node_affinity__required__node_selector_term__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__node_affinity__required__node_selector_term__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__node_affinity__required__node_selector_term ->
@@ -242,6 +250,7 @@ let _ = yojson_of_spec__node_affinity__required__node_selector_term
 type spec__node_affinity__required = {
   node_selector_term :
     spec__node_affinity__required__node_selector_term list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -254,12 +263,15 @@ let yojson_of_spec__node_affinity__required =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__node_affinity__required__node_selector_term
-             v_node_selector_term
-         in
-         ("node_selector_term", arg) :: bnds
+         if [] = v_node_selector_term then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__node_affinity__required__node_selector_term)
+               v_node_selector_term
+           in
+           let bnd = "node_selector_term", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__node_affinity__required ->
@@ -271,6 +283,7 @@ let _ = yojson_of_spec__node_affinity__required
 
 type spec__node_affinity = {
   required : spec__node_affinity__required list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -283,11 +296,14 @@ let yojson_of_spec__node_affinity =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__node_affinity__required
-             v_required
-         in
-         ("required", arg) :: bnds
+         if [] = v_required then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__node_affinity__required)
+               v_required
+           in
+           let bnd = "required", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__node_affinity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -520,12 +536,14 @@ let _ = yojson_of_spec__persistent_volume_source__ceph_fs__secret_ref
 
 type spec__persistent_volume_source__ceph_fs = {
   monitors : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   path : string prop option; [@option]
   read_only : bool prop option; [@option]
   secret_file : string prop option; [@option]
   user : string prop option; [@option]
   secret_ref :
     spec__persistent_volume_source__ceph_fs__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -545,12 +563,15 @@ let yojson_of_spec__persistent_volume_source__ceph_fs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__ceph_fs__secret_ref
-             v_secret_ref
-         in
-         ("secret_ref", arg) :: bnds
+         if [] = v_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__ceph_fs__secret_ref)
+               v_secret_ref
+           in
+           let bnd = "secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user with
@@ -585,12 +606,14 @@ let yojson_of_spec__persistent_volume_source__ceph_fs =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_monitors
-         in
-         ("monitors", arg) :: bnds
+         if [] = v_monitors then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_monitors
+           in
+           let bnd = "monitors", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__persistent_volume_source__ceph_fs ->
@@ -827,13 +850,17 @@ type spec__persistent_volume_source__csi = {
   controller_expand_secret_ref :
     spec__persistent_volume_source__csi__controller_expand_secret_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
   controller_publish_secret_ref :
     spec__persistent_volume_source__csi__controller_publish_secret_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
   node_publish_secret_ref :
     spec__persistent_volume_source__csi__node_publish_secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
   node_stage_secret_ref :
     spec__persistent_volume_source__csi__node_stage_secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -857,36 +884,48 @@ let yojson_of_spec__persistent_volume_source__csi =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__csi__node_stage_secret_ref
-             v_node_stage_secret_ref
-         in
-         ("node_stage_secret_ref", arg) :: bnds
+         if [] = v_node_stage_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__csi__node_stage_secret_ref)
+               v_node_stage_secret_ref
+           in
+           let bnd = "node_stage_secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__csi__node_publish_secret_ref
-             v_node_publish_secret_ref
-         in
-         ("node_publish_secret_ref", arg) :: bnds
+         if [] = v_node_publish_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__csi__node_publish_secret_ref)
+               v_node_publish_secret_ref
+           in
+           let bnd = "node_publish_secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__csi__controller_publish_secret_ref
-             v_controller_publish_secret_ref
-         in
-         ("controller_publish_secret_ref", arg) :: bnds
+         if [] = v_controller_publish_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__csi__controller_publish_secret_ref)
+               v_controller_publish_secret_ref
+           in
+           let bnd = "controller_publish_secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__csi__controller_expand_secret_ref
-             v_controller_expand_secret_ref
-         in
-         ("controller_expand_secret_ref", arg) :: bnds
+         if [] = v_controller_expand_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__csi__controller_expand_secret_ref)
+               v_controller_expand_secret_ref
+           in
+           let bnd = "controller_expand_secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_volume_handle in
@@ -941,6 +980,7 @@ type spec__persistent_volume_source__fc = {
   lun : float prop;
   read_only : bool prop option; [@option]
   target_ww_ns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -958,12 +998,14 @@ let yojson_of_spec__persistent_volume_source__fc =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_target_ww_ns
-         in
-         ("target_ww_ns", arg) :: bnds
+         if [] = v_target_ww_ns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_target_ww_ns
+           in
+           let bnd = "target_ww_ns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_read_only with
@@ -1042,6 +1084,7 @@ type spec__persistent_volume_source__flex_volume = {
   read_only : bool prop option; [@option]
   secret_ref :
     spec__persistent_volume_source__flex_volume__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1060,12 +1103,15 @@ let yojson_of_spec__persistent_volume_source__flex_volume =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__flex_volume__secret_ref
-             v_secret_ref
-         in
-         ("secret_ref", arg) :: bnds
+         if [] = v_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__flex_volume__secret_ref)
+               v_secret_ref
+           in
+           let bnd = "secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_read_only with
@@ -1574,6 +1620,7 @@ let _ = yojson_of_spec__persistent_volume_source__rbd__secret_ref
 
 type spec__persistent_volume_source__rbd = {
   ceph_monitors : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   fs_type : string prop option; [@option]
   keyring : string prop option; [@option]
   rados_user : string prop option; [@option]
@@ -1581,6 +1628,7 @@ type spec__persistent_volume_source__rbd = {
   rbd_pool : string prop option; [@option]
   read_only : bool prop option; [@option]
   secret_ref : spec__persistent_volume_source__rbd__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1602,12 +1650,15 @@ let yojson_of_spec__persistent_volume_source__rbd =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__rbd__secret_ref
-             v_secret_ref
-         in
-         ("secret_ref", arg) :: bnds
+         if [] = v_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__rbd__secret_ref)
+               v_secret_ref
+           in
+           let bnd = "secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_read_only with
@@ -1654,12 +1705,14 @@ let yojson_of_spec__persistent_volume_source__rbd =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ceph_monitors
-         in
-         ("ceph_monitors", arg) :: bnds
+         if [] = v_ceph_monitors then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ceph_monitors
+           in
+           let bnd = "ceph_monitors", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__persistent_volume_source__rbd ->
@@ -1707,27 +1760,46 @@ let _ = yojson_of_spec__persistent_volume_source__vsphere_volume
 type spec__persistent_volume_source = {
   aws_elastic_block_store :
     spec__persistent_volume_source__aws_elastic_block_store list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_disk : spec__persistent_volume_source__azure_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_file : spec__persistent_volume_source__azure_file list;
+      [@default []] [@yojson_drop_default ( = )]
   ceph_fs : spec__persistent_volume_source__ceph_fs list;
+      [@default []] [@yojson_drop_default ( = )]
   cinder : spec__persistent_volume_source__cinder list;
+      [@default []] [@yojson_drop_default ( = )]
   csi : spec__persistent_volume_source__csi list;
+      [@default []] [@yojson_drop_default ( = )]
   fc : spec__persistent_volume_source__fc list;
+      [@default []] [@yojson_drop_default ( = )]
   flex_volume : spec__persistent_volume_source__flex_volume list;
+      [@default []] [@yojson_drop_default ( = )]
   flocker : spec__persistent_volume_source__flocker list;
+      [@default []] [@yojson_drop_default ( = )]
   gce_persistent_disk :
     spec__persistent_volume_source__gce_persistent_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   glusterfs : spec__persistent_volume_source__glusterfs list;
+      [@default []] [@yojson_drop_default ( = )]
   host_path : spec__persistent_volume_source__host_path list;
+      [@default []] [@yojson_drop_default ( = )]
   iscsi : spec__persistent_volume_source__iscsi list;
+      [@default []] [@yojson_drop_default ( = )]
   local : spec__persistent_volume_source__local list;
+      [@default []] [@yojson_drop_default ( = )]
   nfs : spec__persistent_volume_source__nfs list;
+      [@default []] [@yojson_drop_default ( = )]
   photon_persistent_disk :
     spec__persistent_volume_source__photon_persistent_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   quobyte : spec__persistent_volume_source__quobyte list;
+      [@default []] [@yojson_drop_default ( = )]
   rbd : spec__persistent_volume_source__rbd list;
+      [@default []] [@yojson_drop_default ( = )]
   vsphere_volume :
     spec__persistent_volume_source__vsphere_volume list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1760,150 +1832,213 @@ let yojson_of_spec__persistent_volume_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__vsphere_volume
-             v_vsphere_volume
-         in
-         ("vsphere_volume", arg) :: bnds
+         if [] = v_vsphere_volume then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__vsphere_volume)
+               v_vsphere_volume
+           in
+           let bnd = "vsphere_volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__rbd v_rbd
-         in
-         ("rbd", arg) :: bnds
+         if [] = v_rbd then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__rbd)
+               v_rbd
+           in
+           let bnd = "rbd", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__quobyte
-             v_quobyte
-         in
-         ("quobyte", arg) :: bnds
+         if [] = v_quobyte then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__quobyte)
+               v_quobyte
+           in
+           let bnd = "quobyte", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__photon_persistent_disk
-             v_photon_persistent_disk
-         in
-         ("photon_persistent_disk", arg) :: bnds
+         if [] = v_photon_persistent_disk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__photon_persistent_disk)
+               v_photon_persistent_disk
+           in
+           let bnd = "photon_persistent_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__nfs v_nfs
-         in
-         ("nfs", arg) :: bnds
+         if [] = v_nfs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__nfs)
+               v_nfs
+           in
+           let bnd = "nfs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__local v_local
-         in
-         ("local", arg) :: bnds
+         if [] = v_local then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__local)
+               v_local
+           in
+           let bnd = "local", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__iscsi v_iscsi
-         in
-         ("iscsi", arg) :: bnds
+         if [] = v_iscsi then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__iscsi)
+               v_iscsi
+           in
+           let bnd = "iscsi", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__host_path
-             v_host_path
-         in
-         ("host_path", arg) :: bnds
+         if [] = v_host_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__host_path)
+               v_host_path
+           in
+           let bnd = "host_path", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__glusterfs
-             v_glusterfs
-         in
-         ("glusterfs", arg) :: bnds
+         if [] = v_glusterfs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__glusterfs)
+               v_glusterfs
+           in
+           let bnd = "glusterfs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__gce_persistent_disk
-             v_gce_persistent_disk
-         in
-         ("gce_persistent_disk", arg) :: bnds
+         if [] = v_gce_persistent_disk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__gce_persistent_disk)
+               v_gce_persistent_disk
+           in
+           let bnd = "gce_persistent_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__flocker
-             v_flocker
-         in
-         ("flocker", arg) :: bnds
+         if [] = v_flocker then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__flocker)
+               v_flocker
+           in
+           let bnd = "flocker", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__flex_volume
-             v_flex_volume
-         in
-         ("flex_volume", arg) :: bnds
+         if [] = v_flex_volume then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__flex_volume)
+               v_flex_volume
+           in
+           let bnd = "flex_volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__fc v_fc
-         in
-         ("fc", arg) :: bnds
+         if [] = v_fc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__fc)
+               v_fc
+           in
+           let bnd = "fc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__csi v_csi
-         in
-         ("csi", arg) :: bnds
+         if [] = v_csi then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__csi)
+               v_csi
+           in
+           let bnd = "csi", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__cinder
-             v_cinder
-         in
-         ("cinder", arg) :: bnds
+         if [] = v_cinder then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__cinder)
+               v_cinder
+           in
+           let bnd = "cinder", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__ceph_fs
-             v_ceph_fs
-         in
-         ("ceph_fs", arg) :: bnds
+         if [] = v_ceph_fs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__ceph_fs)
+               v_ceph_fs
+           in
+           let bnd = "ceph_fs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__azure_file
-             v_azure_file
-         in
-         ("azure_file", arg) :: bnds
+         if [] = v_azure_file then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__azure_file)
+               v_azure_file
+           in
+           let bnd = "azure_file", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__azure_disk
-             v_azure_disk
-         in
-         ("azure_disk", arg) :: bnds
+         if [] = v_azure_disk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__azure_disk)
+               v_azure_disk
+           in
+           let bnd = "azure_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__persistent_volume_source__aws_elastic_block_store
-             v_aws_elastic_block_store
-         in
-         ("aws_elastic_block_store", arg) :: bnds
+         if [] = v_aws_elastic_block_store then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__persistent_volume_source__aws_elastic_block_store)
+               v_aws_elastic_block_store
+           in
+           let bnd = "aws_elastic_block_store", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__persistent_volume_source ->
@@ -1915,14 +2050,18 @@ let _ = yojson_of_spec__persistent_volume_source
 
 type spec = {
   access_modes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   capacity : (string * string prop) list;
   mount_options : string prop list option; [@option]
   persistent_volume_reclaim_policy : string prop option; [@option]
   storage_class_name : string prop option; [@option]
   volume_mode : string prop option; [@option]
   claim_ref : spec__claim_ref list;
+      [@default []] [@yojson_drop_default ( = )]
   node_affinity : spec__node_affinity list;
+      [@default []] [@yojson_drop_default ( = )]
   persistent_volume_source : spec__persistent_volume_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1946,24 +2085,33 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__persistent_volume_source
-             v_persistent_volume_source
-         in
-         ("persistent_volume_source", arg) :: bnds
+         if [] = v_persistent_volume_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__persistent_volume_source)
+               v_persistent_volume_source
+           in
+           let bnd = "persistent_volume_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__node_affinity
-             v_node_affinity
-         in
-         ("node_affinity", arg) :: bnds
+         if [] = v_node_affinity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__node_affinity)
+               v_node_affinity
+           in
+           let bnd = "node_affinity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__claim_ref v_claim_ref
-         in
-         ("claim_ref", arg) :: bnds
+         if [] = v_claim_ref then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__claim_ref) v_claim_ref
+           in
+           let bnd = "claim_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_volume_mode with
@@ -2012,12 +2160,14 @@ let yojson_of_spec =
          ("capacity", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_access_modes
-         in
-         ("access_modes", arg) :: bnds
+         if [] = v_access_modes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_access_modes
+           in
+           let bnd = "access_modes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2055,7 +2205,8 @@ let _ = yojson_of_timeouts
 type kubernetes_persistent_volume = {
   id : string prop option; [@option]
   metadata : metadata list;
-  spec : spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -2078,12 +2229,20 @@ let yojson_of_kubernetes_persistent_volume =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

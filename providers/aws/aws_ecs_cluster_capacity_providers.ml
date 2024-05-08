@@ -57,6 +57,7 @@ type aws_ecs_cluster_capacity_providers = {
   id : string prop option; [@option]
   default_capacity_provider_strategy :
     default_capacity_provider_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,12 +76,15 @@ let yojson_of_aws_ecs_cluster_capacity_providers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_capacity_provider_strategy
-             v_default_capacity_provider_strategy
-         in
-         ("default_capacity_provider_strategy", arg) :: bnds
+         if [] = v_default_capacity_provider_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_capacity_provider_strategy)
+               v_default_capacity_provider_strategy
+           in
+           let bnd = "default_capacity_provider_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

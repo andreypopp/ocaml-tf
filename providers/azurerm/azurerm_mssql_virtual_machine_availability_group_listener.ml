@@ -7,6 +7,7 @@ type load_balancer_configuration = {
   private_ip_address : string prop;
   probe_port : float prop;
   sql_virtual_machine_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -30,12 +31,14 @@ let yojson_of_load_balancer_configuration =
          ("subnet_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_sql_virtual_machine_ids
-         in
-         ("sql_virtual_machine_ids", arg) :: bnds
+         if [] = v_sql_virtual_machine_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_sql_virtual_machine_ids
+           in
+           let bnd = "sql_virtual_machine_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_probe_port in
@@ -211,8 +214,10 @@ type azurerm_mssql_virtual_machine_availability_group_listener = {
   port : float prop option; [@option]
   sql_virtual_machine_group_id : string prop;
   load_balancer_configuration : load_balancer_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   multi_subnet_ip_configuration : multi_subnet_ip_configuration list;
-  replica : replica list;
+      [@default []] [@yojson_drop_default ( = )]
+  replica : replica list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -244,22 +249,31 @@ let yojson_of_azurerm_mssql_virtual_machine_availability_group_listener
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_replica v_replica in
-         ("replica", arg) :: bnds
+         if [] = v_replica then bnds
+         else
+           let arg = (yojson_of_list yojson_of_replica) v_replica in
+           let bnd = "replica", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_multi_subnet_ip_configuration
-             v_multi_subnet_ip_configuration
-         in
-         ("multi_subnet_ip_configuration", arg) :: bnds
+         if [] = v_multi_subnet_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_multi_subnet_ip_configuration)
+               v_multi_subnet_ip_configuration
+           in
+           let bnd = "multi_subnet_ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_balancer_configuration
-             v_load_balancer_configuration
-         in
-         ("load_balancer_configuration", arg) :: bnds
+         if [] = v_load_balancer_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_balancer_configuration)
+               v_load_balancer_configuration
+           in
+           let bnd = "load_balancer_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

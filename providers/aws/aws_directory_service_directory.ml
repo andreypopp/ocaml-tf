@@ -4,8 +4,10 @@ open! Tf_core
 
 type connect_settings = {
   customer_dns_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   customer_username : string prop;
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -28,12 +30,14 @@ let yojson_of_connect_settings =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -42,12 +46,14 @@ let yojson_of_connect_settings =
          ("customer_username", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_customer_dns_ips
-         in
-         ("customer_dns_ips", arg) :: bnds
+         if [] = v_customer_dns_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_customer_dns_ips
+           in
+           let bnd = "customer_dns_ips", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : connect_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -104,6 +110,7 @@ let _ = yojson_of_timeouts
 
 type vpc_settings = {
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -121,12 +128,14 @@ let yojson_of_vpc_settings =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vpc_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -150,8 +159,10 @@ type aws_directory_service_directory = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   connect_settings : connect_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   vpc_settings : vpc_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -182,21 +193,27 @@ let yojson_of_aws_directory_service_directory =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_settings v_vpc_settings
-         in
-         ("vpc_settings", arg) :: bnds
+         if [] = v_vpc_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_settings) v_vpc_settings
+           in
+           let bnd = "vpc_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_connect_settings
-             v_connect_settings
-         in
-         ("connect_settings", arg) :: bnds
+         if [] = v_connect_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_connect_settings)
+               v_connect_settings
+           in
+           let bnd = "connect_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

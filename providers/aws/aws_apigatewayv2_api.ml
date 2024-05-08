@@ -107,6 +107,7 @@ type aws_apigatewayv2_api = {
   target : string prop option; [@option]
   version : string prop option; [@option]
   cors_configuration : cors_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -136,11 +137,14 @@ let yojson_of_aws_apigatewayv2_api =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cors_configuration
-             v_cors_configuration
-         in
-         ("cors_configuration", arg) :: bnds
+         if [] = v_cors_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cors_configuration)
+               v_cors_configuration
+           in
+           let bnd = "cors_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with

@@ -237,9 +237,13 @@ type google_cloud_tasks_queue = {
   name : string prop option; [@option]
   project : string prop option; [@option]
   app_engine_routing_override : app_engine_routing_override list;
+      [@default []] [@yojson_drop_default ( = )]
   rate_limits : rate_limits list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_config : retry_config list;
+      [@default []] [@yojson_drop_default ( = )]
   stackdriver_logging_config : stackdriver_logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -267,30 +271,42 @@ let yojson_of_google_cloud_tasks_queue =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stackdriver_logging_config
-             v_stackdriver_logging_config
-         in
-         ("stackdriver_logging_config", arg) :: bnds
+         if [] = v_stackdriver_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stackdriver_logging_config)
+               v_stackdriver_logging_config
+           in
+           let bnd = "stackdriver_logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retry_config v_retry_config
-         in
-         ("retry_config", arg) :: bnds
+         if [] = v_retry_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retry_config) v_retry_config
+           in
+           let bnd = "retry_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rate_limits v_rate_limits
-         in
-         ("rate_limits", arg) :: bnds
+         if [] = v_rate_limits then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rate_limits) v_rate_limits
+           in
+           let bnd = "rate_limits", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_app_engine_routing_override
-             v_app_engine_routing_override
-         in
-         ("app_engine_routing_override", arg) :: bnds
+         if [] = v_app_engine_routing_override then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_app_engine_routing_override)
+               v_app_engine_routing_override
+           in
+           let bnd = "app_engine_routing_override", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

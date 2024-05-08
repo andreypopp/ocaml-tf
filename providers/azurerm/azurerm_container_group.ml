@@ -153,6 +153,7 @@ type container__liveness_probe = {
   success_threshold : float prop option; [@option]
   timeout_seconds : float prop option; [@option]
   http_get : container__liveness_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -173,11 +174,15 @@ let yojson_of_container__liveness_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_container__liveness_probe__http_get v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_container__liveness_probe__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_seconds with
@@ -350,6 +355,7 @@ type container__readiness_probe = {
   success_threshold : float prop option; [@option]
   timeout_seconds : float prop option; [@option]
   http_get : container__readiness_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -370,12 +376,15 @@ let yojson_of_container__readiness_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_container__readiness_probe__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_container__readiness_probe__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_seconds with
@@ -512,6 +521,7 @@ type container__volume = {
   storage_account_key : string prop option; [@option]
   storage_account_name : string prop option; [@option]
   git_repo : container__volume__git_repo list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -534,11 +544,14 @@ let yojson_of_container__volume =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container__volume__git_repo
-             v_git_repo
-         in
-         ("git_repo", arg) :: bnds
+         if [] = v_git_repo then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container__volume__git_repo)
+               v_git_repo
+           in
+           let bnd = "git_repo", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_storage_account_name with
@@ -624,12 +637,19 @@ type container = {
   secure_environment_variables : (string * string prop) list option;
       [@option]
   gpu : container__gpu list;
+      [@default []] [@yojson_drop_default ( = )]
   gpu_limit : container__gpu_limit list;
+      [@default []] [@yojson_drop_default ( = )]
   liveness_probe : container__liveness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   ports : container__ports list;
+      [@default []] [@yojson_drop_default ( = )]
   readiness_probe : container__readiness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   security : container__security list;
+      [@default []] [@yojson_drop_default ( = )]
   volume : container__volume list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -659,46 +679,71 @@ let yojson_of_container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container__volume v_volume
-         in
-         ("volume", arg) :: bnds
+         if [] = v_volume then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container__volume) v_volume
+           in
+           let bnd = "volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container__security v_security
-         in
-         ("security", arg) :: bnds
+         if [] = v_security then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container__security)
+               v_security
+           in
+           let bnd = "security", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container__readiness_probe
-             v_readiness_probe
-         in
-         ("readiness_probe", arg) :: bnds
+         if [] = v_readiness_probe then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container__readiness_probe)
+               v_readiness_probe
+           in
+           let bnd = "readiness_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container__ports v_ports
-         in
-         ("ports", arg) :: bnds
+         if [] = v_ports then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container__ports) v_ports
+           in
+           let bnd = "ports", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container__liveness_probe
-             v_liveness_probe
-         in
-         ("liveness_probe", arg) :: bnds
+         if [] = v_liveness_probe then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container__liveness_probe)
+               v_liveness_probe
+           in
+           let bnd = "liveness_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container__gpu_limit v_gpu_limit
-         in
-         ("gpu_limit", arg) :: bnds
+         if [] = v_gpu_limit then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container__gpu_limit)
+               v_gpu_limit
+           in
+           let bnd = "gpu_limit", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_container__gpu v_gpu in
-         ("gpu", arg) :: bnds
+         if [] = v_gpu then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container__gpu) v_gpu
+           in
+           let bnd = "gpu", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_secure_environment_variables with
@@ -843,6 +888,7 @@ let _ = yojson_of_diagnostics__log_analytics
 
 type diagnostics = {
   log_analytics : diagnostics__log_analytics list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -855,11 +901,14 @@ let yojson_of_diagnostics =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_diagnostics__log_analytics
-             v_log_analytics
-         in
-         ("log_analytics", arg) :: bnds
+         if [] = v_log_analytics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_diagnostics__log_analytics)
+               v_log_analytics
+           in
+           let bnd = "log_analytics", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : diagnostics -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -870,6 +919,7 @@ let _ = yojson_of_diagnostics
 
 type dns_config = {
   nameservers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   options : string prop list option; [@option]
   search_domains : string prop list option; [@option]
 }
@@ -908,12 +958,14 @@ let yojson_of_dns_config =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_nameservers
-         in
-         ("nameservers", arg) :: bnds
+         if [] = v_nameservers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_nameservers
+           in
+           let bnd = "nameservers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : dns_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1091,6 +1143,7 @@ type init_container__volume = {
   storage_account_key : string prop option; [@option]
   storage_account_name : string prop option; [@option]
   git_repo : init_container__volume__git_repo list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1113,11 +1166,15 @@ let yojson_of_init_container__volume =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_init_container__volume__git_repo
-             v_git_repo
-         in
-         ("git_repo", arg) :: bnds
+         if [] = v_git_repo then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_init_container__volume__git_repo)
+               v_git_repo
+           in
+           let bnd = "git_repo", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_storage_account_name with
@@ -1199,7 +1256,9 @@ type init_container = {
   secure_environment_variables : (string * string prop) list option;
       [@option]
   security : init_container__security list;
+      [@default []] [@yojson_drop_default ( = )]
   volume : init_container__volume list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1220,17 +1279,24 @@ let yojson_of_init_container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_init_container__volume v_volume
-         in
-         ("volume", arg) :: bnds
+         if [] = v_volume then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_init_container__volume)
+               v_volume
+           in
+           let bnd = "volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_init_container__security
-             v_security
-         in
-         ("security", arg) :: bnds
+         if [] = v_security then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_init_container__security)
+               v_security
+           in
+           let bnd = "security", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_secure_environment_variables with
@@ -1395,11 +1461,17 @@ type azurerm_container_group = {
   tags : (string * string prop) list option; [@option]
   zones : string prop list option; [@option]
   container : container list;
+      [@default []] [@yojson_drop_default ( = )]
   diagnostics : diagnostics list;
+      [@default []] [@yojson_drop_default ( = )]
   dns_config : dns_config list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   image_registry_credential : image_registry_credential list;
+      [@default []] [@yojson_drop_default ( = )]
   init_container : init_container list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1444,37 +1516,60 @@ let yojson_of_azurerm_container_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_init_container v_init_container
-         in
-         ("init_container", arg) :: bnds
+         if [] = v_init_container then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_init_container)
+               v_init_container
+           in
+           let bnd = "init_container", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_image_registry_credential
-             v_image_registry_credential
-         in
-         ("image_registry_credential", arg) :: bnds
+         if [] = v_image_registry_credential then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_image_registry_credential)
+               v_image_registry_credential
+           in
+           let bnd = "image_registry_credential", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dns_config v_dns_config
-         in
-         ("dns_config", arg) :: bnds
+         if [] = v_dns_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dns_config) v_dns_config
+           in
+           let bnd = "dns_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_diagnostics v_diagnostics
-         in
-         ("diagnostics", arg) :: bnds
+         if [] = v_diagnostics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_diagnostics) v_diagnostics
+           in
+           let bnd = "diagnostics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_container v_container in
-         ("container", arg) :: bnds
+         if [] = v_container then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container) v_container
+           in
+           let bnd = "container", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with

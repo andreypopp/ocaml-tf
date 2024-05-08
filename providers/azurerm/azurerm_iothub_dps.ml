@@ -200,8 +200,10 @@ type azurerm_iothub_dps = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   ip_filter_rule : ip_filter_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   linked_hub : linked_hub list;
-  sku : sku list;
+      [@default []] [@yojson_drop_default ( = )]
+  sku : sku list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -233,20 +235,30 @@ let yojson_of_azurerm_iothub_dps =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sku v_sku in
-         ("sku", arg) :: bnds
+         if [] = v_sku then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sku) v_sku in
+           let bnd = "sku", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_linked_hub v_linked_hub
-         in
-         ("linked_hub", arg) :: bnds
+         if [] = v_linked_hub then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_linked_hub) v_linked_hub
+           in
+           let bnd = "linked_hub", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ip_filter_rule v_ip_filter_rule
-         in
-         ("ip_filter_rule", arg) :: bnds
+         if [] = v_ip_filter_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ip_filter_rule)
+               v_ip_filter_rule
+           in
+           let bnd = "ip_filter_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

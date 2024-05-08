@@ -176,10 +176,14 @@ let _ = yojson_of_repository__s3_bucket
 
 type repository = {
   bitbucket : repository__bitbucket list;
+      [@default []] [@yojson_drop_default ( = )]
   codecommit : repository__codecommit list;
+      [@default []] [@yojson_drop_default ( = )]
   github_enterprise_server :
     repository__github_enterprise_server list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_bucket : repository__s3_bucket list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -197,31 +201,45 @@ let yojson_of_repository =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_repository__s3_bucket v_s3_bucket
-         in
-         ("s3_bucket", arg) :: bnds
+         if [] = v_s3_bucket then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_repository__s3_bucket)
+               v_s3_bucket
+           in
+           let bnd = "s3_bucket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_repository__github_enterprise_server
-             v_github_enterprise_server
-         in
-         ("github_enterprise_server", arg) :: bnds
+         if [] = v_github_enterprise_server then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_repository__github_enterprise_server)
+               v_github_enterprise_server
+           in
+           let bnd = "github_enterprise_server", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_repository__codecommit
-             v_codecommit
-         in
-         ("codecommit", arg) :: bnds
+         if [] = v_codecommit then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_repository__codecommit)
+               v_codecommit
+           in
+           let bnd = "codecommit", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_repository__bitbucket v_bitbucket
-         in
-         ("bitbucket", arg) :: bnds
+         if [] = v_bitbucket then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_repository__bitbucket)
+               v_bitbucket
+           in
+           let bnd = "bitbucket", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : repository -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -319,6 +337,7 @@ let _ = yojson_of_s3_repository_details__code_artifacts
 type s3_repository_details = {
   bucket_name : string prop;
   code_artifacts : s3_repository_details__code_artifacts list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -334,12 +353,15 @@ let yojson_of_s3_repository_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_s3_repository_details__code_artifacts
-             v_code_artifacts
-         in
-         ("code_artifacts", arg) :: bnds
+         if [] = v_code_artifacts then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_s3_repository_details__code_artifacts)
+               v_code_artifacts
+           in
+           let bnd = "code_artifacts", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_bucket_name in
@@ -357,7 +379,9 @@ type aws_codegurureviewer_repository_association = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   kms_key_details : kms_key_details list;
+      [@default []] [@yojson_drop_default ( = )]
   repository : repository list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -382,16 +406,23 @@ let yojson_of_aws_codegurureviewer_repository_association =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_repository v_repository
-         in
-         ("repository", arg) :: bnds
+         if [] = v_repository then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_repository) v_repository
+           in
+           let bnd = "repository", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kms_key_details v_kms_key_details
-         in
-         ("kms_key_details", arg) :: bnds
+         if [] = v_kms_key_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kms_key_details)
+               v_kms_key_details
+           in
+           let bnd = "kms_key_details", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

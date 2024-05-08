@@ -15,7 +15,9 @@ type status__conditions = {
 }
 
 type status = {
-  conditions : status__conditions list;  (** conditions *)
+  conditions : status__conditions list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** conditions *)
   error_message : string prop;  (** error_message *)
 }
 
@@ -28,13 +30,17 @@ type validation_check__status__result = {
 }
 
 type validation_check__status = {
-  result : validation_check__status__result list;  (** result *)
+  result : validation_check__status__result list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** result *)
 }
 
 type validation_check = {
   options : string prop;  (** options *)
   scenario : string prop;  (** scenario *)
-  status : validation_check__status list;  (** status *)
+  status : validation_check__status list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** status *)
 }
 
 type binary_authorization

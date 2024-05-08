@@ -125,8 +125,8 @@ type azurerm_stream_analytics_function_javascript_uda = {
   name : string prop;
   script : string prop;
   stream_analytics_job_id : string prop;
-  input : input list;
-  output : output list;
+  input : input list; [@default []] [@yojson_drop_default ( = )]
+  output : output list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -153,12 +153,18 @@ let yojson_of_azurerm_stream_analytics_function_javascript_uda =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_output v_output in
-         ("output", arg) :: bnds
+         if [] = v_output then bnds
+         else
+           let arg = (yojson_of_list yojson_of_output) v_output in
+           let bnd = "output", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_input v_input in
-         ("input", arg) :: bnds
+         if [] = v_input then bnds
+         else
+           let arg = (yojson_of_list yojson_of_input) v_input in
+           let bnd = "input", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -90,6 +90,7 @@ type azurerm_data_factory_integration_runtime_self_hosted = {
   id : string prop option; [@option]
   name : string prop;
   rbac_authorization : rbac_authorization list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -115,11 +116,14 @@ let yojson_of_azurerm_data_factory_integration_runtime_self_hosted =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rbac_authorization
-             v_rbac_authorization
-         in
-         ("rbac_authorization", arg) :: bnds
+         if [] = v_rbac_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rbac_authorization)
+               v_rbac_authorization
+           in
+           let bnd = "rbac_authorization", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

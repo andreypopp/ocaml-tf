@@ -97,6 +97,7 @@ let _ = yojson_of_default_access_policy__access_rule
 
 type default_access_policy = {
   access_rule : default_access_policy__access_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,12 +110,15 @@ let yojson_of_default_access_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_access_policy__access_rule
-             v_access_rule
-         in
-         ("access_rule", arg) :: bnds
+         if [] = v_access_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_access_policy__access_rule)
+               v_access_rule
+           in
+           let bnd = "access_rule", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : default_access_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -267,6 +271,7 @@ type directory_ldap = {
   encrypted : bool prop option; [@option]
   server : string prop;
   bind : directory_ldap__bind list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -287,10 +292,13 @@ let yojson_of_directory_ldap =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_directory_ldap__bind v_bind
-         in
-         ("bind", arg) :: bnds
+         if [] = v_bind then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_directory_ldap__bind) v_bind
+           in
+           let bnd = "bind", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_server in
@@ -334,6 +342,7 @@ let _ = yojson_of_directory_ldap
 type dns = {
   search_domain : string prop option; [@option]
   servers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -346,10 +355,14 @@ let yojson_of_dns =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_servers
-         in
-         ("servers", arg) :: bnds
+         if [] = v_servers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_servers
+           in
+           let bnd = "servers", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_search_domain with
@@ -476,11 +489,16 @@ type azurerm_hpc_cache = {
   subnet_id : string prop;
   tags : (string * string prop) list option; [@option]
   default_access_policy : default_access_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   directory_active_directory : directory_active_directory list;
+      [@default []] [@yojson_drop_default ( = )]
   directory_flat_file : directory_flat_file list;
+      [@default []] [@yojson_drop_default ( = )]
   directory_ldap : directory_ldap list;
-  dns : dns list;
+      [@default []] [@yojson_drop_default ( = )]
+  dns : dns list; [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -519,39 +537,60 @@ let yojson_of_azurerm_hpc_cache =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_dns v_dns in
-         ("dns", arg) :: bnds
+         if [] = v_dns then bnds
+         else
+           let arg = (yojson_of_list yojson_of_dns) v_dns in
+           let bnd = "dns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_directory_ldap v_directory_ldap
-         in
-         ("directory_ldap", arg) :: bnds
+         if [] = v_directory_ldap then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_directory_ldap)
+               v_directory_ldap
+           in
+           let bnd = "directory_ldap", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_directory_flat_file
-             v_directory_flat_file
-         in
-         ("directory_flat_file", arg) :: bnds
+         if [] = v_directory_flat_file then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_directory_flat_file)
+               v_directory_flat_file
+           in
+           let bnd = "directory_flat_file", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_directory_active_directory
-             v_directory_active_directory
-         in
-         ("directory_active_directory", arg) :: bnds
+         if [] = v_directory_active_directory then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_directory_active_directory)
+               v_directory_active_directory
+           in
+           let bnd = "directory_active_directory", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_access_policy
-             v_default_access_policy
-         in
-         ("default_access_policy", arg) :: bnds
+         if [] = v_default_access_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_access_policy)
+               v_default_access_policy
+           in
+           let bnd = "default_access_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

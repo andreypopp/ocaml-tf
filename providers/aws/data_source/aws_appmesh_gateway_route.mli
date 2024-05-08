@@ -10,7 +10,7 @@ type spec__http_route__match__query_parameter__match = {
 
 type spec__http_route__match__query_parameter = {
   match_ : spec__http_route__match__query_parameter__match list;
-      [@key "match"]
+      [@default []] [@yojson_drop_default ( = )] [@key "match"]
       (** match *)
   name : string prop;  (** name *)
 }
@@ -34,6 +34,7 @@ type spec__http_route__match__header__match = {
   exact : string prop;  (** exact *)
   prefix : string prop;  (** prefix *)
   range : spec__http_route__match__header__match__range list;
+      [@default []] [@yojson_drop_default ( = )]
       (** range *)
   regex : string prop;  (** regex *)
   suffix : string prop;  (** suffix *)
@@ -42,18 +43,25 @@ type spec__http_route__match__header__match = {
 type spec__http_route__match__header = {
   invert : bool prop;  (** invert *)
   match_ : spec__http_route__match__header__match list;
-      [@key "match"]
+      [@default []] [@yojson_drop_default ( = )] [@key "match"]
       (** match *)
   name : string prop;  (** name *)
 }
 
 type spec__http_route__match = {
-  header : spec__http_route__match__header list;  (** header *)
-  hostname : spec__http_route__match__hostname list;  (** hostname *)
-  path : spec__http_route__match__path list;  (** path *)
+  header : spec__http_route__match__header list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** header *)
+  hostname : spec__http_route__match__hostname list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** hostname *)
+  path : spec__http_route__match__path list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** path *)
   port : float prop;  (** port *)
   prefix : string prop;  (** prefix *)
   query_parameter : spec__http_route__match__query_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
       (** query_parameter *)
 }
 
@@ -65,6 +73,7 @@ type spec__http_route__action__target = {
   port : float prop;  (** port *)
   virtual_service :
     spec__http_route__action__target__virtual_service list;
+      [@default []] [@yojson_drop_default ( = )]
       (** virtual_service *)
 }
 
@@ -84,20 +93,32 @@ type spec__http_route__action__rewrite__hostname = {
 
 type spec__http_route__action__rewrite = {
   hostname : spec__http_route__action__rewrite__hostname list;
+      [@default []] [@yojson_drop_default ( = )]
       (** hostname *)
-  path : spec__http_route__action__rewrite__path list;  (** path *)
+  path : spec__http_route__action__rewrite__path list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** path *)
   prefix : spec__http_route__action__rewrite__prefix list;
+      [@default []] [@yojson_drop_default ( = )]
       (** prefix *)
 }
 
 type spec__http_route__action = {
-  rewrite : spec__http_route__action__rewrite list;  (** rewrite *)
-  target : spec__http_route__action__target list;  (** target *)
+  rewrite : spec__http_route__action__rewrite list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** rewrite *)
+  target : spec__http_route__action__target list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** target *)
 }
 
 type spec__http_route = {
-  action : spec__http_route__action list;  (** action *)
-  match_ : spec__http_route__match list; [@key "match"]  (** match *)
+  action : spec__http_route__action list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** action *)
+  match_ : spec__http_route__match list;
+      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      (** match *)
 }
 
 type spec__http2_route__match__query_parameter__match = {
@@ -106,7 +127,7 @@ type spec__http2_route__match__query_parameter__match = {
 
 type spec__http2_route__match__query_parameter = {
   match_ : spec__http2_route__match__query_parameter__match list;
-      [@key "match"]
+      [@default []] [@yojson_drop_default ( = )] [@key "match"]
       (** match *)
   name : string prop;  (** name *)
 }
@@ -130,6 +151,7 @@ type spec__http2_route__match__header__match = {
   exact : string prop;  (** exact *)
   prefix : string prop;  (** prefix *)
   range : spec__http2_route__match__header__match__range list;
+      [@default []] [@yojson_drop_default ( = )]
       (** range *)
   regex : string prop;  (** regex *)
   suffix : string prop;  (** suffix *)
@@ -138,19 +160,25 @@ type spec__http2_route__match__header__match = {
 type spec__http2_route__match__header = {
   invert : bool prop;  (** invert *)
   match_ : spec__http2_route__match__header__match list;
-      [@key "match"]
+      [@default []] [@yojson_drop_default ( = )] [@key "match"]
       (** match *)
   name : string prop;  (** name *)
 }
 
 type spec__http2_route__match = {
-  header : spec__http2_route__match__header list;  (** header *)
+  header : spec__http2_route__match__header list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** header *)
   hostname : spec__http2_route__match__hostname list;
+      [@default []] [@yojson_drop_default ( = )]
       (** hostname *)
-  path : spec__http2_route__match__path list;  (** path *)
+  path : spec__http2_route__match__path list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** path *)
   port : float prop;  (** port *)
   prefix : string prop;  (** prefix *)
   query_parameter : spec__http2_route__match__query_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
       (** query_parameter *)
 }
 
@@ -162,6 +190,7 @@ type spec__http2_route__action__target = {
   port : float prop;  (** port *)
   virtual_service :
     spec__http2_route__action__target__virtual_service list;
+      [@default []] [@yojson_drop_default ( = )]
       (** virtual_service *)
 }
 
@@ -181,20 +210,32 @@ type spec__http2_route__action__rewrite__hostname = {
 
 type spec__http2_route__action__rewrite = {
   hostname : spec__http2_route__action__rewrite__hostname list;
+      [@default []] [@yojson_drop_default ( = )]
       (** hostname *)
-  path : spec__http2_route__action__rewrite__path list;  (** path *)
+  path : spec__http2_route__action__rewrite__path list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** path *)
   prefix : spec__http2_route__action__rewrite__prefix list;
+      [@default []] [@yojson_drop_default ( = )]
       (** prefix *)
 }
 
 type spec__http2_route__action = {
-  rewrite : spec__http2_route__action__rewrite list;  (** rewrite *)
-  target : spec__http2_route__action__target list;  (** target *)
+  rewrite : spec__http2_route__action__rewrite list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** rewrite *)
+  target : spec__http2_route__action__target list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** target *)
 }
 
 type spec__http2_route = {
-  action : spec__http2_route__action list;  (** action *)
-  match_ : spec__http2_route__match list; [@key "match"]  (** match *)
+  action : spec__http2_route__action list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** action *)
+  match_ : spec__http2_route__match list;
+      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      (** match *)
 }
 
 type spec__grpc_route__match = {
@@ -210,22 +251,35 @@ type spec__grpc_route__action__target = {
   port : float prop;  (** port *)
   virtual_service :
     spec__grpc_route__action__target__virtual_service list;
+      [@default []] [@yojson_drop_default ( = )]
       (** virtual_service *)
 }
 
 type spec__grpc_route__action = {
-  target : spec__grpc_route__action__target list;  (** target *)
+  target : spec__grpc_route__action__target list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** target *)
 }
 
 type spec__grpc_route = {
-  action : spec__grpc_route__action list;  (** action *)
-  match_ : spec__grpc_route__match list; [@key "match"]  (** match *)
+  action : spec__grpc_route__action list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** action *)
+  match_ : spec__grpc_route__match list;
+      [@default []] [@yojson_drop_default ( = )] [@key "match"]
+      (** match *)
 }
 
 type spec = {
-  grpc_route : spec__grpc_route list;  (** grpc_route *)
-  http2_route : spec__http2_route list;  (** http2_route *)
-  http_route : spec__http_route list;  (** http_route *)
+  grpc_route : spec__grpc_route list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** grpc_route *)
+  http2_route : spec__http2_route list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** http2_route *)
+  http_route : spec__http_route list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** http_route *)
   priority : float prop;  (** priority *)
 }
 

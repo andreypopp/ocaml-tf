@@ -17,7 +17,9 @@ type execution_status__latest_job = {
 }
 
 type execution_status = {
-  latest_job : execution_status__latest_job list;  (** latest_job *)
+  latest_job : execution_status__latest_job list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** latest_job *)
   update_time : string prop;  (** update_time *)
 }
 

@@ -132,14 +132,18 @@ type google_vmwareengine_external_access_rule = {
   action : string prop;
   description : string prop option; [@option]
   destination_ports : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   ip_protocol : string prop;
   name : string prop;
   parent : string prop;
   priority : float prop;
   source_ports : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_ip_ranges : destination_ip_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
   source_ip_ranges : source_ip_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -170,26 +174,34 @@ let yojson_of_google_vmwareengine_external_access_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_ip_ranges
-             v_source_ip_ranges
-         in
-         ("source_ip_ranges", arg) :: bnds
+         if [] = v_source_ip_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_ip_ranges)
+               v_source_ip_ranges
+           in
+           let bnd = "source_ip_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_ip_ranges
-             v_destination_ip_ranges
-         in
-         ("destination_ip_ranges", arg) :: bnds
+         if [] = v_destination_ip_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_ip_ranges)
+               v_destination_ip_ranges
+           in
+           let bnd = "destination_ip_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_ports
-         in
-         ("source_ports", arg) :: bnds
+         if [] = v_source_ports then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_ports
+           in
+           let bnd = "source_ports", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_priority in
@@ -216,12 +228,14 @@ let yojson_of_google_vmwareengine_external_access_rule =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_ports
-         in
-         ("destination_ports", arg) :: bnds
+         if [] = v_destination_ports then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_ports
+           in
+           let bnd = "destination_ports", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_description with

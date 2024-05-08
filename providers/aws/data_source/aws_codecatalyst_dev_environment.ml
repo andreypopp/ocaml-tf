@@ -71,6 +71,7 @@ type aws_codecatalyst_dev_environment = {
   space_name : string prop;
   tags : (string * string prop) list option; [@option]
   repositories : repositories list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -92,10 +93,13 @@ let yojson_of_aws_codecatalyst_dev_environment =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_repositories v_repositories
-         in
-         ("repositories", arg) :: bnds
+         if [] = v_repositories then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_repositories) v_repositories
+           in
+           let bnd = "repositories", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

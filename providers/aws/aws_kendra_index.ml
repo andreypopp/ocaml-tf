@@ -189,7 +189,9 @@ type document_metadata_configuration_updates = {
   type_ : string prop; [@key "type"]
   relevance :
     document_metadata_configuration_updates__relevance list;
+      [@default []] [@yojson_drop_default ( = )]
   search : document_metadata_configuration_updates__search list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -207,20 +209,26 @@ let yojson_of_document_metadata_configuration_updates =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_document_metadata_configuration_updates__search
-             v_search
-         in
-         ("search", arg) :: bnds
+         if [] = v_search then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_document_metadata_configuration_updates__search)
+               v_search
+           in
+           let bnd = "search", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_document_metadata_configuration_updates__relevance
-             v_relevance
-         in
-         ("relevance", arg) :: bnds
+         if [] = v_relevance then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_document_metadata_configuration_updates__relevance)
+               v_relevance
+           in
+           let bnd = "relevance", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -477,8 +485,10 @@ let _ =
 type user_token_configurations = {
   json_token_type_configuration :
     user_token_configurations__json_token_type_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   jwt_token_type_configuration :
     user_token_configurations__jwt_token_type_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -495,20 +505,26 @@ let yojson_of_user_token_configurations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_user_token_configurations__jwt_token_type_configuration
-             v_jwt_token_type_configuration
-         in
-         ("jwt_token_type_configuration", arg) :: bnds
+         if [] = v_jwt_token_type_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_user_token_configurations__jwt_token_type_configuration)
+               v_jwt_token_type_configuration
+           in
+           let bnd = "jwt_token_type_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_user_token_configurations__json_token_type_configuration
-             v_json_token_type_configuration
-         in
-         ("json_token_type_configuration", arg) :: bnds
+         if [] = v_json_token_type_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_user_token_configurations__json_token_type_configuration)
+               v_json_token_type_configuration
+           in
+           let bnd = "json_token_type_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : user_token_configurations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -588,8 +604,10 @@ let _ = yojson_of_index_statistics__faq_statistics
 
 type index_statistics = {
   faq_statistics : index_statistics__faq_statistics list;
+      [@default []] [@yojson_drop_default ( = )]
   text_document_statistics :
     index_statistics__text_document_statistics list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -605,19 +623,26 @@ let yojson_of_index_statistics =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_index_statistics__text_document_statistics
-             v_text_document_statistics
-         in
-         ("text_document_statistics", arg) :: bnds
+         if [] = v_text_document_statistics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_index_statistics__text_document_statistics)
+               v_text_document_statistics
+           in
+           let bnd = "text_document_statistics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_index_statistics__faq_statistics
-             v_faq_statistics
-         in
-         ("faq_statistics", arg) :: bnds
+         if [] = v_faq_statistics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_index_statistics__faq_statistics)
+               v_faq_statistics
+           in
+           let bnd = "faq_statistics", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : index_statistics -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -636,14 +661,19 @@ type aws_kendra_index = {
   tags_all : (string * string prop) list option; [@option]
   user_context_policy : string prop option; [@option]
   capacity_units : capacity_units list;
+      [@default []] [@yojson_drop_default ( = )]
   document_metadata_configuration_updates :
     document_metadata_configuration_updates list;
+      [@default []] [@yojson_drop_default ( = )]
   server_side_encryption_configuration :
     server_side_encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   user_group_resolution_configuration :
     user_group_resolution_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   user_token_configurations : user_token_configurations list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -674,45 +704,63 @@ let yojson_of_aws_kendra_index =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_user_token_configurations
-             v_user_token_configurations
-         in
-         ("user_token_configurations", arg) :: bnds
+         if [] = v_user_token_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_user_token_configurations)
+               v_user_token_configurations
+           in
+           let bnd = "user_token_configurations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_user_group_resolution_configuration
-             v_user_group_resolution_configuration
-         in
-         ("user_group_resolution_configuration", arg) :: bnds
+         if [] = v_user_group_resolution_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_user_group_resolution_configuration)
+               v_user_group_resolution_configuration
+           in
+           let bnd = "user_group_resolution_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_server_side_encryption_configuration
-             v_server_side_encryption_configuration
-         in
-         ("server_side_encryption_configuration", arg) :: bnds
+         if [] = v_server_side_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_server_side_encryption_configuration)
+               v_server_side_encryption_configuration
+           in
+           let bnd = "server_side_encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_document_metadata_configuration_updates
-             v_document_metadata_configuration_updates
-         in
-         ("document_metadata_configuration_updates", arg) :: bnds
+         if [] = v_document_metadata_configuration_updates then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_document_metadata_configuration_updates)
+               v_document_metadata_configuration_updates
+           in
+           let bnd =
+             "document_metadata_configuration_updates", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_capacity_units v_capacity_units
-         in
-         ("capacity_units", arg) :: bnds
+         if [] = v_capacity_units then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_capacity_units)
+               v_capacity_units
+           in
+           let bnd = "capacity_units", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_context_policy with

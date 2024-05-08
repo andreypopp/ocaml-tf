@@ -136,6 +136,7 @@ let _ = yojson_of_training_phrases__parts
 type training_phrases = {
   repeat_count : float prop option; [@option]
   parts : training_phrases__parts list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,10 +149,14 @@ let yojson_of_training_phrases =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_training_phrases__parts v_parts
-         in
-         ("parts", arg) :: bnds
+         if [] = v_parts then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_training_phrases__parts)
+               v_parts
+           in
+           let bnd = "parts", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_repeat_count with
@@ -180,8 +185,10 @@ type google_dialogflow_cx_intent = {
   parent : string prop option; [@option]
   priority : float prop option; [@option]
   parameters : parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   training_phrases : training_phrases list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -208,21 +215,27 @@ let yojson_of_google_dialogflow_cx_intent =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_training_phrases
-             v_training_phrases
-         in
-         ("training_phrases", arg) :: bnds
+         if [] = v_training_phrases then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_training_phrases)
+               v_training_phrases
+           in
+           let bnd = "training_phrases", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_parameters v_parameters
-         in
-         ("parameters", arg) :: bnds
+         if [] = v_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_parameters) v_parameters
+           in
+           let bnd = "parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_priority with

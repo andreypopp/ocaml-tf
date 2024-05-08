@@ -47,6 +47,7 @@ let _ = yojson_of_abort_statement__message
 type abort_statement = {
   response_card : string prop option; [@option]
   message : abort_statement__message list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,11 +60,14 @@ let yojson_of_abort_statement =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_abort_statement__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_abort_statement__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_response_card with
@@ -127,6 +131,7 @@ type clarification_prompt = {
   max_attempts : float prop;
   response_card : string prop option; [@option]
   message : clarification_prompt__message list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -143,11 +148,14 @@ let yojson_of_clarification_prompt =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_clarification_prompt__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_clarification_prompt__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_response_card with
@@ -262,8 +270,10 @@ type aws_lex_bot = {
   process_behavior : string prop option; [@option]
   voice_id : string prop option; [@option]
   abort_statement : abort_statement list;
+      [@default []] [@yojson_drop_default ( = )]
   clarification_prompt : clarification_prompt list;
-  intent : intent list;
+      [@default []] [@yojson_drop_default ( = )]
+  intent : intent list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -299,21 +309,31 @@ let yojson_of_aws_lex_bot =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_intent v_intent in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg = (yojson_of_list yojson_of_intent) v_intent in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_clarification_prompt
-             v_clarification_prompt
-         in
-         ("clarification_prompt", arg) :: bnds
+         if [] = v_clarification_prompt then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_clarification_prompt)
+               v_clarification_prompt
+           in
+           let bnd = "clarification_prompt", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_abort_statement v_abort_statement
-         in
-         ("abort_statement", arg) :: bnds
+         if [] = v_abort_statement then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_abort_statement)
+               v_abort_statement
+           in
+           let bnd = "abort_statement", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_voice_id with

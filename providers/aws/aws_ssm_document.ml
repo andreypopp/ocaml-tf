@@ -6,6 +6,7 @@ type attachments_source = {
   key : string prop;
   name : string prop option; [@option]
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,10 +19,14 @@ let yojson_of_attachments_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -98,6 +103,7 @@ type aws_ssm_document = {
   target_type : string prop option; [@option]
   version_name : string prop option; [@option]
   attachments_source : attachments_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,11 +128,14 @@ let yojson_of_aws_ssm_document =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attachments_source
-             v_attachments_source
-         in
-         ("attachments_source", arg) :: bnds
+         if [] = v_attachments_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attachments_source)
+               v_attachments_source
+           in
+           let bnd = "attachments_source", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version_name with

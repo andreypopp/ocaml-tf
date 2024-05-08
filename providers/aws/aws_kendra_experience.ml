@@ -87,8 +87,10 @@ let _ = yojson_of_configuration__user_identity_configuration
 type configuration = {
   content_source_configuration :
     configuration__content_source_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   user_identity_configuration :
     configuration__user_identity_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -104,20 +106,26 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__user_identity_configuration
-             v_user_identity_configuration
-         in
-         ("user_identity_configuration", arg) :: bnds
+         if [] = v_user_identity_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__user_identity_configuration)
+               v_user_identity_configuration
+           in
+           let bnd = "user_identity_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__content_source_configuration
-             v_content_source_configuration
-         in
-         ("content_source_configuration", arg) :: bnds
+         if [] = v_content_source_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__content_source_configuration)
+               v_content_source_configuration
+           in
+           let bnd = "content_source_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -208,6 +216,7 @@ type aws_kendra_experience = {
   name : string prop;
   role_arn : string prop;
   configuration : configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -233,10 +242,13 @@ let yojson_of_aws_kendra_experience =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration v_configuration
-         in
-         ("configuration", arg) :: bnds
+         if [] = v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_role_arn in

@@ -67,6 +67,7 @@ type monitor_config = {
   timeout_in_seconds : float prop option; [@option]
   tolerated_number_of_failures : float prop option; [@option]
   custom_header : monitor_config__custom_header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,11 +89,14 @@ let yojson_of_monitor_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitor_config__custom_header
-             v_custom_header
-         in
-         ("custom_header", arg) :: bnds
+         if [] = v_custom_header then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitor_config__custom_header)
+               v_custom_header
+           in
+           let bnd = "custom_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tolerated_number_of_failures with
@@ -221,7 +225,9 @@ type azurerm_traffic_manager_profile = {
   traffic_routing_method : string prop;
   traffic_view_enabled : bool prop option; [@option]
   dns_config : dns_config list;
+      [@default []] [@yojson_drop_default ( = )]
   monitor_config : monitor_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -251,16 +257,23 @@ let yojson_of_azurerm_traffic_manager_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitor_config v_monitor_config
-         in
-         ("monitor_config", arg) :: bnds
+         if [] = v_monitor_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitor_config)
+               v_monitor_config
+           in
+           let bnd = "monitor_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dns_config v_dns_config
-         in
-         ("dns_config", arg) :: bnds
+         if [] = v_dns_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dns_config) v_dns_config
+           in
+           let bnd = "dns_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_traffic_view_enabled with

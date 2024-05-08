@@ -4,6 +4,7 @@ open! Tf_core
 
 type aws_acmpca_permission = {
   actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   certificate_authority_arn : string prop;
   id : string prop option; [@option]
   principal : string prop;
@@ -53,10 +54,14 @@ let yojson_of_aws_acmpca_permission =
          ("certificate_authority_arn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_acmpca_permission -> Ppx_yojson_conv_lib.Yojson.Safe.t)

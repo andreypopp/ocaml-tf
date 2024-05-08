@@ -178,7 +178,9 @@ type azurerm_spring_cloud_connection = {
   target_resource_id : string prop;
   vnet_solution : string prop option; [@option]
   authentication : authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_store : secret_store list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -206,16 +208,23 @@ let yojson_of_azurerm_spring_cloud_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secret_store v_secret_store
-         in
-         ("secret_store", arg) :: bnds
+         if [] = v_secret_store then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secret_store) v_secret_store
+           in
+           let bnd = "secret_store", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authentication v_authentication
-         in
-         ("authentication", arg) :: bnds
+         if [] = v_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authentication)
+               v_authentication
+           in
+           let bnd = "authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vnet_solution with

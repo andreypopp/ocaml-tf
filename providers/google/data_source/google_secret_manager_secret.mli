@@ -12,12 +12,14 @@ type replication__user_managed__replicas = {
   customer_managed_encryption :
     replication__user_managed__replicas__customer_managed_encryption
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** customer_managed_encryption *)
   location : string prop;  (** location *)
 }
 
 type replication__user_managed = {
   replicas : replication__user_managed__replicas list;
+      [@default []] [@yojson_drop_default ( = )]
       (** replicas *)
 }
 
@@ -28,12 +30,17 @@ type replication__auto__customer_managed_encryption = {
 type replication__auto = {
   customer_managed_encryption :
     replication__auto__customer_managed_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
       (** customer_managed_encryption *)
 }
 
 type replication = {
-  auto : replication__auto list;  (** auto *)
-  user_managed : replication__user_managed list;  (** user_managed *)
+  auto : replication__auto list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** auto *)
+  user_managed : replication__user_managed list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** user_managed *)
 }
 
 type rotation = {

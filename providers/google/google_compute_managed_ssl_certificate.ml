@@ -2,7 +2,10 @@
 
 open! Tf_core
 
-type managed = { domains : string prop list }
+type managed = {
+  domains : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : managed) -> ()
@@ -14,10 +17,14 @@ let yojson_of_managed =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_domains
-         in
-         ("domains", arg) :: bnds
+         if [] = v_domains then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_domains
+           in
+           let bnd = "domains", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : managed -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -70,7 +77,7 @@ type google_compute_managed_ssl_certificate = {
   name : string prop option; [@option]
   project : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
-  managed : managed list;
+  managed : managed list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -97,8 +104,11 @@ let yojson_of_google_compute_managed_ssl_certificate =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_managed v_managed in
-         ("managed", arg) :: bnds
+         if [] = v_managed then bnds
+         else
+           let arg = (yojson_of_list yojson_of_managed) v_managed in
+           let bnd = "managed", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

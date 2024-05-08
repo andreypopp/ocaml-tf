@@ -59,7 +59,9 @@ let _ = yojson_of_configuration__provider_identity
 
 type configuration = {
   crawler_configuration : configuration__crawler_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   provider_identity : configuration__provider_identity list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,19 +77,26 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration__provider_identity
-             v_provider_identity
-         in
-         ("provider_identity", arg) :: bnds
+         if [] = v_provider_identity then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__provider_identity)
+               v_provider_identity
+           in
+           let bnd = "provider_identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__crawler_configuration
-             v_crawler_configuration
-         in
-         ("crawler_configuration", arg) :: bnds
+         if [] = v_crawler_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__crawler_configuration)
+               v_crawler_configuration
+           in
+           let bnd = "crawler_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -168,6 +177,7 @@ type aws_securitylake_custom_log_source = {
   source_name : string prop;
   source_version : string prop option; [@option]
   configuration : configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -185,10 +195,13 @@ let yojson_of_aws_securitylake_custom_log_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration v_configuration
-         in
-         ("configuration", arg) :: bnds
+         if [] = v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_version with

@@ -182,6 +182,7 @@ let _ = yojson_of_track_selection__condition
 
 type track_selection = {
   condition : track_selection__condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -194,11 +195,14 @@ let yojson_of_track_selection =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_track_selection__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_track_selection__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : track_selection -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -214,8 +218,10 @@ type azurerm_media_services_account_filter = {
   name : string prop;
   resource_group_name : string prop;
   presentation_time_range : presentation_time_range list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   track_selection : track_selection list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -237,21 +243,28 @@ let yojson_of_azurerm_media_services_account_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_track_selection v_track_selection
-         in
-         ("track_selection", arg) :: bnds
+         if [] = v_track_selection then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_track_selection)
+               v_track_selection
+           in
+           let bnd = "track_selection", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_presentation_time_range
-             v_presentation_time_range
-         in
-         ("presentation_time_range", arg) :: bnds
+         if [] = v_presentation_time_range then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_presentation_time_range)
+               v_presentation_time_range
+           in
+           let bnd = "presentation_time_range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -36,6 +36,7 @@ type replication__user_managed__replicas = {
   customer_managed_encryption :
     replication__user_managed__replicas__customer_managed_encryption
     list;
+      [@default []] [@yojson_drop_default ( = )]
   location : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -56,12 +57,15 @@ let yojson_of_replication__user_managed__replicas =
          ("location", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_replication__user_managed__replicas__customer_managed_encryption
-             v_customer_managed_encryption
-         in
-         ("customer_managed_encryption", arg) :: bnds
+         if [] = v_customer_managed_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_replication__user_managed__replicas__customer_managed_encryption)
+               v_customer_managed_encryption
+           in
+           let bnd = "customer_managed_encryption", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : replication__user_managed__replicas ->
@@ -73,6 +77,7 @@ let _ = yojson_of_replication__user_managed__replicas
 
 type replication__user_managed = {
   replicas : replication__user_managed__replicas list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -85,11 +90,15 @@ let yojson_of_replication__user_managed =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_replication__user_managed__replicas v_replicas
-         in
-         ("replicas", arg) :: bnds
+         if [] = v_replicas then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_replication__user_managed__replicas)
+               v_replicas
+           in
+           let bnd = "replicas", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : replication__user_managed -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -127,6 +136,7 @@ let _ = yojson_of_replication__auto__customer_managed_encryption
 type replication__auto = {
   customer_managed_encryption :
     replication__auto__customer_managed_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -140,12 +150,15 @@ let yojson_of_replication__auto =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_replication__auto__customer_managed_encryption
-             v_customer_managed_encryption
-         in
-         ("customer_managed_encryption", arg) :: bnds
+         if [] = v_customer_managed_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_replication__auto__customer_managed_encryption)
+               v_customer_managed_encryption
+           in
+           let bnd = "customer_managed_encryption", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : replication__auto -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -156,7 +169,9 @@ let _ = yojson_of_replication__auto
 
 type replication = {
   auto : replication__auto list;
+      [@default []] [@yojson_drop_default ( = )]
   user_managed : replication__user_managed list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,17 +184,23 @@ let yojson_of_replication =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_replication__user_managed
-             v_user_managed
-         in
-         ("user_managed", arg) :: bnds
+         if [] = v_user_managed then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_replication__user_managed)
+               v_user_managed
+           in
+           let bnd = "user_managed", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_replication__auto v_auto
-         in
-         ("auto", arg) :: bnds
+         if [] = v_auto then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_replication__auto) v_auto
+           in
+           let bnd = "auto", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : replication -> Ppx_yojson_conv_lib.Yojson.Safe.t)

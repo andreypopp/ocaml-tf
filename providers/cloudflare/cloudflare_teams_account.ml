@@ -58,6 +58,7 @@ type antivirus = {
   enabled_upload_phase : bool prop;
   fail_closed : bool prop;
   notification_settings : antivirus__notification_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,11 +76,15 @@ let yojson_of_antivirus =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_antivirus__notification_settings
-             v_notification_settings
-         in
-         ("notification_settings", arg) :: bnds
+         if [] = v_notification_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_antivirus__notification_settings)
+               v_notification_settings
+           in
+           let bnd = "notification_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_fail_closed in
@@ -368,8 +373,11 @@ let _ = yojson_of_logging__settings_by_rule_type__l4
 
 type logging__settings_by_rule_type = {
   dns : logging__settings_by_rule_type__dns list;
+      [@default []] [@yojson_drop_default ( = )]
   http : logging__settings_by_rule_type__http list;
+      [@default []] [@yojson_drop_default ( = )]
   l4 : logging__settings_by_rule_type__l4 list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -382,25 +390,37 @@ let yojson_of_logging__settings_by_rule_type =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logging__settings_by_rule_type__l4 v_l4
-         in
-         ("l4", arg) :: bnds
+         if [] = v_l4 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logging__settings_by_rule_type__l4)
+               v_l4
+           in
+           let bnd = "l4", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logging__settings_by_rule_type__http v_http
-         in
-         ("http", arg) :: bnds
+         if [] = v_http then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logging__settings_by_rule_type__http)
+               v_http
+           in
+           let bnd = "http", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logging__settings_by_rule_type__dns v_dns
-         in
-         ("dns", arg) :: bnds
+         if [] = v_dns then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logging__settings_by_rule_type__dns)
+               v_dns
+           in
+           let bnd = "dns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logging__settings_by_rule_type ->
@@ -413,6 +433,7 @@ let _ = yojson_of_logging__settings_by_rule_type
 type logging = {
   redact_pii : bool prop;
   settings_by_rule_type : logging__settings_by_rule_type list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -428,11 +449,14 @@ let yojson_of_logging =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging__settings_by_rule_type
-             v_settings_by_rule_type
-         in
-         ("settings_by_rule_type", arg) :: bnds
+         if [] = v_settings_by_rule_type then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging__settings_by_rule_type)
+               v_settings_by_rule_type
+           in
+           let bnd = "settings_by_rule_type", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_redact_pii in
@@ -533,14 +557,20 @@ type cloudflare_teams_account = {
   tls_decrypt_enabled : bool prop option; [@option]
   url_browser_isolation_enabled : bool prop option; [@option]
   antivirus : antivirus list;
+      [@default []] [@yojson_drop_default ( = )]
   block_page : block_page list;
+      [@default []] [@yojson_drop_default ( = )]
   body_scanning : body_scanning list;
+      [@default []] [@yojson_drop_default ( = )]
   extended_email_matching : extended_email_matching list;
-  fips : fips list;
-  logging : logging list;
+      [@default []] [@yojson_drop_default ( = )]
+  fips : fips list; [@default []] [@yojson_drop_default ( = )]
+  logging : logging list; [@default []] [@yojson_drop_default ( = )]
   payload_log : payload_log list;
-  proxy : proxy list;
+      [@default []] [@yojson_drop_default ( = )]
+  proxy : proxy list; [@default []] [@yojson_drop_default ( = )]
   ssh_session_log : ssh_session_log list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -572,51 +602,81 @@ let yojson_of_cloudflare_teams_account =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssh_session_log v_ssh_session_log
-         in
-         ("ssh_session_log", arg) :: bnds
+         if [] = v_ssh_session_log then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssh_session_log)
+               v_ssh_session_log
+           in
+           let bnd = "ssh_session_log", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_proxy v_proxy in
-         ("proxy", arg) :: bnds
+         if [] = v_proxy then bnds
+         else
+           let arg = (yojson_of_list yojson_of_proxy) v_proxy in
+           let bnd = "proxy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_payload_log v_payload_log
-         in
-         ("payload_log", arg) :: bnds
+         if [] = v_payload_log then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_payload_log) v_payload_log
+           in
+           let bnd = "payload_log", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_logging v_logging in
-         ("logging", arg) :: bnds
+         if [] = v_logging then bnds
+         else
+           let arg = (yojson_of_list yojson_of_logging) v_logging in
+           let bnd = "logging", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_fips v_fips in
-         ("fips", arg) :: bnds
+         if [] = v_fips then bnds
+         else
+           let arg = (yojson_of_list yojson_of_fips) v_fips in
+           let bnd = "fips", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_extended_email_matching
-             v_extended_email_matching
-         in
-         ("extended_email_matching", arg) :: bnds
+         if [] = v_extended_email_matching then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_extended_email_matching)
+               v_extended_email_matching
+           in
+           let bnd = "extended_email_matching", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_body_scanning v_body_scanning
-         in
-         ("body_scanning", arg) :: bnds
+         if [] = v_body_scanning then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_body_scanning) v_body_scanning
+           in
+           let bnd = "body_scanning", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_block_page v_block_page
-         in
-         ("block_page", arg) :: bnds
+         if [] = v_block_page then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_block_page) v_block_page
+           in
+           let bnd = "block_page", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_antivirus v_antivirus in
-         ("antivirus", arg) :: bnds
+         if [] = v_antivirus then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_antivirus) v_antivirus
+           in
+           let bnd = "antivirus", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_url_browser_isolation_enabled with

@@ -29,6 +29,7 @@ let _ = yojson_of_fields__type__enum_type__allowed_values
 
 type fields__type__enum_type = {
   allowed_values : fields__type__enum_type__allowed_values list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41,12 +42,15 @@ let yojson_of_fields__type__enum_type =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fields__type__enum_type__allowed_values
-             v_allowed_values
-         in
-         ("allowed_values", arg) :: bnds
+         if [] = v_allowed_values then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fields__type__enum_type__allowed_values)
+               v_allowed_values
+           in
+           let bnd = "allowed_values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fields__type__enum_type -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -58,6 +62,7 @@ let _ = yojson_of_fields__type__enum_type
 type fields__type = {
   primitive_type : string prop option; [@option]
   enum_type : fields__type__enum_type list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,11 +76,14 @@ let yojson_of_fields__type =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_fields__type__enum_type
-             v_enum_type
-         in
-         ("enum_type", arg) :: bnds
+         if [] = v_enum_type then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_fields__type__enum_type)
+               v_enum_type
+           in
+           let bnd = "enum_type", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_primitive_type with
@@ -98,7 +106,8 @@ type fields = {
   field_id : string prop;
   is_required : bool prop option; [@option]
   order : float prop option; [@option]
-  type_ : fields__type list; [@key "type"]
+  type_ : fields__type list;
+      [@key "type"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -118,8 +127,13 @@ let yojson_of_fields =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_fields__type v_type_ in
-         ("type", arg) :: bnds
+         if [] = v_type_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_fields__type) v_type_
+           in
+           let bnd = "type", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_order with
@@ -217,7 +231,7 @@ type google_data_catalog_tag_template = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   tag_template_id : string prop;
-  fields : fields list;
+  fields : fields list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -244,8 +258,11 @@ let yojson_of_google_data_catalog_tag_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_fields v_fields in
-         ("fields", arg) :: bnds
+         if [] = v_fields then bnds
+         else
+           let arg = (yojson_of_list yojson_of_fields) v_fields in
+           let bnd = "fields", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

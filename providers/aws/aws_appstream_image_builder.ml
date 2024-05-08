@@ -137,8 +137,11 @@ type aws_appstream_image_builder = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   access_endpoint : access_endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
   domain_join_info : domain_join_info list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_config : vpc_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,23 +171,33 @@ let yojson_of_aws_appstream_image_builder =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_config v_vpc_config
-         in
-         ("vpc_config", arg) :: bnds
+         if [] = v_vpc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_config) v_vpc_config
+           in
+           let bnd = "vpc_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_domain_join_info
-             v_domain_join_info
-         in
-         ("domain_join_info", arg) :: bnds
+         if [] = v_domain_join_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_domain_join_info)
+               v_domain_join_info
+           in
+           let bnd = "domain_join_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access_endpoint v_access_endpoint
-         in
-         ("access_endpoint", arg) :: bnds
+         if [] = v_access_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_endpoint)
+               v_access_endpoint
+           in
+           let bnd = "access_endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

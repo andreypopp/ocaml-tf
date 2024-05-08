@@ -100,9 +100,11 @@ type restore_config__cluster_resource_restore_scope = {
   excluded_group_kinds :
     restore_config__cluster_resource_restore_scope__excluded_group_kinds
     list;
+      [@default []] [@yojson_drop_default ( = )]
   selected_group_kinds :
     restore_config__cluster_resource_restore_scope__selected_group_kinds
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,20 +123,26 @@ let yojson_of_restore_config__cluster_resource_restore_scope =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__cluster_resource_restore_scope__selected_group_kinds
-             v_selected_group_kinds
-         in
-         ("selected_group_kinds", arg) :: bnds
+         if [] = v_selected_group_kinds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__cluster_resource_restore_scope__selected_group_kinds)
+               v_selected_group_kinds
+           in
+           let bnd = "selected_group_kinds", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__cluster_resource_restore_scope__excluded_group_kinds
-             v_excluded_group_kinds
-         in
-         ("excluded_group_kinds", arg) :: bnds
+         if [] = v_excluded_group_kinds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__cluster_resource_restore_scope__excluded_group_kinds)
+               v_excluded_group_kinds
+           in
+           let bnd = "excluded_group_kinds", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_no_group_kinds with
@@ -162,6 +170,7 @@ let _ = yojson_of_restore_config__cluster_resource_restore_scope
 
 type restore_config__excluded_namespaces = {
   namespaces : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -174,12 +183,14 @@ let yojson_of_restore_config__excluded_namespaces =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_namespaces
-         in
-         ("namespaces", arg) :: bnds
+         if [] = v_namespaces then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_namespaces
+           in
+           let bnd = "namespaces", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : restore_config__excluded_namespaces ->
@@ -226,6 +237,7 @@ let _ =
 type restore_config__selected_applications = {
   namespaced_names :
     restore_config__selected_applications__namespaced_names list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -238,12 +250,15 @@ let yojson_of_restore_config__selected_applications =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__selected_applications__namespaced_names
-             v_namespaced_names
-         in
-         ("namespaced_names", arg) :: bnds
+         if [] = v_namespaced_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__selected_applications__namespaced_names)
+               v_namespaced_names
+           in
+           let bnd = "namespaced_names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : restore_config__selected_applications ->
@@ -255,6 +270,7 @@ let _ = yojson_of_restore_config__selected_applications
 
 type restore_config__selected_namespaces = {
   namespaces : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -267,12 +283,14 @@ let yojson_of_restore_config__selected_namespaces =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_namespaces
-         in
-         ("namespaces", arg) :: bnds
+         if [] = v_namespaces then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_namespaces
+           in
+           let bnd = "namespaces", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : restore_config__selected_namespaces ->
@@ -392,6 +410,7 @@ type restore_config__transformation_rules__resource_filter = {
   group_kinds :
     restore_config__transformation_rules__resource_filter__group_kinds
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -410,12 +429,15 @@ let yojson_of_restore_config__transformation_rules__resource_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__transformation_rules__resource_filter__group_kinds
-             v_group_kinds
-         in
-         ("group_kinds", arg) :: bnds
+         if [] = v_group_kinds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__transformation_rules__resource_filter__group_kinds)
+               v_group_kinds
+           in
+           let bnd = "group_kinds", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_namespaces with
@@ -448,8 +470,10 @@ type restore_config__transformation_rules = {
   description : string prop option; [@option]
   field_actions :
     restore_config__transformation_rules__field_actions list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_filter :
     restore_config__transformation_rules__resource_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -466,20 +490,26 @@ let yojson_of_restore_config__transformation_rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__transformation_rules__resource_filter
-             v_resource_filter
-         in
-         ("resource_filter", arg) :: bnds
+         if [] = v_resource_filter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__transformation_rules__resource_filter)
+               v_resource_filter
+           in
+           let bnd = "resource_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__transformation_rules__field_actions
-             v_field_actions
-         in
-         ("field_actions", arg) :: bnds
+         if [] = v_field_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__transformation_rules__field_actions)
+               v_field_actions
+           in
+           let bnd = "field_actions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_description with
@@ -505,10 +535,15 @@ type restore_config = {
   volume_data_restore_policy : string prop option; [@option]
   cluster_resource_restore_scope :
     restore_config__cluster_resource_restore_scope list;
+      [@default []] [@yojson_drop_default ( = )]
   excluded_namespaces : restore_config__excluded_namespaces list;
+      [@default []] [@yojson_drop_default ( = )]
   selected_applications : restore_config__selected_applications list;
+      [@default []] [@yojson_drop_default ( = )]
   selected_namespaces : restore_config__selected_namespaces list;
+      [@default []] [@yojson_drop_default ( = )]
   transformation_rules : restore_config__transformation_rules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -535,44 +570,59 @@ let yojson_of_restore_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__transformation_rules
-             v_transformation_rules
-         in
-         ("transformation_rules", arg) :: bnds
+         if [] = v_transformation_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__transformation_rules)
+               v_transformation_rules
+           in
+           let bnd = "transformation_rules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__selected_namespaces
-             v_selected_namespaces
-         in
-         ("selected_namespaces", arg) :: bnds
+         if [] = v_selected_namespaces then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__selected_namespaces)
+               v_selected_namespaces
+           in
+           let bnd = "selected_namespaces", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__selected_applications
-             v_selected_applications
-         in
-         ("selected_applications", arg) :: bnds
+         if [] = v_selected_applications then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__selected_applications)
+               v_selected_applications
+           in
+           let bnd = "selected_applications", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__excluded_namespaces
-             v_excluded_namespaces
-         in
-         ("excluded_namespaces", arg) :: bnds
+         if [] = v_excluded_namespaces then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__excluded_namespaces)
+               v_excluded_namespaces
+           in
+           let bnd = "excluded_namespaces", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_restore_config__cluster_resource_restore_scope
-             v_cluster_resource_restore_scope
-         in
-         ("cluster_resource_restore_scope", arg) :: bnds
+         if [] = v_cluster_resource_restore_scope then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_restore_config__cluster_resource_restore_scope)
+               v_cluster_resource_restore_scope
+           in
+           let bnd = "cluster_resource_restore_scope", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_volume_data_restore_policy with
@@ -677,6 +727,7 @@ type google_gke_backup_restore_plan = {
   name : string prop;
   project : string prop option; [@option]
   restore_config : restore_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -705,10 +756,14 @@ let yojson_of_google_gke_backup_restore_plan =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restore_config v_restore_config
-         in
-         ("restore_config", arg) :: bnds
+         if [] = v_restore_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restore_config)
+               v_restore_config
+           in
+           let bnd = "restore_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

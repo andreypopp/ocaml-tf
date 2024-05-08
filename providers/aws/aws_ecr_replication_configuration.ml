@@ -65,8 +65,10 @@ let _ = yojson_of_replication_configuration__rule__repository_filter
 
 type replication_configuration__rule = {
   destination : replication_configuration__rule__destination list;
+      [@default []] [@yojson_drop_default ( = )]
   repository_filter :
     replication_configuration__rule__repository_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,20 +84,26 @@ let yojson_of_replication_configuration__rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_replication_configuration__rule__repository_filter
-             v_repository_filter
-         in
-         ("repository_filter", arg) :: bnds
+         if [] = v_repository_filter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_replication_configuration__rule__repository_filter)
+               v_repository_filter
+           in
+           let bnd = "repository_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_replication_configuration__rule__destination
-             v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_replication_configuration__rule__destination)
+               v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : replication_configuration__rule ->
@@ -107,6 +115,7 @@ let _ = yojson_of_replication_configuration__rule
 
 type replication_configuration = {
   rule : replication_configuration__rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,11 +128,15 @@ let yojson_of_replication_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_replication_configuration__rule
-             v_rule
-         in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_replication_configuration__rule)
+               v_rule
+           in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : replication_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -135,6 +148,7 @@ let _ = yojson_of_replication_configuration
 type aws_ecr_replication_configuration = {
   id : string prop option; [@option]
   replication_configuration : replication_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,11 +164,14 @@ let yojson_of_aws_ecr_replication_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_replication_configuration
-             v_replication_configuration
-         in
-         ("replication_configuration", arg) :: bnds
+         if [] = v_replication_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_replication_configuration)
+               v_replication_configuration
+           in
+           let bnd = "replication_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

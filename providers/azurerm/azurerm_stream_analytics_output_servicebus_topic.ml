@@ -132,6 +132,7 @@ type azurerm_stream_analytics_output_servicebus_topic = {
       [@option]
   topic_name : string prop;
   serialization : serialization list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -164,10 +165,13 @@ let yojson_of_azurerm_stream_analytics_output_servicebus_topic =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_serialization v_serialization
-         in
-         ("serialization", arg) :: bnds
+         if [] = v_serialization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_serialization) v_serialization
+           in
+           let bnd = "serialization", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topic_name in

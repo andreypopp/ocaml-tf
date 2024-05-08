@@ -93,6 +93,7 @@ let _ = yojson_of_validation_data_config__validator
 
 type validation_data_config = {
   validator : validation_data_config__validator list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -105,11 +106,15 @@ let yojson_of_validation_data_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_validation_data_config__validator
-             v_validator
-         in
-         ("validator", arg) :: bnds
+         if [] = v_validator then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_validation_data_config__validator)
+               v_validator
+           in
+           let bnd = "validator", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : validation_data_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)

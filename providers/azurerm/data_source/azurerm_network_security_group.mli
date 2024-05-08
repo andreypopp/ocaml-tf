@@ -10,12 +10,15 @@ type security_rule = {
   destination_address_prefix : string prop;
       (** destination_address_prefix *)
   destination_address_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_address_prefixes *)
   destination_application_security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_application_security_group_ids *)
   destination_port_range : string prop;
       (** destination_port_range *)
   destination_port_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_port_ranges *)
   direction : string prop;  (** direction *)
   name : string prop;  (** name *)
@@ -23,11 +26,15 @@ type security_rule = {
   protocol : string prop;  (** protocol *)
   source_address_prefix : string prop;  (** source_address_prefix *)
   source_address_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** source_address_prefixes *)
   source_application_security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** source_application_security_group_ids *)
   source_port_range : string prop;  (** source_port_range *)
-  source_port_ranges : string prop list;  (** source_port_ranges *)
+  source_port_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** source_port_ranges *)
 }
 
 type timeouts

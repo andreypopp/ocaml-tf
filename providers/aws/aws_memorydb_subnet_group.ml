@@ -8,6 +8,7 @@ type aws_memorydb_subnet_group = {
   name : string prop option; [@option]
   name_prefix : string prop option; [@option]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
 }
@@ -62,12 +63,14 @@ let yojson_of_aws_memorydb_subnet_group =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name_prefix with

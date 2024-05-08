@@ -341,9 +341,13 @@ type azurerm_data_factory_dataset_delimited_text = {
   quote_character : string prop option; [@option]
   row_delimiter : string prop option; [@option]
   azure_blob_fs_location : azure_blob_fs_location list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_blob_storage_location : azure_blob_storage_location list;
+      [@default []] [@yojson_drop_default ( = )]
   http_server_location : http_server_location list;
+      [@default []] [@yojson_drop_default ( = )]
   schema_column : schema_column list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -385,31 +389,43 @@ let yojson_of_azurerm_data_factory_dataset_delimited_text =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema_column v_schema_column
-         in
-         ("schema_column", arg) :: bnds
+         if [] = v_schema_column then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schema_column) v_schema_column
+           in
+           let bnd = "schema_column", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_server_location
-             v_http_server_location
-         in
-         ("http_server_location", arg) :: bnds
+         if [] = v_http_server_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_server_location)
+               v_http_server_location
+           in
+           let bnd = "http_server_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_azure_blob_storage_location
-             v_azure_blob_storage_location
-         in
-         ("azure_blob_storage_location", arg) :: bnds
+         if [] = v_azure_blob_storage_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_azure_blob_storage_location)
+               v_azure_blob_storage_location
+           in
+           let bnd = "azure_blob_storage_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_azure_blob_fs_location
-             v_azure_blob_fs_location
-         in
-         ("azure_blob_fs_location", arg) :: bnds
+         if [] = v_azure_blob_fs_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_azure_blob_fs_location)
+               v_azure_blob_fs_location
+           in
+           let bnd = "azure_blob_fs_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_row_delimiter with

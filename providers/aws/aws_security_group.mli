@@ -5,25 +5,41 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type egress = {
-  cidr_blocks : string prop list;  (** cidr_blocks *)
+  cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cidr_blocks *)
   description : string prop;  (** description *)
   from_port : float prop;  (** from_port *)
-  ipv6_cidr_blocks : string prop list;  (** ipv6_cidr_blocks *)
-  prefix_list_ids : string prop list;  (** prefix_list_ids *)
+  ipv6_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ipv6_cidr_blocks *)
+  prefix_list_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** prefix_list_ids *)
   protocol : string prop;  (** protocol *)
-  security_groups : string prop list;  (** security_groups *)
+  security_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** security_groups *)
   self : bool prop;  (** self *)
   to_port : float prop;  (** to_port *)
 }
 
 type ingress = {
-  cidr_blocks : string prop list;  (** cidr_blocks *)
+  cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cidr_blocks *)
   description : string prop;  (** description *)
   from_port : float prop;  (** from_port *)
-  ipv6_cidr_blocks : string prop list;  (** ipv6_cidr_blocks *)
-  prefix_list_ids : string prop list;  (** prefix_list_ids *)
+  ipv6_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ipv6_cidr_blocks *)
+  prefix_list_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** prefix_list_ids *)
   protocol : string prop;  (** protocol *)
-  security_groups : string prop list;  (** security_groups *)
+  security_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** security_groups *)
   self : bool prop;  (** self *)
   to_port : float prop;  (** to_port *)
 }

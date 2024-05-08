@@ -114,6 +114,7 @@ type target__ecs_parameters__network_configuration = {
   assign_public_ip : bool prop option; [@option]
   security_groups : string prop list option; [@option]
   subnets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,10 +131,14 @@ let yojson_of_target__ecs_parameters__network_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
-         in
-         ("subnets", arg) :: bnds
+         if [] = v_subnets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnets
+           in
+           let bnd = "subnets", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_security_groups with
@@ -242,12 +247,16 @@ type target__ecs_parameters = {
   task_definition_arn : string prop;
   capacity_provider_strategy :
     target__ecs_parameters__capacity_provider_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
   network_configuration :
     target__ecs_parameters__network_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   placement_constraints :
     target__ecs_parameters__placement_constraints list;
+      [@default []] [@yojson_drop_default ( = )]
   placement_strategy :
     target__ecs_parameters__placement_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -275,36 +284,48 @@ let yojson_of_target__ecs_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target__ecs_parameters__placement_strategy
-             v_placement_strategy
-         in
-         ("placement_strategy", arg) :: bnds
+         if [] = v_placement_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target__ecs_parameters__placement_strategy)
+               v_placement_strategy
+           in
+           let bnd = "placement_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target__ecs_parameters__placement_constraints
-             v_placement_constraints
-         in
-         ("placement_constraints", arg) :: bnds
+         if [] = v_placement_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target__ecs_parameters__placement_constraints)
+               v_placement_constraints
+           in
+           let bnd = "placement_constraints", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target__ecs_parameters__network_configuration
-             v_network_configuration
-         in
-         ("network_configuration", arg) :: bnds
+         if [] = v_network_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target__ecs_parameters__network_configuration)
+               v_network_configuration
+           in
+           let bnd = "network_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target__ecs_parameters__capacity_provider_strategy
-             v_capacity_provider_strategy
-         in
-         ("capacity_provider_strategy", arg) :: bnds
+         if [] = v_capacity_provider_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target__ecs_parameters__capacity_provider_strategy)
+               v_capacity_provider_strategy
+           in
+           let bnd = "capacity_provider_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -528,6 +549,7 @@ let _ =
 type target__sagemaker_pipeline_parameters = {
   pipeline_parameter :
     target__sagemaker_pipeline_parameters__pipeline_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -540,12 +562,15 @@ let yojson_of_target__sagemaker_pipeline_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target__sagemaker_pipeline_parameters__pipeline_parameter
-             v_pipeline_parameter
-         in
-         ("pipeline_parameter", arg) :: bnds
+         if [] = v_pipeline_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target__sagemaker_pipeline_parameters__pipeline_parameter)
+               v_pipeline_parameter
+           in
+           let bnd = "pipeline_parameter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : target__sagemaker_pipeline_parameters ->
@@ -588,13 +613,20 @@ type target = {
   input : string prop option; [@option]
   role_arn : string prop;
   dead_letter_config : target__dead_letter_config list;
+      [@default []] [@yojson_drop_default ( = )]
   ecs_parameters : target__ecs_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   eventbridge_parameters : target__eventbridge_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_parameters : target__kinesis_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_policy : target__retry_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   sagemaker_pipeline_parameters :
     target__sagemaker_pipeline_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   sqs_parameters : target__sqs_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -619,54 +651,75 @@ let yojson_of_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__sqs_parameters
-             v_sqs_parameters
-         in
-         ("sqs_parameters", arg) :: bnds
+         if [] = v_sqs_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__sqs_parameters)
+               v_sqs_parameters
+           in
+           let bnd = "sqs_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target__sagemaker_pipeline_parameters
-             v_sagemaker_pipeline_parameters
-         in
-         ("sagemaker_pipeline_parameters", arg) :: bnds
+         if [] = v_sagemaker_pipeline_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target__sagemaker_pipeline_parameters)
+               v_sagemaker_pipeline_parameters
+           in
+           let bnd = "sagemaker_pipeline_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__retry_policy
-             v_retry_policy
-         in
-         ("retry_policy", arg) :: bnds
+         if [] = v_retry_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__retry_policy)
+               v_retry_policy
+           in
+           let bnd = "retry_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__kinesis_parameters
-             v_kinesis_parameters
-         in
-         ("kinesis_parameters", arg) :: bnds
+         if [] = v_kinesis_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__kinesis_parameters)
+               v_kinesis_parameters
+           in
+           let bnd = "kinesis_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__eventbridge_parameters
-             v_eventbridge_parameters
-         in
-         ("eventbridge_parameters", arg) :: bnds
+         if [] = v_eventbridge_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__eventbridge_parameters)
+               v_eventbridge_parameters
+           in
+           let bnd = "eventbridge_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__ecs_parameters
-             v_ecs_parameters
-         in
-         ("ecs_parameters", arg) :: bnds
+         if [] = v_ecs_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__ecs_parameters)
+               v_ecs_parameters
+           in
+           let bnd = "ecs_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__dead_letter_config
-             v_dead_letter_config
-         in
-         ("dead_letter_config", arg) :: bnds
+         if [] = v_dead_letter_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__dead_letter_config)
+               v_dead_letter_config
+           in
+           let bnd = "dead_letter_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_role_arn in
@@ -704,7 +757,8 @@ type aws_scheduler_schedule = {
   start_date : string prop option; [@option]
   state : string prop option; [@option]
   flexible_time_window : flexible_time_window list;
-  target : target list;
+      [@default []] [@yojson_drop_default ( = )]
+  target : target list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -731,15 +785,21 @@ let yojson_of_aws_scheduler_schedule =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_target v_target in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg = (yojson_of_list yojson_of_target) v_target in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_flexible_time_window
-             v_flexible_time_window
-         in
-         ("flexible_time_window", arg) :: bnds
+         if [] = v_flexible_time_window then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_flexible_time_window)
+               v_flexible_time_window
+           in
+           let bnd = "flexible_time_window", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_state with

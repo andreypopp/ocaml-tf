@@ -74,8 +74,10 @@ let _ = yojson_of_configuration__lifecycle_configuration__transition
 type configuration__lifecycle_configuration = {
   expiration :
     configuration__lifecycle_configuration__expiration list;
+      [@default []] [@yojson_drop_default ( = )]
   transition :
     configuration__lifecycle_configuration__transition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,20 +90,26 @@ let yojson_of_configuration__lifecycle_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__lifecycle_configuration__transition
-             v_transition
-         in
-         ("transition", arg) :: bnds
+         if [] = v_transition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__lifecycle_configuration__transition)
+               v_transition
+           in
+           let bnd = "transition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__lifecycle_configuration__expiration
-             v_expiration
-         in
-         ("expiration", arg) :: bnds
+         if [] = v_expiration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__lifecycle_configuration__expiration)
+               v_expiration
+           in
+           let bnd = "expiration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration__lifecycle_configuration ->
@@ -183,8 +191,10 @@ type configuration = {
   region : string prop;
   lifecycle_configuration :
     configuration__lifecycle_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   replication_configuration :
     configuration__replication_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -202,20 +212,26 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__replication_configuration
-             v_replication_configuration
-         in
-         ("replication_configuration", arg) :: bnds
+         if [] = v_replication_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__replication_configuration)
+               v_replication_configuration
+           in
+           let bnd = "replication_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__lifecycle_configuration
-             v_lifecycle_configuration
-         in
-         ("lifecycle_configuration", arg) :: bnds
+         if [] = v_lifecycle_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__lifecycle_configuration)
+               v_lifecycle_configuration
+           in
+           let bnd = "lifecycle_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_region in
@@ -289,6 +305,7 @@ type aws_securitylake_data_lake = {
   meta_store_manager_role_arn : string prop;
   tags : (string * string prop) list option; [@option]
   configuration : configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -311,10 +328,13 @@ let yojson_of_aws_securitylake_data_lake =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration v_configuration
-         in
-         ("configuration", arg) :: bnds
+         if [] = v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

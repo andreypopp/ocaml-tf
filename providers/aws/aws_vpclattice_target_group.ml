@@ -42,6 +42,7 @@ type config__health_check = {
   protocol_version : string prop option; [@option]
   unhealthy_threshold_count : float prop option; [@option]
   matcher : config__health_check__matcher list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,11 +67,14 @@ let yojson_of_config__health_check =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__health_check__matcher
-             v_matcher
-         in
-         ("matcher", arg) :: bnds
+         if [] = v_matcher then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__health_check__matcher)
+               v_matcher
+           in
+           let bnd = "matcher", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_unhealthy_threshold_count with
@@ -159,6 +163,7 @@ type config = {
   protocol_version : string prop option; [@option]
   vpc_identifier : string prop option; [@option]
   health_check : config__health_check list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -180,11 +185,14 @@ let yojson_of_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__health_check
-             v_health_check
-         in
-         ("health_check", arg) :: bnds
+         if [] = v_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__health_check)
+               v_health_check
+           in
+           let bnd = "health_check", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_identifier with
@@ -293,7 +301,7 @@ type aws_vpclattice_target_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
-  config : config list;
+  config : config list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -319,8 +327,11 @@ let yojson_of_aws_vpclattice_target_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_config v_config in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg = (yojson_of_list yojson_of_config) v_config in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

@@ -126,6 +126,7 @@ type network_rule_set = {
   public_network_access_enabled : bool prop option; [@option]
   trusted_services_allowed : bool prop option; [@option]
   network_rules : network_rule_set__network_rules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -145,11 +146,15 @@ let yojson_of_network_rule_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_rule_set__network_rules
-             v_network_rules
-         in
-         ("network_rules", arg) :: bnds
+         if [] = v_network_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_rule_set__network_rules)
+               v_network_rules
+           in
+           let bnd = "network_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_trusted_services_allowed with
@@ -266,8 +271,11 @@ type azurerm_servicebus_namespace = {
   tags : (string * string prop) list option; [@option]
   zone_redundant : bool prop option; [@option]
   customer_managed_key : customer_managed_key list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   network_rule_set : network_rule_set list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -303,22 +311,33 @@ let yojson_of_azurerm_servicebus_namespace =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_rule_set
-             v_network_rule_set
-         in
-         ("network_rule_set", arg) :: bnds
+         if [] = v_network_rule_set then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_rule_set)
+               v_network_rule_set
+           in
+           let bnd = "network_rule_set", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_customer_managed_key
-             v_customer_managed_key
-         in
-         ("customer_managed_key", arg) :: bnds
+         if [] = v_customer_managed_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_customer_managed_key)
+               v_customer_managed_key
+           in
+           let bnd = "customer_managed_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone_redundant with

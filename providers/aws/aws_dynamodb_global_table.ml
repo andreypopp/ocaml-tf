@@ -73,7 +73,7 @@ let _ = yojson_of_timeouts
 type aws_dynamodb_global_table = {
   id : string prop option; [@option]
   name : string prop;
-  replica : replica list;
+  replica : replica list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -96,8 +96,11 @@ let yojson_of_aws_dynamodb_global_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_replica v_replica in
-         ("replica", arg) :: bnds
+         if [] = v_replica then bnds
+         else
+           let arg = (yojson_of_list yojson_of_replica) v_replica in
+           let bnd = "replica", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

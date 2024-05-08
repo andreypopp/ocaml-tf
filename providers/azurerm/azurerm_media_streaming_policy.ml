@@ -180,10 +180,14 @@ let _ = yojson_of_common_encryption_cbcs__enabled_protocols
 type common_encryption_cbcs = {
   clear_key_encryption :
     common_encryption_cbcs__clear_key_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   default_content_key :
     common_encryption_cbcs__default_content_key list;
+      [@default []] [@yojson_drop_default ( = )]
   drm_fairplay : common_encryption_cbcs__drm_fairplay list;
+      [@default []] [@yojson_drop_default ( = )]
   enabled_protocols : common_encryption_cbcs__enabled_protocols list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,36 +205,48 @@ let yojson_of_common_encryption_cbcs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cbcs__enabled_protocols
-             v_enabled_protocols
-         in
-         ("enabled_protocols", arg) :: bnds
+         if [] = v_enabled_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cbcs__enabled_protocols)
+               v_enabled_protocols
+           in
+           let bnd = "enabled_protocols", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cbcs__drm_fairplay
-             v_drm_fairplay
-         in
-         ("drm_fairplay", arg) :: bnds
+         if [] = v_drm_fairplay then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cbcs__drm_fairplay)
+               v_drm_fairplay
+           in
+           let bnd = "drm_fairplay", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cbcs__default_content_key
-             v_default_content_key
-         in
-         ("default_content_key", arg) :: bnds
+         if [] = v_default_content_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cbcs__default_content_key)
+               v_default_content_key
+           in
+           let bnd = "default_content_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cbcs__clear_key_encryption
-             v_clear_key_encryption
-         in
-         ("clear_key_encryption", arg) :: bnds
+         if [] = v_clear_key_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cbcs__clear_key_encryption)
+               v_clear_key_encryption
+           in
+           let bnd = "clear_key_encryption", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : common_encryption_cbcs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -312,6 +328,7 @@ let _ = yojson_of_common_encryption_cenc__clear_track__condition
 
 type common_encryption_cenc__clear_track = {
   condition : common_encryption_cenc__clear_track__condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -324,12 +341,15 @@ let yojson_of_common_encryption_cenc__clear_track =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cenc__clear_track__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cenc__clear_track__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : common_encryption_cenc__clear_track ->
@@ -387,6 +407,7 @@ type common_encryption_cenc__content_key_to_track_mapping__track = {
   condition :
     common_encryption_cenc__content_key_to_track_mapping__track__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -403,12 +424,15 @@ let yojson_of_common_encryption_cenc__content_key_to_track_mapping__track
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cenc__content_key_to_track_mapping__track__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cenc__content_key_to_track_mapping__track__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : common_encryption_cenc__content_key_to_track_mapping__track ->
@@ -424,6 +448,7 @@ type common_encryption_cenc__content_key_to_track_mapping = {
   policy_name : string prop option; [@option]
   track :
     common_encryption_cenc__content_key_to_track_mapping__track list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -441,12 +466,15 @@ let yojson_of_common_encryption_cenc__content_key_to_track_mapping =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cenc__content_key_to_track_mapping__track
-             v_track
-         in
-         ("track", arg) :: bnds
+         if [] = v_track then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cenc__content_key_to_track_mapping__track)
+               v_track
+           in
+           let bnd = "track", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_policy_name with
@@ -623,13 +651,19 @@ type common_encryption_cenc = {
       [@option]
   clear_key_encryption :
     common_encryption_cenc__clear_key_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   clear_track : common_encryption_cenc__clear_track list;
+      [@default []] [@yojson_drop_default ( = )]
   content_key_to_track_mapping :
     common_encryption_cenc__content_key_to_track_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
   default_content_key :
     common_encryption_cenc__default_content_key list;
+      [@default []] [@yojson_drop_default ( = )]
   drm_playready : common_encryption_cenc__drm_playready list;
+      [@default []] [@yojson_drop_default ( = )]
   enabled_protocols : common_encryption_cenc__enabled_protocols list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -651,52 +685,70 @@ let yojson_of_common_encryption_cenc =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cenc__enabled_protocols
-             v_enabled_protocols
-         in
-         ("enabled_protocols", arg) :: bnds
+         if [] = v_enabled_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cenc__enabled_protocols)
+               v_enabled_protocols
+           in
+           let bnd = "enabled_protocols", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cenc__drm_playready
-             v_drm_playready
-         in
-         ("drm_playready", arg) :: bnds
+         if [] = v_drm_playready then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cenc__drm_playready)
+               v_drm_playready
+           in
+           let bnd = "drm_playready", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cenc__default_content_key
-             v_default_content_key
-         in
-         ("default_content_key", arg) :: bnds
+         if [] = v_default_content_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cenc__default_content_key)
+               v_default_content_key
+           in
+           let bnd = "default_content_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cenc__content_key_to_track_mapping
-             v_content_key_to_track_mapping
-         in
-         ("content_key_to_track_mapping", arg) :: bnds
+         if [] = v_content_key_to_track_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cenc__content_key_to_track_mapping)
+               v_content_key_to_track_mapping
+           in
+           let bnd = "content_key_to_track_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cenc__clear_track
-             v_clear_track
-         in
-         ("clear_track", arg) :: bnds
+         if [] = v_clear_track then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cenc__clear_track)
+               v_clear_track
+           in
+           let bnd = "clear_track", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_common_encryption_cenc__clear_key_encryption
-             v_clear_key_encryption
-         in
-         ("clear_key_encryption", arg) :: bnds
+         if [] = v_clear_key_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_common_encryption_cenc__clear_key_encryption)
+               v_clear_key_encryption
+           in
+           let bnd = "clear_key_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
          match
@@ -822,7 +874,9 @@ type envelope_encryption = {
       [@option]
   default_content_key :
     envelope_encryption__default_content_key list;
+      [@default []] [@yojson_drop_default ( = )]
   enabled_protocols : envelope_encryption__enabled_protocols list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -840,20 +894,26 @@ let yojson_of_envelope_encryption =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_envelope_encryption__enabled_protocols
-             v_enabled_protocols
-         in
-         ("enabled_protocols", arg) :: bnds
+         if [] = v_enabled_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_envelope_encryption__enabled_protocols)
+               v_enabled_protocols
+           in
+           let bnd = "enabled_protocols", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_envelope_encryption__default_content_key
-             v_default_content_key
-         in
-         ("default_content_key", arg) :: bnds
+         if [] = v_default_content_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_envelope_encryption__default_content_key)
+               v_default_content_key
+           in
+           let bnd = "default_content_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_custom_keys_acquisition_url_template with
@@ -984,10 +1044,14 @@ type azurerm_media_streaming_policy = {
   name : string prop;
   resource_group_name : string prop;
   common_encryption_cbcs : common_encryption_cbcs list;
+      [@default []] [@yojson_drop_default ( = )]
   common_encryption_cenc : common_encryption_cenc list;
+      [@default []] [@yojson_drop_default ( = )]
   envelope_encryption : envelope_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   no_encryption_enabled_protocols :
     no_encryption_enabled_protocols list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1018,32 +1082,45 @@ let yojson_of_azurerm_media_streaming_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_no_encryption_enabled_protocols
-             v_no_encryption_enabled_protocols
-         in
-         ("no_encryption_enabled_protocols", arg) :: bnds
+         if [] = v_no_encryption_enabled_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_no_encryption_enabled_protocols)
+               v_no_encryption_enabled_protocols
+           in
+           let bnd = "no_encryption_enabled_protocols", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_envelope_encryption
-             v_envelope_encryption
-         in
-         ("envelope_encryption", arg) :: bnds
+         if [] = v_envelope_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_envelope_encryption)
+               v_envelope_encryption
+           in
+           let bnd = "envelope_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_common_encryption_cenc
-             v_common_encryption_cenc
-         in
-         ("common_encryption_cenc", arg) :: bnds
+         if [] = v_common_encryption_cenc then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_common_encryption_cenc)
+               v_common_encryption_cenc
+           in
+           let bnd = "common_encryption_cenc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_common_encryption_cbcs
-             v_common_encryption_cbcs
-         in
-         ("common_encryption_cbcs", arg) :: bnds
+         if [] = v_common_encryption_cbcs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_common_encryption_cbcs)
+               v_common_encryption_cbcs
+           in
+           let bnd = "common_encryption_cbcs", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

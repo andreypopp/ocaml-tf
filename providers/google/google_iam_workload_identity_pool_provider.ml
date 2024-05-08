@@ -151,9 +151,9 @@ type google_iam_workload_identity_pool_provider = {
   project : string prop option; [@option]
   workload_identity_pool_id : string prop;
   workload_identity_pool_provider_id : string prop;
-  aws : aws list;
-  oidc : oidc list;
-  saml : saml list;
+  aws : aws list; [@default []] [@yojson_drop_default ( = )]
+  oidc : oidc list; [@default []] [@yojson_drop_default ( = )]
+  saml : saml list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -186,16 +186,25 @@ let yojson_of_google_iam_workload_identity_pool_provider =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_saml v_saml in
-         ("saml", arg) :: bnds
+         if [] = v_saml then bnds
+         else
+           let arg = (yojson_of_list yojson_of_saml) v_saml in
+           let bnd = "saml", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_oidc v_oidc in
-         ("oidc", arg) :: bnds
+         if [] = v_oidc then bnds
+         else
+           let arg = (yojson_of_list yojson_of_oidc) v_oidc in
+           let bnd = "oidc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_aws v_aws in
-         ("aws", arg) :: bnds
+         if [] = v_aws then bnds
+         else
+           let arg = (yojson_of_list yojson_of_aws) v_aws in
+           let bnd = "aws", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -5,15 +5,22 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type cross_tenant_scopes = {
-  management_groups : string prop list;  (** management_groups *)
-  subscriptions : string prop list;  (** subscriptions *)
+  management_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** management_groups *)
+  subscriptions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** subscriptions *)
   tenant_id : string prop;  (** tenant_id *)
 }
 
 type scope = {
   management_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** management_group_ids *)
-  subscription_ids : string prop list;  (** subscription_ids *)
+  subscription_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** subscription_ids *)
 }
 
 type timeouts

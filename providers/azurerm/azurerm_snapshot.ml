@@ -73,7 +73,9 @@ type encryption_settings = {
   enabled : bool prop option; [@option]
   disk_encryption_key :
     encryption_settings__disk_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
   key_encryption_key : encryption_settings__key_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -90,20 +92,26 @@ let yojson_of_encryption_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_encryption_settings__key_encryption_key
-             v_key_encryption_key
-         in
-         ("key_encryption_key", arg) :: bnds
+         if [] = v_key_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_encryption_settings__key_encryption_key)
+               v_key_encryption_key
+           in
+           let bnd = "key_encryption_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_encryption_settings__disk_encryption_key
-             v_disk_encryption_key
-         in
-         ("disk_encryption_key", arg) :: bnds
+         if [] = v_disk_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_encryption_settings__disk_encryption_key)
+               v_disk_encryption_key
+           in
+           let bnd = "disk_encryption_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enabled with
@@ -193,6 +201,7 @@ type azurerm_snapshot = {
   storage_account_id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   encryption_settings : encryption_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -224,11 +233,14 @@ let yojson_of_azurerm_snapshot =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_settings
-             v_encryption_settings
-         in
-         ("encryption_settings", arg) :: bnds
+         if [] = v_encryption_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_settings)
+               v_encryption_settings
+           in
+           let bnd = "encryption_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

@@ -70,6 +70,7 @@ type aws_flow_log = {
   transit_gateway_id : string prop option; [@option]
   vpc_id : string prop option; [@option]
   destination_options : destination_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,11 +102,14 @@ let yojson_of_aws_flow_log =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_options
-             v_destination_options
-         in
-         ("destination_options", arg) :: bnds
+         if [] = v_destination_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_options)
+               v_destination_options
+           in
+           let bnd = "destination_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_id with

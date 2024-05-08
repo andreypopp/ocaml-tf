@@ -30,9 +30,12 @@ let _ = yojson_of_timeouts
 
 type bgp_settings__instance_1_bgp_peering_address = {
   custom_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   default_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_configuration_id : string prop;
   tunnel_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,12 +53,14 @@ let yojson_of_bgp_settings__instance_1_bgp_peering_address =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_tunnel_ips
-         in
-         ("tunnel_ips", arg) :: bnds
+         if [] = v_tunnel_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_tunnel_ips
+           in
+           let bnd = "tunnel_ips", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -64,20 +69,24 @@ let yojson_of_bgp_settings__instance_1_bgp_peering_address =
          ("ip_configuration_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_default_ips
-         in
-         ("default_ips", arg) :: bnds
+         if [] = v_default_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_default_ips
+           in
+           let bnd = "default_ips", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_custom_ips
-         in
-         ("custom_ips", arg) :: bnds
+         if [] = v_custom_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_custom_ips
+           in
+           let bnd = "custom_ips", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : bgp_settings__instance_1_bgp_peering_address ->
@@ -89,9 +98,12 @@ let _ = yojson_of_bgp_settings__instance_1_bgp_peering_address
 
 type bgp_settings__instance_0_bgp_peering_address = {
   custom_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   default_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_configuration_id : string prop;
   tunnel_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,12 +121,14 @@ let yojson_of_bgp_settings__instance_0_bgp_peering_address =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_tunnel_ips
-         in
-         ("tunnel_ips", arg) :: bnds
+         if [] = v_tunnel_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_tunnel_ips
+           in
+           let bnd = "tunnel_ips", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -123,20 +137,24 @@ let yojson_of_bgp_settings__instance_0_bgp_peering_address =
          ("ip_configuration_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_default_ips
-         in
-         ("default_ips", arg) :: bnds
+         if [] = v_default_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_default_ips
+           in
+           let bnd = "default_ips", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_custom_ips
-         in
-         ("custom_ips", arg) :: bnds
+         if [] = v_custom_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_custom_ips
+           in
+           let bnd = "custom_ips", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : bgp_settings__instance_0_bgp_peering_address ->
@@ -151,8 +169,10 @@ type bgp_settings = {
   bgp_peering_address : string prop;
   instance_0_bgp_peering_address :
     bgp_settings__instance_0_bgp_peering_address list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_1_bgp_peering_address :
     bgp_settings__instance_1_bgp_peering_address list;
+      [@default []] [@yojson_drop_default ( = )]
   peer_weight : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -178,20 +198,26 @@ let yojson_of_bgp_settings =
          ("peer_weight", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_bgp_settings__instance_1_bgp_peering_address
-             v_instance_1_bgp_peering_address
-         in
-         ("instance_1_bgp_peering_address", arg) :: bnds
+         if [] = v_instance_1_bgp_peering_address then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bgp_settings__instance_1_bgp_peering_address)
+               v_instance_1_bgp_peering_address
+           in
+           let bnd = "instance_1_bgp_peering_address", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_bgp_settings__instance_0_bgp_peering_address
-             v_instance_0_bgp_peering_address
-         in
-         ("instance_0_bgp_peering_address", arg) :: bnds
+         if [] = v_instance_0_bgp_peering_address then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bgp_settings__instance_0_bgp_peering_address)
+               v_instance_0_bgp_peering_address
+           in
+           let bnd = "instance_0_bgp_peering_address", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

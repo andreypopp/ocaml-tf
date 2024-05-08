@@ -4,12 +4,16 @@ open! Tf_core
 
 type model_summaries = {
   customizations_supported : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   inference_types_supported : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   input_modalities : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   model_arn : string prop;
   model_id : string prop;
   model_name : string prop;
   output_modalities : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   provider_name : string prop;
   response_streaming_supported : bool prop;
 }
@@ -45,12 +49,14 @@ let yojson_of_model_summaries =
          ("provider_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_output_modalities
-         in
-         ("output_modalities", arg) :: bnds
+         if [] = v_output_modalities then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_output_modalities
+           in
+           let bnd = "output_modalities", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_model_name in
@@ -65,28 +71,34 @@ let yojson_of_model_summaries =
          ("model_arn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_input_modalities
-         in
-         ("input_modalities", arg) :: bnds
+         if [] = v_input_modalities then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_input_modalities
+           in
+           let bnd = "input_modalities", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_inference_types_supported
-         in
-         ("inference_types_supported", arg) :: bnds
+         if [] = v_inference_types_supported then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_inference_types_supported
+           in
+           let bnd = "inference_types_supported", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_customizations_supported
-         in
-         ("customizations_supported", arg) :: bnds
+         if [] = v_customizations_supported then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_customizations_supported
+           in
+           let bnd = "customizations_supported", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : model_summaries -> Ppx_yojson_conv_lib.Yojson.Safe.t)

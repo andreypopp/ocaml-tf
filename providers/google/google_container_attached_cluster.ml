@@ -126,6 +126,7 @@ let _ = yojson_of_logging_config__component_config
 
 type logging_config = {
   component_config : logging_config__component_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -138,11 +139,15 @@ let yojson_of_logging_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging_config__component_config
-             v_component_config
-         in
-         ("component_config", arg) :: bnds
+         if [] = v_component_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logging_config__component_config)
+               v_component_config
+           in
+           let bnd = "component_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logging_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -183,6 +188,7 @@ let _ = yojson_of_monitoring_config__managed_prometheus_config
 type monitoring_config = {
   managed_prometheus_config :
     monitoring_config__managed_prometheus_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,12 +201,15 @@ let yojson_of_monitoring_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_monitoring_config__managed_prometheus_config
-             v_managed_prometheus_config
-         in
-         ("managed_prometheus_config", arg) :: bnds
+         if [] = v_managed_prometheus_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_monitoring_config__managed_prometheus_config)
+               v_managed_prometheus_config
+           in
+           let bnd = "managed_prometheus_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : monitoring_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -274,6 +283,7 @@ let _ = yojson_of_proxy_config__kubernetes_secret
 
 type proxy_config = {
   kubernetes_secret : proxy_config__kubernetes_secret list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -286,11 +296,15 @@ let yojson_of_proxy_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_proxy_config__kubernetes_secret
-             v_kubernetes_secret
-         in
-         ("kubernetes_secret", arg) :: bnds
+         if [] = v_kubernetes_secret then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_proxy_config__kubernetes_secret)
+               v_kubernetes_secret
+           in
+           let bnd = "kubernetes_secret", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : proxy_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -417,12 +431,18 @@ type google_container_attached_cluster = {
   platform_version : string prop;
   project : string prop option; [@option]
   authorization : authorization list;
+      [@default []] [@yojson_drop_default ( = )]
   binary_authorization : binary_authorization list;
-  fleet : fleet list;
+      [@default []] [@yojson_drop_default ( = )]
+  fleet : fleet list; [@default []] [@yojson_drop_default ( = )]
   logging_config : logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
   monitoring_config : monitoring_config list;
+      [@default []] [@yojson_drop_default ( = )]
   oidc_config : oidc_config list;
+      [@default []] [@yojson_drop_default ( = )]
   proxy_config : proxy_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -458,46 +478,68 @@ let yojson_of_google_container_attached_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_proxy_config v_proxy_config
-         in
-         ("proxy_config", arg) :: bnds
+         if [] = v_proxy_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_proxy_config) v_proxy_config
+           in
+           let bnd = "proxy_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_oidc_config v_oidc_config
-         in
-         ("oidc_config", arg) :: bnds
+         if [] = v_oidc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_oidc_config) v_oidc_config
+           in
+           let bnd = "oidc_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitoring_config
-             v_monitoring_config
-         in
-         ("monitoring_config", arg) :: bnds
+         if [] = v_monitoring_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitoring_config)
+               v_monitoring_config
+           in
+           let bnd = "monitoring_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging_config v_logging_config
-         in
-         ("logging_config", arg) :: bnds
+         if [] = v_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging_config)
+               v_logging_config
+           in
+           let bnd = "logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_fleet v_fleet in
-         ("fleet", arg) :: bnds
+         if [] = v_fleet then bnds
+         else
+           let arg = (yojson_of_list yojson_of_fleet) v_fleet in
+           let bnd = "fleet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_binary_authorization
-             v_binary_authorization
-         in
-         ("binary_authorization", arg) :: bnds
+         if [] = v_binary_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_binary_authorization)
+               v_binary_authorization
+           in
+           let bnd = "binary_authorization", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authorization v_authorization
-         in
-         ("authorization", arg) :: bnds
+         if [] = v_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authorization) v_authorization
+           in
+           let bnd = "authorization", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

@@ -33,6 +33,7 @@ type aws_dax_parameter_group = {
   id : string prop option; [@option]
   name : string prop;
   parameters : parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,10 +51,13 @@ let yojson_of_aws_dax_parameter_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_parameters v_parameters
-         in
-         ("parameters", arg) :: bnds
+         if [] = v_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_parameters) v_parameters
+           in
+           let bnd = "parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

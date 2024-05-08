@@ -103,7 +103,7 @@ type google_gke_hub_scope_rbac_role_binding = {
   scope_id : string prop;
   scope_rbac_role_binding_id : string prop;
   user : string prop option; [@option]
-  role : role list;
+  role : role list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -131,8 +131,11 @@ let yojson_of_google_gke_hub_scope_rbac_role_binding =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_role v_role in
-         ("role", arg) :: bnds
+         if [] = v_role then bnds
+         else
+           let arg = (yojson_of_list yojson_of_role) v_role in
+           let bnd = "role", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user with

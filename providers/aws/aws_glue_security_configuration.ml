@@ -131,9 +131,12 @@ let _ = yojson_of_encryption_configuration__s3_encryption
 type encryption_configuration = {
   cloudwatch_encryption :
     encryption_configuration__cloudwatch_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   job_bookmarks_encryption :
     encryption_configuration__job_bookmarks_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_encryption : encryption_configuration__s3_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,28 +153,37 @@ let yojson_of_encryption_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_encryption_configuration__s3_encryption
-             v_s3_encryption
-         in
-         ("s3_encryption", arg) :: bnds
+         if [] = v_s3_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_encryption_configuration__s3_encryption)
+               v_s3_encryption
+           in
+           let bnd = "s3_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_encryption_configuration__job_bookmarks_encryption
-             v_job_bookmarks_encryption
-         in
-         ("job_bookmarks_encryption", arg) :: bnds
+         if [] = v_job_bookmarks_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_encryption_configuration__job_bookmarks_encryption)
+               v_job_bookmarks_encryption
+           in
+           let bnd = "job_bookmarks_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_encryption_configuration__cloudwatch_encryption
-             v_cloudwatch_encryption
-         in
-         ("cloudwatch_encryption", arg) :: bnds
+         if [] = v_cloudwatch_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_encryption_configuration__cloudwatch_encryption)
+               v_cloudwatch_encryption
+           in
+           let bnd = "cloudwatch_encryption", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : encryption_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -184,6 +196,7 @@ type aws_glue_security_configuration = {
   id : string prop option; [@option]
   name : string prop;
   encryption_configuration : encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -200,11 +213,14 @@ let yojson_of_aws_glue_security_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_configuration
-             v_encryption_configuration
-         in
-         ("encryption_configuration", arg) :: bnds
+         if [] = v_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_configuration)
+               v_encryption_configuration
+           in
+           let bnd = "encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

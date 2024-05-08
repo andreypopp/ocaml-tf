@@ -182,7 +182,9 @@ type criteria = {
   sub_status : string prop option; [@option]
   sub_statuses : string prop list option; [@option]
   resource_health : criteria__resource_health list;
+      [@default []] [@yojson_drop_default ( = )]
   service_health : criteria__service_health list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -218,18 +220,24 @@ let yojson_of_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_criteria__service_health
-             v_service_health
-         in
-         ("service_health", arg) :: bnds
+         if [] = v_service_health then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria__service_health)
+               v_service_health
+           in
+           let bnd = "service_health", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_criteria__resource_health
-             v_resource_health
-         in
-         ("resource_health", arg) :: bnds
+         if [] = v_resource_health then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria__resource_health)
+               v_resource_health
+           in
+           let bnd = "resource_health", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_sub_statuses with
@@ -475,9 +483,11 @@ type azurerm_monitor_activity_log_alert = {
   name : string prop;
   resource_group_name : string prop;
   scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
-  action : action list;
+  action : action list; [@default []] [@yojson_drop_default ( = )]
   criteria : criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -506,12 +516,20 @@ let yojson_of_azurerm_monitor_activity_log_alert =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_criteria v_criteria in
-         ("criteria", arg) :: bnds
+         if [] = v_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria) v_criteria
+           in
+           let bnd = "criteria", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg = (yojson_of_list yojson_of_action) v_action in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -530,10 +548,14 @@ let yojson_of_azurerm_monitor_activity_log_alert =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
-         in
-         ("scopes", arg) :: bnds
+         if [] = v_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scopes
+           in
+           let bnd = "scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

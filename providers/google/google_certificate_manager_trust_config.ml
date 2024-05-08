@@ -108,7 +108,9 @@ let _ = yojson_of_trust_stores__trust_anchors
 
 type trust_stores = {
   intermediate_cas : trust_stores__intermediate_cas list;
+      [@default []] [@yojson_drop_default ( = )]
   trust_anchors : trust_stores__trust_anchors list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,18 +126,24 @@ let yojson_of_trust_stores =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trust_stores__trust_anchors
-             v_trust_anchors
-         in
-         ("trust_anchors", arg) :: bnds
+         if [] = v_trust_anchors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trust_stores__trust_anchors)
+               v_trust_anchors
+           in
+           let bnd = "trust_anchors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trust_stores__intermediate_cas
-             v_intermediate_cas
-         in
-         ("intermediate_cas", arg) :: bnds
+         if [] = v_intermediate_cas then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trust_stores__intermediate_cas)
+               v_intermediate_cas
+           in
+           let bnd = "intermediate_cas", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : trust_stores -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -153,6 +161,7 @@ type google_certificate_manager_trust_config = {
   project : string prop option; [@option]
   timeouts : timeouts option;
   trust_stores : trust_stores list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -174,10 +183,13 @@ let yojson_of_google_certificate_manager_trust_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trust_stores v_trust_stores
-         in
-         ("trust_stores", arg) :: bnds
+         if [] = v_trust_stores then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trust_stores) v_trust_stores
+           in
+           let bnd = "trust_stores", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

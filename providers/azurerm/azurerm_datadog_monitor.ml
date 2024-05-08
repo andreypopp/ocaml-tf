@@ -209,9 +209,11 @@ type azurerm_datadog_monitor = {
   sku_name : string prop;
   tags : (string * string prop) list option; [@option]
   datadog_organization : datadog_organization list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  user : user list;
+  user : user list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,23 +238,34 @@ let yojson_of_azurerm_datadog_monitor =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_user v_user in
-         ("user", arg) :: bnds
+         if [] = v_user then bnds
+         else
+           let arg = (yojson_of_list yojson_of_user) v_user in
+           let bnd = "user", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_datadog_organization
-             v_datadog_organization
-         in
-         ("datadog_organization", arg) :: bnds
+         if [] = v_datadog_organization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_datadog_organization)
+               v_datadog_organization
+           in
+           let bnd = "datadog_organization", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

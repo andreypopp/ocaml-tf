@@ -26,6 +26,7 @@ let _ = yojson_of_authorization__admin_users
 
 type authorization = {
   admin_users : authorization__admin_users list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38,11 +39,14 @@ let yojson_of_authorization =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authorization__admin_users
-             v_admin_users
-         in
-         ("admin_users", arg) :: bnds
+         if [] = v_admin_users then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authorization__admin_users)
+               v_admin_users
+           in
+           let bnd = "admin_users", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : authorization -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -141,7 +145,9 @@ let _ = yojson_of_control_plane__remote
 
 type control_plane = {
   local : control_plane__local list;
+      [@default []] [@yojson_drop_default ( = )]
   remote : control_plane__remote list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -154,16 +160,23 @@ let yojson_of_control_plane =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_plane__remote v_remote
-         in
-         ("remote", arg) :: bnds
+         if [] = v_remote then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_plane__remote)
+               v_remote
+           in
+           let bnd = "remote", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_plane__local v_local
-         in
-         ("local", arg) :: bnds
+         if [] = v_local then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_plane__local) v_local
+           in
+           let bnd = "local", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : control_plane -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -294,6 +307,7 @@ let _ =
 type maintenance_policy__window__recurring_window = {
   recurrence : string prop option; [@option]
   window : maintenance_policy__window__recurring_window__window list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -306,12 +320,15 @@ let yojson_of_maintenance_policy__window__recurring_window =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_maintenance_policy__window__recurring_window__window
-             v_window
-         in
-         ("window", arg) :: bnds
+         if [] = v_window then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_policy__window__recurring_window__window)
+               v_window
+           in
+           let bnd = "window", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_recurrence with
@@ -332,6 +349,7 @@ let _ = yojson_of_maintenance_policy__window__recurring_window
 type maintenance_policy__window = {
   recurring_window :
     maintenance_policy__window__recurring_window list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -344,12 +362,15 @@ let yojson_of_maintenance_policy__window =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_maintenance_policy__window__recurring_window
-             v_recurring_window
-         in
-         ("recurring_window", arg) :: bnds
+         if [] = v_recurring_window then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_policy__window__recurring_window)
+               v_recurring_window
+           in
+           let bnd = "recurring_window", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : maintenance_policy__window -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -360,6 +381,7 @@ let _ = yojson_of_maintenance_policy__window
 
 type maintenance_policy = {
   window : maintenance_policy__window list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -372,11 +394,14 @@ let yojson_of_maintenance_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_policy__window
-             v_window
-         in
-         ("window", arg) :: bnds
+         if [] = v_window then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_policy__window)
+               v_window
+           in
+           let bnd = "window", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : maintenance_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -387,8 +412,10 @@ let _ = yojson_of_maintenance_policy
 
 type networking = {
   cluster_ipv4_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   cluster_ipv6_cidr_blocks : string prop list option; [@option]
   services_ipv4_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   services_ipv6_cidr_blocks : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -417,12 +444,14 @@ let yojson_of_networking =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_services_ipv4_cidr_blocks
-         in
-         ("services_ipv4_cidr_blocks", arg) :: bnds
+         if [] = v_services_ipv4_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_services_ipv4_cidr_blocks
+           in
+           let bnd = "services_ipv4_cidr_blocks", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_cluster_ipv6_cidr_blocks with
@@ -435,12 +464,14 @@ let yojson_of_networking =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cluster_ipv4_cidr_blocks
-         in
-         ("cluster_ipv4_cidr_blocks", arg) :: bnds
+         if [] = v_cluster_ipv4_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cluster_ipv4_cidr_blocks
+           in
+           let bnd = "cluster_ipv4_cidr_blocks", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : networking -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -489,6 +520,7 @@ let _ = yojson_of_system_addons_config__ingress
 
 type system_addons_config = {
   ingress : system_addons_config__ingress list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -501,11 +533,14 @@ let yojson_of_system_addons_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_system_addons_config__ingress
-             v_ingress
-         in
-         ("ingress", arg) :: bnds
+         if [] = v_ingress then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_system_addons_config__ingress)
+               v_ingress
+           in
+           let bnd = "ingress", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : system_addons_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -655,12 +690,18 @@ type google_edgecontainer_cluster = {
   release_channel : string prop option; [@option]
   target_version : string prop option; [@option]
   authorization : authorization list;
+      [@default []] [@yojson_drop_default ( = )]
   control_plane : control_plane list;
+      [@default []] [@yojson_drop_default ( = )]
   control_plane_encryption : control_plane_encryption list;
-  fleet : fleet list;
+      [@default []] [@yojson_drop_default ( = )]
+  fleet : fleet list; [@default []] [@yojson_drop_default ( = )]
   maintenance_policy : maintenance_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   networking : networking list;
+      [@default []] [@yojson_drop_default ( = )]
   system_addons_config : system_addons_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -697,47 +738,68 @@ let yojson_of_google_edgecontainer_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_system_addons_config
-             v_system_addons_config
-         in
-         ("system_addons_config", arg) :: bnds
+         if [] = v_system_addons_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_system_addons_config)
+               v_system_addons_config
+           in
+           let bnd = "system_addons_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_networking v_networking
-         in
-         ("networking", arg) :: bnds
+         if [] = v_networking then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_networking) v_networking
+           in
+           let bnd = "networking", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_policy
-             v_maintenance_policy
-         in
-         ("maintenance_policy", arg) :: bnds
+         if [] = v_maintenance_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_policy)
+               v_maintenance_policy
+           in
+           let bnd = "maintenance_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_fleet v_fleet in
-         ("fleet", arg) :: bnds
+         if [] = v_fleet then bnds
+         else
+           let arg = (yojson_of_list yojson_of_fleet) v_fleet in
+           let bnd = "fleet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_plane_encryption
-             v_control_plane_encryption
-         in
-         ("control_plane_encryption", arg) :: bnds
+         if [] = v_control_plane_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_plane_encryption)
+               v_control_plane_encryption
+           in
+           let bnd = "control_plane_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_plane v_control_plane
-         in
-         ("control_plane", arg) :: bnds
+         if [] = v_control_plane then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_plane) v_control_plane
+           in
+           let bnd = "control_plane", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authorization v_authorization
-         in
-         ("authorization", arg) :: bnds
+         if [] = v_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authorization) v_authorization
+           in
+           let bnd = "authorization", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_version with

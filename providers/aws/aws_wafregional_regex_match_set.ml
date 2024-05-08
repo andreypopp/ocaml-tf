@@ -40,6 +40,7 @@ type regex_match_tuple = {
   regex_pattern_set_id : string prop;
   text_transformation : string prop;
   field_to_match : regex_match_tuple__field_to_match list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,11 +57,15 @@ let yojson_of_regex_match_tuple =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_regex_match_tuple__field_to_match
-             v_field_to_match
-         in
-         ("field_to_match", arg) :: bnds
+         if [] = v_field_to_match then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_regex_match_tuple__field_to_match)
+               v_field_to_match
+           in
+           let bnd = "field_to_match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -85,6 +90,7 @@ type aws_wafregional_regex_match_set = {
   id : string prop option; [@option]
   name : string prop;
   regex_match_tuple : regex_match_tuple list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,11 +107,14 @@ let yojson_of_aws_wafregional_regex_match_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_regex_match_tuple
-             v_regex_match_tuple
-         in
-         ("regex_match_tuple", arg) :: bnds
+         if [] = v_regex_match_tuple then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_regex_match_tuple)
+               v_regex_match_tuple
+           in
+           let bnd = "regex_match_tuple", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

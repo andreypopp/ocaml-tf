@@ -64,6 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_spring_cloud_elastic_application_performance_monitoring = {
   application_packages : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   globally_enabled : bool prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
@@ -134,12 +135,14 @@ let yojson_of_azurerm_spring_cloud_elastic_application_performance_monitoring
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_application_packages
-         in
-         ("application_packages", arg) :: bnds
+         if [] = v_application_packages then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_application_packages
+           in
+           let bnd = "application_packages", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_spring_cloud_elastic_application_performance_monitoring ->

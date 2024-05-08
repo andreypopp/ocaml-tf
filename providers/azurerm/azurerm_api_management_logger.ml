@@ -152,7 +152,9 @@ type azurerm_api_management_logger = {
   resource_group_name : string prop;
   resource_id : string prop option; [@option]
   application_insights : application_insights list;
+      [@default []] [@yojson_drop_default ( = )]
   eventhub : eventhub list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -181,15 +183,23 @@ let yojson_of_azurerm_api_management_logger =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_eventhub v_eventhub in
-         ("eventhub", arg) :: bnds
+         if [] = v_eventhub then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_eventhub) v_eventhub
+           in
+           let bnd = "eventhub", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_application_insights
-             v_application_insights
-         in
-         ("application_insights", arg) :: bnds
+         if [] = v_application_insights then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_application_insights)
+               v_application_insights
+           in
+           let bnd = "application_insights", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resource_id with

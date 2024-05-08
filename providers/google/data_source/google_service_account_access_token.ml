@@ -7,6 +7,7 @@ type google_service_account_access_token = {
   id : string prop option; [@option]
   lifetime : string prop option; [@option]
   scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   target_service_account : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -32,10 +33,14 @@ let yojson_of_google_service_account_access_token =
          ("target_service_account", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
-         in
-         ("scopes", arg) :: bnds
+         if [] = v_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scopes
+           in
+           let bnd = "scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_lifetime with

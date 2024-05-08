@@ -10,7 +10,9 @@ type sizes = {
   memory : float prop;  (** memory *)
   price_hourly : float prop;  (** price_hourly *)
   price_monthly : float prop;  (** price_monthly *)
-  regions : string prop list;  (** regions *)
+  regions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** regions *)
   slug : string prop;  (** slug *)
   transfer : float prop;  (** transfer *)
   vcpus : float prop;  (** vcpus *)

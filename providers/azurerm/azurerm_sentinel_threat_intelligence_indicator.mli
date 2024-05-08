@@ -12,6 +12,7 @@ type parsed_pattern__pattern_type_values = {
 type parsed_pattern = {
   pattern_type_key : string prop;  (** pattern_type_key *)
   pattern_type_values : parsed_pattern__pattern_type_values list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pattern_type_values *)
 }
 

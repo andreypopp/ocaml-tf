@@ -94,9 +94,12 @@ let _ = yojson_of_quick_connect_config__phone_config
 
 type quick_connect_config = {
   phone_config : quick_connect_config__phone_config list;
+      [@default []] [@yojson_drop_default ( = )]
   queue_config : quick_connect_config__queue_config list;
+      [@default []] [@yojson_drop_default ( = )]
   quick_connect_type : string prop;
   user_config : quick_connect_config__user_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,11 +117,15 @@ let yojson_of_quick_connect_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_quick_connect_config__user_config
-             v_user_config
-         in
-         ("user_config", arg) :: bnds
+         if [] = v_user_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_quick_connect_config__user_config)
+               v_user_config
+           in
+           let bnd = "user_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -127,20 +134,26 @@ let yojson_of_quick_connect_config =
          ("quick_connect_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_quick_connect_config__queue_config
-             v_queue_config
-         in
-         ("queue_config", arg) :: bnds
+         if [] = v_queue_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_quick_connect_config__queue_config)
+               v_queue_config
+           in
+           let bnd = "queue_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_quick_connect_config__phone_config
-             v_phone_config
-         in
-         ("phone_config", arg) :: bnds
+         if [] = v_phone_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_quick_connect_config__phone_config)
+               v_phone_config
+           in
+           let bnd = "phone_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : quick_connect_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)

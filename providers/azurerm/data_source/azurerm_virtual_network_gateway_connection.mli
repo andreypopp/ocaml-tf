@@ -16,8 +16,11 @@ type ipsec_policy = {
 }
 
 type traffic_selector_policy = {
-  local_address_cidrs : string prop list;  (** local_address_cidrs *)
+  local_address_cidrs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** local_address_cidrs *)
   remote_address_cidrs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** remote_address_cidrs *)
 }
 

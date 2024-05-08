@@ -129,13 +129,16 @@ let _ =
 
 type serial_pipeline__stages__strategy__canary__canary_deployment = {
   percentages : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   verify : bool prop option; [@option]
   postdeploy :
     serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy
     list;
+      [@default []] [@yojson_drop_default ( = )]
   predeploy :
     serial_pipeline__stages__strategy__canary__canary_deployment__predeploy
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -157,20 +160,26 @@ let yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment__predeploy
-             v_predeploy
-         in
-         ("predeploy", arg) :: bnds
+         if [] = v_predeploy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment__predeploy)
+               v_predeploy
+           in
+           let bnd = "predeploy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy
-             v_postdeploy
-         in
-         ("postdeploy", arg) :: bnds
+         if [] = v_postdeploy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy)
+               v_postdeploy
+           in
+           let bnd = "postdeploy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_verify with
@@ -181,12 +190,14 @@ let yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_percentages
-         in
-         ("percentages", arg) :: bnds
+         if [] = v_percentages then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_percentages
+           in
+           let bnd = "percentages", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : serial_pipeline__stages__strategy__canary__canary_deployment ->
@@ -277,9 +288,11 @@ type serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_
   postdeploy :
     serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy
     list;
+      [@default []] [@yojson_drop_default ( = )]
   predeploy :
     serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -303,20 +316,26 @@ let yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deploymen
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy
-             v_predeploy
-         in
-         ("predeploy", arg) :: bnds
+         if [] = v_predeploy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy)
+               v_predeploy
+           in
+           let bnd = "predeploy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy
-             v_postdeploy
-         in
-         ("postdeploy", arg) :: bnds
+         if [] = v_postdeploy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy)
+               v_postdeploy
+           in
+           let bnd = "postdeploy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_verify with
@@ -357,6 +376,7 @@ type serial_pipeline__stages__strategy__canary__custom_canary_deployment = {
   phase_configs :
     serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -373,12 +393,15 @@ let yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deploymen
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs
-             v_phase_configs
-         in
-         ("phase_configs", arg) :: bnds
+         if [] = v_phase_configs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs)
+               v_phase_configs
+           in
+           let bnd = "phase_configs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : serial_pipeline__stages__strategy__canary__custom_canary_deployment ->
@@ -577,9 +600,11 @@ type serial_pipeline__stages__strategy__canary__runtime_config__kubernetes = {
   gateway_service_mesh :
     serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__gateway_service_mesh
     list;
+      [@default []] [@yojson_drop_default ( = )]
   service_networking :
     serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -599,20 +624,26 @@ let yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kuberne
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking
-             v_service_networking
-         in
-         ("service_networking", arg) :: bnds
+         if [] = v_service_networking then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking)
+               v_service_networking
+           in
+           let bnd = "service_networking", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__gateway_service_mesh
-             v_gateway_service_mesh
-         in
-         ("gateway_service_mesh", arg) :: bnds
+         if [] = v_gateway_service_mesh then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__gateway_service_mesh)
+               v_gateway_service_mesh
+           in
+           let bnd = "gateway_service_mesh", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : serial_pipeline__stages__strategy__canary__runtime_config__kubernetes ->
@@ -627,9 +658,11 @@ type serial_pipeline__stages__strategy__canary__runtime_config = {
   cloud_run :
     serial_pipeline__stages__strategy__canary__runtime_config__cloud_run
     list;
+      [@default []] [@yojson_drop_default ( = )]
   kubernetes :
     serial_pipeline__stages__strategy__canary__runtime_config__kubernetes
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -645,20 +678,26 @@ let yojson_of_serial_pipeline__stages__strategy__canary__runtime_config
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes
-             v_kubernetes
-         in
-         ("kubernetes", arg) :: bnds
+         if [] = v_kubernetes then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes)
+               v_kubernetes
+           in
+           let bnd = "kubernetes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__cloud_run
-             v_cloud_run
-         in
-         ("cloud_run", arg) :: bnds
+         if [] = v_cloud_run then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__cloud_run)
+               v_cloud_run
+           in
+           let bnd = "cloud_run", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : serial_pipeline__stages__strategy__canary__runtime_config ->
@@ -672,11 +711,14 @@ let _ =
 type serial_pipeline__stages__strategy__canary = {
   canary_deployment :
     serial_pipeline__stages__strategy__canary__canary_deployment list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_canary_deployment :
     serial_pipeline__stages__strategy__canary__custom_canary_deployment
     list;
+      [@default []] [@yojson_drop_default ( = )]
   runtime_config :
     serial_pipeline__stages__strategy__canary__runtime_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -693,28 +735,37 @@ let yojson_of_serial_pipeline__stages__strategy__canary =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__runtime_config
-             v_runtime_config
-         in
-         ("runtime_config", arg) :: bnds
+         if [] = v_runtime_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__runtime_config)
+               v_runtime_config
+           in
+           let bnd = "runtime_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment
-             v_custom_canary_deployment
-         in
-         ("custom_canary_deployment", arg) :: bnds
+         if [] = v_custom_canary_deployment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment)
+               v_custom_canary_deployment
+           in
+           let bnd = "custom_canary_deployment", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment
-             v_canary_deployment
-         in
-         ("canary_deployment", arg) :: bnds
+         if [] = v_canary_deployment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment)
+               v_canary_deployment
+           in
+           let bnd = "canary_deployment", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : serial_pipeline__stages__strategy__canary ->
@@ -798,8 +849,10 @@ type serial_pipeline__stages__strategy__standard = {
   verify : bool prop option; [@option]
   postdeploy :
     serial_pipeline__stages__strategy__standard__postdeploy list;
+      [@default []] [@yojson_drop_default ( = )]
   predeploy :
     serial_pipeline__stages__strategy__standard__predeploy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -816,20 +869,26 @@ let yojson_of_serial_pipeline__stages__strategy__standard =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__standard__predeploy
-             v_predeploy
-         in
-         ("predeploy", arg) :: bnds
+         if [] = v_predeploy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__standard__predeploy)
+               v_predeploy
+           in
+           let bnd = "predeploy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__standard__postdeploy
-             v_postdeploy
-         in
-         ("postdeploy", arg) :: bnds
+         if [] = v_postdeploy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__standard__postdeploy)
+               v_postdeploy
+           in
+           let bnd = "postdeploy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_verify with
@@ -849,7 +908,9 @@ let _ = yojson_of_serial_pipeline__stages__strategy__standard
 
 type serial_pipeline__stages__strategy = {
   canary : serial_pipeline__stages__strategy__canary list;
+      [@default []] [@yojson_drop_default ( = )]
   standard : serial_pipeline__stages__strategy__standard list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -862,20 +923,26 @@ let yojson_of_serial_pipeline__stages__strategy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__standard
-             v_standard
-         in
-         ("standard", arg) :: bnds
+         if [] = v_standard then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__standard)
+               v_standard
+           in
+           let bnd = "standard", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__strategy__canary
-             v_canary
-         in
-         ("canary", arg) :: bnds
+         if [] = v_canary then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy__canary)
+               v_canary
+           in
+           let bnd = "canary", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : serial_pipeline__stages__strategy ->
@@ -890,7 +957,9 @@ type serial_pipeline__stages = {
   target_id : string prop option; [@option]
   deploy_parameters :
     serial_pipeline__stages__deploy_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   strategy : serial_pipeline__stages__strategy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -908,19 +977,26 @@ let yojson_of_serial_pipeline__stages =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_serial_pipeline__stages__strategy
-             v_strategy
-         in
-         ("strategy", arg) :: bnds
+         if [] = v_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__strategy)
+               v_strategy
+           in
+           let bnd = "strategy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_serial_pipeline__stages__deploy_parameters
-             v_deploy_parameters
-         in
-         ("deploy_parameters", arg) :: bnds
+         if [] = v_deploy_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_serial_pipeline__stages__deploy_parameters)
+               v_deploy_parameters
+           in
+           let bnd = "deploy_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_id with
@@ -947,7 +1023,10 @@ let _ = yojson_of_serial_pipeline__stages
 
 [@@@deriving.end]
 
-type serial_pipeline = { stages : serial_pipeline__stages list }
+type serial_pipeline = {
+  stages : serial_pipeline__stages list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : serial_pipeline) -> ()
@@ -959,10 +1038,14 @@ let yojson_of_serial_pipeline =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_serial_pipeline__stages v_stages
-         in
-         ("stages", arg) :: bnds
+         if [] = v_stages then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_serial_pipeline__stages)
+               v_stages
+           in
+           let bnd = "stages", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : serial_pipeline -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1049,6 +1132,7 @@ let _ = yojson_of_condition__targets_type_condition
 
 type condition__targets_present_condition = {
   missing_targets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   status : bool prop;
   update_time : string prop;
 }
@@ -1075,12 +1159,14 @@ let yojson_of_condition__targets_present_condition =
          ("status", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_missing_targets
-         in
-         ("missing_targets", arg) :: bnds
+         if [] = v_missing_targets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_missing_targets
+           in
+           let bnd = "missing_targets", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : condition__targets_present_condition ->
@@ -1123,9 +1209,12 @@ let _ = yojson_of_condition__pipeline_ready_condition
 type condition = {
   pipeline_ready_condition :
     condition__pipeline_ready_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   targets_present_condition :
     condition__targets_present_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   targets_type_condition : condition__targets_type_condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1142,27 +1231,37 @@ let yojson_of_condition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__targets_type_condition
-             v_targets_type_condition
-         in
-         ("targets_type_condition", arg) :: bnds
+         if [] = v_targets_type_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_condition__targets_type_condition)
+               v_targets_type_condition
+           in
+           let bnd = "targets_type_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_condition__targets_present_condition
-             v_targets_present_condition
-         in
-         ("targets_present_condition", arg) :: bnds
+         if [] = v_targets_present_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_condition__targets_present_condition)
+               v_targets_present_condition
+           in
+           let bnd = "targets_present_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_condition__pipeline_ready_condition
-             v_pipeline_ready_condition
-         in
-         ("pipeline_ready_condition", arg) :: bnds
+         if [] = v_pipeline_ready_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_condition__pipeline_ready_condition)
+               v_pipeline_ready_condition
+           in
+           let bnd = "pipeline_ready_condition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1181,6 +1280,7 @@ type google_clouddeploy_delivery_pipeline = {
   project : string prop option; [@option]
   suspended : bool prop option; [@option]
   serial_pipeline : serial_pipeline list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1209,10 +1309,14 @@ let yojson_of_google_clouddeploy_delivery_pipeline =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_serial_pipeline v_serial_pipeline
-         in
-         ("serial_pipeline", arg) :: bnds
+         if [] = v_serial_pipeline then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_serial_pipeline)
+               v_serial_pipeline
+           in
+           let bnd = "serial_pipeline", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_suspended with

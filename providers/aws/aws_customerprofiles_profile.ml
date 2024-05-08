@@ -502,10 +502,13 @@ type aws_customerprofiles_profile = {
   party_type_string : string prop option; [@option]
   personal_email_address : string prop option; [@option]
   phone_number : string prop option; [@option]
-  address : address list;
+  address : address list; [@default []] [@yojson_drop_default ( = )]
   billing_address : billing_address list;
+      [@default []] [@yojson_drop_default ( = )]
   mailing_address : mailing_address list;
+      [@default []] [@yojson_drop_default ( = )]
   shipping_address : shipping_address list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -542,27 +545,41 @@ let yojson_of_aws_customerprofiles_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_shipping_address
-             v_shipping_address
-         in
-         ("shipping_address", arg) :: bnds
+         if [] = v_shipping_address then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_shipping_address)
+               v_shipping_address
+           in
+           let bnd = "shipping_address", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mailing_address v_mailing_address
-         in
-         ("mailing_address", arg) :: bnds
+         if [] = v_mailing_address then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mailing_address)
+               v_mailing_address
+           in
+           let bnd = "mailing_address", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_billing_address v_billing_address
-         in
-         ("billing_address", arg) :: bnds
+         if [] = v_billing_address then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_billing_address)
+               v_billing_address
+           in
+           let bnd = "billing_address", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_address v_address in
-         ("address", arg) :: bnds
+         if [] = v_address then bnds
+         else
+           let arg = (yojson_of_list yojson_of_address) v_address in
+           let bnd = "address", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_phone_number with

@@ -166,10 +166,13 @@ type cache_behavior_settings = {
   minimum_ttl : float prop option; [@option]
   forwarded_cookies :
     cache_behavior_settings__forwarded_cookies list;
+      [@default []] [@yojson_drop_default ( = )]
   forwarded_headers :
     cache_behavior_settings__forwarded_headers list;
+      [@default []] [@yojson_drop_default ( = )]
   forwarded_query_strings :
     cache_behavior_settings__forwarded_query_strings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -191,28 +194,37 @@ let yojson_of_cache_behavior_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cache_behavior_settings__forwarded_query_strings
-             v_forwarded_query_strings
-         in
-         ("forwarded_query_strings", arg) :: bnds
+         if [] = v_forwarded_query_strings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cache_behavior_settings__forwarded_query_strings)
+               v_forwarded_query_strings
+           in
+           let bnd = "forwarded_query_strings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cache_behavior_settings__forwarded_headers
-             v_forwarded_headers
-         in
-         ("forwarded_headers", arg) :: bnds
+         if [] = v_forwarded_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cache_behavior_settings__forwarded_headers)
+               v_forwarded_headers
+           in
+           let bnd = "forwarded_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cache_behavior_settings__forwarded_cookies
-             v_forwarded_cookies
-         in
-         ("forwarded_cookies", arg) :: bnds
+         if [] = v_forwarded_cookies then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cache_behavior_settings__forwarded_cookies)
+               v_forwarded_cookies
+           in
+           let bnd = "forwarded_cookies", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_minimum_ttl with
@@ -415,9 +427,12 @@ type aws_lightsail_distribution = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   cache_behavior : cache_behavior list;
+      [@default []] [@yojson_drop_default ( = )]
   cache_behavior_settings : cache_behavior_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   default_cache_behavior : default_cache_behavior list;
-  origin : origin list;
+      [@default []] [@yojson_drop_default ( = )]
+  origin : origin list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -449,28 +464,41 @@ let yojson_of_aws_lightsail_distribution =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_origin v_origin in
-         ("origin", arg) :: bnds
+         if [] = v_origin then bnds
+         else
+           let arg = (yojson_of_list yojson_of_origin) v_origin in
+           let bnd = "origin", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_cache_behavior
-             v_default_cache_behavior
-         in
-         ("default_cache_behavior", arg) :: bnds
+         if [] = v_default_cache_behavior then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_cache_behavior)
+               v_default_cache_behavior
+           in
+           let bnd = "default_cache_behavior", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cache_behavior_settings
-             v_cache_behavior_settings
-         in
-         ("cache_behavior_settings", arg) :: bnds
+         if [] = v_cache_behavior_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cache_behavior_settings)
+               v_cache_behavior_settings
+           in
+           let bnd = "cache_behavior_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cache_behavior v_cache_behavior
-         in
-         ("cache_behavior", arg) :: bnds
+         if [] = v_cache_behavior then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cache_behavior)
+               v_cache_behavior
+           in
+           let bnd = "cache_behavior", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

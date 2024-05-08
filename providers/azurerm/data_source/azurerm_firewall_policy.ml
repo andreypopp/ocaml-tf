@@ -32,6 +32,7 @@ type dns = {
   network_rule_fqdn_enabled : bool prop;
   proxy_enabled : bool prop;
   servers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,10 +49,14 @@ let yojson_of_dns =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_servers
-         in
-         ("servers", arg) :: bnds
+         if [] = v_servers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_servers
+           in
+           let bnd = "servers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_proxy_enabled in
@@ -72,7 +77,9 @@ let _ = yojson_of_dns
 
 type threat_intelligence_allowlist = {
   fqdns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -85,18 +92,24 @@ let yojson_of_threat_intelligence_allowlist =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_fqdns
-         in
-         ("fqdns", arg) :: bnds
+         if [] = v_fqdns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fqdns
+           in
+           let bnd = "fqdns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : threat_intelligence_allowlist ->

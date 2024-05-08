@@ -48,6 +48,7 @@ type configuration__transformation_configuration__content_transformation = {
   aws_lambda :
     configuration__transformation_configuration__content_transformation__aws_lambda
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,12 +65,15 @@ let yojson_of_configuration__transformation_configuration__content_transformatio
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__transformation_configuration__content_transformation__aws_lambda
-             v_aws_lambda
-         in
-         ("aws_lambda", arg) :: bnds
+         if [] = v_aws_lambda then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__transformation_configuration__content_transformation__aws_lambda)
+               v_aws_lambda
+           in
+           let bnd = "aws_lambda", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration__transformation_configuration__content_transformation ->
@@ -82,9 +86,11 @@ let _ =
 
 type configuration__transformation_configuration = {
   actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   content_transformation :
     configuration__transformation_configuration__content_transformation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -100,18 +106,25 @@ let yojson_of_configuration__transformation_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__transformation_configuration__content_transformation
-             v_content_transformation
-         in
-         ("content_transformation", arg) :: bnds
+         if [] = v_content_transformation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__transformation_configuration__content_transformation)
+               v_content_transformation
+           in
+           let bnd = "content_transformation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration__transformation_configuration ->
@@ -127,6 +140,7 @@ type configuration = {
   supporting_access_point : string prop;
   transformation_configuration :
     configuration__transformation_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,12 +158,15 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__transformation_configuration
-             v_transformation_configuration
-         in
-         ("transformation_configuration", arg) :: bnds
+         if [] = v_transformation_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__transformation_configuration)
+               v_transformation_configuration
+           in
+           let bnd = "transformation_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -187,6 +204,7 @@ type aws_s3control_object_lambda_access_point = {
   id : string prop option; [@option]
   name : string prop;
   configuration : configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -204,10 +222,13 @@ let yojson_of_aws_s3control_object_lambda_access_point =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration v_configuration
-         in
-         ("configuration", arg) :: bnds
+         if [] = v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

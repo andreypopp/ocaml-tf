@@ -43,6 +43,7 @@ type destinations = {
   port : string prop;
   url : string prop;
   vpc : destinations__vpc list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,10 +56,13 @@ let yojson_of_destinations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destinations__vpc v_vpc
-         in
-         ("vpc", arg) :: bnds
+         if [] = v_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destinations__vpc) v_vpc
+           in
+           let bnd = "vpc", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_url in

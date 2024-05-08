@@ -6,7 +6,9 @@ open! Tf_core
 
 type clone = {
   allocated_ip_range : string prop;  (** allocated_ip_range *)
-  database_names : string prop list;  (** database_names *)
+  database_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** database_names *)
   point_in_time : string prop;  (** point_in_time *)
   preferred_zone : string prop;  (** preferred_zone *)
   source_instance_name : string prop;  (** source_instance_name *)
@@ -80,6 +82,7 @@ type settings__location_preference = {
 
 type settings__ip_configuration__psc_config = {
   allowed_consumer_projects : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** allowed_consumer_projects *)
   psc_enabled : bool prop;  (** psc_enabled *)
 }
@@ -94,12 +97,14 @@ type settings__ip_configuration = {
   allocated_ip_range : string prop;  (** allocated_ip_range *)
   authorized_networks :
     settings__ip_configuration__authorized_networks list;
+      [@default []] [@yojson_drop_default ( = )]
       (** authorized_networks *)
   enable_private_path_for_google_cloud_services : bool prop;
       (** enable_private_path_for_google_cloud_services *)
   ipv4_enabled : bool prop;  (** ipv4_enabled *)
   private_network : string prop;  (** private_network *)
   psc_config : settings__ip_configuration__psc_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** psc_config *)
   require_ssl : bool prop;  (** require_ssl *)
   ssl_mode : string prop;  (** ssl_mode *)
@@ -137,6 +142,7 @@ type settings__backup_configuration__backup_retention_settings = {
 type settings__backup_configuration = {
   backup_retention_settings :
     settings__backup_configuration__backup_retention_settings list;
+      [@default []] [@yojson_drop_default ( = )]
       (** backup_retention_settings *)
   binary_log_enabled : bool prop;  (** binary_log_enabled *)
   enabled : bool prop;  (** enabled *)
@@ -159,22 +165,28 @@ type settings__active_directory_config = {
 type settings = {
   activation_policy : string prop;  (** activation_policy *)
   active_directory_config : settings__active_directory_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** active_directory_config *)
   advanced_machine_features :
     settings__advanced_machine_features list;
+      [@default []] [@yojson_drop_default ( = )]
       (** advanced_machine_features *)
   availability_type : string prop;  (** availability_type *)
   backup_configuration : settings__backup_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** backup_configuration *)
   collation : string prop;  (** collation *)
   connector_enforcement : string prop;  (** connector_enforcement *)
   data_cache_config : settings__data_cache_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** data_cache_config *)
   database_flags : settings__database_flags list;
+      [@default []] [@yojson_drop_default ( = )]
       (** database_flags *)
   deletion_protection_enabled : bool prop;
       (** deletion_protection_enabled *)
   deny_maintenance_period : settings__deny_maintenance_period list;
+      [@default []] [@yojson_drop_default ( = )]
       (** deny_maintenance_period *)
   disk_autoresize : bool prop;  (** disk_autoresize *)
   disk_autoresize_limit : float prop;  (** disk_autoresize_limit *)
@@ -182,18 +194,24 @@ type settings = {
   disk_type : string prop;  (** disk_type *)
   edition : string prop;  (** edition *)
   insights_config : settings__insights_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** insights_config *)
   ip_configuration : settings__ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ip_configuration *)
   location_preference : settings__location_preference list;
+      [@default []] [@yojson_drop_default ( = )]
       (** location_preference *)
   maintenance_window : settings__maintenance_window list;
+      [@default []] [@yojson_drop_default ( = )]
       (** maintenance_window *)
   password_validation_policy :
     settings__password_validation_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** password_validation_policy *)
   pricing_plan : string prop;  (** pricing_plan *)
   sql_server_audit_config : settings__sql_server_audit_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** sql_server_audit_config *)
   tier : string prop;  (** tier *)
   time_zone : string prop;  (** time_zone *)

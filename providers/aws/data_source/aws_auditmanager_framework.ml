@@ -14,7 +14,10 @@ let _ = yojson_of_control_sets__controls
 
 [@@@deriving.end]
 
-type control_sets = { controls : control_sets__controls list }
+type control_sets = {
+  controls : control_sets__controls list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : control_sets) -> ()
@@ -26,10 +29,14 @@ let yojson_of_control_sets =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_sets__controls v_controls
-         in
-         ("controls", arg) :: bnds
+         if [] = v_controls then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_sets__controls)
+               v_controls
+           in
+           let bnd = "controls", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : control_sets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -42,6 +49,7 @@ type aws_auditmanager_framework = {
   framework_type : string prop;
   name : string prop;
   control_sets : control_sets list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,10 +66,13 @@ let yojson_of_aws_auditmanager_framework =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_sets v_control_sets
-         in
-         ("control_sets", arg) :: bnds
+         if [] = v_control_sets then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_sets) v_control_sets
+           in
+           let bnd = "control_sets", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

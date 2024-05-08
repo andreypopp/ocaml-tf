@@ -113,7 +113,7 @@ type azurerm_logz_sub_account = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   timeouts : timeouts option;
-  user : user list;
+  user : user list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -134,8 +134,11 @@ let yojson_of_azurerm_logz_sub_account =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_user v_user in
-         ("user", arg) :: bnds
+         if [] = v_user then bnds
+         else
+           let arg = (yojson_of_list yojson_of_user) v_user in
+           let bnd = "user", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

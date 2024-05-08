@@ -35,11 +35,21 @@ type hierarchy_path__level_five = {
 }
 
 type hierarchy_path = {
-  level_five : hierarchy_path__level_five list;  (** level_five *)
-  level_four : hierarchy_path__level_four list;  (** level_four *)
-  level_one : hierarchy_path__level_one list;  (** level_one *)
-  level_three : hierarchy_path__level_three list;  (** level_three *)
-  level_two : hierarchy_path__level_two list;  (** level_two *)
+  level_five : hierarchy_path__level_five list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** level_five *)
+  level_four : hierarchy_path__level_four list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** level_four *)
+  level_one : hierarchy_path__level_one list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** level_one *)
+  level_three : hierarchy_path__level_three list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** level_three *)
+  level_two : hierarchy_path__level_two list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** level_two *)
 }
 
 type aws_connect_user_hierarchy_group

@@ -555,7 +555,9 @@ let _ = yojson_of_registry_credential__source
 
 type registry_credential = {
   custom : registry_credential__custom list;
+      [@default []] [@yojson_drop_default ( = )]
   source : registry_credential__source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -568,18 +570,24 @@ let yojson_of_registry_credential =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_registry_credential__source
-             v_source
-         in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_registry_credential__source)
+               v_source
+           in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_registry_credential__custom
-             v_custom
-         in
-         ("custom", arg) :: bnds
+         if [] = v_custom then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_registry_credential__custom)
+               v_custom
+           in
+           let bnd = "custom", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : registry_credential -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -655,10 +663,12 @@ type source_trigger = {
   branch : string prop option; [@option]
   enabled : bool prop option; [@option]
   events : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   repository_url : string prop;
   source_type : string prop;
   authentication : source_trigger__authentication list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -679,11 +689,14 @@ let yojson_of_source_trigger =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_trigger__authentication
-             v_authentication
-         in
-         ("authentication", arg) :: bnds
+         if [] = v_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_trigger__authentication)
+               v_authentication
+           in
+           let bnd = "authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_source_type in
@@ -700,10 +713,14 @@ let yojson_of_source_trigger =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_events
-         in
-         ("events", arg) :: bnds
+         if [] = v_events then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_events
+           in
+           let bnd = "events", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enabled with
@@ -837,16 +854,26 @@ type azurerm_container_registry_task = {
   tags : (string * string prop) list option; [@option]
   timeout_in_seconds : float prop option; [@option]
   agent_setting : agent_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   base_image_trigger : base_image_trigger list;
+      [@default []] [@yojson_drop_default ( = )]
   docker_step : docker_step list;
+      [@default []] [@yojson_drop_default ( = )]
   encoded_step : encoded_step list;
+      [@default []] [@yojson_drop_default ( = )]
   file_step : file_step list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   platform : platform list;
+      [@default []] [@yojson_drop_default ( = )]
   registry_credential : registry_credential list;
+      [@default []] [@yojson_drop_default ( = )]
   source_trigger : source_trigger list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   timer_trigger : timer_trigger list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -880,64 +907,101 @@ let yojson_of_azurerm_container_registry_task =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_timer_trigger v_timer_trigger
-         in
-         ("timer_trigger", arg) :: bnds
+         if [] = v_timer_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_timer_trigger) v_timer_trigger
+           in
+           let bnd = "timer_trigger", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_trigger v_source_trigger
-         in
-         ("source_trigger", arg) :: bnds
+         if [] = v_source_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_trigger)
+               v_source_trigger
+           in
+           let bnd = "source_trigger", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_registry_credential
-             v_registry_credential
-         in
-         ("registry_credential", arg) :: bnds
+         if [] = v_registry_credential then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_registry_credential)
+               v_registry_credential
+           in
+           let bnd = "registry_credential", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_platform v_platform in
-         ("platform", arg) :: bnds
+         if [] = v_platform then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_platform) v_platform
+           in
+           let bnd = "platform", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_file_step v_file_step in
-         ("file_step", arg) :: bnds
+         if [] = v_file_step then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_file_step) v_file_step
+           in
+           let bnd = "file_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encoded_step v_encoded_step
-         in
-         ("encoded_step", arg) :: bnds
+         if [] = v_encoded_step then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encoded_step) v_encoded_step
+           in
+           let bnd = "encoded_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_docker_step v_docker_step
-         in
-         ("docker_step", arg) :: bnds
+         if [] = v_docker_step then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_docker_step) v_docker_step
+           in
+           let bnd = "docker_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_base_image_trigger
-             v_base_image_trigger
-         in
-         ("base_image_trigger", arg) :: bnds
+         if [] = v_base_image_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_base_image_trigger)
+               v_base_image_trigger
+           in
+           let bnd = "base_image_trigger", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_agent_setting v_agent_setting
-         in
-         ("agent_setting", arg) :: bnds
+         if [] = v_agent_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_agent_setting) v_agent_setting
+           in
+           let bnd = "agent_setting", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_in_seconds with

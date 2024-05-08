@@ -202,9 +202,11 @@ type azurerm_data_factory_trigger_tumbling_window = {
   name : string prop;
   start_time : string prop;
   pipeline : pipeline list;
-  retry : retry list;
+      [@default []] [@yojson_drop_default ( = )]
+  retry : retry list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   trigger_dependency : trigger_dependency list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -235,23 +237,34 @@ let yojson_of_azurerm_data_factory_trigger_tumbling_window =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trigger_dependency
-             v_trigger_dependency
-         in
-         ("trigger_dependency", arg) :: bnds
+         if [] = v_trigger_dependency then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trigger_dependency)
+               v_trigger_dependency
+           in
+           let bnd = "trigger_dependency", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_retry v_retry in
-         ("retry", arg) :: bnds
+         if [] = v_retry then bnds
+         else
+           let arg = (yojson_of_list yojson_of_retry) v_retry in
+           let bnd = "retry", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_pipeline v_pipeline in
-         ("pipeline", arg) :: bnds
+         if [] = v_pipeline then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pipeline) v_pipeline
+           in
+           let bnd = "pipeline", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_start_time in

@@ -193,6 +193,7 @@ let _ = yojson_of_spec__selector__match_expressions
 type spec__selector = {
   match_labels : (string * string prop) list option; [@option]
   match_expressions : spec__selector__match_expressions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -208,11 +209,15 @@ let yojson_of_spec__selector =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__selector__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__selector__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_match_labels with
@@ -239,11 +244,14 @@ let _ = yojson_of_spec__selector
 
 type spec = {
   access_modes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_class_name : string prop option; [@option]
   volume_mode : string prop option; [@option]
   volume_name : string prop option; [@option]
   resources : spec__resources list;
+      [@default []] [@yojson_drop_default ( = )]
   selector : spec__selector list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -263,16 +271,22 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__selector v_selector
-         in
-         ("selector", arg) :: bnds
+         if [] = v_selector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__selector) v_selector
+           in
+           let bnd = "selector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__resources v_resources
-         in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__resources) v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_volume_name with
@@ -299,12 +313,14 @@ let yojson_of_spec =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_access_modes
-         in
-         ("access_modes", arg) :: bnds
+         if [] = v_access_modes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_access_modes
+           in
+           let bnd = "access_modes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -343,7 +359,8 @@ type kubernetes_persistent_volume_claim = {
   id : string prop option; [@option]
   wait_until_bound : bool prop option; [@option]
   metadata : metadata list;
-  spec : spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -367,12 +384,20 @@ let yojson_of_kubernetes_persistent_volume_claim =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_wait_until_bound with

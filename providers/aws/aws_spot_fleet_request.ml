@@ -250,9 +250,12 @@ type launch_specification = {
   vpc_security_group_ids : string prop list option; [@option]
   weighted_capacity : string prop option; [@option]
   ebs_block_device : launch_specification__ebs_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   ephemeral_block_device :
     launch_specification__ephemeral_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   root_block_device : launch_specification__root_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -286,28 +289,37 @@ let yojson_of_launch_specification =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_specification__root_block_device
-             v_root_block_device
-         in
-         ("root_block_device", arg) :: bnds
+         if [] = v_root_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_specification__root_block_device)
+               v_root_block_device
+           in
+           let bnd = "root_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_specification__ephemeral_block_device
-             v_ephemeral_block_device
-         in
-         ("ephemeral_block_device", arg) :: bnds
+         if [] = v_ephemeral_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_specification__ephemeral_block_device)
+               v_ephemeral_block_device
+           in
+           let bnd = "ephemeral_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_specification__ebs_block_device
-             v_ebs_block_device
-         in
-         ("ebs_block_device", arg) :: bnds
+         if [] = v_ebs_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_specification__ebs_block_device)
+               v_ebs_block_device
+           in
+           let bnd = "ebs_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weighted_capacity with
@@ -912,30 +924,39 @@ type launch_template_config__overrides__instance_requirements = {
   accelerator_count :
     launch_template_config__overrides__instance_requirements__accelerator_count
     list;
+      [@default []] [@yojson_drop_default ( = )]
   accelerator_total_memory_mib :
     launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib
     list;
+      [@default []] [@yojson_drop_default ( = )]
   baseline_ebs_bandwidth_mbps :
     launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps
     list;
+      [@default []] [@yojson_drop_default ( = )]
   memory_gib_per_vcpu :
     launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu
     list;
+      [@default []] [@yojson_drop_default ( = )]
   memory_mib :
     launch_template_config__overrides__instance_requirements__memory_mib
     list;
+      [@default []] [@yojson_drop_default ( = )]
   network_bandwidth_gbps :
     launch_template_config__overrides__instance_requirements__network_bandwidth_gbps
     list;
+      [@default []] [@yojson_drop_default ( = )]
   network_interface_count :
     launch_template_config__overrides__instance_requirements__network_interface_count
     list;
+      [@default []] [@yojson_drop_default ( = )]
   total_local_storage_gb :
     launch_template_config__overrides__instance_requirements__total_local_storage_gb
     list;
+      [@default []] [@yojson_drop_default ( = )]
   vcpu_count :
     launch_template_config__overrides__instance_requirements__vcpu_count
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -977,76 +998,103 @@ let yojson_of_launch_template_config__overrides__instance_requirements
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__overrides__instance_requirements__vcpu_count
-             v_vcpu_count
-         in
-         ("vcpu_count", arg) :: bnds
+         if [] = v_vcpu_count then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides__instance_requirements__vcpu_count)
+               v_vcpu_count
+           in
+           let bnd = "vcpu_count", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__overrides__instance_requirements__total_local_storage_gb
-             v_total_local_storage_gb
-         in
-         ("total_local_storage_gb", arg) :: bnds
+         if [] = v_total_local_storage_gb then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides__instance_requirements__total_local_storage_gb)
+               v_total_local_storage_gb
+           in
+           let bnd = "total_local_storage_gb", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__overrides__instance_requirements__network_interface_count
-             v_network_interface_count
-         in
-         ("network_interface_count", arg) :: bnds
+         if [] = v_network_interface_count then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides__instance_requirements__network_interface_count)
+               v_network_interface_count
+           in
+           let bnd = "network_interface_count", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__overrides__instance_requirements__network_bandwidth_gbps
-             v_network_bandwidth_gbps
-         in
-         ("network_bandwidth_gbps", arg) :: bnds
+         if [] = v_network_bandwidth_gbps then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides__instance_requirements__network_bandwidth_gbps)
+               v_network_bandwidth_gbps
+           in
+           let bnd = "network_bandwidth_gbps", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__overrides__instance_requirements__memory_mib
-             v_memory_mib
-         in
-         ("memory_mib", arg) :: bnds
+         if [] = v_memory_mib then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides__instance_requirements__memory_mib)
+               v_memory_mib
+           in
+           let bnd = "memory_mib", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu
-             v_memory_gib_per_vcpu
-         in
-         ("memory_gib_per_vcpu", arg) :: bnds
+         if [] = v_memory_gib_per_vcpu then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides__instance_requirements__memory_gib_per_vcpu)
+               v_memory_gib_per_vcpu
+           in
+           let bnd = "memory_gib_per_vcpu", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps
-             v_baseline_ebs_bandwidth_mbps
-         in
-         ("baseline_ebs_bandwidth_mbps", arg) :: bnds
+         if [] = v_baseline_ebs_bandwidth_mbps then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides__instance_requirements__baseline_ebs_bandwidth_mbps)
+               v_baseline_ebs_bandwidth_mbps
+           in
+           let bnd = "baseline_ebs_bandwidth_mbps", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib
-             v_accelerator_total_memory_mib
-         in
-         ("accelerator_total_memory_mib", arg) :: bnds
+         if [] = v_accelerator_total_memory_mib then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides__instance_requirements__accelerator_total_memory_mib)
+               v_accelerator_total_memory_mib
+           in
+           let bnd = "accelerator_total_memory_mib", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__overrides__instance_requirements__accelerator_count
-             v_accelerator_count
-         in
-         ("accelerator_count", arg) :: bnds
+         if [] = v_accelerator_count then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides__instance_requirements__accelerator_count)
+               v_accelerator_count
+           in
+           let bnd = "accelerator_count", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_spot_max_price_percentage_over_lowest_price with
@@ -1201,6 +1249,7 @@ type launch_template_config__overrides = {
   weighted_capacity : float prop option; [@option]
   instance_requirements :
     launch_template_config__overrides__instance_requirements list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1221,12 +1270,15 @@ let yojson_of_launch_template_config__overrides =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__overrides__instance_requirements
-             v_instance_requirements
-         in
-         ("instance_requirements", arg) :: bnds
+         if [] = v_instance_requirements then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides__instance_requirements)
+               v_instance_requirements
+           in
+           let bnd = "instance_requirements", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weighted_capacity with
@@ -1287,7 +1339,9 @@ let _ = yojson_of_launch_template_config__overrides
 type launch_template_config = {
   launch_template_specification :
     launch_template_config__launch_template_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   overrides : launch_template_config__overrides list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1304,19 +1358,26 @@ let yojson_of_launch_template_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_launch_template_config__overrides
-             v_overrides
-         in
-         ("overrides", arg) :: bnds
+         if [] = v_overrides then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__overrides)
+               v_overrides
+           in
+           let bnd = "overrides", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_launch_template_config__launch_template_specification
-             v_launch_template_specification
-         in
-         ("launch_template_specification", arg) :: bnds
+         if [] = v_launch_template_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_launch_template_config__launch_template_specification)
+               v_launch_template_specification
+           in
+           let bnd = "launch_template_specification", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : launch_template_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1358,6 +1419,7 @@ let _ = yojson_of_spot_maintenance_strategies__capacity_rebalance
 type spot_maintenance_strategies = {
   capacity_rebalance :
     spot_maintenance_strategies__capacity_rebalance list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1370,12 +1432,15 @@ let yojson_of_spot_maintenance_strategies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spot_maintenance_strategies__capacity_rebalance
-             v_capacity_rebalance
-         in
-         ("capacity_rebalance", arg) :: bnds
+         if [] = v_capacity_rebalance then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spot_maintenance_strategies__capacity_rebalance)
+               v_capacity_rebalance
+           in
+           let bnd = "capacity_rebalance", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spot_maintenance_strategies ->
@@ -1457,8 +1522,11 @@ type aws_spot_fleet_request = {
   valid_until : string prop option; [@option]
   wait_for_fulfillment : bool prop option; [@option]
   launch_specification : launch_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   launch_template_config : launch_template_config list;
+      [@default []] [@yojson_drop_default ( = )]
   spot_maintenance_strategies : spot_maintenance_strategies list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1510,25 +1578,34 @@ let yojson_of_aws_spot_fleet_request =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spot_maintenance_strategies
-             v_spot_maintenance_strategies
-         in
-         ("spot_maintenance_strategies", arg) :: bnds
+         if [] = v_spot_maintenance_strategies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spot_maintenance_strategies)
+               v_spot_maintenance_strategies
+           in
+           let bnd = "spot_maintenance_strategies", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_launch_template_config
-             v_launch_template_config
-         in
-         ("launch_template_config", arg) :: bnds
+         if [] = v_launch_template_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_launch_template_config)
+               v_launch_template_config
+           in
+           let bnd = "launch_template_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_launch_specification
-             v_launch_specification
-         in
-         ("launch_specification", arg) :: bnds
+         if [] = v_launch_specification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_launch_specification)
+               v_launch_specification
+           in
+           let bnd = "launch_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_wait_for_fulfillment with

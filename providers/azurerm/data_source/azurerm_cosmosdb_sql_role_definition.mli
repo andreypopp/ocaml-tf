@@ -5,7 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type permissions = {
-  data_actions : string prop list;  (** data_actions *)
+  data_actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** data_actions *)
 }
 
 type timeouts

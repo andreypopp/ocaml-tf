@@ -16,12 +16,16 @@ type encryption_options = {
 
 type instances = {
   console_url : string prop;  (** console_url *)
-  endpoints : string prop list;  (** endpoints *)
+  endpoints : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** endpoints *)
   ip_address : string prop;  (** ip_address *)
 }
 
 type ldap_server_metadata = {
-  hosts : string prop list;  (** hosts *)
+  hosts : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** hosts *)
   role_base : string prop;  (** role_base *)
   role_name : string prop;  (** role_name *)
   role_search_matching : string prop;  (** role_search_matching *)
@@ -49,7 +53,9 @@ type maintenance_window_start_time = {
 
 type user = {
   console_access : bool prop;  (** console_access *)
-  groups : string prop list;  (** groups *)
+  groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** groups *)
   replication_user : bool prop;  (** replication_user *)
   username : string prop;  (** username *)
 }

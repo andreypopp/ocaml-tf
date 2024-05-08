@@ -85,7 +85,7 @@ type aws_ssmincidents_replication_set = {
   id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  region : region list;
+  region : region list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -109,8 +109,11 @@ let yojson_of_aws_ssmincidents_replication_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_region v_region in
-         ("region", arg) :: bnds
+         if [] = v_region then bnds
+         else
+           let arg = (yojson_of_list yojson_of_region) v_region in
+           let bnd = "region", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

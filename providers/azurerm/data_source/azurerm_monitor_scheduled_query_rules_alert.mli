@@ -5,7 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type action = {
-  action_group : string prop list;  (** action_group *)
+  action_group : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** action_group *)
   custom_webhook_payload : string prop;
       (** custom_webhook_payload *)
   email_subject : string prop;  (** email_subject *)
@@ -20,6 +22,7 @@ type trigger__metric_trigger = {
 
 type trigger = {
   metric_trigger : trigger__metric_trigger list;
+      [@default []] [@yojson_drop_default ( = )]
       (** metric_trigger *)
   operator : string prop;  (** operator *)
   threshold : float prop;  (** threshold *)

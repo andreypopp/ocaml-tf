@@ -6,7 +6,9 @@ open! Tf_core
 
 type approval_rule__patch_filter = {
   key : string prop;  (** key *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type approval_rule = {
@@ -15,18 +17,23 @@ type approval_rule = {
   compliance_level : string prop;  (** compliance_level *)
   enable_non_security : bool prop;  (** enable_non_security *)
   patch_filter : approval_rule__patch_filter list;
+      [@default []] [@yojson_drop_default ( = )]
       (** patch_filter *)
 }
 
 type global_filter = {
   key : string prop;  (** key *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type source = {
   configuration : string prop;  (** configuration *)
   name : string prop;  (** name *)
-  products : string prop list;  (** products *)
+  products : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** products *)
 }
 
 type aws_ssm_patch_baseline

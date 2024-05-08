@@ -120,7 +120,9 @@ type ethereum_details = {
   network : string prop option; [@option]
   node_type : string prop option; [@option]
   geth_details : ethereum_details__geth_details list;
+      [@default []] [@yojson_drop_default ( = )]
   validator_config : ethereum_details__validator_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -142,19 +144,25 @@ let yojson_of_ethereum_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_ethereum_details__validator_config
-             v_validator_config
-         in
-         ("validator_config", arg) :: bnds
+         if [] = v_validator_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ethereum_details__validator_config)
+               v_validator_config
+           in
+           let bnd = "validator_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ethereum_details__geth_details
-             v_geth_details
-         in
-         ("geth_details", arg) :: bnds
+         if [] = v_geth_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ethereum_details__geth_details)
+               v_geth_details
+           in
+           let bnd = "geth_details", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_node_type with
@@ -296,6 +304,7 @@ let _ = yojson_of_connection_info__endpoint_info
 
 type connection_info = {
   endpoint_info : connection_info__endpoint_info list;
+      [@default []] [@yojson_drop_default ( = )]
   service_attachment : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -318,11 +327,14 @@ let yojson_of_connection_info =
          ("service_attachment", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_connection_info__endpoint_info
-             v_endpoint_info
-         in
-         ("endpoint_info", arg) :: bnds
+         if [] = v_endpoint_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_connection_info__endpoint_info)
+               v_endpoint_info
+           in
+           let bnd = "endpoint_info", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : connection_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -339,6 +351,7 @@ type google_blockchain_node_engine_blockchain_nodes = {
   location : string prop;
   project : string prop option; [@option]
   ethereum_details : ethereum_details list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -366,11 +379,14 @@ let yojson_of_google_blockchain_node_engine_blockchain_nodes =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ethereum_details
-             v_ethereum_details
-         in
-         ("ethereum_details", arg) :: bnds
+         if [] = v_ethereum_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ethereum_details)
+               v_ethereum_details
+           in
+           let bnd = "ethereum_details", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

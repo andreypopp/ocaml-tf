@@ -39,6 +39,7 @@ let _ = yojson_of_identity
 
 type selectors = {
   chaos_studio_target_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -59,12 +60,14 @@ let yojson_of_selectors =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_chaos_studio_target_ids
-         in
-         ("chaos_studio_target_ids", arg) :: bnds
+         if [] = v_chaos_studio_target_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_chaos_studio_target_ids
+           in
+           let bnd = "chaos_studio_target_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : selectors -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -150,6 +153,7 @@ let _ = yojson_of_steps__branch__actions
 type steps__branch = {
   name : string prop;
   actions : steps__branch__actions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -162,10 +166,14 @@ let yojson_of_steps__branch =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_steps__branch__actions v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_steps__branch__actions)
+               v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -178,7 +186,11 @@ let _ = yojson_of_steps__branch
 
 [@@@deriving.end]
 
-type steps = { name : string prop; branch : steps__branch list }
+type steps = {
+  name : string prop;
+  branch : steps__branch list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : steps) -> ()
@@ -190,8 +202,13 @@ let yojson_of_steps =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_steps__branch v_branch in
-         ("branch", arg) :: bnds
+         if [] = v_branch then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_steps__branch) v_branch
+           in
+           let bnd = "branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -270,8 +287,10 @@ type azurerm_chaos_studio_experiment = {
   name : string prop;
   resource_group_name : string prop;
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   selectors : selectors list;
-  steps : steps list;
+      [@default []] [@yojson_drop_default ( = )]
+  steps : steps list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -298,16 +317,29 @@ let yojson_of_azurerm_chaos_studio_experiment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_steps v_steps in
-         ("steps", arg) :: bnds
+         if [] = v_steps then bnds
+         else
+           let arg = (yojson_of_list yojson_of_steps) v_steps in
+           let bnd = "steps", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_selectors v_selectors in
-         ("selectors", arg) :: bnds
+         if [] = v_selectors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_selectors) v_selectors
+           in
+           let bnd = "selectors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

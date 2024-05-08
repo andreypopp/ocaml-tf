@@ -7,6 +7,7 @@ type filter = {
   key : string prop;
   match_by : string prop option; [@option]
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24,10 +25,14 @@ let yojson_of_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_match_by with
@@ -100,6 +105,7 @@ type projects = {
   owner_uuid : string prop;
   purpose : string prop;
   resources : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   updated_at : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -129,12 +135,14 @@ let yojson_of_projects =
          ("updated_at", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_resources
-         in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_purpose in
@@ -181,8 +189,8 @@ let _ = yojson_of_projects
 
 type digitalocean_projects = {
   id : string prop option; [@option]
-  filter : filter list;
-  sort : sort list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  sort : sort list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,12 +203,18 @@ let yojson_of_digitalocean_projects =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sort v_sort in
-         ("sort", arg) :: bnds
+         if [] = v_sort then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sort) v_sort in
+           let bnd = "sort", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

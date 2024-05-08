@@ -881,6 +881,7 @@ type default_node_pool__linux_os_config = {
   transparent_huge_page_enabled : string prop option; [@option]
   sysctl_config :
     default_node_pool__linux_os_config__sysctl_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -899,12 +900,15 @@ let yojson_of_default_node_pool__linux_os_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_node_pool__linux_os_config__sysctl_config
-             v_sysctl_config
-         in
-         ("sysctl_config", arg) :: bnds
+         if [] = v_sysctl_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_node_pool__linux_os_config__sysctl_config)
+               v_sysctl_config
+           in
+           let bnd = "sysctl_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_transparent_huge_page_enabled with
@@ -999,6 +1003,7 @@ type default_node_pool__node_network_profile = {
   node_public_ip_tags : (string * string prop) list option; [@option]
   allowed_host_ports :
     default_node_pool__node_network_profile__allowed_host_ports list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1016,12 +1021,15 @@ let yojson_of_default_node_pool__node_network_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_node_pool__node_network_profile__allowed_host_ports
-             v_allowed_host_ports
-         in
-         ("allowed_host_ports", arg) :: bnds
+         if [] = v_allowed_host_ports then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_node_pool__node_network_profile__allowed_host_ports)
+               v_allowed_host_ports
+           in
+           let bnd = "allowed_host_ports", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_node_public_ip_tags with
@@ -1119,10 +1127,14 @@ type default_node_pool = {
   workload_runtime : string prop option; [@option]
   zones : string prop list option; [@option]
   kubelet_config : default_node_pool__kubelet_config list;
+      [@default []] [@yojson_drop_default ( = )]
   linux_os_config : default_node_pool__linux_os_config list;
+      [@default []] [@yojson_drop_default ( = )]
   node_network_profile :
     default_node_pool__node_network_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   upgrade_settings : default_node_pool__upgrade_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1176,35 +1188,48 @@ let yojson_of_default_node_pool =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_node_pool__upgrade_settings
-             v_upgrade_settings
-         in
-         ("upgrade_settings", arg) :: bnds
+         if [] = v_upgrade_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_node_pool__upgrade_settings)
+               v_upgrade_settings
+           in
+           let bnd = "upgrade_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_node_pool__node_network_profile
-             v_node_network_profile
-         in
-         ("node_network_profile", arg) :: bnds
+         if [] = v_node_network_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_node_pool__node_network_profile)
+               v_node_network_profile
+           in
+           let bnd = "node_network_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_node_pool__linux_os_config
-             v_linux_os_config
-         in
-         ("linux_os_config", arg) :: bnds
+         if [] = v_linux_os_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_node_pool__linux_os_config)
+               v_linux_os_config
+           in
+           let bnd = "linux_os_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_node_pool__kubelet_config
-             v_kubelet_config
-         in
-         ("kubelet_config", arg) :: bnds
+         if [] = v_kubelet_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_node_pool__kubelet_config)
+               v_kubelet_config
+           in
+           let bnd = "kubelet_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with
@@ -1905,6 +1930,7 @@ let _ = yojson_of_linux_profile__ssh_key
 type linux_profile = {
   admin_username : string prop;
   ssh_key : linux_profile__ssh_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1917,10 +1943,14 @@ let yojson_of_linux_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_linux_profile__ssh_key v_ssh_key
-         in
-         ("ssh_key", arg) :: bnds
+         if [] = v_ssh_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_linux_profile__ssh_key)
+               v_ssh_key
+           in
+           let bnd = "ssh_key", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1937,7 +1967,7 @@ let _ = yojson_of_linux_profile
 
 type maintenance_window__allowed = {
   day : string prop;
-  hours : float prop list;
+  hours : float prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1950,10 +1980,14 @@ let yojson_of_maintenance_window__allowed =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_float) v_hours
-         in
-         ("hours", arg) :: bnds
+         if [] = v_hours then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_hours
+           in
+           let bnd = "hours", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_day in
@@ -1999,7 +2033,9 @@ let _ = yojson_of_maintenance_window__not_allowed
 
 type maintenance_window = {
   allowed : maintenance_window__allowed list;
+      [@default []] [@yojson_drop_default ( = )]
   not_allowed : maintenance_window__not_allowed list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2012,18 +2048,25 @@ let yojson_of_maintenance_window =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_window__not_allowed
-             v_not_allowed
-         in
-         ("not_allowed", arg) :: bnds
+         if [] = v_not_allowed then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_window__not_allowed)
+               v_not_allowed
+           in
+           let bnd = "not_allowed", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_window__allowed
-             v_allowed
-         in
-         ("allowed", arg) :: bnds
+         if [] = v_allowed then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_window__allowed)
+               v_allowed
+           in
+           let bnd = "allowed", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : maintenance_window -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2073,6 +2116,7 @@ type maintenance_window_auto_upgrade = {
   utc_offset : string prop option; [@option]
   week_index : string prop option; [@option]
   not_allowed : maintenance_window_auto_upgrade__not_allowed list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2096,12 +2140,15 @@ let yojson_of_maintenance_window_auto_upgrade =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_maintenance_window_auto_upgrade__not_allowed
-             v_not_allowed
-         in
-         ("not_allowed", arg) :: bnds
+         if [] = v_not_allowed then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_window_auto_upgrade__not_allowed)
+               v_not_allowed
+           in
+           let bnd = "not_allowed", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_week_index with
@@ -2212,6 +2259,7 @@ type maintenance_window_node_os = {
   utc_offset : string prop option; [@option]
   week_index : string prop option; [@option]
   not_allowed : maintenance_window_node_os__not_allowed list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2235,12 +2283,15 @@ let yojson_of_maintenance_window_node_os =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_maintenance_window_node_os__not_allowed
-             v_not_allowed
-         in
-         ("not_allowed", arg) :: bnds
+         if [] = v_not_allowed then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_window_node_os__not_allowed)
+               v_not_allowed
+           in
+           let bnd = "not_allowed", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_week_index with
@@ -2519,7 +2570,9 @@ type network_profile = {
   service_cidrs : string prop list option; [@option]
   load_balancer_profile :
     network_profile__load_balancer_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   nat_gateway_profile : network_profile__nat_gateway_profile list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2549,20 +2602,26 @@ let yojson_of_network_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_profile__nat_gateway_profile
-             v_nat_gateway_profile
-         in
-         ("nat_gateway_profile", arg) :: bnds
+         if [] = v_nat_gateway_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_profile__nat_gateway_profile)
+               v_nat_gateway_profile
+           in
+           let bnd = "nat_gateway_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_profile__load_balancer_profile
-             v_load_balancer_profile
-         in
-         ("load_balancer_profile", arg) :: bnds
+         if [] = v_load_balancer_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_profile__load_balancer_profile)
+               v_load_balancer_profile
+           in
+           let bnd = "load_balancer_profile", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service_cidrs with
@@ -3074,6 +3133,7 @@ type windows_profile = {
   admin_username : string prop;
   license : string prop option; [@option]
   gmsa : windows_profile__gmsa list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3091,10 +3151,13 @@ let yojson_of_windows_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_windows_profile__gmsa v_gmsa
-         in
-         ("gmsa", arg) :: bnds
+         if [] = v_gmsa then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_windows_profile__gmsa) v_gmsa
+           in
+           let bnd = "gmsa", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_license with
@@ -3323,34 +3386,60 @@ type azurerm_kubernetes_cluster = {
   tags : (string * string prop) list option; [@option]
   workload_identity_enabled : bool prop option; [@option]
   aci_connector_linux : aci_connector_linux list;
+      [@default []] [@yojson_drop_default ( = )]
   api_server_access_profile : api_server_access_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   auto_scaler_profile : auto_scaler_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_active_directory_role_based_access_control :
     azure_active_directory_role_based_access_control list;
+      [@default []] [@yojson_drop_default ( = )]
   confidential_computing : confidential_computing list;
+      [@default []] [@yojson_drop_default ( = )]
   default_node_pool : default_node_pool list;
+      [@default []] [@yojson_drop_default ( = )]
   http_proxy_config : http_proxy_config list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   ingress_application_gateway : ingress_application_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
   key_management_service : key_management_service list;
+      [@default []] [@yojson_drop_default ( = )]
   key_vault_secrets_provider : key_vault_secrets_provider list;
+      [@default []] [@yojson_drop_default ( = )]
   kubelet_identity : kubelet_identity list;
+      [@default []] [@yojson_drop_default ( = )]
   linux_profile : linux_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_window : maintenance_window list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_window_auto_upgrade :
     maintenance_window_auto_upgrade list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_window_node_os : maintenance_window_node_os list;
+      [@default []] [@yojson_drop_default ( = )]
   microsoft_defender : microsoft_defender list;
+      [@default []] [@yojson_drop_default ( = )]
   monitor_metrics : monitor_metrics list;
+      [@default []] [@yojson_drop_default ( = )]
   network_profile : network_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   oms_agent : oms_agent list;
+      [@default []] [@yojson_drop_default ( = )]
   service_mesh_profile : service_mesh_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   service_principal : service_principal list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_profile : storage_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   web_app_routing : web_app_routing list;
+      [@default []] [@yojson_drop_default ( = )]
   windows_profile : windows_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   workload_autoscaler_profile : workload_autoscaler_profile list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3431,180 +3520,270 @@ let yojson_of_azurerm_kubernetes_cluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_workload_autoscaler_profile
-             v_workload_autoscaler_profile
-         in
-         ("workload_autoscaler_profile", arg) :: bnds
+         if [] = v_workload_autoscaler_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workload_autoscaler_profile)
+               v_workload_autoscaler_profile
+           in
+           let bnd = "workload_autoscaler_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_windows_profile v_windows_profile
-         in
-         ("windows_profile", arg) :: bnds
+         if [] = v_windows_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_windows_profile)
+               v_windows_profile
+           in
+           let bnd = "windows_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_web_app_routing v_web_app_routing
-         in
-         ("web_app_routing", arg) :: bnds
+         if [] = v_web_app_routing then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_web_app_routing)
+               v_web_app_routing
+           in
+           let bnd = "web_app_routing", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_profile v_storage_profile
-         in
-         ("storage_profile", arg) :: bnds
+         if [] = v_storage_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_profile)
+               v_storage_profile
+           in
+           let bnd = "storage_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_principal
-             v_service_principal
-         in
-         ("service_principal", arg) :: bnds
+         if [] = v_service_principal then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_principal)
+               v_service_principal
+           in
+           let bnd = "service_principal", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_mesh_profile
-             v_service_mesh_profile
-         in
-         ("service_mesh_profile", arg) :: bnds
+         if [] = v_service_mesh_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_mesh_profile)
+               v_service_mesh_profile
+           in
+           let bnd = "service_mesh_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_oms_agent v_oms_agent in
-         ("oms_agent", arg) :: bnds
+         if [] = v_oms_agent then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_oms_agent) v_oms_agent
+           in
+           let bnd = "oms_agent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_profile v_network_profile
-         in
-         ("network_profile", arg) :: bnds
+         if [] = v_network_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_profile)
+               v_network_profile
+           in
+           let bnd = "network_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitor_metrics v_monitor_metrics
-         in
-         ("monitor_metrics", arg) :: bnds
+         if [] = v_monitor_metrics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitor_metrics)
+               v_monitor_metrics
+           in
+           let bnd = "monitor_metrics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_microsoft_defender
-             v_microsoft_defender
-         in
-         ("microsoft_defender", arg) :: bnds
+         if [] = v_microsoft_defender then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_microsoft_defender)
+               v_microsoft_defender
+           in
+           let bnd = "microsoft_defender", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_window_node_os
-             v_maintenance_window_node_os
-         in
-         ("maintenance_window_node_os", arg) :: bnds
+         if [] = v_maintenance_window_node_os then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_window_node_os)
+               v_maintenance_window_node_os
+           in
+           let bnd = "maintenance_window_node_os", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_window_auto_upgrade
-             v_maintenance_window_auto_upgrade
-         in
-         ("maintenance_window_auto_upgrade", arg) :: bnds
+         if [] = v_maintenance_window_auto_upgrade then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_window_auto_upgrade)
+               v_maintenance_window_auto_upgrade
+           in
+           let bnd = "maintenance_window_auto_upgrade", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_window
-             v_maintenance_window
-         in
-         ("maintenance_window", arg) :: bnds
+         if [] = v_maintenance_window then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_window)
+               v_maintenance_window
+           in
+           let bnd = "maintenance_window", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_linux_profile v_linux_profile
-         in
-         ("linux_profile", arg) :: bnds
+         if [] = v_linux_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_linux_profile) v_linux_profile
+           in
+           let bnd = "linux_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kubelet_identity
-             v_kubelet_identity
-         in
-         ("kubelet_identity", arg) :: bnds
+         if [] = v_kubelet_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kubelet_identity)
+               v_kubelet_identity
+           in
+           let bnd = "kubelet_identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_key_vault_secrets_provider
-             v_key_vault_secrets_provider
-         in
-         ("key_vault_secrets_provider", arg) :: bnds
+         if [] = v_key_vault_secrets_provider then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_vault_secrets_provider)
+               v_key_vault_secrets_provider
+           in
+           let bnd = "key_vault_secrets_provider", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_key_management_service
-             v_key_management_service
-         in
-         ("key_management_service", arg) :: bnds
+         if [] = v_key_management_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_management_service)
+               v_key_management_service
+           in
+           let bnd = "key_management_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ingress_application_gateway
-             v_ingress_application_gateway
-         in
-         ("ingress_application_gateway", arg) :: bnds
+         if [] = v_ingress_application_gateway then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ingress_application_gateway)
+               v_ingress_application_gateway
+           in
+           let bnd = "ingress_application_gateway", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_proxy_config
-             v_http_proxy_config
-         in
-         ("http_proxy_config", arg) :: bnds
+         if [] = v_http_proxy_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_proxy_config)
+               v_http_proxy_config
+           in
+           let bnd = "http_proxy_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_node_pool
-             v_default_node_pool
-         in
-         ("default_node_pool", arg) :: bnds
+         if [] = v_default_node_pool then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_node_pool)
+               v_default_node_pool
+           in
+           let bnd = "default_node_pool", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_confidential_computing
-             v_confidential_computing
-         in
-         ("confidential_computing", arg) :: bnds
+         if [] = v_confidential_computing then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_confidential_computing)
+               v_confidential_computing
+           in
+           let bnd = "confidential_computing", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_azure_active_directory_role_based_access_control
-             v_azure_active_directory_role_based_access_control
-         in
-         ("azure_active_directory_role_based_access_control", arg)
-         :: bnds
+         if [] = v_azure_active_directory_role_based_access_control
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_azure_active_directory_role_based_access_control)
+               v_azure_active_directory_role_based_access_control
+           in
+           let bnd =
+             "azure_active_directory_role_based_access_control", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_scaler_profile
-             v_auto_scaler_profile
-         in
-         ("auto_scaler_profile", arg) :: bnds
+         if [] = v_auto_scaler_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_scaler_profile)
+               v_auto_scaler_profile
+           in
+           let bnd = "auto_scaler_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_api_server_access_profile
-             v_api_server_access_profile
-         in
-         ("api_server_access_profile", arg) :: bnds
+         if [] = v_api_server_access_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_api_server_access_profile)
+               v_api_server_access_profile
+           in
+           let bnd = "api_server_access_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_aci_connector_linux
-             v_aci_connector_linux
-         in
-         ("aci_connector_linux", arg) :: bnds
+         if [] = v_aci_connector_linux then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_aci_connector_linux)
+               v_aci_connector_linux
+           in
+           let bnd = "aci_connector_linux", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_workload_identity_enabled with

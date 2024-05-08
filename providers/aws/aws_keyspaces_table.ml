@@ -273,9 +273,13 @@ let _ = yojson_of_schema_definition__static_column
 
 type schema_definition = {
   clustering_key : schema_definition__clustering_key list;
+      [@default []] [@yojson_drop_default ( = )]
   column : schema_definition__column list;
+      [@default []] [@yojson_drop_default ( = )]
   partition_key : schema_definition__partition_key list;
+      [@default []] [@yojson_drop_default ( = )]
   static_column : schema_definition__static_column list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -293,32 +297,47 @@ let yojson_of_schema_definition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema_definition__static_column
-             v_static_column
-         in
-         ("static_column", arg) :: bnds
+         if [] = v_static_column then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_schema_definition__static_column)
+               v_static_column
+           in
+           let bnd = "static_column", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema_definition__partition_key
-             v_partition_key
-         in
-         ("partition_key", arg) :: bnds
+         if [] = v_partition_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_schema_definition__partition_key)
+               v_partition_key
+           in
+           let bnd = "partition_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema_definition__column
-             v_column
-         in
-         ("column", arg) :: bnds
+         if [] = v_column then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schema_definition__column)
+               v_column
+           in
+           let bnd = "column", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema_definition__clustering_key
-             v_clustering_key
-         in
-         ("clustering_key", arg) :: bnds
+         if [] = v_clustering_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_schema_definition__clustering_key)
+               v_clustering_key
+           in
+           let bnd = "clustering_key", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : schema_definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -402,13 +421,18 @@ type aws_keyspaces_table = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   capacity_specification : capacity_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   client_side_timestamps : client_side_timestamps list;
-  comment : comment list;
+      [@default []] [@yojson_drop_default ( = )]
+  comment : comment list; [@default []] [@yojson_drop_default ( = )]
   encryption_specification : encryption_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   point_in_time_recovery : point_in_time_recovery list;
+      [@default []] [@yojson_drop_default ( = )]
   schema_definition : schema_definition list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  ttl : ttl list;
+  ttl : ttl list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -436,51 +460,72 @@ let yojson_of_aws_keyspaces_table =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_ttl v_ttl in
-         ("ttl", arg) :: bnds
+         if [] = v_ttl then bnds
+         else
+           let arg = (yojson_of_list yojson_of_ttl) v_ttl in
+           let bnd = "ttl", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema_definition
-             v_schema_definition
-         in
-         ("schema_definition", arg) :: bnds
+         if [] = v_schema_definition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schema_definition)
+               v_schema_definition
+           in
+           let bnd = "schema_definition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_point_in_time_recovery
-             v_point_in_time_recovery
-         in
-         ("point_in_time_recovery", arg) :: bnds
+         if [] = v_point_in_time_recovery then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_point_in_time_recovery)
+               v_point_in_time_recovery
+           in
+           let bnd = "point_in_time_recovery", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_specification
-             v_encryption_specification
-         in
-         ("encryption_specification", arg) :: bnds
+         if [] = v_encryption_specification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_specification)
+               v_encryption_specification
+           in
+           let bnd = "encryption_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_comment v_comment in
-         ("comment", arg) :: bnds
+         if [] = v_comment then bnds
+         else
+           let arg = (yojson_of_list yojson_of_comment) v_comment in
+           let bnd = "comment", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_side_timestamps
-             v_client_side_timestamps
-         in
-         ("client_side_timestamps", arg) :: bnds
+         if [] = v_client_side_timestamps then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_side_timestamps)
+               v_client_side_timestamps
+           in
+           let bnd = "client_side_timestamps", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_capacity_specification
-             v_capacity_specification
-         in
-         ("capacity_specification", arg) :: bnds
+         if [] = v_capacity_specification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_capacity_specification)
+               v_capacity_specification
+           in
+           let bnd = "capacity_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

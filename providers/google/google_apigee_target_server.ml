@@ -49,6 +49,7 @@ type s_sl_info = {
   protocols : string prop list option; [@option]
   trust_store : string prop option; [@option]
   common_name : s_sl_info__common_name list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,11 +72,14 @@ let yojson_of_s_sl_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_s_sl_info__common_name
-             v_common_name
-         in
-         ("common_name", arg) :: bnds
+         if [] = v_common_name then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s_sl_info__common_name)
+               v_common_name
+           in
+           let bnd = "common_name", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_trust_store with
@@ -204,6 +208,7 @@ type google_apigee_target_server = {
   port : float prop;
   protocol : string prop option; [@option]
   s_sl_info : s_sl_info list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -232,8 +237,13 @@ let yojson_of_google_apigee_target_server =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_s_sl_info v_s_sl_info in
-         ("s_sl_info", arg) :: bnds
+         if [] = v_s_sl_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s_sl_info) v_s_sl_info
+           in
+           let bnd = "s_sl_info", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_protocol with

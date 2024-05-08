@@ -60,7 +60,9 @@ let _ = yojson_of_config__start_time
 type config = {
   day : string prop;
   end_time : config__end_time list;
+      [@default []] [@yojson_drop_default ( = )]
   start_time : config__start_time list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -77,16 +79,23 @@ let yojson_of_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__start_time v_start_time
-         in
-         ("start_time", arg) :: bnds
+         if [] = v_start_time then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__start_time)
+               v_start_time
+           in
+           let bnd = "start_time", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__end_time v_end_time
-         in
-         ("end_time", arg) :: bnds
+         if [] = v_end_time then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__end_time) v_end_time
+           in
+           let bnd = "end_time", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_day in
@@ -107,7 +116,7 @@ type aws_connect_hours_of_operation = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   time_zone : string prop;
-  config : config list;
+  config : config list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -129,8 +138,11 @@ let yojson_of_aws_connect_hours_of_operation =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_config v_config in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg = (yojson_of_list yojson_of_config) v_config in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_time_zone in

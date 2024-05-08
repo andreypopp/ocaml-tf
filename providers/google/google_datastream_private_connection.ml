@@ -120,6 +120,7 @@ type google_datastream_private_connection = {
   project : string prop option; [@option]
   timeouts : timeouts option;
   vpc_peering_config : vpc_peering_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -141,11 +142,14 @@ let yojson_of_google_datastream_private_connection =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_peering_config
-             v_vpc_peering_config
-         in
-         ("vpc_peering_config", arg) :: bnds
+         if [] = v_vpc_peering_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_peering_config)
+               v_vpc_peering_config
+           in
+           let bnd = "vpc_peering_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

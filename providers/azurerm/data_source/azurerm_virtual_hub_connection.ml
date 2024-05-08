@@ -30,6 +30,7 @@ let _ = yojson_of_timeouts
 
 type routing__static_vnet_route = {
   address_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   next_hop_ip_address : string prop;
 }
@@ -58,12 +59,14 @@ let yojson_of_routing__static_vnet_route =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_address_prefixes
-         in
-         ("address_prefixes", arg) :: bnds
+         if [] = v_address_prefixes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_address_prefixes
+           in
+           let bnd = "address_prefixes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : routing__static_vnet_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -74,7 +77,9 @@ let _ = yojson_of_routing__static_vnet_route
 
 type routing__propagated_route_table = {
   labels : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   route_table_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -87,18 +92,24 @@ let yojson_of_routing__propagated_route_table =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_route_table_ids
-         in
-         ("route_table_ids", arg) :: bnds
+         if [] = v_route_table_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_route_table_ids
+           in
+           let bnd = "route_table_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_labels
-         in
-         ("labels", arg) :: bnds
+         if [] = v_labels then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_labels
+           in
+           let bnd = "labels", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : routing__propagated_route_table ->
@@ -113,8 +124,10 @@ type routing = {
   inbound_route_map_id : string prop;
   outbound_route_map_id : string prop;
   propagated_route_table : routing__propagated_route_table list;
+      [@default []] [@yojson_drop_default ( = )]
   static_vnet_local_route_override_criteria : string prop;
   static_vnet_route : routing__static_vnet_route list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -135,11 +148,14 @@ let yojson_of_routing =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing__static_vnet_route
-             v_static_vnet_route
-         in
-         ("static_vnet_route", arg) :: bnds
+         if [] = v_static_vnet_route then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_routing__static_vnet_route)
+               v_static_vnet_route
+           in
+           let bnd = "static_vnet_route", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -149,11 +165,15 @@ let yojson_of_routing =
          ("static_vnet_local_route_override_criteria", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing__propagated_route_table
-             v_propagated_route_table
-         in
-         ("propagated_route_table", arg) :: bnds
+         if [] = v_propagated_route_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_routing__propagated_route_table)
+               v_propagated_route_table
+           in
+           let bnd = "propagated_route_table", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

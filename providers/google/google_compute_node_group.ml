@@ -107,6 +107,7 @@ let _ = yojson_of_share_settings__project_map
 type share_settings = {
   share_type : string prop;
   project_map : share_settings__project_map list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,11 +120,14 @@ let yojson_of_share_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_share_settings__project_map
-             v_project_map
-         in
-         ("project_map", arg) :: bnds
+         if [] = v_project_map then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_share_settings__project_map)
+               v_project_map
+           in
+           let bnd = "project_map", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_share_type in
@@ -192,8 +196,11 @@ type google_compute_node_group = {
   project : string prop option; [@option]
   zone : string prop option; [@option]
   autoscaling_policy : autoscaling_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_window : maintenance_window list;
+      [@default []] [@yojson_drop_default ( = )]
   share_settings : share_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -224,24 +231,34 @@ let yojson_of_google_compute_node_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_share_settings v_share_settings
-         in
-         ("share_settings", arg) :: bnds
+         if [] = v_share_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_share_settings)
+               v_share_settings
+           in
+           let bnd = "share_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_window
-             v_maintenance_window
-         in
-         ("maintenance_window", arg) :: bnds
+         if [] = v_maintenance_window then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_window)
+               v_maintenance_window
+           in
+           let bnd = "maintenance_window", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_autoscaling_policy
-             v_autoscaling_policy
-         in
-         ("autoscaling_policy", arg) :: bnds
+         if [] = v_autoscaling_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscaling_policy)
+               v_autoscaling_policy
+           in
+           let bnd = "autoscaling_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

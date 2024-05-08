@@ -133,6 +133,7 @@ type azurerm_cdn_frontdoor_route = {
   cdn_frontdoor_endpoint_id : string prop;
   cdn_frontdoor_origin_group_id : string prop;
   cdn_frontdoor_origin_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   cdn_frontdoor_origin_path : string prop option; [@option]
   cdn_frontdoor_rule_set_ids : string prop list option; [@option]
   enabled : bool prop option; [@option]
@@ -142,8 +143,10 @@ type azurerm_cdn_frontdoor_route = {
   link_to_default_domain : bool prop option; [@option]
   name : string prop;
   patterns_to_match : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   supported_protocols : string prop list;
-  cache : cache list;
+      [@default []] [@yojson_drop_default ( = )]
+  cache : cache list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -180,24 +183,31 @@ let yojson_of_azurerm_cdn_frontdoor_route =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_cache v_cache in
-         ("cache", arg) :: bnds
+         if [] = v_cache then bnds
+         else
+           let arg = (yojson_of_list yojson_of_cache) v_cache in
+           let bnd = "cache", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_supported_protocols
-         in
-         ("supported_protocols", arg) :: bnds
+         if [] = v_supported_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_supported_protocols
+           in
+           let bnd = "supported_protocols", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_patterns_to_match
-         in
-         ("patterns_to_match", arg) :: bnds
+         if [] = v_patterns_to_match then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_patterns_to_match
+           in
+           let bnd = "patterns_to_match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -262,12 +272,14 @@ let yojson_of_azurerm_cdn_frontdoor_route =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cdn_frontdoor_origin_ids
-         in
-         ("cdn_frontdoor_origin_ids", arg) :: bnds
+         if [] = v_cdn_frontdoor_origin_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cdn_frontdoor_origin_ids
+           in
+           let bnd = "cdn_frontdoor_origin_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -551,6 +551,7 @@ type explanations__security_group_rule = {
   cidr : string prop;
   direction : string prop;
   port_range : explanations__security_group_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix_list_id : string prop;
   protocol : string prop;
   security_group_id : string prop;
@@ -589,12 +590,15 @@ let yojson_of_explanations__security_group_rule =
          ("prefix_list_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_explanations__security_group_rule__port_range
-             v_port_range
-         in
-         ("port_range", arg) :: bnds
+         if [] = v_port_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__security_group_rule__port_range)
+               v_port_range
+           in
+           let bnd = "port_range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_direction in
@@ -1328,6 +1332,7 @@ type explanations__acl_rule = {
   cidr : string prop;
   egress : bool prop;
   port_range : explanations__acl_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol : string prop;
   rule_action : string prop;
   rule_number : float prop;
@@ -1362,12 +1367,15 @@ let yojson_of_explanations__acl_rule =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_explanations__acl_rule__port_range
-             v_port_range
-         in
-         ("port_range", arg) :: bnds
+         if [] = v_port_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__acl_rule__port_range)
+               v_port_range
+           in
+           let bnd = "port_range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_egress in
@@ -1420,60 +1428,98 @@ let _ = yojson_of_explanations__acl
 
 type explanations = {
   acl : explanations__acl list;
+      [@default []] [@yojson_drop_default ( = )]
   acl_rule : explanations__acl_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   address : string prop;
   addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   attached_to : explanations__attached_to list;
+      [@default []] [@yojson_drop_default ( = )]
   availability_zones : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   cidrs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   classic_load_balancer_listener :
     explanations__classic_load_balancer_listener list;
+      [@default []] [@yojson_drop_default ( = )]
   component : explanations__component list;
+      [@default []] [@yojson_drop_default ( = )]
   customer_gateway : explanations__customer_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
   destination : explanations__destination list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_vpc : explanations__destination_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
   direction : string prop;
   elastic_load_balancer_listener :
     explanations__elastic_load_balancer_listener list;
+      [@default []] [@yojson_drop_default ( = )]
   explanation_code : string prop;
   ingress_route_table : explanations__ingress_route_table list;
+      [@default []] [@yojson_drop_default ( = )]
   internet_gateway : explanations__internet_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
   load_balancer_arn : string prop;
   load_balancer_listener_port : float prop;
   load_balancer_target_group :
     explanations__load_balancer_target_group list;
+      [@default []] [@yojson_drop_default ( = )]
   load_balancer_target_groups :
     explanations__load_balancer_target_groups list;
+      [@default []] [@yojson_drop_default ( = )]
   load_balancer_target_port : float prop;
   missing_component : string prop;
   nat_gateway : explanations__nat_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
   network_interface : explanations__network_interface list;
+      [@default []] [@yojson_drop_default ( = )]
   packet_field : string prop;
   port : float prop;
   port_ranges : explanations__port_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix_list : explanations__prefix_list list;
+      [@default []] [@yojson_drop_default ( = )]
   protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   route_table : explanations__route_table list;
+      [@default []] [@yojson_drop_default ( = )]
   route_table_route : explanations__route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
   security_group : explanations__security_group list;
+      [@default []] [@yojson_drop_default ( = )]
   security_group_rule : explanations__security_group_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   security_groups : explanations__security_groups list;
+      [@default []] [@yojson_drop_default ( = )]
   source_vpc : explanations__source_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
   state : string prop;
   subnet : explanations__subnet list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_route_table : explanations__subnet_route_table list;
+      [@default []] [@yojson_drop_default ( = )]
   transit_gateway : explanations__transit_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
   transit_gateway_attachment :
     explanations__transit_gateway_attachment list;
+      [@default []] [@yojson_drop_default ( = )]
   transit_gateway_route_table :
     explanations__transit_gateway_route_table list;
+      [@default []] [@yojson_drop_default ( = )]
   transit_gateway_route_table_route :
     explanations__transit_gateway_route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc : explanations__vpc list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_endpoint : explanations__vpc_endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_peering_connection : explanations__vpc_peering_connection list;
+      [@default []] [@yojson_drop_default ( = )]
   vpn_connection : explanations__vpn_connection list;
+      [@default []] [@yojson_drop_default ( = )]
   vpn_gateway : explanations__vpn_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1538,151 +1584,213 @@ let yojson_of_explanations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__vpn_gateway
-             v_vpn_gateway
-         in
-         ("vpn_gateway", arg) :: bnds
+         if [] = v_vpn_gateway then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__vpn_gateway)
+               v_vpn_gateway
+           in
+           let bnd = "vpn_gateway", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__vpn_connection
-             v_vpn_connection
-         in
-         ("vpn_connection", arg) :: bnds
+         if [] = v_vpn_connection then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__vpn_connection)
+               v_vpn_connection
+           in
+           let bnd = "vpn_connection", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_explanations__vpc_peering_connection
-             v_vpc_peering_connection
-         in
-         ("vpc_peering_connection", arg) :: bnds
+         if [] = v_vpc_peering_connection then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__vpc_peering_connection)
+               v_vpc_peering_connection
+           in
+           let bnd = "vpc_peering_connection", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__vpc_endpoint
-             v_vpc_endpoint
-         in
-         ("vpc_endpoint", arg) :: bnds
+         if [] = v_vpc_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__vpc_endpoint)
+               v_vpc_endpoint
+           in
+           let bnd = "vpc_endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__vpc v_vpc
-         in
-         ("vpc", arg) :: bnds
+         if [] = v_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__vpc) v_vpc
+           in
+           let bnd = "vpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_explanations__transit_gateway_route_table_route
-             v_transit_gateway_route_table_route
-         in
-         ("transit_gateway_route_table_route", arg) :: bnds
+         if [] = v_transit_gateway_route_table_route then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__transit_gateway_route_table_route)
+               v_transit_gateway_route_table_route
+           in
+           let bnd = "transit_gateway_route_table_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_explanations__transit_gateway_route_table
-             v_transit_gateway_route_table
-         in
-         ("transit_gateway_route_table", arg) :: bnds
+         if [] = v_transit_gateway_route_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__transit_gateway_route_table)
+               v_transit_gateway_route_table
+           in
+           let bnd = "transit_gateway_route_table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_explanations__transit_gateway_attachment
-             v_transit_gateway_attachment
-         in
-         ("transit_gateway_attachment", arg) :: bnds
+         if [] = v_transit_gateway_attachment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__transit_gateway_attachment)
+               v_transit_gateway_attachment
+           in
+           let bnd = "transit_gateway_attachment", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__transit_gateway
-             v_transit_gateway
-         in
-         ("transit_gateway", arg) :: bnds
+         if [] = v_transit_gateway then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__transit_gateway)
+               v_transit_gateway
+           in
+           let bnd = "transit_gateway", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__subnet_route_table
-             v_subnet_route_table
-         in
-         ("subnet_route_table", arg) :: bnds
+         if [] = v_subnet_route_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__subnet_route_table)
+               v_subnet_route_table
+           in
+           let bnd = "subnet_route_table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__subnet v_subnet
-         in
-         ("subnet", arg) :: bnds
+         if [] = v_subnet then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__subnet) v_subnet
+           in
+           let bnd = "subnet", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_state in
          ("state", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__source_vpc
-             v_source_vpc
-         in
-         ("source_vpc", arg) :: bnds
+         if [] = v_source_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__source_vpc)
+               v_source_vpc
+           in
+           let bnd = "source_vpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__security_groups
-             v_security_groups
-         in
-         ("security_groups", arg) :: bnds
+         if [] = v_security_groups then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__security_groups)
+               v_security_groups
+           in
+           let bnd = "security_groups", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__security_group_rule
-             v_security_group_rule
-         in
-         ("security_group_rule", arg) :: bnds
+         if [] = v_security_group_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__security_group_rule)
+               v_security_group_rule
+           in
+           let bnd = "security_group_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__security_group
-             v_security_group
-         in
-         ("security_group", arg) :: bnds
+         if [] = v_security_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__security_group)
+               v_security_group
+           in
+           let bnd = "security_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__route_table_route
-             v_route_table_route
-         in
-         ("route_table_route", arg) :: bnds
+         if [] = v_route_table_route then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__route_table_route)
+               v_route_table_route
+           in
+           let bnd = "route_table_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__route_table
-             v_route_table
-         in
-         ("route_table", arg) :: bnds
+         if [] = v_route_table then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__route_table)
+               v_route_table
+           in
+           let bnd = "route_table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_protocols
-         in
-         ("protocols", arg) :: bnds
+         if [] = v_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_protocols
+           in
+           let bnd = "protocols", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__prefix_list
-             v_prefix_list
-         in
-         ("prefix_list", arg) :: bnds
+         if [] = v_prefix_list then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__prefix_list)
+               v_prefix_list
+           in
+           let bnd = "prefix_list", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__port_ranges
-             v_port_ranges
-         in
-         ("port_ranges", arg) :: bnds
+         if [] = v_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__port_ranges)
+               v_port_ranges
+           in
+           let bnd = "port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_port in
@@ -1693,18 +1801,25 @@ let yojson_of_explanations =
          ("packet_field", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__network_interface
-             v_network_interface
-         in
-         ("network_interface", arg) :: bnds
+         if [] = v_network_interface then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__network_interface)
+               v_network_interface
+           in
+           let bnd = "network_interface", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__nat_gateway
-             v_nat_gateway
-         in
-         ("nat_gateway", arg) :: bnds
+         if [] = v_nat_gateway then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__nat_gateway)
+               v_nat_gateway
+           in
+           let bnd = "nat_gateway", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1719,20 +1834,26 @@ let yojson_of_explanations =
          ("load_balancer_target_port", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_explanations__load_balancer_target_groups
-             v_load_balancer_target_groups
-         in
-         ("load_balancer_target_groups", arg) :: bnds
+         if [] = v_load_balancer_target_groups then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__load_balancer_target_groups)
+               v_load_balancer_target_groups
+           in
+           let bnd = "load_balancer_target_groups", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_explanations__load_balancer_target_group
-             v_load_balancer_target_group
-         in
-         ("load_balancer_target_group", arg) :: bnds
+         if [] = v_load_balancer_target_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__load_balancer_target_group)
+               v_load_balancer_target_group
+           in
+           let bnd = "load_balancer_target_group", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1748,18 +1869,25 @@ let yojson_of_explanations =
          ("load_balancer_arn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__internet_gateway
-             v_internet_gateway
-         in
-         ("internet_gateway", arg) :: bnds
+         if [] = v_internet_gateway then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__internet_gateway)
+               v_internet_gateway
+           in
+           let bnd = "internet_gateway", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__ingress_route_table
-             v_ingress_route_table
-         in
-         ("ingress_route_table", arg) :: bnds
+         if [] = v_ingress_route_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__ingress_route_table)
+               v_ingress_route_table
+           in
+           let bnd = "ingress_route_table", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1768,97 +1896,133 @@ let yojson_of_explanations =
          ("explanation_code", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_explanations__elastic_load_balancer_listener
-             v_elastic_load_balancer_listener
-         in
-         ("elastic_load_balancer_listener", arg) :: bnds
+         if [] = v_elastic_load_balancer_listener then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__elastic_load_balancer_listener)
+               v_elastic_load_balancer_listener
+           in
+           let bnd = "elastic_load_balancer_listener", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_direction in
          ("direction", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__destination_vpc
-             v_destination_vpc
-         in
-         ("destination_vpc", arg) :: bnds
+         if [] = v_destination_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__destination_vpc)
+               v_destination_vpc
+           in
+           let bnd = "destination_vpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__destination
-             v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__destination)
+               v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__customer_gateway
-             v_customer_gateway
-         in
-         ("customer_gateway", arg) :: bnds
+         if [] = v_customer_gateway then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__customer_gateway)
+               v_customer_gateway
+           in
+           let bnd = "customer_gateway", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__component
-             v_component
-         in
-         ("component", arg) :: bnds
+         if [] = v_component then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__component)
+               v_component
+           in
+           let bnd = "component", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_explanations__classic_load_balancer_listener
-             v_classic_load_balancer_listener
-         in
-         ("classic_load_balancer_listener", arg) :: bnds
+         if [] = v_classic_load_balancer_listener then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_explanations__classic_load_balancer_listener)
+               v_classic_load_balancer_listener
+           in
+           let bnd = "classic_load_balancer_listener", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_cidrs
-         in
-         ("cidrs", arg) :: bnds
+         if [] = v_cidrs then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cidrs
+           in
+           let bnd = "cidrs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_availability_zones
-         in
-         ("availability_zones", arg) :: bnds
+         if [] = v_availability_zones then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_availability_zones
+           in
+           let bnd = "availability_zones", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__attached_to
-             v_attached_to
-         in
-         ("attached_to", arg) :: bnds
+         if [] = v_attached_to then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__attached_to)
+               v_attached_to
+           in
+           let bnd = "attached_to", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_addresses
-         in
-         ("addresses", arg) :: bnds
+         if [] = v_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_addresses
+           in
+           let bnd = "addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_address in
          ("address", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__acl_rule v_acl_rule
-         in
-         ("acl_rule", arg) :: bnds
+         if [] = v_acl_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__acl_rule)
+               v_acl_rule
+           in
+           let bnd = "acl_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explanations__acl v_acl
-         in
-         ("acl", arg) :: bnds
+         if [] = v_acl then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explanations__acl) v_acl
+           in
+           let bnd = "acl", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : explanations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2117,6 +2281,7 @@ type forward_path_components__security_group_rule = {
   direction : string prop;
   port_range :
     forward_path_components__security_group_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix_list_id : string prop;
   protocol : string prop;
   security_group_id : string prop;
@@ -2155,12 +2320,15 @@ let yojson_of_forward_path_components__security_group_rule =
          ("prefix_list_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__security_group_rule__port_range
-             v_port_range
-         in
-         ("port_range", arg) :: bnds
+         if [] = v_port_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__security_group_rule__port_range)
+               v_port_range
+           in
+           let bnd = "port_range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_direction in
@@ -2349,13 +2517,17 @@ let _ =
 
 type forward_path_components__outbound_header = {
   destination_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_port_ranges :
     forward_path_components__outbound_header__destination_port_ranges
     list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol : string prop;
   source_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   source_port_ranges :
     forward_path_components__outbound_header__source_port_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2374,40 +2546,50 @@ let yojson_of_forward_path_components__outbound_header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__outbound_header__source_port_ranges
-             v_source_port_ranges
-         in
-         ("source_port_ranges", arg) :: bnds
+         if [] = v_source_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__outbound_header__source_port_ranges)
+               v_source_port_ranges
+           in
+           let bnd = "source_port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_addresses
-         in
-         ("source_addresses", arg) :: bnds
+         if [] = v_source_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_addresses
+           in
+           let bnd = "source_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_protocol in
          ("protocol", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__outbound_header__destination_port_ranges
-             v_destination_port_ranges
-         in
-         ("destination_port_ranges", arg) :: bnds
+         if [] = v_destination_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__outbound_header__destination_port_ranges)
+               v_destination_port_ranges
+           in
+           let bnd = "destination_port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_addresses
-         in
-         ("destination_addresses", arg) :: bnds
+         if [] = v_destination_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_addresses
+           in
+           let bnd = "destination_addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : forward_path_components__outbound_header ->
@@ -2489,13 +2671,17 @@ let _ =
 
 type forward_path_components__inbound_header = {
   destination_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_port_ranges :
     forward_path_components__inbound_header__destination_port_ranges
     list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol : string prop;
   source_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   source_port_ranges :
     forward_path_components__inbound_header__source_port_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2514,40 +2700,50 @@ let yojson_of_forward_path_components__inbound_header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__inbound_header__source_port_ranges
-             v_source_port_ranges
-         in
-         ("source_port_ranges", arg) :: bnds
+         if [] = v_source_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__inbound_header__source_port_ranges)
+               v_source_port_ranges
+           in
+           let bnd = "source_port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_addresses
-         in
-         ("source_addresses", arg) :: bnds
+         if [] = v_source_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_addresses
+           in
+           let bnd = "source_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_protocol in
          ("protocol", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__inbound_header__destination_port_ranges
-             v_destination_port_ranges
-         in
-         ("destination_port_ranges", arg) :: bnds
+         if [] = v_destination_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__inbound_header__destination_port_ranges)
+               v_destination_port_ranges
+           in
+           let bnd = "destination_port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_addresses
-         in
-         ("destination_addresses", arg) :: bnds
+         if [] = v_destination_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_addresses
+           in
+           let bnd = "destination_addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : forward_path_components__inbound_header ->
@@ -2705,6 +2901,7 @@ type forward_path_components__additional_details = {
   additional_detail_type : string prop;
   component :
     forward_path_components__additional_details__component list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2720,12 +2917,15 @@ let yojson_of_forward_path_components__additional_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__additional_details__component
-             v_component
-         in
-         ("component", arg) :: bnds
+         if [] = v_component then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__additional_details__component)
+               v_component
+           in
+           let bnd = "component", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2775,6 +2975,7 @@ type forward_path_components__acl_rule = {
   cidr : string prop;
   egress : bool prop;
   port_range : forward_path_components__acl_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol : string prop;
   rule_action : string prop;
   rule_number : float prop;
@@ -2809,12 +3010,15 @@ let yojson_of_forward_path_components__acl_rule =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__acl_rule__port_range
-             v_port_range
-         in
-         ("port_range", arg) :: bnds
+         if [] = v_port_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__acl_rule__port_range)
+               v_port_range
+           in
+           let bnd = "port_range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_egress in
@@ -2834,24 +3038,38 @@ let _ = yojson_of_forward_path_components__acl_rule
 
 type forward_path_components = {
   acl_rule : forward_path_components__acl_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   additional_details :
     forward_path_components__additional_details list;
+      [@default []] [@yojson_drop_default ( = )]
   attached_to : forward_path_components__attached_to list;
+      [@default []] [@yojson_drop_default ( = )]
   component : forward_path_components__component list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_vpc : forward_path_components__destination_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
   inbound_header : forward_path_components__inbound_header list;
+      [@default []] [@yojson_drop_default ( = )]
   outbound_header : forward_path_components__outbound_header list;
+      [@default []] [@yojson_drop_default ( = )]
   route_table_route :
     forward_path_components__route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
   security_group_rule :
     forward_path_components__security_group_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   sequence_number : float prop;
   source_vpc : forward_path_components__source_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet : forward_path_components__subnet list;
+      [@default []] [@yojson_drop_default ( = )]
   transit_gateway : forward_path_components__transit_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
   transit_gateway_route_table_route :
     forward_path_components__transit_gateway_route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc : forward_path_components__vpc list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2881,42 +3099,58 @@ let yojson_of_forward_path_components =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_forward_path_components__vpc
-             v_vpc
-         in
-         ("vpc", arg) :: bnds
+         if [] = v_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_forward_path_components__vpc)
+               v_vpc
+           in
+           let bnd = "vpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__transit_gateway_route_table_route
-             v_transit_gateway_route_table_route
-         in
-         ("transit_gateway_route_table_route", arg) :: bnds
+         if [] = v_transit_gateway_route_table_route then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__transit_gateway_route_table_route)
+               v_transit_gateway_route_table_route
+           in
+           let bnd = "transit_gateway_route_table_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__transit_gateway
-             v_transit_gateway
-         in
-         ("transit_gateway", arg) :: bnds
+         if [] = v_transit_gateway then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__transit_gateway)
+               v_transit_gateway
+           in
+           let bnd = "transit_gateway", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_forward_path_components__subnet
-             v_subnet
-         in
-         ("subnet", arg) :: bnds
+         if [] = v_subnet then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__subnet)
+               v_subnet
+           in
+           let bnd = "subnet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__source_vpc
-             v_source_vpc
-         in
-         ("source_vpc", arg) :: bnds
+         if [] = v_source_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__source_vpc)
+               v_source_vpc
+           in
+           let bnd = "source_vpc", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2925,74 +3159,103 @@ let yojson_of_forward_path_components =
          ("sequence_number", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__security_group_rule
-             v_security_group_rule
-         in
-         ("security_group_rule", arg) :: bnds
+         if [] = v_security_group_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__security_group_rule)
+               v_security_group_rule
+           in
+           let bnd = "security_group_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__route_table_route
-             v_route_table_route
-         in
-         ("route_table_route", arg) :: bnds
+         if [] = v_route_table_route then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__route_table_route)
+               v_route_table_route
+           in
+           let bnd = "route_table_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__outbound_header
-             v_outbound_header
-         in
-         ("outbound_header", arg) :: bnds
+         if [] = v_outbound_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__outbound_header)
+               v_outbound_header
+           in
+           let bnd = "outbound_header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__inbound_header
-             v_inbound_header
-         in
-         ("inbound_header", arg) :: bnds
+         if [] = v_inbound_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__inbound_header)
+               v_inbound_header
+           in
+           let bnd = "inbound_header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__destination_vpc
-             v_destination_vpc
-         in
-         ("destination_vpc", arg) :: bnds
+         if [] = v_destination_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__destination_vpc)
+               v_destination_vpc
+           in
+           let bnd = "destination_vpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__component v_component
-         in
-         ("component", arg) :: bnds
+         if [] = v_component then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__component)
+               v_component
+           in
+           let bnd = "component", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__attached_to
-             v_attached_to
-         in
-         ("attached_to", arg) :: bnds
+         if [] = v_attached_to then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__attached_to)
+               v_attached_to
+           in
+           let bnd = "attached_to", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forward_path_components__additional_details
-             v_additional_details
-         in
-         ("additional_details", arg) :: bnds
+         if [] = v_additional_details then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__additional_details)
+               v_additional_details
+           in
+           let bnd = "additional_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_forward_path_components__acl_rule
-             v_acl_rule
-         in
-         ("acl_rule", arg) :: bnds
+         if [] = v_acl_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forward_path_components__acl_rule)
+               v_acl_rule
+           in
+           let bnd = "acl_rule", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : forward_path_components -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -3251,6 +3514,7 @@ type return_path_components__security_group_rule = {
   direction : string prop;
   port_range :
     return_path_components__security_group_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix_list_id : string prop;
   protocol : string prop;
   security_group_id : string prop;
@@ -3289,12 +3553,15 @@ let yojson_of_return_path_components__security_group_rule =
          ("prefix_list_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__security_group_rule__port_range
-             v_port_range
-         in
-         ("port_range", arg) :: bnds
+         if [] = v_port_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__security_group_rule__port_range)
+               v_port_range
+           in
+           let bnd = "port_range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_direction in
@@ -3483,13 +3750,17 @@ let _ =
 
 type return_path_components__outbound_header = {
   destination_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_port_ranges :
     return_path_components__outbound_header__destination_port_ranges
     list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol : string prop;
   source_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   source_port_ranges :
     return_path_components__outbound_header__source_port_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3508,40 +3779,50 @@ let yojson_of_return_path_components__outbound_header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__outbound_header__source_port_ranges
-             v_source_port_ranges
-         in
-         ("source_port_ranges", arg) :: bnds
+         if [] = v_source_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__outbound_header__source_port_ranges)
+               v_source_port_ranges
+           in
+           let bnd = "source_port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_addresses
-         in
-         ("source_addresses", arg) :: bnds
+         if [] = v_source_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_addresses
+           in
+           let bnd = "source_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_protocol in
          ("protocol", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__outbound_header__destination_port_ranges
-             v_destination_port_ranges
-         in
-         ("destination_port_ranges", arg) :: bnds
+         if [] = v_destination_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__outbound_header__destination_port_ranges)
+               v_destination_port_ranges
+           in
+           let bnd = "destination_port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_addresses
-         in
-         ("destination_addresses", arg) :: bnds
+         if [] = v_destination_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_addresses
+           in
+           let bnd = "destination_addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : return_path_components__outbound_header ->
@@ -3622,13 +3903,17 @@ let _ =
 
 type return_path_components__inbound_header = {
   destination_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_port_ranges :
     return_path_components__inbound_header__destination_port_ranges
     list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol : string prop;
   source_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   source_port_ranges :
     return_path_components__inbound_header__source_port_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3647,40 +3932,50 @@ let yojson_of_return_path_components__inbound_header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__inbound_header__source_port_ranges
-             v_source_port_ranges
-         in
-         ("source_port_ranges", arg) :: bnds
+         if [] = v_source_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__inbound_header__source_port_ranges)
+               v_source_port_ranges
+           in
+           let bnd = "source_port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_addresses
-         in
-         ("source_addresses", arg) :: bnds
+         if [] = v_source_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_addresses
+           in
+           let bnd = "source_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_protocol in
          ("protocol", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__inbound_header__destination_port_ranges
-             v_destination_port_ranges
-         in
-         ("destination_port_ranges", arg) :: bnds
+         if [] = v_destination_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__inbound_header__destination_port_ranges)
+               v_destination_port_ranges
+           in
+           let bnd = "destination_port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_addresses
-         in
-         ("destination_addresses", arg) :: bnds
+         if [] = v_destination_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_addresses
+           in
+           let bnd = "destination_addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : return_path_components__inbound_header ->
@@ -3837,6 +4132,7 @@ type return_path_components__additional_details = {
   additional_detail_type : string prop;
   component :
     return_path_components__additional_details__component list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3852,12 +4148,15 @@ let yojson_of_return_path_components__additional_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__additional_details__component
-             v_component
-         in
-         ("component", arg) :: bnds
+         if [] = v_component then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__additional_details__component)
+               v_component
+           in
+           let bnd = "component", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -3907,6 +4206,7 @@ type return_path_components__acl_rule = {
   cidr : string prop;
   egress : bool prop;
   port_range : return_path_components__acl_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol : string prop;
   rule_action : string prop;
   rule_number : float prop;
@@ -3941,12 +4241,15 @@ let yojson_of_return_path_components__acl_rule =
          ("protocol", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__acl_rule__port_range
-             v_port_range
-         in
-         ("port_range", arg) :: bnds
+         if [] = v_port_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__acl_rule__port_range)
+               v_port_range
+           in
+           let bnd = "port_range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_egress in
@@ -3966,23 +4269,37 @@ let _ = yojson_of_return_path_components__acl_rule
 
 type return_path_components = {
   acl_rule : return_path_components__acl_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   additional_details :
     return_path_components__additional_details list;
+      [@default []] [@yojson_drop_default ( = )]
   attached_to : return_path_components__attached_to list;
+      [@default []] [@yojson_drop_default ( = )]
   component : return_path_components__component list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_vpc : return_path_components__destination_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
   inbound_header : return_path_components__inbound_header list;
+      [@default []] [@yojson_drop_default ( = )]
   outbound_header : return_path_components__outbound_header list;
+      [@default []] [@yojson_drop_default ( = )]
   route_table_route : return_path_components__route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
   security_group_rule :
     return_path_components__security_group_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   sequence_number : float prop;
   source_vpc : return_path_components__source_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet : return_path_components__subnet list;
+      [@default []] [@yojson_drop_default ( = )]
   transit_gateway : return_path_components__transit_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
   transit_gateway_route_table_route :
     return_path_components__transit_gateway_route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc : return_path_components__vpc list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4012,41 +4329,57 @@ let yojson_of_return_path_components =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_return_path_components__vpc v_vpc
-         in
-         ("vpc", arg) :: bnds
+         if [] = v_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_return_path_components__vpc)
+               v_vpc
+           in
+           let bnd = "vpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__transit_gateway_route_table_route
-             v_transit_gateway_route_table_route
-         in
-         ("transit_gateway_route_table_route", arg) :: bnds
+         if [] = v_transit_gateway_route_table_route then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__transit_gateway_route_table_route)
+               v_transit_gateway_route_table_route
+           in
+           let bnd = "transit_gateway_route_table_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__transit_gateway
-             v_transit_gateway
-         in
-         ("transit_gateway", arg) :: bnds
+         if [] = v_transit_gateway then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__transit_gateway)
+               v_transit_gateway
+           in
+           let bnd = "transit_gateway", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_return_path_components__subnet
-             v_subnet
-         in
-         ("subnet", arg) :: bnds
+         if [] = v_subnet then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_return_path_components__subnet)
+               v_subnet
+           in
+           let bnd = "subnet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__source_vpc
-             v_source_vpc
-         in
-         ("source_vpc", arg) :: bnds
+         if [] = v_source_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__source_vpc)
+               v_source_vpc
+           in
+           let bnd = "source_vpc", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -4055,74 +4388,103 @@ let yojson_of_return_path_components =
          ("sequence_number", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__security_group_rule
-             v_security_group_rule
-         in
-         ("security_group_rule", arg) :: bnds
+         if [] = v_security_group_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__security_group_rule)
+               v_security_group_rule
+           in
+           let bnd = "security_group_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__route_table_route
-             v_route_table_route
-         in
-         ("route_table_route", arg) :: bnds
+         if [] = v_route_table_route then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__route_table_route)
+               v_route_table_route
+           in
+           let bnd = "route_table_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__outbound_header
-             v_outbound_header
-         in
-         ("outbound_header", arg) :: bnds
+         if [] = v_outbound_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__outbound_header)
+               v_outbound_header
+           in
+           let bnd = "outbound_header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__inbound_header
-             v_inbound_header
-         in
-         ("inbound_header", arg) :: bnds
+         if [] = v_inbound_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__inbound_header)
+               v_inbound_header
+           in
+           let bnd = "inbound_header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__destination_vpc
-             v_destination_vpc
-         in
-         ("destination_vpc", arg) :: bnds
+         if [] = v_destination_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__destination_vpc)
+               v_destination_vpc
+           in
+           let bnd = "destination_vpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_return_path_components__component
-             v_component
-         in
-         ("component", arg) :: bnds
+         if [] = v_component then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__component)
+               v_component
+           in
+           let bnd = "component", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__attached_to
-             v_attached_to
-         in
-         ("attached_to", arg) :: bnds
+         if [] = v_attached_to then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__attached_to)
+               v_attached_to
+           in
+           let bnd = "attached_to", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_return_path_components__additional_details
-             v_additional_details
-         in
-         ("additional_details", arg) :: bnds
+         if [] = v_additional_details then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__additional_details)
+               v_additional_details
+           in
+           let bnd = "additional_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_return_path_components__acl_rule
-             v_acl_rule
-         in
-         ("acl_rule", arg) :: bnds
+         if [] = v_acl_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_return_path_components__acl_rule)
+               v_acl_rule
+           in
+           let bnd = "acl_rule", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : return_path_components -> Ppx_yojson_conv_lib.Yojson.Safe.t)

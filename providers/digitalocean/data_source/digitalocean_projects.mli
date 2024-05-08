@@ -14,7 +14,9 @@ type projects = {
   owner_id : float prop;  (** owner_id *)
   owner_uuid : string prop;  (** owner_uuid *)
   purpose : string prop;  (** purpose *)
-  resources : string prop list;  (** resources *)
+  resources : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** resources *)
   updated_at : string prop;  (** updated_at *)
 }
 

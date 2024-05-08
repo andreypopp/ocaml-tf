@@ -44,6 +44,7 @@ type saml_options = {
   session_timeout_minutes : float prop option; [@option]
   subject_key : string prop option; [@option]
   idp : saml_options__idp list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,10 +65,13 @@ let yojson_of_saml_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_saml_options__idp v_idp
-         in
-         ("idp", arg) :: bnds
+         if [] = v_idp then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_saml_options__idp) v_idp
+           in
+           let bnd = "idp", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_subject_key with
@@ -165,6 +169,7 @@ type aws_elasticsearch_domain_saml_options = {
   domain_name : string prop;
   id : string prop option; [@option]
   saml_options : saml_options list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -187,10 +192,13 @@ let yojson_of_aws_elasticsearch_domain_saml_options =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_saml_options v_saml_options
-         in
-         ("saml_options", arg) :: bnds
+         if [] = v_saml_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_saml_options) v_saml_options
+           in
+           let bnd = "saml_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

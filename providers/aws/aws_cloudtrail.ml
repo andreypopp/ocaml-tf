@@ -104,6 +104,7 @@ let _ = yojson_of_advanced_event_selector__field_selector
 type advanced_event_selector = {
   name : string prop option; [@option]
   field_selector : advanced_event_selector__field_selector list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -116,12 +117,15 @@ let yojson_of_advanced_event_selector =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_advanced_event_selector__field_selector
-             v_field_selector
-         in
-         ("field_selector", arg) :: bnds
+         if [] = v_field_selector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_advanced_event_selector__field_selector)
+               v_field_selector
+           in
+           let bnd = "field_selector", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -141,6 +145,7 @@ let _ = yojson_of_advanced_event_selector
 type event_selector__data_resource = {
   type_ : string prop; [@key "type"]
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,10 +158,14 @@ let yojson_of_event_selector__data_resource =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -176,6 +185,7 @@ type event_selector = {
   include_management_events : bool prop option; [@option]
   read_write_type : string prop option; [@option]
   data_resource : event_selector__data_resource list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -194,11 +204,14 @@ let yojson_of_event_selector =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_selector__data_resource
-             v_data_resource
-         in
-         ("data_resource", arg) :: bnds
+         if [] = v_data_resource then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_selector__data_resource)
+               v_data_resource
+           in
+           let bnd = "data_resource", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_read_write_type with
@@ -272,8 +285,11 @@ type aws_cloudtrail = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   advanced_event_selector : advanced_event_selector list;
+      [@default []] [@yojson_drop_default ( = )]
   event_selector : event_selector list;
+      [@default []] [@yojson_drop_default ( = )]
   insight_selector : insight_selector list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -306,24 +322,34 @@ let yojson_of_aws_cloudtrail =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_insight_selector
-             v_insight_selector
-         in
-         ("insight_selector", arg) :: bnds
+         if [] = v_insight_selector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_insight_selector)
+               v_insight_selector
+           in
+           let bnd = "insight_selector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_selector v_event_selector
-         in
-         ("event_selector", arg) :: bnds
+         if [] = v_event_selector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_selector)
+               v_event_selector
+           in
+           let bnd = "event_selector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_advanced_event_selector
-             v_advanced_event_selector
-         in
-         ("advanced_event_selector", arg) :: bnds
+         if [] = v_advanced_event_selector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_advanced_event_selector)
+               v_advanced_event_selector
+           in
+           let bnd = "advanced_event_selector", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

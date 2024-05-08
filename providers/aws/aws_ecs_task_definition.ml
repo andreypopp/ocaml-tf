@@ -318,6 +318,7 @@ type volume__efs_volume_configuration = {
   transit_encryption_port : float prop option; [@option]
   authorization_config :
     volume__efs_volume_configuration__authorization_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -336,12 +337,15 @@ let yojson_of_volume__efs_volume_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_volume__efs_volume_configuration__authorization_config
-             v_authorization_config
-         in
-         ("authorization_config", arg) :: bnds
+         if [] = v_authorization_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_volume__efs_volume_configuration__authorization_config)
+               v_authorization_config
+           in
+           let bnd = "authorization_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_transit_encryption_port with
@@ -427,6 +431,7 @@ type volume__fsx_windows_file_server_volume_configuration = {
   authorization_config :
     volume__fsx_windows_file_server_volume_configuration__authorization_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -444,12 +449,15 @@ let yojson_of_volume__fsx_windows_file_server_volume_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_volume__fsx_windows_file_server_volume_configuration__authorization_config
-             v_authorization_config
-         in
-         ("authorization_config", arg) :: bnds
+         if [] = v_authorization_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_volume__fsx_windows_file_server_volume_configuration__authorization_config)
+               v_authorization_config
+           in
+           let bnd = "authorization_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -477,9 +485,12 @@ type volume = {
   name : string prop;
   docker_volume_configuration :
     volume__docker_volume_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   efs_volume_configuration : volume__efs_volume_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   fsx_windows_file_server_volume_configuration :
     volume__fsx_windows_file_server_volume_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -499,28 +510,40 @@ let yojson_of_volume =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_volume__fsx_windows_file_server_volume_configuration
-             v_fsx_windows_file_server_volume_configuration
-         in
-         ("fsx_windows_file_server_volume_configuration", arg)
-         :: bnds
+         if [] = v_fsx_windows_file_server_volume_configuration then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_volume__fsx_windows_file_server_volume_configuration)
+               v_fsx_windows_file_server_volume_configuration
+           in
+           let bnd =
+             "fsx_windows_file_server_volume_configuration", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_volume__efs_volume_configuration
-             v_efs_volume_configuration
-         in
-         ("efs_volume_configuration", arg) :: bnds
+         if [] = v_efs_volume_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_volume__efs_volume_configuration)
+               v_efs_volume_configuration
+           in
+           let bnd = "efs_volume_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_volume__docker_volume_configuration
-             v_docker_volume_configuration
-         in
-         ("docker_volume_configuration", arg) :: bnds
+         if [] = v_docker_volume_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_volume__docker_volume_configuration)
+               v_docker_volume_configuration
+           in
+           let bnd = "docker_volume_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -558,11 +581,16 @@ type aws_ecs_task_definition = {
   task_role_arn : string prop option; [@option]
   track_latest : bool prop option; [@option]
   ephemeral_storage : ephemeral_storage list;
+      [@default []] [@yojson_drop_default ( = )]
   inference_accelerator : inference_accelerator list;
+      [@default []] [@yojson_drop_default ( = )]
   placement_constraints : placement_constraints list;
+      [@default []] [@yojson_drop_default ( = )]
   proxy_configuration : proxy_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   runtime_platform : runtime_platform list;
-  volume : volume list;
+      [@default []] [@yojson_drop_default ( = )]
+  volume : volume list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -597,43 +625,61 @@ let yojson_of_aws_ecs_task_definition =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_volume v_volume in
-         ("volume", arg) :: bnds
+         if [] = v_volume then bnds
+         else
+           let arg = (yojson_of_list yojson_of_volume) v_volume in
+           let bnd = "volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_runtime_platform
-             v_runtime_platform
-         in
-         ("runtime_platform", arg) :: bnds
+         if [] = v_runtime_platform then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_runtime_platform)
+               v_runtime_platform
+           in
+           let bnd = "runtime_platform", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_proxy_configuration
-             v_proxy_configuration
-         in
-         ("proxy_configuration", arg) :: bnds
+         if [] = v_proxy_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_proxy_configuration)
+               v_proxy_configuration
+           in
+           let bnd = "proxy_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_placement_constraints
-             v_placement_constraints
-         in
-         ("placement_constraints", arg) :: bnds
+         if [] = v_placement_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_placement_constraints)
+               v_placement_constraints
+           in
+           let bnd = "placement_constraints", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inference_accelerator
-             v_inference_accelerator
-         in
-         ("inference_accelerator", arg) :: bnds
+         if [] = v_inference_accelerator then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_inference_accelerator)
+               v_inference_accelerator
+           in
+           let bnd = "inference_accelerator", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ephemeral_storage
-             v_ephemeral_storage
-         in
-         ("ephemeral_storage", arg) :: bnds
+         if [] = v_ephemeral_storage then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ephemeral_storage)
+               v_ephemeral_storage
+           in
+           let bnd = "ephemeral_storage", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_track_latest with

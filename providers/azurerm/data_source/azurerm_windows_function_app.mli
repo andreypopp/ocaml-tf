@@ -16,7 +16,9 @@ type auth_settings__microsoft = {
   client_secret : string prop;  (** client_secret *)
   client_secret_setting_name : string prop;
       (** client_secret_setting_name *)
-  oauth_scopes : string prop list;  (** oauth_scopes *)
+  oauth_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** oauth_scopes *)
 }
 
 type auth_settings__google = {
@@ -24,7 +26,9 @@ type auth_settings__google = {
   client_secret : string prop;  (** client_secret *)
   client_secret_setting_name : string prop;
       (** client_secret_setting_name *)
-  oauth_scopes : string prop list;  (** oauth_scopes *)
+  oauth_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** oauth_scopes *)
 }
 
 type auth_settings__github = {
@@ -32,7 +36,9 @@ type auth_settings__github = {
   client_secret : string prop;  (** client_secret *)
   client_secret_setting_name : string prop;
       (** client_secret_setting_name *)
-  oauth_scopes : string prop list;  (** oauth_scopes *)
+  oauth_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** oauth_scopes *)
 }
 
 type auth_settings__facebook = {
@@ -40,11 +46,15 @@ type auth_settings__facebook = {
   app_secret : string prop;  (** app_secret *)
   app_secret_setting_name : string prop;
       (** app_secret_setting_name *)
-  oauth_scopes : string prop list;  (** oauth_scopes *)
+  oauth_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** oauth_scopes *)
 }
 
 type auth_settings__active_directory = {
-  allowed_audiences : string prop list;  (** allowed_audiences *)
+  allowed_audiences : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_audiences *)
   client_id : string prop;  (** client_id *)
   client_secret : string prop;  (** client_secret *)
   client_secret_setting_name : string prop;
@@ -53,23 +63,35 @@ type auth_settings__active_directory = {
 
 type auth_settings = {
   active_directory : auth_settings__active_directory list;
+      [@default []] [@yojson_drop_default ( = )]
       (** active_directory *)
   additional_login_parameters : (string * string prop) list;
       (** additional_login_parameters *)
   allowed_external_redirect_urls : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** allowed_external_redirect_urls *)
   default_provider : string prop;  (** default_provider *)
   enabled : bool prop;  (** enabled *)
-  facebook : auth_settings__facebook list;  (** facebook *)
-  github : auth_settings__github list;  (** github *)
-  google : auth_settings__google list;  (** google *)
+  facebook : auth_settings__facebook list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** facebook *)
+  github : auth_settings__github list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** github *)
+  google : auth_settings__google list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** google *)
   issuer : string prop;  (** issuer *)
-  microsoft : auth_settings__microsoft list;  (** microsoft *)
+  microsoft : auth_settings__microsoft list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** microsoft *)
   runtime_version : string prop;  (** runtime_version *)
   token_refresh_extension_hours : float prop;
       (** token_refresh_extension_hours *)
   token_store_enabled : bool prop;  (** token_store_enabled *)
-  twitter : auth_settings__twitter list;  (** twitter *)
+  twitter : auth_settings__twitter list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** twitter *)
   unauthenticated_client_action : string prop;
       (** unauthenticated_client_action *)
 }
@@ -81,15 +103,20 @@ type auth_settings_v2__twitter_v2 = {
 }
 
 type auth_settings_v2__microsoft_v2 = {
-  allowed_audiences : string prop list;  (** allowed_audiences *)
+  allowed_audiences : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_audiences *)
   client_id : string prop;  (** client_id *)
   client_secret_setting_name : string prop;
       (** client_secret_setting_name *)
-  login_scopes : string prop list;  (** login_scopes *)
+  login_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** login_scopes *)
 }
 
 type auth_settings_v2__login = {
   allowed_external_redirect_urls : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** allowed_external_redirect_urls *)
   cookie_expiration_convention : string prop;
       (** cookie_expiration_convention *)
@@ -109,18 +136,24 @@ type auth_settings_v2__login = {
 }
 
 type auth_settings_v2__google_v2 = {
-  allowed_audiences : string prop list;  (** allowed_audiences *)
+  allowed_audiences : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_audiences *)
   client_id : string prop;  (** client_id *)
   client_secret_setting_name : string prop;
       (** client_secret_setting_name *)
-  login_scopes : string prop list;  (** login_scopes *)
+  login_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** login_scopes *)
 }
 
 type auth_settings_v2__github_v2 = {
   client_id : string prop;  (** client_id *)
   client_secret_setting_name : string prop;
       (** client_secret_setting_name *)
-  login_scopes : string prop list;  (** login_scopes *)
+  login_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** login_scopes *)
 }
 
 type auth_settings_v2__facebook_v2 = {
@@ -128,7 +161,9 @@ type auth_settings_v2__facebook_v2 = {
   app_secret_setting_name : string prop;
       (** app_secret_setting_name *)
   graph_api_version : string prop;  (** graph_api_version *)
-  login_scopes : string prop list;  (** login_scopes *)
+  login_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** login_scopes *)
 }
 
 type auth_settings_v2__custom_oidc_v2 = {
@@ -145,7 +180,9 @@ type auth_settings_v2__custom_oidc_v2 = {
   name_claim_type : string prop;  (** name_claim_type *)
   openid_configuration_endpoint : string prop;
       (** openid_configuration_endpoint *)
-  scopes : string prop list;  (** scopes *)
+  scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** scopes *)
   token_endpoint : string prop;  (** token_endpoint *)
 }
 
@@ -157,23 +194,35 @@ type auth_settings_v2__apple_v2 = {
   client_id : string prop;  (** client_id *)
   client_secret_setting_name : string prop;
       (** client_secret_setting_name *)
-  login_scopes : string prop list;  (** login_scopes *)
+  login_scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** login_scopes *)
 }
 
 type auth_settings_v2__active_directory_v2 = {
   allowed_applications : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** allowed_applications *)
-  allowed_audiences : string prop list;  (** allowed_audiences *)
-  allowed_groups : string prop list;  (** allowed_groups *)
-  allowed_identities : string prop list;  (** allowed_identities *)
+  allowed_audiences : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_audiences *)
+  allowed_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_groups *)
+  allowed_identities : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_identities *)
   client_id : string prop;  (** client_id *)
   client_secret_certificate_thumbprint : string prop;
       (** client_secret_certificate_thumbprint *)
   client_secret_setting_name : string prop;
       (** client_secret_setting_name *)
   jwt_allowed_client_applications : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** jwt_allowed_client_applications *)
-  jwt_allowed_groups : string prop list;  (** jwt_allowed_groups *)
+  jwt_allowed_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** jwt_allowed_groups *)
   login_parameters : (string * string prop) list;
       (** login_parameters *)
   tenant_auth_endpoint : string prop;  (** tenant_auth_endpoint *)
@@ -183,18 +232,26 @@ type auth_settings_v2__active_directory_v2 = {
 
 type auth_settings_v2 = {
   active_directory_v2 : auth_settings_v2__active_directory_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
       (** active_directory_v2 *)
-  apple_v2 : auth_settings_v2__apple_v2 list;  (** apple_v2 *)
+  apple_v2 : auth_settings_v2__apple_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** apple_v2 *)
   auth_enabled : bool prop;  (** auth_enabled *)
   azure_static_web_app_v2 :
     auth_settings_v2__azure_static_web_app_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
       (** azure_static_web_app_v2 *)
   config_file_path : string prop;  (** config_file_path *)
   custom_oidc_v2 : auth_settings_v2__custom_oidc_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
       (** custom_oidc_v2 *)
   default_provider : string prop;  (** default_provider *)
-  excluded_paths : string prop list;  (** excluded_paths *)
+  excluded_paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** excluded_paths *)
   facebook_v2 : auth_settings_v2__facebook_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
       (** facebook_v2 *)
   forward_proxy_convention : string prop;
       (** forward_proxy_convention *)
@@ -202,16 +259,25 @@ type auth_settings_v2 = {
       (** forward_proxy_custom_host_header_name *)
   forward_proxy_custom_scheme_header_name : string prop;
       (** forward_proxy_custom_scheme_header_name *)
-  github_v2 : auth_settings_v2__github_v2 list;  (** github_v2 *)
-  google_v2 : auth_settings_v2__google_v2 list;  (** google_v2 *)
+  github_v2 : auth_settings_v2__github_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** github_v2 *)
+  google_v2 : auth_settings_v2__google_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** google_v2 *)
   http_route_api_prefix : string prop;  (** http_route_api_prefix *)
-  login : auth_settings_v2__login list;  (** login *)
+  login : auth_settings_v2__login list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** login *)
   microsoft_v2 : auth_settings_v2__microsoft_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
       (** microsoft_v2 *)
   require_authentication : bool prop;  (** require_authentication *)
   require_https : bool prop;  (** require_https *)
   runtime_version : string prop;  (** runtime_version *)
-  twitter_v2 : auth_settings_v2__twitter_v2 list;  (** twitter_v2 *)
+  twitter_v2 : auth_settings_v2__twitter_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** twitter_v2 *)
   unauthenticated_action : string prop;  (** unauthenticated_action *)
 }
 
@@ -228,7 +294,9 @@ type backup__schedule = {
 type backup = {
   enabled : bool prop;  (** enabled *)
   name : string prop;  (** name *)
-  schedule : backup__schedule list;  (** schedule *)
+  schedule : backup__schedule list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** schedule *)
   storage_account_url : string prop;  (** storage_account_url *)
 }
 
@@ -239,23 +307,34 @@ type connection_string = {
 }
 
 type identity = {
-  identity_ids : string prop list;  (** identity_ids *)
+  identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** identity_ids *)
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 
 type site_config__scm_ip_restriction__headers = {
-  x_azure_fdid : string prop list;  (** x_azure_fdid *)
-  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
-  x_forwarded_for : string prop list;  (** x_forwarded_for *)
-  x_forwarded_host : string prop list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_for *)
+  x_forwarded_host : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_host *)
 }
 
 type site_config__scm_ip_restriction = {
   action : string prop;  (** action *)
   description : string prop;  (** description *)
   headers : site_config__scm_ip_restriction__headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** headers *)
   ip_address : string prop;  (** ip_address *)
   name : string prop;  (** name *)
@@ -266,16 +345,25 @@ type site_config__scm_ip_restriction = {
 }
 
 type site_config__ip_restriction__headers = {
-  x_azure_fdid : string prop list;  (** x_azure_fdid *)
-  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
-  x_forwarded_for : string prop list;  (** x_forwarded_for *)
-  x_forwarded_host : string prop list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_for *)
+  x_forwarded_host : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_host *)
 }
 
 type site_config__ip_restriction = {
   action : string prop;  (** action *)
   description : string prop;  (** description *)
   headers : site_config__ip_restriction__headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** headers *)
   ip_address : string prop;  (** ip_address *)
   name : string prop;  (** name *)
@@ -286,7 +374,9 @@ type site_config__ip_restriction = {
 }
 
 type site_config__cors = {
-  allowed_origins : string prop list;  (** allowed_origins *)
+  allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_origins *)
   support_credentials : bool prop;  (** support_credentials *)
 }
 
@@ -313,15 +403,21 @@ type site_config = {
   app_command_line : string prop;  (** app_command_line *)
   app_scale_limit : float prop;  (** app_scale_limit *)
   app_service_logs : site_config__app_service_logs list;
+      [@default []] [@yojson_drop_default ( = )]
       (** app_service_logs *)
   application_insights_connection_string : string prop;
       (** application_insights_connection_string *)
   application_insights_key : string prop;
       (** application_insights_key *)
   application_stack : site_config__application_stack list;
+      [@default []] [@yojson_drop_default ( = )]
       (** application_stack *)
-  cors : site_config__cors list;  (** cors *)
-  default_documents : string prop list;  (** default_documents *)
+  cors : site_config__cors list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cors *)
+  default_documents : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** default_documents *)
   detailed_error_logging_enabled : bool prop;
       (** detailed_error_logging_enabled *)
   elastic_instance_minimum : float prop;
@@ -332,6 +428,7 @@ type site_config = {
   health_check_path : string prop;  (** health_check_path *)
   http2_enabled : bool prop;  (** http2_enabled *)
   ip_restriction : site_config__ip_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ip_restriction *)
   ip_restriction_default_action : string prop;
       (** ip_restriction_default_action *)
@@ -347,6 +444,7 @@ type site_config = {
   runtime_scale_monitoring_enabled : bool prop;
       (** runtime_scale_monitoring_enabled *)
   scm_ip_restriction : site_config__scm_ip_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
       (** scm_ip_restriction *)
   scm_ip_restriction_default_action : string prop;
       (** scm_ip_restriction_default_action *)
@@ -368,8 +466,11 @@ type site_credential = {
 }
 
 type sticky_settings = {
-  app_setting_names : string prop list;  (** app_setting_names *)
+  app_setting_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** app_setting_names *)
   connection_string_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** connection_string_names *)
 }
 

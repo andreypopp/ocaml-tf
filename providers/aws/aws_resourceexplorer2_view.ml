@@ -50,8 +50,9 @@ type aws_resourceexplorer2_view = {
   default_view : bool prop option; [@option]
   name : string prop;
   tags : (string * string prop) list option; [@option]
-  filters : filters list;
+  filters : filters list; [@default []] [@yojson_drop_default ( = )]
   included_property : included_property list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,15 +71,21 @@ let yojson_of_aws_resourceexplorer2_view =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_included_property
-             v_included_property
-         in
-         ("included_property", arg) :: bnds
+         if [] = v_included_property then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_included_property)
+               v_included_property
+           in
+           let bnd = "included_property", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filters v_filters in
-         ("filters", arg) :: bnds
+         if [] = v_filters then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filters) v_filters in
+           let bnd = "filters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

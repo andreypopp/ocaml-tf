@@ -49,6 +49,7 @@ type match_ = {
   src_region_codes : string prop list option; [@option]
   src_threat_intelligences : string prop list option; [@option]
   layer4_configs : match__layer4_configs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,11 +74,14 @@ let yojson_of_match_ =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_match__layer4_configs
-             v_layer4_configs
-         in
-         ("layer4_configs", arg) :: bnds
+         if [] = v_layer4_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_match__layer4_configs)
+               v_layer4_configs
+           in
+           let bnd = "layer4_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_src_threat_intelligences with
@@ -243,7 +247,8 @@ type google_compute_firewall_policy_rule = {
   priority : float prop;
   target_resources : string prop list option; [@option]
   target_service_accounts : string prop list option; [@option]
-  match_ : match_ list; [@key "match"]
+  match_ : match_ list;
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -274,8 +279,11 @@ let yojson_of_google_compute_firewall_policy_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_match_ v_match_ in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg = (yojson_of_list yojson_of_match_) v_match_ in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_service_accounts with

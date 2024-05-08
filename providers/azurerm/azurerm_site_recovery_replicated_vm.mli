@@ -17,9 +17,11 @@ type managed_disk__target_disk_encryption__disk_encryption_key = {
 type managed_disk__target_disk_encryption = {
   disk_encryption_key :
     managed_disk__target_disk_encryption__disk_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
       (** disk_encryption_key *)
   key_encryption_key :
     managed_disk__target_disk_encryption__key_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
       (** key_encryption_key *)
 }
 
@@ -28,6 +30,7 @@ type managed_disk = {
   staging_storage_account_id : string prop;
       (** staging_storage_account_id *)
   target_disk_encryption : managed_disk__target_disk_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
       (** target_disk_encryption *)
   target_disk_encryption_set_id : string prop;
       (** target_disk_encryption_set_id *)

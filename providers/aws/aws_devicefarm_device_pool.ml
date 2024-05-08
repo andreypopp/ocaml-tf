@@ -60,7 +60,7 @@ type aws_devicefarm_device_pool = {
   project_arn : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,8 +82,11 @@ let yojson_of_aws_devicefarm_device_pool =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

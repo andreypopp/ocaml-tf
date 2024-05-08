@@ -34,6 +34,7 @@ let _ = yojson_of_rule__repository_filter
 type rule = {
   scan_frequency : string prop;
   repository_filter : rule__repository_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,11 +50,14 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__repository_filter
-             v_repository_filter
-         in
-         ("repository_filter", arg) :: bnds
+         if [] = v_repository_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__repository_filter)
+               v_repository_filter
+           in
+           let bnd = "repository_filter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -71,7 +75,7 @@ let _ = yojson_of_rule
 type aws_ecr_registry_scanning_configuration = {
   id : string prop option; [@option]
   scan_type : string prop;
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -84,8 +88,11 @@ let yojson_of_aws_ecr_registry_scanning_configuration =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_scan_type in

@@ -175,8 +175,11 @@ type aws_opsworks_application = {
   stack_id : string prop;
   type_ : string prop; [@key "type"]
   app_source : app_source list;
+      [@default []] [@yojson_drop_default ( = )]
   environment : environment list;
+      [@default []] [@yojson_drop_default ( = )]
   ssl_configuration : ssl_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -208,23 +211,32 @@ let yojson_of_aws_opsworks_application =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_configuration
-             v_ssl_configuration
-         in
-         ("ssl_configuration", arg) :: bnds
+         if [] = v_ssl_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssl_configuration)
+               v_ssl_configuration
+           in
+           let bnd = "ssl_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_environment v_environment
-         in
-         ("environment", arg) :: bnds
+         if [] = v_environment then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_environment) v_environment
+           in
+           let bnd = "environment", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_app_source v_app_source
-         in
-         ("app_source", arg) :: bnds
+         if [] = v_app_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_app_source) v_app_source
+           in
+           let bnd = "app_source", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

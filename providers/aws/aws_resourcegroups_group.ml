@@ -5,6 +5,7 @@ open! Tf_core
 type configuration__parameters = {
   name : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,10 +18,14 @@ let yojson_of_configuration__parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -36,6 +41,7 @@ let _ = yojson_of_configuration__parameters
 type configuration = {
   type_ : string prop; [@key "type"]
   parameters : configuration__parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,11 +54,14 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration__parameters
-             v_parameters
-         in
-         ("parameters", arg) :: bnds
+         if [] = v_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration__parameters)
+               v_parameters
+           in
+           let bnd = "parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -142,7 +151,9 @@ type aws_resourcegroups_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   configuration : configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_query : resource_query list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -169,16 +180,23 @@ let yojson_of_aws_resourcegroups_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resource_query v_resource_query
-         in
-         ("resource_query", arg) :: bnds
+         if [] = v_resource_query then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resource_query)
+               v_resource_query
+           in
+           let bnd = "resource_query", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration v_configuration
-         in
-         ("configuration", arg) :: bnds
+         if [] = v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

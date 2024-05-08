@@ -64,7 +64,9 @@ type cloudflare_managed_headers = {
   id : string prop option; [@option]
   zone_id : string prop;
   managed_request_headers : managed_request_headers list;
+      [@default []] [@yojson_drop_default ( = )]
   managed_response_headers : managed_response_headers list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,18 +84,24 @@ let yojson_of_cloudflare_managed_headers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_managed_response_headers
-             v_managed_response_headers
-         in
-         ("managed_response_headers", arg) :: bnds
+         if [] = v_managed_response_headers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_managed_response_headers)
+               v_managed_response_headers
+           in
+           let bnd = "managed_response_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_managed_request_headers
-             v_managed_request_headers
-         in
-         ("managed_request_headers", arg) :: bnds
+         if [] = v_managed_request_headers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_managed_request_headers)
+               v_managed_request_headers
+           in
+           let bnd = "managed_request_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in

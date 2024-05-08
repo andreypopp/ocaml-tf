@@ -157,8 +157,9 @@ type hcloud_server = {
   shutdown_before_deletion : bool prop option; [@option]
   ssh_keys : string prop list option; [@option]
   user_data : string prop option; [@option]
-  network : network list;
+  network : network list; [@default []] [@yojson_drop_default ( = )]
   public_net : public_net list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -200,14 +201,20 @@ let yojson_of_hcloud_server =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_public_net v_public_net
-         in
-         ("public_net", arg) :: bnds
+         if [] = v_public_net then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_public_net) v_public_net
+           in
+           let bnd = "public_net", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_network v_network in
-         ("network", arg) :: bnds
+         if [] = v_network then bnds
+         else
+           let arg = (yojson_of_list yojson_of_network) v_network in
+           let bnd = "network", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_data with

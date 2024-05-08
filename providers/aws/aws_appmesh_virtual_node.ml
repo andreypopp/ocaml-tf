@@ -76,9 +76,11 @@ type spec__backend__virtual_service__client_policy__tls__certificate = {
   file :
     spec__backend__virtual_service__client_policy__tls__certificate__file
     list;
+      [@default []] [@yojson_drop_default ( = )]
   sds :
     spec__backend__virtual_service__client_policy__tls__certificate__sds
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,20 +97,26 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__certificate
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls__certificate__sds
-             v_sds
-         in
-         ("sds", arg) :: bnds
+         if [] = v_sds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls__certificate__sds)
+               v_sds
+           in
+           let bnd = "sds", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls__certificate__file
-             v_file
-         in
-         ("file", arg) :: bnds
+         if [] = v_file then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls__certificate__file)
+               v_file
+           in
+           let bnd = "file", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend__virtual_service__client_policy__tls__certificate ->
@@ -120,7 +128,7 @@ let _ =
 [@@@deriving.end]
 
 type spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names__match = {
-  exact : string prop list;
+  exact : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -137,10 +145,14 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation__su
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_exact
-         in
-         ("exact", arg) :: bnds
+         if [] = v_exact then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_exact
+           in
+           let bnd = "exact", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names__match ->
@@ -155,7 +167,7 @@ type spec__backend__virtual_service__client_policy__tls__validation__subject_alt
   match_ :
     spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names__match
     list;
-      [@key "match"]
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,12 +184,15 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation__su
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names__match
-             v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names ->
@@ -190,6 +205,7 @@ let _ =
 
 type spec__backend__virtual_service__client_policy__tls__validation__trust__acm = {
   certificate_authority_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -206,12 +222,14 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation__tr
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_certificate_authority_arns
-         in
-         ("certificate_authority_arns", arg) :: bnds
+         if [] = v_certificate_authority_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_certificate_authority_arns
+           in
+           let bnd = "certificate_authority_arns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend__virtual_service__client_policy__tls__validation__trust__acm ->
@@ -288,12 +306,15 @@ type spec__backend__virtual_service__client_policy__tls__validation__trust = {
   acm :
     spec__backend__virtual_service__client_policy__tls__validation__trust__acm
     list;
+      [@default []] [@yojson_drop_default ( = )]
   file :
     spec__backend__virtual_service__client_policy__tls__validation__trust__file
     list;
+      [@default []] [@yojson_drop_default ( = )]
   sds :
     spec__backend__virtual_service__client_policy__tls__validation__trust__sds
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -310,28 +331,37 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation__tr
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls__validation__trust__sds
-             v_sds
-         in
-         ("sds", arg) :: bnds
+         if [] = v_sds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls__validation__trust__sds)
+               v_sds
+           in
+           let bnd = "sds", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls__validation__trust__file
-             v_file
-         in
-         ("file", arg) :: bnds
+         if [] = v_file then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls__validation__trust__file)
+               v_file
+           in
+           let bnd = "file", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls__validation__trust__acm
-             v_acm
-         in
-         ("acm", arg) :: bnds
+         if [] = v_acm then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls__validation__trust__acm)
+               v_acm
+           in
+           let bnd = "acm", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend__virtual_service__client_policy__tls__validation__trust ->
@@ -346,9 +376,11 @@ type spec__backend__virtual_service__client_policy__tls__validation = {
   subject_alternative_names :
     spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names
     list;
+      [@default []] [@yojson_drop_default ( = )]
   trust :
     spec__backend__virtual_service__client_policy__tls__validation__trust
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -368,20 +400,26 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls__validation
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls__validation__trust
-             v_trust
-         in
-         ("trust", arg) :: bnds
+         if [] = v_trust then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls__validation__trust)
+               v_trust
+           in
+           let bnd = "trust", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names
-             v_subject_alternative_names
-         in
-         ("subject_alternative_names", arg) :: bnds
+         if [] = v_subject_alternative_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls__validation__subject_alternative_names)
+               v_subject_alternative_names
+           in
+           let bnd = "subject_alternative_names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend__virtual_service__client_policy__tls__validation ->
@@ -398,9 +436,11 @@ type spec__backend__virtual_service__client_policy__tls = {
   certificate :
     spec__backend__virtual_service__client_policy__tls__certificate
     list;
+      [@default []] [@yojson_drop_default ( = )]
   validation :
     spec__backend__virtual_service__client_policy__tls__validation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -419,20 +459,26 @@ let yojson_of_spec__backend__virtual_service__client_policy__tls =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls__validation
-             v_validation
-         in
-         ("validation", arg) :: bnds
+         if [] = v_validation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls__validation)
+               v_validation
+           in
+           let bnd = "validation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls__certificate
-             v_certificate
-         in
-         ("certificate", arg) :: bnds
+         if [] = v_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls__certificate)
+               v_certificate
+           in
+           let bnd = "certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_ports with
@@ -462,6 +508,7 @@ let _ = yojson_of_spec__backend__virtual_service__client_policy__tls
 
 type spec__backend__virtual_service__client_policy = {
   tls : spec__backend__virtual_service__client_policy__tls list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -474,12 +521,15 @@ let yojson_of_spec__backend__virtual_service__client_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy__tls
-             v_tls
-         in
-         ("tls", arg) :: bnds
+         if [] = v_tls then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy__tls)
+               v_tls
+           in
+           let bnd = "tls", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend__virtual_service__client_policy ->
@@ -492,6 +542,7 @@ let _ = yojson_of_spec__backend__virtual_service__client_policy
 type spec__backend__virtual_service = {
   virtual_service_name : string prop;
   client_policy : spec__backend__virtual_service__client_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -507,12 +558,15 @@ let yojson_of_spec__backend__virtual_service =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend__virtual_service__client_policy
-             v_client_policy
-         in
-         ("client_policy", arg) :: bnds
+         if [] = v_client_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend__virtual_service__client_policy)
+               v_client_policy
+           in
+           let bnd = "client_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -530,6 +584,7 @@ let _ = yojson_of_spec__backend__virtual_service
 
 type spec__backend = {
   virtual_service : spec__backend__virtual_service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -542,11 +597,14 @@ let yojson_of_spec__backend =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__backend__virtual_service
-             v_virtual_service
-         in
-         ("virtual_service", arg) :: bnds
+         if [] = v_virtual_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__backend__virtual_service)
+               v_virtual_service
+           in
+           let bnd = "virtual_service", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -629,8 +687,10 @@ type spec__backend_defaults__client_policy__tls__certificate = {
   file :
     spec__backend_defaults__client_policy__tls__certificate__file
     list;
+      [@default []] [@yojson_drop_default ( = )]
   sds :
     spec__backend_defaults__client_policy__tls__certificate__sds list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -646,20 +706,26 @@ let yojson_of_spec__backend_defaults__client_policy__tls__certificate
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls__certificate__sds
-             v_sds
-         in
-         ("sds", arg) :: bnds
+         if [] = v_sds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls__certificate__sds)
+               v_sds
+           in
+           let bnd = "sds", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls__certificate__file
-             v_file
-         in
-         ("file", arg) :: bnds
+         if [] = v_file then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls__certificate__file)
+               v_file
+           in
+           let bnd = "file", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend_defaults__client_policy__tls__certificate ->
@@ -671,7 +737,7 @@ let _ =
 [@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match = {
-  exact : string prop list;
+  exact : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -688,10 +754,14 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_al
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_exact
-         in
-         ("exact", arg) :: bnds
+         if [] = v_exact then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_exact
+           in
+           let bnd = "exact", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match ->
@@ -706,7 +776,7 @@ type spec__backend_defaults__client_policy__tls__validation__subject_alternative
   match_ :
     spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
     list;
-      [@key "match"]
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -723,12 +793,15 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_al
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
-             v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend_defaults__client_policy__tls__validation__subject_alternative_names ->
@@ -741,6 +814,7 @@ let _ =
 
 type spec__backend_defaults__client_policy__tls__validation__trust__acm = {
   certificate_authority_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -757,12 +831,14 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__acm
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_certificate_authority_arns
-         in
-         ("certificate_authority_arns", arg) :: bnds
+         if [] = v_certificate_authority_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_certificate_authority_arns
+           in
+           let bnd = "certificate_authority_arns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend_defaults__client_policy__tls__validation__trust__acm ->
@@ -839,12 +915,15 @@ type spec__backend_defaults__client_policy__tls__validation__trust = {
   acm :
     spec__backend_defaults__client_policy__tls__validation__trust__acm
     list;
+      [@default []] [@yojson_drop_default ( = )]
   file :
     spec__backend_defaults__client_policy__tls__validation__trust__file
     list;
+      [@default []] [@yojson_drop_default ( = )]
   sds :
     spec__backend_defaults__client_policy__tls__validation__trust__sds
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -861,28 +940,37 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__trust
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__sds
-             v_sds
-         in
-         ("sds", arg) :: bnds
+         if [] = v_sds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__sds)
+               v_sds
+           in
+           let bnd = "sds", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__file
-             v_file
-         in
-         ("file", arg) :: bnds
+         if [] = v_file then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__file)
+               v_file
+           in
+           let bnd = "file", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__acm
-             v_acm
-         in
-         ("acm", arg) :: bnds
+         if [] = v_acm then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__acm)
+               v_acm
+           in
+           let bnd = "acm", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend_defaults__client_policy__tls__validation__trust ->
@@ -897,9 +985,11 @@ type spec__backend_defaults__client_policy__tls__validation = {
   subject_alternative_names :
     spec__backend_defaults__client_policy__tls__validation__subject_alternative_names
     list;
+      [@default []] [@yojson_drop_default ( = )]
   trust :
     spec__backend_defaults__client_policy__tls__validation__trust
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -918,20 +1008,26 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls__validation__trust
-             v_trust
-         in
-         ("trust", arg) :: bnds
+         if [] = v_trust then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls__validation__trust)
+               v_trust
+           in
+           let bnd = "trust", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names
-             v_subject_alternative_names
-         in
-         ("subject_alternative_names", arg) :: bnds
+         if [] = v_subject_alternative_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names)
+               v_subject_alternative_names
+           in
+           let bnd = "subject_alternative_names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend_defaults__client_policy__tls__validation ->
@@ -947,8 +1043,10 @@ type spec__backend_defaults__client_policy__tls = {
   ports : float prop list option; [@option]
   certificate :
     spec__backend_defaults__client_policy__tls__certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   validation :
     spec__backend_defaults__client_policy__tls__validation list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -966,20 +1064,26 @@ let yojson_of_spec__backend_defaults__client_policy__tls =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls__validation
-             v_validation
-         in
-         ("validation", arg) :: bnds
+         if [] = v_validation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls__validation)
+               v_validation
+           in
+           let bnd = "validation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls__certificate
-             v_certificate
-         in
-         ("certificate", arg) :: bnds
+         if [] = v_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls__certificate)
+               v_certificate
+           in
+           let bnd = "certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_ports with
@@ -1009,6 +1113,7 @@ let _ = yojson_of_spec__backend_defaults__client_policy__tls
 
 type spec__backend_defaults__client_policy = {
   tls : spec__backend_defaults__client_policy__tls list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1021,12 +1126,15 @@ let yojson_of_spec__backend_defaults__client_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy__tls
-             v_tls
-         in
-         ("tls", arg) :: bnds
+         if [] = v_tls then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy__tls)
+               v_tls
+           in
+           let bnd = "tls", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend_defaults__client_policy ->
@@ -1038,6 +1146,7 @@ let _ = yojson_of_spec__backend_defaults__client_policy
 
 type spec__backend_defaults = {
   client_policy : spec__backend_defaults__client_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1050,12 +1159,15 @@ let yojson_of_spec__backend_defaults =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__backend_defaults__client_policy
-             v_client_policy
-         in
-         ("client_policy", arg) :: bnds
+         if [] = v_client_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__backend_defaults__client_policy)
+               v_client_policy
+           in
+           let bnd = "client_policy", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__backend_defaults -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1182,9 +1294,13 @@ let _ = yojson_of_spec__listener__connection_pool__tcp
 
 type spec__listener__connection_pool = {
   grpc : spec__listener__connection_pool__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
   http : spec__listener__connection_pool__http list;
+      [@default []] [@yojson_drop_default ( = )]
   http2 : spec__listener__connection_pool__http2 list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp : spec__listener__connection_pool__tcp list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1198,32 +1314,48 @@ let yojson_of_spec__listener__connection_pool =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__connection_pool__tcp v_tcp
-         in
-         ("tcp", arg) :: bnds
+         if [] = v_tcp then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__connection_pool__tcp)
+               v_tcp
+           in
+           let bnd = "tcp", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__connection_pool__http2 v_http2
-         in
-         ("http2", arg) :: bnds
+         if [] = v_http2 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__connection_pool__http2)
+               v_http2
+           in
+           let bnd = "http2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__connection_pool__http v_http
-         in
-         ("http", arg) :: bnds
+         if [] = v_http then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__connection_pool__http)
+               v_http
+           in
+           let bnd = "http", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__connection_pool__grpc v_grpc
-         in
-         ("grpc", arg) :: bnds
+         if [] = v_grpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__connection_pool__grpc)
+               v_grpc
+           in
+           let bnd = "grpc", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__connection_pool ->
@@ -1379,7 +1511,9 @@ type spec__listener__outlier_detection = {
   max_server_errors : float prop;
   base_ejection_duration :
     spec__listener__outlier_detection__base_ejection_duration list;
+      [@default []] [@yojson_drop_default ( = )]
   interval : spec__listener__outlier_detection__interval list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1397,20 +1531,26 @@ let yojson_of_spec__listener__outlier_detection =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__outlier_detection__interval
-             v_interval
-         in
-         ("interval", arg) :: bnds
+         if [] = v_interval then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__outlier_detection__interval)
+               v_interval
+           in
+           let bnd = "interval", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__outlier_detection__base_ejection_duration
-             v_base_ejection_duration
-         in
-         ("base_ejection_duration", arg) :: bnds
+         if [] = v_base_ejection_duration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__outlier_detection__base_ejection_duration)
+               v_base_ejection_duration
+           in
+           let bnd = "base_ejection_duration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1524,7 +1664,9 @@ let _ = yojson_of_spec__listener__timeout__grpc__per_request
 
 type spec__listener__timeout__grpc = {
   idle : spec__listener__timeout__grpc__idle list;
+      [@default []] [@yojson_drop_default ( = )]
   per_request : spec__listener__timeout__grpc__per_request list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1537,19 +1679,26 @@ let yojson_of_spec__listener__timeout__grpc =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__timeout__grpc__per_request
-             v_per_request
-         in
-         ("per_request", arg) :: bnds
+         if [] = v_per_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__timeout__grpc__per_request)
+               v_per_request
+           in
+           let bnd = "per_request", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__timeout__grpc__idle v_idle
-         in
-         ("idle", arg) :: bnds
+         if [] = v_idle then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__timeout__grpc__idle)
+               v_idle
+           in
+           let bnd = "idle", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__timeout__grpc ->
@@ -1621,7 +1770,9 @@ let _ = yojson_of_spec__listener__timeout__http__per_request
 
 type spec__listener__timeout__http = {
   idle : spec__listener__timeout__http__idle list;
+      [@default []] [@yojson_drop_default ( = )]
   per_request : spec__listener__timeout__http__per_request list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1634,19 +1785,26 @@ let yojson_of_spec__listener__timeout__http =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__timeout__http__per_request
-             v_per_request
-         in
-         ("per_request", arg) :: bnds
+         if [] = v_per_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__timeout__http__per_request)
+               v_per_request
+           in
+           let bnd = "per_request", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__timeout__http__idle v_idle
-         in
-         ("idle", arg) :: bnds
+         if [] = v_idle then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__timeout__http__idle)
+               v_idle
+           in
+           let bnd = "idle", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__timeout__http ->
@@ -1718,7 +1876,9 @@ let _ = yojson_of_spec__listener__timeout__http2__per_request
 
 type spec__listener__timeout__http2 = {
   idle : spec__listener__timeout__http2__idle list;
+      [@default []] [@yojson_drop_default ( = )]
   per_request : spec__listener__timeout__http2__per_request list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1731,19 +1891,26 @@ let yojson_of_spec__listener__timeout__http2 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__timeout__http2__per_request
-             v_per_request
-         in
-         ("per_request", arg) :: bnds
+         if [] = v_per_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__timeout__http2__per_request)
+               v_per_request
+           in
+           let bnd = "per_request", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__timeout__http2__idle v_idle
-         in
-         ("idle", arg) :: bnds
+         if [] = v_idle then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__timeout__http2__idle)
+               v_idle
+           in
+           let bnd = "idle", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__timeout__http2 ->
@@ -1785,6 +1952,7 @@ let _ = yojson_of_spec__listener__timeout__tcp__idle
 
 type spec__listener__timeout__tcp = {
   idle : spec__listener__timeout__tcp__idle list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1797,11 +1965,15 @@ let yojson_of_spec__listener__timeout__tcp =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__timeout__tcp__idle v_idle
-         in
-         ("idle", arg) :: bnds
+         if [] = v_idle then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__timeout__tcp__idle)
+               v_idle
+           in
+           let bnd = "idle", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__timeout__tcp ->
@@ -1813,9 +1985,13 @@ let _ = yojson_of_spec__listener__timeout__tcp
 
 type spec__listener__timeout = {
   grpc : spec__listener__timeout__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
   http : spec__listener__timeout__http list;
+      [@default []] [@yojson_drop_default ( = )]
   http2 : spec__listener__timeout__http2 list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp : spec__listener__timeout__tcp list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1829,32 +2005,44 @@ let yojson_of_spec__listener__timeout =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__timeout__tcp
-             v_tcp
-         in
-         ("tcp", arg) :: bnds
+         if [] = v_tcp then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener__timeout__tcp)
+               v_tcp
+           in
+           let bnd = "tcp", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__timeout__http2
-             v_http2
-         in
-         ("http2", arg) :: bnds
+         if [] = v_http2 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener__timeout__http2)
+               v_http2
+           in
+           let bnd = "http2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__timeout__http
-             v_http
-         in
-         ("http", arg) :: bnds
+         if [] = v_http then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener__timeout__http)
+               v_http
+           in
+           let bnd = "http", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__timeout__grpc
-             v_grpc
-         in
-         ("grpc", arg) :: bnds
+         if [] = v_grpc then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener__timeout__grpc)
+               v_grpc
+           in
+           let bnd = "grpc", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__timeout -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1952,8 +2140,11 @@ let _ = yojson_of_spec__listener__tls__certificate__sds
 
 type spec__listener__tls__certificate = {
   acm : spec__listener__tls__certificate__acm list;
+      [@default []] [@yojson_drop_default ( = )]
   file : spec__listener__tls__certificate__file list;
+      [@default []] [@yojson_drop_default ( = )]
   sds : spec__listener__tls__certificate__sds list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1966,25 +2157,37 @@ let yojson_of_spec__listener__tls__certificate =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__tls__certificate__sds v_sds
-         in
-         ("sds", arg) :: bnds
+         if [] = v_sds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__tls__certificate__sds)
+               v_sds
+           in
+           let bnd = "sds", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__tls__certificate__file v_file
-         in
-         ("file", arg) :: bnds
+         if [] = v_file then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__tls__certificate__file)
+               v_file
+           in
+           let bnd = "file", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__tls__certificate__acm v_acm
-         in
-         ("acm", arg) :: bnds
+         if [] = v_acm then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__tls__certificate__acm)
+               v_acm
+           in
+           let bnd = "acm", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__tls__certificate ->
@@ -1995,7 +2198,7 @@ let _ = yojson_of_spec__listener__tls__certificate
 [@@@deriving.end]
 
 type spec__listener__tls__validation__subject_alternative_names__match = {
-  exact : string prop list;
+  exact : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2012,10 +2215,14 @@ let yojson_of_spec__listener__tls__validation__subject_alternative_names__match
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_exact
-         in
-         ("exact", arg) :: bnds
+         if [] = v_exact then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_exact
+           in
+           let bnd = "exact", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__tls__validation__subject_alternative_names__match ->
@@ -2030,7 +2237,7 @@ type spec__listener__tls__validation__subject_alternative_names = {
   match_ :
     spec__listener__tls__validation__subject_alternative_names__match
     list;
-      [@key "match"]
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2046,12 +2253,15 @@ let yojson_of_spec__listener__tls__validation__subject_alternative_names
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__tls__validation__subject_alternative_names__match
-             v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__tls__validation__subject_alternative_names__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__tls__validation__subject_alternative_names ->
@@ -2116,7 +2326,9 @@ let _ = yojson_of_spec__listener__tls__validation__trust__sds
 
 type spec__listener__tls__validation__trust = {
   file : spec__listener__tls__validation__trust__file list;
+      [@default []] [@yojson_drop_default ( = )]
   sds : spec__listener__tls__validation__trust__sds list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2129,20 +2341,26 @@ let yojson_of_spec__listener__tls__validation__trust =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__tls__validation__trust__sds
-             v_sds
-         in
-         ("sds", arg) :: bnds
+         if [] = v_sds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__tls__validation__trust__sds)
+               v_sds
+           in
+           let bnd = "sds", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__tls__validation__trust__file
-             v_file
-         in
-         ("file", arg) :: bnds
+         if [] = v_file then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__tls__validation__trust__file)
+               v_file
+           in
+           let bnd = "file", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__tls__validation__trust ->
@@ -2155,7 +2373,9 @@ let _ = yojson_of_spec__listener__tls__validation__trust
 type spec__listener__tls__validation = {
   subject_alternative_names :
     spec__listener__tls__validation__subject_alternative_names list;
+      [@default []] [@yojson_drop_default ( = )]
   trust : spec__listener__tls__validation__trust list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2171,19 +2391,26 @@ let yojson_of_spec__listener__tls__validation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__tls__validation__trust v_trust
-         in
-         ("trust", arg) :: bnds
+         if [] = v_trust then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__tls__validation__trust)
+               v_trust
+           in
+           let bnd = "trust", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__listener__tls__validation__subject_alternative_names
-             v_subject_alternative_names
-         in
-         ("subject_alternative_names", arg) :: bnds
+         if [] = v_subject_alternative_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__tls__validation__subject_alternative_names)
+               v_subject_alternative_names
+           in
+           let bnd = "subject_alternative_names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener__tls__validation ->
@@ -2196,7 +2423,9 @@ let _ = yojson_of_spec__listener__tls__validation
 type spec__listener__tls = {
   mode : string prop;
   certificate : spec__listener__tls__certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   validation : spec__listener__tls__validation list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2213,18 +2442,26 @@ let yojson_of_spec__listener__tls =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__tls__validation
-             v_validation
-         in
-         ("validation", arg) :: bnds
+         if [] = v_validation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__tls__validation)
+               v_validation
+           in
+           let bnd = "validation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__tls__certificate
-             v_certificate
-         in
-         ("certificate", arg) :: bnds
+         if [] = v_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__tls__certificate)
+               v_certificate
+           in
+           let bnd = "certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_mode in
@@ -2239,11 +2476,17 @@ let _ = yojson_of_spec__listener__tls
 
 type spec__listener = {
   connection_pool : spec__listener__connection_pool list;
+      [@default []] [@yojson_drop_default ( = )]
   health_check : spec__listener__health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   outlier_detection : spec__listener__outlier_detection list;
+      [@default []] [@yojson_drop_default ( = )]
   port_mapping : spec__listener__port_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout : spec__listener__timeout list;
+      [@default []] [@yojson_drop_default ( = )]
   tls : spec__listener__tls list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2263,44 +2506,65 @@ let yojson_of_spec__listener =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__tls v_tls
-         in
-         ("tls", arg) :: bnds
+         if [] = v_tls then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener__tls) v_tls
+           in
+           let bnd = "tls", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__timeout v_timeout
-         in
-         ("timeout", arg) :: bnds
+         if [] = v_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener__timeout)
+               v_timeout
+           in
+           let bnd = "timeout", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__port_mapping
-             v_port_mapping
-         in
-         ("port_mapping", arg) :: bnds
+         if [] = v_port_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener__port_mapping)
+               v_port_mapping
+           in
+           let bnd = "port_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__outlier_detection
-             v_outlier_detection
-         in
-         ("outlier_detection", arg) :: bnds
+         if [] = v_outlier_detection then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__outlier_detection)
+               v_outlier_detection
+           in
+           let bnd = "outlier_detection", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__health_check
-             v_health_check
-         in
-         ("health_check", arg) :: bnds
+         if [] = v_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener__health_check)
+               v_health_check
+           in
+           let bnd = "health_check", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__connection_pool
-             v_connection_pool
-         in
-         ("connection_pool", arg) :: bnds
+         if [] = v_connection_pool then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__listener__connection_pool)
+               v_connection_pool
+           in
+           let bnd = "connection_pool", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2342,6 +2606,7 @@ let _ = yojson_of_spec__logging__access_log__file__format__json
 type spec__logging__access_log__file__format = {
   text : string prop option; [@option]
   json : spec__logging__access_log__file__format__json list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2354,12 +2619,15 @@ let yojson_of_spec__logging__access_log__file__format =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__logging__access_log__file__format__json
-             v_json
-         in
-         ("json", arg) :: bnds
+         if [] = v_json then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__logging__access_log__file__format__json)
+               v_json
+           in
+           let bnd = "json", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_text with
@@ -2380,6 +2648,7 @@ let _ = yojson_of_spec__logging__access_log__file__format
 type spec__logging__access_log__file = {
   path : string prop;
   format : spec__logging__access_log__file__format list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2392,12 +2661,15 @@ let yojson_of_spec__logging__access_log__file =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__logging__access_log__file__format
-             v_format
-         in
-         ("format", arg) :: bnds
+         if [] = v_format then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__logging__access_log__file__format)
+               v_format
+           in
+           let bnd = "format", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_path in
@@ -2413,6 +2685,7 @@ let _ = yojson_of_spec__logging__access_log__file
 
 type spec__logging__access_log = {
   file : spec__logging__access_log__file list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2425,11 +2698,15 @@ let yojson_of_spec__logging__access_log =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__logging__access_log__file
-             v_file
-         in
-         ("file", arg) :: bnds
+         if [] = v_file then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__logging__access_log__file)
+               v_file
+           in
+           let bnd = "file", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__logging__access_log -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2438,7 +2715,10 @@ let _ = yojson_of_spec__logging__access_log
 
 [@@@deriving.end]
 
-type spec__logging = { access_log : spec__logging__access_log list }
+type spec__logging = {
+  access_log : spec__logging__access_log list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : spec__logging) -> ()
@@ -2450,11 +2730,14 @@ let yojson_of_spec__logging =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__logging__access_log
-             v_access_log
-         in
-         ("access_log", arg) :: bnds
+         if [] = v_access_log then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__logging__access_log)
+               v_access_log
+           in
+           let bnd = "access_log", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__logging -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2565,7 +2848,9 @@ let _ = yojson_of_spec__service_discovery__dns
 
 type spec__service_discovery = {
   aws_cloud_map : spec__service_discovery__aws_cloud_map list;
+      [@default []] [@yojson_drop_default ( = )]
   dns : spec__service_discovery__dns list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2578,19 +2863,25 @@ let yojson_of_spec__service_discovery =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service_discovery__dns
-             v_dns
-         in
-         ("dns", arg) :: bnds
+         if [] = v_dns then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service_discovery__dns)
+               v_dns
+           in
+           let bnd = "dns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__service_discovery__aws_cloud_map
-             v_aws_cloud_map
-         in
-         ("aws_cloud_map", arg) :: bnds
+         if [] = v_aws_cloud_map then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__service_discovery__aws_cloud_map)
+               v_aws_cloud_map
+           in
+           let bnd = "aws_cloud_map", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__service_discovery -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2601,10 +2892,15 @@ let _ = yojson_of_spec__service_discovery
 
 type spec = {
   backend : spec__backend list;
+      [@default []] [@yojson_drop_default ( = )]
   backend_defaults : spec__backend_defaults list;
+      [@default []] [@yojson_drop_default ( = )]
   listener : spec__listener list;
+      [@default []] [@yojson_drop_default ( = )]
   logging : spec__logging list;
+      [@default []] [@yojson_drop_default ( = )]
   service_discovery : spec__service_discovery list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2623,36 +2919,51 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service_discovery
-             v_service_discovery
-         in
-         ("service_discovery", arg) :: bnds
+         if [] = v_service_discovery then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service_discovery)
+               v_service_discovery
+           in
+           let bnd = "service_discovery", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__logging v_logging
-         in
-         ("logging", arg) :: bnds
+         if [] = v_logging then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__logging) v_logging
+           in
+           let bnd = "logging", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener v_listener
-         in
-         ("listener", arg) :: bnds
+         if [] = v_listener then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener) v_listener
+           in
+           let bnd = "listener", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__backend_defaults
-             v_backend_defaults
-         in
-         ("backend_defaults", arg) :: bnds
+         if [] = v_backend_defaults then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__backend_defaults)
+               v_backend_defaults
+           in
+           let bnd = "backend_defaults", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__backend v_backend
-         in
-         ("backend", arg) :: bnds
+         if [] = v_backend then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__backend) v_backend
+           in
+           let bnd = "backend", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2668,7 +2979,7 @@ type aws_appmesh_virtual_node = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  spec : spec list;
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2689,8 +3000,11 @@ let yojson_of_aws_appmesh_virtual_node =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

@@ -109,7 +109,9 @@ let _ = yojson_of_access__dataset__dataset
 
 type access__dataset = {
   dataset : access__dataset__dataset list;
+      [@default []] [@yojson_drop_default ( = )]
   target_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,19 +124,24 @@ let yojson_of_access__dataset =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_target_types
-         in
-         ("target_types", arg) :: bnds
+         if [] = v_target_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_target_types
+           in
+           let bnd = "target_types", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access__dataset__dataset
-             v_dataset
-         in
-         ("dataset", arg) :: bnds
+         if [] = v_dataset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access__dataset__dataset)
+               v_dataset
+           in
+           let bnd = "dataset", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : access__dataset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -145,14 +152,16 @@ let _ = yojson_of_access__dataset
 
 type access = {
   dataset : access__dataset list;
+      [@default []] [@yojson_drop_default ( = )]
   domain : string prop;
   group_by_email : string prop;
   iam_member : string prop;
   role : string prop;
   routine : access__routine list;
+      [@default []] [@yojson_drop_default ( = )]
   special_group : string prop;
   user_by_email : string prop;
-  view : access__view list;
+  view : access__view list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -175,8 +184,13 @@ let yojson_of_access =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_access__view v_view in
-         ("view", arg) :: bnds
+         if [] = v_view then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access__view) v_view
+           in
+           let bnd = "view", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_user_by_email in
@@ -187,10 +201,13 @@ let yojson_of_access =
          ("special_group", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access__routine v_routine
-         in
-         ("routine", arg) :: bnds
+         if [] = v_routine then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access__routine) v_routine
+           in
+           let bnd = "routine", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_role in
@@ -211,10 +228,13 @@ let yojson_of_access =
          ("domain", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access__dataset v_dataset
-         in
-         ("dataset", arg) :: bnds
+         if [] = v_dataset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access__dataset) v_dataset
+           in
+           let bnd = "dataset", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : access -> Ppx_yojson_conv_lib.Yojson.Safe.t)

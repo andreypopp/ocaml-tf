@@ -175,10 +175,15 @@ let _ = yojson_of_hierarchy_path__level_five
 
 type hierarchy_path = {
   level_five : hierarchy_path__level_five list;
+      [@default []] [@yojson_drop_default ( = )]
   level_four : hierarchy_path__level_four list;
+      [@default []] [@yojson_drop_default ( = )]
   level_one : hierarchy_path__level_one list;
+      [@default []] [@yojson_drop_default ( = )]
   level_three : hierarchy_path__level_three list;
+      [@default []] [@yojson_drop_default ( = )]
   level_two : hierarchy_path__level_two list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -197,39 +202,54 @@ let yojson_of_hierarchy_path =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hierarchy_path__level_two
-             v_level_two
-         in
-         ("level_two", arg) :: bnds
+         if [] = v_level_two then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hierarchy_path__level_two)
+               v_level_two
+           in
+           let bnd = "level_two", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hierarchy_path__level_three
-             v_level_three
-         in
-         ("level_three", arg) :: bnds
+         if [] = v_level_three then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hierarchy_path__level_three)
+               v_level_three
+           in
+           let bnd = "level_three", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hierarchy_path__level_one
-             v_level_one
-         in
-         ("level_one", arg) :: bnds
+         if [] = v_level_one then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hierarchy_path__level_one)
+               v_level_one
+           in
+           let bnd = "level_one", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hierarchy_path__level_four
-             v_level_four
-         in
-         ("level_four", arg) :: bnds
+         if [] = v_level_four then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hierarchy_path__level_four)
+               v_level_four
+           in
+           let bnd = "level_four", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hierarchy_path__level_five
-             v_level_five
-         in
-         ("level_five", arg) :: bnds
+         if [] = v_level_five then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hierarchy_path__level_five)
+               v_level_five
+           in
+           let bnd = "level_five", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : hierarchy_path -> Ppx_yojson_conv_lib.Yojson.Safe.t)

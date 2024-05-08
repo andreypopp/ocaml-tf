@@ -96,6 +96,7 @@ type multiplex_program_settings__video_settings = {
   constant_bitrate : float prop option; [@option]
   statmux_settings :
     multiplex_program_settings__video_settings__statmux_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -111,12 +112,15 @@ let yojson_of_multiplex_program_settings__video_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_multiplex_program_settings__video_settings__statmux_settings
-             v_statmux_settings
-         in
-         ("statmux_settings", arg) :: bnds
+         if [] = v_statmux_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_multiplex_program_settings__video_settings__statmux_settings)
+               v_statmux_settings
+           in
+           let bnd = "statmux_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_constant_bitrate with
@@ -139,7 +143,9 @@ type multiplex_program_settings = {
   program_number : float prop;
   service_descriptor :
     multiplex_program_settings__service_descriptor list;
+      [@default []] [@yojson_drop_default ( = )]
   video_settings : multiplex_program_settings__video_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -157,20 +163,26 @@ let yojson_of_multiplex_program_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_multiplex_program_settings__video_settings
-             v_video_settings
-         in
-         ("video_settings", arg) :: bnds
+         if [] = v_video_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_multiplex_program_settings__video_settings)
+               v_video_settings
+           in
+           let bnd = "video_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_multiplex_program_settings__service_descriptor
-             v_service_descriptor
-         in
-         ("service_descriptor", arg) :: bnds
+         if [] = v_service_descriptor then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_multiplex_program_settings__service_descriptor)
+               v_service_descriptor
+           in
+           let bnd = "service_descriptor", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_program_number in
@@ -194,6 +206,7 @@ type aws_medialive_multiplex_program = {
   multiplex_id : string prop;
   program_name : string prop;
   multiplex_program_settings : multiplex_program_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,11 +223,14 @@ let yojson_of_aws_medialive_multiplex_program =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_multiplex_program_settings
-             v_multiplex_program_settings
-         in
-         ("multiplex_program_settings", arg) :: bnds
+         if [] = v_multiplex_program_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_multiplex_program_settings)
+               v_multiplex_program_settings
+           in
+           let bnd = "multiplex_program_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_program_name in

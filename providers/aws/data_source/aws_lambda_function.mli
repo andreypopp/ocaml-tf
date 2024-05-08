@@ -31,8 +31,12 @@ type tracing_config = { mode : string prop  (** mode *) }
 type vpc_config = {
   ipv6_allowed_for_dual_stack : bool prop;
       (** ipv6_allowed_for_dual_stack *)
-  security_group_ids : string prop list;  (** security_group_ids *)
-  subnet_ids : string prop list;  (** subnet_ids *)
+  security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** security_group_ids *)
+  subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }
 

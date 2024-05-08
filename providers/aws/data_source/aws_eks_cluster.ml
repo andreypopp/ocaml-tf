@@ -70,7 +70,10 @@ let _ = yojson_of_identity__oidc
 
 [@@@deriving.end]
 
-type identity = { oidc : identity__oidc list }
+type identity = {
+  oidc : identity__oidc list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : identity) -> ()
@@ -82,8 +85,13 @@ let yojson_of_identity =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity__oidc v_oidc in
-         ("oidc", arg) :: bnds
+         if [] = v_oidc then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity__oidc) v_oidc
+           in
+           let bnd = "oidc", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -163,7 +171,9 @@ type outpost_config = {
   control_plane_instance_type : string prop;
   control_plane_placement :
     outpost_config__control_plane_placement list;
+      [@default []] [@yojson_drop_default ( = )]
   outpost_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -180,20 +190,25 @@ let yojson_of_outpost_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_outpost_arns
-         in
-         ("outpost_arns", arg) :: bnds
+         if [] = v_outpost_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_outpost_arns
+           in
+           let bnd = "outpost_arns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_outpost_config__control_plane_placement
-             v_control_plane_placement
-         in
-         ("control_plane_placement", arg) :: bnds
+         if [] = v_control_plane_placement then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_outpost_config__control_plane_placement)
+               v_control_plane_placement
+           in
+           let bnd = "control_plane_placement", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -214,8 +229,11 @@ type vpc_config = {
   endpoint_private_access : bool prop;
   endpoint_public_access : bool prop;
   public_access_cidrs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -241,28 +259,34 @@ let yojson_of_vpc_config =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_public_access_cidrs
-         in
-         ("public_access_cidrs", arg) :: bnds
+         if [] = v_public_access_cidrs then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_public_access_cidrs
+           in
+           let bnd = "public_access_cidrs", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

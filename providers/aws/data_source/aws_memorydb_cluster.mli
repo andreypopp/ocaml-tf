@@ -17,13 +17,17 @@ type shards__nodes__endpoint = {
 type shards__nodes = {
   availability_zone : string prop;  (** availability_zone *)
   create_time : string prop;  (** create_time *)
-  endpoint : shards__nodes__endpoint list;  (** endpoint *)
+  endpoint : shards__nodes__endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** endpoint *)
   name : string prop;  (** name *)
 }
 
 type shards = {
   name : string prop;  (** name *)
-  nodes : shards__nodes list;  (** nodes *)
+  nodes : shards__nodes list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** nodes *)
   num_nodes : float prop;  (** num_nodes *)
   slots : string prop;  (** slots *)
 }

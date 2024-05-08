@@ -117,7 +117,8 @@ type google_beyondcorp_app_connection = {
   region : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   application_endpoint : application_endpoint list;
-  gateway : gateway list;
+      [@default []] [@yojson_drop_default ( = )]
+  gateway : gateway list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -147,15 +148,21 @@ let yojson_of_google_beyondcorp_app_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_gateway v_gateway in
-         ("gateway", arg) :: bnds
+         if [] = v_gateway then bnds
+         else
+           let arg = (yojson_of_list yojson_of_gateway) v_gateway in
+           let bnd = "gateway", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_application_endpoint
-             v_application_endpoint
-         in
-         ("application_endpoint", arg) :: bnds
+         if [] = v_application_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_application_endpoint)
+               v_application_endpoint
+           in
+           let bnd = "application_endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

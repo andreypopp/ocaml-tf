@@ -100,6 +100,7 @@ type explanations__security_group_rule = {
   cidr : string prop;  (** cidr *)
   direction : string prop;  (** direction *)
   port_range : explanations__security_group_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
       (** port_range *)
   prefix_list_id : string prop;  (** prefix_list_id *)
   protocol : string prop;  (** protocol *)
@@ -231,6 +232,7 @@ type explanations__acl_rule = {
   cidr : string prop;  (** cidr *)
   egress : bool prop;  (** egress *)
   port_range : explanations__acl_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
       (** port_range *)
   protocol : string prop;  (** protocol *)
   rule_action : string prop;  (** rule_action *)
@@ -244,84 +246,139 @@ type explanations__acl = {
 }
 
 type explanations = {
-  acl : explanations__acl list;  (** acl *)
-  acl_rule : explanations__acl_rule list;  (** acl_rule *)
+  acl : explanations__acl list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** acl *)
+  acl_rule : explanations__acl_rule list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** acl_rule *)
   address : string prop;  (** address *)
-  addresses : string prop list;  (** addresses *)
-  attached_to : explanations__attached_to list;  (** attached_to *)
-  availability_zones : string prop list;  (** availability_zones *)
-  cidrs : string prop list;  (** cidrs *)
+  addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** addresses *)
+  attached_to : explanations__attached_to list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** attached_to *)
+  availability_zones : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** availability_zones *)
+  cidrs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cidrs *)
   classic_load_balancer_listener :
     explanations__classic_load_balancer_listener list;
+      [@default []] [@yojson_drop_default ( = )]
       (** classic_load_balancer_listener *)
-  component : explanations__component list;  (** component *)
+  component : explanations__component list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** component *)
   customer_gateway : explanations__customer_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
       (** customer_gateway *)
-  destination : explanations__destination list;  (** destination *)
+  destination : explanations__destination list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** destination *)
   destination_vpc : explanations__destination_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_vpc *)
   direction : string prop;  (** direction *)
   elastic_load_balancer_listener :
     explanations__elastic_load_balancer_listener list;
+      [@default []] [@yojson_drop_default ( = )]
       (** elastic_load_balancer_listener *)
   explanation_code : string prop;  (** explanation_code *)
   ingress_route_table : explanations__ingress_route_table list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ingress_route_table *)
   internet_gateway : explanations__internet_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
       (** internet_gateway *)
   load_balancer_arn : string prop;  (** load_balancer_arn *)
   load_balancer_listener_port : float prop;
       (** load_balancer_listener_port *)
   load_balancer_target_group :
     explanations__load_balancer_target_group list;
+      [@default []] [@yojson_drop_default ( = )]
       (** load_balancer_target_group *)
   load_balancer_target_groups :
     explanations__load_balancer_target_groups list;
+      [@default []] [@yojson_drop_default ( = )]
       (** load_balancer_target_groups *)
   load_balancer_target_port : float prop;
       (** load_balancer_target_port *)
   missing_component : string prop;  (** missing_component *)
-  nat_gateway : explanations__nat_gateway list;  (** nat_gateway *)
+  nat_gateway : explanations__nat_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** nat_gateway *)
   network_interface : explanations__network_interface list;
+      [@default []] [@yojson_drop_default ( = )]
       (** network_interface *)
   packet_field : string prop;  (** packet_field *)
   port : float prop;  (** port *)
-  port_ranges : explanations__port_ranges list;  (** port_ranges *)
-  prefix_list : explanations__prefix_list list;  (** prefix_list *)
-  protocols : string prop list;  (** protocols *)
-  route_table : explanations__route_table list;  (** route_table *)
+  port_ranges : explanations__port_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** port_ranges *)
+  prefix_list : explanations__prefix_list list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** prefix_list *)
+  protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** protocols *)
+  route_table : explanations__route_table list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** route_table *)
   route_table_route : explanations__route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
       (** route_table_route *)
   security_group : explanations__security_group list;
+      [@default []] [@yojson_drop_default ( = )]
       (** security_group *)
   security_group_rule : explanations__security_group_rule list;
+      [@default []] [@yojson_drop_default ( = )]
       (** security_group_rule *)
   security_groups : explanations__security_groups list;
+      [@default []] [@yojson_drop_default ( = )]
       (** security_groups *)
-  source_vpc : explanations__source_vpc list;  (** source_vpc *)
+  source_vpc : explanations__source_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** source_vpc *)
   state : string prop;  (** state *)
-  subnet : explanations__subnet list;  (** subnet *)
+  subnet : explanations__subnet list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** subnet *)
   subnet_route_table : explanations__subnet_route_table list;
+      [@default []] [@yojson_drop_default ( = )]
       (** subnet_route_table *)
   transit_gateway : explanations__transit_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
       (** transit_gateway *)
   transit_gateway_attachment :
     explanations__transit_gateway_attachment list;
+      [@default []] [@yojson_drop_default ( = )]
       (** transit_gateway_attachment *)
   transit_gateway_route_table :
     explanations__transit_gateway_route_table list;
+      [@default []] [@yojson_drop_default ( = )]
       (** transit_gateway_route_table *)
   transit_gateway_route_table_route :
     explanations__transit_gateway_route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
       (** transit_gateway_route_table_route *)
-  vpc : explanations__vpc list;  (** vpc *)
+  vpc : explanations__vpc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** vpc *)
   vpc_endpoint : explanations__vpc_endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
       (** vpc_endpoint *)
   vpc_peering_connection : explanations__vpc_peering_connection list;
+      [@default []] [@yojson_drop_default ( = )]
       (** vpc_peering_connection *)
   vpn_connection : explanations__vpn_connection list;
+      [@default []] [@yojson_drop_default ( = )]
       (** vpn_connection *)
-  vpn_gateway : explanations__vpn_gateway list;  (** vpn_gateway *)
+  vpn_gateway : explanations__vpn_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** vpn_gateway *)
 }
 
 type forward_path_components__vpc = {
@@ -368,6 +425,7 @@ type forward_path_components__security_group_rule = {
   direction : string prop;  (** direction *)
   port_range :
     forward_path_components__security_group_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
       (** port_range *)
   prefix_list_id : string prop;  (** prefix_list_id *)
   protocol : string prop;  (** protocol *)
@@ -402,15 +460,20 @@ type forward_path_components__outbound_header__destination_port_ranges = {
 
 type forward_path_components__outbound_header = {
   destination_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_addresses *)
   destination_port_ranges :
     forward_path_components__outbound_header__destination_port_ranges
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_port_ranges *)
   protocol : string prop;  (** protocol *)
-  source_addresses : string prop list;  (** source_addresses *)
+  source_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** source_addresses *)
   source_port_ranges :
     forward_path_components__outbound_header__source_port_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
       (** source_port_ranges *)
 }
 
@@ -426,15 +489,20 @@ type forward_path_components__inbound_header__destination_port_ranges = {
 
 type forward_path_components__inbound_header = {
   destination_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_addresses *)
   destination_port_ranges :
     forward_path_components__inbound_header__destination_port_ranges
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_port_ranges *)
   protocol : string prop;  (** protocol *)
-  source_addresses : string prop list;  (** source_addresses *)
+  source_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** source_addresses *)
   source_port_ranges :
     forward_path_components__inbound_header__source_port_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
       (** source_port_ranges *)
 }
 
@@ -467,6 +535,7 @@ type forward_path_components__additional_details = {
       (** additional_detail_type *)
   component :
     forward_path_components__additional_details__component list;
+      [@default []] [@yojson_drop_default ( = )]
       (** component *)
 }
 
@@ -479,6 +548,7 @@ type forward_path_components__acl_rule = {
   cidr : string prop;  (** cidr *)
   egress : bool prop;  (** egress *)
   port_range : forward_path_components__acl_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
       (** port_range *)
   protocol : string prop;  (** protocol *)
   rule_action : string prop;  (** rule_action *)
@@ -486,36 +556,53 @@ type forward_path_components__acl_rule = {
 }
 
 type forward_path_components = {
-  acl_rule : forward_path_components__acl_rule list;  (** acl_rule *)
+  acl_rule : forward_path_components__acl_rule list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** acl_rule *)
   additional_details :
     forward_path_components__additional_details list;
+      [@default []] [@yojson_drop_default ( = )]
       (** additional_details *)
   attached_to : forward_path_components__attached_to list;
+      [@default []] [@yojson_drop_default ( = )]
       (** attached_to *)
   component : forward_path_components__component list;
+      [@default []] [@yojson_drop_default ( = )]
       (** component *)
   destination_vpc : forward_path_components__destination_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_vpc *)
   inbound_header : forward_path_components__inbound_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** inbound_header *)
   outbound_header : forward_path_components__outbound_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** outbound_header *)
   route_table_route :
     forward_path_components__route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
       (** route_table_route *)
   security_group_rule :
     forward_path_components__security_group_rule list;
+      [@default []] [@yojson_drop_default ( = )]
       (** security_group_rule *)
   sequence_number : float prop;  (** sequence_number *)
   source_vpc : forward_path_components__source_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
       (** source_vpc *)
-  subnet : forward_path_components__subnet list;  (** subnet *)
+  subnet : forward_path_components__subnet list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** subnet *)
   transit_gateway : forward_path_components__transit_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
       (** transit_gateway *)
   transit_gateway_route_table_route :
     forward_path_components__transit_gateway_route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
       (** transit_gateway_route_table_route *)
-  vpc : forward_path_components__vpc list;  (** vpc *)
+  vpc : forward_path_components__vpc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** vpc *)
 }
 
 type return_path_components__vpc = {
@@ -562,6 +649,7 @@ type return_path_components__security_group_rule = {
   direction : string prop;  (** direction *)
   port_range :
     return_path_components__security_group_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
       (** port_range *)
   prefix_list_id : string prop;  (** prefix_list_id *)
   protocol : string prop;  (** protocol *)
@@ -596,15 +684,20 @@ type return_path_components__outbound_header__destination_port_ranges = {
 
 type return_path_components__outbound_header = {
   destination_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_addresses *)
   destination_port_ranges :
     return_path_components__outbound_header__destination_port_ranges
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_port_ranges *)
   protocol : string prop;  (** protocol *)
-  source_addresses : string prop list;  (** source_addresses *)
+  source_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** source_addresses *)
   source_port_ranges :
     return_path_components__outbound_header__source_port_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
       (** source_port_ranges *)
 }
 
@@ -620,15 +713,20 @@ type return_path_components__inbound_header__destination_port_ranges = {
 
 type return_path_components__inbound_header = {
   destination_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_addresses *)
   destination_port_ranges :
     return_path_components__inbound_header__destination_port_ranges
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_port_ranges *)
   protocol : string prop;  (** protocol *)
-  source_addresses : string prop list;  (** source_addresses *)
+  source_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** source_addresses *)
   source_port_ranges :
     return_path_components__inbound_header__source_port_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
       (** source_port_ranges *)
 }
 
@@ -661,6 +759,7 @@ type return_path_components__additional_details = {
       (** additional_detail_type *)
   component :
     return_path_components__additional_details__component list;
+      [@default []] [@yojson_drop_default ( = )]
       (** component *)
 }
 
@@ -673,6 +772,7 @@ type return_path_components__acl_rule = {
   cidr : string prop;  (** cidr *)
   egress : bool prop;  (** egress *)
   port_range : return_path_components__acl_rule__port_range list;
+      [@default []] [@yojson_drop_default ( = )]
       (** port_range *)
   protocol : string prop;  (** protocol *)
   rule_action : string prop;  (** rule_action *)
@@ -680,35 +780,52 @@ type return_path_components__acl_rule = {
 }
 
 type return_path_components = {
-  acl_rule : return_path_components__acl_rule list;  (** acl_rule *)
+  acl_rule : return_path_components__acl_rule list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** acl_rule *)
   additional_details :
     return_path_components__additional_details list;
+      [@default []] [@yojson_drop_default ( = )]
       (** additional_details *)
   attached_to : return_path_components__attached_to list;
+      [@default []] [@yojson_drop_default ( = )]
       (** attached_to *)
   component : return_path_components__component list;
+      [@default []] [@yojson_drop_default ( = )]
       (** component *)
   destination_vpc : return_path_components__destination_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
       (** destination_vpc *)
   inbound_header : return_path_components__inbound_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** inbound_header *)
   outbound_header : return_path_components__outbound_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** outbound_header *)
   route_table_route : return_path_components__route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
       (** route_table_route *)
   security_group_rule :
     return_path_components__security_group_rule list;
+      [@default []] [@yojson_drop_default ( = )]
       (** security_group_rule *)
   sequence_number : float prop;  (** sequence_number *)
   source_vpc : return_path_components__source_vpc list;
+      [@default []] [@yojson_drop_default ( = )]
       (** source_vpc *)
-  subnet : return_path_components__subnet list;  (** subnet *)
+  subnet : return_path_components__subnet list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** subnet *)
   transit_gateway : return_path_components__transit_gateway list;
+      [@default []] [@yojson_drop_default ( = )]
       (** transit_gateway *)
   transit_gateway_route_table_route :
     return_path_components__transit_gateway_route_table_route list;
+      [@default []] [@yojson_drop_default ( = )]
       (** transit_gateway_route_table_route *)
-  vpc : return_path_components__vpc list;  (** vpc *)
+  vpc : return_path_components__vpc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** vpc *)
 }
 
 type filter

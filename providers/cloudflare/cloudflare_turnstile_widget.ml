@@ -6,6 +6,7 @@ type cloudflare_turnstile_widget = {
   account_id : string prop;
   bot_fight_mode : bool prop option; [@option]
   domains : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   mode : string prop;
   name : string prop;
@@ -64,10 +65,14 @@ let yojson_of_cloudflare_turnstile_widget =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_domains
-         in
-         ("domains", arg) :: bnds
+         if [] = v_domains then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_domains
+           in
+           let bnd = "domains", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_bot_fight_mode with

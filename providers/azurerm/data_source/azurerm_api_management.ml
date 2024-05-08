@@ -33,9 +33,11 @@ type additional_location = {
   gateway_regional_url : string prop;
   location : string prop;
   private_ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   public_ip_address_id : string prop;
   public_ip_addresses : string prop list;
-  zones : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+  zones : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,18 +58,24 @@ let yojson_of_additional_location =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_zones
-         in
-         ("zones", arg) :: bnds
+         if [] = v_zones then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_zones
+           in
+           let bnd = "zones", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_public_ip_addresses
-         in
-         ("public_ip_addresses", arg) :: bnds
+         if [] = v_public_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_public_ip_addresses
+           in
+           let bnd = "public_ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -76,12 +84,14 @@ let yojson_of_additional_location =
          ("public_ip_address_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_private_ip_addresses
-         in
-         ("private_ip_addresses", arg) :: bnds
+         if [] = v_private_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_private_ip_addresses
+           in
+           let bnd = "private_ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_location in
@@ -324,10 +334,15 @@ let _ = yojson_of_hostname_configuration__developer_portal
 
 type hostname_configuration = {
   developer_portal : hostname_configuration__developer_portal list;
+      [@default []] [@yojson_drop_default ( = )]
   management : hostname_configuration__management list;
+      [@default []] [@yojson_drop_default ( = )]
   portal : hostname_configuration__portal list;
+      [@default []] [@yojson_drop_default ( = )]
   proxy : hostname_configuration__proxy list;
+      [@default []] [@yojson_drop_default ( = )]
   scm : hostname_configuration__scm list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -346,40 +361,56 @@ let yojson_of_hostname_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hostname_configuration__scm v_scm
-         in
-         ("scm", arg) :: bnds
+         if [] = v_scm then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hostname_configuration__scm)
+               v_scm
+           in
+           let bnd = "scm", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hostname_configuration__proxy
-             v_proxy
-         in
-         ("proxy", arg) :: bnds
+         if [] = v_proxy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hostname_configuration__proxy)
+               v_proxy
+           in
+           let bnd = "proxy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hostname_configuration__portal
-             v_portal
-         in
-         ("portal", arg) :: bnds
+         if [] = v_portal then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hostname_configuration__portal)
+               v_portal
+           in
+           let bnd = "portal", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_hostname_configuration__management
-             v_management
-         in
-         ("management", arg) :: bnds
+         if [] = v_management then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_hostname_configuration__management)
+               v_management
+           in
+           let bnd = "management", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_hostname_configuration__developer_portal
-             v_developer_portal
-         in
-         ("developer_portal", arg) :: bnds
+         if [] = v_developer_portal then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_hostname_configuration__developer_portal)
+               v_developer_portal
+           in
+           let bnd = "developer_portal", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : hostname_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -390,6 +421,7 @@ let _ = yojson_of_hostname_configuration
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   principal_id : string prop;
   tenant_id : string prop;
   type_ : string prop; [@key "type"]
@@ -422,12 +454,14 @@ let yojson_of_identity =
          ("principal_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)

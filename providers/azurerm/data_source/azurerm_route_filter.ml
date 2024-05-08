@@ -31,6 +31,7 @@ let _ = yojson_of_timeouts
 type rule = {
   access : string prop;
   communities : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   rule_type : string prop;
 }
@@ -58,12 +59,14 @@ let yojson_of_rule =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_communities
-         in
-         ("communities", arg) :: bnds
+         if [] = v_communities then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_communities
+           in
+           let bnd = "communities", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_access in

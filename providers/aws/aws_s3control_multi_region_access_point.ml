@@ -100,7 +100,9 @@ let _ = yojson_of_details__region
 type details = {
   name : string prop;
   public_access_block : details__public_access_block list;
+      [@default []] [@yojson_drop_default ( = )]
   region : details__region list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -117,17 +119,23 @@ let yojson_of_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_details__region v_region
-         in
-         ("region", arg) :: bnds
+         if [] = v_region then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_details__region) v_region
+           in
+           let bnd = "region", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_details__public_access_block
-             v_public_access_block
-         in
-         ("public_access_block", arg) :: bnds
+         if [] = v_public_access_block then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_details__public_access_block)
+               v_public_access_block
+           in
+           let bnd = "public_access_block", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -180,7 +188,7 @@ let _ = yojson_of_timeouts
 type aws_s3control_multi_region_access_point = {
   account_id : string prop option; [@option]
   id : string prop option; [@option]
-  details : details list;
+  details : details list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -203,8 +211,11 @@ let yojson_of_aws_s3control_multi_region_access_point =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_details v_details in
-         ("details", arg) :: bnds
+         if [] = v_details then bnds
+         else
+           let arg = (yojson_of_list yojson_of_details) v_details in
+           let bnd = "details", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

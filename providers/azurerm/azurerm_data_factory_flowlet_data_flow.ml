@@ -226,10 +226,15 @@ type sink = {
   description : string prop option; [@option]
   name : string prop;
   dataset : sink__dataset list;
+      [@default []] [@yojson_drop_default ( = )]
   flowlet : sink__flowlet list;
+      [@default []] [@yojson_drop_default ( = )]
   linked_service : sink__linked_service list;
+      [@default []] [@yojson_drop_default ( = )]
   rejected_linked_service : sink__rejected_linked_service list;
+      [@default []] [@yojson_drop_default ( = )]
   schema_linked_service : sink__schema_linked_service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -250,37 +255,52 @@ let yojson_of_sink =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sink__schema_linked_service
-             v_schema_linked_service
-         in
-         ("schema_linked_service", arg) :: bnds
+         if [] = v_schema_linked_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sink__schema_linked_service)
+               v_schema_linked_service
+           in
+           let bnd = "schema_linked_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sink__rejected_linked_service
-             v_rejected_linked_service
-         in
-         ("rejected_linked_service", arg) :: bnds
+         if [] = v_rejected_linked_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sink__rejected_linked_service)
+               v_rejected_linked_service
+           in
+           let bnd = "rejected_linked_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sink__linked_service
-             v_linked_service
-         in
-         ("linked_service", arg) :: bnds
+         if [] = v_linked_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sink__linked_service)
+               v_linked_service
+           in
+           let bnd = "linked_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sink__flowlet v_flowlet
-         in
-         ("flowlet", arg) :: bnds
+         if [] = v_flowlet then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sink__flowlet) v_flowlet
+           in
+           let bnd = "flowlet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sink__dataset v_dataset
-         in
-         ("dataset", arg) :: bnds
+         if [] = v_dataset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sink__dataset) v_dataset
+           in
+           let bnd = "dataset", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -525,10 +545,15 @@ type source = {
   description : string prop option; [@option]
   name : string prop;
   dataset : source__dataset list;
+      [@default []] [@yojson_drop_default ( = )]
   flowlet : source__flowlet list;
+      [@default []] [@yojson_drop_default ( = )]
   linked_service : source__linked_service list;
+      [@default []] [@yojson_drop_default ( = )]
   rejected_linked_service : source__rejected_linked_service list;
+      [@default []] [@yojson_drop_default ( = )]
   schema_linked_service : source__schema_linked_service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -549,37 +574,53 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__schema_linked_service
-             v_schema_linked_service
-         in
-         ("schema_linked_service", arg) :: bnds
+         if [] = v_schema_linked_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__schema_linked_service)
+               v_schema_linked_service
+           in
+           let bnd = "schema_linked_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__rejected_linked_service
-             v_rejected_linked_service
-         in
-         ("rejected_linked_service", arg) :: bnds
+         if [] = v_rejected_linked_service then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source__rejected_linked_service)
+               v_rejected_linked_service
+           in
+           let bnd = "rejected_linked_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__linked_service
-             v_linked_service
-         in
-         ("linked_service", arg) :: bnds
+         if [] = v_linked_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__linked_service)
+               v_linked_service
+           in
+           let bnd = "linked_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__flowlet v_flowlet
-         in
-         ("flowlet", arg) :: bnds
+         if [] = v_flowlet then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__flowlet) v_flowlet
+           in
+           let bnd = "flowlet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__dataset v_dataset
-         in
-         ("dataset", arg) :: bnds
+         if [] = v_dataset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__dataset) v_dataset
+           in
+           let bnd = "dataset", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -801,8 +842,11 @@ type transformation = {
   description : string prop option; [@option]
   name : string prop;
   dataset : transformation__dataset list;
+      [@default []] [@yojson_drop_default ( = )]
   flowlet : transformation__flowlet list;
+      [@default []] [@yojson_drop_default ( = )]
   linked_service : transformation__linked_service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -821,23 +865,34 @@ let yojson_of_transformation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transformation__linked_service
-             v_linked_service
-         in
-         ("linked_service", arg) :: bnds
+         if [] = v_linked_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transformation__linked_service)
+               v_linked_service
+           in
+           let bnd = "linked_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transformation__flowlet v_flowlet
-         in
-         ("flowlet", arg) :: bnds
+         if [] = v_flowlet then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transformation__flowlet)
+               v_flowlet
+           in
+           let bnd = "flowlet", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transformation__dataset v_dataset
-         in
-         ("dataset", arg) :: bnds
+         if [] = v_dataset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transformation__dataset)
+               v_dataset
+           in
+           let bnd = "dataset", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -867,10 +922,11 @@ type azurerm_data_factory_flowlet_data_flow = {
   name : string prop;
   script : string prop option; [@option]
   script_lines : string prop list option; [@option]
-  sink : sink list;
-  source : source list;
+  sink : sink list; [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   transformation : transformation list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -896,22 +952,32 @@ let yojson_of_azurerm_data_factory_flowlet_data_flow =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transformation v_transformation
-         in
-         ("transformation", arg) :: bnds
+         if [] = v_transformation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transformation)
+               v_transformation
+           in
+           let bnd = "transformation", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sink v_sink in
-         ("sink", arg) :: bnds
+         if [] = v_sink then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sink) v_sink in
+           let bnd = "sink", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_script_lines with

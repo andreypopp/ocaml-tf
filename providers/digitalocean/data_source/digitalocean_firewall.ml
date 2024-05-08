@@ -239,7 +239,9 @@ type digitalocean_firewall = {
   id : string prop option; [@option]
   tags : string prop list option; [@option]
   inbound_rule : inbound_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   outbound_rule : outbound_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -259,16 +261,22 @@ let yojson_of_digitalocean_firewall =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_outbound_rule v_outbound_rule
-         in
-         ("outbound_rule", arg) :: bnds
+         if [] = v_outbound_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_outbound_rule) v_outbound_rule
+           in
+           let bnd = "outbound_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inbound_rule v_inbound_rule
-         in
-         ("inbound_rule", arg) :: bnds
+         if [] = v_inbound_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_inbound_rule) v_inbound_rule
+           in
+           let bnd = "inbound_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

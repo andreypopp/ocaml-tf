@@ -102,6 +102,7 @@ let _ = yojson_of_hourly_schedule
 
 type monthly_schedule = {
   days_of_month : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   hour : float prop;
   minute : float prop;
   snapshots_to_keep : float prop;
@@ -136,12 +137,14 @@ let yojson_of_monthly_schedule =
          ("hour", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_days_of_month
-         in
-         ("days_of_month", arg) :: bnds
+         if [] = v_days_of_month then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_days_of_month
+           in
+           let bnd = "days_of_month", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : monthly_schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -152,6 +155,7 @@ let _ = yojson_of_monthly_schedule
 
 type weekly_schedule = {
   days_of_week : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   hour : float prop;
   minute : float prop;
   snapshots_to_keep : float prop;
@@ -186,12 +190,14 @@ let yojson_of_weekly_schedule =
          ("hour", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_days_of_week
-         in
-         ("days_of_week", arg) :: bnds
+         if [] = v_days_of_week then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_days_of_week
+           in
+           let bnd = "days_of_week", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : weekly_schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)

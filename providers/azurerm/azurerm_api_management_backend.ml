@@ -44,6 +44,7 @@ type credentials = {
   header : (string * string prop) list option; [@option]
   query : (string * string prop) list option; [@option]
   authorization : credentials__authorization list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -61,11 +62,14 @@ let yojson_of_credentials =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_credentials__authorization
-             v_authorization
-         in
-         ("authorization", arg) :: bnds
+         if [] = v_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_credentials__authorization)
+               v_authorization
+           in
+           let bnd = "authorization", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_query with
@@ -195,9 +199,11 @@ type service_fabric_cluster = {
   client_certificate_id : string prop option; [@option]
   client_certificate_thumbprint : string prop option; [@option]
   management_endpoints : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_partition_resolution_retries : float prop;
   server_certificate_thumbprints : string prop list option; [@option]
   server_x509_name : service_fabric_cluster__server_x509_name list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -220,12 +226,15 @@ let yojson_of_service_fabric_cluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_fabric_cluster__server_x509_name
-             v_server_x509_name
-         in
-         ("server_x509_name", arg) :: bnds
+         if [] = v_server_x509_name then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_fabric_cluster__server_x509_name)
+               v_server_x509_name
+           in
+           let bnd = "server_x509_name", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_server_certificate_thumbprints with
@@ -245,12 +254,14 @@ let yojson_of_service_fabric_cluster =
          ("max_partition_resolution_retries", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_management_endpoints
-         in
-         ("management_endpoints", arg) :: bnds
+         if [] = v_management_endpoints then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_management_endpoints
+           in
+           let bnd = "management_endpoints", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_client_certificate_thumbprint with
@@ -386,10 +397,12 @@ type azurerm_api_management_backend = {
   title : string prop option; [@option]
   url : string prop;
   credentials : credentials list;
-  proxy : proxy list;
+      [@default []] [@yojson_drop_default ( = )]
+  proxy : proxy list; [@default []] [@yojson_drop_default ( = )]
   service_fabric_cluster : service_fabric_cluster list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  tls : tls list;
+  tls : tls list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -417,29 +430,41 @@ let yojson_of_azurerm_api_management_backend =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_tls v_tls in
-         ("tls", arg) :: bnds
+         if [] = v_tls then bnds
+         else
+           let arg = (yojson_of_list yojson_of_tls) v_tls in
+           let bnd = "tls", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_fabric_cluster
-             v_service_fabric_cluster
-         in
-         ("service_fabric_cluster", arg) :: bnds
+         if [] = v_service_fabric_cluster then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_fabric_cluster)
+               v_service_fabric_cluster
+           in
+           let bnd = "service_fabric_cluster", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_proxy v_proxy in
-         ("proxy", arg) :: bnds
+         if [] = v_proxy then bnds
+         else
+           let arg = (yojson_of_list yojson_of_proxy) v_proxy in
+           let bnd = "proxy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_credentials v_credentials
-         in
-         ("credentials", arg) :: bnds
+         if [] = v_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_credentials) v_credentials
+           in
+           let bnd = "credentials", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_url in

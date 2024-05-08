@@ -157,6 +157,7 @@ type certificate_authority_configuration = {
   key_algorithm : string prop;
   signing_algorithm : string prop;
   subject : certificate_authority_configuration__subject list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -173,12 +174,15 @@ let yojson_of_certificate_authority_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_authority_configuration__subject
-             v_subject
-         in
-         ("subject", arg) :: bnds
+         if [] = v_subject then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_authority_configuration__subject)
+               v_subject
+           in
+           let bnd = "subject", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -307,8 +311,10 @@ let _ = yojson_of_revocation_configuration__ocsp_configuration
 type revocation_configuration = {
   crl_configuration :
     revocation_configuration__crl_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   ocsp_configuration :
     revocation_configuration__ocsp_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -324,20 +330,26 @@ let yojson_of_revocation_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_revocation_configuration__ocsp_configuration
-             v_ocsp_configuration
-         in
-         ("ocsp_configuration", arg) :: bnds
+         if [] = v_ocsp_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_revocation_configuration__ocsp_configuration)
+               v_ocsp_configuration
+           in
+           let bnd = "ocsp_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_revocation_configuration__crl_configuration
-             v_crl_configuration
-         in
-         ("crl_configuration", arg) :: bnds
+         if [] = v_crl_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_revocation_configuration__crl_configuration)
+               v_crl_configuration
+           in
+           let bnd = "crl_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : revocation_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -383,7 +395,9 @@ type aws_acmpca_certificate_authority = {
   usage_mode : string prop option; [@option]
   certificate_authority_configuration :
     certificate_authority_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   revocation_configuration : revocation_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -416,19 +430,25 @@ let yojson_of_aws_acmpca_certificate_authority =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_revocation_configuration
-             v_revocation_configuration
-         in
-         ("revocation_configuration", arg) :: bnds
+         if [] = v_revocation_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_revocation_configuration)
+               v_revocation_configuration
+           in
+           let bnd = "revocation_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_authority_configuration
-             v_certificate_authority_configuration
-         in
-         ("certificate_authority_configuration", arg) :: bnds
+         if [] = v_certificate_authority_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_authority_configuration)
+               v_certificate_authority_configuration
+           in
+           let bnd = "certificate_authority_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_usage_mode with

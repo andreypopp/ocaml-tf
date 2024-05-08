@@ -34,6 +34,7 @@ let _ = yojson_of_share_settings__project_map
 
 type share_settings = {
   project_map : share_settings__project_map list;
+      [@default []] [@yojson_drop_default ( = )]
   share_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -51,11 +52,14 @@ let yojson_of_share_settings =
          ("share_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_share_settings__project_map
-             v_project_map
-         in
-         ("project_map", arg) :: bnds
+         if [] = v_project_map then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_share_settings__project_map)
+               v_project_map
+           in
+           let bnd = "project_map", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : share_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -143,8 +147,10 @@ type specific_reservation__instance_properties = {
   guest_accelerators :
     specific_reservation__instance_properties__guest_accelerators
     list;
+      [@default []] [@yojson_drop_default ( = )]
   local_ssds :
     specific_reservation__instance_properties__local_ssds list;
+      [@default []] [@yojson_drop_default ( = )]
   machine_type : string prop;
   min_cpu_platform : string prop;
 }
@@ -174,20 +180,26 @@ let yojson_of_specific_reservation__instance_properties =
          ("machine_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_specific_reservation__instance_properties__local_ssds
-             v_local_ssds
-         in
-         ("local_ssds", arg) :: bnds
+         if [] = v_local_ssds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_specific_reservation__instance_properties__local_ssds)
+               v_local_ssds
+           in
+           let bnd = "local_ssds", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_specific_reservation__instance_properties__guest_accelerators
-             v_guest_accelerators
-         in
-         ("guest_accelerators", arg) :: bnds
+         if [] = v_guest_accelerators then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_specific_reservation__instance_properties__guest_accelerators)
+               v_guest_accelerators
+           in
+           let bnd = "guest_accelerators", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : specific_reservation__instance_properties ->
@@ -202,6 +214,7 @@ type specific_reservation = {
   in_use_count : float prop;
   instance_properties :
     specific_reservation__instance_properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -218,12 +231,15 @@ let yojson_of_specific_reservation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_specific_reservation__instance_properties
-             v_instance_properties
-         in
-         ("instance_properties", arg) :: bnds
+         if [] = v_instance_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_specific_reservation__instance_properties)
+               v_instance_properties
+           in
+           let bnd = "instance_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_in_use_count in

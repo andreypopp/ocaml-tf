@@ -461,7 +461,7 @@ type cloudflare_record = {
   type_ : string prop; [@key "type"]
   value : string prop option; [@option]
   zone_id : string prop;
-  data : data list;
+  data : data list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -493,8 +493,11 @@ let yojson_of_cloudflare_record =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_data v_data in
-         ("data", arg) :: bnds
+         if [] = v_data then bnds
+         else
+           let arg = (yojson_of_list yojson_of_data) v_data in
+           let bnd = "data", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in

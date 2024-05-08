@@ -124,6 +124,7 @@ type azurerm_servicebus_subscription = {
   status : string prop option; [@option]
   topic_id : string prop;
   client_scoped_subscription : client_scoped_subscription list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -163,11 +164,14 @@ let yojson_of_azurerm_servicebus_subscription =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_scoped_subscription
-             v_client_scoped_subscription
-         in
-         ("client_scoped_subscription", arg) :: bnds
+         if [] = v_client_scoped_subscription then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_scoped_subscription)
+               v_client_scoped_subscription
+           in
+           let bnd = "client_scoped_subscription", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topic_id in

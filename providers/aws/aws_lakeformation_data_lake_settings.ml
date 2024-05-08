@@ -95,8 +95,10 @@ type aws_lakeformation_data_lake_settings = {
   trusted_resource_owners : string prop list option; [@option]
   create_database_default_permissions :
     create_database_default_permissions list;
+      [@default []] [@yojson_drop_default ( = )]
   create_table_default_permissions :
     create_table_default_permissions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -125,19 +127,26 @@ let yojson_of_aws_lakeformation_data_lake_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_create_table_default_permissions
-             v_create_table_default_permissions
-         in
-         ("create_table_default_permissions", arg) :: bnds
+         if [] = v_create_table_default_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_create_table_default_permissions)
+               v_create_table_default_permissions
+           in
+           let bnd = "create_table_default_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_create_database_default_permissions
-             v_create_database_default_permissions
-         in
-         ("create_database_default_permissions", arg) :: bnds
+         if [] = v_create_database_default_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_create_database_default_permissions)
+               v_create_database_default_permissions
+           in
+           let bnd = "create_database_default_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_trusted_resource_owners with

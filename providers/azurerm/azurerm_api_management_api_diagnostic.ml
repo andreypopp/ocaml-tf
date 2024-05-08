@@ -64,7 +64,9 @@ let _ = yojson_of_backend_request__data_masking__query_params
 
 type backend_request__data_masking = {
   headers : backend_request__data_masking__headers list;
+      [@default []] [@yojson_drop_default ( = )]
   query_params : backend_request__data_masking__query_params list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -77,20 +79,26 @@ let yojson_of_backend_request__data_masking =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backend_request__data_masking__query_params
-             v_query_params
-         in
-         ("query_params", arg) :: bnds
+         if [] = v_query_params then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backend_request__data_masking__query_params)
+               v_query_params
+           in
+           let bnd = "query_params", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backend_request__data_masking__headers
-             v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backend_request__data_masking__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : backend_request__data_masking ->
@@ -104,6 +112,7 @@ type backend_request = {
   body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
   data_masking : backend_request__data_masking list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -120,11 +129,14 @@ let yojson_of_backend_request =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backend_request__data_masking
-             v_data_masking
-         in
-         ("data_masking", arg) :: bnds
+         if [] = v_data_masking then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backend_request__data_masking)
+               v_data_masking
+           in
+           let bnd = "data_masking", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_headers_to_log with
@@ -213,7 +225,9 @@ let _ = yojson_of_backend_response__data_masking__query_params
 
 type backend_response__data_masking = {
   headers : backend_response__data_masking__headers list;
+      [@default []] [@yojson_drop_default ( = )]
   query_params : backend_response__data_masking__query_params list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -226,20 +240,26 @@ let yojson_of_backend_response__data_masking =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backend_response__data_masking__query_params
-             v_query_params
-         in
-         ("query_params", arg) :: bnds
+         if [] = v_query_params then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backend_response__data_masking__query_params)
+               v_query_params
+           in
+           let bnd = "query_params", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backend_response__data_masking__headers
-             v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backend_response__data_masking__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : backend_response__data_masking ->
@@ -253,6 +273,7 @@ type backend_response = {
   body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
   data_masking : backend_response__data_masking list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -269,11 +290,14 @@ let yojson_of_backend_response =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backend_response__data_masking
-             v_data_masking
-         in
-         ("data_masking", arg) :: bnds
+         if [] = v_data_masking then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backend_response__data_masking)
+               v_data_masking
+           in
+           let bnd = "data_masking", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_headers_to_log with
@@ -362,7 +386,9 @@ let _ = yojson_of_frontend_request__data_masking__query_params
 
 type frontend_request__data_masking = {
   headers : frontend_request__data_masking__headers list;
+      [@default []] [@yojson_drop_default ( = )]
   query_params : frontend_request__data_masking__query_params list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -375,20 +401,26 @@ let yojson_of_frontend_request__data_masking =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_frontend_request__data_masking__query_params
-             v_query_params
-         in
-         ("query_params", arg) :: bnds
+         if [] = v_query_params then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_frontend_request__data_masking__query_params)
+               v_query_params
+           in
+           let bnd = "query_params", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_frontend_request__data_masking__headers
-             v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_frontend_request__data_masking__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : frontend_request__data_masking ->
@@ -402,6 +434,7 @@ type frontend_request = {
   body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
   data_masking : frontend_request__data_masking list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -418,11 +451,14 @@ let yojson_of_frontend_request =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_frontend_request__data_masking
-             v_data_masking
-         in
-         ("data_masking", arg) :: bnds
+         if [] = v_data_masking then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_frontend_request__data_masking)
+               v_data_masking
+           in
+           let bnd = "data_masking", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_headers_to_log with
@@ -511,7 +547,9 @@ let _ = yojson_of_frontend_response__data_masking__query_params
 
 type frontend_response__data_masking = {
   headers : frontend_response__data_masking__headers list;
+      [@default []] [@yojson_drop_default ( = )]
   query_params : frontend_response__data_masking__query_params list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -524,20 +562,26 @@ let yojson_of_frontend_response__data_masking =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_frontend_response__data_masking__query_params
-             v_query_params
-         in
-         ("query_params", arg) :: bnds
+         if [] = v_query_params then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_frontend_response__data_masking__query_params)
+               v_query_params
+           in
+           let bnd = "query_params", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_frontend_response__data_masking__headers
-             v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_frontend_response__data_masking__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : frontend_response__data_masking ->
@@ -551,6 +595,7 @@ type frontend_response = {
   body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
   data_masking : frontend_response__data_masking list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -567,11 +612,15 @@ let yojson_of_frontend_response =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_frontend_response__data_masking
-             v_data_masking
-         in
-         ("data_masking", arg) :: bnds
+         if [] = v_data_masking then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_frontend_response__data_masking)
+               v_data_masking
+           in
+           let bnd = "data_masking", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_headers_to_log with
@@ -672,9 +721,13 @@ type azurerm_api_management_api_diagnostic = {
   sampling_percentage : float prop option; [@option]
   verbosity : string prop option; [@option]
   backend_request : backend_request list;
+      [@default []] [@yojson_drop_default ( = )]
   backend_response : backend_response list;
+      [@default []] [@yojson_drop_default ( = )]
   frontend_request : frontend_request list;
+      [@default []] [@yojson_drop_default ( = )]
   frontend_response : frontend_response list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -710,31 +763,44 @@ let yojson_of_azurerm_api_management_api_diagnostic =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_frontend_response
-             v_frontend_response
-         in
-         ("frontend_response", arg) :: bnds
+         if [] = v_frontend_response then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_frontend_response)
+               v_frontend_response
+           in
+           let bnd = "frontend_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_frontend_request
-             v_frontend_request
-         in
-         ("frontend_request", arg) :: bnds
+         if [] = v_frontend_request then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_frontend_request)
+               v_frontend_request
+           in
+           let bnd = "frontend_request", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backend_response
-             v_backend_response
-         in
-         ("backend_response", arg) :: bnds
+         if [] = v_backend_response then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backend_response)
+               v_backend_response
+           in
+           let bnd = "backend_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backend_request v_backend_request
-         in
-         ("backend_request", arg) :: bnds
+         if [] = v_backend_request then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backend_request)
+               v_backend_request
+           in
+           let bnd = "backend_request", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_verbosity with

@@ -162,9 +162,11 @@ type transit_gateway_configuration__attachment_network_acl_configuration = {
   icmp_type_code :
     transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code
     list;
+      [@default []] [@yojson_drop_default ( = )]
   port_range :
     transit_gateway_configuration__attachment_network_acl_configuration__port_range
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -188,20 +190,26 @@ let yojson_of_transit_gateway_configuration__attachment_network_acl_configuratio
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transit_gateway_configuration__attachment_network_acl_configuration__port_range
-             v_port_range
-         in
-         ("port_range", arg) :: bnds
+         if [] = v_port_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transit_gateway_configuration__attachment_network_acl_configuration__port_range)
+               v_port_range
+           in
+           let bnd = "port_range", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code
-             v_icmp_type_code
-         in
-         ("icmp_type_code", arg) :: bnds
+         if [] = v_icmp_type_code then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code)
+               v_icmp_type_code
+           in
+           let bnd = "icmp_type_code", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_rule_number in
@@ -234,6 +242,7 @@ type transit_gateway_configuration = {
   attachment_network_acl_configuration :
     transit_gateway_configuration__attachment_network_acl_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -251,12 +260,15 @@ let yojson_of_transit_gateway_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transit_gateway_configuration__attachment_network_acl_configuration
-             v_attachment_network_acl_configuration
-         in
-         ("attachment_network_acl_configuration", arg) :: bnds
+         if [] = v_attachment_network_acl_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transit_gateway_configuration__attachment_network_acl_configuration)
+               v_attachment_network_acl_configuration
+           in
+           let bnd = "attachment_network_acl_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -285,8 +297,10 @@ type aws_finspace_kx_environment = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   custom_dns_configuration : custom_dns_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   transit_gateway_configuration : transit_gateway_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -309,22 +323,28 @@ let yojson_of_aws_finspace_kx_environment =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transit_gateway_configuration
-             v_transit_gateway_configuration
-         in
-         ("transit_gateway_configuration", arg) :: bnds
+         if [] = v_transit_gateway_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transit_gateway_configuration)
+               v_transit_gateway_configuration
+           in
+           let bnd = "transit_gateway_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_dns_configuration
-             v_custom_dns_configuration
-         in
-         ("custom_dns_configuration", arg) :: bnds
+         if [] = v_custom_dns_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_dns_configuration)
+               v_custom_dns_configuration
+           in
+           let bnd = "custom_dns_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

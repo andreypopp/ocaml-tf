@@ -294,9 +294,13 @@ type azurerm_data_factory_dataset_binary = {
   name : string prop;
   parameters : (string * string prop) list option; [@option]
   azure_blob_storage_location : azure_blob_storage_location list;
+      [@default []] [@yojson_drop_default ( = )]
   compression : compression list;
+      [@default []] [@yojson_drop_default ( = )]
   http_server_location : http_server_location list;
+      [@default []] [@yojson_drop_default ( = )]
   sftp_server_location : sftp_server_location list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -329,31 +333,43 @@ let yojson_of_azurerm_data_factory_dataset_binary =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sftp_server_location
-             v_sftp_server_location
-         in
-         ("sftp_server_location", arg) :: bnds
+         if [] = v_sftp_server_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sftp_server_location)
+               v_sftp_server_location
+           in
+           let bnd = "sftp_server_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_server_location
-             v_http_server_location
-         in
-         ("http_server_location", arg) :: bnds
+         if [] = v_http_server_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_server_location)
+               v_http_server_location
+           in
+           let bnd = "http_server_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_compression v_compression
-         in
-         ("compression", arg) :: bnds
+         if [] = v_compression then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_compression) v_compression
+           in
+           let bnd = "compression", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_azure_blob_storage_location
-             v_azure_blob_storage_location
-         in
-         ("azure_blob_storage_location", arg) :: bnds
+         if [] = v_azure_blob_storage_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_azure_blob_storage_location)
+               v_azure_blob_storage_location
+           in
+           let bnd = "azure_blob_storage_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_parameters with

@@ -55,6 +55,7 @@ let _ = yojson_of_advanced_settings__dtmf_settings
 
 type advanced_settings = {
   dtmf_settings : advanced_settings__dtmf_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -67,11 +68,15 @@ let yojson_of_advanced_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_advanced_settings__dtmf_settings
-             v_dtmf_settings
-         in
-         ("dtmf_settings", arg) :: bnds
+         if [] = v_dtmf_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_advanced_settings__dtmf_settings)
+               v_dtmf_settings
+           in
+           let bnd = "dtmf_settings", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : advanced_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -296,14 +301,20 @@ type entry_fulfillment__messages = {
   payload : string prop option; [@option]
   conversation_success :
     entry_fulfillment__messages__conversation_success list;
+      [@default []] [@yojson_drop_default ( = )]
   live_agent_handoff :
     entry_fulfillment__messages__live_agent_handoff list;
+      [@default []] [@yojson_drop_default ( = )]
   output_audio_text :
     entry_fulfillment__messages__output_audio_text list;
+      [@default []] [@yojson_drop_default ( = )]
   play_audio : entry_fulfillment__messages__play_audio list;
+      [@default []] [@yojson_drop_default ( = )]
   telephony_transfer_call :
     entry_fulfillment__messages__telephony_transfer_call list;
+      [@default []] [@yojson_drop_default ( = )]
   text : entry_fulfillment__messages__text list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -325,51 +336,70 @@ let yojson_of_entry_fulfillment__messages =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_entry_fulfillment__messages__text
-             v_text
-         in
-         ("text", arg) :: bnds
+         if [] = v_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_entry_fulfillment__messages__text)
+               v_text
+           in
+           let bnd = "text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_entry_fulfillment__messages__telephony_transfer_call
-             v_telephony_transfer_call
-         in
-         ("telephony_transfer_call", arg) :: bnds
+         if [] = v_telephony_transfer_call then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_entry_fulfillment__messages__telephony_transfer_call)
+               v_telephony_transfer_call
+           in
+           let bnd = "telephony_transfer_call", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_entry_fulfillment__messages__play_audio
-             v_play_audio
-         in
-         ("play_audio", arg) :: bnds
+         if [] = v_play_audio then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_entry_fulfillment__messages__play_audio)
+               v_play_audio
+           in
+           let bnd = "play_audio", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_entry_fulfillment__messages__output_audio_text
-             v_output_audio_text
-         in
-         ("output_audio_text", arg) :: bnds
+         if [] = v_output_audio_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_entry_fulfillment__messages__output_audio_text)
+               v_output_audio_text
+           in
+           let bnd = "output_audio_text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_entry_fulfillment__messages__live_agent_handoff
-             v_live_agent_handoff
-         in
-         ("live_agent_handoff", arg) :: bnds
+         if [] = v_live_agent_handoff then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_entry_fulfillment__messages__live_agent_handoff)
+               v_live_agent_handoff
+           in
+           let bnd = "live_agent_handoff", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_entry_fulfillment__messages__conversation_success
-             v_conversation_success
-         in
-         ("conversation_success", arg) :: bnds
+         if [] = v_conversation_success then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_entry_fulfillment__messages__conversation_success)
+               v_conversation_success
+           in
+           let bnd = "conversation_success", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_payload with
@@ -438,9 +468,12 @@ type entry_fulfillment = {
   tag : string prop option; [@option]
   webhook : string prop option; [@option]
   conditional_cases : entry_fulfillment__conditional_cases list;
+      [@default []] [@yojson_drop_default ( = )]
   messages : entry_fulfillment__messages list;
+      [@default []] [@yojson_drop_default ( = )]
   set_parameter_actions :
     entry_fulfillment__set_parameter_actions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -460,27 +493,36 @@ let yojson_of_entry_fulfillment =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_entry_fulfillment__set_parameter_actions
-             v_set_parameter_actions
-         in
-         ("set_parameter_actions", arg) :: bnds
+         if [] = v_set_parameter_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_entry_fulfillment__set_parameter_actions)
+               v_set_parameter_actions
+           in
+           let bnd = "set_parameter_actions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_entry_fulfillment__messages
-             v_messages
-         in
-         ("messages", arg) :: bnds
+         if [] = v_messages then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_entry_fulfillment__messages)
+               v_messages
+           in
+           let bnd = "messages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_entry_fulfillment__conditional_cases
-             v_conditional_cases
-         in
-         ("conditional_cases", arg) :: bnds
+         if [] = v_conditional_cases then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_entry_fulfillment__conditional_cases)
+               v_conditional_cases
+           in
+           let bnd = "conditional_cases", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_webhook with
@@ -754,18 +796,24 @@ type event_handlers__trigger_fulfillment__messages = {
   conversation_success :
     event_handlers__trigger_fulfillment__messages__conversation_success
     list;
+      [@default []] [@yojson_drop_default ( = )]
   live_agent_handoff :
     event_handlers__trigger_fulfillment__messages__live_agent_handoff
     list;
+      [@default []] [@yojson_drop_default ( = )]
   output_audio_text :
     event_handlers__trigger_fulfillment__messages__output_audio_text
     list;
+      [@default []] [@yojson_drop_default ( = )]
   play_audio :
     event_handlers__trigger_fulfillment__messages__play_audio list;
+      [@default []] [@yojson_drop_default ( = )]
   telephony_transfer_call :
     event_handlers__trigger_fulfillment__messages__telephony_transfer_call
     list;
+      [@default []] [@yojson_drop_default ( = )]
   text : event_handlers__trigger_fulfillment__messages__text list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -787,52 +835,70 @@ let yojson_of_event_handlers__trigger_fulfillment__messages =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_event_handlers__trigger_fulfillment__messages__text
-             v_text
-         in
-         ("text", arg) :: bnds
+         if [] = v_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_event_handlers__trigger_fulfillment__messages__text)
+               v_text
+           in
+           let bnd = "text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_event_handlers__trigger_fulfillment__messages__telephony_transfer_call
-             v_telephony_transfer_call
-         in
-         ("telephony_transfer_call", arg) :: bnds
+         if [] = v_telephony_transfer_call then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_event_handlers__trigger_fulfillment__messages__telephony_transfer_call)
+               v_telephony_transfer_call
+           in
+           let bnd = "telephony_transfer_call", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_event_handlers__trigger_fulfillment__messages__play_audio
-             v_play_audio
-         in
-         ("play_audio", arg) :: bnds
+         if [] = v_play_audio then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_event_handlers__trigger_fulfillment__messages__play_audio)
+               v_play_audio
+           in
+           let bnd = "play_audio", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_event_handlers__trigger_fulfillment__messages__output_audio_text
-             v_output_audio_text
-         in
-         ("output_audio_text", arg) :: bnds
+         if [] = v_output_audio_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_event_handlers__trigger_fulfillment__messages__output_audio_text)
+               v_output_audio_text
+           in
+           let bnd = "output_audio_text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_event_handlers__trigger_fulfillment__messages__live_agent_handoff
-             v_live_agent_handoff
-         in
-         ("live_agent_handoff", arg) :: bnds
+         if [] = v_live_agent_handoff then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_event_handlers__trigger_fulfillment__messages__live_agent_handoff)
+               v_live_agent_handoff
+           in
+           let bnd = "live_agent_handoff", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_event_handlers__trigger_fulfillment__messages__conversation_success
-             v_conversation_success
-         in
-         ("conversation_success", arg) :: bnds
+         if [] = v_conversation_success then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_event_handlers__trigger_fulfillment__messages__conversation_success)
+               v_conversation_success
+           in
+           let bnd = "conversation_success", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_payload with
@@ -906,9 +972,12 @@ type event_handlers__trigger_fulfillment = {
   webhook : string prop option; [@option]
   conditional_cases :
     event_handlers__trigger_fulfillment__conditional_cases list;
+      [@default []] [@yojson_drop_default ( = )]
   messages : event_handlers__trigger_fulfillment__messages list;
+      [@default []] [@yojson_drop_default ( = )]
   set_parameter_actions :
     event_handlers__trigger_fulfillment__set_parameter_actions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -928,28 +997,37 @@ let yojson_of_event_handlers__trigger_fulfillment =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_event_handlers__trigger_fulfillment__set_parameter_actions
-             v_set_parameter_actions
-         in
-         ("set_parameter_actions", arg) :: bnds
+         if [] = v_set_parameter_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_event_handlers__trigger_fulfillment__set_parameter_actions)
+               v_set_parameter_actions
+           in
+           let bnd = "set_parameter_actions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_event_handlers__trigger_fulfillment__messages
-             v_messages
-         in
-         ("messages", arg) :: bnds
+         if [] = v_messages then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_event_handlers__trigger_fulfillment__messages)
+               v_messages
+           in
+           let bnd = "messages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_event_handlers__trigger_fulfillment__conditional_cases
-             v_conditional_cases
-         in
-         ("conditional_cases", arg) :: bnds
+         if [] = v_conditional_cases then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_event_handlers__trigger_fulfillment__conditional_cases)
+               v_conditional_cases
+           in
+           let bnd = "conditional_cases", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_webhook with
@@ -988,6 +1066,7 @@ type event_handlers = {
   target_flow : string prop option; [@option]
   target_page : string prop option; [@option]
   trigger_fulfillment : event_handlers__trigger_fulfillment list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1005,12 +1084,15 @@ let yojson_of_event_handlers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_event_handlers__trigger_fulfillment
-             v_trigger_fulfillment
-         in
-         ("trigger_fulfillment", arg) :: bnds
+         if [] = v_trigger_fulfillment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_event_handlers__trigger_fulfillment)
+               v_trigger_fulfillment
+           in
+           let bnd = "trigger_fulfillment", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_page with
@@ -1098,6 +1180,7 @@ let _ = yojson_of_form__parameters__advanced_settings__dtmf_settings
 type form__parameters__advanced_settings = {
   dtmf_settings :
     form__parameters__advanced_settings__dtmf_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1110,12 +1193,15 @@ let yojson_of_form__parameters__advanced_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__advanced_settings__dtmf_settings
-             v_dtmf_settings
-         in
-         ("dtmf_settings", arg) :: bnds
+         if [] = v_dtmf_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__advanced_settings__dtmf_settings)
+               v_dtmf_settings
+           in
+           let bnd = "dtmf_settings", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : form__parameters__advanced_settings ->
@@ -1372,21 +1458,27 @@ type form__parameters__fill_behavior__initial_prompt_fulfillment__messages = {
   conversation_success :
     form__parameters__fill_behavior__initial_prompt_fulfillment__messages__conversation_success
     list;
+      [@default []] [@yojson_drop_default ( = )]
   live_agent_handoff :
     form__parameters__fill_behavior__initial_prompt_fulfillment__messages__live_agent_handoff
     list;
+      [@default []] [@yojson_drop_default ( = )]
   output_audio_text :
     form__parameters__fill_behavior__initial_prompt_fulfillment__messages__output_audio_text
     list;
+      [@default []] [@yojson_drop_default ( = )]
   play_audio :
     form__parameters__fill_behavior__initial_prompt_fulfillment__messages__play_audio
     list;
+      [@default []] [@yojson_drop_default ( = )]
   telephony_transfer_call :
     form__parameters__fill_behavior__initial_prompt_fulfillment__messages__telephony_transfer_call
     list;
+      [@default []] [@yojson_drop_default ( = )]
   text :
     form__parameters__fill_behavior__initial_prompt_fulfillment__messages__text
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1412,52 +1504,70 @@ let yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messa
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__text
-             v_text
-         in
-         ("text", arg) :: bnds
+         if [] = v_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__text)
+               v_text
+           in
+           let bnd = "text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__telephony_transfer_call
-             v_telephony_transfer_call
-         in
-         ("telephony_transfer_call", arg) :: bnds
+         if [] = v_telephony_transfer_call then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__telephony_transfer_call)
+               v_telephony_transfer_call
+           in
+           let bnd = "telephony_transfer_call", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__play_audio
-             v_play_audio
-         in
-         ("play_audio", arg) :: bnds
+         if [] = v_play_audio then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__play_audio)
+               v_play_audio
+           in
+           let bnd = "play_audio", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__output_audio_text
-             v_output_audio_text
-         in
-         ("output_audio_text", arg) :: bnds
+         if [] = v_output_audio_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__output_audio_text)
+               v_output_audio_text
+           in
+           let bnd = "output_audio_text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__live_agent_handoff
-             v_live_agent_handoff
-         in
-         ("live_agent_handoff", arg) :: bnds
+         if [] = v_live_agent_handoff then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__live_agent_handoff)
+               v_live_agent_handoff
+           in
+           let bnd = "live_agent_handoff", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__conversation_success
-             v_conversation_success
-         in
-         ("conversation_success", arg) :: bnds
+         if [] = v_conversation_success then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages__conversation_success)
+               v_conversation_success
+           in
+           let bnd = "conversation_success", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_payload with
@@ -1534,12 +1644,15 @@ type form__parameters__fill_behavior__initial_prompt_fulfillment = {
   conditional_cases :
     form__parameters__fill_behavior__initial_prompt_fulfillment__conditional_cases
     list;
+      [@default []] [@yojson_drop_default ( = )]
   messages :
     form__parameters__fill_behavior__initial_prompt_fulfillment__messages
     list;
+      [@default []] [@yojson_drop_default ( = )]
   set_parameter_actions :
     form__parameters__fill_behavior__initial_prompt_fulfillment__set_parameter_actions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1563,28 +1676,37 @@ let yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__set_parameter_actions
-             v_set_parameter_actions
-         in
-         ("set_parameter_actions", arg) :: bnds
+         if [] = v_set_parameter_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__set_parameter_actions)
+               v_set_parameter_actions
+           in
+           let bnd = "set_parameter_actions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages
-             v_messages
-         in
-         ("messages", arg) :: bnds
+         if [] = v_messages then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__messages)
+               v_messages
+           in
+           let bnd = "messages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__conditional_cases
-             v_conditional_cases
-         in
-         ("conditional_cases", arg) :: bnds
+         if [] = v_conditional_cases then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment__conditional_cases)
+               v_conditional_cases
+           in
+           let bnd = "conditional_cases", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_webhook with
@@ -1866,21 +1988,27 @@ type form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillme
   conversation_success :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__conversation_success
     list;
+      [@default []] [@yojson_drop_default ( = )]
   live_agent_handoff :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__live_agent_handoff
     list;
+      [@default []] [@yojson_drop_default ( = )]
   output_audio_text :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__output_audio_text
     list;
+      [@default []] [@yojson_drop_default ( = )]
   play_audio :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__play_audio
     list;
+      [@default []] [@yojson_drop_default ( = )]
   telephony_transfer_call :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__telephony_transfer_call
     list;
+      [@default []] [@yojson_drop_default ( = )]
   text :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__text
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1906,52 +2034,70 @@ let yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__text
-             v_text
-         in
-         ("text", arg) :: bnds
+         if [] = v_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__text)
+               v_text
+           in
+           let bnd = "text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__telephony_transfer_call
-             v_telephony_transfer_call
-         in
-         ("telephony_transfer_call", arg) :: bnds
+         if [] = v_telephony_transfer_call then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__telephony_transfer_call)
+               v_telephony_transfer_call
+           in
+           let bnd = "telephony_transfer_call", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__play_audio
-             v_play_audio
-         in
-         ("play_audio", arg) :: bnds
+         if [] = v_play_audio then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__play_audio)
+               v_play_audio
+           in
+           let bnd = "play_audio", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__output_audio_text
-             v_output_audio_text
-         in
-         ("output_audio_text", arg) :: bnds
+         if [] = v_output_audio_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__output_audio_text)
+               v_output_audio_text
+           in
+           let bnd = "output_audio_text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__live_agent_handoff
-             v_live_agent_handoff
-         in
-         ("live_agent_handoff", arg) :: bnds
+         if [] = v_live_agent_handoff then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__live_agent_handoff)
+               v_live_agent_handoff
+           in
+           let bnd = "live_agent_handoff", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__conversation_success
-             v_conversation_success
-         in
-         ("conversation_success", arg) :: bnds
+         if [] = v_conversation_success then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages__conversation_success)
+               v_conversation_success
+           in
+           let bnd = "conversation_success", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_payload with
@@ -2028,12 +2174,15 @@ type form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillme
   conditional_cases :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__conditional_cases
     list;
+      [@default []] [@yojson_drop_default ( = )]
   messages :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages
     list;
+      [@default []] [@yojson_drop_default ( = )]
   set_parameter_actions :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__set_parameter_actions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2057,28 +2206,37 @@ let yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__set_parameter_actions
-             v_set_parameter_actions
-         in
-         ("set_parameter_actions", arg) :: bnds
+         if [] = v_set_parameter_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__set_parameter_actions)
+               v_set_parameter_actions
+           in
+           let bnd = "set_parameter_actions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages
-             v_messages
-         in
-         ("messages", arg) :: bnds
+         if [] = v_messages then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__messages)
+               v_messages
+           in
+           let bnd = "messages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__conditional_cases
-             v_conditional_cases
-         in
-         ("conditional_cases", arg) :: bnds
+         if [] = v_conditional_cases then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment__conditional_cases)
+               v_conditional_cases
+           in
+           let bnd = "conditional_cases", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_webhook with
@@ -2120,6 +2278,7 @@ type form__parameters__fill_behavior__reprompt_event_handlers = {
   trigger_fulfillment :
     form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2140,12 +2299,15 @@ let yojson_of_form__parameters__fill_behavior__reprompt_event_handlers
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment
-             v_trigger_fulfillment
-         in
-         ("trigger_fulfillment", arg) :: bnds
+         if [] = v_trigger_fulfillment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers__trigger_fulfillment)
+               v_trigger_fulfillment
+           in
+           let bnd = "trigger_fulfillment", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_page with
@@ -2183,8 +2345,10 @@ let _ =
 type form__parameters__fill_behavior = {
   initial_prompt_fulfillment :
     form__parameters__fill_behavior__initial_prompt_fulfillment list;
+      [@default []] [@yojson_drop_default ( = )]
   reprompt_event_handlers :
     form__parameters__fill_behavior__reprompt_event_handlers list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2200,20 +2364,26 @@ let yojson_of_form__parameters__fill_behavior =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__reprompt_event_handlers
-             v_reprompt_event_handlers
-         in
-         ("reprompt_event_handlers", arg) :: bnds
+         if [] = v_reprompt_event_handlers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__reprompt_event_handlers)
+               v_reprompt_event_handlers
+           in
+           let bnd = "reprompt_event_handlers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment
-             v_initial_prompt_fulfillment
-         in
-         ("initial_prompt_fulfillment", arg) :: bnds
+         if [] = v_initial_prompt_fulfillment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior__initial_prompt_fulfillment)
+               v_initial_prompt_fulfillment
+           in
+           let bnd = "initial_prompt_fulfillment", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : form__parameters__fill_behavior ->
@@ -2231,7 +2401,9 @@ type form__parameters = {
   redact : bool prop option; [@option]
   required : bool prop option; [@option]
   advanced_settings : form__parameters__advanced_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   fill_behavior : form__parameters__fill_behavior list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2253,19 +2425,26 @@ let yojson_of_form__parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_form__parameters__fill_behavior
-             v_fill_behavior
-         in
-         ("fill_behavior", arg) :: bnds
+         if [] = v_fill_behavior then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__fill_behavior)
+               v_fill_behavior
+           in
+           let bnd = "fill_behavior", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_form__parameters__advanced_settings
-             v_advanced_settings
-         in
-         ("advanced_settings", arg) :: bnds
+         if [] = v_advanced_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_form__parameters__advanced_settings)
+               v_advanced_settings
+           in
+           let bnd = "advanced_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_required with
@@ -2322,7 +2501,10 @@ let _ = yojson_of_form__parameters
 
 [@@@deriving.end]
 
-type form = { parameters : form__parameters list }
+type form = {
+  parameters : form__parameters list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : form) -> ()
@@ -2334,10 +2516,13 @@ let yojson_of_form =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_form__parameters v_parameters
-         in
-         ("parameters", arg) :: bnds
+         if [] = v_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_form__parameters) v_parameters
+           in
+           let bnd = "parameters", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : form -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2637,18 +2822,24 @@ type transition_routes__trigger_fulfillment__messages = {
   conversation_success :
     transition_routes__trigger_fulfillment__messages__conversation_success
     list;
+      [@default []] [@yojson_drop_default ( = )]
   live_agent_handoff :
     transition_routes__trigger_fulfillment__messages__live_agent_handoff
     list;
+      [@default []] [@yojson_drop_default ( = )]
   output_audio_text :
     transition_routes__trigger_fulfillment__messages__output_audio_text
     list;
+      [@default []] [@yojson_drop_default ( = )]
   play_audio :
     transition_routes__trigger_fulfillment__messages__play_audio list;
+      [@default []] [@yojson_drop_default ( = )]
   telephony_transfer_call :
     transition_routes__trigger_fulfillment__messages__telephony_transfer_call
     list;
+      [@default []] [@yojson_drop_default ( = )]
   text : transition_routes__trigger_fulfillment__messages__text list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2671,52 +2862,70 @@ let yojson_of_transition_routes__trigger_fulfillment__messages =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transition_routes__trigger_fulfillment__messages__text
-             v_text
-         in
-         ("text", arg) :: bnds
+         if [] = v_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transition_routes__trigger_fulfillment__messages__text)
+               v_text
+           in
+           let bnd = "text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transition_routes__trigger_fulfillment__messages__telephony_transfer_call
-             v_telephony_transfer_call
-         in
-         ("telephony_transfer_call", arg) :: bnds
+         if [] = v_telephony_transfer_call then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transition_routes__trigger_fulfillment__messages__telephony_transfer_call)
+               v_telephony_transfer_call
+           in
+           let bnd = "telephony_transfer_call", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transition_routes__trigger_fulfillment__messages__play_audio
-             v_play_audio
-         in
-         ("play_audio", arg) :: bnds
+         if [] = v_play_audio then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transition_routes__trigger_fulfillment__messages__play_audio)
+               v_play_audio
+           in
+           let bnd = "play_audio", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transition_routes__trigger_fulfillment__messages__output_audio_text
-             v_output_audio_text
-         in
-         ("output_audio_text", arg) :: bnds
+         if [] = v_output_audio_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transition_routes__trigger_fulfillment__messages__output_audio_text)
+               v_output_audio_text
+           in
+           let bnd = "output_audio_text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transition_routes__trigger_fulfillment__messages__live_agent_handoff
-             v_live_agent_handoff
-         in
-         ("live_agent_handoff", arg) :: bnds
+         if [] = v_live_agent_handoff then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transition_routes__trigger_fulfillment__messages__live_agent_handoff)
+               v_live_agent_handoff
+           in
+           let bnd = "live_agent_handoff", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transition_routes__trigger_fulfillment__messages__conversation_success
-             v_conversation_success
-         in
-         ("conversation_success", arg) :: bnds
+         if [] = v_conversation_success then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transition_routes__trigger_fulfillment__messages__conversation_success)
+               v_conversation_success
+           in
+           let bnd = "conversation_success", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_payload with
@@ -2791,10 +3000,13 @@ type transition_routes__trigger_fulfillment = {
   webhook : string prop option; [@option]
   conditional_cases :
     transition_routes__trigger_fulfillment__conditional_cases list;
+      [@default []] [@yojson_drop_default ( = )]
   messages : transition_routes__trigger_fulfillment__messages list;
+      [@default []] [@yojson_drop_default ( = )]
   set_parameter_actions :
     transition_routes__trigger_fulfillment__set_parameter_actions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2814,28 +3026,37 @@ let yojson_of_transition_routes__trigger_fulfillment =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transition_routes__trigger_fulfillment__set_parameter_actions
-             v_set_parameter_actions
-         in
-         ("set_parameter_actions", arg) :: bnds
+         if [] = v_set_parameter_actions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transition_routes__trigger_fulfillment__set_parameter_actions)
+               v_set_parameter_actions
+           in
+           let bnd = "set_parameter_actions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transition_routes__trigger_fulfillment__messages
-             v_messages
-         in
-         ("messages", arg) :: bnds
+         if [] = v_messages then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transition_routes__trigger_fulfillment__messages)
+               v_messages
+           in
+           let bnd = "messages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transition_routes__trigger_fulfillment__conditional_cases
-             v_conditional_cases
-         in
-         ("conditional_cases", arg) :: bnds
+         if [] = v_conditional_cases then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transition_routes__trigger_fulfillment__conditional_cases)
+               v_conditional_cases
+           in
+           let bnd = "conditional_cases", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_webhook with
@@ -2875,6 +3096,7 @@ type transition_routes = {
   target_flow : string prop option; [@option]
   target_page : string prop option; [@option]
   trigger_fulfillment : transition_routes__trigger_fulfillment list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2893,12 +3115,15 @@ let yojson_of_transition_routes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transition_routes__trigger_fulfillment
-             v_trigger_fulfillment
-         in
-         ("trigger_fulfillment", arg) :: bnds
+         if [] = v_trigger_fulfillment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transition_routes__trigger_fulfillment)
+               v_trigger_fulfillment
+           in
+           let bnd = "trigger_fulfillment", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_page with
@@ -2946,11 +3171,15 @@ type google_dialogflow_cx_page = {
   parent : string prop option; [@option]
   transition_route_groups : string prop list option; [@option]
   advanced_settings : advanced_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   entry_fulfillment : entry_fulfillment list;
+      [@default []] [@yojson_drop_default ( = )]
   event_handlers : event_handlers list;
-  form : form list;
+      [@default []] [@yojson_drop_default ( = )]
+  form : form list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   transition_routes : transition_routes list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2975,39 +3204,55 @@ let yojson_of_google_dialogflow_cx_page =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transition_routes
-             v_transition_routes
-         in
-         ("transition_routes", arg) :: bnds
+         if [] = v_transition_routes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transition_routes)
+               v_transition_routes
+           in
+           let bnd = "transition_routes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_form v_form in
-         ("form", arg) :: bnds
+         if [] = v_form then bnds
+         else
+           let arg = (yojson_of_list yojson_of_form) v_form in
+           let bnd = "form", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_handlers v_event_handlers
-         in
-         ("event_handlers", arg) :: bnds
+         if [] = v_event_handlers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_handlers)
+               v_event_handlers
+           in
+           let bnd = "event_handlers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_entry_fulfillment
-             v_entry_fulfillment
-         in
-         ("entry_fulfillment", arg) :: bnds
+         if [] = v_entry_fulfillment then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_entry_fulfillment)
+               v_entry_fulfillment
+           in
+           let bnd = "entry_fulfillment", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_advanced_settings
-             v_advanced_settings
-         in
-         ("advanced_settings", arg) :: bnds
+         if [] = v_advanced_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_advanced_settings)
+               v_advanced_settings
+           in
+           let bnd = "advanced_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_transition_route_groups with

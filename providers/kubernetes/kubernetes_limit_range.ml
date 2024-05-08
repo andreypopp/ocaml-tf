@@ -209,7 +209,9 @@ let _ = yojson_of_spec__limit
 
 [@@@deriving.end]
 
-type spec = { limit : spec__limit list }
+type spec = {
+  limit : spec__limit list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : spec) -> ()
@@ -221,8 +223,13 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__limit v_limit in
-         ("limit", arg) :: bnds
+         if [] = v_limit then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__limit) v_limit
+           in
+           let bnd = "limit", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -234,7 +241,8 @@ let _ = yojson_of_spec
 type kubernetes_limit_range = {
   id : string prop option; [@option]
   metadata : metadata list;
-  spec : spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -247,12 +255,20 @@ let yojson_of_kubernetes_limit_range =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

@@ -32,7 +32,10 @@ let _ = yojson_of_gcs_fileset_spec__sample_gcs_file_specs
 
 [@@@deriving.end]
 
-type gcs_fileset_spec = { file_patterns : string prop list }
+type gcs_fileset_spec = {
+  file_patterns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : gcs_fileset_spec) -> ()
@@ -44,12 +47,14 @@ let yojson_of_gcs_fileset_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_file_patterns
-         in
-         ("file_patterns", arg) :: bnds
+         if [] = v_file_patterns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_file_patterns
+           in
+           let bnd = "file_patterns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : gcs_fileset_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -193,7 +198,9 @@ let _ = yojson_of_bigquery_table_spec__table_spec
 type bigquery_table_spec = {
   table_source_type : string prop;
   table_spec : bigquery_table_spec__table_spec list;
+      [@default []] [@yojson_drop_default ( = )]
   view_spec : bigquery_table_spec__view_spec list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,18 +217,25 @@ let yojson_of_bigquery_table_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bigquery_table_spec__view_spec
-             v_view_spec
-         in
-         ("view_spec", arg) :: bnds
+         if [] = v_view_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bigquery_table_spec__view_spec)
+               v_view_spec
+           in
+           let bnd = "view_spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bigquery_table_spec__table_spec
-             v_table_spec
-         in
-         ("table_spec", arg) :: bnds
+         if [] = v_table_spec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bigquery_table_spec__table_spec)
+               v_table_spec
+           in
+           let bnd = "table_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -248,6 +262,7 @@ type google_data_catalog_entry = {
   user_specified_system : string prop option; [@option]
   user_specified_type : string prop option; [@option]
   gcs_fileset_spec : gcs_fileset_spec list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -278,11 +293,14 @@ let yojson_of_google_data_catalog_entry =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_gcs_fileset_spec
-             v_gcs_fileset_spec
-         in
-         ("gcs_fileset_spec", arg) :: bnds
+         if [] = v_gcs_fileset_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_gcs_fileset_spec)
+               v_gcs_fileset_spec
+           in
+           let bnd = "gcs_fileset_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_specified_type with

@@ -78,7 +78,8 @@ type aws_codepipeline_webhook = {
   target_action : string prop;
   target_pipeline : string prop;
   authentication_configuration : authentication_configuration list;
-  filter : filter list;
+      [@default []] [@yojson_drop_default ( = )]
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,15 +102,21 @@ let yojson_of_aws_codepipeline_webhook =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authentication_configuration
-             v_authentication_configuration
-         in
-         ("authentication_configuration", arg) :: bnds
+         if [] = v_authentication_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authentication_configuration)
+               v_authentication_configuration
+           in
+           let bnd = "authentication_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

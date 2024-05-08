@@ -619,6 +619,7 @@ type webhook_receiver = {
   service_uri : string prop;
   use_common_alert_schema : bool prop option; [@option]
   aad_auth : webhook_receiver__aad_auth list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -636,11 +637,14 @@ let yojson_of_webhook_receiver =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_webhook_receiver__aad_auth
-             v_aad_auth
-         in
-         ("aad_auth", arg) :: bnds
+         if [] = v_aad_auth then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_webhook_receiver__aad_auth)
+               v_aad_auth
+           in
+           let bnd = "aad_auth", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_common_alert_schema with
@@ -674,17 +678,28 @@ type azurerm_monitor_action_group = {
   short_name : string prop;
   tags : (string * string prop) list option; [@option]
   arm_role_receiver : arm_role_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
   automation_runbook_receiver : automation_runbook_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_app_push_receiver : azure_app_push_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_function_receiver : azure_function_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
   email_receiver : email_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
   event_hub_receiver : event_hub_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
   itsm_receiver : itsm_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
   logic_app_receiver : logic_app_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
   sms_receiver : sms_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   voice_receiver : voice_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
   webhook_receiver : webhook_receiver list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -717,81 +732,116 @@ let yojson_of_azurerm_monitor_action_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_webhook_receiver
-             v_webhook_receiver
-         in
-         ("webhook_receiver", arg) :: bnds
+         if [] = v_webhook_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_webhook_receiver)
+               v_webhook_receiver
+           in
+           let bnd = "webhook_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_voice_receiver v_voice_receiver
-         in
-         ("voice_receiver", arg) :: bnds
+         if [] = v_voice_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_voice_receiver)
+               v_voice_receiver
+           in
+           let bnd = "voice_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sms_receiver v_sms_receiver
-         in
-         ("sms_receiver", arg) :: bnds
+         if [] = v_sms_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sms_receiver) v_sms_receiver
+           in
+           let bnd = "sms_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logic_app_receiver
-             v_logic_app_receiver
-         in
-         ("logic_app_receiver", arg) :: bnds
+         if [] = v_logic_app_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logic_app_receiver)
+               v_logic_app_receiver
+           in
+           let bnd = "logic_app_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_itsm_receiver v_itsm_receiver
-         in
-         ("itsm_receiver", arg) :: bnds
+         if [] = v_itsm_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_itsm_receiver) v_itsm_receiver
+           in
+           let bnd = "itsm_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_hub_receiver
-             v_event_hub_receiver
-         in
-         ("event_hub_receiver", arg) :: bnds
+         if [] = v_event_hub_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_hub_receiver)
+               v_event_hub_receiver
+           in
+           let bnd = "event_hub_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_email_receiver v_email_receiver
-         in
-         ("email_receiver", arg) :: bnds
+         if [] = v_email_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_email_receiver)
+               v_email_receiver
+           in
+           let bnd = "email_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_azure_function_receiver
-             v_azure_function_receiver
-         in
-         ("azure_function_receiver", arg) :: bnds
+         if [] = v_azure_function_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_azure_function_receiver)
+               v_azure_function_receiver
+           in
+           let bnd = "azure_function_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_azure_app_push_receiver
-             v_azure_app_push_receiver
-         in
-         ("azure_app_push_receiver", arg) :: bnds
+         if [] = v_azure_app_push_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_azure_app_push_receiver)
+               v_azure_app_push_receiver
+           in
+           let bnd = "azure_app_push_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_automation_runbook_receiver
-             v_automation_runbook_receiver
-         in
-         ("automation_runbook_receiver", arg) :: bnds
+         if [] = v_automation_runbook_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_automation_runbook_receiver)
+               v_automation_runbook_receiver
+           in
+           let bnd = "automation_runbook_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_arm_role_receiver
-             v_arm_role_receiver
-         in
-         ("arm_role_receiver", arg) :: bnds
+         if [] = v_arm_role_receiver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_arm_role_receiver)
+               v_arm_role_receiver
+           in
+           let bnd = "arm_role_receiver", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

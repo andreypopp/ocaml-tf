@@ -61,6 +61,7 @@ let _ = yojson_of_target_grant__grantee
 type target_grant = {
   permission : string prop;
   grantee : target_grant__grantee list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,10 +74,14 @@ let yojson_of_target_grant =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_grant__grantee v_grantee
-         in
-         ("grantee", arg) :: bnds
+         if [] = v_grantee then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_grant__grantee)
+               v_grantee
+           in
+           let bnd = "grantee", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_permission in
@@ -133,7 +138,9 @@ let _ = yojson_of_target_object_key_format__simple_prefix
 type target_object_key_format = {
   partitioned_prefix :
     target_object_key_format__partitioned_prefix list;
+      [@default []] [@yojson_drop_default ( = )]
   simple_prefix : target_object_key_format__simple_prefix list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -149,20 +156,26 @@ let yojson_of_target_object_key_format =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_object_key_format__simple_prefix
-             v_simple_prefix
-         in
-         ("simple_prefix", arg) :: bnds
+         if [] = v_simple_prefix then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_object_key_format__simple_prefix)
+               v_simple_prefix
+           in
+           let bnd = "simple_prefix", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_object_key_format__partitioned_prefix
-             v_partitioned_prefix
-         in
-         ("partitioned_prefix", arg) :: bnds
+         if [] = v_partitioned_prefix then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_object_key_format__partitioned_prefix)
+               v_partitioned_prefix
+           in
+           let bnd = "partitioned_prefix", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : target_object_key_format -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -178,7 +191,9 @@ type aws_s3_bucket_logging = {
   target_bucket : string prop;
   target_prefix : string prop;
   target_grant : target_grant list;
+      [@default []] [@yojson_drop_default ( = )]
   target_object_key_format : target_object_key_format list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,17 +214,23 @@ let yojson_of_aws_s3_bucket_logging =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_object_key_format
-             v_target_object_key_format
-         in
-         ("target_object_key_format", arg) :: bnds
+         if [] = v_target_object_key_format then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_object_key_format)
+               v_target_object_key_format
+           in
+           let bnd = "target_object_key_format", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_grant v_target_grant
-         in
-         ("target_grant", arg) :: bnds
+         if [] = v_target_grant then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_grant) v_target_grant
+           in
+           let bnd = "target_grant", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_target_prefix in

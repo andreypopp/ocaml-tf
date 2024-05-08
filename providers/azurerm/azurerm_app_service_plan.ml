@@ -113,7 +113,7 @@ type azurerm_app_service_plan = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   zone_redundant : bool prop option; [@option]
-  sku : sku list;
+  sku : sku list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -146,8 +146,11 @@ let yojson_of_azurerm_app_service_plan =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sku v_sku in
-         ("sku", arg) :: bnds
+         if [] = v_sku then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sku) v_sku in
+           let bnd = "sku", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone_redundant with

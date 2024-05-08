@@ -53,6 +53,7 @@ let _ = yojson_of_action_point__action
 type action_point = {
   point : string prop;
   action : action_point__action list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,10 +66,13 @@ let yojson_of_action_point =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action_point__action v_action
-         in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action_point__action) v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_point in
@@ -134,7 +138,9 @@ type aws_appconfig_extension = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   action_point : action_point list;
+      [@default []] [@yojson_drop_default ( = )]
   parameter : parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -155,14 +161,22 @@ let yojson_of_aws_appconfig_extension =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_parameter v_parameter in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_parameter) v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action_point v_action_point
-         in
-         ("action_point", arg) :: bnds
+         if [] = v_action_point then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action_point) v_action_point
+           in
+           let bnd = "action_point", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

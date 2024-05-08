@@ -70,7 +70,9 @@ type pcc_rule__qos_policy = {
   qos_indicator : float prop;
   guaranteed_bit_rate :
     pcc_rule__qos_policy__guaranteed_bit_rate list;
+      [@default []] [@yojson_drop_default ( = )]
   maximum_bit_rate : pcc_rule__qos_policy__maximum_bit_rate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -91,20 +93,26 @@ let yojson_of_pcc_rule__qos_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_pcc_rule__qos_policy__maximum_bit_rate
-             v_maximum_bit_rate
-         in
-         ("maximum_bit_rate", arg) :: bnds
+         if [] = v_maximum_bit_rate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_pcc_rule__qos_policy__maximum_bit_rate)
+               v_maximum_bit_rate
+           in
+           let bnd = "maximum_bit_rate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_pcc_rule__qos_policy__guaranteed_bit_rate
-             v_guaranteed_bit_rate
-         in
-         ("guaranteed_bit_rate", arg) :: bnds
+         if [] = v_guaranteed_bit_rate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_pcc_rule__qos_policy__guaranteed_bit_rate)
+               v_guaranteed_bit_rate
+           in
+           let bnd = "guaranteed_bit_rate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_qos_indicator in
@@ -148,7 +156,9 @@ type pcc_rule__service_data_flow_template = {
   name : string prop;
   ports : string prop list option; [@option]
   protocol : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   remote_ip_list : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,20 +177,24 @@ let yojson_of_pcc_rule__service_data_flow_template =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_remote_ip_list
-         in
-         ("remote_ip_list", arg) :: bnds
+         if [] = v_remote_ip_list then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_remote_ip_list
+           in
+           let bnd = "remote_ip_list", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_protocol
-         in
-         ("protocol", arg) :: bnds
+         if [] = v_protocol then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_protocol
+           in
+           let bnd = "protocol", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_ports with
@@ -213,8 +227,10 @@ type pcc_rule = {
   precedence : float prop;
   traffic_control_enabled : bool prop option; [@option]
   qos_policy : pcc_rule__qos_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   service_data_flow_template :
     pcc_rule__service_data_flow_template list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -233,18 +249,25 @@ let yojson_of_pcc_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_pcc_rule__service_data_flow_template
-             v_service_data_flow_template
-         in
-         ("service_data_flow_template", arg) :: bnds
+         if [] = v_service_data_flow_template then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_pcc_rule__service_data_flow_template)
+               v_service_data_flow_template
+           in
+           let bnd = "service_data_flow_template", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pcc_rule__qos_policy v_qos_policy
-         in
-         ("qos_policy", arg) :: bnds
+         if [] = v_qos_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pcc_rule__qos_policy)
+               v_qos_policy
+           in
+           let bnd = "qos_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_traffic_control_enabled with
@@ -306,6 +329,7 @@ type service_qos_policy = {
   preemption_vulnerability : string prop option; [@option]
   qos_indicator : float prop option; [@option]
   maximum_bit_rate : service_qos_policy__maximum_bit_rate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -325,12 +349,15 @@ let yojson_of_service_qos_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_qos_policy__maximum_bit_rate
-             v_maximum_bit_rate
-         in
-         ("maximum_bit_rate", arg) :: bnds
+         if [] = v_maximum_bit_rate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_qos_policy__maximum_bit_rate)
+               v_maximum_bit_rate
+           in
+           let bnd = "maximum_bit_rate", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_qos_indicator with
@@ -441,7 +468,9 @@ type azurerm_mobile_network_service = {
   service_precedence : float prop;
   tags : (string * string prop) list option; [@option]
   pcc_rule : pcc_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   service_qos_policy : service_qos_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -469,15 +498,23 @@ let yojson_of_azurerm_mobile_network_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_qos_policy
-             v_service_qos_policy
-         in
-         ("service_qos_policy", arg) :: bnds
+         if [] = v_service_qos_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_qos_policy)
+               v_service_qos_policy
+           in
+           let bnd = "service_qos_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_pcc_rule v_pcc_rule in
-         ("pcc_rule", arg) :: bnds
+         if [] = v_pcc_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pcc_rule) v_pcc_rule
+           in
+           let bnd = "pcc_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

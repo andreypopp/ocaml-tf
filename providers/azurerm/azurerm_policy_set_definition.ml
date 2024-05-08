@@ -200,7 +200,9 @@ type azurerm_policy_set_definition = {
   parameters : string prop option; [@option]
   policy_type : string prop;
   policy_definition_group : policy_definition_group list;
+      [@default []] [@yojson_drop_default ( = )]
   policy_definition_reference : policy_definition_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -230,18 +232,24 @@ let yojson_of_azurerm_policy_set_definition =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policy_definition_reference
-             v_policy_definition_reference
-         in
-         ("policy_definition_reference", arg) :: bnds
+         if [] = v_policy_definition_reference then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_policy_definition_reference)
+               v_policy_definition_reference
+           in
+           let bnd = "policy_definition_reference", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policy_definition_group
-             v_policy_definition_group
-         in
-         ("policy_definition_group", arg) :: bnds
+         if [] = v_policy_definition_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_policy_definition_group)
+               v_policy_definition_group
+           in
+           let bnd = "policy_definition_group", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_policy_type in

@@ -135,6 +135,7 @@ let _ = yojson_of_spec__scope_selector__match_expression
 
 type spec__scope_selector = {
   match_expression : spec__scope_selector__match_expression list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -147,12 +148,15 @@ let yojson_of_spec__scope_selector =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__scope_selector__match_expression
-             v_match_expression
-         in
-         ("match_expression", arg) :: bnds
+         if [] = v_match_expression then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__scope_selector__match_expression)
+               v_match_expression
+           in
+           let bnd = "match_expression", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__scope_selector -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -165,6 +169,7 @@ type spec = {
   hard : (string * string prop) list option; [@option]
   scopes : string prop list option; [@option]
   scope_selector : spec__scope_selector list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -181,11 +186,14 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__scope_selector
-             v_scope_selector
-         in
-         ("scope_selector", arg) :: bnds
+         if [] = v_scope_selector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__scope_selector)
+               v_scope_selector
+           in
+           let bnd = "scope_selector", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scopes with
@@ -260,7 +268,8 @@ let _ = yojson_of_timeouts
 type kubernetes_resource_quota_v1 = {
   id : string prop option; [@option]
   metadata : metadata list;
-  spec : spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -283,12 +292,20 @@ let yojson_of_kubernetes_resource_quota_v1 =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

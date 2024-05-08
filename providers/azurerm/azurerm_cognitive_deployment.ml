@@ -172,8 +172,8 @@ type azurerm_cognitive_deployment = {
   name : string prop;
   rai_policy_name : string prop option; [@option]
   version_upgrade_option : string prop option; [@option]
-  model : model list;
-  scale : scale list;
+  model : model list; [@default []] [@yojson_drop_default ( = )]
+  scale : scale list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -200,12 +200,18 @@ let yojson_of_azurerm_cognitive_deployment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_scale v_scale in
-         ("scale", arg) :: bnds
+         if [] = v_scale then bnds
+         else
+           let arg = (yojson_of_list yojson_of_scale) v_scale in
+           let bnd = "scale", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_model v_model in
-         ("model", arg) :: bnds
+         if [] = v_model then bnds
+         else
+           let arg = (yojson_of_list yojson_of_model) v_model in
+           let bnd = "model", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version_upgrade_option with

@@ -57,7 +57,9 @@ let _ = yojson_of_cache_usage_limits__ecpu_per_second
 
 type cache_usage_limits = {
   data_storage : cache_usage_limits__data_storage list;
+      [@default []] [@yojson_drop_default ( = )]
   ecpu_per_second : cache_usage_limits__ecpu_per_second list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,19 +75,26 @@ let yojson_of_cache_usage_limits =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cache_usage_limits__ecpu_per_second
-             v_ecpu_per_second
-         in
-         ("ecpu_per_second", arg) :: bnds
+         if [] = v_ecpu_per_second then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cache_usage_limits__ecpu_per_second)
+               v_ecpu_per_second
+           in
+           let bnd = "ecpu_per_second", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cache_usage_limits__data_storage
-             v_data_storage
-         in
-         ("data_storage", arg) :: bnds
+         if [] = v_data_storage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cache_usage_limits__data_storage)
+               v_data_storage
+           in
+           let bnd = "data_storage", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cache_usage_limits -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -206,6 +215,7 @@ type aws_elasticache_serverless_cache = {
   tags : (string * string prop) list option; [@option]
   user_group_id : string prop option; [@option]
   cache_usage_limits : cache_usage_limits list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -238,11 +248,14 @@ let yojson_of_aws_elasticache_serverless_cache =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cache_usage_limits
-             v_cache_usage_limits
-         in
-         ("cache_usage_limits", arg) :: bnds
+         if [] = v_cache_usage_limits then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cache_usage_limits)
+               v_cache_usage_limits
+           in
+           let bnd = "cache_usage_limits", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_group_id with

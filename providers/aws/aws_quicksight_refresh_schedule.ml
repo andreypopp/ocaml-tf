@@ -12,14 +12,14 @@ type schedule__schedule_frequency = {
   interval: string prop; 
   time_of_the_day: string  prop option; [@option]
   timezone: string  prop option; [@option]
-  refresh_on_day: schedule__schedule_frequency__refresh_on_day list;
+  refresh_on_day: schedule__schedule_frequency__refresh_on_day list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type schedule = {
   refresh_type: string prop; 
   start_after_date_time: string  prop option; [@option]
-  schedule_frequency: schedule__schedule_frequency list;
+  schedule_frequency: schedule__schedule_frequency list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -27,7 +27,7 @@ type aws_quicksight_refresh_schedule = {
   aws_account_id: string  prop option; [@option]
   data_set_id: string prop; 
   schedule_id: string prop; 
-  schedule: schedule list;
+  schedule: schedule list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 

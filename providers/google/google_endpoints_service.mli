@@ -12,7 +12,9 @@ type apis__methods = {
 }
 
 type apis = {
-  methods : apis__methods list;  (** methods *)
+  methods : apis__methods list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** methods *)
   name : string prop;  (** name *)
   syntax : string prop;  (** syntax *)
   version : string prop;  (** version *)

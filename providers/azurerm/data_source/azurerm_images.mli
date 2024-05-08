@@ -24,10 +24,14 @@ type images__data_disk = {
 }
 
 type images = {
-  data_disk : images__data_disk list;  (** data_disk *)
+  data_disk : images__data_disk list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** data_disk *)
   location : string prop;  (** location *)
   name : string prop;  (** name *)
-  os_disk : images__os_disk list;  (** os_disk *)
+  os_disk : images__os_disk list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** os_disk *)
   tags : (string * string prop) list;  (** tags *)
   zone_resilient : bool prop;  (** zone_resilient *)
 }

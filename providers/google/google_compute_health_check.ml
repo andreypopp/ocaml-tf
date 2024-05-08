@@ -574,12 +574,19 @@ type google_compute_health_check = {
   timeout_sec : float prop option; [@option]
   unhealthy_threshold : float prop option; [@option]
   grpc_health_check : grpc_health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   http2_health_check : http2_health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   http_health_check : http_health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   https_health_check : https_health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   log_config : log_config list;
+      [@default []] [@yojson_drop_default ( = )]
   ssl_health_check : ssl_health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_health_check : tcp_health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -614,52 +621,73 @@ let yojson_of_google_compute_health_check =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tcp_health_check
-             v_tcp_health_check
-         in
-         ("tcp_health_check", arg) :: bnds
+         if [] = v_tcp_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tcp_health_check)
+               v_tcp_health_check
+           in
+           let bnd = "tcp_health_check", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_health_check
-             v_ssl_health_check
-         in
-         ("ssl_health_check", arg) :: bnds
+         if [] = v_ssl_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssl_health_check)
+               v_ssl_health_check
+           in
+           let bnd = "ssl_health_check", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_config v_log_config
-         in
-         ("log_config", arg) :: bnds
+         if [] = v_log_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_config) v_log_config
+           in
+           let bnd = "log_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_https_health_check
-             v_https_health_check
-         in
-         ("https_health_check", arg) :: bnds
+         if [] = v_https_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_https_health_check)
+               v_https_health_check
+           in
+           let bnd = "https_health_check", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_health_check
-             v_http_health_check
-         in
-         ("http_health_check", arg) :: bnds
+         if [] = v_http_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_health_check)
+               v_http_health_check
+           in
+           let bnd = "http_health_check", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http2_health_check
-             v_http2_health_check
-         in
-         ("http2_health_check", arg) :: bnds
+         if [] = v_http2_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http2_health_check)
+               v_http2_health_check
+           in
+           let bnd = "http2_health_check", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_grpc_health_check
-             v_grpc_health_check
-         in
-         ("grpc_health_check", arg) :: bnds
+         if [] = v_grpc_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_grpc_health_check)
+               v_grpc_health_check
+           in
+           let bnd = "grpc_health_check", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_unhealthy_threshold with

@@ -43,7 +43,9 @@ let _ = yojson_of_destination__bucket__encryption__sse_s3
 
 type destination__bucket__encryption = {
   sse_kms : destination__bucket__encryption__sse_kms list;
+      [@default []] [@yojson_drop_default ( = )]
   sse_s3 : destination__bucket__encryption__sse_s3 list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,20 +58,26 @@ let yojson_of_destination__bucket__encryption =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination__bucket__encryption__sse_s3
-             v_sse_s3
-         in
-         ("sse_s3", arg) :: bnds
+         if [] = v_sse_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination__bucket__encryption__sse_s3)
+               v_sse_s3
+           in
+           let bnd = "sse_s3", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination__bucket__encryption__sse_kms
-             v_sse_kms
-         in
-         ("sse_kms", arg) :: bnds
+         if [] = v_sse_kms then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination__bucket__encryption__sse_kms)
+               v_sse_kms
+           in
+           let bnd = "sse_kms", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : destination__bucket__encryption ->
@@ -85,6 +93,7 @@ type destination__bucket = {
   format : string prop;
   prefix : string prop option; [@option]
   encryption : destination__bucket__encryption list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -103,11 +112,15 @@ let yojson_of_destination__bucket =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination__bucket__encryption
-             v_encryption
-         in
-         ("encryption", arg) :: bnds
+         if [] = v_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination__bucket__encryption)
+               v_encryption
+           in
+           let bnd = "encryption", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_prefix with
@@ -140,7 +153,10 @@ let _ = yojson_of_destination__bucket
 
 [@@@deriving.end]
 
-type destination = { bucket : destination__bucket list }
+type destination = {
+  bucket : destination__bucket list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : destination) -> ()
@@ -152,10 +168,13 @@ let yojson_of_destination =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination__bucket v_bucket
-         in
-         ("bucket", arg) :: bnds
+         if [] = v_bucket then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination__bucket) v_bucket
+           in
+           let bnd = "bucket", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -220,8 +239,9 @@ type aws_s3_bucket_inventory = {
   name : string prop;
   optional_fields : string prop list option; [@option]
   destination : destination list;
-  filter : filter list;
-  schedule : schedule list;
+      [@default []] [@yojson_drop_default ( = )]
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  schedule : schedule list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -244,18 +264,29 @@ let yojson_of_aws_s3_bucket_inventory =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_schedule v_schedule in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule) v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination) v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_optional_fields with

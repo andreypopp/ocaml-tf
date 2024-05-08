@@ -278,11 +278,16 @@ type google_recaptcha_enterprise_key = {
   labels : (string * string prop) list option; [@option]
   project : string prop option; [@option]
   android_settings : android_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   ios_settings : ios_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   testing_options : testing_options list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   waf_settings : waf_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   web_settings : web_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -306,39 +311,55 @@ let yojson_of_google_recaptcha_enterprise_key =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_web_settings v_web_settings
-         in
-         ("web_settings", arg) :: bnds
+         if [] = v_web_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_web_settings) v_web_settings
+           in
+           let bnd = "web_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_waf_settings v_waf_settings
-         in
-         ("waf_settings", arg) :: bnds
+         if [] = v_waf_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_waf_settings) v_waf_settings
+           in
+           let bnd = "waf_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_testing_options v_testing_options
-         in
-         ("testing_options", arg) :: bnds
+         if [] = v_testing_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_testing_options)
+               v_testing_options
+           in
+           let bnd = "testing_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ios_settings v_ios_settings
-         in
-         ("ios_settings", arg) :: bnds
+         if [] = v_ios_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ios_settings) v_ios_settings
+           in
+           let bnd = "ios_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_android_settings
-             v_android_settings
-         in
-         ("android_settings", arg) :: bnds
+         if [] = v_android_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_android_settings)
+               v_android_settings
+           in
+           let bnd = "android_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

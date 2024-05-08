@@ -7,11 +7,15 @@ open! Tf_core
 type criteria__dimension = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type criteria = {
-  dimension : criteria__dimension list;  (** dimension *)
+  dimension : criteria__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** dimension *)
   metric_name : string prop;  (** metric_name *)
 }
 

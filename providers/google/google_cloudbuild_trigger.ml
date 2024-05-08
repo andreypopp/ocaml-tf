@@ -133,7 +133,9 @@ type bitbucket_server_trigger_config = {
   project_key : string prop;
   repo_slug : string prop;
   pull_request : bitbucket_server_trigger_config__pull_request list;
+      [@default []] [@yojson_drop_default ( = )]
   push : bitbucket_server_trigger_config__push list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,19 +155,26 @@ let yojson_of_bitbucket_server_trigger_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_bitbucket_server_trigger_config__push v_push
-         in
-         ("push", arg) :: bnds
+         if [] = v_push then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bitbucket_server_trigger_config__push)
+               v_push
+           in
+           let bnd = "push", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_bitbucket_server_trigger_config__pull_request
-             v_pull_request
-         in
-         ("pull_request", arg) :: bnds
+         if [] = v_pull_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bitbucket_server_trigger_config__pull_request)
+               v_pull_request
+           in
+           let bnd = "pull_request", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_repo_slug in
@@ -411,9 +420,13 @@ let _ = yojson_of_build__artifacts__python_packages
 type build__artifacts = {
   images : string prop list option; [@option]
   maven_artifacts : build__artifacts__maven_artifacts list;
+      [@default []] [@yojson_drop_default ( = )]
   npm_packages : build__artifacts__npm_packages list;
+      [@default []] [@yojson_drop_default ( = )]
   objects : build__artifacts__objects list;
+      [@default []] [@yojson_drop_default ( = )]
   python_packages : build__artifacts__python_packages list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -432,32 +445,46 @@ let yojson_of_build__artifacts =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts__python_packages
-             v_python_packages
-         in
-         ("python_packages", arg) :: bnds
+         if [] = v_python_packages then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build__artifacts__python_packages)
+               v_python_packages
+           in
+           let bnd = "python_packages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts__objects
-             v_objects
-         in
-         ("objects", arg) :: bnds
+         if [] = v_objects then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__artifacts__objects)
+               v_objects
+           in
+           let bnd = "objects", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts__npm_packages
-             v_npm_packages
-         in
-         ("npm_packages", arg) :: bnds
+         if [] = v_npm_packages then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__artifacts__npm_packages)
+               v_npm_packages
+           in
+           let bnd = "npm_packages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts__maven_artifacts
-             v_maven_artifacts
-         in
-         ("maven_artifacts", arg) :: bnds
+         if [] = v_maven_artifacts then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build__artifacts__maven_artifacts)
+               v_maven_artifacts
+           in
+           let bnd = "maven_artifacts", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_images with
@@ -508,6 +535,7 @@ let _ = yojson_of_build__available_secrets__secret_manager
 
 type build__available_secrets = {
   secret_manager : build__available_secrets__secret_manager list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -520,12 +548,15 @@ let yojson_of_build__available_secrets =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_build__available_secrets__secret_manager
-             v_secret_manager
-         in
-         ("secret_manager", arg) :: bnds
+         if [] = v_secret_manager then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build__available_secrets__secret_manager)
+               v_secret_manager
+           in
+           let bnd = "secret_manager", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build__available_secrets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -584,6 +615,7 @@ type build__options = {
   substitution_option : string prop option; [@option]
   worker_pool : string prop option; [@option]
   volumes : build__options__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -609,10 +641,14 @@ let yojson_of_build__options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__options__volumes v_volumes
-         in
-         ("volumes", arg) :: bnds
+         if [] = v_volumes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__options__volumes)
+               v_volumes
+           in
+           let bnd = "volumes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_worker_pool with
@@ -905,7 +941,9 @@ let _ = yojson_of_build__source__storage_source
 
 type build__source = {
   repo_source : build__source__repo_source list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_source : build__source__storage_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -921,18 +959,24 @@ let yojson_of_build__source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__source__storage_source
-             v_storage_source
-         in
-         ("storage_source", arg) :: bnds
+         if [] = v_storage_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__source__storage_source)
+               v_storage_source
+           in
+           let bnd = "storage_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__source__repo_source
-             v_repo_source
-         in
-         ("repo_source", arg) :: bnds
+         if [] = v_repo_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__source__repo_source)
+               v_repo_source
+           in
+           let bnd = "repo_source", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build__source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -985,6 +1029,7 @@ type build__step = {
   timing : string prop option; [@option]
   wait_for : string prop list option; [@option]
   volumes : build__step__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1012,10 +1057,14 @@ let yojson_of_build__step =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__step__volumes v_volumes
-         in
-         ("volumes", arg) :: bnds
+         if [] = v_volumes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__step__volumes)
+               v_volumes
+           in
+           let bnd = "volumes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_wait_for with
@@ -1142,11 +1191,16 @@ type build = {
   tags : string prop list option; [@option]
   timeout : string prop option; [@option]
   artifacts : build__artifacts list;
+      [@default []] [@yojson_drop_default ( = )]
   available_secrets : build__available_secrets list;
+      [@default []] [@yojson_drop_default ( = )]
   options : build__options list;
+      [@default []] [@yojson_drop_default ( = )]
   secret : build__secret list;
+      [@default []] [@yojson_drop_default ( = )]
   source : build__source list;
-  step : build__step list;
+      [@default []] [@yojson_drop_default ( = )]
+  step : build__step list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1172,35 +1226,57 @@ let yojson_of_build =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_build__step v_step in
-         ("step", arg) :: bnds
+         if [] = v_step then bnds
+         else
+           let arg = (yojson_of_list yojson_of_build__step) v_step in
+           let bnd = "step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_build__source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__source) v_source
+           in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_build__secret v_secret in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__secret) v_secret
+           in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__options v_options
-         in
-         ("options", arg) :: bnds
+         if [] = v_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__options) v_options
+           in
+           let bnd = "options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__available_secrets
-             v_available_secrets
-         in
-         ("available_secrets", arg) :: bnds
+         if [] = v_available_secrets then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__available_secrets)
+               v_available_secrets
+           in
+           let bnd = "available_secrets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts v_artifacts
-         in
-         ("artifacts", arg) :: bnds
+         if [] = v_artifacts then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__artifacts) v_artifacts
+           in
+           let bnd = "artifacts", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout with
@@ -1452,7 +1528,8 @@ type github = {
   name : string prop option; [@option]
   owner : string prop option; [@option]
   pull_request : github__pull_request list;
-  push : github__push list;
+      [@default []] [@yojson_drop_default ( = )]
+  push : github__push list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1472,15 +1549,23 @@ let yojson_of_github =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_github__push v_push in
-         ("push", arg) :: bnds
+         if [] = v_push then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_github__push) v_push
+           in
+           let bnd = "push", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_github__pull_request
-             v_pull_request
-         in
-         ("pull_request", arg) :: bnds
+         if [] = v_pull_request then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_github__pull_request)
+               v_pull_request
+           in
+           let bnd = "pull_request", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_owner with
@@ -1654,7 +1739,9 @@ let _ = yojson_of_repository_event_config__push
 type repository_event_config = {
   repository : string prop option; [@option]
   pull_request : repository_event_config__pull_request list;
+      [@default []] [@yojson_drop_default ( = )]
   push : repository_event_config__push list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1671,19 +1758,25 @@ let yojson_of_repository_event_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_repository_event_config__push
-             v_push
-         in
-         ("push", arg) :: bnds
+         if [] = v_push then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_repository_event_config__push)
+               v_push
+           in
+           let bnd = "push", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_repository_event_config__pull_request
-             v_pull_request
-         in
-         ("pull_request", arg) :: bnds
+         if [] = v_pull_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_repository_event_config__pull_request)
+               v_pull_request
+           in
+           let bnd = "pull_request", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_repository with
@@ -1946,17 +2039,25 @@ type google_cloudbuild_trigger = {
   substitutions : (string * string prop) list option; [@option]
   tags : string prop list option; [@option]
   approval_config : approval_config list;
+      [@default []] [@yojson_drop_default ( = )]
   bitbucket_server_trigger_config :
     bitbucket_server_trigger_config list;
-  build : build list;
+      [@default []] [@yojson_drop_default ( = )]
+  build : build list; [@default []] [@yojson_drop_default ( = )]
   git_file_source : git_file_source list;
-  github : github list;
+      [@default []] [@yojson_drop_default ( = )]
+  github : github list; [@default []] [@yojson_drop_default ( = )]
   pubsub_config : pubsub_config list;
+      [@default []] [@yojson_drop_default ( = )]
   repository_event_config : repository_event_config list;
+      [@default []] [@yojson_drop_default ( = )]
   source_to_build : source_to_build list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   trigger_template : trigger_template list;
+      [@default []] [@yojson_drop_default ( = )]
   webhook_config : webhook_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1996,67 +2097,102 @@ let yojson_of_google_cloudbuild_trigger =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_webhook_config v_webhook_config
-         in
-         ("webhook_config", arg) :: bnds
+         if [] = v_webhook_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_webhook_config)
+               v_webhook_config
+           in
+           let bnd = "webhook_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trigger_template
-             v_trigger_template
-         in
-         ("trigger_template", arg) :: bnds
+         if [] = v_trigger_template then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trigger_template)
+               v_trigger_template
+           in
+           let bnd = "trigger_template", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_to_build v_source_to_build
-         in
-         ("source_to_build", arg) :: bnds
+         if [] = v_source_to_build then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_to_build)
+               v_source_to_build
+           in
+           let bnd = "source_to_build", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_repository_event_config
-             v_repository_event_config
-         in
-         ("repository_event_config", arg) :: bnds
+         if [] = v_repository_event_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_repository_event_config)
+               v_repository_event_config
+           in
+           let bnd = "repository_event_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pubsub_config v_pubsub_config
-         in
-         ("pubsub_config", arg) :: bnds
+         if [] = v_pubsub_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pubsub_config) v_pubsub_config
+           in
+           let bnd = "pubsub_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_github v_github in
-         ("github", arg) :: bnds
+         if [] = v_github then bnds
+         else
+           let arg = (yojson_of_list yojson_of_github) v_github in
+           let bnd = "github", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_git_file_source v_git_file_source
-         in
-         ("git_file_source", arg) :: bnds
+         if [] = v_git_file_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_git_file_source)
+               v_git_file_source
+           in
+           let bnd = "git_file_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_build v_build in
-         ("build", arg) :: bnds
+         if [] = v_build then bnds
+         else
+           let arg = (yojson_of_list yojson_of_build) v_build in
+           let bnd = "build", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bitbucket_server_trigger_config
-             v_bitbucket_server_trigger_config
-         in
-         ("bitbucket_server_trigger_config", arg) :: bnds
+         if [] = v_bitbucket_server_trigger_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bitbucket_server_trigger_config)
+               v_bitbucket_server_trigger_config
+           in
+           let bnd = "bitbucket_server_trigger_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_approval_config v_approval_config
-         in
-         ("approval_config", arg) :: bnds
+         if [] = v_approval_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_approval_config)
+               v_approval_config
+           in
+           let bnd = "approval_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

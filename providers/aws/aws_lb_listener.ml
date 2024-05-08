@@ -347,7 +347,9 @@ let _ = yojson_of_default_action__forward__target_group
 
 type default_action__forward = {
   stickiness : default_action__forward__stickiness list;
+      [@default []] [@yojson_drop_default ( = )]
   target_group : default_action__forward__target_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -360,20 +362,26 @@ let yojson_of_default_action__forward =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_action__forward__target_group
-             v_target_group
-         in
-         ("target_group", arg) :: bnds
+         if [] = v_target_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_action__forward__target_group)
+               v_target_group
+           in
+           let bnd = "target_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_action__forward__stickiness
-             v_stickiness
-         in
-         ("stickiness", arg) :: bnds
+         if [] = v_stickiness then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_action__forward__stickiness)
+               v_stickiness
+           in
+           let bnd = "stickiness", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : default_action__forward -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -463,10 +471,15 @@ type default_action = {
   target_group_arn : string prop option; [@option]
   type_ : string prop; [@key "type"]
   authenticate_cognito : default_action__authenticate_cognito list;
+      [@default []] [@yojson_drop_default ( = )]
   authenticate_oidc : default_action__authenticate_oidc list;
+      [@default []] [@yojson_drop_default ( = )]
   fixed_response : default_action__fixed_response list;
+      [@default []] [@yojson_drop_default ( = )]
   forward : default_action__forward list;
+      [@default []] [@yojson_drop_default ( = )]
   redirect : default_action__redirect list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -488,39 +501,56 @@ let yojson_of_default_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_action__redirect
-             v_redirect
-         in
-         ("redirect", arg) :: bnds
+         if [] = v_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_action__redirect)
+               v_redirect
+           in
+           let bnd = "redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_action__forward v_forward
-         in
-         ("forward", arg) :: bnds
+         if [] = v_forward then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_action__forward)
+               v_forward
+           in
+           let bnd = "forward", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_action__fixed_response
-             v_fixed_response
-         in
-         ("fixed_response", arg) :: bnds
+         if [] = v_fixed_response then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_action__fixed_response)
+               v_fixed_response
+           in
+           let bnd = "fixed_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_action__authenticate_oidc
-             v_authenticate_oidc
-         in
-         ("authenticate_oidc", arg) :: bnds
+         if [] = v_authenticate_oidc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_action__authenticate_oidc)
+               v_authenticate_oidc
+           in
+           let bnd = "authenticate_oidc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_action__authenticate_cognito
-             v_authenticate_cognito
-         in
-         ("authenticate_cognito", arg) :: bnds
+         if [] = v_authenticate_cognito then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_action__authenticate_cognito)
+               v_authenticate_cognito
+           in
+           let bnd = "authenticate_cognito", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -644,7 +674,9 @@ type aws_lb_listener = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   default_action : default_action list;
+      [@default []] [@yojson_drop_default ( = )]
   mutual_authentication : mutual_authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -675,17 +707,24 @@ let yojson_of_aws_lb_listener =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mutual_authentication
-             v_mutual_authentication
-         in
-         ("mutual_authentication", arg) :: bnds
+         if [] = v_mutual_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mutual_authentication)
+               v_mutual_authentication
+           in
+           let bnd = "mutual_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_action v_default_action
-         in
-         ("default_action", arg) :: bnds
+         if [] = v_default_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_action)
+               v_default_action
+           in
+           let bnd = "default_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

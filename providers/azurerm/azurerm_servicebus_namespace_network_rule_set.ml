@@ -107,6 +107,7 @@ type azurerm_servicebus_namespace_network_rule_set = {
   public_network_access_enabled : bool prop option; [@option]
   trusted_services_allowed : bool prop option; [@option]
   network_rules : network_rules list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -134,10 +135,13 @@ let yojson_of_azurerm_servicebus_namespace_network_rule_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_rules v_network_rules
-         in
-         ("network_rules", arg) :: bnds
+         if [] = v_network_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_rules) v_network_rules
+           in
+           let bnd = "network_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_trusted_services_allowed with

@@ -17,7 +17,9 @@ type block_device_mapping__ebs = {
 
 type block_device_mapping = {
   device_name : string prop;  (** device_name *)
-  ebs : block_device_mapping__ebs list;  (** ebs *)
+  ebs : block_device_mapping__ebs list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ebs *)
   no_device : string prop;  (** no_device *)
   virtual_name : string prop;  (** virtual_name *)
 }
@@ -29,7 +31,9 @@ type component__parameter = {
 
 type component = {
   component_arn : string prop;  (** component_arn *)
-  parameter : component__parameter list;  (** parameter *)
+  parameter : component__parameter list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** parameter *)
 }
 
 type aws_imagebuilder_image_recipe

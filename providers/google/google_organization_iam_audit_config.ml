@@ -43,6 +43,7 @@ type google_organization_iam_audit_config = {
   org_id : string prop;
   service : string prop;
   audit_log_config : audit_log_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,11 +61,14 @@ let yojson_of_google_organization_iam_audit_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_audit_log_config
-             v_audit_log_config
-         in
-         ("audit_log_config", arg) :: bnds
+         if [] = v_audit_log_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_audit_log_config)
+               v_audit_log_config
+           in
+           let bnd = "audit_log_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_service in

@@ -198,8 +198,11 @@ let _ = yojson_of_threshold_expression__and__tags
 
 type threshold_expression__and = {
   cost_category : threshold_expression__and__cost_category list;
+      [@default []] [@yojson_drop_default ( = )]
   dimension : threshold_expression__and__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : threshold_expression__and__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -216,27 +219,37 @@ let yojson_of_threshold_expression__and =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_expression__and__tags
-             v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_threshold_expression__and__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_threshold_expression__and__dimension
-             v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_threshold_expression__and__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_threshold_expression__and__cost_category
-             v_cost_category
-         in
-         ("cost_category", arg) :: bnds
+         if [] = v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_threshold_expression__and__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : threshold_expression__and -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -522,8 +535,11 @@ let _ = yojson_of_threshold_expression__not__tags
 
 type threshold_expression__not = {
   cost_category : threshold_expression__not__cost_category list;
+      [@default []] [@yojson_drop_default ( = )]
   dimension : threshold_expression__not__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : threshold_expression__not__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -540,27 +556,37 @@ let yojson_of_threshold_expression__not =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_expression__not__tags
-             v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_threshold_expression__not__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_threshold_expression__not__dimension
-             v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_threshold_expression__not__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_threshold_expression__not__cost_category
-             v_cost_category
-         in
-         ("cost_category", arg) :: bnds
+         if [] = v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_threshold_expression__not__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : threshold_expression__not -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -736,8 +762,11 @@ let _ = yojson_of_threshold_expression__or__tags
 
 type threshold_expression__or = {
   cost_category : threshold_expression__or__cost_category list;
+      [@default []] [@yojson_drop_default ( = )]
   dimension : threshold_expression__or__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : threshold_expression__or__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -754,27 +783,36 @@ let yojson_of_threshold_expression__or =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_expression__or__tags
-             v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_threshold_expression__or__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_threshold_expression__or__dimension
-             v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_threshold_expression__or__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_threshold_expression__or__cost_category
-             v_cost_category
-         in
-         ("cost_category", arg) :: bnds
+         if [] = v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_threshold_expression__or__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : threshold_expression__or -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -838,12 +876,18 @@ let _ = yojson_of_threshold_expression__tags
 [@@@deriving.end]
 
 type threshold_expression = {
-  and_ : threshold_expression__and list; [@key "and"]
+  and_ : threshold_expression__and list;
+      [@key "and"] [@default []] [@yojson_drop_default ( = )]
   cost_category : threshold_expression__cost_category list;
+      [@default []] [@yojson_drop_default ( = )]
   dimension : threshold_expression__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   not : threshold_expression__not list;
-  or_ : threshold_expression__or list; [@key "or"]
+      [@default []] [@yojson_drop_default ( = )]
+  or_ : threshold_expression__or list;
+      [@key "or"] [@default []] [@yojson_drop_default ( = )]
   tags : threshold_expression__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -863,43 +907,66 @@ let yojson_of_threshold_expression =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_expression__tags v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_threshold_expression__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_expression__or v_or_
-         in
-         ("or", arg) :: bnds
+         if [] = v_or_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_threshold_expression__or)
+               v_or_
+           in
+           let bnd = "or", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_expression__not v_not
-         in
-         ("not", arg) :: bnds
+         if [] = v_not then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_threshold_expression__not)
+               v_not
+           in
+           let bnd = "not", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_expression__dimension
-             v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_threshold_expression__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_threshold_expression__cost_category
-             v_cost_category
-         in
-         ("cost_category", arg) :: bnds
+         if [] = v_cost_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_threshold_expression__cost_category)
+               v_cost_category
+           in
+           let bnd = "cost_category", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_expression__and v_and_
-         in
-         ("and", arg) :: bnds
+         if [] = v_and_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_threshold_expression__and)
+               v_and_
+           in
+           let bnd = "and", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : threshold_expression -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -913,11 +980,14 @@ type aws_ce_anomaly_subscription = {
   frequency : string prop;
   id : string prop option; [@option]
   monitor_arn_list : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   subscriber : subscriber list;
+      [@default []] [@yojson_drop_default ( = )]
   threshold_expression : threshold_expression list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -940,17 +1010,23 @@ let yojson_of_aws_ce_anomaly_subscription =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_expression
-             v_threshold_expression
-         in
-         ("threshold_expression", arg) :: bnds
+         if [] = v_threshold_expression then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_threshold_expression)
+               v_threshold_expression
+           in
+           let bnd = "threshold_expression", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_subscriber v_subscriber
-         in
-         ("subscriber", arg) :: bnds
+         if [] = v_subscriber then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subscriber) v_subscriber
+           in
+           let bnd = "subscriber", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -989,12 +1065,14 @@ let yojson_of_aws_ce_anomaly_subscription =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_monitor_arn_list
-         in
-         ("monitor_arn_list", arg) :: bnds
+         if [] = v_monitor_arn_list then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_monitor_arn_list
+           in
+           let bnd = "monitor_arn_list", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

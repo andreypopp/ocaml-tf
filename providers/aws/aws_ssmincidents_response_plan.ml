@@ -5,6 +5,7 @@ open! Tf_core
 type action__ssm_automation__parameter = {
   name : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,10 +18,14 @@ let yojson_of_action__ssm_automation__parameter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -41,6 +46,7 @@ type action__ssm_automation = {
   role_arn : string prop;
   target_account : string prop option; [@option]
   parameter : action__ssm_automation__parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,11 +66,15 @@ let yojson_of_action__ssm_automation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__ssm_automation__parameter
-             v_parameter
-         in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_action__ssm_automation__parameter)
+               v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_account with
@@ -113,7 +123,10 @@ let _ = yojson_of_action__ssm_automation
 
 [@@@deriving.end]
 
-type action = { ssm_automation : action__ssm_automation list }
+type action = {
+  ssm_automation : action__ssm_automation list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : action) -> ()
@@ -125,11 +138,14 @@ let yojson_of_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__ssm_automation
-             v_ssm_automation
-         in
-         ("ssm_automation", arg) :: bnds
+         if [] = v_ssm_automation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__ssm_automation)
+               v_ssm_automation
+           in
+           let bnd = "ssm_automation", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -170,6 +186,7 @@ type incident_template = {
   summary : string prop option; [@option]
   title : string prop;
   notification_target : incident_template__notification_target list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -189,12 +206,15 @@ let yojson_of_incident_template =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_incident_template__notification_target
-             v_notification_target
-         in
-         ("notification_target", arg) :: bnds
+         if [] = v_notification_target then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_incident_template__notification_target)
+               v_notification_target
+           in
+           let bnd = "notification_target", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -281,7 +301,10 @@ let _ = yojson_of_integration__pagerduty
 
 [@@@deriving.end]
 
-type integration = { pagerduty : integration__pagerduty list }
+type integration = {
+  pagerduty : integration__pagerduty list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : integration) -> ()
@@ -293,11 +316,14 @@ let yojson_of_integration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_integration__pagerduty
-             v_pagerduty
-         in
-         ("pagerduty", arg) :: bnds
+         if [] = v_pagerduty then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_integration__pagerduty)
+               v_pagerduty
+           in
+           let bnd = "pagerduty", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : integration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -314,9 +340,11 @@ type aws_ssmincidents_response_plan = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  action : action list;
+  action : action list; [@default []] [@yojson_drop_default ( = )]
   incident_template : incident_template list;
+      [@default []] [@yojson_drop_default ( = )]
   integration : integration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -340,21 +368,30 @@ let yojson_of_aws_ssmincidents_response_plan =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_integration v_integration
-         in
-         ("integration", arg) :: bnds
+         if [] = v_integration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_integration) v_integration
+           in
+           let bnd = "integration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_incident_template
-             v_incident_template
-         in
-         ("incident_template", arg) :: bnds
+         if [] = v_incident_template then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_incident_template)
+               v_incident_template
+           in
+           let bnd = "incident_template", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg = (yojson_of_list yojson_of_action) v_action in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

@@ -97,6 +97,7 @@ type azurerm_bot_channel_line = {
   location : string prop;
   resource_group_name : string prop;
   line_channel : line_channel list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -121,10 +122,13 @@ let yojson_of_azurerm_bot_channel_line =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_line_channel v_line_channel
-         in
-         ("line_channel", arg) :: bnds
+         if [] = v_line_channel then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_line_channel) v_line_channel
+           in
+           let bnd = "line_channel", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

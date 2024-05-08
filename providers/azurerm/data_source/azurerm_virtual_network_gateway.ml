@@ -68,7 +68,10 @@ let _ = yojson_of_bgp_settings
 
 [@@@deriving.end]
 
-type custom_route = { address_prefixes : string prop list }
+type custom_route = {
+  address_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : custom_route) -> ()
@@ -80,12 +83,14 @@ let yojson_of_custom_route =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_address_prefixes
-         in
-         ("address_prefixes", arg) :: bnds
+         if [] = v_address_prefixes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_address_prefixes
+           in
+           let bnd = "address_prefixes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : custom_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -225,12 +230,16 @@ type vpn_client_configuration = {
   aad_issuer : string prop;
   aad_tenant : string prop;
   address_space : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   radius_server_address : string prop;
   radius_server_secret : string prop;
   revoked_certificate :
     vpn_client_configuration__revoked_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   root_certificate : vpn_client_configuration__root_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   vpn_client_protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -253,28 +262,36 @@ let yojson_of_vpn_client_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_vpn_client_protocols
-         in
-         ("vpn_client_protocols", arg) :: bnds
+         if [] = v_vpn_client_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_vpn_client_protocols
+           in
+           let bnd = "vpn_client_protocols", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_vpn_client_configuration__root_certificate
-             v_root_certificate
-         in
-         ("root_certificate", arg) :: bnds
+         if [] = v_root_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_vpn_client_configuration__root_certificate)
+               v_root_certificate
+           in
+           let bnd = "root_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_vpn_client_configuration__revoked_certificate
-             v_revoked_certificate
-         in
-         ("revoked_certificate", arg) :: bnds
+         if [] = v_revoked_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_vpn_client_configuration__revoked_certificate)
+               v_revoked_certificate
+           in
+           let bnd = "revoked_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -289,12 +306,14 @@ let yojson_of_vpn_client_configuration =
          ("radius_server_address", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_address_space
-         in
-         ("address_space", arg) :: bnds
+         if [] = v_address_space then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_address_space
+           in
+           let bnd = "address_space", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_aad_tenant in

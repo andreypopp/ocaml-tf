@@ -60,6 +60,7 @@ let _ = yojson_of_summaries__constraint_summaries
 
 type summaries = {
   constraint_summaries : summaries__constraint_summaries list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   path_id : string prop;
   tags : (string * string prop) list;
@@ -100,11 +101,15 @@ let yojson_of_summaries =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_summaries__constraint_summaries
-             v_constraint_summaries
-         in
-         ("constraint_summaries", arg) :: bnds
+         if [] = v_constraint_summaries then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_summaries__constraint_summaries)
+               v_constraint_summaries
+           in
+           let bnd = "constraint_summaries", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : summaries -> Ppx_yojson_conv_lib.Yojson.Safe.t)

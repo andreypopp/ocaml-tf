@@ -115,6 +115,7 @@ type azurerm_synapse_linked_service = {
   type_ : string prop; [@key "type"]
   type_properties_json : string prop;
   integration_runtime : integration_runtime list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -144,11 +145,14 @@ let yojson_of_azurerm_synapse_linked_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_integration_runtime
-             v_integration_runtime
-         in
-         ("integration_runtime", arg) :: bnds
+         if [] = v_integration_runtime then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_integration_runtime)
+               v_integration_runtime
+           in
+           let bnd = "integration_runtime", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

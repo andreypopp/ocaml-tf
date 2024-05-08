@@ -167,6 +167,7 @@ type runtime_configuration = {
   max_concurrent_game_session_activations : float prop option;
       [@option]
   server_process : runtime_configuration__server_process list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -185,12 +186,15 @@ let yojson_of_runtime_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_runtime_configuration__server_process
-             v_server_process
-         in
-         ("server_process", arg) :: bnds
+         if [] = v_server_process then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_runtime_configuration__server_process)
+               v_server_process
+           in
+           let bnd = "server_process", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_max_concurrent_game_session_activations with
@@ -270,10 +274,14 @@ type aws_gamelift_fleet = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   certificate_configuration : certificate_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   ec2_inbound_permission : ec2_inbound_permission list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_creation_limit_policy :
     resource_creation_limit_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   runtime_configuration : runtime_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -311,32 +319,44 @@ let yojson_of_aws_gamelift_fleet =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_runtime_configuration
-             v_runtime_configuration
-         in
-         ("runtime_configuration", arg) :: bnds
+         if [] = v_runtime_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_runtime_configuration)
+               v_runtime_configuration
+           in
+           let bnd = "runtime_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resource_creation_limit_policy
-             v_resource_creation_limit_policy
-         in
-         ("resource_creation_limit_policy", arg) :: bnds
+         if [] = v_resource_creation_limit_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resource_creation_limit_policy)
+               v_resource_creation_limit_policy
+           in
+           let bnd = "resource_creation_limit_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ec2_inbound_permission
-             v_ec2_inbound_permission
-         in
-         ("ec2_inbound_permission", arg) :: bnds
+         if [] = v_ec2_inbound_permission then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ec2_inbound_permission)
+               v_ec2_inbound_permission
+           in
+           let bnd = "ec2_inbound_permission", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_certificate_configuration
-             v_certificate_configuration
-         in
-         ("certificate_configuration", arg) :: bnds
+         if [] = v_certificate_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_certificate_configuration)
+               v_certificate_configuration
+           in
+           let bnd = "certificate_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

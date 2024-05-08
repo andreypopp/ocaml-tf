@@ -169,7 +169,9 @@ type deployment_configs__preview = {
   secrets : (string * string prop) list option; [@option]
   usage_model : string prop option; [@option]
   placement : deployment_configs__preview__placement list;
+      [@default []] [@yojson_drop_default ( = )]
   service_binding : deployment_configs__preview__service_binding list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -197,20 +199,26 @@ let yojson_of_deployment_configs__preview =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deployment_configs__preview__service_binding
-             v_service_binding
-         in
-         ("service_binding", arg) :: bnds
+         if [] = v_service_binding then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deployment_configs__preview__service_binding)
+               v_service_binding
+           in
+           let bnd = "service_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deployment_configs__preview__placement
-             v_placement
-         in
-         ("placement", arg) :: bnds
+         if [] = v_placement then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deployment_configs__preview__placement)
+               v_placement
+           in
+           let bnd = "placement", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_usage_model with
@@ -446,8 +454,10 @@ type deployment_configs__production = {
   secrets : (string * string prop) list option; [@option]
   usage_model : string prop option; [@option]
   placement : deployment_configs__production__placement list;
+      [@default []] [@yojson_drop_default ( = )]
   service_binding :
     deployment_configs__production__service_binding list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -475,20 +485,26 @@ let yojson_of_deployment_configs__production =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deployment_configs__production__service_binding
-             v_service_binding
-         in
-         ("service_binding", arg) :: bnds
+         if [] = v_service_binding then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deployment_configs__production__service_binding)
+               v_service_binding
+           in
+           let bnd = "service_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deployment_configs__production__placement
-             v_placement
-         in
-         ("placement", arg) :: bnds
+         if [] = v_placement then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deployment_configs__production__placement)
+               v_placement
+           in
+           let bnd = "placement", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_usage_model with
@@ -638,7 +654,9 @@ let _ = yojson_of_deployment_configs__production
 
 type deployment_configs = {
   preview : deployment_configs__preview list;
+      [@default []] [@yojson_drop_default ( = )]
   production : deployment_configs__production list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -651,18 +669,24 @@ let yojson_of_deployment_configs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_deployment_configs__production
-             v_production
-         in
-         ("production", arg) :: bnds
+         if [] = v_production then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_deployment_configs__production)
+               v_production
+           in
+           let bnd = "production", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_deployment_configs__preview
-             v_preview
-         in
-         ("preview", arg) :: bnds
+         if [] = v_preview then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_deployment_configs__preview)
+               v_preview
+           in
+           let bnd = "preview", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deployment_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -787,6 +811,7 @@ let _ = yojson_of_source__config
 type source = {
   type_ : string prop option; [@option] [@key "type"]
   config : source__config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -799,10 +824,13 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__config v_config
-         in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__config) v_config
+           in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with
@@ -825,8 +853,10 @@ type cloudflare_pages_project = {
   name : string prop;
   production_branch : string prop;
   build_config : build_config list;
+      [@default []] [@yojson_drop_default ( = )]
   deployment_configs : deployment_configs list;
-  source : source list;
+      [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -847,21 +877,30 @@ let yojson_of_cloudflare_pages_project =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_deployment_configs
-             v_deployment_configs
-         in
-         ("deployment_configs", arg) :: bnds
+         if [] = v_deployment_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_deployment_configs)
+               v_deployment_configs
+           in
+           let bnd = "deployment_configs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build_config v_build_config
-         in
-         ("build_config", arg) :: bnds
+         if [] = v_build_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build_config) v_build_config
+           in
+           let bnd = "build_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

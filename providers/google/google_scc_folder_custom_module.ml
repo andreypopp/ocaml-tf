@@ -67,6 +67,7 @@ type custom_config__custom_output__properties = {
   name : string prop option; [@option]
   value_expression :
     custom_config__custom_output__properties__value_expression list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,12 +80,15 @@ let yojson_of_custom_config__custom_output__properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_custom_config__custom_output__properties__value_expression
-             v_value_expression
-         in
-         ("value_expression", arg) :: bnds
+         if [] = v_value_expression then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_custom_config__custom_output__properties__value_expression)
+               v_value_expression
+           in
+           let bnd = "value_expression", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -104,6 +108,7 @@ let _ = yojson_of_custom_config__custom_output__properties
 
 type custom_config__custom_output = {
   properties : custom_config__custom_output__properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -116,12 +121,15 @@ let yojson_of_custom_config__custom_output =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_custom_config__custom_output__properties
-             v_properties
-         in
-         ("properties", arg) :: bnds
+         if [] = v_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_custom_config__custom_output__properties)
+               v_properties
+           in
+           let bnd = "properties", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : custom_config__custom_output ->
@@ -189,6 +197,7 @@ let _ = yojson_of_custom_config__predicate
 
 type custom_config__resource_selector = {
   resource_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,12 +210,14 @@ let yojson_of_custom_config__resource_selector =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_resource_types
-         in
-         ("resource_types", arg) :: bnds
+         if [] = v_resource_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_resource_types
+           in
+           let bnd = "resource_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : custom_config__resource_selector ->
@@ -221,8 +232,11 @@ type custom_config = {
   recommendation : string prop;
   severity : string prop;
   custom_output : custom_config__custom_output list;
+      [@default []] [@yojson_drop_default ( = )]
   predicate : custom_config__predicate list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_selector : custom_config__resource_selector list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -242,25 +256,35 @@ let yojson_of_custom_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_config__resource_selector
-             v_resource_selector
-         in
-         ("resource_selector", arg) :: bnds
+         if [] = v_resource_selector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_custom_config__resource_selector)
+               v_resource_selector
+           in
+           let bnd = "resource_selector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_config__predicate
-             v_predicate
-         in
-         ("predicate", arg) :: bnds
+         if [] = v_predicate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_config__predicate)
+               v_predicate
+           in
+           let bnd = "predicate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_config__custom_output
-             v_custom_output
-         in
-         ("custom_output", arg) :: bnds
+         if [] = v_custom_output then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_config__custom_output)
+               v_custom_output
+           in
+           let bnd = "custom_output", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_severity in
@@ -339,6 +363,7 @@ type google_scc_folder_custom_module = {
   folder : string prop;
   id : string prop option; [@option]
   custom_config : custom_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -363,10 +388,13 @@ let yojson_of_google_scc_folder_custom_module =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_config v_custom_config
-         in
-         ("custom_config", arg) :: bnds
+         if [] = v_custom_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_config) v_custom_config
+           in
+           let bnd = "custom_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

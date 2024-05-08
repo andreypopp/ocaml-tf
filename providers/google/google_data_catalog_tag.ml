@@ -129,7 +129,7 @@ type google_data_catalog_tag = {
   id : string prop option; [@option]
   parent : string prop option; [@option]
   template : string prop;
-  fields : fields list;
+  fields : fields list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -154,8 +154,11 @@ let yojson_of_google_data_catalog_tag =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_fields v_fields in
-         ("fields", arg) :: bnds
+         if [] = v_fields then bnds
+         else
+           let arg = (yojson_of_list yojson_of_fields) v_fields in
+           let bnd = "fields", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_template in

@@ -80,6 +80,7 @@ type aws_chimesdkvoice_voice_profile_domain = {
   tags_all : (string * string prop) list option; [@option]
   server_side_encryption_configuration :
     server_side_encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -105,12 +106,15 @@ let yojson_of_aws_chimesdkvoice_voice_profile_domain =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_server_side_encryption_configuration
-             v_server_side_encryption_configuration
-         in
-         ("server_side_encryption_configuration", arg) :: bnds
+         if [] = v_server_side_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_server_side_encryption_configuration)
+               v_server_side_encryption_configuration
+           in
+           let bnd = "server_side_encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

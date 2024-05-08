@@ -121,7 +121,7 @@ type azurerm_storage_data_lake_gen2_filesystem = {
   owner : string prop option; [@option]
   properties : (string * string prop) list option; [@option]
   storage_account_id : string prop;
-  ace : ace list;
+  ace : ace list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -148,8 +148,11 @@ let yojson_of_azurerm_storage_data_lake_gen2_filesystem =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_ace v_ace in
-         ("ace", arg) :: bnds
+         if [] = v_ace then bnds
+         else
+           let arg = (yojson_of_list yojson_of_ace) v_ace in
+           let bnd = "ace", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

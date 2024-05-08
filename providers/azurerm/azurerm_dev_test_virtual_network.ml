@@ -110,7 +110,7 @@ type azurerm_dev_test_virtual_network = {
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
-  subnet : subnet list;
+  subnet : subnet list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -137,8 +137,11 @@ let yojson_of_azurerm_dev_test_virtual_network =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_subnet v_subnet in
-         ("subnet", arg) :: bnds
+         if [] = v_subnet then bnds
+         else
+           let arg = (yojson_of_list yojson_of_subnet) v_subnet in
+           let bnd = "subnet", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

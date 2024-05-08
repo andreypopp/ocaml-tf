@@ -88,7 +88,9 @@ type google_logging_folder_sink = {
   include_children : bool prop option; [@option]
   name : string prop;
   bigquery_options : bigquery_options list;
+      [@default []] [@yojson_drop_default ( = )]
   exclusions : exclusions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,17 +114,23 @@ let yojson_of_google_logging_folder_sink =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_exclusions v_exclusions
-         in
-         ("exclusions", arg) :: bnds
+         if [] = v_exclusions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_exclusions) v_exclusions
+           in
+           let bnd = "exclusions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bigquery_options
-             v_bigquery_options
-         in
-         ("bigquery_options", arg) :: bnds
+         if [] = v_bigquery_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bigquery_options)
+               v_bigquery_options
+           in
+           let bnd = "bigquery_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

@@ -52,6 +52,7 @@ let _ =
 type content_type_profile_config__content_type_profiles = {
   items :
     content_type_profile_config__content_type_profiles__items list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,12 +66,15 @@ let yojson_of_content_type_profile_config__content_type_profiles =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_content_type_profile_config__content_type_profiles__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_content_type_profile_config__content_type_profiles__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : content_type_profile_config__content_type_profiles ->
@@ -84,6 +88,7 @@ type content_type_profile_config = {
   forward_when_content_type_is_unknown : bool prop;
   content_type_profiles :
     content_type_profile_config__content_type_profiles list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -100,12 +105,15 @@ let yojson_of_content_type_profile_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_content_type_profile_config__content_type_profiles
-             v_content_type_profiles
-         in
-         ("content_type_profiles", arg) :: bnds
+         if [] = v_content_type_profiles then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_content_type_profile_config__content_type_profiles)
+               v_content_type_profiles
+           in
+           let bnd = "content_type_profiles", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -155,6 +163,7 @@ let _ = yojson_of_query_arg_profile_config__query_arg_profiles__items
 
 type query_arg_profile_config__query_arg_profiles = {
   items : query_arg_profile_config__query_arg_profiles__items list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,12 +176,15 @@ let yojson_of_query_arg_profile_config__query_arg_profiles =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_query_arg_profile_config__query_arg_profiles__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_query_arg_profile_config__query_arg_profiles__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : query_arg_profile_config__query_arg_profiles ->
@@ -186,6 +198,7 @@ type query_arg_profile_config = {
   forward_when_query_arg_profile_is_unknown : bool prop;
   query_arg_profiles :
     query_arg_profile_config__query_arg_profiles list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -202,12 +215,15 @@ let yojson_of_query_arg_profile_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_query_arg_profile_config__query_arg_profiles
-             v_query_arg_profiles
-         in
-         ("query_arg_profiles", arg) :: bnds
+         if [] = v_query_arg_profiles then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_query_arg_profile_config__query_arg_profiles)
+               v_query_arg_profiles
+           in
+           let bnd = "query_arg_profiles", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -227,7 +243,9 @@ type aws_cloudfront_field_level_encryption_config = {
   comment : string prop option; [@option]
   id : string prop option; [@option]
   content_type_profile_config : content_type_profile_config list;
+      [@default []] [@yojson_drop_default ( = )]
   query_arg_profile_config : query_arg_profile_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -245,18 +263,24 @@ let yojson_of_aws_cloudfront_field_level_encryption_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_query_arg_profile_config
-             v_query_arg_profile_config
-         in
-         ("query_arg_profile_config", arg) :: bnds
+         if [] = v_query_arg_profile_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_query_arg_profile_config)
+               v_query_arg_profile_config
+           in
+           let bnd = "query_arg_profile_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_content_type_profile_config
-             v_content_type_profile_config
-         in
-         ("content_type_profile_config", arg) :: bnds
+         if [] = v_content_type_profile_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_content_type_profile_config)
+               v_content_type_profile_config
+           in
+           let bnd = "content_type_profile_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

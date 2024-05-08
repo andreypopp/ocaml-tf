@@ -123,7 +123,9 @@ type google_edgecontainer_node_pool = {
   node_location : string prop;
   project : string prop option; [@option]
   local_disk_encryption : local_disk_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   node_config : node_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -154,17 +156,23 @@ let yojson_of_google_edgecontainer_node_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_config v_node_config
-         in
-         ("node_config", arg) :: bnds
+         if [] = v_node_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_config) v_node_config
+           in
+           let bnd = "node_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_local_disk_encryption
-             v_local_disk_encryption
-         in
-         ("local_disk_encryption", arg) :: bnds
+         if [] = v_local_disk_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_local_disk_encryption)
+               v_local_disk_encryption
+           in
+           let bnd = "local_disk_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

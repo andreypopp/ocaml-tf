@@ -124,8 +124,11 @@ type copy = {
   write_disposition : string prop option; [@option]
   destination_encryption_configuration :
     copy__destination_encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_table : copy__destination_table list;
+      [@default []] [@yojson_drop_default ( = )]
   source_tables : copy__source_tables list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -145,26 +148,35 @@ let yojson_of_copy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_copy__source_tables
-             v_source_tables
-         in
-         ("source_tables", arg) :: bnds
+         if [] = v_source_tables then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_copy__source_tables)
+               v_source_tables
+           in
+           let bnd = "source_tables", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_copy__destination_table
-             v_destination_table
-         in
-         ("destination_table", arg) :: bnds
+         if [] = v_destination_table then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_copy__destination_table)
+               v_destination_table
+           in
+           let bnd = "destination_table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_copy__destination_encryption_configuration
-             v_destination_encryption_configuration
-         in
-         ("destination_encryption_configuration", arg) :: bnds
+         if [] = v_destination_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_copy__destination_encryption_configuration)
+               v_destination_encryption_configuration
+           in
+           let bnd = "destination_encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_write_disposition with
@@ -277,11 +289,14 @@ type extract = {
   compression : string prop option; [@option]
   destination_format : string prop option; [@option]
   destination_uris : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   field_delimiter : string prop option; [@option]
   print_header : bool prop option; [@option]
   use_avro_logical_types : bool prop option; [@option]
   source_model : extract__source_model list;
+      [@default []] [@yojson_drop_default ( = )]
   source_table : extract__source_table list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -303,18 +318,24 @@ let yojson_of_extract =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_extract__source_table
-             v_source_table
-         in
-         ("source_table", arg) :: bnds
+         if [] = v_source_table then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_extract__source_table)
+               v_source_table
+           in
+           let bnd = "source_table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_extract__source_model
-             v_source_model
-         in
-         ("source_model", arg) :: bnds
+         if [] = v_source_model then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_extract__source_model)
+               v_source_model
+           in
+           let bnd = "source_model", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_avro_logical_types with
@@ -341,12 +362,14 @@ let yojson_of_extract =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_uris
-         in
-         ("destination_uris", arg) :: bnds
+         if [] = v_destination_uris then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_uris
+           in
+           let bnd = "destination_uris", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_destination_format with
@@ -545,12 +568,17 @@ type load = {
   skip_leading_rows : float prop option; [@option]
   source_format : string prop option; [@option]
   source_uris : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   write_disposition : string prop option; [@option]
   destination_encryption_configuration :
     load__destination_encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_table : load__destination_table list;
+      [@default []] [@yojson_drop_default ( = )]
   parquet_options : load__parquet_options list;
+      [@default []] [@yojson_drop_default ( = )]
   time_partitioning : load__time_partitioning list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -586,33 +614,45 @@ let yojson_of_load =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load__time_partitioning
-             v_time_partitioning
-         in
-         ("time_partitioning", arg) :: bnds
+         if [] = v_time_partitioning then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load__time_partitioning)
+               v_time_partitioning
+           in
+           let bnd = "time_partitioning", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load__parquet_options
-             v_parquet_options
-         in
-         ("parquet_options", arg) :: bnds
+         if [] = v_parquet_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load__parquet_options)
+               v_parquet_options
+           in
+           let bnd = "parquet_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load__destination_table
-             v_destination_table
-         in
-         ("destination_table", arg) :: bnds
+         if [] = v_destination_table then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load__destination_table)
+               v_destination_table
+           in
+           let bnd = "destination_table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_load__destination_encryption_configuration
-             v_destination_encryption_configuration
-         in
-         ("destination_encryption_configuration", arg) :: bnds
+         if [] = v_destination_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_load__destination_encryption_configuration)
+               v_destination_encryption_configuration
+           in
+           let bnd = "destination_encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_write_disposition with
@@ -623,12 +663,14 @@ let yojson_of_load =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_uris
-         in
-         ("source_uris", arg) :: bnds
+         if [] = v_source_uris then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_uris
+           in
+           let bnd = "source_uris", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_format with
@@ -968,12 +1010,17 @@ type query = {
   use_query_cache : bool prop option; [@option]
   write_disposition : string prop option; [@option]
   default_dataset : query__default_dataset list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_encryption_configuration :
     query__destination_encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_table : query__destination_table list;
+      [@default []] [@yojson_drop_default ( = )]
   script_options : query__script_options list;
+      [@default []] [@yojson_drop_default ( = )]
   user_defined_function_resources :
     query__user_defined_function_resources list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1006,41 +1053,56 @@ let yojson_of_query =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_query__user_defined_function_resources
-             v_user_defined_function_resources
-         in
-         ("user_defined_function_resources", arg) :: bnds
+         if [] = v_user_defined_function_resources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_query__user_defined_function_resources)
+               v_user_defined_function_resources
+           in
+           let bnd = "user_defined_function_resources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_query__script_options
-             v_script_options
-         in
-         ("script_options", arg) :: bnds
+         if [] = v_script_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_query__script_options)
+               v_script_options
+           in
+           let bnd = "script_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_query__destination_table
-             v_destination_table
-         in
-         ("destination_table", arg) :: bnds
+         if [] = v_destination_table then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_query__destination_table)
+               v_destination_table
+           in
+           let bnd = "destination_table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_query__destination_encryption_configuration
-             v_destination_encryption_configuration
-         in
-         ("destination_encryption_configuration", arg) :: bnds
+         if [] = v_destination_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_query__destination_encryption_configuration)
+               v_destination_encryption_configuration
+           in
+           let bnd = "destination_encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_query__default_dataset
-             v_default_dataset
-         in
-         ("default_dataset", arg) :: bnds
+         if [] = v_default_dataset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_query__default_dataset)
+               v_default_dataset
+           in
+           let bnd = "default_dataset", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_write_disposition with
@@ -1267,7 +1329,9 @@ let _ = yojson_of_status__error_result
 
 type status = {
   error_result : status__error_result list;
+      [@default []] [@yojson_drop_default ( = )]
   errors : status__errors list;
+      [@default []] [@yojson_drop_default ( = )]
   state : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1289,17 +1353,23 @@ let yojson_of_status =
          ("state", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__errors v_errors
-         in
-         ("errors", arg) :: bnds
+         if [] = v_errors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__errors) v_errors
+           in
+           let bnd = "errors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__error_result
-             v_error_result
-         in
-         ("error_result", arg) :: bnds
+         if [] = v_error_result then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__error_result)
+               v_error_result
+           in
+           let bnd = "error_result", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1315,10 +1385,10 @@ type google_bigquery_job = {
   labels : (string * string prop) list option; [@option]
   location : string prop option; [@option]
   project : string prop option; [@option]
-  copy : copy list;
-  extract : extract list;
-  load : load list;
-  query : query list;
+  copy : copy list; [@default []] [@yojson_drop_default ( = )]
+  extract : extract list; [@default []] [@yojson_drop_default ( = )]
+  load : load list; [@default []] [@yojson_drop_default ( = )]
+  query : query list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1348,20 +1418,32 @@ let yojson_of_google_bigquery_job =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_query v_query in
-         ("query", arg) :: bnds
+         if [] = v_query then bnds
+         else
+           let arg = (yojson_of_list yojson_of_query) v_query in
+           let bnd = "query", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_load v_load in
-         ("load", arg) :: bnds
+         if [] = v_load then bnds
+         else
+           let arg = (yojson_of_list yojson_of_load) v_load in
+           let bnd = "load", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_extract v_extract in
-         ("extract", arg) :: bnds
+         if [] = v_extract then bnds
+         else
+           let arg = (yojson_of_list yojson_of_extract) v_extract in
+           let bnd = "extract", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_copy v_copy in
-         ("copy", arg) :: bnds
+         if [] = v_copy then bnds
+         else
+           let arg = (yojson_of_list yojson_of_copy) v_copy in
+           let bnd = "copy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

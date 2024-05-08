@@ -177,8 +177,10 @@ let _ = yojson_of_subject
 type kubernetes_role_binding = {
   id : string prop option; [@option]
   metadata : metadata list;
+      [@default []] [@yojson_drop_default ( = )]
   role_ref : role_ref list;
-  subject : subject list;
+      [@default []] [@yojson_drop_default ( = )]
+  subject : subject list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,16 +198,29 @@ let yojson_of_kubernetes_role_binding =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_subject v_subject in
-         ("subject", arg) :: bnds
+         if [] = v_subject then bnds
+         else
+           let arg = (yojson_of_list yojson_of_subject) v_subject in
+           let bnd = "subject", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_role_ref v_role_ref in
-         ("role_ref", arg) :: bnds
+         if [] = v_role_ref then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_role_ref) v_role_ref
+           in
+           let bnd = "role_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

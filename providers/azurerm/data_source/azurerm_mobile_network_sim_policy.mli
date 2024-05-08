@@ -11,10 +11,12 @@ type slice__data_network__session_aggregate_maximum_bit_rate = {
 
 type slice__data_network = {
   additional_allowed_session_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** additional_allowed_session_types *)
   allocation_and_retention_priority_level : float prop;
       (** allocation_and_retention_priority_level *)
   allowed_services_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** allowed_services_ids *)
   data_network_id : string prop;  (** data_network_id *)
   default_session_type : string prop;  (** default_session_type *)
@@ -25,11 +27,14 @@ type slice__data_network = {
   qos_indicator : float prop;  (** qos_indicator *)
   session_aggregate_maximum_bit_rate :
     slice__data_network__session_aggregate_maximum_bit_rate list;
+      [@default []] [@yojson_drop_default ( = )]
       (** session_aggregate_maximum_bit_rate *)
 }
 
 type slice = {
-  data_network : slice__data_network list;  (** data_network *)
+  data_network : slice__data_network list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** data_network *)
   default_data_network_id : string prop;
       (** default_data_network_id *)
   slice_id : string prop;  (** slice_id *)

@@ -144,8 +144,9 @@ type google_monitoring_metric_descriptor = {
   type_ : string prop; [@key "type"]
   unit : string prop option; [@option]
   value_type : string prop;
-  labels : labels list;
+  labels : labels list; [@default []] [@yojson_drop_default ( = )]
   metadata : metadata list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -176,12 +177,20 @@ let yojson_of_google_monitoring_metric_descriptor =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_labels v_labels in
-         ("labels", arg) :: bnds
+         if [] = v_labels then bnds
+         else
+           let arg = (yojson_of_list yojson_of_labels) v_labels in
+           let bnd = "labels", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_value_type in

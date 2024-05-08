@@ -62,6 +62,7 @@ let _ = yojson_of_access_control_policy__grant__grantee
 type access_control_policy__grant = {
   permission : string prop;
   grantee : access_control_policy__grant__grantee list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,12 +75,15 @@ let yojson_of_access_control_policy__grant =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_access_control_policy__grant__grantee
-             v_grantee
-         in
-         ("grantee", arg) :: bnds
+         if [] = v_grantee then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_access_control_policy__grant__grantee)
+               v_grantee
+           in
+           let bnd = "grantee", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_permission in
@@ -129,7 +133,9 @@ let _ = yojson_of_access_control_policy__owner
 
 type access_control_policy = {
   grant : access_control_policy__grant list;
+      [@default []] [@yojson_drop_default ( = )]
   owner : access_control_policy__owner list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -142,18 +148,24 @@ let yojson_of_access_control_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access_control_policy__owner
-             v_owner
-         in
-         ("owner", arg) :: bnds
+         if [] = v_owner then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_control_policy__owner)
+               v_owner
+           in
+           let bnd = "owner", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access_control_policy__grant
-             v_grant
-         in
-         ("grant", arg) :: bnds
+         if [] = v_grant then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_control_policy__grant)
+               v_grant
+           in
+           let bnd = "grant", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : access_control_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -168,6 +180,7 @@ type aws_s3_bucket_acl = {
   expected_bucket_owner : string prop option; [@option]
   id : string prop option; [@option]
   access_control_policy : access_control_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,11 +199,14 @@ let yojson_of_aws_s3_bucket_acl =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access_control_policy
-             v_access_control_policy
-         in
-         ("access_control_policy", arg) :: bnds
+         if [] = v_access_control_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_control_policy)
+               v_access_control_policy
+           in
+           let bnd = "access_control_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

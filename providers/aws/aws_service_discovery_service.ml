@@ -35,6 +35,7 @@ type dns_config = {
   namespace_id : string prop;
   routing_policy : string prop option; [@option]
   dns_records : dns_config__dns_records list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -51,11 +52,14 @@ let yojson_of_dns_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dns_config__dns_records
-             v_dns_records
-         in
-         ("dns_records", arg) :: bnds
+         if [] = v_dns_records then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dns_config__dns_records)
+               v_dns_records
+           in
+           let bnd = "dns_records", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_routing_policy with
@@ -164,8 +168,11 @@ type aws_service_discovery_service = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   dns_config : dns_config list;
+      [@default []] [@yojson_drop_default ( = )]
   health_check_config : health_check_config list;
+      [@default []] [@yojson_drop_default ( = )]
   health_check_custom_config : health_check_custom_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -190,24 +197,33 @@ let yojson_of_aws_service_discovery_service =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_health_check_custom_config
-             v_health_check_custom_config
-         in
-         ("health_check_custom_config", arg) :: bnds
+         if [] = v_health_check_custom_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_health_check_custom_config)
+               v_health_check_custom_config
+           in
+           let bnd = "health_check_custom_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_health_check_config
-             v_health_check_config
-         in
-         ("health_check_config", arg) :: bnds
+         if [] = v_health_check_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_health_check_config)
+               v_health_check_config
+           in
+           let bnd = "health_check_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dns_config v_dns_config
-         in
-         ("dns_config", arg) :: bnds
+         if [] = v_dns_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dns_config) v_dns_config
+           in
+           let bnd = "dns_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

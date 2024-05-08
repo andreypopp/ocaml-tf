@@ -52,6 +52,7 @@ type edges = {
   asn : float prop;
   edge_location : string prop;
   inside_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -68,12 +69,14 @@ let yojson_of_edges =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_inside_cidr_blocks
-         in
-         ("inside_cidr_blocks", arg) :: bnds
+         if [] = v_inside_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_inside_cidr_blocks
+           in
+           let bnd = "inside_cidr_blocks", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_edge_location in
@@ -92,8 +95,10 @@ let _ = yojson_of_edges
 
 type segments = {
   edge_locations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   shared_segments : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,24 +115,28 @@ let yojson_of_segments =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_shared_segments
-         in
-         ("shared_segments", arg) :: bnds
+         if [] = v_shared_segments then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_shared_segments
+           in
+           let bnd = "shared_segments", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_edge_locations
-         in
-         ("edge_locations", arg) :: bnds
+         if [] = v_edge_locations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_edge_locations
+           in
+           let bnd = "edge_locations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : segments -> Ppx_yojson_conv_lib.Yojson.Safe.t)

@@ -82,9 +82,12 @@ let _ = yojson_of_spec__worker__log_destination__datadog
 
 type spec__worker__log_destination = {
   datadog : spec__worker__log_destination__datadog list;
+      [@default []] [@yojson_drop_default ( = )]
   logtail : spec__worker__log_destination__logtail list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   papertrail : spec__worker__log_destination__papertrail list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -102,32 +105,41 @@ let yojson_of_spec__worker__log_destination =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__worker__log_destination__papertrail
-             v_papertrail
-         in
-         ("papertrail", arg) :: bnds
+         if [] = v_papertrail then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__worker__log_destination__papertrail)
+               v_papertrail
+           in
+           let bnd = "papertrail", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__worker__log_destination__logtail
-             v_logtail
-         in
-         ("logtail", arg) :: bnds
+         if [] = v_logtail then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__worker__log_destination__logtail)
+               v_logtail
+           in
+           let bnd = "logtail", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__worker__log_destination__datadog
-             v_datadog
-         in
-         ("datadog", arg) :: bnds
+         if [] = v_datadog then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__worker__log_destination__datadog)
+               v_datadog
+           in
+           let bnd = "datadog", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__worker__log_destination ->
@@ -162,6 +174,7 @@ let _ = yojson_of_spec__worker__image__deploy_on_push
 
 type spec__worker__image = {
   deploy_on_push : spec__worker__image__deploy_on_push list;
+      [@default []] [@yojson_drop_default ( = )]
   registry : string prop;
   registry_type : string prop;
   repository : string prop;
@@ -200,12 +213,15 @@ let yojson_of_spec__worker__image =
          ("registry", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__worker__image__deploy_on_push
-             v_deploy_on_push
-         in
-         ("deploy_on_push", arg) :: bnds
+         if [] = v_deploy_on_push then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__worker__image__deploy_on_push)
+               v_deploy_on_push
+           in
+           let bnd = "deploy_on_push", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__worker__image -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -417,17 +433,24 @@ let _ = yojson_of_spec__worker__alert
 
 type spec__worker = {
   alert : spec__worker__alert list;
+      [@default []] [@yojson_drop_default ( = )]
   build_command : string prop;
   dockerfile_path : string prop;
   env : spec__worker__env list;
+      [@default []] [@yojson_drop_default ( = )]
   environment_slug : string prop;
   git : spec__worker__git list;
+      [@default []] [@yojson_drop_default ( = )]
   github : spec__worker__github list;
+      [@default []] [@yojson_drop_default ( = )]
   gitlab : spec__worker__gitlab list;
+      [@default []] [@yojson_drop_default ( = )]
   image : spec__worker__image list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_count : float prop;
   instance_size_slug : string prop;
   log_destination : spec__worker__log_destination list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   run_command : string prop;
   source_dir : string prop;
@@ -471,11 +494,14 @@ let yojson_of_spec__worker =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__worker__log_destination
-             v_log_destination
-         in
-         ("log_destination", arg) :: bnds
+         if [] = v_log_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__worker__log_destination)
+               v_log_destination
+           in
+           let bnd = "log_destination", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -488,28 +514,40 @@ let yojson_of_spec__worker =
          ("instance_count", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__worker__image v_image
-         in
-         ("image", arg) :: bnds
+         if [] = v_image then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__worker__image) v_image
+           in
+           let bnd = "image", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__worker__gitlab v_gitlab
-         in
-         ("gitlab", arg) :: bnds
+         if [] = v_gitlab then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__worker__gitlab) v_gitlab
+           in
+           let bnd = "gitlab", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__worker__github v_github
-         in
-         ("github", arg) :: bnds
+         if [] = v_github then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__worker__github) v_github
+           in
+           let bnd = "github", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__worker__git v_git
-         in
-         ("git", arg) :: bnds
+         if [] = v_git then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__worker__git) v_git
+           in
+           let bnd = "git", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -518,10 +556,13 @@ let yojson_of_spec__worker =
          ("environment_slug", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__worker__env v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__worker__env) v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -534,10 +575,13 @@ let yojson_of_spec__worker =
          ("build_command", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__worker__alert v_alert
-         in
-         ("alert", arg) :: bnds
+         if [] = v_alert then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__worker__alert) v_alert
+           in
+           let bnd = "alert", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__worker -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -767,9 +811,13 @@ let _ = yojson_of_spec__static_site__cors__allow_origins
 type spec__static_site__cors = {
   allow_credentials : bool prop;
   allow_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_origins : spec__static_site__cors__allow_origins list;
+      [@default []] [@yojson_drop_default ( = )]
   expose_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -794,36 +842,45 @@ let yojson_of_spec__static_site__cors =
          ("max_age", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_expose_headers
-         in
-         ("expose_headers", arg) :: bnds
+         if [] = v_expose_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_expose_headers
+           in
+           let bnd = "expose_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__static_site__cors__allow_origins
-             v_allow_origins
-         in
-         ("allow_origins", arg) :: bnds
+         if [] = v_allow_origins then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__static_site__cors__allow_origins)
+               v_allow_origins
+           in
+           let bnd = "allow_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_methods
-         in
-         ("allow_methods", arg) :: bnds
+         if [] = v_allow_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_methods
+           in
+           let bnd = "allow_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_headers
-         in
-         ("allow_headers", arg) :: bnds
+         if [] = v_allow_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_headers
+           in
+           let bnd = "allow_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -842,17 +899,23 @@ type spec__static_site = {
   build_command : string prop;
   catchall_document : string prop;
   cors : spec__static_site__cors list;
+      [@default []] [@yojson_drop_default ( = )]
   dockerfile_path : string prop;
   env : spec__static_site__env list;
+      [@default []] [@yojson_drop_default ( = )]
   environment_slug : string prop;
   error_document : string prop;
   git : spec__static_site__git list;
+      [@default []] [@yojson_drop_default ( = )]
   github : spec__static_site__github list;
+      [@default []] [@yojson_drop_default ( = )]
   gitlab : spec__static_site__gitlab list;
+      [@default []] [@yojson_drop_default ( = )]
   index_document : string prop;
   name : string prop;
   output_dir : string prop;
   routes : spec__static_site__routes list;
+      [@default []] [@yojson_drop_default ( = )]
   source_dir : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -886,11 +949,14 @@ let yojson_of_spec__static_site =
          ("source_dir", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__static_site__routes
-             v_routes
-         in
-         ("routes", arg) :: bnds
+         if [] = v_routes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__static_site__routes)
+               v_routes
+           in
+           let bnd = "routes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_output_dir in
@@ -907,24 +973,33 @@ let yojson_of_spec__static_site =
          ("index_document", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__static_site__gitlab
-             v_gitlab
-         in
-         ("gitlab", arg) :: bnds
+         if [] = v_gitlab then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__static_site__gitlab)
+               v_gitlab
+           in
+           let bnd = "gitlab", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__static_site__github
-             v_github
-         in
-         ("github", arg) :: bnds
+         if [] = v_github then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__static_site__github)
+               v_github
+           in
+           let bnd = "github", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__static_site__git v_git
-         in
-         ("git", arg) :: bnds
+         if [] = v_git then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__static_site__git) v_git
+           in
+           let bnd = "git", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -939,10 +1014,13 @@ let yojson_of_spec__static_site =
          ("environment_slug", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__static_site__env v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__static_site__env) v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -951,10 +1029,14 @@ let yojson_of_spec__static_site =
          ("dockerfile_path", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__static_site__cors v_cors
-         in
-         ("cors", arg) :: bnds
+         if [] = v_cors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__static_site__cors)
+               v_cors
+           in
+           let bnd = "cors", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1087,9 +1169,12 @@ let _ = yojson_of_spec__service__log_destination__datadog
 
 type spec__service__log_destination = {
   datadog : spec__service__log_destination__datadog list;
+      [@default []] [@yojson_drop_default ( = )]
   logtail : spec__service__log_destination__logtail list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   papertrail : spec__service__log_destination__papertrail list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1107,32 +1192,41 @@ let yojson_of_spec__service__log_destination =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__service__log_destination__papertrail
-             v_papertrail
-         in
-         ("papertrail", arg) :: bnds
+         if [] = v_papertrail then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__service__log_destination__papertrail)
+               v_papertrail
+           in
+           let bnd = "papertrail", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__service__log_destination__logtail
-             v_logtail
-         in
-         ("logtail", arg) :: bnds
+         if [] = v_logtail then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__service__log_destination__logtail)
+               v_logtail
+           in
+           let bnd = "logtail", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__service__log_destination__datadog
-             v_datadog
-         in
-         ("datadog", arg) :: bnds
+         if [] = v_datadog then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__service__log_destination__datadog)
+               v_datadog
+           in
+           let bnd = "datadog", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__service__log_destination ->
@@ -1167,6 +1261,7 @@ let _ = yojson_of_spec__service__image__deploy_on_push
 
 type spec__service__image = {
   deploy_on_push : spec__service__image__deploy_on_push list;
+      [@default []] [@yojson_drop_default ( = )]
   registry : string prop;
   registry_type : string prop;
   repository : string prop;
@@ -1205,12 +1300,15 @@ let yojson_of_spec__service__image =
          ("registry", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__service__image__deploy_on_push
-             v_deploy_on_push
-         in
-         ("deploy_on_push", arg) :: bnds
+         if [] = v_deploy_on_push then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__service__image__deploy_on_push)
+               v_deploy_on_push
+           in
+           let bnd = "deploy_on_push", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__service__image -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1479,9 +1577,13 @@ let _ = yojson_of_spec__service__cors__allow_origins
 type spec__service__cors = {
   allow_credentials : bool prop;
   allow_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_origins : spec__service__cors__allow_origins list;
+      [@default []] [@yojson_drop_default ( = )]
   expose_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1506,36 +1608,45 @@ let yojson_of_spec__service__cors =
          ("max_age", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_expose_headers
-         in
-         ("expose_headers", arg) :: bnds
+         if [] = v_expose_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_expose_headers
+           in
+           let bnd = "expose_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__service__cors__allow_origins
-             v_allow_origins
-         in
-         ("allow_origins", arg) :: bnds
+         if [] = v_allow_origins then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__service__cors__allow_origins)
+               v_allow_origins
+           in
+           let bnd = "allow_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_methods
-         in
-         ("allow_methods", arg) :: bnds
+         if [] = v_allow_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_methods
+           in
+           let bnd = "allow_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_headers
-         in
-         ("allow_headers", arg) :: bnds
+         if [] = v_allow_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_headers
+           in
+           let bnd = "allow_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1602,23 +1713,34 @@ let _ = yojson_of_spec__service__alert
 
 type spec__service = {
   alert : spec__service__alert list;
+      [@default []] [@yojson_drop_default ( = )]
   build_command : string prop;
   cors : spec__service__cors list;
+      [@default []] [@yojson_drop_default ( = )]
   dockerfile_path : string prop;
   env : spec__service__env list;
+      [@default []] [@yojson_drop_default ( = )]
   environment_slug : string prop;
   git : spec__service__git list;
+      [@default []] [@yojson_drop_default ( = )]
   github : spec__service__github list;
+      [@default []] [@yojson_drop_default ( = )]
   gitlab : spec__service__gitlab list;
+      [@default []] [@yojson_drop_default ( = )]
   health_check : spec__service__health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   http_port : float prop;
   image : spec__service__image list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_count : float prop;
   instance_size_slug : string prop;
   internal_ports : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   log_destination : spec__service__log_destination list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   routes : spec__service__routes list;
+      [@default []] [@yojson_drop_default ( = )]
   run_command : string prop;
   source_dir : string prop;
 }
@@ -1662,29 +1784,38 @@ let yojson_of_spec__service =
          ("run_command", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service__routes v_routes
-         in
-         ("routes", arg) :: bnds
+         if [] = v_routes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service__routes)
+               v_routes
+           in
+           let bnd = "routes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service__log_destination
-             v_log_destination
-         in
-         ("log_destination", arg) :: bnds
+         if [] = v_log_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service__log_destination)
+               v_log_destination
+           in
+           let bnd = "log_destination", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_internal_ports
-         in
-         ("internal_ports", arg) :: bnds
+         if [] = v_internal_ports then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_internal_ports
+           in
+           let bnd = "internal_ports", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1697,39 +1828,56 @@ let yojson_of_spec__service =
          ("instance_count", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service__image v_image
-         in
-         ("image", arg) :: bnds
+         if [] = v_image then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service__image) v_image
+           in
+           let bnd = "image", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_http_port in
          ("http_port", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service__health_check
-             v_health_check
-         in
-         ("health_check", arg) :: bnds
+         if [] = v_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service__health_check)
+               v_health_check
+           in
+           let bnd = "health_check", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service__gitlab v_gitlab
-         in
-         ("gitlab", arg) :: bnds
+         if [] = v_gitlab then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service__gitlab)
+               v_gitlab
+           in
+           let bnd = "gitlab", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service__github v_github
-         in
-         ("github", arg) :: bnds
+         if [] = v_github then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service__github)
+               v_github
+           in
+           let bnd = "github", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service__git v_git
-         in
-         ("git", arg) :: bnds
+         if [] = v_git then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service__git) v_git
+           in
+           let bnd = "git", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1738,10 +1886,13 @@ let yojson_of_spec__service =
          ("environment_slug", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service__env v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service__env) v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1750,20 +1901,26 @@ let yojson_of_spec__service =
          ("dockerfile_path", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service__cors v_cors
-         in
-         ("cors", arg) :: bnds
+         if [] = v_cors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service__cors) v_cors
+           in
+           let bnd = "cors", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_build_command in
          ("build_command", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service__alert v_alert
-         in
-         ("alert", arg) :: bnds
+         if [] = v_alert then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service__alert) v_alert
+           in
+           let bnd = "alert", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1852,9 +2009,12 @@ let _ = yojson_of_spec__job__log_destination__datadog
 
 type spec__job__log_destination = {
   datadog : spec__job__log_destination__datadog list;
+      [@default []] [@yojson_drop_default ( = )]
   logtail : spec__job__log_destination__logtail list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   papertrail : spec__job__log_destination__papertrail list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1872,30 +2032,41 @@ let yojson_of_spec__job__log_destination =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__job__log_destination__papertrail
-             v_papertrail
-         in
-         ("papertrail", arg) :: bnds
+         if [] = v_papertrail then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__job__log_destination__papertrail)
+               v_papertrail
+           in
+           let bnd = "papertrail", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__job__log_destination__logtail v_logtail
-         in
-         ("logtail", arg) :: bnds
+         if [] = v_logtail then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__job__log_destination__logtail)
+               v_logtail
+           in
+           let bnd = "logtail", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__job__log_destination__datadog v_datadog
-         in
-         ("datadog", arg) :: bnds
+         if [] = v_datadog then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__job__log_destination__datadog)
+               v_datadog
+           in
+           let bnd = "datadog", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__job__log_destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1929,6 +2100,7 @@ let _ = yojson_of_spec__job__image__deploy_on_push
 
 type spec__job__image = {
   deploy_on_push : spec__job__image__deploy_on_push list;
+      [@default []] [@yojson_drop_default ( = )]
   registry : string prop;
   registry_type : string prop;
   repository : string prop;
@@ -1967,11 +2139,15 @@ let yojson_of_spec__job__image =
          ("registry", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__job__image__deploy_on_push
-             v_deploy_on_push
-         in
-         ("deploy_on_push", arg) :: bnds
+         if [] = v_deploy_on_push then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__job__image__deploy_on_push)
+               v_deploy_on_push
+           in
+           let bnd = "deploy_on_push", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__job__image -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2183,18 +2359,25 @@ let _ = yojson_of_spec__job__alert
 
 type spec__job = {
   alert : spec__job__alert list;
+      [@default []] [@yojson_drop_default ( = )]
   build_command : string prop;
   dockerfile_path : string prop;
   env : spec__job__env list;
+      [@default []] [@yojson_drop_default ( = )]
   environment_slug : string prop;
   git : spec__job__git list;
+      [@default []] [@yojson_drop_default ( = )]
   github : spec__job__github list;
+      [@default []] [@yojson_drop_default ( = )]
   gitlab : spec__job__gitlab list;
+      [@default []] [@yojson_drop_default ( = )]
   image : spec__job__image list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_count : float prop;
   instance_size_slug : string prop;
   kind : string prop;
   log_destination : spec__job__log_destination list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   run_command : string prop;
   source_dir : string prop;
@@ -2239,11 +2422,14 @@ let yojson_of_spec__job =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__job__log_destination
-             v_log_destination
-         in
-         ("log_destination", arg) :: bnds
+         if [] = v_log_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__job__log_destination)
+               v_log_destination
+           in
+           let bnd = "log_destination", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_kind in
@@ -2260,26 +2446,40 @@ let yojson_of_spec__job =
          ("instance_count", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__job__image v_image
-         in
-         ("image", arg) :: bnds
+         if [] = v_image then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__job__image) v_image
+           in
+           let bnd = "image", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__job__gitlab v_gitlab
-         in
-         ("gitlab", arg) :: bnds
+         if [] = v_gitlab then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__job__gitlab) v_gitlab
+           in
+           let bnd = "gitlab", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__job__github v_github
-         in
-         ("github", arg) :: bnds
+         if [] = v_github then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__job__github) v_github
+           in
+           let bnd = "github", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__job__git v_git in
-         ("git", arg) :: bnds
+         if [] = v_git then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__job__git) v_git
+           in
+           let bnd = "git", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2288,8 +2488,13 @@ let yojson_of_spec__job =
          ("environment_slug", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__job__env v_env in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__job__env) v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2302,10 +2507,13 @@ let yojson_of_spec__job =
          ("build_command", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__job__alert v_alert
-         in
-         ("alert", arg) :: bnds
+         if [] = v_alert then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__job__alert) v_alert
+           in
+           let bnd = "alert", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2390,6 +2598,7 @@ let _ = yojson_of_spec__ingress__rule__match__path
 
 type spec__ingress__rule__match = {
   path : spec__ingress__rule__match__path list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2402,11 +2611,15 @@ let yojson_of_spec__ingress__rule__match =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__ingress__rule__match__path
-             v_path
-         in
-         ("path", arg) :: bnds
+         if [] = v_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__ingress__rule__match__path)
+               v_path
+           in
+           let bnd = "path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__ingress__rule__match -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2453,9 +2666,13 @@ let _ = yojson_of_spec__ingress__rule__cors__allow_origins
 type spec__ingress__rule__cors = {
   allow_credentials : bool prop;
   allow_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_origins : spec__ingress__rule__cors__allow_origins list;
+      [@default []] [@yojson_drop_default ( = )]
   expose_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -2480,36 +2697,45 @@ let yojson_of_spec__ingress__rule__cors =
          ("max_age", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_expose_headers
-         in
-         ("expose_headers", arg) :: bnds
+         if [] = v_expose_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_expose_headers
+           in
+           let bnd = "expose_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__ingress__rule__cors__allow_origins
-             v_allow_origins
-         in
-         ("allow_origins", arg) :: bnds
+         if [] = v_allow_origins then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__ingress__rule__cors__allow_origins)
+               v_allow_origins
+           in
+           let bnd = "allow_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_methods
-         in
-         ("allow_methods", arg) :: bnds
+         if [] = v_allow_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_methods
+           in
+           let bnd = "allow_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_headers
-         in
-         ("allow_headers", arg) :: bnds
+         if [] = v_allow_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_headers
+           in
+           let bnd = "allow_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2567,9 +2793,13 @@ let _ = yojson_of_spec__ingress__rule__component
 
 type spec__ingress__rule = {
   component : spec__ingress__rule__component list;
+      [@default []] [@yojson_drop_default ( = )]
   cors : spec__ingress__rule__cors list;
-  match_ : spec__ingress__rule__match list; [@key "match"]
+      [@default []] [@yojson_drop_default ( = )]
+  match_ : spec__ingress__rule__match list;
+      [@default []] [@yojson_drop_default ( = )] [@key "match"]
   redirect : spec__ingress__rule__redirect list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2587,31 +2817,44 @@ let yojson_of_spec__ingress__rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__ingress__rule__redirect
-             v_redirect
-         in
-         ("redirect", arg) :: bnds
+         if [] = v_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__ingress__rule__redirect)
+               v_redirect
+           in
+           let bnd = "redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__ingress__rule__match
-             v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__ingress__rule__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__ingress__rule__cors v_cors
-         in
-         ("cors", arg) :: bnds
+         if [] = v_cors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__ingress__rule__cors)
+               v_cors
+           in
+           let bnd = "cors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__ingress__rule__component
-             v_component
-         in
-         ("component", arg) :: bnds
+         if [] = v_component then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__ingress__rule__component)
+               v_component
+           in
+           let bnd = "component", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__ingress__rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2620,7 +2863,10 @@ let _ = yojson_of_spec__ingress__rule
 
 [@@@deriving.end]
 
-type spec__ingress = { rule : spec__ingress__rule list }
+type spec__ingress = {
+  rule : spec__ingress__rule list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : spec__ingress) -> ()
@@ -2632,10 +2878,13 @@ let yojson_of_spec__ingress =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__ingress__rule v_rule
-         in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__ingress__rule) v_rule
+           in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__ingress -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2758,9 +3007,12 @@ let _ = yojson_of_spec__function__log_destination__datadog
 
 type spec__function__log_destination = {
   datadog : spec__function__log_destination__datadog list;
+      [@default []] [@yojson_drop_default ( = )]
   logtail : spec__function__log_destination__logtail list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   papertrail : spec__function__log_destination__papertrail list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2778,32 +3030,41 @@ let yojson_of_spec__function__log_destination =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__function__log_destination__papertrail
-             v_papertrail
-         in
-         ("papertrail", arg) :: bnds
+         if [] = v_papertrail then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__function__log_destination__papertrail)
+               v_papertrail
+           in
+           let bnd = "papertrail", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__function__log_destination__logtail
-             v_logtail
-         in
-         ("logtail", arg) :: bnds
+         if [] = v_logtail then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__function__log_destination__logtail)
+               v_logtail
+           in
+           let bnd = "logtail", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__function__log_destination__datadog
-             v_datadog
-         in
-         ("datadog", arg) :: bnds
+         if [] = v_datadog then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__function__log_destination__datadog)
+               v_datadog
+           in
+           let bnd = "datadog", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__function__log_destination ->
@@ -3002,9 +3263,13 @@ let _ = yojson_of_spec__function__cors__allow_origins
 type spec__function__cors = {
   allow_credentials : bool prop;
   allow_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_origins : spec__function__cors__allow_origins list;
+      [@default []] [@yojson_drop_default ( = )]
   expose_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -3029,36 +3294,45 @@ let yojson_of_spec__function__cors =
          ("max_age", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_expose_headers
-         in
-         ("expose_headers", arg) :: bnds
+         if [] = v_expose_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_expose_headers
+           in
+           let bnd = "expose_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__function__cors__allow_origins
-             v_allow_origins
-         in
-         ("allow_origins", arg) :: bnds
+         if [] = v_allow_origins then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__function__cors__allow_origins)
+               v_allow_origins
+           in
+           let bnd = "allow_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_methods
-         in
-         ("allow_methods", arg) :: bnds
+         if [] = v_allow_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_methods
+           in
+           let bnd = "allow_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_headers
-         in
-         ("allow_headers", arg) :: bnds
+         if [] = v_allow_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_headers
+           in
+           let bnd = "allow_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -3125,14 +3399,22 @@ let _ = yojson_of_spec__function__alert
 
 type spec__function = {
   alert : spec__function__alert list;
+      [@default []] [@yojson_drop_default ( = )]
   cors : spec__function__cors list;
+      [@default []] [@yojson_drop_default ( = )]
   env : spec__function__env list;
+      [@default []] [@yojson_drop_default ( = )]
   git : spec__function__git list;
+      [@default []] [@yojson_drop_default ( = )]
   github : spec__function__github list;
+      [@default []] [@yojson_drop_default ( = )]
   gitlab : spec__function__gitlab list;
+      [@default []] [@yojson_drop_default ( = )]
   log_destination : spec__function__log_destination list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   routes : spec__function__routes list;
+      [@default []] [@yojson_drop_default ( = )]
   source_dir : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -3161,57 +3443,85 @@ let yojson_of_spec__function =
          ("source_dir", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__function__routes v_routes
-         in
-         ("routes", arg) :: bnds
+         if [] = v_routes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__function__routes)
+               v_routes
+           in
+           let bnd = "routes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__function__log_destination
-             v_log_destination
-         in
-         ("log_destination", arg) :: bnds
+         if [] = v_log_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__function__log_destination)
+               v_log_destination
+           in
+           let bnd = "log_destination", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__function__gitlab v_gitlab
-         in
-         ("gitlab", arg) :: bnds
+         if [] = v_gitlab then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__function__gitlab)
+               v_gitlab
+           in
+           let bnd = "gitlab", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__function__github v_github
-         in
-         ("github", arg) :: bnds
+         if [] = v_github then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__function__github)
+               v_github
+           in
+           let bnd = "github", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__function__git v_git
-         in
-         ("git", arg) :: bnds
+         if [] = v_git then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__function__git) v_git
+           in
+           let bnd = "git", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__function__env v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__function__env) v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__function__cors v_cors
-         in
-         ("cors", arg) :: bnds
+         if [] = v_cors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__function__cors) v_cors
+           in
+           let bnd = "cors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__function__alert v_alert
-         in
-         ("alert", arg) :: bnds
+         if [] = v_alert then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__function__alert) v_alert
+           in
+           let bnd = "alert", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__function -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -3398,19 +3708,29 @@ let _ = yojson_of_spec__alert
 
 type spec = {
   alert : spec__alert list;
+      [@default []] [@yojson_drop_default ( = )]
   database : spec__database list;
+      [@default []] [@yojson_drop_default ( = )]
   domain : spec__domain list;
+      [@default []] [@yojson_drop_default ( = )]
   domains : string prop list;
-  env : spec__env list;
+      [@default []] [@yojson_drop_default ( = )]
+  env : spec__env list; [@default []] [@yojson_drop_default ( = )]
   features : string prop list;
-  function_ : spec__function list; [@key "function"]
+      [@default []] [@yojson_drop_default ( = )]
+  function_ : spec__function list;
+      [@default []] [@yojson_drop_default ( = )] [@key "function"]
   ingress : spec__ingress list;
-  job : spec__job list;
+      [@default []] [@yojson_drop_default ( = )]
+  job : spec__job list; [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   region : string prop;
   service : spec__service list;
+      [@default []] [@yojson_drop_default ( = )]
   static_site : spec__static_site list;
+      [@default []] [@yojson_drop_default ( = )]
   worker : spec__worker list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3438,20 +3758,32 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__worker v_worker in
-         ("worker", arg) :: bnds
+         if [] = v_worker then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__worker) v_worker
+           in
+           let bnd = "worker", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__static_site v_static_site
-         in
-         ("static_site", arg) :: bnds
+         if [] = v_static_site then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__static_site)
+               v_static_site
+           in
+           let bnd = "static_site", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__service v_service
-         in
-         ("service", arg) :: bnds
+         if [] = v_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__service) v_service
+           in
+           let bnd = "service", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_region in
@@ -3462,52 +3794,83 @@ let yojson_of_spec =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__job v_job in
-         ("job", arg) :: bnds
+         if [] = v_job then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec__job) v_job in
+           let bnd = "job", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__ingress v_ingress
-         in
-         ("ingress", arg) :: bnds
+         if [] = v_ingress then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__ingress) v_ingress
+           in
+           let bnd = "ingress", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__function v_function_
-         in
-         ("function", arg) :: bnds
+         if [] = v_function_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__function) v_function_
+           in
+           let bnd = "function", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_features
-         in
-         ("features", arg) :: bnds
+         if [] = v_features then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_features
+           in
+           let bnd = "features", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__env v_env in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec__env) v_env in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_domains
-         in
-         ("domains", arg) :: bnds
+         if [] = v_domains then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_domains
+           in
+           let bnd = "domains", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__domain v_domain in
-         ("domain", arg) :: bnds
+         if [] = v_domain then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__domain) v_domain
+           in
+           let bnd = "domain", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__database v_database
-         in
-         ("database", arg) :: bnds
+         if [] = v_database then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__database) v_database
+           in
+           let bnd = "database", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__alert v_alert in
-         ("alert", arg) :: bnds
+         if [] = v_alert then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__alert) v_alert
+           in
+           let bnd = "alert", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)

@@ -16,7 +16,9 @@ type eventing_runtime_data__status = {
 type eventing_runtime_data = {
   events_listener_endpoint : string prop;
       (** events_listener_endpoint *)
-  status : eventing_runtime_data__status list;  (** status *)
+  status : eventing_runtime_data__status list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** status *)
 }
 
 type status = {

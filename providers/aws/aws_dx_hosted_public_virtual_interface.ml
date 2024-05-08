@@ -50,6 +50,7 @@ type aws_dx_hosted_public_virtual_interface = {
   name : string prop;
   owner_account_id : string prop;
   route_filter_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vlan : float prop;
   timeouts : timeouts option;
 }
@@ -85,12 +86,14 @@ let yojson_of_aws_dx_hosted_public_virtual_interface =
          ("vlan", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_route_filter_prefixes
-         in
-         ("route_filter_prefixes", arg) :: bnds
+         if [] = v_route_filter_prefixes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_route_filter_prefixes
+           in
+           let bnd = "route_filter_prefixes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

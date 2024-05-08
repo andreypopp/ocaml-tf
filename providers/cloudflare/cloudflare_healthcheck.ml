@@ -2,7 +2,11 @@
 
 open! Tf_core
 
-type header = { header : string prop; values : string prop list }
+type header = {
+  header : string prop;
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : header) -> ()
@@ -14,10 +18,14 @@ let yojson_of_header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_header in
@@ -77,7 +85,7 @@ type cloudflare_healthcheck = {
   timeout : float prop option; [@option]
   type_ : string prop; [@key "type"]
   zone_id : string prop;
-  header : header list;
+  header : header list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -118,8 +126,11 @@ let yojson_of_cloudflare_healthcheck =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_header v_header in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg = (yojson_of_list yojson_of_header) v_header in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in

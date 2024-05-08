@@ -34,6 +34,7 @@ let _ = yojson_of_client_connection_config__ssl_config
 type client_connection_config = {
   require_connectors : bool prop option; [@option]
   ssl_config : client_connection_config__ssl_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,12 +50,15 @@ let yojson_of_client_connection_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_client_connection_config__ssl_config
-             v_ssl_config
-         in
-         ("ssl_config", arg) :: bnds
+         if [] = v_ssl_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_client_connection_config__ssl_config)
+               v_ssl_config
+           in
+           let bnd = "ssl_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_require_connectors with
@@ -241,9 +245,13 @@ type google_alloydb_instance = {
   instance_type : string prop;
   labels : (string * string prop) list option; [@option]
   client_connection_config : client_connection_config list;
+      [@default []] [@yojson_drop_default ( = )]
   machine_config : machine_config list;
+      [@default []] [@yojson_drop_default ( = )]
   query_insights_config : query_insights_config list;
+      [@default []] [@yojson_drop_default ( = )]
   read_pool_config : read_pool_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -277,31 +285,44 @@ let yojson_of_google_alloydb_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_read_pool_config
-             v_read_pool_config
-         in
-         ("read_pool_config", arg) :: bnds
+         if [] = v_read_pool_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_read_pool_config)
+               v_read_pool_config
+           in
+           let bnd = "read_pool_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_query_insights_config
-             v_query_insights_config
-         in
-         ("query_insights_config", arg) :: bnds
+         if [] = v_query_insights_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_query_insights_config)
+               v_query_insights_config
+           in
+           let bnd = "query_insights_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_machine_config v_machine_config
-         in
-         ("machine_config", arg) :: bnds
+         if [] = v_machine_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_machine_config)
+               v_machine_config
+           in
+           let bnd = "machine_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_connection_config
-             v_client_connection_config
-         in
-         ("client_connection_config", arg) :: bnds
+         if [] = v_client_connection_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_connection_config)
+               v_client_connection_config
+           in
+           let bnd = "client_connection_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_labels with

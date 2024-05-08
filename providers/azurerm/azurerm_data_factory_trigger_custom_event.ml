@@ -112,11 +112,13 @@ type azurerm_data_factory_trigger_custom_event = {
   description : string prop option; [@option]
   eventgrid_topic_id : string prop;
   events : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   name : string prop;
   subject_begins_with : string prop option; [@option]
   subject_ends_with : string prop option; [@option]
   pipeline : pipeline list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -148,8 +150,13 @@ let yojson_of_azurerm_data_factory_trigger_custom_event =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_pipeline v_pipeline in
-         ("pipeline", arg) :: bnds
+         if [] = v_pipeline then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pipeline) v_pipeline
+           in
+           let bnd = "pipeline", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_subject_ends_with with
@@ -180,10 +187,14 @@ let yojson_of_azurerm_data_factory_trigger_custom_event =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_events
-         in
-         ("events", arg) :: bnds
+         if [] = v_events then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_events
+           in
+           let bnd = "events", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

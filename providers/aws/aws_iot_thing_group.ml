@@ -42,6 +42,7 @@ let _ = yojson_of_properties__attribute_payload
 type properties = {
   description : string prop option; [@option]
   attribute_payload : properties__attribute_payload list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,11 +58,14 @@ let yojson_of_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_properties__attribute_payload
-             v_attribute_payload
-         in
-         ("attribute_payload", arg) :: bnds
+         if [] = v_attribute_payload then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_properties__attribute_payload)
+               v_attribute_payload
+           in
+           let bnd = "attribute_payload", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_description with
@@ -112,6 +116,7 @@ type metadata = {
   creation_date : string prop;
   parent_group_name : string prop;
   root_to_parent_groups : metadata__root_to_parent_groups list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,11 +133,15 @@ let yojson_of_metadata =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metadata__root_to_parent_groups
-             v_root_to_parent_groups
-         in
-         ("root_to_parent_groups", arg) :: bnds
+         if [] = v_root_to_parent_groups then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_metadata__root_to_parent_groups)
+               v_root_to_parent_groups
+           in
+           let bnd = "root_to_parent_groups", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -158,6 +167,7 @@ type aws_iot_thing_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   properties : properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -177,10 +187,13 @@ let yojson_of_aws_iot_thing_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_properties v_properties
-         in
-         ("properties", arg) :: bnds
+         if [] = v_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_properties) v_properties
+           in
+           let bnd = "properties", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

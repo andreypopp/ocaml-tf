@@ -20,13 +20,17 @@ type status__conditions = {
 }
 
 type status = {
-  conditions : status__conditions list;  (** conditions *)
+  conditions : status__conditions list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** conditions *)
   latest_created_revision_name : string prop;
       (** latest_created_revision_name *)
   latest_ready_revision_name : string prop;
       (** latest_ready_revision_name *)
   observed_generation : float prop;  (** observed_generation *)
-  traffic : status__traffic list;  (** traffic *)
+  traffic : status__traffic list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** traffic *)
   url : string prop;  (** url *)
 }
 

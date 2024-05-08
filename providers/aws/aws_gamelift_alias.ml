@@ -52,6 +52,7 @@ type aws_gamelift_alias = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   routing_strategy : routing_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,11 +72,14 @@ let yojson_of_aws_gamelift_alias =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing_strategy
-             v_routing_strategy
-         in
-         ("routing_strategy", arg) :: bnds
+         if [] = v_routing_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_routing_strategy)
+               v_routing_strategy
+           in
+           let bnd = "routing_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

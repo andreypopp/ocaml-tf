@@ -34,6 +34,7 @@ let _ = yojson_of_disk_iops_configuration
 type endpoints__management = {
   dns_name : string prop;
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,12 +47,14 @@ let yojson_of_endpoints__management =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_dns_name in
@@ -67,6 +70,7 @@ let _ = yojson_of_endpoints__management
 type endpoints__intercluster = {
   dns_name : string prop;
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,12 +83,14 @@ let yojson_of_endpoints__intercluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_dns_name in
@@ -99,7 +105,9 @@ let _ = yojson_of_endpoints__intercluster
 
 type endpoints = {
   intercluster : endpoints__intercluster list;
+      [@default []] [@yojson_drop_default ( = )]
   management : endpoints__management list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,18 +120,24 @@ let yojson_of_endpoints =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoints__management
-             v_management
-         in
-         ("management", arg) :: bnds
+         if [] = v_management then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoints__management)
+               v_management
+           in
+           let bnd = "management", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoints__intercluster
-             v_intercluster
-         in
-         ("intercluster", arg) :: bnds
+         if [] = v_intercluster then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoints__intercluster)
+               v_intercluster
+           in
+           let bnd = "intercluster", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : endpoints -> Ppx_yojson_conv_lib.Yojson.Safe.t)

@@ -29,7 +29,9 @@ type roots = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
-  policy_types : roots__policy_types list;  (** policy_types *)
+  policy_types : roots__policy_types list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** policy_types *)
 }
 
 type aws_organizations_organization

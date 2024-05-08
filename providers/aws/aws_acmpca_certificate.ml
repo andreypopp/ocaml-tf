@@ -38,7 +38,7 @@ type aws_acmpca_certificate = {
   id : string prop option; [@option]
   signing_algorithm : string prop;
   template_arn : string prop option; [@option]
-  validity : validity list;
+  validity : validity list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,8 +59,13 @@ let yojson_of_aws_acmpca_certificate =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_validity v_validity in
-         ("validity", arg) :: bnds
+         if [] = v_validity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_validity) v_validity
+           in
+           let bnd = "validity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_template_arn with

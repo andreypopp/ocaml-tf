@@ -136,6 +136,7 @@ type roots = {
   id : string prop;
   name : string prop;
   policy_types : roots__policy_types list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -153,11 +154,14 @@ let yojson_of_roots =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_roots__policy_types
-             v_policy_types
-         in
-         ("policy_types", arg) :: bnds
+         if [] = v_policy_types then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_roots__policy_types)
+               v_policy_types
+           in
+           let bnd = "policy_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

@@ -13,6 +13,7 @@ type endpoint__vpc_endpoint__network_interface = {
 
 type endpoint__vpc_endpoint = {
   network_interface : endpoint__vpc_endpoint__network_interface list;
+      [@default []] [@yojson_drop_default ( = )]
       (** network_interface *)
   vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
   vpc_id : string prop;  (** vpc_id *)
@@ -21,7 +22,9 @@ type endpoint__vpc_endpoint = {
 type endpoint = {
   address : string prop;  (** address *)
   port : float prop;  (** port *)
-  vpc_endpoint : endpoint__vpc_endpoint list;  (** vpc_endpoint *)
+  vpc_endpoint : endpoint__vpc_endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** vpc_endpoint *)
 }
 
 type config_parameter

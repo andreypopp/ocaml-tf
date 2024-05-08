@@ -32,6 +32,7 @@ type aws_appintegrations_event_integration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   event_filter : event_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -52,10 +53,13 @@ let yojson_of_aws_appintegrations_event_integration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_filter v_event_filter
-         in
-         ("event_filter", arg) :: bnds
+         if [] = v_event_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_filter) v_event_filter
+           in
+           let bnd = "event_filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

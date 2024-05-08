@@ -169,6 +169,7 @@ type public_endpoint = {
   container_name : string prop;
   container_port : float prop;
   health_check : public_endpoint__health_check list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -185,11 +186,14 @@ let yojson_of_public_endpoint =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_public_endpoint__health_check
-             v_health_check
-         in
-         ("health_check", arg) :: bnds
+         if [] = v_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_public_endpoint__health_check)
+               v_health_check
+           in
+           let bnd = "health_check", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_container_port in
@@ -238,7 +242,9 @@ type aws_lightsail_container_service_deployment_version = {
   id : string prop option; [@option]
   service_name : string prop;
   container : container list;
+      [@default []] [@yojson_drop_default ( = )]
   public_endpoint : public_endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -263,14 +269,23 @@ let yojson_of_aws_lightsail_container_service_deployment_version =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_public_endpoint v_public_endpoint
-         in
-         ("public_endpoint", arg) :: bnds
+         if [] = v_public_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_public_endpoint)
+               v_public_endpoint
+           in
+           let bnd = "public_endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_container v_container in
-         ("container", arg) :: bnds
+         if [] = v_container then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container) v_container
+           in
+           let bnd = "container", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_service_name in

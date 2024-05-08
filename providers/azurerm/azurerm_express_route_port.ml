@@ -4,6 +4,7 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -21,12 +22,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -250,8 +253,9 @@ type azurerm_express_route_port = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   identity : identity list;
-  link1 : link1 list;
-  link2 : link2 list;
+      [@default []] [@yojson_drop_default ( = )]
+  link1 : link1 list; [@default []] [@yojson_drop_default ( = )]
+  link2 : link2 list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -283,16 +287,27 @@ let yojson_of_azurerm_express_route_port =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_link2 v_link2 in
-         ("link2", arg) :: bnds
+         if [] = v_link2 then bnds
+         else
+           let arg = (yojson_of_list yojson_of_link2) v_link2 in
+           let bnd = "link2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_link1 v_link1 in
-         ("link1", arg) :: bnds
+         if [] = v_link1 then bnds
+         else
+           let arg = (yojson_of_list yojson_of_link1) v_link1 in
+           let bnd = "link1", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

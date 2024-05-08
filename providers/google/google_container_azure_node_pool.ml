@@ -123,8 +123,11 @@ type config = {
   tags : (string * string prop) list option; [@option]
   vm_size : string prop option; [@option]
   proxy_config : config__proxy_config list;
+      [@default []] [@yojson_drop_default ( = )]
   root_volume : config__root_volume list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_config : config__ssh_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,23 +147,34 @@ let yojson_of_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__ssh_config v_ssh_config
-         in
-         ("ssh_config", arg) :: bnds
+         if [] = v_ssh_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__ssh_config)
+               v_ssh_config
+           in
+           let bnd = "ssh_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__root_volume v_root_volume
-         in
-         ("root_volume", arg) :: bnds
+         if [] = v_root_volume then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__root_volume)
+               v_root_volume
+           in
+           let bnd = "root_volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__proxy_config
-             v_proxy_config
-         in
-         ("proxy_config", arg) :: bnds
+         if [] = v_proxy_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__proxy_config)
+               v_proxy_config
+           in
+           let bnd = "proxy_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vm_size with
@@ -316,9 +330,12 @@ type google_container_azure_node_pool = {
   subnet_id : string prop;
   version : string prop;
   autoscaling : autoscaling list;
-  config : config list;
+      [@default []] [@yojson_drop_default ( = )]
+  config : config list; [@default []] [@yojson_drop_default ( = )]
   management : management list;
+      [@default []] [@yojson_drop_default ( = )]
   max_pods_constraint : max_pods_constraint list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -351,27 +368,39 @@ let yojson_of_google_container_azure_node_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_max_pods_constraint
-             v_max_pods_constraint
-         in
-         ("max_pods_constraint", arg) :: bnds
+         if [] = v_max_pods_constraint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_max_pods_constraint)
+               v_max_pods_constraint
+           in
+           let bnd = "max_pods_constraint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_management v_management
-         in
-         ("management", arg) :: bnds
+         if [] = v_management then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_management) v_management
+           in
+           let bnd = "management", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_config v_config in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg = (yojson_of_list yojson_of_config) v_config in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_autoscaling v_autoscaling
-         in
-         ("autoscaling", arg) :: bnds
+         if [] = v_autoscaling then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscaling) v_autoscaling
+           in
+           let bnd = "autoscaling", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_version in

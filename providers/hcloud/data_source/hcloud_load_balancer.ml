@@ -26,6 +26,7 @@ let _ = yojson_of_algorithm
 
 type service__http = {
   certificates : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   cookie_lifetime : float prop;
   cookie_name : string prop;
   redirect_http : bool prop;
@@ -66,12 +67,14 @@ let yojson_of_service__http =
          ("cookie_lifetime", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_certificates
-         in
-         ("certificates", arg) :: bnds
+         if [] = v_certificates then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_certificates
+           in
+           let bnd = "certificates", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : service__http -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -85,6 +88,7 @@ type service__health_check__http = {
   path : string prop;
   response : string prop;
   status_codes : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tls : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -108,12 +112,14 @@ let yojson_of_service__health_check__http =
          ("tls", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_status_codes
-         in
-         ("status_codes", arg) :: bnds
+         if [] = v_status_codes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_status_codes
+           in
+           let bnd = "status_codes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_response in
@@ -137,6 +143,7 @@ let _ = yojson_of_service__health_check__http
 
 type service__health_check = {
   http : service__health_check__http list;
+      [@default []] [@yojson_drop_default ( = )]
   interval : float prop;
   port : float prop;
   protocol : string prop;
@@ -181,11 +188,14 @@ let yojson_of_service__health_check =
          ("interval", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service__health_check__http
-             v_http
-         in
-         ("http", arg) :: bnds
+         if [] = v_http then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service__health_check__http)
+               v_http
+           in
+           let bnd = "http", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : service__health_check -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -197,7 +207,9 @@ let _ = yojson_of_service__health_check
 type service = {
   destination_port : float prop;
   health_check : service__health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   http : service__http list;
+      [@default []] [@yojson_drop_default ( = )]
   listen_port : float prop;
   protocol : string prop;
   proxyprotocol : bool prop;
@@ -232,15 +244,23 @@ let yojson_of_service =
          ("listen_port", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_service__http v_http in
-         ("http", arg) :: bnds
+         if [] = v_http then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service__http) v_http
+           in
+           let bnd = "http", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service__health_check
-             v_health_check
-         in
-         ("health_check", arg) :: bnds
+         if [] = v_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service__health_check)
+               v_health_check
+           in
+           let bnd = "health_check", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

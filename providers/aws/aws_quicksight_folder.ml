@@ -3,7 +3,7 @@
 open! Tf_core
 
 type permissions = {
-  actions: string  prop list; 
+  actions: string  prop list; [@default []] [@yojson_drop_default ( = )]
   principal: string prop; 
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
@@ -25,7 +25,7 @@ type aws_quicksight_folder = {
   parent_folder_arn: string  prop option; [@option]
   tags: (string * string   prop) list option; [@option]
   tags_all: (string * string   prop) list option; [@option]
-  permissions: permissions list;
+  permissions: permissions list; [@default []] [@yojson_drop_default ( = )]
   timeouts: timeouts option;
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]

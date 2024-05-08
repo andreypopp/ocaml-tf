@@ -758,10 +758,15 @@ type aws_route53domains_registered_domain = {
   tech_privacy : bool prop option; [@option]
   transfer_lock : bool prop option; [@option]
   admin_contact : admin_contact list;
+      [@default []] [@yojson_drop_default ( = )]
   billing_contact : billing_contact list;
+      [@default []] [@yojson_drop_default ( = )]
   name_server : name_server list;
+      [@default []] [@yojson_drop_default ( = )]
   registrant_contact : registrant_contact list;
+      [@default []] [@yojson_drop_default ( = )]
   tech_contact : tech_contact list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -796,35 +801,51 @@ let yojson_of_aws_route53domains_registered_domain =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tech_contact v_tech_contact
-         in
-         ("tech_contact", arg) :: bnds
+         if [] = v_tech_contact then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tech_contact) v_tech_contact
+           in
+           let bnd = "tech_contact", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_registrant_contact
-             v_registrant_contact
-         in
-         ("registrant_contact", arg) :: bnds
+         if [] = v_registrant_contact then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_registrant_contact)
+               v_registrant_contact
+           in
+           let bnd = "registrant_contact", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_name_server v_name_server
-         in
-         ("name_server", arg) :: bnds
+         if [] = v_name_server then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_name_server) v_name_server
+           in
+           let bnd = "name_server", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_billing_contact v_billing_contact
-         in
-         ("billing_contact", arg) :: bnds
+         if [] = v_billing_contact then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_billing_contact)
+               v_billing_contact
+           in
+           let bnd = "billing_contact", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_admin_contact v_admin_contact
-         in
-         ("admin_contact", arg) :: bnds
+         if [] = v_admin_contact then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_admin_contact) v_admin_contact
+           in
+           let bnd = "admin_contact", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_transfer_lock with

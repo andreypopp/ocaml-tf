@@ -105,6 +105,7 @@ let _ = yojson_of_rule__destination__metrics__event_threshold
 type rule__destination__metrics = {
   status : string prop;
   event_threshold : rule__destination__metrics__event_threshold list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -117,12 +118,15 @@ let yojson_of_rule__destination__metrics =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__destination__metrics__event_threshold
-             v_event_threshold
-         in
-         ("event_threshold", arg) :: bnds
+         if [] = v_event_threshold then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__destination__metrics__event_threshold)
+               v_event_threshold
+           in
+           let bnd = "event_threshold", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_status in
@@ -163,6 +167,7 @@ let _ = yojson_of_rule__destination__replication_time__time
 type rule__destination__replication_time = {
   status : string prop;
   time : rule__destination__replication_time__time list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -175,12 +180,15 @@ let yojson_of_rule__destination__replication_time =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__destination__replication_time__time
-             v_time
-         in
-         ("time", arg) :: bnds
+         if [] = v_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__destination__replication_time__time)
+               v_time
+           in
+           let bnd = "time", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_status in
@@ -200,10 +208,14 @@ type rule__destination = {
   storage_class : string prop option; [@option]
   access_control_translation :
     rule__destination__access_control_translation list;
+      [@default []] [@yojson_drop_default ( = )]
   encryption_configuration :
     rule__destination__encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   metrics : rule__destination__metrics list;
+      [@default []] [@yojson_drop_default ( = )]
   replication_time : rule__destination__replication_time list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -224,35 +236,47 @@ let yojson_of_rule__destination =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__destination__replication_time
-             v_replication_time
-         in
-         ("replication_time", arg) :: bnds
+         if [] = v_replication_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__destination__replication_time)
+               v_replication_time
+           in
+           let bnd = "replication_time", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__destination__metrics
-             v_metrics
-         in
-         ("metrics", arg) :: bnds
+         if [] = v_metrics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__destination__metrics)
+               v_metrics
+           in
+           let bnd = "metrics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__destination__encryption_configuration
-             v_encryption_configuration
-         in
-         ("encryption_configuration", arg) :: bnds
+         if [] = v_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__destination__encryption_configuration)
+               v_encryption_configuration
+           in
+           let bnd = "encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__destination__access_control_translation
-             v_access_control_translation
-         in
-         ("access_control_translation", arg) :: bnds
+         if [] = v_access_control_translation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__destination__access_control_translation)
+               v_access_control_translation
+           in
+           let bnd = "access_control_translation", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_storage_class with
@@ -377,8 +401,10 @@ let _ = yojson_of_rule__filter__tag
 
 type rule__filter = {
   prefix : string prop option; [@option]
-  and_ : rule__filter__and list; [@key "and"]
+  and_ : rule__filter__and list;
+      [@key "and"] [@default []] [@yojson_drop_default ( = )]
   tag : rule__filter__tag list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -391,16 +417,22 @@ let yojson_of_rule__filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__filter__tag v_tag
-         in
-         ("tag", arg) :: bnds
+         if [] = v_tag then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__filter__tag) v_tag
+           in
+           let bnd = "tag", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__filter__and v_and_
-         in
-         ("and", arg) :: bnds
+         if [] = v_and_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__filter__and) v_and_
+           in
+           let bnd = "and", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_prefix with
@@ -478,8 +510,10 @@ let _ =
 type rule__source_selection_criteria = {
   replica_modifications :
     rule__source_selection_criteria__replica_modifications list;
+      [@default []] [@yojson_drop_default ( = )]
   sse_kms_encrypted_objects :
     rule__source_selection_criteria__sse_kms_encrypted_objects list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -495,20 +529,26 @@ let yojson_of_rule__source_selection_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__source_selection_criteria__sse_kms_encrypted_objects
-             v_sse_kms_encrypted_objects
-         in
-         ("sse_kms_encrypted_objects", arg) :: bnds
+         if [] = v_sse_kms_encrypted_objects then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__source_selection_criteria__sse_kms_encrypted_objects)
+               v_sse_kms_encrypted_objects
+           in
+           let bnd = "sse_kms_encrypted_objects", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__source_selection_criteria__replica_modifications
-             v_replica_modifications
-         in
-         ("replica_modifications", arg) :: bnds
+         if [] = v_replica_modifications then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__source_selection_criteria__replica_modifications)
+               v_replica_modifications
+           in
+           let bnd = "replica_modifications", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rule__source_selection_criteria ->
@@ -524,11 +564,16 @@ type rule = {
   priority : float prop option; [@option]
   status : string prop;
   delete_marker_replication : rule__delete_marker_replication list;
+      [@default []] [@yojson_drop_default ( = )]
   destination : rule__destination list;
+      [@default []] [@yojson_drop_default ( = )]
   existing_object_replication :
     rule__existing_object_replication list;
+      [@default []] [@yojson_drop_default ( = )]
   filter : rule__filter list;
+      [@default []] [@yojson_drop_default ( = )]
   source_selection_criteria : rule__source_selection_criteria list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -551,35 +596,56 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__source_selection_criteria
-             v_source_selection_criteria
-         in
-         ("source_selection_criteria", arg) :: bnds
+         if [] = v_source_selection_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__source_selection_criteria)
+               v_source_selection_criteria
+           in
+           let bnd = "source_selection_criteria", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule__filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__filter) v_filter
+           in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__existing_object_replication
-             v_existing_object_replication
-         in
-         ("existing_object_replication", arg) :: bnds
+         if [] = v_existing_object_replication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__existing_object_replication)
+               v_existing_object_replication
+           in
+           let bnd = "existing_object_replication", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__destination v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__destination)
+               v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__delete_marker_replication
-             v_delete_marker_replication
-         in
-         ("delete_marker_replication", arg) :: bnds
+         if [] = v_delete_marker_replication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__delete_marker_replication)
+               v_delete_marker_replication
+           in
+           let bnd = "delete_marker_replication", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_status in
@@ -621,7 +687,7 @@ type aws_s3_bucket_replication_configuration = {
   id : string prop option; [@option]
   role : string prop;
   token : string prop option; [@option]
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -640,8 +706,11 @@ let yojson_of_aws_s3_bucket_replication_configuration =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_token with

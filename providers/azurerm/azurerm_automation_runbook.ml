@@ -35,6 +35,7 @@ type draft__content_link = {
   uri : string prop;
   version : string prop option; [@option]
   hash : draft__content_link__hash list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,10 +48,14 @@ let yojson_of_draft__content_link =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_draft__content_link__hash v_hash
-         in
-         ("hash", arg) :: bnds
+         if [] = v_hash then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_draft__content_link__hash)
+               v_hash
+           in
+           let bnd = "hash", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -137,7 +142,9 @@ type draft = {
   edit_mode_enabled : bool prop option; [@option]
   output_types : string prop list option; [@option]
   content_link : draft__content_link list;
+      [@default []] [@yojson_drop_default ( = )]
   parameters : draft__parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -155,17 +162,24 @@ let yojson_of_draft =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_draft__parameters v_parameters
-         in
-         ("parameters", arg) :: bnds
+         if [] = v_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_draft__parameters)
+               v_parameters
+           in
+           let bnd = "parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_draft__content_link
-             v_content_link
-         in
-         ("content_link", arg) :: bnds
+         if [] = v_content_link then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_draft__content_link)
+               v_content_link
+           in
+           let bnd = "content_link", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_output_types with
@@ -225,6 +239,7 @@ type publish_content_link = {
   uri : string prop;
   version : string prop option; [@option]
   hash : publish_content_link__hash list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -237,10 +252,14 @@ let yojson_of_publish_content_link =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_publish_content_link__hash v_hash
-         in
-         ("hash", arg) :: bnds
+         if [] = v_hash then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_publish_content_link__hash)
+               v_hash
+           in
+           let bnd = "hash", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -389,8 +408,9 @@ type azurerm_automation_runbook = {
   resource_group_name : string prop;
   runbook_type : string prop;
   tags : (string * string prop) list option; [@option]
-  draft : draft list;
+  draft : draft list; [@default []] [@yojson_drop_default ( = )]
   publish_content_link : publish_content_link list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -425,15 +445,21 @@ let yojson_of_azurerm_automation_runbook =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_publish_content_link
-             v_publish_content_link
-         in
-         ("publish_content_link", arg) :: bnds
+         if [] = v_publish_content_link then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_publish_content_link)
+               v_publish_content_link
+           in
+           let bnd = "publish_content_link", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_draft v_draft in
-         ("draft", arg) :: bnds
+         if [] = v_draft then bnds
+         else
+           let arg = (yojson_of_list yojson_of_draft) v_draft in
+           let bnd = "draft", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

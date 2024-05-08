@@ -129,7 +129,8 @@ type aws_lexv2models_bot = {
   test_bot_alias_tags : (string * string prop) list option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   data_privacy : data_privacy list;
-  members : members list;
+      [@default []] [@yojson_drop_default ( = )]
+  members : members list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -158,14 +159,20 @@ let yojson_of_aws_lexv2models_bot =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_members v_members in
-         ("members", arg) :: bnds
+         if [] = v_members then bnds
+         else
+           let arg = (yojson_of_list yojson_of_members) v_members in
+           let bnd = "members", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_privacy v_data_privacy
-         in
-         ("data_privacy", arg) :: bnds
+         if [] = v_data_privacy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_privacy) v_data_privacy
+           in
+           let bnd = "data_privacy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

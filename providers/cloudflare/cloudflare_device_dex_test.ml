@@ -47,7 +47,7 @@ type cloudflare_device_dex_test = {
   id : string prop option; [@option]
   interval : string prop;
   name : string prop;
-  data : data list;
+  data : data list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -68,8 +68,11 @@ let yojson_of_cloudflare_device_dex_test =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_data v_data in
-         ("data", arg) :: bnds
+         if [] = v_data then bnds
+         else
+           let arg = (yojson_of_list yojson_of_data) v_data in
+           let bnd = "data", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

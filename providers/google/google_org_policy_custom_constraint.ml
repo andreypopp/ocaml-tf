@@ -55,9 +55,11 @@ type google_org_policy_custom_constraint = {
   display_name : string prop option; [@option]
   id : string prop option; [@option]
   method_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   parent : string prop;
   resource_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -86,12 +88,14 @@ let yojson_of_google_org_policy_custom_constraint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_resource_types
-         in
-         ("resource_types", arg) :: bnds
+         if [] = v_resource_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_resource_types
+           in
+           let bnd = "resource_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_parent in
@@ -102,12 +106,14 @@ let yojson_of_google_org_policy_custom_constraint =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_method_types
-         in
-         ("method_types", arg) :: bnds
+         if [] = v_method_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_method_types
+           in
+           let bnd = "method_types", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

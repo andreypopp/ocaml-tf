@@ -108,6 +108,7 @@ type network_configuration = {
   assign_public_ip : bool prop option; [@option]
   security_groups : string prop list option; [@option]
   subnets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,10 +125,14 @@ let yojson_of_network_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
-         in
-         ("subnets", arg) :: bnds
+         if [] = v_subnets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnets
+           in
+           let bnd = "subnets", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_security_groups with
@@ -261,10 +266,14 @@ type aws_ecs_task_set = {
   wait_until_stable : bool prop option; [@option]
   wait_until_stable_timeout : string prop option; [@option]
   capacity_provider_strategy : capacity_provider_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
   load_balancer : load_balancer list;
+      [@default []] [@yojson_drop_default ( = )]
   network_configuration : network_configuration list;
-  scale : scale list;
+      [@default []] [@yojson_drop_default ( = )]
+  scale : scale list; [@default []] [@yojson_drop_default ( = )]
   service_registries : service_registries list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -295,35 +304,50 @@ let yojson_of_aws_ecs_task_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_registries
-             v_service_registries
-         in
-         ("service_registries", arg) :: bnds
+         if [] = v_service_registries then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_registries)
+               v_service_registries
+           in
+           let bnd = "service_registries", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_scale v_scale in
-         ("scale", arg) :: bnds
+         if [] = v_scale then bnds
+         else
+           let arg = (yojson_of_list yojson_of_scale) v_scale in
+           let bnd = "scale", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_configuration
-             v_network_configuration
-         in
-         ("network_configuration", arg) :: bnds
+         if [] = v_network_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_configuration)
+               v_network_configuration
+           in
+           let bnd = "network_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_load_balancer v_load_balancer
-         in
-         ("load_balancer", arg) :: bnds
+         if [] = v_load_balancer then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_load_balancer) v_load_balancer
+           in
+           let bnd = "load_balancer", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_capacity_provider_strategy
-             v_capacity_provider_strategy
-         in
-         ("capacity_provider_strategy", arg) :: bnds
+         if [] = v_capacity_provider_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_capacity_provider_strategy)
+               v_capacity_provider_strategy
+           in
+           let bnd = "capacity_provider_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_wait_until_stable_timeout with

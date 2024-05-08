@@ -39,6 +39,7 @@ let _ = yojson_of_sql_injection_match_tuple__field_to_match
 type sql_injection_match_tuple = {
   text_transformation : string prop;
   field_to_match : sql_injection_match_tuple__field_to_match list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,12 +55,15 @@ let yojson_of_sql_injection_match_tuple =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_sql_injection_match_tuple__field_to_match
-             v_field_to_match
-         in
-         ("field_to_match", arg) :: bnds
+         if [] = v_field_to_match then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_sql_injection_match_tuple__field_to_match)
+               v_field_to_match
+           in
+           let bnd = "field_to_match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -78,6 +82,7 @@ type aws_wafregional_sql_injection_match_set = {
   id : string prop option; [@option]
   name : string prop;
   sql_injection_match_tuple : sql_injection_match_tuple list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,11 +99,14 @@ let yojson_of_aws_wafregional_sql_injection_match_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sql_injection_match_tuple
-             v_sql_injection_match_tuple
-         in
-         ("sql_injection_match_tuple", arg) :: bnds
+         if [] = v_sql_injection_match_tuple then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sql_injection_match_tuple)
+               v_sql_injection_match_tuple
+           in
+           let bnd = "sql_injection_match_tuple", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

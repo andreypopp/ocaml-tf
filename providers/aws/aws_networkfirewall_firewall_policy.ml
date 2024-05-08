@@ -37,6 +37,7 @@ let _ = yojson_of_encryption_configuration
 
 type firewall_policy__policy_variables__rule_variables__ip_set = {
   definition : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -52,12 +53,14 @@ let yojson_of_firewall_policy__policy_variables__rule_variables__ip_set
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_definition
-         in
-         ("definition", arg) :: bnds
+         if [] = v_definition then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_definition
+           in
+           let bnd = "definition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : firewall_policy__policy_variables__rule_variables__ip_set ->
@@ -72,6 +75,7 @@ type firewall_policy__policy_variables__rule_variables = {
   key : string prop;
   ip_set :
     firewall_policy__policy_variables__rule_variables__ip_set list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -85,12 +89,15 @@ let yojson_of_firewall_policy__policy_variables__rule_variables =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_policy__policy_variables__rule_variables__ip_set
-             v_ip_set
-         in
-         ("ip_set", arg) :: bnds
+         if [] = v_ip_set then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__policy_variables__rule_variables__ip_set)
+               v_ip_set
+           in
+           let bnd = "ip_set", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -107,6 +114,7 @@ let _ = yojson_of_firewall_policy__policy_variables__rule_variables
 type firewall_policy__policy_variables = {
   rule_variables :
     firewall_policy__policy_variables__rule_variables list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,12 +127,15 @@ let yojson_of_firewall_policy__policy_variables =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_policy__policy_variables__rule_variables
-             v_rule_variables
-         in
-         ("rule_variables", arg) :: bnds
+         if [] = v_rule_variables then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__policy_variables__rule_variables)
+               v_rule_variables
+           in
+           let bnd = "rule_variables", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : firewall_policy__policy_variables ->
@@ -213,6 +224,7 @@ type firewall_policy__stateful_rule_group_reference = {
   resource_arn : string prop;
   override :
     firewall_policy__stateful_rule_group_reference__override list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -230,12 +242,15 @@ let yojson_of_firewall_policy__stateful_rule_group_reference =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_policy__stateful_rule_group_reference__override
-             v_override
-         in
-         ("override", arg) :: bnds
+         if [] = v_override then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__stateful_rule_group_reference__override)
+               v_override
+           in
+           let bnd = "override", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_resource_arn in
@@ -291,6 +306,7 @@ type firewall_policy__stateless_custom_action__action_definition__publish_metric
   dimension :
     firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -307,12 +323,15 @@ let yojson_of_firewall_policy__stateless_custom_action__action_definition__publi
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension
-             v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__stateless_custom_action__action_definition__publish_metric_action__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : firewall_policy__stateless_custom_action__action_definition__publish_metric_action ->
@@ -327,6 +346,7 @@ type firewall_policy__stateless_custom_action__action_definition = {
   publish_metric_action :
     firewall_policy__stateless_custom_action__action_definition__publish_metric_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -343,12 +363,15 @@ let yojson_of_firewall_policy__stateless_custom_action__action_definition
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_policy__stateless_custom_action__action_definition__publish_metric_action
-             v_publish_metric_action
-         in
-         ("publish_metric_action", arg) :: bnds
+         if [] = v_publish_metric_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__stateless_custom_action__action_definition__publish_metric_action)
+               v_publish_metric_action
+           in
+           let bnd = "publish_metric_action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : firewall_policy__stateless_custom_action__action_definition ->
@@ -363,6 +386,7 @@ type firewall_policy__stateless_custom_action = {
   action_name : string prop;
   action_definition :
     firewall_policy__stateless_custom_action__action_definition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -378,12 +402,15 @@ let yojson_of_firewall_policy__stateless_custom_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_policy__stateless_custom_action__action_definition
-             v_action_definition
-         in
-         ("action_definition", arg) :: bnds
+         if [] = v_action_definition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__stateless_custom_action__action_definition)
+               v_action_definition
+           in
+           let bnd = "action_definition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_action_name in
@@ -431,17 +458,24 @@ let _ = yojson_of_firewall_policy__stateless_rule_group_reference
 type firewall_policy = {
   stateful_default_actions : string prop list option; [@option]
   stateless_default_actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   stateless_fragment_default_actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tls_inspection_configuration_arn : string prop option; [@option]
   policy_variables : firewall_policy__policy_variables list;
+      [@default []] [@yojson_drop_default ( = )]
   stateful_engine_options :
     firewall_policy__stateful_engine_options list;
+      [@default []] [@yojson_drop_default ( = )]
   stateful_rule_group_reference :
     firewall_policy__stateful_rule_group_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   stateless_custom_action :
     firewall_policy__stateless_custom_action list;
+      [@default []] [@yojson_drop_default ( = )]
   stateless_rule_group_reference :
     firewall_policy__stateless_rule_group_reference list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -468,43 +502,59 @@ let yojson_of_firewall_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_policy__stateless_rule_group_reference
-             v_stateless_rule_group_reference
-         in
-         ("stateless_rule_group_reference", arg) :: bnds
+         if [] = v_stateless_rule_group_reference then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__stateless_rule_group_reference)
+               v_stateless_rule_group_reference
+           in
+           let bnd = "stateless_rule_group_reference", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_policy__stateless_custom_action
-             v_stateless_custom_action
-         in
-         ("stateless_custom_action", arg) :: bnds
+         if [] = v_stateless_custom_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__stateless_custom_action)
+               v_stateless_custom_action
+           in
+           let bnd = "stateless_custom_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_policy__stateful_rule_group_reference
-             v_stateful_rule_group_reference
-         in
-         ("stateful_rule_group_reference", arg) :: bnds
+         if [] = v_stateful_rule_group_reference then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__stateful_rule_group_reference)
+               v_stateful_rule_group_reference
+           in
+           let bnd = "stateful_rule_group_reference", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_policy__stateful_engine_options
-             v_stateful_engine_options
-         in
-         ("stateful_engine_options", arg) :: bnds
+         if [] = v_stateful_engine_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__stateful_engine_options)
+               v_stateful_engine_options
+           in
+           let bnd = "stateful_engine_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_firewall_policy__policy_variables
-             v_policy_variables
-         in
-         ("policy_variables", arg) :: bnds
+         if [] = v_policy_variables then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_policy__policy_variables)
+               v_policy_variables
+           in
+           let bnd = "policy_variables", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tls_inspection_configuration_arn with
@@ -515,20 +565,24 @@ let yojson_of_firewall_policy =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_stateless_fragment_default_actions
-         in
-         ("stateless_fragment_default_actions", arg) :: bnds
+         if [] = v_stateless_fragment_default_actions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_stateless_fragment_default_actions
+           in
+           let bnd = "stateless_fragment_default_actions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_stateless_default_actions
-         in
-         ("stateless_default_actions", arg) :: bnds
+         if [] = v_stateless_default_actions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_stateless_default_actions
+           in
+           let bnd = "stateless_default_actions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_stateful_default_actions with
@@ -554,7 +608,9 @@ type aws_networkfirewall_firewall_policy = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   encryption_configuration : encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   firewall_policy : firewall_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -575,17 +631,24 @@ let yojson_of_aws_networkfirewall_firewall_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_firewall_policy v_firewall_policy
-         in
-         ("firewall_policy", arg) :: bnds
+         if [] = v_firewall_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_firewall_policy)
+               v_firewall_policy
+           in
+           let bnd = "firewall_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_configuration
-             v_encryption_configuration
-         in
-         ("encryption_configuration", arg) :: bnds
+         if [] = v_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_configuration)
+               v_encryption_configuration
+           in
+           let bnd = "encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

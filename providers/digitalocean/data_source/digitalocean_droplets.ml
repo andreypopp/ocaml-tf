@@ -7,6 +7,7 @@ type filter = {
   key : string prop;
   match_by : string prop option; [@option]
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24,10 +25,14 @@ let yojson_of_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_match_by with
@@ -110,10 +115,11 @@ type droplets = {
   region : string prop;
   size : string prop;
   status : string prop;
-  tags : string prop list;
+  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
   urn : string prop;
   vcpus : float prop;
   volume_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_uuid : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -157,12 +163,14 @@ let yojson_of_droplets =
          ("vpc_uuid", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_volume_ids
-         in
-         ("volume_ids", arg) :: bnds
+         if [] = v_volume_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_volume_ids
+           in
+           let bnd = "volume_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_vcpus in
@@ -173,10 +181,14 @@ let yojson_of_droplets =
          ("urn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_status in
@@ -273,8 +285,8 @@ let _ = yojson_of_droplets
 
 type digitalocean_droplets = {
   id : string prop option; [@option]
-  filter : filter list;
-  sort : sort list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  sort : sort list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -287,12 +299,18 @@ let yojson_of_digitalocean_droplets =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sort v_sort in
-         ("sort", arg) :: bnds
+         if [] = v_sort then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sort) v_sort in
+           let bnd = "sort", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

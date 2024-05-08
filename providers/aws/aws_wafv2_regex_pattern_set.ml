@@ -14,7 +14,7 @@ type aws_wafv2_regex_pattern_set = {
   scope: string prop; 
   tags: (string * string   prop) list option; [@option]
   tags_all: (string * string   prop) list option; [@option]
-  regular_expression: regular_expression list;
+  regular_expression: regular_expression list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 

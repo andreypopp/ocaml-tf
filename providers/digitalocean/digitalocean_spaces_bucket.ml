@@ -5,7 +5,9 @@ open! Tf_core
 type cors_rule = {
   allowed_headers : string prop list option; [@option]
   allowed_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age_seconds : float prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -32,20 +34,24 @@ let yojson_of_cors_rule =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_methods
-         in
-         ("allowed_methods", arg) :: bnds
+         if [] = v_allowed_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_methods
+           in
+           let bnd = "allowed_methods", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allowed_headers with
@@ -150,8 +156,10 @@ type lifecycle_rule = {
   id : string prop option; [@option]
   prefix : string prop option; [@option]
   expiration : lifecycle_rule__expiration list;
+      [@default []] [@yojson_drop_default ( = )]
   noncurrent_version_expiration :
     lifecycle_rule__noncurrent_version_expiration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -173,19 +181,25 @@ let yojson_of_lifecycle_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_lifecycle_rule__noncurrent_version_expiration
-             v_noncurrent_version_expiration
-         in
-         ("noncurrent_version_expiration", arg) :: bnds
+         if [] = v_noncurrent_version_expiration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_lifecycle_rule__noncurrent_version_expiration)
+               v_noncurrent_version_expiration
+           in
+           let bnd = "noncurrent_version_expiration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lifecycle_rule__expiration
-             v_expiration
-         in
-         ("expiration", arg) :: bnds
+         if [] = v_expiration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lifecycle_rule__expiration)
+               v_expiration
+           in
+           let bnd = "expiration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_prefix with
@@ -257,8 +271,11 @@ type digitalocean_spaces_bucket = {
   name : string prop;
   region : string prop option; [@option]
   cors_rule : cors_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   lifecycle_rule : lifecycle_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   versioning : versioning list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -280,20 +297,32 @@ let yojson_of_digitalocean_spaces_bucket =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_versioning v_versioning
-         in
-         ("versioning", arg) :: bnds
+         if [] = v_versioning then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_versioning) v_versioning
+           in
+           let bnd = "versioning", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lifecycle_rule v_lifecycle_rule
-         in
-         ("lifecycle_rule", arg) :: bnds
+         if [] = v_lifecycle_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lifecycle_rule)
+               v_lifecycle_rule
+           in
+           let bnd = "lifecycle_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_cors_rule v_cors_rule in
-         ("cors_rule", arg) :: bnds
+         if [] = v_cors_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cors_rule) v_cors_rule
+           in
+           let bnd = "cors_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

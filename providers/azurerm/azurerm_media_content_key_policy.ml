@@ -57,6 +57,7 @@ type policy_option__fairplay_configuration = {
   offline_rental_configuration :
     policy_option__fairplay_configuration__offline_rental_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,12 +77,15 @@ let yojson_of_policy_option__fairplay_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_option__fairplay_configuration__offline_rental_configuration
-             v_offline_rental_configuration
-         in
-         ("offline_rental_configuration", arg) :: bnds
+         if [] = v_offline_rental_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_option__fairplay_configuration__offline_rental_configuration)
+               v_offline_rental_configuration
+           in
+           let bnd = "offline_rental_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_rental_duration_seconds with
@@ -195,6 +199,7 @@ type policy_option__playready_configuration_license__play_right = {
   explicit_analog_television_output_restriction :
     policy_option__playready_configuration_license__play_right__explicit_analog_television_output_restriction
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -232,13 +237,18 @@ let yojson_of_policy_option__playready_configuration_license__play_right
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_option__playready_configuration_license__play_right__explicit_analog_television_output_restriction
-             v_explicit_analog_television_output_restriction
-         in
-         ("explicit_analog_television_output_restriction", arg)
-         :: bnds
+         if [] = v_explicit_analog_television_output_restriction then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_option__playready_configuration_license__play_right__explicit_analog_television_output_restriction)
+               v_explicit_analog_television_output_restriction
+           in
+           let bnd =
+             "explicit_analog_television_output_restriction", arg
+           in
+           bnd :: bnds
        in
        let bnds =
          match v_uncompressed_digital_video_opl with
@@ -374,6 +384,7 @@ type policy_option__playready_configuration_license = {
   security_level : string prop option; [@option]
   play_right :
     policy_option__playready_configuration_license__play_right list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -402,12 +413,15 @@ let yojson_of_policy_option__playready_configuration_license =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_option__playready_configuration_license__play_right
-             v_play_right
-         in
-         ("play_right", arg) :: bnds
+         if [] = v_play_right then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_option__playready_configuration_license__play_right)
+               v_play_right
+           in
+           let bnd = "play_right", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_security_level with
@@ -619,8 +633,10 @@ type policy_option__token_restriction = {
   token_type : string prop option; [@option]
   alternate_key :
     policy_option__token_restriction__alternate_key list;
+      [@default []] [@yojson_drop_default ( = )]
   required_claim :
     policy_option__token_restriction__required_claim list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -647,20 +663,26 @@ let yojson_of_policy_option__token_restriction =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_option__token_restriction__required_claim
-             v_required_claim
-         in
-         ("required_claim", arg) :: bnds
+         if [] = v_required_claim then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_option__token_restriction__required_claim)
+               v_required_claim
+           in
+           let bnd = "required_claim", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_option__token_restriction__alternate_key
-             v_alternate_key
-         in
-         ("alternate_key", arg) :: bnds
+         if [] = v_alternate_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_option__token_restriction__alternate_key)
+               v_alternate_key
+           in
+           let bnd = "alternate_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_token_type with
@@ -742,9 +764,12 @@ type policy_option = {
   widevine_configuration_template : string prop option; [@option]
   fairplay_configuration :
     policy_option__fairplay_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   playready_configuration_license :
     policy_option__playready_configuration_license list;
+      [@default []] [@yojson_drop_default ( = )]
   token_restriction : policy_option__token_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -770,27 +795,37 @@ let yojson_of_policy_option =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policy_option__token_restriction
-             v_token_restriction
-         in
-         ("token_restriction", arg) :: bnds
+         if [] = v_token_restriction then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_option__token_restriction)
+               v_token_restriction
+           in
+           let bnd = "token_restriction", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_option__playready_configuration_license
-             v_playready_configuration_license
-         in
-         ("playready_configuration_license", arg) :: bnds
+         if [] = v_playready_configuration_license then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_option__playready_configuration_license)
+               v_playready_configuration_license
+           in
+           let bnd = "playready_configuration_license", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_option__fairplay_configuration
-             v_fairplay_configuration
-         in
-         ("fairplay_configuration", arg) :: bnds
+         if [] = v_fairplay_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_option__fairplay_configuration)
+               v_fairplay_configuration
+           in
+           let bnd = "fairplay_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_widevine_configuration_template with
@@ -902,6 +937,7 @@ type azurerm_media_content_key_policy = {
   name : string prop;
   resource_group_name : string prop;
   policy_option : policy_option list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -927,10 +963,13 @@ let yojson_of_azurerm_media_content_key_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policy_option v_policy_option
-         in
-         ("policy_option", arg) :: bnds
+         if [] = v_policy_option then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_policy_option) v_policy_option
+           in
+           let bnd = "policy_option", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

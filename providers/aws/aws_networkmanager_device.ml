@@ -147,7 +147,9 @@ type aws_networkmanager_device = {
   type_ : string prop option; [@option] [@key "type"]
   vendor : string prop option; [@option]
   aws_location : aws_location list;
+      [@default []] [@yojson_drop_default ( = )]
   location : location list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -179,14 +181,22 @@ let yojson_of_aws_networkmanager_device =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_location v_location in
-         ("location", arg) :: bnds
+         if [] = v_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_location) v_location
+           in
+           let bnd = "location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_aws_location v_aws_location
-         in
-         ("aws_location", arg) :: bnds
+         if [] = v_aws_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_aws_location) v_aws_location
+           in
+           let bnd = "aws_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vendor with

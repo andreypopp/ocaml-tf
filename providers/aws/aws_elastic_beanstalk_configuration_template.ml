@@ -57,7 +57,7 @@ type aws_elastic_beanstalk_configuration_template = {
   id : string prop option; [@option]
   name : string prop;
   solution_stack_name : string prop option; [@option]
-  setting : setting list;
+  setting : setting list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,8 +78,11 @@ let yojson_of_aws_elastic_beanstalk_configuration_template =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_setting v_setting in
-         ("setting", arg) :: bnds
+         if [] = v_setting then bnds
+         else
+           let arg = (yojson_of_list yojson_of_setting) v_setting in
+           let bnd = "setting", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_solution_stack_name with

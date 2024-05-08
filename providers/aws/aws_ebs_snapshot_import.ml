@@ -97,6 +97,7 @@ type disk_container = {
   format : string prop;
   url : string prop option; [@option]
   user_bucket : disk_container__user_bucket list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,11 +115,14 @@ let yojson_of_disk_container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_disk_container__user_bucket
-             v_user_bucket
-         in
-         ("user_bucket", arg) :: bnds
+         if [] = v_user_bucket then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_disk_container__user_bucket)
+               v_user_bucket
+           in
+           let bnd = "user_bucket", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_url with
@@ -196,7 +200,9 @@ type aws_ebs_snapshot_import = {
   tags_all : (string * string prop) list option; [@option]
   temporary_restore_days : float prop option; [@option]
   client_data : client_data list;
+      [@default []] [@yojson_drop_default ( = )]
   disk_container : disk_container list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -228,16 +234,23 @@ let yojson_of_aws_ebs_snapshot_import =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_disk_container v_disk_container
-         in
-         ("disk_container", arg) :: bnds
+         if [] = v_disk_container then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_disk_container)
+               v_disk_container
+           in
+           let bnd = "disk_container", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_data v_client_data
-         in
-         ("client_data", arg) :: bnds
+         if [] = v_client_data then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_data) v_client_data
+           in
+           let bnd = "client_data", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_temporary_restore_days with

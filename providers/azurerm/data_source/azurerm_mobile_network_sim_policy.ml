@@ -64,8 +64,10 @@ let _ =
 
 type slice__data_network = {
   additional_allowed_session_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allocation_and_retention_priority_level : float prop;
   allowed_services_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   data_network_id : string prop;
   default_session_type : string prop;
   max_buffered_packets : float prop;
@@ -74,6 +76,7 @@ type slice__data_network = {
   qos_indicator : float prop;
   session_aggregate_maximum_bit_rate :
     slice__data_network__session_aggregate_maximum_bit_rate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -100,12 +103,15 @@ let yojson_of_slice__data_network =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_slice__data_network__session_aggregate_maximum_bit_rate
-             v_session_aggregate_maximum_bit_rate
-         in
-         ("session_aggregate_maximum_bit_rate", arg) :: bnds
+         if [] = v_session_aggregate_maximum_bit_rate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_slice__data_network__session_aggregate_maximum_bit_rate)
+               v_session_aggregate_maximum_bit_rate
+           in
+           let bnd = "session_aggregate_maximum_bit_rate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_qos_indicator in
@@ -142,12 +148,14 @@ let yojson_of_slice__data_network =
          ("data_network_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_services_ids
-         in
-         ("allowed_services_ids", arg) :: bnds
+         if [] = v_allowed_services_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_services_ids
+           in
+           let bnd = "allowed_services_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -157,12 +165,14 @@ let yojson_of_slice__data_network =
          ("allocation_and_retention_priority_level", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_additional_allowed_session_types
-         in
-         ("additional_allowed_session_types", arg) :: bnds
+         if [] = v_additional_allowed_session_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_additional_allowed_session_types
+           in
+           let bnd = "additional_allowed_session_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : slice__data_network -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -173,6 +183,7 @@ let _ = yojson_of_slice__data_network
 
 type slice = {
   data_network : slice__data_network list;
+      [@default []] [@yojson_drop_default ( = )]
   default_data_network_id : string prop;
   slice_id : string prop;
 }
@@ -201,11 +212,14 @@ let yojson_of_slice =
          ("default_data_network_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_slice__data_network
-             v_data_network
-         in
-         ("data_network", arg) :: bnds
+         if [] = v_data_network then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_slice__data_network)
+               v_data_network
+           in
+           let bnd = "data_network", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : slice -> Ppx_yojson_conv_lib.Yojson.Safe.t)

@@ -47,6 +47,7 @@ type encryption = {
   key_vault_key_identifier : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   managed_identity : encryption__managed_identity list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,11 +64,14 @@ let yojson_of_encryption =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption__managed_identity
-             v_managed_identity
-         in
-         ("managed_identity", arg) :: bnds
+         if [] = v_managed_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption__managed_identity)
+               v_managed_identity
+           in
+           let bnd = "managed_identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with
@@ -215,6 +219,7 @@ type storage_account = {
   id : string prop;
   is_primary : bool prop option; [@option]
   managed_identity : storage_account__managed_identity list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -231,11 +236,15 @@ let yojson_of_storage_account =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_account__managed_identity
-             v_managed_identity
-         in
-         ("managed_identity", arg) :: bnds
+         if [] = v_managed_identity then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_account__managed_identity)
+               v_managed_identity
+           in
+           let bnd = "managed_identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_is_primary with
@@ -325,9 +334,13 @@ type azurerm_media_services_account = {
   storage_authentication_type : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   encryption : encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   key_delivery_access_control : key_delivery_access_control list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_account : storage_account list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -359,27 +372,42 @@ let yojson_of_azurerm_media_services_account =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_account v_storage_account
-         in
-         ("storage_account", arg) :: bnds
+         if [] = v_storage_account then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_account)
+               v_storage_account
+           in
+           let bnd = "storage_account", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_key_delivery_access_control
-             v_key_delivery_access_control
-         in
-         ("key_delivery_access_control", arg) :: bnds
+         if [] = v_key_delivery_access_control then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_delivery_access_control)
+               v_key_delivery_access_control
+           in
+           let bnd = "key_delivery_access_control", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption v_encryption
-         in
-         ("encryption", arg) :: bnds
+         if [] = v_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption) v_encryption
+           in
+           let bnd = "encryption", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

@@ -62,7 +62,9 @@ type aws_ses_configuration_set = {
   reputation_metrics_enabled : bool prop option; [@option]
   sending_enabled : bool prop option; [@option]
   delivery_options : delivery_options list;
+      [@default []] [@yojson_drop_default ( = )]
   tracking_options : tracking_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -82,18 +84,24 @@ let yojson_of_aws_ses_configuration_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tracking_options
-             v_tracking_options
-         in
-         ("tracking_options", arg) :: bnds
+         if [] = v_tracking_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tracking_options)
+               v_tracking_options
+           in
+           let bnd = "tracking_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delivery_options
-             v_delivery_options
-         in
-         ("delivery_options", arg) :: bnds
+         if [] = v_delivery_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_delivery_options)
+               v_delivery_options
+           in
+           let bnd = "delivery_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_sending_enabled with

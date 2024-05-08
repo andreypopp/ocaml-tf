@@ -196,9 +196,12 @@ type azurerm_data_factory_integration_runtime_managed = {
   node_size : string prop;
   number_of_nodes : float prop option; [@option]
   catalog_info : catalog_info list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_setup_script : custom_setup_script list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   vnet_integration : vnet_integration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -229,28 +232,37 @@ let yojson_of_azurerm_data_factory_integration_runtime_managed =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vnet_integration
-             v_vnet_integration
-         in
-         ("vnet_integration", arg) :: bnds
+         if [] = v_vnet_integration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vnet_integration)
+               v_vnet_integration
+           in
+           let bnd = "vnet_integration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_setup_script
-             v_custom_setup_script
-         in
-         ("custom_setup_script", arg) :: bnds
+         if [] = v_custom_setup_script then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_setup_script)
+               v_custom_setup_script
+           in
+           let bnd = "custom_setup_script", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_catalog_info v_catalog_info
-         in
-         ("catalog_info", arg) :: bnds
+         if [] = v_catalog_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_catalog_info) v_catalog_info
+           in
+           let bnd = "catalog_info", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_number_of_nodes with

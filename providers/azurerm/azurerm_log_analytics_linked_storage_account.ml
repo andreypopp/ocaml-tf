@@ -67,6 +67,7 @@ type azurerm_log_analytics_linked_storage_account = {
   id : string prop option; [@option]
   resource_group_name : string prop;
   storage_account_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   workspace_resource_id : string prop;
   timeouts : timeouts option;
 }
@@ -98,12 +99,14 @@ let yojson_of_azurerm_log_analytics_linked_storage_account =
          ("workspace_resource_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_storage_account_ids
-         in
-         ("storage_account_ids", arg) :: bnds
+         if [] = v_storage_account_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_storage_account_ids
+           in
+           let bnd = "storage_account_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

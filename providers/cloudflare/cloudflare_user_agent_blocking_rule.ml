@@ -35,6 +35,7 @@ type cloudflare_user_agent_blocking_rule = {
   paused : bool prop;
   zone_id : string prop;
   configuration : configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,10 +55,13 @@ let yojson_of_cloudflare_user_agent_blocking_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration v_configuration
-         in
-         ("configuration", arg) :: bnds
+         if [] = v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in

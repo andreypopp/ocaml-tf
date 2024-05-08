@@ -49,6 +49,7 @@ let _ = yojson_of_usage_metric__metric_dimensions
 
 type usage_metric = {
   metric_dimensions : usage_metric__metric_dimensions list;
+      [@default []] [@yojson_drop_default ( = )]
   metric_name : string prop;
   metric_namespace : string prop;
   metric_statistic_recommendation : string prop;
@@ -87,11 +88,15 @@ let yojson_of_usage_metric =
          ("metric_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_usage_metric__metric_dimensions
-             v_metric_dimensions
-         in
-         ("metric_dimensions", arg) :: bnds
+         if [] = v_metric_dimensions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_usage_metric__metric_dimensions)
+               v_metric_dimensions
+           in
+           let bnd = "metric_dimensions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : usage_metric -> Ppx_yojson_conv_lib.Yojson.Safe.t)

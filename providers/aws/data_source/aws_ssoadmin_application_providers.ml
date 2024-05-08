@@ -18,6 +18,7 @@ let _ = yojson_of_application_providers__display_data
 
 type application_providers = {
   display_data : application_providers__display_data list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30,12 +31,15 @@ let yojson_of_application_providers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_providers__display_data
-             v_display_data
-         in
-         ("display_data", arg) :: bnds
+         if [] = v_display_data then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_providers__display_data)
+               v_display_data
+           in
+           let bnd = "display_data", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : application_providers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -46,6 +50,7 @@ let _ = yojson_of_application_providers
 
 type aws_ssoadmin_application_providers = {
   application_providers : application_providers list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,11 +63,14 @@ let yojson_of_aws_ssoadmin_application_providers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_application_providers
-             v_application_providers
-         in
-         ("application_providers", arg) :: bnds
+         if [] = v_application_providers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_application_providers)
+               v_application_providers
+           in
+           let bnd = "application_providers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_ssoadmin_application_providers ->

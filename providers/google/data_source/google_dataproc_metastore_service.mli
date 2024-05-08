@@ -12,6 +12,7 @@ type hive_metastore_config__kerberos_config__keytab = {
 
 type hive_metastore_config__kerberos_config = {
   keytab : hive_metastore_config__kerberos_config__keytab list;
+      [@default []] [@yojson_drop_default ( = )]
       (** keytab *)
   krb5_config_gcs_uri : string prop;  (** krb5_config_gcs_uri *)
   principal : string prop;  (** principal *)
@@ -27,11 +28,13 @@ type hive_metastore_config__auxiliary_versions = {
 type hive_metastore_config = {
   auxiliary_versions :
     hive_metastore_config__auxiliary_versions list;
+      [@default []] [@yojson_drop_default ( = )]
       (** auxiliary_versions *)
   config_overrides : (string * string prop) list;
       (** config_overrides *)
   endpoint_protocol : string prop;  (** endpoint_protocol *)
   kerberos_config : hive_metastore_config__kerberos_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** kerberos_config *)
   version : string prop;  (** version *)
 }
@@ -48,6 +51,7 @@ type metadata_integration__data_catalog_config = {
 type metadata_integration = {
   data_catalog_config :
     metadata_integration__data_catalog_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** data_catalog_config *)
 }
 
@@ -57,7 +61,9 @@ type network_config__consumers = {
 }
 
 type network_config = {
-  consumers : network_config__consumers list;  (** consumers *)
+  consumers : network_config__consumers list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** consumers *)
 }
 
 type scaling_config = {

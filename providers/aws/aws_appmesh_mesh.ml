@@ -30,7 +30,10 @@ let _ = yojson_of_spec__egress_filter
 
 [@@@deriving.end]
 
-type spec = { egress_filter : spec__egress_filter list }
+type spec = {
+  egress_filter : spec__egress_filter list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : spec) -> ()
@@ -42,11 +45,14 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__egress_filter
-             v_egress_filter
-         in
-         ("egress_filter", arg) :: bnds
+         if [] = v_egress_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__egress_filter)
+               v_egress_filter
+           in
+           let bnd = "egress_filter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -60,7 +66,7 @@ type aws_appmesh_mesh = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  spec : spec list;
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,8 +85,11 @@ let yojson_of_aws_appmesh_mesh =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

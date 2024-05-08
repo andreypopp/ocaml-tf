@@ -46,6 +46,7 @@ let _ = yojson_of_execution_controls__ssm_controls
 
 type execution_controls = {
   ssm_controls : execution_controls__ssm_controls list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,11 +59,15 @@ let yojson_of_execution_controls =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_execution_controls__ssm_controls
-             v_ssm_controls
-         in
-         ("ssm_controls", arg) :: bnds
+         if [] = v_ssm_controls then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_execution_controls__ssm_controls)
+               v_ssm_controls
+           in
+           let bnd = "ssm_controls", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : execution_controls -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -140,7 +145,9 @@ type aws_config_remediation_configuration = {
   target_type : string prop;
   target_version : string prop option; [@option]
   execution_controls : execution_controls list;
+      [@default []] [@yojson_drop_default ( = )]
   parameter : parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -165,15 +172,23 @@ let yojson_of_aws_config_remediation_configuration =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_parameter v_parameter in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_parameter) v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_execution_controls
-             v_execution_controls
-         in
-         ("execution_controls", arg) :: bnds
+         if [] = v_execution_controls then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_execution_controls)
+               v_execution_controls
+           in
+           let bnd = "execution_controls", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_version with

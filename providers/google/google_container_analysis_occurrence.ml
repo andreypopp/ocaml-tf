@@ -38,6 +38,7 @@ let _ = yojson_of_attestation__signatures
 type attestation = {
   serialized_payload : string prop;
   signatures : attestation__signatures list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,11 +54,14 @@ let yojson_of_attestation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attestation__signatures
-             v_signatures
-         in
-         ("signatures", arg) :: bnds
+         if [] = v_signatures then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attestation__signatures)
+               v_signatures
+           in
+           let bnd = "signatures", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -125,6 +129,7 @@ type google_container_analysis_occurrence = {
   remediation : string prop option; [@option]
   resource_uri : string prop;
   attestation : attestation list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -150,10 +155,13 @@ let yojson_of_google_container_analysis_occurrence =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attestation v_attestation
-         in
-         ("attestation", arg) :: bnds
+         if [] = v_attestation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attestation) v_attestation
+           in
+           let bnd = "attestation", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_resource_uri in

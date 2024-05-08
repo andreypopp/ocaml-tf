@@ -3087,10 +3087,15 @@ type aws = {
   use_dualstack_endpoint : bool prop option; [@option]
   use_fips_endpoint : bool prop option; [@option]
   assume_role : assume_role list;
+      [@default []] [@yojson_drop_default ( = )]
   assume_role_with_web_identity : assume_role_with_web_identity list;
+      [@default []] [@yojson_drop_default ( = )]
   default_tags : default_tags list;
+      [@default []] [@yojson_drop_default ( = )]
   endpoints : endpoints list;
+      [@default []] [@yojson_drop_default ( = )]
   ignore_tags : ignore_tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3142,33 +3147,50 @@ let yojson_of_aws =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ignore_tags v_ignore_tags
-         in
-         ("ignore_tags", arg) :: bnds
+         if [] = v_ignore_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ignore_tags) v_ignore_tags
+           in
+           let bnd = "ignore_tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_endpoints v_endpoints in
-         ("endpoints", arg) :: bnds
+         if [] = v_endpoints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoints) v_endpoints
+           in
+           let bnd = "endpoints", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_tags v_default_tags
-         in
-         ("default_tags", arg) :: bnds
+         if [] = v_default_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_tags) v_default_tags
+           in
+           let bnd = "default_tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_assume_role_with_web_identity
-             v_assume_role_with_web_identity
-         in
-         ("assume_role_with_web_identity", arg) :: bnds
+         if [] = v_assume_role_with_web_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_assume_role_with_web_identity)
+               v_assume_role_with_web_identity
+           in
+           let bnd = "assume_role_with_web_identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_assume_role v_assume_role
-         in
-         ("assume_role", arg) :: bnds
+         if [] = v_assume_role then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_assume_role) v_assume_role
+           in
+           let bnd = "assume_role", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_fips_endpoint with

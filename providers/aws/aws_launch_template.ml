@@ -107,6 +107,7 @@ type block_device_mappings = {
   no_device : string prop option; [@option]
   virtual_name : string prop option; [@option]
   ebs : block_device_mappings__ebs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,10 +125,14 @@ let yojson_of_block_device_mappings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_block_device_mappings__ebs v_ebs
-         in
-         ("ebs", arg) :: bnds
+         if [] = v_ebs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_block_device_mappings__ebs)
+               v_ebs
+           in
+           let bnd = "ebs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_name with
@@ -215,6 +220,7 @@ type capacity_reservation_specification = {
   capacity_reservation_target :
     capacity_reservation_specification__capacity_reservation_target
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -231,12 +237,15 @@ let yojson_of_capacity_reservation_specification =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_capacity_reservation_specification__capacity_reservation_target
-             v_capacity_reservation_target
-         in
-         ("capacity_reservation_target", arg) :: bnds
+         if [] = v_capacity_reservation_target then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_capacity_reservation_specification__capacity_reservation_target)
+               v_capacity_reservation_target
+           in
+           let bnd = "capacity_reservation_target", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_capacity_reservation_preference with
@@ -541,6 +550,7 @@ let _ = yojson_of_instance_market_options__spot_options
 type instance_market_options = {
   market_type : string prop option; [@option]
   spot_options : instance_market_options__spot_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -554,12 +564,15 @@ let yojson_of_instance_market_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_market_options__spot_options
-             v_spot_options
-         in
-         ("spot_options", arg) :: bnds
+         if [] = v_spot_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_market_options__spot_options)
+               v_spot_options
+           in
+           let bnd = "spot_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_market_type with
@@ -932,20 +945,29 @@ type instance_requirements = {
   spot_max_price_percentage_over_lowest_price : float prop option;
       [@option]
   accelerator_count : instance_requirements__accelerator_count list;
+      [@default []] [@yojson_drop_default ( = )]
   accelerator_total_memory_mib :
     instance_requirements__accelerator_total_memory_mib list;
+      [@default []] [@yojson_drop_default ( = )]
   baseline_ebs_bandwidth_mbps :
     instance_requirements__baseline_ebs_bandwidth_mbps list;
+      [@default []] [@yojson_drop_default ( = )]
   memory_gib_per_vcpu :
     instance_requirements__memory_gib_per_vcpu list;
+      [@default []] [@yojson_drop_default ( = )]
   memory_mib : instance_requirements__memory_mib list;
+      [@default []] [@yojson_drop_default ( = )]
   network_bandwidth_gbps :
     instance_requirements__network_bandwidth_gbps list;
+      [@default []] [@yojson_drop_default ( = )]
   network_interface_count :
     instance_requirements__network_interface_count list;
+      [@default []] [@yojson_drop_default ( = )]
   total_local_storage_gb :
     instance_requirements__total_local_storage_gb list;
+      [@default []] [@yojson_drop_default ( = )]
   vcpu_count : instance_requirements__vcpu_count list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -984,74 +1006,103 @@ let yojson_of_instance_requirements =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_requirements__vcpu_count
-             v_vcpu_count
-         in
-         ("vcpu_count", arg) :: bnds
+         if [] = v_vcpu_count then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_requirements__vcpu_count)
+               v_vcpu_count
+           in
+           let bnd = "vcpu_count", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_requirements__total_local_storage_gb
-             v_total_local_storage_gb
-         in
-         ("total_local_storage_gb", arg) :: bnds
+         if [] = v_total_local_storage_gb then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_requirements__total_local_storage_gb)
+               v_total_local_storage_gb
+           in
+           let bnd = "total_local_storage_gb", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_requirements__network_interface_count
-             v_network_interface_count
-         in
-         ("network_interface_count", arg) :: bnds
+         if [] = v_network_interface_count then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_requirements__network_interface_count)
+               v_network_interface_count
+           in
+           let bnd = "network_interface_count", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_requirements__network_bandwidth_gbps
-             v_network_bandwidth_gbps
-         in
-         ("network_bandwidth_gbps", arg) :: bnds
+         if [] = v_network_bandwidth_gbps then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_requirements__network_bandwidth_gbps)
+               v_network_bandwidth_gbps
+           in
+           let bnd = "network_bandwidth_gbps", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_requirements__memory_mib
-             v_memory_mib
-         in
-         ("memory_mib", arg) :: bnds
+         if [] = v_memory_mib then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_requirements__memory_mib)
+               v_memory_mib
+           in
+           let bnd = "memory_mib", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_requirements__memory_gib_per_vcpu
-             v_memory_gib_per_vcpu
-         in
-         ("memory_gib_per_vcpu", arg) :: bnds
+         if [] = v_memory_gib_per_vcpu then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_requirements__memory_gib_per_vcpu)
+               v_memory_gib_per_vcpu
+           in
+           let bnd = "memory_gib_per_vcpu", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_requirements__baseline_ebs_bandwidth_mbps
-             v_baseline_ebs_bandwidth_mbps
-         in
-         ("baseline_ebs_bandwidth_mbps", arg) :: bnds
+         if [] = v_baseline_ebs_bandwidth_mbps then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_requirements__baseline_ebs_bandwidth_mbps)
+               v_baseline_ebs_bandwidth_mbps
+           in
+           let bnd = "baseline_ebs_bandwidth_mbps", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_requirements__accelerator_total_memory_mib
-             v_accelerator_total_memory_mib
-         in
-         ("accelerator_total_memory_mib", arg) :: bnds
+         if [] = v_accelerator_total_memory_mib then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_requirements__accelerator_total_memory_mib)
+               v_accelerator_total_memory_mib
+           in
+           let bnd = "accelerator_total_memory_mib", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_requirements__accelerator_count
-             v_accelerator_count
-         in
-         ("accelerator_count", arg) :: bnds
+         if [] = v_accelerator_count then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_requirements__accelerator_count)
+               v_accelerator_count
+           in
+           let bnd = "accelerator_count", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_spot_max_price_percentage_over_lowest_price with
@@ -1786,25 +1837,44 @@ type aws_launch_template = {
   user_data : string prop option; [@option]
   vpc_security_group_ids : string prop list option; [@option]
   block_device_mappings : block_device_mappings list;
+      [@default []] [@yojson_drop_default ( = )]
   capacity_reservation_specification :
     capacity_reservation_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   cpu_options : cpu_options list;
+      [@default []] [@yojson_drop_default ( = )]
   credit_specification : credit_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   elastic_gpu_specifications : elastic_gpu_specifications list;
+      [@default []] [@yojson_drop_default ( = )]
   elastic_inference_accelerator : elastic_inference_accelerator list;
+      [@default []] [@yojson_drop_default ( = )]
   enclave_options : enclave_options list;
+      [@default []] [@yojson_drop_default ( = )]
   hibernation_options : hibernation_options list;
+      [@default []] [@yojson_drop_default ( = )]
   iam_instance_profile : iam_instance_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_market_options : instance_market_options list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_requirements : instance_requirements list;
+      [@default []] [@yojson_drop_default ( = )]
   license_specification : license_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_options : maintenance_options list;
+      [@default []] [@yojson_drop_default ( = )]
   metadata_options : metadata_options list;
+      [@default []] [@yojson_drop_default ( = )]
   monitoring : monitoring list;
+      [@default []] [@yojson_drop_default ( = )]
   network_interfaces : network_interfaces list;
+      [@default []] [@yojson_drop_default ( = )]
   placement : placement list;
+      [@default []] [@yojson_drop_default ( = )]
   private_dns_name_options : private_dns_name_options list;
+      [@default []] [@yojson_drop_default ( = )]
   tag_specifications : tag_specifications list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1860,132 +1930,192 @@ let yojson_of_aws_launch_template =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tag_specifications
-             v_tag_specifications
-         in
-         ("tag_specifications", arg) :: bnds
+         if [] = v_tag_specifications then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tag_specifications)
+               v_tag_specifications
+           in
+           let bnd = "tag_specifications", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_dns_name_options
-             v_private_dns_name_options
-         in
-         ("private_dns_name_options", arg) :: bnds
+         if [] = v_private_dns_name_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_dns_name_options)
+               v_private_dns_name_options
+           in
+           let bnd = "private_dns_name_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_placement v_placement in
-         ("placement", arg) :: bnds
+         if [] = v_placement then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_placement) v_placement
+           in
+           let bnd = "placement", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_interfaces
-             v_network_interfaces
-         in
-         ("network_interfaces", arg) :: bnds
+         if [] = v_network_interfaces then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_interfaces)
+               v_network_interfaces
+           in
+           let bnd = "network_interfaces", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitoring v_monitoring
-         in
-         ("monitoring", arg) :: bnds
+         if [] = v_monitoring then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitoring) v_monitoring
+           in
+           let bnd = "monitoring", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metadata_options
-             v_metadata_options
-         in
-         ("metadata_options", arg) :: bnds
+         if [] = v_metadata_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata_options)
+               v_metadata_options
+           in
+           let bnd = "metadata_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_options
-             v_maintenance_options
-         in
-         ("maintenance_options", arg) :: bnds
+         if [] = v_maintenance_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_options)
+               v_maintenance_options
+           in
+           let bnd = "maintenance_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_license_specification
-             v_license_specification
-         in
-         ("license_specification", arg) :: bnds
+         if [] = v_license_specification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_license_specification)
+               v_license_specification
+           in
+           let bnd = "license_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_requirements
-             v_instance_requirements
-         in
-         ("instance_requirements", arg) :: bnds
+         if [] = v_instance_requirements then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instance_requirements)
+               v_instance_requirements
+           in
+           let bnd = "instance_requirements", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_market_options
-             v_instance_market_options
-         in
-         ("instance_market_options", arg) :: bnds
+         if [] = v_instance_market_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instance_market_options)
+               v_instance_market_options
+           in
+           let bnd = "instance_market_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_iam_instance_profile
-             v_iam_instance_profile
-         in
-         ("iam_instance_profile", arg) :: bnds
+         if [] = v_iam_instance_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_iam_instance_profile)
+               v_iam_instance_profile
+           in
+           let bnd = "iam_instance_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hibernation_options
-             v_hibernation_options
-         in
-         ("hibernation_options", arg) :: bnds
+         if [] = v_hibernation_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hibernation_options)
+               v_hibernation_options
+           in
+           let bnd = "hibernation_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_enclave_options v_enclave_options
-         in
-         ("enclave_options", arg) :: bnds
+         if [] = v_enclave_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_enclave_options)
+               v_enclave_options
+           in
+           let bnd = "enclave_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_elastic_inference_accelerator
-             v_elastic_inference_accelerator
-         in
-         ("elastic_inference_accelerator", arg) :: bnds
+         if [] = v_elastic_inference_accelerator then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_elastic_inference_accelerator)
+               v_elastic_inference_accelerator
+           in
+           let bnd = "elastic_inference_accelerator", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_elastic_gpu_specifications
-             v_elastic_gpu_specifications
-         in
-         ("elastic_gpu_specifications", arg) :: bnds
+         if [] = v_elastic_gpu_specifications then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_elastic_gpu_specifications)
+               v_elastic_gpu_specifications
+           in
+           let bnd = "elastic_gpu_specifications", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_credit_specification
-             v_credit_specification
-         in
-         ("credit_specification", arg) :: bnds
+         if [] = v_credit_specification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_credit_specification)
+               v_credit_specification
+           in
+           let bnd = "credit_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cpu_options v_cpu_options
-         in
-         ("cpu_options", arg) :: bnds
+         if [] = v_cpu_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cpu_options) v_cpu_options
+           in
+           let bnd = "cpu_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_capacity_reservation_specification
-             v_capacity_reservation_specification
-         in
-         ("capacity_reservation_specification", arg) :: bnds
+         if [] = v_capacity_reservation_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_capacity_reservation_specification)
+               v_capacity_reservation_specification
+           in
+           let bnd = "capacity_reservation_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_block_device_mappings
-             v_block_device_mappings
-         in
-         ("block_device_mappings", arg) :: bnds
+         if [] = v_block_device_mappings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_block_device_mappings)
+               v_block_device_mappings
+           in
+           let bnd = "block_device_mappings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_security_group_ids with

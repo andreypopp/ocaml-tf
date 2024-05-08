@@ -39,7 +39,10 @@ let _ = yojson_of_properties__property
 
 [@@@deriving.end]
 
-type properties = { property : properties__property list }
+type properties = {
+  property : properties__property list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : properties) -> ()
@@ -51,10 +54,14 @@ let yojson_of_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_properties__property v_property
-         in
-         ("property", arg) :: bnds
+         if [] = v_property then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_properties__property)
+               v_property
+           in
+           let bnd = "property", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : properties -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -123,6 +130,7 @@ type google_apigee_organization = {
       [@option]
   runtime_type : string prop option; [@option]
   properties : properties list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -155,10 +163,13 @@ let yojson_of_google_apigee_organization =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_properties v_properties
-         in
-         ("properties", arg) :: bnds
+         if [] = v_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_properties) v_properties
+           in
+           let bnd = "properties", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_runtime_type with

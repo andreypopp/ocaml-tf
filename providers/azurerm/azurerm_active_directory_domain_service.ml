@@ -290,9 +290,13 @@ type azurerm_active_directory_domain_service = {
   sku : string prop;
   tags : (string * string prop) list option; [@option]
   initial_replica_set : initial_replica_set list;
+      [@default []] [@yojson_drop_default ( = )]
   notifications : notifications list;
+      [@default []] [@yojson_drop_default ( = )]
   secure_ldap : secure_ldap list;
+      [@default []] [@yojson_drop_default ( = )]
   security : security list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -325,27 +329,41 @@ let yojson_of_azurerm_active_directory_domain_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_security v_security in
-         ("security", arg) :: bnds
+         if [] = v_security then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_security) v_security
+           in
+           let bnd = "security", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secure_ldap v_secure_ldap
-         in
-         ("secure_ldap", arg) :: bnds
+         if [] = v_secure_ldap then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secure_ldap) v_secure_ldap
+           in
+           let bnd = "secure_ldap", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notifications v_notifications
-         in
-         ("notifications", arg) :: bnds
+         if [] = v_notifications then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notifications) v_notifications
+           in
+           let bnd = "notifications", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_initial_replica_set
-             v_initial_replica_set
-         in
-         ("initial_replica_set", arg) :: bnds
+         if [] = v_initial_replica_set then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_initial_replica_set)
+               v_initial_replica_set
+           in
+           let bnd = "initial_replica_set", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

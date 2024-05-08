@@ -95,6 +95,7 @@ type google_vmwareengine_cluster = {
   name : string prop;
   parent : string prop;
   node_type_configs : node_type_configs list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -118,11 +119,14 @@ let yojson_of_google_vmwareengine_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_type_configs
-             v_node_type_configs
-         in
-         ("node_type_configs", arg) :: bnds
+         if [] = v_node_type_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_type_configs)
+               v_node_type_configs
+           in
+           let bnd = "node_type_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_parent in

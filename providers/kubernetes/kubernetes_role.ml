@@ -90,9 +90,11 @@ let _ = yojson_of_metadata
 
 type rule = {
   api_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_names : string prop list option; [@option]
   resources : string prop list;
-  verbs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+  verbs : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,18 +112,24 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_verbs
-         in
-         ("verbs", arg) :: bnds
+         if [] = v_verbs then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_verbs
+           in
+           let bnd = "verbs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_resources
-         in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resource_names with
@@ -134,12 +142,14 @@ let yojson_of_rule =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_api_groups
-         in
-         ("api_groups", arg) :: bnds
+         if [] = v_api_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_api_groups
+           in
+           let bnd = "api_groups", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -151,7 +161,8 @@ let _ = yojson_of_rule
 type kubernetes_role = {
   id : string prop option; [@option]
   metadata : metadata list;
-  rule : rule list;
+      [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -164,12 +175,20 @@ let yojson_of_kubernetes_role =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

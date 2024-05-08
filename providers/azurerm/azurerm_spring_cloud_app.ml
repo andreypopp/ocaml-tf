@@ -271,9 +271,13 @@ type azurerm_spring_cloud_app = {
   service_name : string prop;
   tls_enabled : bool prop option; [@option]
   custom_persistent_disk : custom_persistent_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   ingress_settings : ingress_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   persistent_disk : persistent_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -306,28 +310,43 @@ let yojson_of_azurerm_spring_cloud_app =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_persistent_disk v_persistent_disk
-         in
-         ("persistent_disk", arg) :: bnds
+         if [] = v_persistent_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_persistent_disk)
+               v_persistent_disk
+           in
+           let bnd = "persistent_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ingress_settings
-             v_ingress_settings
-         in
-         ("ingress_settings", arg) :: bnds
+         if [] = v_ingress_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ingress_settings)
+               v_ingress_settings
+           in
+           let bnd = "ingress_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_persistent_disk
-             v_custom_persistent_disk
-         in
-         ("custom_persistent_disk", arg) :: bnds
+         if [] = v_custom_persistent_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_persistent_disk)
+               v_custom_persistent_disk
+           in
+           let bnd = "custom_persistent_disk", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tls_enabled with

@@ -49,6 +49,7 @@ type aws_api_gateway_integration = {
   type_ : string prop; [@key "type"]
   uri : string prop option; [@option]
   tls_config : tls_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -80,10 +81,13 @@ let yojson_of_aws_api_gateway_integration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tls_config v_tls_config
-         in
-         ("tls_config", arg) :: bnds
+         if [] = v_tls_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tls_config) v_tls_config
+           in
+           let bnd = "tls_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_uri with

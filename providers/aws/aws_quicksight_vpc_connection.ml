@@ -14,8 +14,8 @@ type aws_quicksight_vpc_connection = {
   dns_resolvers: string   prop list option; [@option]
   name: string prop; 
   role_arn: string prop; 
-  security_group_ids: string  prop list; 
-  subnet_ids: string  prop list; 
+  security_group_ids: string  prop list; [@default []] [@yojson_drop_default ( = )]
+  subnet_ids: string  prop list; [@default []] [@yojson_drop_default ( = )]
   tags: (string * string   prop) list option; [@option]
   vpc_connection_id: string prop; 
   timeouts: timeouts option;

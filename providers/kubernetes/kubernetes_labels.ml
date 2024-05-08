@@ -42,7 +42,7 @@ type kubernetes_labels = {
   id : string prop option; [@option]
   kind : string prop;
   labels : (string * string prop) list;
-  metadata : metadata list;
+  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,8 +63,13 @@ let yojson_of_kubernetes_labels =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

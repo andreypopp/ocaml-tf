@@ -135,10 +135,13 @@ type cloudflare_spectrum_application = {
   tls : string prop option; [@option]
   traffic_type : string prop option; [@option]
   zone_id : string prop;
-  dns : dns list;
+  dns : dns list; [@default []] [@yojson_drop_default ( = )]
   edge_ips : edge_ips list;
+      [@default []] [@yojson_drop_default ( = )]
   origin_dns : origin_dns list;
+      [@default []] [@yojson_drop_default ( = )]
   origin_port_range : origin_port_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -166,25 +169,39 @@ let yojson_of_cloudflare_spectrum_application =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_origin_port_range
-             v_origin_port_range
-         in
-         ("origin_port_range", arg) :: bnds
+         if [] = v_origin_port_range then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_origin_port_range)
+               v_origin_port_range
+           in
+           let bnd = "origin_port_range", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_origin_dns v_origin_dns
-         in
-         ("origin_dns", arg) :: bnds
+         if [] = v_origin_dns then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_origin_dns) v_origin_dns
+           in
+           let bnd = "origin_dns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_edge_ips v_edge_ips in
-         ("edge_ips", arg) :: bnds
+         if [] = v_edge_ips then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_edge_ips) v_edge_ips
+           in
+           let bnd = "edge_ips", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_dns v_dns in
-         ("dns", arg) :: bnds
+         if [] = v_dns then bnds
+         else
+           let arg = (yojson_of_list yojson_of_dns) v_dns in
+           let bnd = "dns", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in

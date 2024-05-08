@@ -136,8 +136,9 @@ type google_notebooks_environment = {
   post_startup_script : string prop option; [@option]
   project : string prop option; [@option]
   container_image : container_image list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  vm_image : vm_image list;
+  vm_image : vm_image list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,18 +162,27 @@ let yojson_of_google_notebooks_environment =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_vm_image v_vm_image in
-         ("vm_image", arg) :: bnds
+         if [] = v_vm_image then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vm_image) v_vm_image
+           in
+           let bnd = "vm_image", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container_image v_container_image
-         in
-         ("container_image", arg) :: bnds
+         if [] = v_container_image then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container_image)
+               v_container_image
+           in
+           let bnd = "container_image", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

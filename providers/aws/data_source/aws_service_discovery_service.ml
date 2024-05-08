@@ -33,6 +33,7 @@ let _ = yojson_of_dns_config__dns_records
 
 type dns_config = {
   dns_records : dns_config__dns_records list;
+      [@default []] [@yojson_drop_default ( = )]
   namespace_id : string prop;
   routing_policy : string prop;
 }
@@ -61,11 +62,14 @@ let yojson_of_dns_config =
          ("namespace_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dns_config__dns_records
-             v_dns_records
-         in
-         ("dns_records", arg) :: bnds
+         if [] = v_dns_records then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dns_config__dns_records)
+               v_dns_records
+           in
+           let bnd = "dns_records", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : dns_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)

@@ -134,6 +134,7 @@ type value_elicitation_setting__default_value_specification = {
   default_value_list :
     value_elicitation_setting__default_value_specification__default_value_list
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -149,12 +150,15 @@ let yojson_of_value_elicitation_setting__default_value_specification
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__default_value_specification__default_value_list
-             v_default_value_list
-         in
-         ("default_value_list", arg) :: bnds
+         if [] = v_default_value_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__default_value_specification__default_value_list)
+               v_default_value_list
+           in
+           let bnd = "default_value_list", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__default_value_specification ->
@@ -237,6 +241,7 @@ type value_elicitation_setting__prompt_specification__message_group__message__im
   button :
     value_elicitation_setting__prompt_specification__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -258,12 +263,15 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group__me
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -358,15 +366,19 @@ type value_elicitation_setting__prompt_specification__message_group__message = {
   custom_playload :
     value_elicitation_setting__prompt_specification__message_group__message__custom_playload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     value_elicitation_setting__prompt_specification__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     value_elicitation_setting__prompt_specification__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     value_elicitation_setting__prompt_specification__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -388,36 +400,48 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group__me
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__message__custom_playload
-             v_custom_playload
-         in
-         ("custom_playload", arg) :: bnds
+         if [] = v_custom_playload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__message__custom_playload)
+               v_custom_playload
+           in
+           let bnd = "custom_playload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__prompt_specification__message_group__message ->
@@ -500,6 +524,7 @@ type value_elicitation_setting__prompt_specification__message_group__variation__
   button :
     value_elicitation_setting__prompt_specification__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -521,12 +546,15 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group__va
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -621,15 +649,19 @@ type value_elicitation_setting__prompt_specification__message_group__variation =
   custom_playload :
     value_elicitation_setting__prompt_specification__message_group__variation__custom_playload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     value_elicitation_setting__prompt_specification__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     value_elicitation_setting__prompt_specification__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     value_elicitation_setting__prompt_specification__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -651,36 +683,48 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group__va
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__custom_playload
-             v_custom_playload
-         in
-         ("custom_playload", arg) :: bnds
+         if [] = v_custom_playload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__variation__custom_playload)
+               v_custom_playload
+           in
+           let bnd = "custom_playload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__prompt_specification__message_group__variation ->
@@ -695,9 +739,11 @@ type value_elicitation_setting__prompt_specification__message_group = {
   message :
     value_elicitation_setting__prompt_specification__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     value_elicitation_setting__prompt_specification__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -714,20 +760,26 @@ let yojson_of_value_elicitation_setting__prompt_specification__message_group
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__prompt_specification__message_group ->
@@ -875,9 +927,11 @@ type value_elicitation_setting__prompt_specification__prompt_attempts_specificat
   audio_specification :
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
   dtmf_specification :
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -898,20 +952,26 @@ let yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_s
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification
-             v_dtmf_specification
-         in
-         ("dtmf_specification", arg) :: bnds
+         if [] = v_dtmf_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification)
+               v_dtmf_specification
+           in
+           let bnd = "dtmf_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification
-             v_audio_specification
-         in
-         ("audio_specification", arg) :: bnds
+         if [] = v_audio_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification)
+               v_audio_specification
+           in
+           let bnd = "audio_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -966,12 +1026,15 @@ type value_elicitation_setting__prompt_specification__prompt_attempts_specificat
   allowed_input_types :
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types
     list;
+      [@default []] [@yojson_drop_default ( = )]
   audio_and_dtmf_input_specification :
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
   text_input_specification :
     value_elicitation_setting__prompt_specification__prompt_attempts_specification__text_input_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -995,28 +1058,37 @@ let yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_s
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification__text_input_specification
-             v_text_input_specification
-         in
-         ("text_input_specification", arg) :: bnds
+         if [] = v_text_input_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification__text_input_specification)
+               v_text_input_specification
+           in
+           let bnd = "text_input_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
-             v_audio_and_dtmf_input_specification
-         in
-         ("audio_and_dtmf_input_specification", arg) :: bnds
+         if [] = v_audio_and_dtmf_input_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification)
+               v_audio_and_dtmf_input_specification
+           in
+           let bnd = "audio_and_dtmf_input_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types
-             v_allowed_input_types
-         in
-         ("allowed_input_types", arg) :: bnds
+         if [] = v_allowed_input_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types)
+               v_allowed_input_types
+           in
+           let bnd = "allowed_input_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_map_block_key in
@@ -1046,9 +1118,11 @@ type value_elicitation_setting__prompt_specification = {
   message_group :
     value_elicitation_setting__prompt_specification__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
   prompt_attempts_specification :
     value_elicitation_setting__prompt_specification__prompt_attempts_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1069,20 +1143,26 @@ let yojson_of_value_elicitation_setting__prompt_specification =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification
-             v_prompt_attempts_specification
-         in
-         ("prompt_attempts_specification", arg) :: bnds
+         if [] = v_prompt_attempts_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__prompt_attempts_specification)
+               v_prompt_attempts_specification
+           in
+           let bnd = "prompt_attempts_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_message_selection_strategy with
@@ -1237,6 +1317,7 @@ type value_elicitation_setting__wait_and_continue_specification__continue_respon
   button :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1258,12 +1339,15 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -1358,15 +1442,19 @@ type value_elicitation_setting__wait_and_continue_specification__continue_respon
   custom_playload :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1388,36 +1476,48 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload
-             v_custom_playload
-         in
-         ("custom_playload", arg) :: bnds
+         if [] = v_custom_playload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message__custom_playload)
+               v_custom_playload
+           in
+           let bnd = "custom_playload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message ->
@@ -1500,6 +1600,7 @@ type value_elicitation_setting__wait_and_continue_specification__continue_respon
   button :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1521,12 +1622,15 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -1621,15 +1725,19 @@ type value_elicitation_setting__wait_and_continue_specification__continue_respon
   custom_playload :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1651,36 +1759,48 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload
-             v_custom_playload
-         in
-         ("custom_playload", arg) :: bnds
+         if [] = v_custom_playload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation__custom_playload)
+               v_custom_playload
+           in
+           let bnd = "custom_playload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation ->
@@ -1695,9 +1815,11 @@ type value_elicitation_setting__wait_and_continue_specification__continue_respon
   message :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1714,20 +1836,26 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__wait_and_continue_specification__continue_response__message_group ->
@@ -1743,6 +1871,7 @@ type value_elicitation_setting__wait_and_continue_specification__continue_respon
   message_group :
     value_elicitation_setting__wait_and_continue_specification__continue_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1762,12 +1891,15 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__contin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -1858,6 +1990,7 @@ type value_elicitation_setting__wait_and_continue_specification__still_waiting_r
   button :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1879,12 +2012,15 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -1979,15 +2115,19 @@ type value_elicitation_setting__wait_and_continue_specification__still_waiting_r
   custom_playload :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2009,36 +2149,48 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload
-             v_custom_playload
-         in
-         ("custom_playload", arg) :: bnds
+         if [] = v_custom_playload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message__custom_playload)
+               v_custom_playload
+           in
+           let bnd = "custom_playload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message ->
@@ -2121,6 +2273,7 @@ type value_elicitation_setting__wait_and_continue_specification__still_waiting_r
   button :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2142,12 +2295,15 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -2242,15 +2398,19 @@ type value_elicitation_setting__wait_and_continue_specification__still_waiting_r
   custom_playload :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2272,36 +2432,48 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload
-             v_custom_playload
-         in
-         ("custom_playload", arg) :: bnds
+         if [] = v_custom_playload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation__custom_playload)
+               v_custom_playload
+           in
+           let bnd = "custom_playload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation ->
@@ -2316,9 +2488,11 @@ type value_elicitation_setting__wait_and_continue_specification__still_waiting_r
   message :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2335,20 +2509,26 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group ->
@@ -2366,6 +2546,7 @@ type value_elicitation_setting__wait_and_continue_specification__still_waiting_r
   message_group :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2387,12 +2568,15 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__still_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2495,6 +2679,7 @@ type value_elicitation_setting__wait_and_continue_specification__waiting_respons
   button :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2516,12 +2701,15 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -2616,15 +2804,19 @@ type value_elicitation_setting__wait_and_continue_specification__waiting_respons
   custom_playload :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2646,36 +2838,48 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload
-             v_custom_playload
-         in
-         ("custom_playload", arg) :: bnds
+         if [] = v_custom_playload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message__custom_playload)
+               v_custom_playload
+           in
+           let bnd = "custom_playload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message ->
@@ -2758,6 +2962,7 @@ type value_elicitation_setting__wait_and_continue_specification__waiting_respons
   button :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2779,12 +2984,15 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -2879,15 +3087,19 @@ type value_elicitation_setting__wait_and_continue_specification__waiting_respons
   custom_playload :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2909,36 +3121,48 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload
-             v_custom_playload
-         in
-         ("custom_playload", arg) :: bnds
+         if [] = v_custom_playload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation__custom_playload)
+               v_custom_playload
+           in
+           let bnd = "custom_playload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation ->
@@ -2953,9 +3177,11 @@ type value_elicitation_setting__wait_and_continue_specification__waiting_respons
   message :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2972,20 +3198,26 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group ->
@@ -3001,6 +3233,7 @@ type value_elicitation_setting__wait_and_continue_specification__waiting_respons
   message_group :
     value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3020,12 +3253,15 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification__waitin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -3049,12 +3285,15 @@ type value_elicitation_setting__wait_and_continue_specification = {
   continue_response :
     value_elicitation_setting__wait_and_continue_specification__continue_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
   still_waiting_response :
     value_elicitation_setting__wait_and_continue_specification__still_waiting_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
   waiting_response :
     value_elicitation_setting__wait_and_continue_specification__waiting_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3075,28 +3314,37 @@ let yojson_of_value_elicitation_setting__wait_and_continue_specification
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response
-             v_waiting_response
-         in
-         ("waiting_response", arg) :: bnds
+         if [] = v_waiting_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__waiting_response)
+               v_waiting_response
+           in
+           let bnd = "waiting_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response
-             v_still_waiting_response
-         in
-         ("still_waiting_response", arg) :: bnds
+         if [] = v_still_waiting_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__still_waiting_response)
+               v_still_waiting_response
+           in
+           let bnd = "still_waiting_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response
-             v_continue_response
-         in
-         ("continue_response", arg) :: bnds
+         if [] = v_continue_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification__continue_response)
+               v_continue_response
+           in
+           let bnd = "continue_response", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_active with
@@ -3119,14 +3367,19 @@ type value_elicitation_setting = {
   slot_constraint : string prop;
   default_value_specification :
     value_elicitation_setting__default_value_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   prompt_specification :
     value_elicitation_setting__prompt_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   sample_utterance :
     value_elicitation_setting__sample_utterance list;
+      [@default []] [@yojson_drop_default ( = )]
   slot_resolution_setting :
     value_elicitation_setting__slot_resolution_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   wait_and_continue_specification :
     value_elicitation_setting__wait_and_continue_specification list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3147,44 +3400,59 @@ let yojson_of_value_elicitation_setting =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__wait_and_continue_specification
-             v_wait_and_continue_specification
-         in
-         ("wait_and_continue_specification", arg) :: bnds
+         if [] = v_wait_and_continue_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__wait_and_continue_specification)
+               v_wait_and_continue_specification
+           in
+           let bnd = "wait_and_continue_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__slot_resolution_setting
-             v_slot_resolution_setting
-         in
-         ("slot_resolution_setting", arg) :: bnds
+         if [] = v_slot_resolution_setting then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__slot_resolution_setting)
+               v_slot_resolution_setting
+           in
+           let bnd = "slot_resolution_setting", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__sample_utterance
-             v_sample_utterance
-         in
-         ("sample_utterance", arg) :: bnds
+         if [] = v_sample_utterance then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__sample_utterance)
+               v_sample_utterance
+           in
+           let bnd = "sample_utterance", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__prompt_specification
-             v_prompt_specification
-         in
-         ("prompt_specification", arg) :: bnds
+         if [] = v_prompt_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__prompt_specification)
+               v_prompt_specification
+           in
+           let bnd = "prompt_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_elicitation_setting__default_value_specification
-             v_default_value_specification
-         in
-         ("default_value_specification", arg) :: bnds
+         if [] = v_default_value_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_elicitation_setting__default_value_specification)
+               v_default_value_specification
+           in
+           let bnd = "default_value_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -3208,9 +3476,12 @@ type aws_lexv2models_slot = {
   name : string prop;
   slot_type_id : string prop option; [@option]
   multiple_values_setting : multiple_values_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   obfuscation_setting : obfuscation_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   value_elicitation_setting : value_elicitation_setting list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3235,29 +3506,38 @@ let yojson_of_aws_lexv2models_slot =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_value_elicitation_setting
-             v_value_elicitation_setting
-         in
-         ("value_elicitation_setting", arg) :: bnds
+         if [] = v_value_elicitation_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_value_elicitation_setting)
+               v_value_elicitation_setting
+           in
+           let bnd = "value_elicitation_setting", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_obfuscation_setting
-             v_obfuscation_setting
-         in
-         ("obfuscation_setting", arg) :: bnds
+         if [] = v_obfuscation_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_obfuscation_setting)
+               v_obfuscation_setting
+           in
+           let bnd = "obfuscation_setting", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_multiple_values_setting
-             v_multiple_values_setting
-         in
-         ("multiple_values_setting", arg) :: bnds
+         if [] = v_multiple_values_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_multiple_values_setting)
+               v_multiple_values_setting
+           in
+           let bnd = "multiple_values_setting", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_slot_type_id with

@@ -68,7 +68,10 @@ let _ = yojson_of_frontend_private
 
 [@@@deriving.end]
 
-type frontend_public = { ip_address : string prop list }
+type frontend_public = {
+  ip_address : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : frontend_public) -> ()
@@ -80,12 +83,14 @@ let yojson_of_frontend_public =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_address
-         in
-         ("ip_address", arg) :: bnds
+         if [] = v_ip_address then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_address
+           in
+           let bnd = "ip_address", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : frontend_public -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -96,6 +101,7 @@ let _ = yojson_of_frontend_public
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   principal_id : string prop;
   tenant_id : string prop;
   type_ : string prop; [@key "type"]
@@ -128,12 +134,14 @@ let yojson_of_identity =
          ("principal_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)

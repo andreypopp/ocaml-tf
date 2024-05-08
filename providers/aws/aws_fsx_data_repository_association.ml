@@ -64,7 +64,9 @@ let _ = yojson_of_s3__auto_import_policy
 
 type s3 = {
   auto_export_policy : s3__auto_export_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   auto_import_policy : s3__auto_import_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -80,18 +82,24 @@ let yojson_of_s3 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_s3__auto_import_policy
-             v_auto_import_policy
-         in
-         ("auto_import_policy", arg) :: bnds
+         if [] = v_auto_import_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3__auto_import_policy)
+               v_auto_import_policy
+           in
+           let bnd = "auto_import_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_s3__auto_export_policy
-             v_auto_export_policy
-         in
-         ("auto_export_policy", arg) :: bnds
+         if [] = v_auto_export_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3__auto_export_policy)
+               v_auto_export_policy
+           in
+           let bnd = "auto_export_policy", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : s3 -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -156,7 +164,7 @@ type aws_fsx_data_repository_association = {
   imported_file_chunk_size : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  s3 : s3 list;
+  s3 : s3 list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -187,8 +195,11 @@ let yojson_of_aws_fsx_data_repository_association =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_s3 v_s3 in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg = (yojson_of_list yojson_of_s3) v_s3 in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

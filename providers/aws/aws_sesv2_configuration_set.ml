@@ -212,7 +212,9 @@ let _ = yojson_of_vdm_options__guardian_options
 
 type vdm_options = {
   dashboard_options : vdm_options__dashboard_options list;
+      [@default []] [@yojson_drop_default ( = )]
   guardian_options : vdm_options__guardian_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -228,18 +230,24 @@ let yojson_of_vdm_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vdm_options__guardian_options
-             v_guardian_options
-         in
-         ("guardian_options", arg) :: bnds
+         if [] = v_guardian_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vdm_options__guardian_options)
+               v_guardian_options
+           in
+           let bnd = "guardian_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vdm_options__dashboard_options
-             v_dashboard_options
-         in
-         ("dashboard_options", arg) :: bnds
+         if [] = v_dashboard_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vdm_options__dashboard_options)
+               v_dashboard_options
+           in
+           let bnd = "dashboard_options", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vdm_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -254,11 +262,17 @@ type aws_sesv2_configuration_set = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   delivery_options : delivery_options list;
+      [@default []] [@yojson_drop_default ( = )]
   reputation_options : reputation_options list;
+      [@default []] [@yojson_drop_default ( = )]
   sending_options : sending_options list;
+      [@default []] [@yojson_drop_default ( = )]
   suppression_options : suppression_options list;
+      [@default []] [@yojson_drop_default ( = )]
   tracking_options : tracking_options list;
+      [@default []] [@yojson_drop_default ( = )]
   vdm_options : vdm_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -282,44 +296,63 @@ let yojson_of_aws_sesv2_configuration_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vdm_options v_vdm_options
-         in
-         ("vdm_options", arg) :: bnds
+         if [] = v_vdm_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vdm_options) v_vdm_options
+           in
+           let bnd = "vdm_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tracking_options
-             v_tracking_options
-         in
-         ("tracking_options", arg) :: bnds
+         if [] = v_tracking_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tracking_options)
+               v_tracking_options
+           in
+           let bnd = "tracking_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_suppression_options
-             v_suppression_options
-         in
-         ("suppression_options", arg) :: bnds
+         if [] = v_suppression_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_suppression_options)
+               v_suppression_options
+           in
+           let bnd = "suppression_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sending_options v_sending_options
-         in
-         ("sending_options", arg) :: bnds
+         if [] = v_sending_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sending_options)
+               v_sending_options
+           in
+           let bnd = "sending_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_reputation_options
-             v_reputation_options
-         in
-         ("reputation_options", arg) :: bnds
+         if [] = v_reputation_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_reputation_options)
+               v_reputation_options
+           in
+           let bnd = "reputation_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delivery_options
-             v_delivery_options
-         in
-         ("delivery_options", arg) :: bnds
+         if [] = v_delivery_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_delivery_options)
+               v_delivery_options
+           in
+           let bnd = "delivery_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

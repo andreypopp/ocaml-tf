@@ -7,6 +7,7 @@ type trigger = {
   custom_data : string prop option; [@option]
   destination_arn : string prop;
   events : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -30,10 +31,14 @@ let yojson_of_trigger =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_events
-         in
-         ("events", arg) :: bnds
+         if [] = v_events then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_events
+           in
+           let bnd = "events", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -69,7 +74,7 @@ let _ = yojson_of_trigger
 type aws_codecommit_trigger = {
   id : string prop option; [@option]
   repository_name : string prop;
-  trigger : trigger list;
+  trigger : trigger list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -86,8 +91,11 @@ let yojson_of_aws_codecommit_trigger =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_trigger v_trigger in
-         ("trigger", arg) :: bnds
+         if [] = v_trigger then bnds
+         else
+           let arg = (yojson_of_list yojson_of_trigger) v_trigger in
+           let bnd = "trigger", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -108,6 +108,7 @@ type azurerm_healthcare_medtech_service = {
   tags : (string * string prop) list option; [@option]
   workspace_id : string prop;
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -137,8 +138,13 @@ let yojson_of_azurerm_healthcare_medtech_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_workspace_id in

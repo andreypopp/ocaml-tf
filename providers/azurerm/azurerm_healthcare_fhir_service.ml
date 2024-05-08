@@ -46,8 +46,11 @@ let _ = yojson_of_authentication
 
 type cors = {
   allowed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   credentials_allowed : bool prop option; [@option]
   max_age_in_seconds : float prop option; [@option]
 }
@@ -84,28 +87,34 @@ let yojson_of_cors =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_methods
-         in
-         ("allowed_methods", arg) :: bnds
+         if [] = v_allowed_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_methods
+           in
+           let bnd = "allowed_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_headers
-         in
-         ("allowed_headers", arg) :: bnds
+         if [] = v_allowed_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_headers
+           in
+           let bnd = "allowed_headers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cors -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -269,9 +278,12 @@ type azurerm_healthcare_fhir_service = {
   tags : (string * string prop) list option; [@option]
   workspace_id : string prop;
   authentication : authentication list;
-  cors : cors list;
+      [@default []] [@yojson_drop_default ( = )]
+  cors : cors list; [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   oci_artifact : oci_artifact list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -307,24 +319,39 @@ let yojson_of_azurerm_healthcare_fhir_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_oci_artifact v_oci_artifact
-         in
-         ("oci_artifact", arg) :: bnds
+         if [] = v_oci_artifact then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_oci_artifact) v_oci_artifact
+           in
+           let bnd = "oci_artifact", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_cors v_cors in
-         ("cors", arg) :: bnds
+         if [] = v_cors then bnds
+         else
+           let arg = (yojson_of_list yojson_of_cors) v_cors in
+           let bnd = "cors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authentication v_authentication
-         in
-         ("authentication", arg) :: bnds
+         if [] = v_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authentication)
+               v_authentication
+           in
+           let bnd = "authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_workspace_id in

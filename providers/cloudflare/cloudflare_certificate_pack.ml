@@ -110,6 +110,7 @@ type cloudflare_certificate_pack = {
   certificate_authority : string prop;
   cloudflare_branding : bool prop option; [@option]
   hosts : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   type_ : string prop; [@key "type"]
   validation_method : string prop;
@@ -117,7 +118,9 @@ type cloudflare_certificate_pack = {
   wait_for_active_status : bool prop option; [@option]
   zone_id : string prop;
   validation_errors : validation_errors list;
+      [@default []] [@yojson_drop_default ( = )]
   validation_records : validation_records list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -142,18 +145,24 @@ let yojson_of_cloudflare_certificate_pack =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_validation_records
-             v_validation_records
-         in
-         ("validation_records", arg) :: bnds
+         if [] = v_validation_records then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_validation_records)
+               v_validation_records
+           in
+           let bnd = "validation_records", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_validation_errors
-             v_validation_errors
-         in
-         ("validation_errors", arg) :: bnds
+         if [] = v_validation_errors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_validation_errors)
+               v_validation_errors
+           in
+           let bnd = "validation_errors", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in
@@ -190,10 +199,14 @@ let yojson_of_cloudflare_certificate_pack =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_hosts
-         in
-         ("hosts", arg) :: bnds
+         if [] = v_hosts then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_hosts
+           in
+           let bnd = "hosts", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_cloudflare_branding with

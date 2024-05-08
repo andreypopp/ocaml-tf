@@ -83,6 +83,7 @@ type accounts = {
   deletion_time : string prop;
   id : string prop;
   restorable_locations : accounts__restorable_locations list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,11 +102,14 @@ let yojson_of_accounts =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_accounts__restorable_locations
-             v_restorable_locations
-         in
-         ("restorable_locations", arg) :: bnds
+         if [] = v_restorable_locations then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_accounts__restorable_locations)
+               v_restorable_locations
+           in
+           let bnd = "restorable_locations", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_id in

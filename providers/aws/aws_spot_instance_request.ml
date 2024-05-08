@@ -57,6 +57,7 @@ type capacity_reservation_specification = {
   capacity_reservation_target :
     capacity_reservation_specification__capacity_reservation_target
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,12 +74,15 @@ let yojson_of_capacity_reservation_specification =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_capacity_reservation_specification__capacity_reservation_target
-             v_capacity_reservation_target
-         in
-         ("capacity_reservation_target", arg) :: bnds
+         if [] = v_capacity_reservation_target then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_capacity_reservation_specification__capacity_reservation_target)
+               v_capacity_reservation_target
+           in
+           let bnd = "capacity_reservation_target", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_capacity_reservation_preference with
@@ -857,17 +861,29 @@ type aws_spot_instance_request = {
   wait_for_fulfillment : bool prop option; [@option]
   capacity_reservation_specification :
     capacity_reservation_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   cpu_options : cpu_options list;
+      [@default []] [@yojson_drop_default ( = )]
   credit_specification : credit_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   ebs_block_device : ebs_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   enclave_options : enclave_options list;
+      [@default []] [@yojson_drop_default ( = )]
   ephemeral_block_device : ephemeral_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   launch_template : launch_template list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_options : maintenance_options list;
+      [@default []] [@yojson_drop_default ( = )]
   metadata_options : metadata_options list;
+      [@default []] [@yojson_drop_default ( = )]
   network_interface : network_interface list;
+      [@default []] [@yojson_drop_default ( = )]
   private_dns_name_options : private_dns_name_options list;
+      [@default []] [@yojson_drop_default ( = )]
   root_block_device : root_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -945,86 +961,124 @@ let yojson_of_aws_spot_instance_request =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_root_block_device
-             v_root_block_device
-         in
-         ("root_block_device", arg) :: bnds
+         if [] = v_root_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_root_block_device)
+               v_root_block_device
+           in
+           let bnd = "root_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_dns_name_options
-             v_private_dns_name_options
-         in
-         ("private_dns_name_options", arg) :: bnds
+         if [] = v_private_dns_name_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_dns_name_options)
+               v_private_dns_name_options
+           in
+           let bnd = "private_dns_name_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_interface
-             v_network_interface
-         in
-         ("network_interface", arg) :: bnds
+         if [] = v_network_interface then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_interface)
+               v_network_interface
+           in
+           let bnd = "network_interface", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metadata_options
-             v_metadata_options
-         in
-         ("metadata_options", arg) :: bnds
+         if [] = v_metadata_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata_options)
+               v_metadata_options
+           in
+           let bnd = "metadata_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_options
-             v_maintenance_options
-         in
-         ("maintenance_options", arg) :: bnds
+         if [] = v_maintenance_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_options)
+               v_maintenance_options
+           in
+           let bnd = "maintenance_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_launch_template v_launch_template
-         in
-         ("launch_template", arg) :: bnds
+         if [] = v_launch_template then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_launch_template)
+               v_launch_template
+           in
+           let bnd = "launch_template", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ephemeral_block_device
-             v_ephemeral_block_device
-         in
-         ("ephemeral_block_device", arg) :: bnds
+         if [] = v_ephemeral_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ephemeral_block_device)
+               v_ephemeral_block_device
+           in
+           let bnd = "ephemeral_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_enclave_options v_enclave_options
-         in
-         ("enclave_options", arg) :: bnds
+         if [] = v_enclave_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_enclave_options)
+               v_enclave_options
+           in
+           let bnd = "enclave_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ebs_block_device
-             v_ebs_block_device
-         in
-         ("ebs_block_device", arg) :: bnds
+         if [] = v_ebs_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ebs_block_device)
+               v_ebs_block_device
+           in
+           let bnd = "ebs_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_credit_specification
-             v_credit_specification
-         in
-         ("credit_specification", arg) :: bnds
+         if [] = v_credit_specification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_credit_specification)
+               v_credit_specification
+           in
+           let bnd = "credit_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cpu_options v_cpu_options
-         in
-         ("cpu_options", arg) :: bnds
+         if [] = v_cpu_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cpu_options) v_cpu_options
+           in
+           let bnd = "cpu_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_capacity_reservation_specification
-             v_capacity_reservation_specification
-         in
-         ("capacity_reservation_specification", arg) :: bnds
+         if [] = v_capacity_reservation_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_capacity_reservation_specification)
+               v_capacity_reservation_specification
+           in
+           let bnd = "capacity_reservation_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_wait_for_fulfillment with

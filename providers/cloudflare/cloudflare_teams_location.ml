@@ -29,7 +29,7 @@ type cloudflare_teams_location = {
   client_default : bool prop option; [@option]
   id : string prop option; [@option]
   name : string prop;
-  networks : networks list;
+  networks : networks list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,8 +48,13 @@ let yojson_of_cloudflare_teams_location =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_networks v_networks in
-         ("networks", arg) :: bnds
+         if [] = v_networks then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_networks) v_networks
+           in
+           let bnd = "networks", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

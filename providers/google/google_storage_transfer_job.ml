@@ -212,8 +212,11 @@ let _ = yojson_of_schedule__start_time_of_day
 type schedule = {
   repeat_interval : string prop option; [@option]
   schedule_end_date : schedule__schedule_end_date list;
+      [@default []] [@yojson_drop_default ( = )]
   schedule_start_date : schedule__schedule_start_date list;
+      [@default []] [@yojson_drop_default ( = )]
   start_time_of_day : schedule__start_time_of_day list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -231,25 +234,34 @@ let yojson_of_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schedule__start_time_of_day
-             v_start_time_of_day
-         in
-         ("start_time_of_day", arg) :: bnds
+         if [] = v_start_time_of_day then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule__start_time_of_day)
+               v_start_time_of_day
+           in
+           let bnd = "start_time_of_day", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schedule__schedule_start_date
-             v_schedule_start_date
-         in
-         ("schedule_start_date", arg) :: bnds
+         if [] = v_schedule_start_date then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule__schedule_start_date)
+               v_schedule_start_date
+           in
+           let bnd = "schedule_start_date", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schedule__schedule_end_date
-             v_schedule_end_date
-         in
-         ("schedule_end_date", arg) :: bnds
+         if [] = v_schedule_end_date then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule__schedule_end_date)
+               v_schedule_end_date
+           in
+           let bnd = "schedule_end_date", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_repeat_interval with
@@ -308,6 +320,7 @@ type transfer_spec__aws_s3_data_source = {
   role_arn : string prop option; [@option]
   aws_access_key :
     transfer_spec__aws_s3_data_source__aws_access_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -325,12 +338,15 @@ let yojson_of_transfer_spec__aws_s3_data_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transfer_spec__aws_s3_data_source__aws_access_key
-             v_aws_access_key
-         in
-         ("aws_access_key", arg) :: bnds
+         if [] = v_aws_access_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transfer_spec__aws_s3_data_source__aws_access_key)
+               v_aws_access_key
+           in
+           let bnd = "aws_access_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_role_arn with
@@ -397,6 +413,7 @@ type transfer_spec__azure_blob_storage_data_source = {
   azure_credentials :
     transfer_spec__azure_blob_storage_data_source__azure_credentials
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -414,12 +431,15 @@ let yojson_of_transfer_spec__azure_blob_storage_data_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transfer_spec__azure_blob_storage_data_source__azure_credentials
-             v_azure_credentials
-         in
-         ("azure_credentials", arg) :: bnds
+         if [] = v_azure_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transfer_spec__azure_blob_storage_data_source__azure_credentials)
+               v_azure_credentials
+           in
+           let bnd = "azure_credentials", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -759,15 +779,24 @@ type transfer_spec = {
   sink_agent_pool_name : string prop option; [@option]
   source_agent_pool_name : string prop option; [@option]
   aws_s3_data_source : transfer_spec__aws_s3_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_blob_storage_data_source :
     transfer_spec__azure_blob_storage_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
   gcs_data_sink : transfer_spec__gcs_data_sink list;
+      [@default []] [@yojson_drop_default ( = )]
   gcs_data_source : transfer_spec__gcs_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
   http_data_source : transfer_spec__http_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
   object_conditions : transfer_spec__object_conditions list;
+      [@default []] [@yojson_drop_default ( = )]
   posix_data_sink : transfer_spec__posix_data_sink list;
+      [@default []] [@yojson_drop_default ( = )]
   posix_data_source : transfer_spec__posix_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
   transfer_options : transfer_spec__transfer_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -793,68 +822,100 @@ let yojson_of_transfer_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transfer_spec__transfer_options
-             v_transfer_options
-         in
-         ("transfer_options", arg) :: bnds
+         if [] = v_transfer_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transfer_spec__transfer_options)
+               v_transfer_options
+           in
+           let bnd = "transfer_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transfer_spec__posix_data_source
-             v_posix_data_source
-         in
-         ("posix_data_source", arg) :: bnds
+         if [] = v_posix_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transfer_spec__posix_data_source)
+               v_posix_data_source
+           in
+           let bnd = "posix_data_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transfer_spec__posix_data_sink
-             v_posix_data_sink
-         in
-         ("posix_data_sink", arg) :: bnds
+         if [] = v_posix_data_sink then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transfer_spec__posix_data_sink)
+               v_posix_data_sink
+           in
+           let bnd = "posix_data_sink", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transfer_spec__object_conditions
-             v_object_conditions
-         in
-         ("object_conditions", arg) :: bnds
+         if [] = v_object_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transfer_spec__object_conditions)
+               v_object_conditions
+           in
+           let bnd = "object_conditions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transfer_spec__http_data_source
-             v_http_data_source
-         in
-         ("http_data_source", arg) :: bnds
+         if [] = v_http_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transfer_spec__http_data_source)
+               v_http_data_source
+           in
+           let bnd = "http_data_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transfer_spec__gcs_data_source
-             v_gcs_data_source
-         in
-         ("gcs_data_source", arg) :: bnds
+         if [] = v_gcs_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transfer_spec__gcs_data_source)
+               v_gcs_data_source
+           in
+           let bnd = "gcs_data_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transfer_spec__gcs_data_sink
-             v_gcs_data_sink
-         in
-         ("gcs_data_sink", arg) :: bnds
+         if [] = v_gcs_data_sink then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transfer_spec__gcs_data_sink)
+               v_gcs_data_sink
+           in
+           let bnd = "gcs_data_sink", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_transfer_spec__azure_blob_storage_data_source
-             v_azure_blob_storage_data_source
-         in
-         ("azure_blob_storage_data_source", arg) :: bnds
+         if [] = v_azure_blob_storage_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transfer_spec__azure_blob_storage_data_source)
+               v_azure_blob_storage_data_source
+           in
+           let bnd = "azure_blob_storage_data_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transfer_spec__aws_s3_data_source
-             v_aws_s3_data_source
-         in
-         ("aws_s3_data_source", arg) :: bnds
+         if [] = v_aws_s3_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_transfer_spec__aws_s3_data_source)
+               v_aws_s3_data_source
+           in
+           let bnd = "aws_s3_data_source", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_agent_pool_name with
@@ -886,9 +947,13 @@ type google_storage_transfer_job = {
   project : string prop option; [@option]
   status : string prop option; [@option]
   event_stream : event_stream list;
+      [@default []] [@yojson_drop_default ( = )]
   notification_config : notification_config list;
+      [@default []] [@yojson_drop_default ( = )]
   schedule : schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   transfer_spec : transfer_spec list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -911,27 +976,41 @@ let yojson_of_google_storage_transfer_job =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_transfer_spec v_transfer_spec
-         in
-         ("transfer_spec", arg) :: bnds
+         if [] = v_transfer_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_transfer_spec) v_transfer_spec
+           in
+           let bnd = "transfer_spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_schedule v_schedule in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule) v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification_config
-             v_notification_config
-         in
-         ("notification_config", arg) :: bnds
+         if [] = v_notification_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification_config)
+               v_notification_config
+           in
+           let bnd = "notification_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_stream v_event_stream
-         in
-         ("event_stream", arg) :: bnds
+         if [] = v_event_stream then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_stream) v_event_stream
+           in
+           let bnd = "event_stream", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_status with

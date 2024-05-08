@@ -254,9 +254,13 @@ type aws_lb_target_group = {
   target_type : string prop option; [@option]
   vpc_id : string prop option; [@option]
   health_check : health_check list;
+      [@default []] [@yojson_drop_default ( = )]
   stickiness : stickiness list;
+      [@default []] [@yojson_drop_default ( = )]
   target_failover : target_failover list;
+      [@default []] [@yojson_drop_default ( = )]
   target_health_state : target_health_state list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -298,29 +302,42 @@ let yojson_of_aws_lb_target_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_health_state
-             v_target_health_state
-         in
-         ("target_health_state", arg) :: bnds
+         if [] = v_target_health_state then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_health_state)
+               v_target_health_state
+           in
+           let bnd = "target_health_state", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_failover v_target_failover
-         in
-         ("target_failover", arg) :: bnds
+         if [] = v_target_failover then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_failover)
+               v_target_failover
+           in
+           let bnd = "target_failover", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stickiness v_stickiness
-         in
-         ("stickiness", arg) :: bnds
+         if [] = v_stickiness then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stickiness) v_stickiness
+           in
+           let bnd = "stickiness", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_health_check v_health_check
-         in
-         ("health_check", arg) :: bnds
+         if [] = v_health_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_health_check) v_health_check
+           in
+           let bnd = "health_check", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_id with

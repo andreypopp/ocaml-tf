@@ -28,6 +28,7 @@ let _ = yojson_of_broker_engine_types__engine_versions
 type broker_engine_types = {
   engine_type : string prop;
   engine_versions : broker_engine_types__engine_versions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -43,12 +44,15 @@ let yojson_of_broker_engine_types =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_broker_engine_types__engine_versions
-             v_engine_versions
-         in
-         ("engine_versions", arg) :: bnds
+         if [] = v_engine_versions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_broker_engine_types__engine_versions)
+               v_engine_versions
+           in
+           let bnd = "engine_versions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_engine_type in

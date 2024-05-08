@@ -298,15 +298,25 @@ type cloudflare_worker_script = {
   module_ : bool prop option; [@option] [@key "module"]
   name : string prop;
   analytics_engine_binding : analytics_engine_binding list;
+      [@default []] [@yojson_drop_default ( = )]
   d1_database_binding : d1_database_binding list;
+      [@default []] [@yojson_drop_default ( = )]
   kv_namespace_binding : kv_namespace_binding list;
+      [@default []] [@yojson_drop_default ( = )]
   placement : placement list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_binding : plain_text_binding list;
+      [@default []] [@yojson_drop_default ( = )]
   queue_binding : queue_binding list;
+      [@default []] [@yojson_drop_default ( = )]
   r2_bucket_binding : r2_bucket_binding list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_text_binding : secret_text_binding list;
+      [@default []] [@yojson_drop_default ( = )]
   service_binding : service_binding list;
+      [@default []] [@yojson_drop_default ( = )]
   webassembly_binding : webassembly_binding list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -338,69 +348,102 @@ let yojson_of_cloudflare_worker_script =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_webassembly_binding
-             v_webassembly_binding
-         in
-         ("webassembly_binding", arg) :: bnds
+         if [] = v_webassembly_binding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_webassembly_binding)
+               v_webassembly_binding
+           in
+           let bnd = "webassembly_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_binding v_service_binding
-         in
-         ("service_binding", arg) :: bnds
+         if [] = v_service_binding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_binding)
+               v_service_binding
+           in
+           let bnd = "service_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secret_text_binding
-             v_secret_text_binding
-         in
-         ("secret_text_binding", arg) :: bnds
+         if [] = v_secret_text_binding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secret_text_binding)
+               v_secret_text_binding
+           in
+           let bnd = "secret_text_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_r2_bucket_binding
-             v_r2_bucket_binding
-         in
-         ("r2_bucket_binding", arg) :: bnds
+         if [] = v_r2_bucket_binding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_r2_bucket_binding)
+               v_r2_bucket_binding
+           in
+           let bnd = "r2_bucket_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_queue_binding v_queue_binding
-         in
-         ("queue_binding", arg) :: bnds
+         if [] = v_queue_binding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_queue_binding) v_queue_binding
+           in
+           let bnd = "queue_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_plain_text_binding
-             v_plain_text_binding
-         in
-         ("plain_text_binding", arg) :: bnds
+         if [] = v_plain_text_binding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_plain_text_binding)
+               v_plain_text_binding
+           in
+           let bnd = "plain_text_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_placement v_placement in
-         ("placement", arg) :: bnds
+         if [] = v_placement then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_placement) v_placement
+           in
+           let bnd = "placement", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kv_namespace_binding
-             v_kv_namespace_binding
-         in
-         ("kv_namespace_binding", arg) :: bnds
+         if [] = v_kv_namespace_binding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kv_namespace_binding)
+               v_kv_namespace_binding
+           in
+           let bnd = "kv_namespace_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_d1_database_binding
-             v_d1_database_binding
-         in
-         ("d1_database_binding", arg) :: bnds
+         if [] = v_d1_database_binding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_d1_database_binding)
+               v_d1_database_binding
+           in
+           let bnd = "d1_database_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_analytics_engine_binding
-             v_analytics_engine_binding
-         in
-         ("analytics_engine_binding", arg) :: bnds
+         if [] = v_analytics_engine_binding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_analytics_engine_binding)
+               v_analytics_engine_binding
+           in
+           let bnd = "analytics_engine_binding", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

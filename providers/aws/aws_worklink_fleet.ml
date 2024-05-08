@@ -33,7 +33,9 @@ let _ = yojson_of_identity_provider
 
 type network = {
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -55,20 +57,24 @@ let yojson_of_network =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : network -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -85,7 +91,8 @@ type aws_worklink_fleet = {
   name : string prop;
   optimize_for_end_user_location : bool prop option; [@option]
   identity_provider : identity_provider list;
-  network : network list;
+      [@default []] [@yojson_drop_default ( = )]
+  network : network list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -108,15 +115,21 @@ let yojson_of_aws_worklink_fleet =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_network v_network in
-         ("network", arg) :: bnds
+         if [] = v_network then bnds
+         else
+           let arg = (yojson_of_list yojson_of_network) v_network in
+           let bnd = "network", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_identity_provider
-             v_identity_provider
-         in
-         ("identity_provider", arg) :: bnds
+         if [] = v_identity_provider then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity_provider)
+               v_identity_provider
+           in
+           let bnd = "identity_provider", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_optimize_for_end_user_location with

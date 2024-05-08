@@ -125,6 +125,7 @@ type aws_opsworks_stack = {
   use_opsworks_security_groups : bool prop option; [@option]
   vpc_id : string prop option; [@option]
   custom_cookbooks_source : custom_cookbooks_source list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -169,11 +170,14 @@ let yojson_of_aws_opsworks_stack =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_cookbooks_source
-             v_custom_cookbooks_source
-         in
-         ("custom_cookbooks_source", arg) :: bnds
+         if [] = v_custom_cookbooks_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_cookbooks_source)
+               v_custom_cookbooks_source
+           in
+           let bnd = "custom_cookbooks_source", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_id with

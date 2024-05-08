@@ -37,7 +37,9 @@ type initial_settings = {
   browser_check : string prop;  (** browser_check *)
   cache_level : string prop;  (** cache_level *)
   challenge_ttl : float prop;  (** challenge_ttl *)
-  ciphers : string prop list;  (** ciphers *)
+  ciphers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ciphers *)
   cname_flattening : string prop;  (** cname_flattening *)
   development_mode : string prop;  (** development_mode *)
   early_hints : string prop;  (** early_hints *)
@@ -55,9 +57,12 @@ type initial_settings = {
   log_to_cloudflare : string prop;  (** log_to_cloudflare *)
   max_upload : float prop;  (** max_upload *)
   min_tls_version : string prop;  (** min_tls_version *)
-  minify : initial_settings__minify list;  (** minify *)
+  minify : initial_settings__minify list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** minify *)
   mirage : string prop;  (** mirage *)
   mobile_redirect : initial_settings__mobile_redirect list;
+      [@default []] [@yojson_drop_default ( = )]
       (** mobile_redirect *)
   opportunistic_encryption : string prop;
       (** opportunistic_encryption *)
@@ -75,6 +80,7 @@ type initial_settings = {
   response_buffering : string prop;  (** response_buffering *)
   rocket_loader : string prop;  (** rocket_loader *)
   security_header : initial_settings__security_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** security_header *)
   security_level : string prop;  (** security_level *)
   server_side_exclude : string prop;  (** server_side_exclude *)

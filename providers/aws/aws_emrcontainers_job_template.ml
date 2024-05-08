@@ -60,6 +60,7 @@ type job_template_data__configuration_overrides__application_configuration = {
   configurations :
     job_template_data__configuration_overrides__application_configuration__configurations
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -80,12 +81,15 @@ let yojson_of_job_template_data__configuration_overrides__application_configurat
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_job_template_data__configuration_overrides__application_configuration__configurations
-             v_configurations
-         in
-         ("configurations", arg) :: bnds
+         if [] = v_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_job_template_data__configuration_overrides__application_configuration__configurations)
+               v_configurations
+           in
+           let bnd = "configurations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_properties with
@@ -197,9 +201,11 @@ type job_template_data__configuration_overrides__monitoring_configuration = {
   cloud_watch_monitoring_configuration :
     job_template_data__configuration_overrides__monitoring_configuration__cloud_watch_monitoring_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_monitoring_configuration :
     job_template_data__configuration_overrides__monitoring_configuration__s3_monitoring_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -221,20 +227,26 @@ let yojson_of_job_template_data__configuration_overrides__monitoring_configurati
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_job_template_data__configuration_overrides__monitoring_configuration__s3_monitoring_configuration
-             v_s3_monitoring_configuration
-         in
-         ("s3_monitoring_configuration", arg) :: bnds
+         if [] = v_s3_monitoring_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_job_template_data__configuration_overrides__monitoring_configuration__s3_monitoring_configuration)
+               v_s3_monitoring_configuration
+           in
+           let bnd = "s3_monitoring_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_job_template_data__configuration_overrides__monitoring_configuration__cloud_watch_monitoring_configuration
-             v_cloud_watch_monitoring_configuration
-         in
-         ("cloud_watch_monitoring_configuration", arg) :: bnds
+         if [] = v_cloud_watch_monitoring_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_job_template_data__configuration_overrides__monitoring_configuration__cloud_watch_monitoring_configuration)
+               v_cloud_watch_monitoring_configuration
+           in
+           let bnd = "cloud_watch_monitoring_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_persistent_app_ui with
@@ -257,9 +269,11 @@ type job_template_data__configuration_overrides = {
   application_configuration :
     job_template_data__configuration_overrides__application_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   monitoring_configuration :
     job_template_data__configuration_overrides__monitoring_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -275,20 +289,26 @@ let yojson_of_job_template_data__configuration_overrides =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_job_template_data__configuration_overrides__monitoring_configuration
-             v_monitoring_configuration
-         in
-         ("monitoring_configuration", arg) :: bnds
+         if [] = v_monitoring_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_job_template_data__configuration_overrides__monitoring_configuration)
+               v_monitoring_configuration
+           in
+           let bnd = "monitoring_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_job_template_data__configuration_overrides__application_configuration
-             v_application_configuration
-         in
-         ("application_configuration", arg) :: bnds
+         if [] = v_application_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_job_template_data__configuration_overrides__application_configuration)
+               v_application_configuration
+           in
+           let bnd = "application_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : job_template_data__configuration_overrides ->
@@ -396,8 +416,10 @@ let _ =
 type job_template_data__job_driver = {
   spark_sql_job_driver :
     job_template_data__job_driver__spark_sql_job_driver list;
+      [@default []] [@yojson_drop_default ( = )]
   spark_submit_job_driver :
     job_template_data__job_driver__spark_submit_job_driver list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -413,20 +435,26 @@ let yojson_of_job_template_data__job_driver =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_job_template_data__job_driver__spark_submit_job_driver
-             v_spark_submit_job_driver
-         in
-         ("spark_submit_job_driver", arg) :: bnds
+         if [] = v_spark_submit_job_driver then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_job_template_data__job_driver__spark_submit_job_driver)
+               v_spark_submit_job_driver
+           in
+           let bnd = "spark_submit_job_driver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_job_template_data__job_driver__spark_sql_job_driver
-             v_spark_sql_job_driver
-         in
-         ("spark_sql_job_driver", arg) :: bnds
+         if [] = v_spark_sql_job_driver then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_job_template_data__job_driver__spark_sql_job_driver)
+               v_spark_sql_job_driver
+           in
+           let bnd = "spark_sql_job_driver", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : job_template_data__job_driver ->
@@ -442,7 +470,9 @@ type job_template_data = {
   release_label : string prop;
   configuration_overrides :
     job_template_data__configuration_overrides list;
+      [@default []] [@yojson_drop_default ( = )]
   job_driver : job_template_data__job_driver list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -461,19 +491,25 @@ let yojson_of_job_template_data =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_job_template_data__job_driver
-             v_job_driver
-         in
-         ("job_driver", arg) :: bnds
+         if [] = v_job_driver then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_job_template_data__job_driver)
+               v_job_driver
+           in
+           let bnd = "job_driver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_job_template_data__configuration_overrides
-             v_configuration_overrides
-         in
-         ("configuration_overrides", arg) :: bnds
+         if [] = v_configuration_overrides then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_job_template_data__configuration_overrides)
+               v_configuration_overrides
+           in
+           let bnd = "configuration_overrides", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_release_label in
@@ -541,6 +577,7 @@ type aws_emrcontainers_job_template = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   job_template_data : job_template_data list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -566,11 +603,14 @@ let yojson_of_aws_emrcontainers_job_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_job_template_data
-             v_job_template_data
-         in
-         ("job_template_data", arg) :: bnds
+         if [] = v_job_template_data then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_job_template_data)
+               v_job_template_data
+           in
+           let bnd = "job_template_data", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

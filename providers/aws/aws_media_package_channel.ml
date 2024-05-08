@@ -39,6 +39,7 @@ let _ = yojson_of_hls_ingest__ingest_endpoints
 
 type hls_ingest = {
   ingest_endpoints : hls_ingest__ingest_endpoints list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -51,11 +52,14 @@ let yojson_of_hls_ingest =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hls_ingest__ingest_endpoints
-             v_ingest_endpoints
-         in
-         ("ingest_endpoints", arg) :: bnds
+         if [] = v_ingest_endpoints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hls_ingest__ingest_endpoints)
+               v_ingest_endpoints
+           in
+           let bnd = "ingest_endpoints", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : hls_ingest -> Ppx_yojson_conv_lib.Yojson.Safe.t)

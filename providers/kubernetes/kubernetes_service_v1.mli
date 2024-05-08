@@ -10,11 +10,15 @@ type status__load_balancer__ingress = {
 }
 
 type status__load_balancer = {
-  ingress : status__load_balancer__ingress list;  (** ingress *)
+  ingress : status__load_balancer__ingress list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ingress *)
 }
 
 type status = {
-  load_balancer : status__load_balancer list;  (** load_balancer *)
+  load_balancer : status__load_balancer list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** load_balancer *)
 }
 
 type metadata

@@ -189,6 +189,7 @@ type azurerm_lb = {
   sku_tier : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   frontend_ip_configuration : frontend_ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -217,11 +218,14 @@ let yojson_of_azurerm_lb =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_frontend_ip_configuration
-             v_frontend_ip_configuration
-         in
-         ("frontend_ip_configuration", arg) :: bnds
+         if [] = v_frontend_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_frontend_ip_configuration)
+               v_frontend_ip_configuration
+           in
+           let bnd = "frontend_ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

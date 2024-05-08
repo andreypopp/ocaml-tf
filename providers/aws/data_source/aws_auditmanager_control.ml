@@ -18,6 +18,7 @@ let _ = yojson_of_control_mapping_sources__source_keyword
 
 type control_mapping_sources = {
   source_keyword : control_mapping_sources__source_keyword list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30,12 +31,15 @@ let yojson_of_control_mapping_sources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_control_mapping_sources__source_keyword
-             v_source_keyword
-         in
-         ("source_keyword", arg) :: bnds
+         if [] = v_source_keyword then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_control_mapping_sources__source_keyword)
+               v_source_keyword
+           in
+           let bnd = "source_keyword", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : control_mapping_sources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -48,6 +52,7 @@ type aws_auditmanager_control = {
   name : string prop;
   type_ : string prop; [@key "type"]
   control_mapping_sources : control_mapping_sources list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,11 +69,14 @@ let yojson_of_aws_auditmanager_control =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control_mapping_sources
-             v_control_mapping_sources
-         in
-         ("control_mapping_sources", arg) :: bnds
+         if [] = v_control_mapping_sources then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control_mapping_sources)
+               v_control_mapping_sources
+           in
+           let bnd = "control_mapping_sources", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

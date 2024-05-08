@@ -5,19 +5,23 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type cors_config__access_control_expose_headers = {
-  items : string prop list;  (** items *)
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** items *)
 }
 
 type cors_config__access_control_allow_origins = {
-  items : string prop list;  (** items *)
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** items *)
 }
 
 type cors_config__access_control_allow_methods = {
-  items : string prop list;  (** items *)
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** items *)
 }
 
 type cors_config__access_control_allow_headers = {
-  items : string prop list;  (** items *)
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** items *)
 }
 
 type cors_config = {
@@ -25,15 +29,19 @@ type cors_config = {
       (** access_control_allow_credentials *)
   access_control_allow_headers :
     cors_config__access_control_allow_headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** access_control_allow_headers *)
   access_control_allow_methods :
     cors_config__access_control_allow_methods list;
+      [@default []] [@yojson_drop_default ( = )]
       (** access_control_allow_methods *)
   access_control_allow_origins :
     cors_config__access_control_allow_origins list;
+      [@default []] [@yojson_drop_default ( = )]
       (** access_control_allow_origins *)
   access_control_expose_headers :
     cors_config__access_control_expose_headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** access_control_expose_headers *)
   access_control_max_age_sec : float prop;
       (** access_control_max_age_sec *)
@@ -47,7 +55,9 @@ type custom_headers_config__items = {
 }
 
 type custom_headers_config = {
-  items : custom_headers_config__items list;  (** items *)
+  items : custom_headers_config__items list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** items *)
 }
 
 type remove_headers_config__items = {
@@ -55,7 +65,9 @@ type remove_headers_config__items = {
 }
 
 type remove_headers_config = {
-  items : remove_headers_config__items list;  (** items *)
+  items : remove_headers_config__items list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** items *)
 }
 
 type security_headers_config__xss_protection = {
@@ -96,18 +108,24 @@ type security_headers_config__content_security_policy = {
 type security_headers_config = {
   content_security_policy :
     security_headers_config__content_security_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** content_security_policy *)
   content_type_options :
     security_headers_config__content_type_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** content_type_options *)
   frame_options : security_headers_config__frame_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** frame_options *)
   referrer_policy : security_headers_config__referrer_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** referrer_policy *)
   strict_transport_security :
     security_headers_config__strict_transport_security list;
+      [@default []] [@yojson_drop_default ( = )]
       (** strict_transport_security *)
   xss_protection : security_headers_config__xss_protection list;
+      [@default []] [@yojson_drop_default ( = )]
       (** xss_protection *)
 }
 

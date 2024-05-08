@@ -135,6 +135,7 @@ type ecs_target__network_configuration = {
   assign_public_ip : bool prop option; [@option]
   security_groups : string prop list option; [@option]
   subnets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -151,10 +152,14 @@ let yojson_of_ecs_target__network_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
-         in
-         ("subnets", arg) :: bnds
+         if [] = v_subnets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnets
+           in
+           let bnd = "subnets", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_security_groups with
@@ -262,10 +267,14 @@ type ecs_target = {
   task_definition_arn : string prop;
   capacity_provider_strategy :
     ecs_target__capacity_provider_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
   network_configuration : ecs_target__network_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   ordered_placement_strategy :
     ecs_target__ordered_placement_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
   placement_constraint : ecs_target__placement_constraint list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -292,34 +301,48 @@ let yojson_of_ecs_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ecs_target__placement_constraint
-             v_placement_constraint
-         in
-         ("placement_constraint", arg) :: bnds
+         if [] = v_placement_constraint then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ecs_target__placement_constraint)
+               v_placement_constraint
+           in
+           let bnd = "placement_constraint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_ecs_target__ordered_placement_strategy
-             v_ordered_placement_strategy
-         in
-         ("ordered_placement_strategy", arg) :: bnds
+         if [] = v_ordered_placement_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ecs_target__ordered_placement_strategy)
+               v_ordered_placement_strategy
+           in
+           let bnd = "ordered_placement_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ecs_target__network_configuration
-             v_network_configuration
-         in
-         ("network_configuration", arg) :: bnds
+         if [] = v_network_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ecs_target__network_configuration)
+               v_network_configuration
+           in
+           let bnd = "network_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_ecs_target__capacity_provider_strategy
-             v_capacity_provider_strategy
-         in
-         ("capacity_provider_strategy", arg) :: bnds
+         if [] = v_capacity_provider_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ecs_target__capacity_provider_strategy)
+               v_capacity_provider_strategy
+           in
+           let bnd = "capacity_provider_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -668,6 +691,7 @@ let _ = yojson_of_retry_policy
 type run_command_targets = {
   key : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -680,10 +704,14 @@ let yojson_of_run_command_targets =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -730,6 +758,7 @@ let _ = yojson_of_sagemaker_pipeline_target__pipeline_parameter_list
 type sagemaker_pipeline_target = {
   pipeline_parameter_list :
     sagemaker_pipeline_target__pipeline_parameter_list list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -742,12 +771,15 @@ let yojson_of_sagemaker_pipeline_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_sagemaker_pipeline_target__pipeline_parameter_list
-             v_pipeline_parameter_list
-         in
-         ("pipeline_parameter_list", arg) :: bnds
+         if [] = v_pipeline_parameter_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_sagemaker_pipeline_target__pipeline_parameter_list)
+               v_pipeline_parameter_list
+           in
+           let bnd = "pipeline_parameter_list", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : sagemaker_pipeline_target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -792,16 +824,27 @@ type aws_cloudwatch_event_target = {
   rule : string prop;
   target_id : string prop option; [@option]
   batch_target : batch_target list;
+      [@default []] [@yojson_drop_default ( = )]
   dead_letter_config : dead_letter_config list;
+      [@default []] [@yojson_drop_default ( = )]
   ecs_target : ecs_target list;
+      [@default []] [@yojson_drop_default ( = )]
   http_target : http_target list;
+      [@default []] [@yojson_drop_default ( = )]
   input_transformer : input_transformer list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_target : kinesis_target list;
+      [@default []] [@yojson_drop_default ( = )]
   redshift_target : redshift_target list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_policy : retry_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   run_command_targets : run_command_targets list;
+      [@default []] [@yojson_drop_default ( = )]
   sagemaker_pipeline_target : sagemaker_pipeline_target list;
+      [@default []] [@yojson_drop_default ( = )]
   sqs_target : sqs_target list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -834,74 +877,109 @@ let yojson_of_aws_cloudwatch_event_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sqs_target v_sqs_target
-         in
-         ("sqs_target", arg) :: bnds
+         if [] = v_sqs_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sqs_target) v_sqs_target
+           in
+           let bnd = "sqs_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sagemaker_pipeline_target
-             v_sagemaker_pipeline_target
-         in
-         ("sagemaker_pipeline_target", arg) :: bnds
+         if [] = v_sagemaker_pipeline_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sagemaker_pipeline_target)
+               v_sagemaker_pipeline_target
+           in
+           let bnd = "sagemaker_pipeline_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_run_command_targets
-             v_run_command_targets
-         in
-         ("run_command_targets", arg) :: bnds
+         if [] = v_run_command_targets then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_run_command_targets)
+               v_run_command_targets
+           in
+           let bnd = "run_command_targets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retry_policy v_retry_policy
-         in
-         ("retry_policy", arg) :: bnds
+         if [] = v_retry_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retry_policy) v_retry_policy
+           in
+           let bnd = "retry_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_redshift_target v_redshift_target
-         in
-         ("redshift_target", arg) :: bnds
+         if [] = v_redshift_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_redshift_target)
+               v_redshift_target
+           in
+           let bnd = "redshift_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kinesis_target v_kinesis_target
-         in
-         ("kinesis_target", arg) :: bnds
+         if [] = v_kinesis_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kinesis_target)
+               v_kinesis_target
+           in
+           let bnd = "kinesis_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_input_transformer
-             v_input_transformer
-         in
-         ("input_transformer", arg) :: bnds
+         if [] = v_input_transformer then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_input_transformer)
+               v_input_transformer
+           in
+           let bnd = "input_transformer", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_target v_http_target
-         in
-         ("http_target", arg) :: bnds
+         if [] = v_http_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_target) v_http_target
+           in
+           let bnd = "http_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ecs_target v_ecs_target
-         in
-         ("ecs_target", arg) :: bnds
+         if [] = v_ecs_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ecs_target) v_ecs_target
+           in
+           let bnd = "ecs_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dead_letter_config
-             v_dead_letter_config
-         in
-         ("dead_letter_config", arg) :: bnds
+         if [] = v_dead_letter_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dead_letter_config)
+               v_dead_letter_config
+           in
+           let bnd = "dead_letter_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_batch_target v_batch_target
-         in
-         ("batch_target", arg) :: bnds
+         if [] = v_batch_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_batch_target) v_batch_target
+           in
+           let bnd = "batch_target", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_id with

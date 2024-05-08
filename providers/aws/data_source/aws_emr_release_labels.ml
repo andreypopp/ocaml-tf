@@ -41,7 +41,7 @@ let _ = yojson_of_filters
 
 type aws_emr_release_labels = {
   id : string prop option; [@option]
-  filters : filters list;
+  filters : filters list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,8 +54,11 @@ let yojson_of_aws_emr_release_labels =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filters v_filters in
-         ("filters", arg) :: bnds
+         if [] = v_filters then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filters) v_filters in
+           let bnd = "filters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

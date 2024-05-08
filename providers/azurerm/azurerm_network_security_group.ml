@@ -67,18 +67,24 @@ type security_rule = {
   description : string prop;
   destination_address_prefix : string prop;
   destination_address_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_application_security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_port_range : string prop;
   destination_port_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   direction : string prop;
   name : string prop;
   priority : float prop;
   protocol : string prop;
   source_address_prefix : string prop;
   source_address_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   source_application_security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   source_port_range : string prop;
   source_port_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,12 +116,14 @@ let yojson_of_security_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_port_ranges
-         in
-         ("source_port_ranges", arg) :: bnds
+         if [] = v_source_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_port_ranges
+           in
+           let bnd = "source_port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -124,20 +132,24 @@ let yojson_of_security_rule =
          ("source_port_range", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_application_security_group_ids
-         in
-         ("source_application_security_group_ids", arg) :: bnds
+         if [] = v_source_application_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_application_security_group_ids
+           in
+           let bnd = "source_application_security_group_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_address_prefixes
-         in
-         ("source_address_prefixes", arg) :: bnds
+         if [] = v_source_address_prefixes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_address_prefixes
+           in
+           let bnd = "source_address_prefixes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -162,12 +174,14 @@ let yojson_of_security_rule =
          ("direction", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_port_ranges
-         in
-         ("destination_port_ranges", arg) :: bnds
+         if [] = v_destination_port_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_port_ranges
+           in
+           let bnd = "destination_port_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -176,20 +190,27 @@ let yojson_of_security_rule =
          ("destination_port_range", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_application_security_group_ids
-         in
-         ("destination_application_security_group_ids", arg) :: bnds
+         if [] = v_destination_application_security_group_ids then
+           bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_application_security_group_ids
+           in
+           let bnd =
+             "destination_application_security_group_ids", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_address_prefixes
-         in
-         ("destination_address_prefixes", arg) :: bnds
+         if [] = v_destination_address_prefixes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_address_prefixes
+           in
+           let bnd = "destination_address_prefixes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

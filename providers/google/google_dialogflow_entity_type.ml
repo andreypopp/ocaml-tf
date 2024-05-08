@@ -2,7 +2,11 @@
 
 open! Tf_core
 
-type entities = { synonyms : string prop list; value : string prop }
+type entities = {
+  synonyms : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+  value : string prop;
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : entities) -> ()
@@ -18,12 +22,14 @@ let yojson_of_entities =
          ("value", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_synonyms
-         in
-         ("synonyms", arg) :: bnds
+         if [] = v_synonyms then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_synonyms
+           in
+           let bnd = "synonyms", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : entities -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -85,6 +91,7 @@ type google_dialogflow_entity_type = {
   kind : string prop;
   project : string prop option; [@option]
   entities : entities list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -110,8 +117,13 @@ let yojson_of_google_dialogflow_entity_type =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_entities v_entities in
-         ("entities", arg) :: bnds
+         if [] = v_entities then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_entities) v_entities
+           in
+           let bnd = "entities", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

@@ -140,7 +140,9 @@ type google_dialogflow_fulfillment = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   features : features list;
+      [@default []] [@yojson_drop_default ( = )]
   generic_web_service : generic_web_service list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -166,15 +168,23 @@ let yojson_of_google_dialogflow_fulfillment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_generic_web_service
-             v_generic_web_service
-         in
-         ("generic_web_service", arg) :: bnds
+         if [] = v_generic_web_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_generic_web_service)
+               v_generic_web_service
+           in
+           let bnd = "generic_web_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_features v_features in
-         ("features", arg) :: bnds
+         if [] = v_features then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features) v_features
+           in
+           let bnd = "features", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

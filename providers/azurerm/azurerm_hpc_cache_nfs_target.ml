@@ -126,6 +126,7 @@ type azurerm_hpc_cache_nfs_target = {
   verification_timer_in_seconds : float prop option; [@option]
   write_back_timer_in_seconds : float prop option; [@option]
   namespace_junction : namespace_junction list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -155,11 +156,14 @@ let yojson_of_azurerm_hpc_cache_nfs_target =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_namespace_junction
-             v_namespace_junction
-         in
-         ("namespace_junction", arg) :: bnds
+         if [] = v_namespace_junction then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_namespace_junction)
+               v_namespace_junction
+           in
+           let bnd = "namespace_junction", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_write_back_timer_in_seconds with

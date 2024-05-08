@@ -12,9 +12,15 @@ type authentication_configuration = {
 
 type cors_configuration = {
   allow_credentials : bool prop;  (** allow_credentials *)
-  allowed_headers : string prop list;  (** allowed_headers *)
-  allowed_methods : string prop list;  (** allowed_methods *)
-  allowed_origins : string prop list;  (** allowed_origins *)
+  allowed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_headers *)
+  allowed_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_methods *)
+  allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_origins *)
   max_age_in_seconds : float prop;  (** max_age_in_seconds *)
 }
 

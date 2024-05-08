@@ -71,6 +71,7 @@ type azurerm_disk_pool = {
   subnet_id : string prop;
   tags : (string * string prop) list option; [@option]
   zones : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -98,10 +99,14 @@ let yojson_of_azurerm_disk_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_zones
-         in
-         ("zones", arg) :: bnds
+         if [] = v_zones then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_zones
+           in
+           let bnd = "zones", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

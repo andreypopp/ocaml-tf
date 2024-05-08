@@ -107,8 +107,9 @@ type google_bigtable_gc_policy = {
   mode : string prop option; [@option]
   project : string prop option; [@option]
   table : string prop;
-  max_age : max_age list;
+  max_age : max_age list; [@default []] [@yojson_drop_default ( = )]
   max_version : max_version list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -138,14 +139,20 @@ let yojson_of_google_bigtable_gc_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_max_version v_max_version
-         in
-         ("max_version", arg) :: bnds
+         if [] = v_max_version then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_max_version) v_max_version
+           in
+           let bnd = "max_version", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_max_age v_max_age in
-         ("max_age", arg) :: bnds
+         if [] = v_max_age then bnds
+         else
+           let arg = (yojson_of_list yojson_of_max_age) v_max_age in
+           let bnd = "max_age", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_table in

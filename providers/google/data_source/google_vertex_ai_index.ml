@@ -69,8 +69,8 @@ let yojson_of_metadata__config__algorithm_config__brute_force_config =
 let _ = yojson_of_metadata__config__algorithm_config__brute_force_config
 [@@@deriving.end]
 type metadata__config__algorithm_config = {
-  brute_force_config: metadata__config__algorithm_config__brute_force_config list; 
-  tree_ah_config: metadata__config__algorithm_config__tree_ah_config list; 
+  brute_force_config: metadata__config__algorithm_config__brute_force_config list; [@default []] [@yojson_drop_default ( = )]
+  tree_ah_config: metadata__config__algorithm_config__tree_ah_config list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 let _ = fun (_ : metadata__config__algorithm_config) -> ()
 let yojson_of_metadata__config__algorithm_config =
@@ -79,23 +79,29 @@ let yojson_of_metadata__config__algorithm_config =
        tree_ah_config = v_tree_ah_config } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list = [] in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_metadata__config__algorithm_config__tree_ah_config
-             v_tree_ah_config in
-         ("tree_ah_config", arg) :: bnds in
+         if [] = v_tree_ah_config
+         then bnds
+         else
+           (let arg =
+              (yojson_of_list
+                 yojson_of_metadata__config__algorithm_config__tree_ah_config)
+                v_tree_ah_config in
+            let bnd = ("tree_ah_config", arg) in bnd :: bnds) in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_metadata__config__algorithm_config__brute_force_config
-             v_brute_force_config in
-         ("brute_force_config", arg) :: bnds in
+         if [] = v_brute_force_config
+         then bnds
+         else
+           (let arg =
+              (yojson_of_list
+                 yojson_of_metadata__config__algorithm_config__brute_force_config)
+                v_brute_force_config in
+            let bnd = ("brute_force_config", arg) in bnd :: bnds) in
        `Assoc bnds : metadata__config__algorithm_config ->
                        Ppx_yojson_conv_lib.Yojson.Safe.t)
 let _ = yojson_of_metadata__config__algorithm_config
 [@@@deriving.end]
 type metadata__config = {
-  algorithm_config: metadata__config__algorithm_config list; 
+  algorithm_config: metadata__config__algorithm_config list; [@default []] [@yojson_drop_default ( = )]
   approximate_neighbors_count: float prop; 
   dimensions: float prop; 
   distance_measure_type: string prop; 
@@ -129,15 +135,18 @@ let yojson_of_metadata__config =
            yojson_of_prop yojson_of_float v_approximate_neighbors_count in
          ("approximate_neighbors_count", arg) :: bnds in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metadata__config__algorithm_config
-             v_algorithm_config in
-         ("algorithm_config", arg) :: bnds in
+         if [] = v_algorithm_config
+         then bnds
+         else
+           (let arg =
+              (yojson_of_list yojson_of_metadata__config__algorithm_config)
+                v_algorithm_config in
+            let bnd = ("algorithm_config", arg) in bnd :: bnds) in
        `Assoc bnds : metadata__config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 let _ = yojson_of_metadata__config
 [@@@deriving.end]
 type metadata = {
-  config: metadata__config list; 
+  config: metadata__config list; [@default []] [@yojson_drop_default ( = )]
   contents_delta_uri: string prop; 
   is_complete_overwrite: bool prop; 
 } [@@deriving_inline yojson_of]
@@ -154,8 +163,11 @@ let yojson_of_metadata =
          let arg = yojson_of_prop yojson_of_string v_contents_delta_uri in
          ("contents_delta_uri", arg) :: bnds in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata__config v_config in
-         ("config", arg) :: bnds in
+         if [] = v_config
+         then bnds
+         else
+           (let arg = (yojson_of_list yojson_of_metadata__config) v_config in
+            let bnd = ("config", arg) in bnd :: bnds) in
        `Assoc bnds : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 let _ = yojson_of_metadata
 [@@@deriving.end]

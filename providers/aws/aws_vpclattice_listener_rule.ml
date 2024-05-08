@@ -65,6 +65,7 @@ let _ = yojson_of_action__forward__target_groups
 
 type action__forward = {
   target_groups : action__forward__target_groups list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -77,11 +78,14 @@ let yojson_of_action__forward =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__forward__target_groups
-             v_target_groups
-         in
-         ("target_groups", arg) :: bnds
+         if [] = v_target_groups then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__forward__target_groups)
+               v_target_groups
+           in
+           let bnd = "target_groups", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : action__forward -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -92,7 +96,9 @@ let _ = yojson_of_action__forward
 
 type action = {
   fixed_response : action__fixed_response list;
+      [@default []] [@yojson_drop_default ( = )]
   forward : action__forward list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -105,17 +111,23 @@ let yojson_of_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__forward v_forward
-         in
-         ("forward", arg) :: bnds
+         if [] = v_forward then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__forward) v_forward
+           in
+           let bnd = "forward", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__fixed_response
-             v_fixed_response
-         in
-         ("fixed_response", arg) :: bnds
+         if [] = v_fixed_response then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__fixed_response)
+               v_fixed_response
+           in
+           let bnd = "fixed_response", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -175,7 +187,7 @@ type match__http_match__header_matches = {
   case_sensitive : bool prop option; [@option]
   name : string prop;
   match_ : match__http_match__header_matches__match list;
-      [@key "match"]
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -192,12 +204,15 @@ let yojson_of_match__http_match__header_matches =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_match__http_match__header_matches__match
-             v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_match__http_match__header_matches__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -259,7 +274,8 @@ let _ = yojson_of_match__http_match__path_match__match
 
 type match__http_match__path_match = {
   case_sensitive : bool prop option; [@option]
-  match_ : match__http_match__path_match__match list; [@key "match"]
+  match_ : match__http_match__path_match__match list;
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -272,11 +288,15 @@ let yojson_of_match__http_match__path_match =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_match__http_match__path_match__match v_match_
-         in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_match__http_match__path_match__match)
+               v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_case_sensitive with
@@ -297,7 +317,9 @@ let _ = yojson_of_match__http_match__path_match
 type match__http_match = {
   method_ : string prop option; [@option] [@key "method"]
   header_matches : match__http_match__header_matches list;
+      [@default []] [@yojson_drop_default ( = )]
   path_match : match__http_match__path_match list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -314,18 +336,25 @@ let yojson_of_match__http_match =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_match__http_match__path_match
-             v_path_match
-         in
-         ("path_match", arg) :: bnds
+         if [] = v_path_match then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_match__http_match__path_match)
+               v_path_match
+           in
+           let bnd = "path_match", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_match__http_match__header_matches
-             v_header_matches
-         in
-         ("header_matches", arg) :: bnds
+         if [] = v_header_matches then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_match__http_match__header_matches)
+               v_header_matches
+           in
+           let bnd = "header_matches", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_method_ with
@@ -342,7 +371,10 @@ let _ = yojson_of_match__http_match
 
 [@@@deriving.end]
 
-type match_ = { http_match : match__http_match list }
+type match_ = {
+  http_match : match__http_match list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : match_) -> ()
@@ -354,10 +386,14 @@ let yojson_of_match_ =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_match__http_match v_http_match
-         in
-         ("http_match", arg) :: bnds
+         if [] = v_http_match then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_match__http_match)
+               v_http_match
+           in
+           let bnd = "http_match", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : match_ -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -420,8 +456,9 @@ type aws_vpclattice_listener_rule = {
   service_identifier : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  action : action list;
-  match_ : match_ list; [@key "match"]
+  action : action list; [@default []] [@yojson_drop_default ( = )]
+  match_ : match_ list;
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -450,12 +487,18 @@ let yojson_of_aws_vpclattice_listener_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_match_ v_match_ in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg = (yojson_of_list yojson_of_match_) v_match_ in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg = (yojson_of_list yojson_of_action) v_action in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

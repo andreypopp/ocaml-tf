@@ -26,6 +26,7 @@ let _ = yojson_of_oidc__client_secret__value
 
 type oidc__client_secret = {
   value : oidc__client_secret__value list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38,11 +39,14 @@ let yojson_of_oidc__client_secret =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_oidc__client_secret__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_oidc__client_secret__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : oidc__client_secret -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -103,7 +107,9 @@ type oidc = {
   issuer_uri : string prop;
   jwks_json : string prop option; [@option]
   client_secret : oidc__client_secret list;
+      [@default []] [@yojson_drop_default ( = )]
   web_sso_config : oidc__web_sso_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,18 +128,24 @@ let yojson_of_oidc =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_oidc__web_sso_config
-             v_web_sso_config
-         in
-         ("web_sso_config", arg) :: bnds
+         if [] = v_web_sso_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_oidc__web_sso_config)
+               v_web_sso_config
+           in
+           let bnd = "web_sso_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_oidc__client_secret
-             v_client_secret
-         in
-         ("client_secret", arg) :: bnds
+         if [] = v_client_secret then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_oidc__client_secret)
+               v_client_secret
+           in
+           let bnd = "client_secret", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_jwks_json with
@@ -238,8 +250,8 @@ type google_iam_workforce_pool_provider = {
   location : string prop;
   provider_id : string prop;
   workforce_pool_id : string prop;
-  oidc : oidc list;
-  saml : saml list;
+  oidc : oidc list; [@default []] [@yojson_drop_default ( = )]
+  saml : saml list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -270,12 +282,18 @@ let yojson_of_google_iam_workforce_pool_provider =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_saml v_saml in
-         ("saml", arg) :: bnds
+         if [] = v_saml then bnds
+         else
+           let arg = (yojson_of_list yojson_of_saml) v_saml in
+           let bnd = "saml", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_oidc v_oidc in
-         ("oidc", arg) :: bnds
+         if [] = v_oidc then bnds
+         else
+           let arg = (yojson_of_list yojson_of_oidc) v_oidc in
+           let bnd = "oidc", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

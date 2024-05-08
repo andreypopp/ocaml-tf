@@ -122,6 +122,7 @@ type azurerm_site_recovery_protection_container_mapping = {
   recovery_vault_name : string prop;
   resource_group_name : string prop;
   automatic_update : automatic_update list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -154,11 +155,14 @@ let yojson_of_azurerm_site_recovery_protection_container_mapping =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_automatic_update
-             v_automatic_update
-         in
-         ("automatic_update", arg) :: bnds
+         if [] = v_automatic_update then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_automatic_update)
+               v_automatic_update
+           in
+           let bnd = "automatic_update", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -131,7 +131,7 @@ type azurerm_spring_cloud_dev_tool_portal = {
   name : string prop;
   public_network_access_enabled : bool prop option; [@option]
   spring_cloud_service_id : string prop;
-  sso : sso list;
+  sso : sso list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -161,8 +161,11 @@ let yojson_of_azurerm_spring_cloud_dev_tool_portal =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sso v_sso in
-         ("sso", arg) :: bnds
+         if [] = v_sso then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sso) v_sso in
+           let bnd = "sso", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

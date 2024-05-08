@@ -53,6 +53,7 @@ type aws_gamelift_game_session_queue = {
   tags_all : (string * string prop) list option; [@option]
   timeout_in_seconds : float prop option; [@option]
   player_latency_policy : player_latency_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,11 +76,14 @@ let yojson_of_aws_gamelift_game_session_queue =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_player_latency_policy
-             v_player_latency_policy
-         in
-         ("player_latency_policy", arg) :: bnds
+         if [] = v_player_latency_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_player_latency_policy)
+               v_player_latency_policy
+           in
+           let bnd = "player_latency_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_in_seconds with

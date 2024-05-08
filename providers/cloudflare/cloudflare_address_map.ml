@@ -55,8 +55,9 @@ type cloudflare_address_map = {
   description : string prop option; [@option]
   enabled : bool prop;
   id : string prop option; [@option]
-  ips : ips list;
+  ips : ips list; [@default []] [@yojson_drop_default ( = )]
   memberships : memberships list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -77,14 +78,20 @@ let yojson_of_cloudflare_address_map =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_memberships v_memberships
-         in
-         ("memberships", arg) :: bnds
+         if [] = v_memberships then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_memberships) v_memberships
+           in
+           let bnd = "memberships", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_ips v_ips in
-         ("ips", arg) :: bnds
+         if [] = v_ips then bnds
+         else
+           let arg = (yojson_of_list yojson_of_ips) v_ips in
+           let bnd = "ips", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

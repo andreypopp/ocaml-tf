@@ -63,10 +63,12 @@ let _ = yojson_of_groups__additional_group_keys
 
 type groups = {
   additional_group_keys : groups__additional_group_keys list;
+      [@default []] [@yojson_drop_default ( = )]
   create_time : string prop;
   description : string prop;
   display_name : string prop;
   group_key : groups__group_key list;
+      [@default []] [@yojson_drop_default ( = )]
   initial_group_config : string prop;
   labels : (string * string prop) list;
   name : string prop;
@@ -125,10 +127,13 @@ let yojson_of_groups =
          ("initial_group_config", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_groups__group_key v_group_key
-         in
-         ("group_key", arg) :: bnds
+         if [] = v_group_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_groups__group_key) v_group_key
+           in
+           let bnd = "group_key", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_display_name in
@@ -143,11 +148,14 @@ let yojson_of_groups =
          ("create_time", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_groups__additional_group_keys
-             v_additional_group_keys
-         in
-         ("additional_group_keys", arg) :: bnds
+         if [] = v_additional_group_keys then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_groups__additional_group_keys)
+               v_additional_group_keys
+           in
+           let bnd = "additional_group_keys", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : groups -> Ppx_yojson_conv_lib.Yojson.Safe.t)

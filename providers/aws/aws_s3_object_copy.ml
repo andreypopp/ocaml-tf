@@ -6,6 +6,7 @@ type grant = {
   email : string prop option; [@option]
   id : string prop option; [@option]
   permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
   uri : string prop option; [@option]
 }
@@ -38,12 +39,14 @@ let yojson_of_grant =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_permissions
-         in
-         ("permissions", arg) :: bnds
+         if [] = v_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_permissions
+           in
+           let bnd = "permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with
@@ -109,7 +112,7 @@ type aws_s3_object_copy = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   website_redirect : string prop option; [@option]
-  grant : grant list;
+  grant : grant list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -166,8 +169,11 @@ let yojson_of_aws_s3_object_copy =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_grant v_grant in
-         ("grant", arg) :: bnds
+         if [] = v_grant then bnds
+         else
+           let arg = (yojson_of_list yojson_of_grant) v_grant in
+           let bnd = "grant", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_website_redirect with

@@ -37,6 +37,7 @@ type targeting_filter = {
   default_rollout_percentage : float prop;
   users : string prop list option; [@option]
   groups : targeting_filter__groups list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,10 +54,14 @@ let yojson_of_targeting_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_targeting_filter__groups v_groups
-         in
-         ("groups", arg) :: bnds
+         if [] = v_groups then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_targeting_filter__groups)
+               v_groups
+           in
+           let bnd = "groups", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_users with
@@ -192,8 +197,10 @@ type azurerm_app_configuration_feature = {
   percentage_filter_value : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   targeting_filter : targeting_filter list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   timewindow_filter : timewindow_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -221,22 +228,28 @@ let yojson_of_azurerm_app_configuration_feature =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_timewindow_filter
-             v_timewindow_filter
-         in
-         ("timewindow_filter", arg) :: bnds
+         if [] = v_timewindow_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_timewindow_filter)
+               v_timewindow_filter
+           in
+           let bnd = "timewindow_filter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_targeting_filter
-             v_targeting_filter
-         in
-         ("targeting_filter", arg) :: bnds
+         if [] = v_targeting_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_targeting_filter)
+               v_targeting_filter
+           in
+           let bnd = "targeting_filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

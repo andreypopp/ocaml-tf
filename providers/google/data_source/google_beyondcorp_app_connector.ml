@@ -27,6 +27,7 @@ let _ = yojson_of_principal_info__service_account
 
 type principal_info = {
   service_account : principal_info__service_account list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,11 +40,15 @@ let yojson_of_principal_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_principal_info__service_account
-             v_service_account
-         in
-         ("service_account", arg) :: bnds
+         if [] = v_service_account then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_principal_info__service_account)
+               v_service_account
+           in
+           let bnd = "service_account", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : principal_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)

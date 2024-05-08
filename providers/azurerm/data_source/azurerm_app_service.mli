@@ -11,15 +11,24 @@ type connection_string = {
 }
 
 type site_config__scm_ip_restriction__headers = {
-  x_azure_fdid : string prop list;  (** x_azure_fdid *)
-  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
-  x_forwarded_for : string prop list;  (** x_forwarded_for *)
-  x_forwarded_host : string prop list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_for *)
+  x_forwarded_host : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_host *)
 }
 
 type site_config__scm_ip_restriction = {
   action : string prop;  (** action *)
   headers : site_config__scm_ip_restriction__headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** headers *)
   ip_address : string prop;  (** ip_address *)
   name : string prop;  (** name *)
@@ -30,15 +39,24 @@ type site_config__scm_ip_restriction = {
 }
 
 type site_config__ip_restriction__headers = {
-  x_azure_fdid : string prop list;  (** x_azure_fdid *)
-  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
-  x_forwarded_for : string prop list;  (** x_forwarded_for *)
-  x_forwarded_host : string prop list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_for *)
+  x_forwarded_host : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_host *)
 }
 
 type site_config__ip_restriction = {
   action : string prop;  (** action *)
   headers : site_config__ip_restriction__headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** headers *)
   ip_address : string prop;  (** ip_address *)
   name : string prop;  (** name *)
@@ -49,7 +67,9 @@ type site_config__ip_restriction = {
 }
 
 type site_config__cors = {
-  allowed_origins : string prop list;  (** allowed_origins *)
+  allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_origins *)
   support_credentials : bool prop;  (** support_credentials *)
 }
 
@@ -60,14 +80,19 @@ type site_config = {
       (** acr_user_managed_identity_client_id *)
   always_on : bool prop;  (** always_on *)
   app_command_line : string prop;  (** app_command_line *)
-  cors : site_config__cors list;  (** cors *)
-  default_documents : string prop list;  (** default_documents *)
+  cors : site_config__cors list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cors *)
+  default_documents : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** default_documents *)
   dotnet_framework_version : string prop;
       (** dotnet_framework_version *)
   ftps_state : string prop;  (** ftps_state *)
   health_check_path : string prop;  (** health_check_path *)
   http2_enabled : bool prop;  (** http2_enabled *)
   ip_restriction : site_config__ip_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ip_restriction *)
   java_container : string prop;  (** java_container *)
   java_container_version : string prop;
@@ -85,6 +110,7 @@ type site_config = {
   remote_debugging_version : string prop;
       (** remote_debugging_version *)
   scm_ip_restriction : site_config__scm_ip_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
       (** scm_ip_restriction *)
   scm_type : string prop;  (** scm_type *)
   scm_use_main_ip_restriction : bool prop;

@@ -7,42 +7,64 @@ open! Tf_core
 type filter__tag = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type filter__not__tag = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type filter__not__dimension = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type filter__not = {
-  dimension : filter__not__dimension list;  (** dimension *)
-  tag : filter__not__tag list;  (** tag *)
+  dimension : filter__not__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** dimension *)
+  tag : filter__not__tag list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** tag *)
 }
 
 type filter__dimension = {
   name : string prop;  (** name *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type filter = {
-  dimension : filter__dimension list;  (** dimension *)
-  not : filter__not list;  (** not *)
-  tag : filter__tag list;  (** tag *)
+  dimension : filter__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** dimension *)
+  not : filter__not list; [@default []] [@yojson_drop_default ( = )]
+      (** not *)
+  tag : filter__tag list; [@default []] [@yojson_drop_default ( = )]
+      (** tag *)
 }
 
 type notification = {
-  contact_emails : string prop list;  (** contact_emails *)
-  contact_groups : string prop list;  (** contact_groups *)
-  contact_roles : string prop list;  (** contact_roles *)
+  contact_emails : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** contact_emails *)
+  contact_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** contact_groups *)
+  contact_roles : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** contact_roles *)
   enabled : bool prop;  (** enabled *)
   operator : string prop;  (** operator *)
   threshold : float prop;  (** threshold *)

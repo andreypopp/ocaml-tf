@@ -177,13 +177,18 @@ type volume = {
   capacity_pool_id : string prop;
   data_protection_replication :
     volume__data_protection_replication list;
+      [@default []] [@yojson_drop_default ( = )]
   data_protection_snapshot_policy :
     volume__data_protection_snapshot_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   export_policy_rule : volume__export_policy_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop;
   mount_ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   proximity_placement_group_id : string prop;
   security_style : string prop;
   service_level : string prop;
@@ -287,51 +292,64 @@ let yojson_of_volume =
          ("proximity_placement_group_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_protocols
-         in
-         ("protocols", arg) :: bnds
+         if [] = v_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_protocols
+           in
+           let bnd = "protocols", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_mount_ip_addresses
-         in
-         ("mount_ip_addresses", arg) :: bnds
+         if [] = v_mount_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_mount_ip_addresses
+           in
+           let bnd = "mount_ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_id in
          ("id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_volume__export_policy_rule
-             v_export_policy_rule
-         in
-         ("export_policy_rule", arg) :: bnds
+         if [] = v_export_policy_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_volume__export_policy_rule)
+               v_export_policy_rule
+           in
+           let bnd = "export_policy_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_volume__data_protection_snapshot_policy
-             v_data_protection_snapshot_policy
-         in
-         ("data_protection_snapshot_policy", arg) :: bnds
+         if [] = v_data_protection_snapshot_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_volume__data_protection_snapshot_policy)
+               v_data_protection_snapshot_policy
+           in
+           let bnd = "data_protection_snapshot_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_volume__data_protection_replication
-             v_data_protection_replication
-         in
-         ("data_protection_replication", arg) :: bnds
+         if [] = v_data_protection_replication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_volume__data_protection_replication)
+               v_data_protection_replication
+           in
+           let bnd = "data_protection_replication", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

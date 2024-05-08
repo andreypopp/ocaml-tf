@@ -81,6 +81,7 @@ type google_monitoring_custom_service = {
   service_id : string prop option; [@option]
   user_labels : (string * string prop) list option; [@option]
   telemetry : telemetry list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -106,8 +107,13 @@ let yojson_of_google_monitoring_custom_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_telemetry v_telemetry in
-         ("telemetry", arg) :: bnds
+         if [] = v_telemetry then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_telemetry) v_telemetry
+           in
+           let bnd = "telemetry", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_labels with

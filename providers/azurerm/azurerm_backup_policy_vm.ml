@@ -197,6 +197,7 @@ let _ = yojson_of_retention_monthly
 type retention_weekly = {
   count : float prop;
   weekdays : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -209,12 +210,14 @@ let yojson_of_retention_weekly =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_weekdays
-         in
-         ("weekdays", arg) :: bnds
+         if [] = v_weekdays then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_weekdays
+           in
+           let bnd = "weekdays", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_count in
@@ -232,6 +235,7 @@ type retention_yearly = {
   days : float prop list option; [@option]
   include_last_days : bool prop option; [@option]
   months : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   weekdays : string prop list option; [@option]
   weeks : string prop list option; [@option]
 }
@@ -273,10 +277,14 @@ let yojson_of_retention_yearly =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_months
-         in
-         ("months", arg) :: bnds
+         if [] = v_months then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_months
+           in
+           let bnd = "months", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_include_last_days with
@@ -375,13 +383,18 @@ type azurerm_backup_policy_vm = {
   recovery_vault_name : string prop;
   resource_group_name : string prop;
   timezone : string prop option; [@option]
-  backup : backup list;
+  backup : backup list; [@default []] [@yojson_drop_default ( = )]
   instant_restore_resource_group :
     instant_restore_resource_group list;
+      [@default []] [@yojson_drop_default ( = )]
   retention_daily : retention_daily list;
+      [@default []] [@yojson_drop_default ( = )]
   retention_monthly : retention_monthly list;
+      [@default []] [@yojson_drop_default ( = )]
   retention_weekly : retention_weekly list;
+      [@default []] [@yojson_drop_default ( = )]
   retention_yearly : retention_yearly list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -416,42 +429,61 @@ let yojson_of_azurerm_backup_policy_vm =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_yearly
-             v_retention_yearly
-         in
-         ("retention_yearly", arg) :: bnds
+         if [] = v_retention_yearly then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_yearly)
+               v_retention_yearly
+           in
+           let bnd = "retention_yearly", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_weekly
-             v_retention_weekly
-         in
-         ("retention_weekly", arg) :: bnds
+         if [] = v_retention_weekly then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_weekly)
+               v_retention_weekly
+           in
+           let bnd = "retention_weekly", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_monthly
-             v_retention_monthly
-         in
-         ("retention_monthly", arg) :: bnds
+         if [] = v_retention_monthly then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_monthly)
+               v_retention_monthly
+           in
+           let bnd = "retention_monthly", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_daily v_retention_daily
-         in
-         ("retention_daily", arg) :: bnds
+         if [] = v_retention_daily then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_daily)
+               v_retention_daily
+           in
+           let bnd = "retention_daily", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instant_restore_resource_group
-             v_instant_restore_resource_group
-         in
-         ("instant_restore_resource_group", arg) :: bnds
+         if [] = v_instant_restore_resource_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instant_restore_resource_group)
+               v_instant_restore_resource_group
+           in
+           let bnd = "instant_restore_resource_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_backup v_backup in
-         ("backup", arg) :: bnds
+         if [] = v_backup then bnds
+         else
+           let arg = (yojson_of_list yojson_of_backup) v_backup in
+           let bnd = "backup", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timezone with

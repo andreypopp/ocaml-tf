@@ -5,6 +5,7 @@ open! Tf_core
 type aws_datasync_location_object_storage = {
   access_key : string prop option; [@option]
   agent_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   bucket_name : string prop;
   id : string prop option; [@option]
   secret_key : string prop option; [@option]
@@ -130,12 +131,14 @@ let yojson_of_aws_datasync_location_object_storage =
          ("bucket_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_agent_arns
-         in
-         ("agent_arns", arg) :: bnds
+         if [] = v_agent_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_agent_arns
+           in
+           let bnd = "agent_arns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_access_key with

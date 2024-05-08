@@ -131,6 +131,7 @@ let _ = yojson_of_certificate_common_names__common_names
 type certificate_common_names = {
   x509_store_name : string prop;
   common_names : certificate_common_names__common_names list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -146,12 +147,15 @@ let yojson_of_certificate_common_names =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_certificate_common_names__common_names
-             v_common_names
-         in
-         ("common_names", arg) :: bnds
+         if [] = v_common_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_certificate_common_names__common_names)
+               v_common_names
+           in
+           let bnd = "common_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -412,7 +416,9 @@ type node_type = {
       [@option]
   reverse_proxy_endpoint_port : float prop option; [@option]
   application_ports : node_type__application_ports list;
+      [@default []] [@yojson_drop_default ( = )]
   ephemeral_ports : node_type__ephemeral_ports list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -439,18 +445,24 @@ let yojson_of_node_type =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_type__ephemeral_ports
-             v_ephemeral_ports
-         in
-         ("ephemeral_ports", arg) :: bnds
+         if [] = v_ephemeral_ports then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_type__ephemeral_ports)
+               v_ephemeral_ports
+           in
+           let bnd = "ephemeral_ports", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_type__application_ports
-             v_application_ports
-         in
-         ("application_ports", arg) :: bnds
+         if [] = v_application_ports then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_type__application_ports)
+               v_application_ports
+           in
+           let bnd = "application_ports", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_reverse_proxy_endpoint_port with
@@ -637,6 +649,7 @@ type reverse_proxy_certificate_common_names = {
   x509_store_name : string prop;
   common_names :
     reverse_proxy_certificate_common_names__common_names list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -652,12 +665,15 @@ let yojson_of_reverse_proxy_certificate_common_names =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_reverse_proxy_certificate_common_names__common_names
-             v_common_names
-         in
-         ("common_names", arg) :: bnds
+         if [] = v_common_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_reverse_proxy_certificate_common_names__common_names)
+               v_common_names
+           in
+           let bnd = "common_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -848,7 +864,9 @@ type upgrade_policy = {
   upgrade_replica_set_check_timeout : string prop option; [@option]
   upgrade_timeout : string prop option; [@option]
   delta_health_policy : upgrade_policy__delta_health_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   health_policy : upgrade_policy__health_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -872,19 +890,25 @@ let yojson_of_upgrade_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_upgrade_policy__health_policy
-             v_health_policy
-         in
-         ("health_policy", arg) :: bnds
+         if [] = v_health_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_upgrade_policy__health_policy)
+               v_health_policy
+           in
+           let bnd = "health_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_upgrade_policy__delta_health_policy
-             v_delta_health_policy
-         in
-         ("delta_health_policy", arg) :: bnds
+         if [] = v_delta_health_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_upgrade_policy__delta_health_policy)
+               v_delta_health_policy
+           in
+           let bnd = "delta_health_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_upgrade_timeout with
@@ -964,19 +988,30 @@ type azurerm_service_fabric_cluster = {
   vm_image : string prop;
   vmss_zonal_upgrade_mode : string prop option; [@option]
   azure_active_directory : azure_active_directory list;
+      [@default []] [@yojson_drop_default ( = )]
   certificate : certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   certificate_common_names : certificate_common_names list;
+      [@default []] [@yojson_drop_default ( = )]
   client_certificate_common_name :
     client_certificate_common_name list;
+      [@default []] [@yojson_drop_default ( = )]
   client_certificate_thumbprint : client_certificate_thumbprint list;
+      [@default []] [@yojson_drop_default ( = )]
   diagnostics_config : diagnostics_config list;
+      [@default []] [@yojson_drop_default ( = )]
   fabric_settings : fabric_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   node_type : node_type list;
+      [@default []] [@yojson_drop_default ( = )]
   reverse_proxy_certificate : reverse_proxy_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   reverse_proxy_certificate_common_names :
     reverse_proxy_certificate_common_names list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   upgrade_policy : upgrade_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1019,80 +1054,117 @@ let yojson_of_azurerm_service_fabric_cluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_upgrade_policy v_upgrade_policy
-         in
-         ("upgrade_policy", arg) :: bnds
+         if [] = v_upgrade_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_upgrade_policy)
+               v_upgrade_policy
+           in
+           let bnd = "upgrade_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_reverse_proxy_certificate_common_names
-             v_reverse_proxy_certificate_common_names
-         in
-         ("reverse_proxy_certificate_common_names", arg) :: bnds
+         if [] = v_reverse_proxy_certificate_common_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_reverse_proxy_certificate_common_names)
+               v_reverse_proxy_certificate_common_names
+           in
+           let bnd = "reverse_proxy_certificate_common_names", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_reverse_proxy_certificate
-             v_reverse_proxy_certificate
-         in
-         ("reverse_proxy_certificate", arg) :: bnds
+         if [] = v_reverse_proxy_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_reverse_proxy_certificate)
+               v_reverse_proxy_certificate
+           in
+           let bnd = "reverse_proxy_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_node_type v_node_type in
-         ("node_type", arg) :: bnds
+         if [] = v_node_type then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_type) v_node_type
+           in
+           let bnd = "node_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_fabric_settings v_fabric_settings
-         in
-         ("fabric_settings", arg) :: bnds
+         if [] = v_fabric_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_fabric_settings)
+               v_fabric_settings
+           in
+           let bnd = "fabric_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_diagnostics_config
-             v_diagnostics_config
-         in
-         ("diagnostics_config", arg) :: bnds
+         if [] = v_diagnostics_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_diagnostics_config)
+               v_diagnostics_config
+           in
+           let bnd = "diagnostics_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_certificate_thumbprint
-             v_client_certificate_thumbprint
-         in
-         ("client_certificate_thumbprint", arg) :: bnds
+         if [] = v_client_certificate_thumbprint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_certificate_thumbprint)
+               v_client_certificate_thumbprint
+           in
+           let bnd = "client_certificate_thumbprint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_certificate_common_name
-             v_client_certificate_common_name
-         in
-         ("client_certificate_common_name", arg) :: bnds
+         if [] = v_client_certificate_common_name then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_certificate_common_name)
+               v_client_certificate_common_name
+           in
+           let bnd = "client_certificate_common_name", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_certificate_common_names
-             v_certificate_common_names
-         in
-         ("certificate_common_names", arg) :: bnds
+         if [] = v_certificate_common_names then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_certificate_common_names)
+               v_certificate_common_names
+           in
+           let bnd = "certificate_common_names", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_certificate v_certificate
-         in
-         ("certificate", arg) :: bnds
+         if [] = v_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_certificate) v_certificate
+           in
+           let bnd = "certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_azure_active_directory
-             v_azure_active_directory
-         in
-         ("azure_active_directory", arg) :: bnds
+         if [] = v_azure_active_directory then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_azure_active_directory)
+               v_azure_active_directory
+           in
+           let bnd = "azure_active_directory", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vmss_zonal_upgrade_mode with

@@ -5,17 +5,27 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type report_delivery_channel = {
-  formats : string prop list;  (** formats *)
+  formats : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** formats *)
   s3_bucket_name : string prop;  (** s3_bucket_name *)
   s3_key_prefix : string prop;  (** s3_key_prefix *)
 }
 
 type report_setting = {
-  accounts : string prop list;  (** accounts *)
-  framework_arns : string prop list;  (** framework_arns *)
+  accounts : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** accounts *)
+  framework_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** framework_arns *)
   number_of_frameworks : float prop;  (** number_of_frameworks *)
-  organization_units : string prop list;  (** organization_units *)
-  regions : string prop list;  (** regions *)
+  organization_units : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** organization_units *)
+  regions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** regions *)
   report_template : string prop;  (** report_template *)
 }
 

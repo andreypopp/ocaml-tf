@@ -106,7 +106,9 @@ let _ = yojson_of_rule__action__response_header
 
 type rule__action = {
   request_header : rule__action__request_header list;
+      [@default []] [@yojson_drop_default ( = )]
   response_header : rule__action__response_header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,18 +124,24 @@ let yojson_of_rule__action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__action__response_header
-             v_response_header
-         in
-         ("response_header", arg) :: bnds
+         if [] = v_response_header then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__action__response_header)
+               v_response_header
+           in
+           let bnd = "response_header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__action__request_header
-             v_request_header
-         in
-         ("request_header", arg) :: bnds
+         if [] = v_request_header then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__action__request_header)
+               v_request_header
+           in
+           let bnd = "request_header", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rule__action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -226,7 +234,9 @@ type rule = {
   name : string prop;
   priority : float prop;
   action : rule__action list;
+      [@default []] [@yojson_drop_default ( = )]
   match_condition : rule__match_condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -244,15 +254,23 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__match_condition
-             v_match_condition
-         in
-         ("match_condition", arg) :: bnds
+         if [] = v_match_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__match_condition)
+               v_match_condition
+           in
+           let bnd = "match_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule__action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__action) v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_priority in
@@ -335,7 +353,7 @@ type azurerm_frontdoor_rules_engine = {
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -361,8 +379,11 @@ let yojson_of_azurerm_frontdoor_rules_engine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

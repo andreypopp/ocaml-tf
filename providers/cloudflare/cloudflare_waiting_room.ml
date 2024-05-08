@@ -92,6 +92,7 @@ type cloudflare_waiting_room = {
   total_active_users : float prop;
   zone_id : string prop;
   additional_routes : additional_routes list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -130,11 +131,14 @@ let yojson_of_cloudflare_waiting_room =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_additional_routes
-             v_additional_routes
-         in
-         ("additional_routes", arg) :: bnds
+         if [] = v_additional_routes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_additional_routes)
+               v_additional_routes
+           in
+           let bnd = "additional_routes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in

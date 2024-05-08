@@ -36,7 +36,7 @@ type link = {
   name : string prop;
   provider_name : string prop option; [@option]
   speed_in_mbps : float prop option; [@option]
-  bgp : link__bgp list;
+  bgp : link__bgp list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,8 +56,11 @@ let yojson_of_link =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_link__bgp v_bgp in
-         ("bgp", arg) :: bnds
+         if [] = v_bgp then bnds
+         else
+           let arg = (yojson_of_list yojson_of_link__bgp) v_bgp in
+           let bnd = "bgp", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_speed_in_mbps with
@@ -155,6 +158,7 @@ let _ = yojson_of_o365_policy__traffic_category
 
 type o365_policy = {
   traffic_category : o365_policy__traffic_category list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,11 +171,14 @@ let yojson_of_o365_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_o365_policy__traffic_category
-             v_traffic_category
-         in
-         ("traffic_category", arg) :: bnds
+         if [] = v_traffic_category then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_o365_policy__traffic_category)
+               v_traffic_category
+           in
+           let bnd = "traffic_category", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : o365_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -250,8 +257,9 @@ type azurerm_vpn_site = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   virtual_wan_id : string prop;
-  link : link list;
+  link : link list; [@default []] [@yojson_drop_default ( = )]
   o365_policy : o365_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -282,14 +290,20 @@ let yojson_of_azurerm_vpn_site =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_o365_policy v_o365_policy
-         in
-         ("o365_policy", arg) :: bnds
+         if [] = v_o365_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_o365_policy) v_o365_policy
+           in
+           let bnd = "o365_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_link v_link in
-         ("link", arg) :: bnds
+         if [] = v_link then bnds
+         else
+           let arg = (yojson_of_list yojson_of_link) v_link in
+           let bnd = "link", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

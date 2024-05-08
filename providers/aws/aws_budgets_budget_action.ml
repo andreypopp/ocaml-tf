@@ -104,6 +104,7 @@ let _ = yojson_of_definition__iam_action_definition
 type definition__scp_action_definition = {
   policy_id : string prop;
   target_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -116,12 +117,14 @@ let yojson_of_definition__scp_action_definition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_target_ids
-         in
-         ("target_ids", arg) :: bnds
+         if [] = v_target_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_target_ids
+           in
+           let bnd = "target_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_policy_id in
@@ -138,6 +141,7 @@ let _ = yojson_of_definition__scp_action_definition
 type definition__ssm_action_definition = {
   action_sub_type : string prop;
   instance_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   region : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -159,12 +163,14 @@ let yojson_of_definition__ssm_action_definition =
          ("region", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_instance_ids
-         in
-         ("instance_ids", arg) :: bnds
+         if [] = v_instance_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_instance_ids
+           in
+           let bnd = "instance_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -182,8 +188,11 @@ let _ = yojson_of_definition__ssm_action_definition
 
 type definition = {
   iam_action_definition : definition__iam_action_definition list;
+      [@default []] [@yojson_drop_default ( = )]
   scp_action_definition : definition__scp_action_definition list;
+      [@default []] [@yojson_drop_default ( = )]
   ssm_action_definition : definition__ssm_action_definition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -200,25 +209,37 @@ let yojson_of_definition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_definition__ssm_action_definition
-             v_ssm_action_definition
-         in
-         ("ssm_action_definition", arg) :: bnds
+         if [] = v_ssm_action_definition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_definition__ssm_action_definition)
+               v_ssm_action_definition
+           in
+           let bnd = "ssm_action_definition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_definition__scp_action_definition
-             v_scp_action_definition
-         in
-         ("scp_action_definition", arg) :: bnds
+         if [] = v_scp_action_definition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_definition__scp_action_definition)
+               v_scp_action_definition
+           in
+           let bnd = "scp_action_definition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_definition__iam_action_definition
-             v_iam_action_definition
-         in
-         ("iam_action_definition", arg) :: bnds
+         if [] = v_iam_action_definition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_definition__iam_action_definition)
+               v_iam_action_definition
+           in
+           let bnd = "iam_action_definition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -314,8 +335,11 @@ type aws_budgets_budget_action = {
   id : string prop option; [@option]
   notification_type : string prop;
   action_threshold : action_threshold list;
+      [@default []] [@yojson_drop_default ( = )]
   definition : definition list;
+      [@default []] [@yojson_drop_default ( = )]
   subscriber : subscriber list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -345,23 +369,32 @@ let yojson_of_aws_budgets_budget_action =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_subscriber v_subscriber
-         in
-         ("subscriber", arg) :: bnds
+         if [] = v_subscriber then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subscriber) v_subscriber
+           in
+           let bnd = "subscriber", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_definition v_definition
-         in
-         ("definition", arg) :: bnds
+         if [] = v_definition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_definition) v_definition
+           in
+           let bnd = "definition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action_threshold
-             v_action_threshold
-         in
-         ("action_threshold", arg) :: bnds
+         if [] = v_action_threshold then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action_threshold)
+               v_action_threshold
+           in
+           let bnd = "action_threshold", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

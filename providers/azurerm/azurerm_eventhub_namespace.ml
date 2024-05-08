@@ -167,9 +167,11 @@ let _ = yojson_of_network_rulesets__ip_rule
 type network_rulesets = {
   default_action : string prop;
   ip_rule : network_rulesets__ip_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   public_network_access_enabled : bool prop;
   trusted_service_access_enabled : bool prop;
   virtual_network_rule : network_rulesets__virtual_network_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -190,12 +192,15 @@ let yojson_of_network_rulesets =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_rulesets__virtual_network_rule
-             v_virtual_network_rule
-         in
-         ("virtual_network_rule", arg) :: bnds
+         if [] = v_virtual_network_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_rulesets__virtual_network_rule)
+               v_virtual_network_rule
+           in
+           let bnd = "virtual_network_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -212,11 +217,14 @@ let yojson_of_network_rulesets =
          ("public_network_access_enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_rulesets__ip_rule
-             v_ip_rule
-         in
-         ("ip_rule", arg) :: bnds
+         if [] = v_ip_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_rulesets__ip_rule)
+               v_ip_rule
+           in
+           let bnd = "ip_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -248,6 +256,7 @@ type azurerm_eventhub_namespace = {
   tags : (string * string prop) list option; [@option]
   zone_redundant : bool prop option; [@option]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -284,8 +293,13 @@ let yojson_of_azurerm_eventhub_namespace =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone_redundant with

@@ -7,7 +7,9 @@ open! Tf_core
 type access_urls = {
   ca_certificate_access_url : string prop;
       (** ca_certificate_access_url *)
-  crl_access_urls : string prop list;  (** crl_access_urls *)
+  crl_access_urls : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** crl_access_urls *)
 }
 
 type config__subject_config__subject

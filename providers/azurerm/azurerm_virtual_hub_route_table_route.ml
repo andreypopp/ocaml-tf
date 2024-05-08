@@ -64,6 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_virtual_hub_route_table_route = {
   destinations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   destinations_type : string prop;
   id : string prop option; [@option]
   name : string prop;
@@ -132,12 +133,14 @@ let yojson_of_azurerm_virtual_hub_route_table_route =
          ("destinations_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destinations
-         in
-         ("destinations", arg) :: bnds
+         if [] = v_destinations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destinations
+           in
+           let bnd = "destinations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_virtual_hub_route_table_route ->

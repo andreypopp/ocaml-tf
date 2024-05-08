@@ -5,7 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type ip_sets = {
-  ip_addresses : string prop list;  (** ip_addresses *)
+  ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ip_addresses *)
   ip_family : string prop;  (** ip_family *)
 }
 

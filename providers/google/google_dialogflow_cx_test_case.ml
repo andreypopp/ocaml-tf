@@ -103,9 +103,12 @@ let _ =
 type test_case_conversation_turns__user_input__input = {
   language_code : string prop option; [@option]
   dtmf : test_case_conversation_turns__user_input__input__dtmf list;
+      [@default []] [@yojson_drop_default ( = )]
   event :
     test_case_conversation_turns__user_input__input__event list;
+      [@default []] [@yojson_drop_default ( = )]
   text : test_case_conversation_turns__user_input__input__text list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,28 +127,37 @@ let yojson_of_test_case_conversation_turns__user_input__input =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_case_conversation_turns__user_input__input__text
-             v_text
-         in
-         ("text", arg) :: bnds
+         if [] = v_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_case_conversation_turns__user_input__input__text)
+               v_text
+           in
+           let bnd = "text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_case_conversation_turns__user_input__input__event
-             v_event
-         in
-         ("event", arg) :: bnds
+         if [] = v_event then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_case_conversation_turns__user_input__input__event)
+               v_event
+           in
+           let bnd = "event", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_case_conversation_turns__user_input__input__dtmf
-             v_dtmf
-         in
-         ("dtmf", arg) :: bnds
+         if [] = v_dtmf then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_case_conversation_turns__user_input__input__dtmf)
+               v_dtmf
+           in
+           let bnd = "dtmf", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_language_code with
@@ -168,6 +180,7 @@ type test_case_conversation_turns__user_input = {
   injected_parameters : string prop option; [@option]
   is_webhook_enabled : bool prop option; [@option]
   input : test_case_conversation_turns__user_input__input list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -185,12 +198,15 @@ let yojson_of_test_case_conversation_turns__user_input =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_case_conversation_turns__user_input__input
-             v_input
-         in
-         ("input", arg) :: bnds
+         if [] = v_input then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_case_conversation_turns__user_input__input)
+               v_input
+           in
+           let bnd = "input", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_is_webhook_enabled with
@@ -333,12 +349,15 @@ type test_case_conversation_turns__virtual_agent_output = {
   current_page :
     test_case_conversation_turns__virtual_agent_output__current_page
     list;
+      [@default []] [@yojson_drop_default ( = )]
   text_responses :
     test_case_conversation_turns__virtual_agent_output__text_responses
     list;
+      [@default []] [@yojson_drop_default ( = )]
   triggered_intent :
     test_case_conversation_turns__virtual_agent_output__triggered_intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -357,28 +376,37 @@ let yojson_of_test_case_conversation_turns__virtual_agent_output =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_case_conversation_turns__virtual_agent_output__triggered_intent
-             v_triggered_intent
-         in
-         ("triggered_intent", arg) :: bnds
+         if [] = v_triggered_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_case_conversation_turns__virtual_agent_output__triggered_intent)
+               v_triggered_intent
+           in
+           let bnd = "triggered_intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_case_conversation_turns__virtual_agent_output__text_responses
-             v_text_responses
-         in
-         ("text_responses", arg) :: bnds
+         if [] = v_text_responses then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_case_conversation_turns__virtual_agent_output__text_responses)
+               v_text_responses
+           in
+           let bnd = "text_responses", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_case_conversation_turns__virtual_agent_output__current_page
-             v_current_page
-         in
-         ("current_page", arg) :: bnds
+         if [] = v_current_page then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_case_conversation_turns__virtual_agent_output__current_page)
+               v_current_page
+           in
+           let bnd = "current_page", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_parameters with
@@ -398,8 +426,10 @@ let _ = yojson_of_test_case_conversation_turns__virtual_agent_output
 
 type test_case_conversation_turns = {
   user_input : test_case_conversation_turns__user_input list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_agent_output :
     test_case_conversation_turns__virtual_agent_output list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -415,20 +445,26 @@ let yojson_of_test_case_conversation_turns =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_case_conversation_turns__virtual_agent_output
-             v_virtual_agent_output
-         in
-         ("virtual_agent_output", arg) :: bnds
+         if [] = v_virtual_agent_output then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_case_conversation_turns__virtual_agent_output)
+               v_virtual_agent_output
+           in
+           let bnd = "virtual_agent_output", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_case_conversation_turns__user_input
-             v_user_input
-         in
-         ("user_input", arg) :: bnds
+         if [] = v_user_input then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_case_conversation_turns__user_input)
+               v_user_input
+           in
+           let bnd = "user_input", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : test_case_conversation_turns ->
@@ -572,7 +608,7 @@ let _ =
 [@@@deriving.end]
 
 type last_test_result__conversation_turns__virtual_agent_output__text_responses = {
-  text : string prop list;
+  text : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -589,10 +625,14 @@ let yojson_of_last_test_result__conversation_turns__virtual_agent_output__text_r
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_text
-         in
-         ("text", arg) :: bnds
+         if [] = v_text then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_text
+           in
+           let bnd = "text", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : last_test_result__conversation_turns__virtual_agent_output__text_responses ->
@@ -717,19 +757,24 @@ type last_test_result__conversation_turns__virtual_agent_output = {
   current_page :
     last_test_result__conversation_turns__virtual_agent_output__current_page
     list;
+      [@default []] [@yojson_drop_default ( = )]
   differences :
     last_test_result__conversation_turns__virtual_agent_output__differences
     list;
+      [@default []] [@yojson_drop_default ( = )]
   session_parameters : string prop;
   status :
     last_test_result__conversation_turns__virtual_agent_output__status
     list;
+      [@default []] [@yojson_drop_default ( = )]
   text_responses :
     last_test_result__conversation_turns__virtual_agent_output__text_responses
     list;
+      [@default []] [@yojson_drop_default ( = )]
   triggered_intent :
     last_test_result__conversation_turns__virtual_agent_output__triggered_intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -752,28 +797,37 @@ let yojson_of_last_test_result__conversation_turns__virtual_agent_output
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__virtual_agent_output__triggered_intent
-             v_triggered_intent
-         in
-         ("triggered_intent", arg) :: bnds
+         if [] = v_triggered_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__virtual_agent_output__triggered_intent)
+               v_triggered_intent
+           in
+           let bnd = "triggered_intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__virtual_agent_output__text_responses
-             v_text_responses
-         in
-         ("text_responses", arg) :: bnds
+         if [] = v_text_responses then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__virtual_agent_output__text_responses)
+               v_text_responses
+           in
+           let bnd = "text_responses", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__virtual_agent_output__status
-             v_status
-         in
-         ("status", arg) :: bnds
+         if [] = v_status then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__virtual_agent_output__status)
+               v_status
+           in
+           let bnd = "status", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -782,20 +836,26 @@ let yojson_of_last_test_result__conversation_turns__virtual_agent_output
          ("session_parameters", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__virtual_agent_output__differences
-             v_differences
-         in
-         ("differences", arg) :: bnds
+         if [] = v_differences then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__virtual_agent_output__differences)
+               v_differences
+           in
+           let bnd = "differences", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__virtual_agent_output__current_page
-             v_current_page
-         in
-         ("current_page", arg) :: bnds
+         if [] = v_current_page then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__virtual_agent_output__current_page)
+               v_current_page
+           in
+           let bnd = "current_page", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : last_test_result__conversation_turns__virtual_agent_output ->
@@ -905,13 +965,16 @@ type last_test_result__conversation_turns__user_input__input = {
   dtmf :
     last_test_result__conversation_turns__user_input__input__dtmf
     list;
+      [@default []] [@yojson_drop_default ( = )]
   event :
     last_test_result__conversation_turns__user_input__input__event
     list;
+      [@default []] [@yojson_drop_default ( = )]
   language_code : string prop;
   text :
     last_test_result__conversation_turns__user_input__input__text
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -932,32 +995,41 @@ let yojson_of_last_test_result__conversation_turns__user_input__input
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__user_input__input__text
-             v_text
-         in
-         ("text", arg) :: bnds
+         if [] = v_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__user_input__input__text)
+               v_text
+           in
+           let bnd = "text", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_language_code in
          ("language_code", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__user_input__input__event
-             v_event
-         in
-         ("event", arg) :: bnds
+         if [] = v_event then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__user_input__input__event)
+               v_event
+           in
+           let bnd = "event", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__user_input__input__dtmf
-             v_dtmf
-         in
-         ("dtmf", arg) :: bnds
+         if [] = v_dtmf then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__user_input__input__dtmf)
+               v_dtmf
+           in
+           let bnd = "dtmf", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : last_test_result__conversation_turns__user_input__input ->
@@ -973,6 +1045,7 @@ type last_test_result__conversation_turns__user_input = {
   injected_parameters : string prop;
   input :
     last_test_result__conversation_turns__user_input__input list;
+      [@default []] [@yojson_drop_default ( = )]
   is_webhook_enabled : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -998,12 +1071,15 @@ let yojson_of_last_test_result__conversation_turns__user_input =
          ("is_webhook_enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__user_input__input
-             v_input
-         in
-         ("input", arg) :: bnds
+         if [] = v_input then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__user_input__input)
+               v_input
+           in
+           let bnd = "input", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1027,8 +1103,10 @@ let _ = yojson_of_last_test_result__conversation_turns__user_input
 
 type last_test_result__conversation_turns = {
   user_input : last_test_result__conversation_turns__user_input list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_agent_output :
     last_test_result__conversation_turns__virtual_agent_output list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1044,20 +1122,26 @@ let yojson_of_last_test_result__conversation_turns =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__virtual_agent_output
-             v_virtual_agent_output
-         in
-         ("virtual_agent_output", arg) :: bnds
+         if [] = v_virtual_agent_output then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__virtual_agent_output)
+               v_virtual_agent_output
+           in
+           let bnd = "virtual_agent_output", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns__user_input
-             v_user_input
-         in
-         ("user_input", arg) :: bnds
+         if [] = v_user_input then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns__user_input)
+               v_user_input
+           in
+           let bnd = "user_input", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : last_test_result__conversation_turns ->
@@ -1069,6 +1153,7 @@ let _ = yojson_of_last_test_result__conversation_turns
 
 type last_test_result = {
   conversation_turns : last_test_result__conversation_turns list;
+      [@default []] [@yojson_drop_default ( = )]
   environment : string prop;
   name : string prop;
   test_result : string prop;
@@ -1107,12 +1192,15 @@ let yojson_of_last_test_result =
          ("environment", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_last_test_result__conversation_turns
-             v_conversation_turns
-         in
-         ("conversation_turns", arg) :: bnds
+         if [] = v_conversation_turns then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_last_test_result__conversation_turns)
+               v_conversation_turns
+           in
+           let bnd = "conversation_turns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : last_test_result -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1128,7 +1216,9 @@ type google_dialogflow_cx_test_case = {
   parent : string prop option; [@option]
   tags : string prop list option; [@option]
   test_case_conversation_turns : test_case_conversation_turns list;
+      [@default []] [@yojson_drop_default ( = )]
   test_config : test_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1155,17 +1245,23 @@ let yojson_of_google_dialogflow_cx_test_case =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_test_config v_test_config
-         in
-         ("test_config", arg) :: bnds
+         if [] = v_test_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_test_config) v_test_config
+           in
+           let bnd = "test_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_test_case_conversation_turns
-             v_test_case_conversation_turns
-         in
-         ("test_case_conversation_turns", arg) :: bnds
+         if [] = v_test_case_conversation_turns then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_test_case_conversation_turns)
+               v_test_case_conversation_turns
+           in
+           let bnd = "test_case_conversation_turns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

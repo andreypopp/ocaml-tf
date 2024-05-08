@@ -135,6 +135,7 @@ let _ = yojson_of_endpoint__vpc_endpoint__network_interface
 
 type endpoint__vpc_endpoint = {
   network_interface : endpoint__vpc_endpoint__network_interface list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_endpoint_id : string prop;
   vpc_id : string prop;
 }
@@ -163,12 +164,15 @@ let yojson_of_endpoint__vpc_endpoint =
          ("vpc_endpoint_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_endpoint__vpc_endpoint__network_interface
-             v_network_interface
-         in
-         ("network_interface", arg) :: bnds
+         if [] = v_network_interface then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_endpoint__vpc_endpoint__network_interface)
+               v_network_interface
+           in
+           let bnd = "network_interface", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : endpoint__vpc_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -181,6 +185,7 @@ type endpoint = {
   address : string prop;
   port : float prop;
   vpc_endpoint : endpoint__vpc_endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -197,11 +202,14 @@ let yojson_of_endpoint =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint__vpc_endpoint
-             v_vpc_endpoint
-         in
-         ("vpc_endpoint", arg) :: bnds
+         if [] = v_vpc_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint__vpc_endpoint)
+               v_vpc_endpoint
+           in
+           let bnd = "vpc_endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_port in
@@ -232,6 +240,7 @@ type aws_redshiftserverless_workgroup = {
   tags_all : (string * string prop) list option; [@option]
   workgroup_name : string prop;
   config_parameter : config_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -264,11 +273,14 @@ let yojson_of_aws_redshiftserverless_workgroup =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config_parameter
-             v_config_parameter
-         in
-         ("config_parameter", arg) :: bnds
+         if [] = v_config_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config_parameter)
+               v_config_parameter
+           in
+           let bnd = "config_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

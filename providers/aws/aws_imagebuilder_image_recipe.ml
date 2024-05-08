@@ -107,6 +107,7 @@ type block_device_mapping = {
   no_device : bool prop option; [@option]
   virtual_name : string prop option; [@option]
   ebs : block_device_mapping__ebs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,10 +125,14 @@ let yojson_of_block_device_mapping =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_block_device_mapping__ebs v_ebs
-         in
-         ("ebs", arg) :: bnds
+         if [] = v_ebs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_block_device_mapping__ebs)
+               v_ebs
+           in
+           let bnd = "ebs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_name with
@@ -192,6 +197,7 @@ let _ = yojson_of_component__parameter
 type component = {
   component_arn : string prop;
   parameter : component__parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -204,10 +210,14 @@ let yojson_of_component =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_component__parameter v_parameter
-         in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_component__parameter)
+               v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_component_arn in
@@ -255,8 +265,11 @@ type aws_imagebuilder_image_recipe = {
   version : string prop;
   working_directory : string prop option; [@option]
   block_device_mapping : block_device_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
   component : component list;
+      [@default []] [@yojson_drop_default ( = )]
   systems_manager_agent : systems_manager_agent list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -282,22 +295,33 @@ let yojson_of_aws_imagebuilder_image_recipe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_systems_manager_agent
-             v_systems_manager_agent
-         in
-         ("systems_manager_agent", arg) :: bnds
+         if [] = v_systems_manager_agent then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_systems_manager_agent)
+               v_systems_manager_agent
+           in
+           let bnd = "systems_manager_agent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_component v_component in
-         ("component", arg) :: bnds
+         if [] = v_component then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_component) v_component
+           in
+           let bnd = "component", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_block_device_mapping
-             v_block_device_mapping
-         in
-         ("block_device_mapping", arg) :: bnds
+         if [] = v_block_device_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_block_device_mapping)
+               v_block_device_mapping
+           in
+           let bnd = "block_device_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_working_directory with

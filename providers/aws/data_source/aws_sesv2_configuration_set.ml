@@ -94,7 +94,10 @@ let _ = yojson_of_sending_options
 
 [@@@deriving.end]
 
-type suppression_options = { suppressed_reasons : string prop list }
+type suppression_options = {
+  suppressed_reasons : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : suppression_options) -> ()
@@ -106,12 +109,14 @@ let yojson_of_suppression_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_suppressed_reasons
-         in
-         ("suppressed_reasons", arg) :: bnds
+         if [] = v_suppressed_reasons then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_suppressed_reasons
+           in
+           let bnd = "suppressed_reasons", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : suppression_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -201,7 +206,9 @@ let _ = yojson_of_vdm_options__dashboard_options
 
 type vdm_options = {
   dashboard_options : vdm_options__dashboard_options list;
+      [@default []] [@yojson_drop_default ( = )]
   guardian_options : vdm_options__guardian_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -217,18 +224,24 @@ let yojson_of_vdm_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vdm_options__guardian_options
-             v_guardian_options
-         in
-         ("guardian_options", arg) :: bnds
+         if [] = v_guardian_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vdm_options__guardian_options)
+               v_guardian_options
+           in
+           let bnd = "guardian_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vdm_options__dashboard_options
-             v_dashboard_options
-         in
-         ("dashboard_options", arg) :: bnds
+         if [] = v_dashboard_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vdm_options__dashboard_options)
+               v_dashboard_options
+           in
+           let bnd = "dashboard_options", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vdm_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)

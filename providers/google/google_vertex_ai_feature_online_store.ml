@@ -44,7 +44,10 @@ let _ = yojson_of_bigtable__auto_scaling
 
 [@@@deriving.end]
 
-type bigtable = { auto_scaling : bigtable__auto_scaling list }
+type bigtable = {
+  auto_scaling : bigtable__auto_scaling list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : bigtable) -> ()
@@ -56,11 +59,14 @@ let yojson_of_bigtable =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bigtable__auto_scaling
-             v_auto_scaling
-         in
-         ("auto_scaling", arg) :: bnds
+         if [] = v_auto_scaling then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bigtable__auto_scaling)
+               v_auto_scaling
+           in
+           let bnd = "auto_scaling", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : bigtable -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -123,6 +129,7 @@ type google_vertex_ai_feature_online_store = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   bigtable : bigtable list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -149,8 +156,13 @@ let yojson_of_google_vertex_ai_feature_online_store =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_bigtable v_bigtable in
-         ("bigtable", arg) :: bnds
+         if [] = v_bigtable then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bigtable) v_bigtable
+           in
+           let bnd = "bigtable", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

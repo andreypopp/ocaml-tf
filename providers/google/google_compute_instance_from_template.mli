@@ -28,7 +28,9 @@ type scratch_disk = {
 
 type service_account = {
   email : string prop;  (** email *)
-  scopes : string prop list;  (** scopes *)
+  scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** scopes *)
 }
 
 type advanced_machine_features

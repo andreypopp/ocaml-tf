@@ -128,6 +128,7 @@ type azurerm_container_connected_registry = {
   sync_token_id : string prop;
   sync_window : string prop option; [@option]
   notification : notification list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -160,10 +161,13 @@ let yojson_of_azurerm_container_connected_registry =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification v_notification
-         in
-         ("notification", arg) :: bnds
+         if [] = v_notification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification) v_notification
+           in
+           let bnd = "notification", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_sync_window with

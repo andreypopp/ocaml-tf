@@ -40,6 +40,7 @@ type content_matchers = {
   content : string prop;
   matcher : string prop option; [@option]
   json_path_matcher : content_matchers__json_path_matcher list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,12 +57,15 @@ let yojson_of_content_matchers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_content_matchers__json_path_matcher
-             v_json_path_matcher
-         in
-         ("json_path_matcher", arg) :: bnds
+         if [] = v_json_path_matcher then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_content_matchers__json_path_matcher)
+               v_json_path_matcher
+           in
+           let bnd = "json_path_matcher", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_matcher with
@@ -185,8 +189,11 @@ type http_check = {
   validate_ssl : bool prop option; [@option]
   accepted_response_status_codes :
     http_check__accepted_response_status_codes list;
+      [@default []] [@yojson_drop_default ( = )]
   auth_info : http_check__auth_info list;
+      [@default []] [@yojson_drop_default ( = )]
   ping_config : http_check__ping_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -214,25 +221,35 @@ let yojson_of_http_check =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_check__ping_config
-             v_ping_config
-         in
-         ("ping_config", arg) :: bnds
+         if [] = v_ping_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_check__ping_config)
+               v_ping_config
+           in
+           let bnd = "ping_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_check__auth_info v_auth_info
-         in
-         ("auth_info", arg) :: bnds
+         if [] = v_auth_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_check__auth_info)
+               v_auth_info
+           in
+           let bnd = "auth_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_http_check__accepted_response_status_codes
-             v_accepted_response_status_codes
-         in
-         ("accepted_response_status_codes", arg) :: bnds
+         if [] = v_accepted_response_status_codes then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_http_check__accepted_response_status_codes)
+               v_accepted_response_status_codes
+           in
+           let bnd = "accepted_response_status_codes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_validate_ssl with
@@ -428,6 +445,7 @@ let _ = yojson_of_synthetic_monitor__cloud_function_v2
 
 type synthetic_monitor = {
   cloud_function_v2 : synthetic_monitor__cloud_function_v2 list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -440,12 +458,15 @@ let yojson_of_synthetic_monitor =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_synthetic_monitor__cloud_function_v2
-             v_cloud_function_v2
-         in
-         ("cloud_function_v2", arg) :: bnds
+         if [] = v_cloud_function_v2 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_synthetic_monitor__cloud_function_v2)
+               v_cloud_function_v2
+           in
+           let bnd = "cloud_function_v2", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : synthetic_monitor -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -479,6 +500,7 @@ let _ = yojson_of_tcp_check__ping_config
 type tcp_check = {
   port : float prop;
   ping_config : tcp_check__ping_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -491,11 +513,14 @@ let yojson_of_tcp_check =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tcp_check__ping_config
-             v_ping_config
-         in
-         ("ping_config", arg) :: bnds
+         if [] = v_ping_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tcp_check__ping_config)
+               v_ping_config
+           in
+           let bnd = "ping_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_port in
@@ -564,11 +589,17 @@ type google_monitoring_uptime_check_config = {
   timeout : string prop;
   user_labels : (string * string prop) list option; [@option]
   content_matchers : content_matchers list;
+      [@default []] [@yojson_drop_default ( = )]
   http_check : http_check list;
+      [@default []] [@yojson_drop_default ( = )]
   monitored_resource : monitored_resource list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_group : resource_group list;
+      [@default []] [@yojson_drop_default ( = )]
   synthetic_monitor : synthetic_monitor list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_check : tcp_check list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -602,41 +633,62 @@ let yojson_of_google_monitoring_uptime_check_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_tcp_check v_tcp_check in
-         ("tcp_check", arg) :: bnds
+         if [] = v_tcp_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tcp_check) v_tcp_check
+           in
+           let bnd = "tcp_check", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_synthetic_monitor
-             v_synthetic_monitor
-         in
-         ("synthetic_monitor", arg) :: bnds
+         if [] = v_synthetic_monitor then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_synthetic_monitor)
+               v_synthetic_monitor
+           in
+           let bnd = "synthetic_monitor", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resource_group v_resource_group
-         in
-         ("resource_group", arg) :: bnds
+         if [] = v_resource_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resource_group)
+               v_resource_group
+           in
+           let bnd = "resource_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitored_resource
-             v_monitored_resource
-         in
-         ("monitored_resource", arg) :: bnds
+         if [] = v_monitored_resource then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitored_resource)
+               v_monitored_resource
+           in
+           let bnd = "monitored_resource", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_check v_http_check
-         in
-         ("http_check", arg) :: bnds
+         if [] = v_http_check then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_check) v_http_check
+           in
+           let bnd = "http_check", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_content_matchers
-             v_content_matchers
-         in
-         ("content_matchers", arg) :: bnds
+         if [] = v_content_matchers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_content_matchers)
+               v_content_matchers
+           in
+           let bnd = "content_matchers", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_labels with

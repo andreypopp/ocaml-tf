@@ -6,7 +6,9 @@ open! Tf_core
 
 type encryption_info = {
   encryption_type : string prop;  (** encryption_type *)
-  kms_key_versions : string prop list;  (** kms_key_versions *)
+  kms_key_versions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** kms_key_versions *)
 }
 
 type expiry_quantity = {

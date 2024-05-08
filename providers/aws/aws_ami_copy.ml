@@ -85,7 +85,9 @@ type aws_ami_copy = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   ebs_block_device : ebs_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   ephemeral_block_device : ephemeral_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -118,18 +120,24 @@ let yojson_of_aws_ami_copy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ephemeral_block_device
-             v_ephemeral_block_device
-         in
-         ("ephemeral_block_device", arg) :: bnds
+         if [] = v_ephemeral_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ephemeral_block_device)
+               v_ephemeral_block_device
+           in
+           let bnd = "ephemeral_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ebs_block_device
-             v_ebs_block_device
-         in
-         ("ebs_block_device", arg) :: bnds
+         if [] = v_ebs_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ebs_block_device)
+               v_ebs_block_device
+           in
+           let bnd = "ebs_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

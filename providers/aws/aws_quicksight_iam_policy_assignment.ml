@@ -14,7 +14,7 @@ type aws_quicksight_iam_policy_assignment = {
   aws_account_id: string  prop option; [@option]
   namespace: string  prop option; [@option]
   policy_arn: string  prop option; [@option]
-  identities: identities list;
+  identities: identities list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 

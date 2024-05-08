@@ -5,7 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type route = {
-  destinations : string prop list;  (** destinations *)
+  destinations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** destinations *)
   destinations_type : string prop;  (** destinations_type *)
   name : string prop;  (** name *)
   next_hop : string prop;  (** next_hop *)

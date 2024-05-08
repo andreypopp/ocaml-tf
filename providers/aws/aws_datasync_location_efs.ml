@@ -4,6 +4,7 @@ open! Tf_core
 
 type ec2_config = {
   security_group_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_arn : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -24,12 +25,14 @@ let yojson_of_ec2_config =
          ("subnet_arn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_arns
-         in
-         ("security_group_arns", arg) :: bnds
+         if [] = v_security_group_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_arns
+           in
+           let bnd = "security_group_arns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : ec2_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -48,6 +51,7 @@ type aws_datasync_location_efs = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   ec2_config : ec2_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,10 +74,13 @@ let yojson_of_aws_datasync_location_efs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ec2_config v_ec2_config
-         in
-         ("ec2_config", arg) :: bnds
+         if [] = v_ec2_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ec2_config) v_ec2_config
+           in
+           let bnd = "ec2_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

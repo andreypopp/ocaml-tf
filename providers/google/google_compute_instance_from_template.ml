@@ -178,6 +178,7 @@ type boot_disk = {
   mode : string prop option; [@option]
   source : string prop option; [@option]
   initialize_params : boot_disk__initialize_params list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -198,11 +199,14 @@ let yojson_of_boot_disk =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_boot_disk__initialize_params
-             v_initialize_params
-         in
-         ("initialize_params", arg) :: bnds
+         if [] = v_initialize_params then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_boot_disk__initialize_params)
+               v_initialize_params
+           in
+           let bnd = "initialize_params", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source with
@@ -446,6 +450,7 @@ type network_interface = {
   subnetwork : string prop option; [@option]
   subnetwork_project : string prop option; [@option]
   ipv6_access_config : network_interface__ipv6_access_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -471,12 +476,15 @@ let yojson_of_network_interface =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_interface__ipv6_access_config
-             v_ipv6_access_config
-         in
-         ("ipv6_access_config", arg) :: bnds
+         if [] = v_ipv6_access_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_interface__ipv6_access_config)
+               v_ipv6_access_config
+           in
+           let bnd = "ipv6_access_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_subnetwork_project with
@@ -647,6 +655,7 @@ let _ = yojson_of_params
 type reservation_affinity__specific_reservation = {
   key : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -659,10 +668,14 @@ let yojson_of_reservation_affinity__specific_reservation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -680,6 +693,7 @@ type reservation_affinity = {
   type_ : string prop; [@key "type"]
   specific_reservation :
     reservation_affinity__specific_reservation list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -695,12 +709,15 @@ let yojson_of_reservation_affinity =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_reservation_affinity__specific_reservation
-             v_specific_reservation
-         in
-         ("specific_reservation", arg) :: bnds
+         if [] = v_specific_reservation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_reservation_affinity__specific_reservation)
+               v_specific_reservation
+           in
+           let bnd = "specific_reservation", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -751,6 +768,7 @@ type scheduling__node_affinities = {
   key : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -763,10 +781,14 @@ let yojson_of_scheduling__node_affinities =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -793,7 +815,9 @@ type scheduling = {
   provisioning_model : string prop option; [@option]
   local_ssd_recovery_timeout :
     scheduling__local_ssd_recovery_timeout list;
+      [@default []] [@yojson_drop_default ( = )]
   node_affinities : scheduling__node_affinities list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -815,19 +839,25 @@ let yojson_of_scheduling =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scheduling__node_affinities
-             v_node_affinities
-         in
-         ("node_affinities", arg) :: bnds
+         if [] = v_node_affinities then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scheduling__node_affinities)
+               v_node_affinities
+           in
+           let bnd = "node_affinities", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_scheduling__local_ssd_recovery_timeout
-             v_local_ssd_recovery_timeout
-         in
-         ("local_ssd_recovery_timeout", arg) :: bnds
+         if [] = v_local_ssd_recovery_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scheduling__local_ssd_recovery_timeout)
+               v_local_ssd_recovery_timeout
+           in
+           let bnd = "local_ssd_recovery_timeout", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_provisioning_model with
@@ -1113,6 +1143,7 @@ let _ = yojson_of_scratch_disk
 type service_account = {
   email : string prop;
   scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1125,10 +1156,14 @@ let yojson_of_service_account =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
-         in
-         ("scopes", arg) :: bnds
+         if [] = v_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scopes
+           in
+           let bnd = "scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_email in
@@ -1166,14 +1201,22 @@ type google_compute_instance_from_template = {
   tags : string prop list option; [@option]
   zone : string prop option; [@option]
   advanced_machine_features : advanced_machine_features list;
+      [@default []] [@yojson_drop_default ( = )]
   boot_disk : boot_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   confidential_instance_config : confidential_instance_config list;
+      [@default []] [@yojson_drop_default ( = )]
   network_interface : network_interface list;
+      [@default []] [@yojson_drop_default ( = )]
   network_performance_config : network_performance_config list;
-  params : params list;
+      [@default []] [@yojson_drop_default ( = )]
+  params : params list; [@default []] [@yojson_drop_default ( = )]
   reservation_affinity : reservation_affinity list;
+      [@default []] [@yojson_drop_default ( = )]
   scheduling : scheduling list;
+      [@default []] [@yojson_drop_default ( = )]
   shielded_instance_config : shielded_instance_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1225,60 +1268,89 @@ let yojson_of_google_compute_instance_from_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_shielded_instance_config
-             v_shielded_instance_config
-         in
-         ("shielded_instance_config", arg) :: bnds
+         if [] = v_shielded_instance_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_shielded_instance_config)
+               v_shielded_instance_config
+           in
+           let bnd = "shielded_instance_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scheduling v_scheduling
-         in
-         ("scheduling", arg) :: bnds
+         if [] = v_scheduling then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scheduling) v_scheduling
+           in
+           let bnd = "scheduling", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_reservation_affinity
-             v_reservation_affinity
-         in
-         ("reservation_affinity", arg) :: bnds
+         if [] = v_reservation_affinity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_reservation_affinity)
+               v_reservation_affinity
+           in
+           let bnd = "reservation_affinity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_params v_params in
-         ("params", arg) :: bnds
+         if [] = v_params then bnds
+         else
+           let arg = (yojson_of_list yojson_of_params) v_params in
+           let bnd = "params", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_performance_config
-             v_network_performance_config
-         in
-         ("network_performance_config", arg) :: bnds
+         if [] = v_network_performance_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_performance_config)
+               v_network_performance_config
+           in
+           let bnd = "network_performance_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_interface
-             v_network_interface
-         in
-         ("network_interface", arg) :: bnds
+         if [] = v_network_interface then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_interface)
+               v_network_interface
+           in
+           let bnd = "network_interface", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_confidential_instance_config
-             v_confidential_instance_config
-         in
-         ("confidential_instance_config", arg) :: bnds
+         if [] = v_confidential_instance_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_confidential_instance_config)
+               v_confidential_instance_config
+           in
+           let bnd = "confidential_instance_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_boot_disk v_boot_disk in
-         ("boot_disk", arg) :: bnds
+         if [] = v_boot_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_boot_disk) v_boot_disk
+           in
+           let bnd = "boot_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_advanced_machine_features
-             v_advanced_machine_features
-         in
-         ("advanced_machine_features", arg) :: bnds
+         if [] = v_advanced_machine_features then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_advanced_machine_features)
+               v_advanced_machine_features
+           in
+           let bnd = "advanced_machine_features", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

@@ -34,6 +34,7 @@ let _ = yojson_of_component__parameter
 type component = {
   component_arn : string prop;
   parameter : component__parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,10 +47,14 @@ let yojson_of_component =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_component__parameter v_parameter
-         in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_component__parameter)
+               v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_component_arn in
@@ -169,6 +174,7 @@ type instance_configuration__block_device_mapping = {
   no_device : bool prop option; [@option]
   virtual_name : string prop option; [@option]
   ebs : instance_configuration__block_device_mapping__ebs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -186,12 +192,15 @@ let yojson_of_instance_configuration__block_device_mapping =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_configuration__block_device_mapping__ebs
-             v_ebs
-         in
-         ("ebs", arg) :: bnds
+         if [] = v_ebs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_configuration__block_device_mapping__ebs)
+               v_ebs
+           in
+           let bnd = "ebs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_name with
@@ -229,6 +238,7 @@ type instance_configuration = {
   image : string prop option; [@option]
   block_device_mapping :
     instance_configuration__block_device_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -244,12 +254,15 @@ let yojson_of_instance_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_configuration__block_device_mapping
-             v_block_device_mapping
-         in
-         ("block_device_mapping", arg) :: bnds
+         if [] = v_block_device_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_configuration__block_device_mapping)
+               v_block_device_mapping
+           in
+           let bnd = "block_device_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_image with
@@ -312,8 +325,11 @@ type aws_imagebuilder_container_recipe = {
   version : string prop;
   working_directory : string prop option; [@option]
   component : component list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_configuration : instance_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   target_repository : target_repository list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -343,22 +359,33 @@ let yojson_of_aws_imagebuilder_container_recipe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_repository
-             v_target_repository
-         in
-         ("target_repository", arg) :: bnds
+         if [] = v_target_repository then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_repository)
+               v_target_repository
+           in
+           let bnd = "target_repository", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_configuration
-             v_instance_configuration
-         in
-         ("instance_configuration", arg) :: bnds
+         if [] = v_instance_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instance_configuration)
+               v_instance_configuration
+           in
+           let bnd = "instance_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_component v_component in
-         ("component", arg) :: bnds
+         if [] = v_component then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_component) v_component
+           in
+           let bnd = "component", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_working_directory with

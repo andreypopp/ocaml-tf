@@ -22,20 +22,29 @@ type access__dataset__dataset = {
 }
 
 type access__dataset = {
-  dataset : access__dataset__dataset list;  (** dataset *)
-  target_types : string prop list;  (** target_types *)
+  dataset : access__dataset__dataset list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** dataset *)
+  target_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** target_types *)
 }
 
 type access = {
-  dataset : access__dataset list;  (** dataset *)
+  dataset : access__dataset list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** dataset *)
   domain : string prop;  (** domain *)
   group_by_email : string prop;  (** group_by_email *)
   iam_member : string prop;  (** iam_member *)
   role : string prop;  (** role *)
-  routine : access__routine list;  (** routine *)
+  routine : access__routine list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** routine *)
   special_group : string prop;  (** special_group *)
   user_by_email : string prop;  (** user_by_email *)
-  view : access__view list;  (** view *)
+  view : access__view list; [@default []] [@yojson_drop_default ( = )]
+      (** view *)
 }
 
 type default_encryption_configuration = {

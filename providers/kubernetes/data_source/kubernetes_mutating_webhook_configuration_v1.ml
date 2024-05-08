@@ -70,9 +70,13 @@ let _ = yojson_of_metadata
 
 type webhook__rule = {
   api_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   api_versions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   operations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   resources : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   scope : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -96,36 +100,44 @@ let yojson_of_webhook__rule =
          ("scope", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_resources
-         in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_operations
-         in
-         ("operations", arg) :: bnds
+         if [] = v_operations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_operations
+           in
+           let bnd = "operations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_api_versions
-         in
-         ("api_versions", arg) :: bnds
+         if [] = v_api_versions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_api_versions
+           in
+           let bnd = "api_versions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_api_groups
-         in
-         ("api_groups", arg) :: bnds
+         if [] = v_api_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_api_groups
+           in
+           let bnd = "api_groups", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : webhook__rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -138,6 +150,7 @@ type webhook__object_selector__match_expressions = {
   key : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,10 +163,14 @@ let yojson_of_webhook__object_selector__match_expressions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -174,6 +191,7 @@ let _ = yojson_of_webhook__object_selector__match_expressions
 type webhook__object_selector = {
   match_expressions :
     webhook__object_selector__match_expressions list;
+      [@default []] [@yojson_drop_default ( = )]
   match_labels : (string * string prop) list;
 }
 [@@deriving_inline yojson_of]
@@ -202,12 +220,15 @@ let yojson_of_webhook__object_selector =
          ("match_labels", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_webhook__object_selector__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_webhook__object_selector__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : webhook__object_selector -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -220,6 +241,7 @@ type webhook__namespace_selector__match_expressions = {
   key : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -233,10 +255,14 @@ let yojson_of_webhook__namespace_selector__match_expressions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -257,6 +283,7 @@ let _ = yojson_of_webhook__namespace_selector__match_expressions
 type webhook__namespace_selector = {
   match_expressions :
     webhook__namespace_selector__match_expressions list;
+      [@default []] [@yojson_drop_default ( = )]
   match_labels : (string * string prop) list;
 }
 [@@deriving_inline yojson_of]
@@ -285,12 +312,15 @@ let yojson_of_webhook__namespace_selector =
          ("match_labels", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_webhook__namespace_selector__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_webhook__namespace_selector__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : webhook__namespace_selector ->
@@ -348,6 +378,7 @@ let _ = yojson_of_webhook__client_config__service
 type webhook__client_config = {
   ca_bundle : string prop;
   service : webhook__client_config__service list;
+      [@default []] [@yojson_drop_default ( = )]
   url : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -365,11 +396,15 @@ let yojson_of_webhook__client_config =
          ("url", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_webhook__client_config__service
-             v_service
-         in
-         ("service", arg) :: bnds
+         if [] = v_service then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_webhook__client_config__service)
+               v_service
+           in
+           let bnd = "service", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_ca_bundle in
@@ -384,14 +419,19 @@ let _ = yojson_of_webhook__client_config
 
 type webhook = {
   admission_review_versions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   client_config : webhook__client_config list;
+      [@default []] [@yojson_drop_default ( = )]
   failure_policy : string prop;
   match_policy : string prop;
   name : string prop;
   namespace_selector : webhook__namespace_selector list;
+      [@default []] [@yojson_drop_default ( = )]
   object_selector : webhook__object_selector list;
+      [@default []] [@yojson_drop_default ( = )]
   reinvocation_policy : string prop;
   rule : webhook__rule list;
+      [@default []] [@yojson_drop_default ( = )]
   side_effects : string prop;
   timeout_seconds : float prop;
 }
@@ -428,8 +468,13 @@ let yojson_of_webhook =
          ("side_effects", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_webhook__rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_webhook__rule) v_rule
+           in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -438,18 +483,24 @@ let yojson_of_webhook =
          ("reinvocation_policy", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_webhook__object_selector
-             v_object_selector
-         in
-         ("object_selector", arg) :: bnds
+         if [] = v_object_selector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_webhook__object_selector)
+               v_object_selector
+           in
+           let bnd = "object_selector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_webhook__namespace_selector
-             v_namespace_selector
-         in
-         ("namespace_selector", arg) :: bnds
+         if [] = v_namespace_selector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_webhook__namespace_selector)
+               v_namespace_selector
+           in
+           let bnd = "namespace_selector", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -466,19 +517,24 @@ let yojson_of_webhook =
          ("failure_policy", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_webhook__client_config
-             v_client_config
-         in
-         ("client_config", arg) :: bnds
+         if [] = v_client_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_webhook__client_config)
+               v_client_config
+           in
+           let bnd = "client_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_admission_review_versions
-         in
-         ("admission_review_versions", arg) :: bnds
+         if [] = v_admission_review_versions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_admission_review_versions
+           in
+           let bnd = "admission_review_versions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : webhook -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -489,7 +545,7 @@ let _ = yojson_of_webhook
 
 type kubernetes_mutating_webhook_configuration_v1 = {
   id : string prop option; [@option]
-  metadata : metadata list;
+  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -502,8 +558,13 @@ let yojson_of_kubernetes_mutating_webhook_configuration_v1 =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

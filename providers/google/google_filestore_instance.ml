@@ -80,6 +80,7 @@ type file_shares = {
   name : string prop;
   source_backup : string prop option; [@option]
   nfs_export_options : file_shares__nfs_export_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -97,11 +98,15 @@ let yojson_of_file_shares =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_file_shares__nfs_export_options
-             v_nfs_export_options
-         in
-         ("nfs_export_options", arg) :: bnds
+         if [] = v_nfs_export_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_file_shares__nfs_export_options)
+               v_nfs_export_options
+           in
+           let bnd = "nfs_export_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_backup with
@@ -129,6 +134,7 @@ let _ = yojson_of_file_shares
 type networks = {
   connect_mode : string prop option; [@option]
   modes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   network : string prop;
   reserved_ip_range : string prop option; [@option]
 }
@@ -160,10 +166,14 @@ let yojson_of_networks =
          ("network", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_modes
-         in
-         ("modes", arg) :: bnds
+         if [] = v_modes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_modes
+           in
+           let bnd = "modes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_connect_mode with
@@ -237,7 +247,9 @@ type google_filestore_instance = {
   tier : string prop;
   zone : string prop option; [@option]
   file_shares : file_shares list;
+      [@default []] [@yojson_drop_default ( = )]
   networks : networks list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -268,14 +280,22 @@ let yojson_of_google_filestore_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_networks v_networks in
-         ("networks", arg) :: bnds
+         if [] = v_networks then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_networks) v_networks
+           in
+           let bnd = "networks", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_file_shares v_file_shares
-         in
-         ("file_shares", arg) :: bnds
+         if [] = v_file_shares then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_file_shares) v_file_shares
+           in
+           let bnd = "file_shares", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

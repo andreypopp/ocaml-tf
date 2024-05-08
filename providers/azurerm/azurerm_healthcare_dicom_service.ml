@@ -99,6 +99,7 @@ let _ = yojson_of_timeouts
 
 type authentication = {
   audience : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   authority : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -116,12 +117,14 @@ let yojson_of_authentication =
          ("authority", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_audience
-         in
-         ("audience", arg) :: bnds
+         if [] = v_audience then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_audience
+           in
+           let bnd = "audience", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : authentication -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -164,6 +167,7 @@ type azurerm_healthcare_dicom_service = {
   tags : (string * string prop) list option; [@option]
   workspace_id : string prop;
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -191,8 +195,13 @@ let yojson_of_azurerm_healthcare_dicom_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_workspace_id in

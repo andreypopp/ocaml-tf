@@ -550,6 +550,7 @@ let _ = yojson_of_webhook_receiver__aad_auth
 
 type webhook_receiver = {
   aad_auth : webhook_receiver__aad_auth list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   service_uri : string prop;
   use_common_alert_schema : bool prop;
@@ -584,11 +585,14 @@ let yojson_of_webhook_receiver =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_webhook_receiver__aad_auth
-             v_aad_auth
-         in
-         ("aad_auth", arg) :: bnds
+         if [] = v_aad_auth then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_webhook_receiver__aad_auth)
+               v_aad_auth
+           in
+           let bnd = "aad_auth", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : webhook_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)

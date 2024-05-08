@@ -87,6 +87,7 @@ let _ = yojson_of_data_protection_snapshot_policy
 
 type export_policy_rule = {
   allowed_clients : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   protocols_enabled : string prop list option; [@option]
   root_access_enabled : bool prop option; [@option]
   rule_index : float prop;
@@ -149,12 +150,14 @@ let yojson_of_export_policy_rule =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_clients
-         in
-         ("allowed_clients", arg) :: bnds
+         if [] = v_allowed_clients then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_clients
+           in
+           let bnd = "allowed_clients", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : export_policy_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -248,9 +251,12 @@ type azurerm_netapp_volume = {
   volume_path : string prop;
   zone : string prop option; [@option]
   data_protection_replication : data_protection_replication list;
+      [@default []] [@yojson_drop_default ( = )]
   data_protection_snapshot_policy :
     data_protection_snapshot_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   export_policy_rule : export_policy_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -301,25 +307,35 @@ let yojson_of_azurerm_netapp_volume =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_export_policy_rule
-             v_export_policy_rule
-         in
-         ("export_policy_rule", arg) :: bnds
+         if [] = v_export_policy_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_export_policy_rule)
+               v_export_policy_rule
+           in
+           let bnd = "export_policy_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_protection_snapshot_policy
-             v_data_protection_snapshot_policy
-         in
-         ("data_protection_snapshot_policy", arg) :: bnds
+         if [] = v_data_protection_snapshot_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_data_protection_snapshot_policy)
+               v_data_protection_snapshot_policy
+           in
+           let bnd = "data_protection_snapshot_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_protection_replication
-             v_data_protection_replication
-         in
-         ("data_protection_replication", arg) :: bnds
+         if [] = v_data_protection_replication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_protection_replication)
+               v_data_protection_replication
+           in
+           let bnd = "data_protection_replication", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

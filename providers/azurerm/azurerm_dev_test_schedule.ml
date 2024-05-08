@@ -202,10 +202,14 @@ type azurerm_dev_test_schedule = {
   task_type : string prop;
   time_zone_id : string prop;
   daily_recurrence : daily_recurrence list;
+      [@default []] [@yojson_drop_default ( = )]
   hourly_recurrence : hourly_recurrence list;
+      [@default []] [@yojson_drop_default ( = )]
   notification_settings : notification_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   weekly_recurrence : weekly_recurrence list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -233,36 +237,48 @@ let yojson_of_azurerm_dev_test_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_weekly_recurrence
-             v_weekly_recurrence
-         in
-         ("weekly_recurrence", arg) :: bnds
+         if [] = v_weekly_recurrence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_weekly_recurrence)
+               v_weekly_recurrence
+           in
+           let bnd = "weekly_recurrence", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification_settings
-             v_notification_settings
-         in
-         ("notification_settings", arg) :: bnds
+         if [] = v_notification_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification_settings)
+               v_notification_settings
+           in
+           let bnd = "notification_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hourly_recurrence
-             v_hourly_recurrence
-         in
-         ("hourly_recurrence", arg) :: bnds
+         if [] = v_hourly_recurrence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hourly_recurrence)
+               v_hourly_recurrence
+           in
+           let bnd = "hourly_recurrence", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_daily_recurrence
-             v_daily_recurrence
-         in
-         ("daily_recurrence", arg) :: bnds
+         if [] = v_daily_recurrence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_daily_recurrence)
+               v_daily_recurrence
+           in
+           let bnd = "daily_recurrence", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_time_zone_id in

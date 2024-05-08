@@ -52,6 +52,7 @@ type aws_glue_data_quality_ruleset = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   target_table : target_table list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -72,10 +73,13 @@ let yojson_of_aws_glue_data_quality_ruleset =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_table v_target_table
-         in
-         ("target_table", arg) :: bnds
+         if [] = v_target_table then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_table) v_target_table
+           in
+           let bnd = "target_table", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

@@ -146,7 +146,9 @@ type google_compute_region_commitment = {
   region : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   license_resource : license_resource list;
+      [@default []] [@yojson_drop_default ( = )]
   resources : resources list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -177,15 +179,23 @@ let yojson_of_google_compute_region_commitment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_resources v_resources in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resources) v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_license_resource
-             v_license_resource
-         in
-         ("license_resource", arg) :: bnds
+         if [] = v_license_resource then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_license_resource)
+               v_license_resource
+           in
+           let bnd = "license_resource", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

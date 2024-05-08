@@ -112,7 +112,9 @@ let _ = yojson_of_issuance_policy__allowed_key_types__rsa
 type issuance_policy__allowed_key_types = {
   elliptic_curve :
     issuance_policy__allowed_key_types__elliptic_curve list;
+      [@default []] [@yojson_drop_default ( = )]
   rsa : issuance_policy__allowed_key_types__rsa list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -125,19 +127,26 @@ let yojson_of_issuance_policy__allowed_key_types =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__allowed_key_types__rsa v_rsa
-         in
-         ("rsa", arg) :: bnds
+         if [] = v_rsa then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__allowed_key_types__rsa)
+               v_rsa
+           in
+           let bnd = "rsa", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__allowed_key_types__elliptic_curve
-             v_elliptic_curve
-         in
-         ("elliptic_curve", arg) :: bnds
+         if [] = v_elliptic_curve then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__allowed_key_types__elliptic_curve)
+               v_elliptic_curve
+           in
+           let bnd = "elliptic_curve", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : issuance_policy__allowed_key_types ->
@@ -149,6 +158,7 @@ let _ = yojson_of_issuance_policy__allowed_key_types
 
 type issuance_policy__baseline_values__additional_extensions__object_id = {
   object_id_path : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -165,12 +175,14 @@ let yojson_of_issuance_policy__baseline_values__additional_extensions__object_id
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_object_id_path
-         in
-         ("object_id_path", arg) :: bnds
+         if [] = v_object_id_path then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_object_id_path
+           in
+           let bnd = "object_id_path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : issuance_policy__baseline_values__additional_extensions__object_id ->
@@ -187,6 +199,7 @@ type issuance_policy__baseline_values__additional_extensions = {
   object_id :
     issuance_policy__baseline_values__additional_extensions__object_id
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -206,12 +219,15 @@ let yojson_of_issuance_policy__baseline_values__additional_extensions
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__baseline_values__additional_extensions__object_id
-             v_object_id
-         in
-         ("object_id", arg) :: bnds
+         if [] = v_object_id then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__baseline_values__additional_extensions__object_id)
+               v_object_id
+           in
+           let bnd = "object_id", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_value in
@@ -495,6 +511,7 @@ let _ =
 
 type issuance_policy__baseline_values__key_usage__unknown_extended_key_usages = {
   object_id_path : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -511,12 +528,14 @@ let yojson_of_issuance_policy__baseline_values__key_usage__unknown_extended_key_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_object_id_path
-         in
-         ("object_id_path", arg) :: bnds
+         if [] = v_object_id_path then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_object_id_path
+           in
+           let bnd = "object_id_path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : issuance_policy__baseline_values__key_usage__unknown_extended_key_usages ->
@@ -530,12 +549,15 @@ let _ =
 type issuance_policy__baseline_values__key_usage = {
   base_key_usage :
     issuance_policy__baseline_values__key_usage__base_key_usage list;
+      [@default []] [@yojson_drop_default ( = )]
   extended_key_usage :
     issuance_policy__baseline_values__key_usage__extended_key_usage
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unknown_extended_key_usages :
     issuance_policy__baseline_values__key_usage__unknown_extended_key_usages
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -552,28 +574,37 @@ let yojson_of_issuance_policy__baseline_values__key_usage =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__baseline_values__key_usage__unknown_extended_key_usages
-             v_unknown_extended_key_usages
-         in
-         ("unknown_extended_key_usages", arg) :: bnds
+         if [] = v_unknown_extended_key_usages then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__baseline_values__key_usage__unknown_extended_key_usages)
+               v_unknown_extended_key_usages
+           in
+           let bnd = "unknown_extended_key_usages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__baseline_values__key_usage__extended_key_usage
-             v_extended_key_usage
-         in
-         ("extended_key_usage", arg) :: bnds
+         if [] = v_extended_key_usage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__baseline_values__key_usage__extended_key_usage)
+               v_extended_key_usage
+           in
+           let bnd = "extended_key_usage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__baseline_values__key_usage__base_key_usage
-             v_base_key_usage
-         in
-         ("base_key_usage", arg) :: bnds
+         if [] = v_base_key_usage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__baseline_values__key_usage__base_key_usage)
+               v_base_key_usage
+           in
+           let bnd = "base_key_usage", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : issuance_policy__baseline_values__key_usage ->
@@ -709,6 +740,7 @@ let _ = yojson_of_issuance_policy__baseline_values__name_constraints
 
 type issuance_policy__baseline_values__policy_ids = {
   object_id_path : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -721,12 +753,14 @@ let yojson_of_issuance_policy__baseline_values__policy_ids =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_object_id_path
-         in
-         ("object_id_path", arg) :: bnds
+         if [] = v_object_id_path then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_object_id_path
+           in
+           let bnd = "object_id_path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : issuance_policy__baseline_values__policy_ids ->
@@ -740,11 +774,16 @@ type issuance_policy__baseline_values = {
   aia_ocsp_servers : string prop list option; [@option]
   additional_extensions :
     issuance_policy__baseline_values__additional_extensions list;
+      [@default []] [@yojson_drop_default ( = )]
   ca_options : issuance_policy__baseline_values__ca_options list;
+      [@default []] [@yojson_drop_default ( = )]
   key_usage : issuance_policy__baseline_values__key_usage list;
+      [@default []] [@yojson_drop_default ( = )]
   name_constraints :
     issuance_policy__baseline_values__name_constraints list;
+      [@default []] [@yojson_drop_default ( = )]
   policy_ids : issuance_policy__baseline_values__policy_ids list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -764,44 +803,59 @@ let yojson_of_issuance_policy__baseline_values =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__baseline_values__policy_ids
-             v_policy_ids
-         in
-         ("policy_ids", arg) :: bnds
+         if [] = v_policy_ids then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__baseline_values__policy_ids)
+               v_policy_ids
+           in
+           let bnd = "policy_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__baseline_values__name_constraints
-             v_name_constraints
-         in
-         ("name_constraints", arg) :: bnds
+         if [] = v_name_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__baseline_values__name_constraints)
+               v_name_constraints
+           in
+           let bnd = "name_constraints", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__baseline_values__key_usage
-             v_key_usage
-         in
-         ("key_usage", arg) :: bnds
+         if [] = v_key_usage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__baseline_values__key_usage)
+               v_key_usage
+           in
+           let bnd = "key_usage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__baseline_values__ca_options
-             v_ca_options
-         in
-         ("ca_options", arg) :: bnds
+         if [] = v_ca_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__baseline_values__ca_options)
+               v_ca_options
+           in
+           let bnd = "ca_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__baseline_values__additional_extensions
-             v_additional_extensions
-         in
-         ("additional_extensions", arg) :: bnds
+         if [] = v_additional_extensions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__baseline_values__additional_extensions)
+               v_additional_extensions
+           in
+           let bnd = "additional_extensions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_aia_ocsp_servers with
@@ -886,6 +940,7 @@ type issuance_policy__identity_constraints = {
   allow_subject_passthrough : bool prop;
   cel_expression :
     issuance_policy__identity_constraints__cel_expression list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -903,12 +958,15 @@ let yojson_of_issuance_policy__identity_constraints =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__identity_constraints__cel_expression
-             v_cel_expression
-         in
-         ("cel_expression", arg) :: bnds
+         if [] = v_cel_expression then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__identity_constraints__cel_expression)
+               v_cel_expression
+           in
+           let bnd = "cel_expression", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -935,9 +993,13 @@ type issuance_policy = {
   maximum_lifetime : string prop option; [@option]
   allowed_issuance_modes :
     issuance_policy__allowed_issuance_modes list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_key_types : issuance_policy__allowed_key_types list;
+      [@default []] [@yojson_drop_default ( = )]
   baseline_values : issuance_policy__baseline_values list;
+      [@default []] [@yojson_drop_default ( = )]
   identity_constraints : issuance_policy__identity_constraints list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -956,35 +1018,48 @@ let yojson_of_issuance_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__identity_constraints
-             v_identity_constraints
-         in
-         ("identity_constraints", arg) :: bnds
+         if [] = v_identity_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__identity_constraints)
+               v_identity_constraints
+           in
+           let bnd = "identity_constraints", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_issuance_policy__baseline_values
-             v_baseline_values
-         in
-         ("baseline_values", arg) :: bnds
+         if [] = v_baseline_values then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__baseline_values)
+               v_baseline_values
+           in
+           let bnd = "baseline_values", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__allowed_key_types
-             v_allowed_key_types
-         in
-         ("allowed_key_types", arg) :: bnds
+         if [] = v_allowed_key_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__allowed_key_types)
+               v_allowed_key_types
+           in
+           let bnd = "allowed_key_types", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_issuance_policy__allowed_issuance_modes
-             v_allowed_issuance_modes
-         in
-         ("allowed_issuance_modes", arg) :: bnds
+         if [] = v_allowed_issuance_modes then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_issuance_policy__allowed_issuance_modes)
+               v_allowed_issuance_modes
+           in
+           let bnd = "allowed_issuance_modes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_maximum_lifetime with
@@ -1097,7 +1172,9 @@ type google_privateca_ca_pool = {
   project : string prop option; [@option]
   tier : string prop;
   issuance_policy : issuance_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   publishing_options : publishing_options list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1125,17 +1202,24 @@ let yojson_of_google_privateca_ca_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_publishing_options
-             v_publishing_options
-         in
-         ("publishing_options", arg) :: bnds
+         if [] = v_publishing_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_publishing_options)
+               v_publishing_options
+           in
+           let bnd = "publishing_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_issuance_policy v_issuance_policy
-         in
-         ("issuance_policy", arg) :: bnds
+         if [] = v_issuance_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_issuance_policy)
+               v_issuance_policy
+           in
+           let bnd = "issuance_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_tier in

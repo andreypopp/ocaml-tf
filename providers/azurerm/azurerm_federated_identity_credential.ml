@@ -64,6 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_federated_identity_credential = {
   audience : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   issuer : string prop;
   name : string prop;
@@ -126,12 +127,14 @@ let yojson_of_azurerm_federated_identity_credential =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_audience
-         in
-         ("audience", arg) :: bnds
+         if [] = v_audience then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_audience
+           in
+           let bnd = "audience", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_federated_identity_credential ->

@@ -74,6 +74,7 @@ let _ = yojson_of_filter
 
 type rulesets__rules__ratelimit = {
   characteristics : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   counting_expression : string prop;
   mitigation_timeout : float prop;
   period : float prop;
@@ -143,12 +144,14 @@ let yojson_of_rulesets__rules__ratelimit =
          ("counting_expression", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_characteristics
-         in
-         ("characteristics", arg) :: bnds
+         if [] = v_characteristics then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_characteristics
+           in
+           let bnd = "characteristics", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rulesets__rules__ratelimit -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -287,7 +290,9 @@ let _ = yojson_of_rulesets__rules__action_parameters__uri__path
 type rulesets__rules__action_parameters__uri = {
   origin : bool prop;
   path : rulesets__rules__action_parameters__uri__path list;
+      [@default []] [@yojson_drop_default ( = )]
   query : rulesets__rules__action_parameters__uri__query list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -300,20 +305,26 @@ let yojson_of_rulesets__rules__action_parameters__uri =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__uri__query
-             v_query
-         in
-         ("query", arg) :: bnds
+         if [] = v_query then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__uri__query)
+               v_query
+           in
+           let bnd = "query", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__uri__path
-             v_path
-         in
-         ("path", arg) :: bnds
+         if [] = v_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__uri__path)
+               v_path
+           in
+           let bnd = "path", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_origin in
@@ -538,8 +549,10 @@ type rulesets__rules__action_parameters__overrides = {
   action : string prop;
   categories :
     rulesets__rules__action_parameters__overrides__categories list;
+      [@default []] [@yojson_drop_default ( = )]
   enabled : bool prop;
   rules : rulesets__rules__action_parameters__overrides__rules list;
+      [@default []] [@yojson_drop_default ( = )]
   sensitivity_level : string prop;
   status : string prop;
 }
@@ -571,24 +584,30 @@ let yojson_of_rulesets__rules__action_parameters__overrides =
          ("sensitivity_level", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__overrides__rules
-             v_rules
-         in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__overrides__rules)
+               v_rules
+           in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in
          ("enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__overrides__categories
-             v_categories
-         in
-         ("categories", arg) :: bnds
+         if [] = v_categories then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__overrides__categories)
+               v_categories
+           in
+           let bnd = "categories", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_action in
@@ -742,6 +761,7 @@ type rulesets__rules__action_parameters__from_value = {
   status_code : float prop;
   target_url :
     rulesets__rules__action_parameters__from_value__target_url list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -759,12 +779,15 @@ let yojson_of_rulesets__rules__action_parameters__from_value =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__from_value__target_url
-             v_target_url
-         in
-         ("target_url", arg) :: bnds
+         if [] = v_target_url then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__from_value__target_url)
+               v_target_url
+           in
+           let bnd = "target_url", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_status_code in
@@ -854,6 +877,7 @@ type rulesets__rules__action_parameters__edge_ttl__status_code_ttl = {
   status_code_range :
     rulesets__rules__action_parameters__edge_ttl__status_code_ttl__status_code_range
     list;
+      [@default []] [@yojson_drop_default ( = )]
   value : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -879,12 +903,15 @@ let yojson_of_rulesets__rules__action_parameters__edge_ttl__status_code_ttl
          ("value", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__edge_ttl__status_code_ttl__status_code_range
-             v_status_code_range
-         in
-         ("status_code_range", arg) :: bnds
+         if [] = v_status_code_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__edge_ttl__status_code_ttl__status_code_range)
+               v_status_code_range
+           in
+           let bnd = "status_code_range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_status_code in
@@ -905,6 +932,7 @@ type rulesets__rules__action_parameters__edge_ttl = {
   status_code_ttl :
     rulesets__rules__action_parameters__edge_ttl__status_code_ttl
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -921,12 +949,15 @@ let yojson_of_rulesets__rules__action_parameters__edge_ttl =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__edge_ttl__status_code_ttl
-             v_status_code_ttl
-         in
-         ("status_code_ttl", arg) :: bnds
+         if [] = v_status_code_ttl then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__edge_ttl__status_code_ttl)
+               v_status_code_ttl
+           in
+           let bnd = "status_code_ttl", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_mode in
@@ -986,7 +1017,9 @@ let _ =
 
 type rulesets__rules__action_parameters__cache_key__custom_key__query_string = {
   exclude : string prop list;
-  include_ : string prop list; [@key "include"]
+      [@default []] [@yojson_drop_default ( = )]
+  include_ : string prop list;
+      [@default []] [@yojson_drop_default ( = )] [@key "include"]
 }
 [@@deriving_inline yojson_of]
 
@@ -1003,18 +1036,24 @@ let yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__query_s
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_include_
-         in
-         ("include", arg) :: bnds
+         if [] = v_include_ then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_include_
+           in
+           let bnd = "include", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_exclude
-         in
-         ("exclude", arg) :: bnds
+         if [] = v_exclude then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_exclude
+           in
+           let bnd = "exclude", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rulesets__rules__action_parameters__cache_key__custom_key__query_string ->
@@ -1057,8 +1096,10 @@ let _ =
 
 type rulesets__rules__action_parameters__cache_key__custom_key__header = {
   check_presence : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   exclude_origin : bool prop;
-  include_ : string prop list; [@key "include"]
+  include_ : string prop list;
+      [@default []] [@yojson_drop_default ( = )] [@key "include"]
 }
 [@@deriving_inline yojson_of]
 
@@ -1079,24 +1120,28 @@ let yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__header
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_include_
-         in
-         ("include", arg) :: bnds
+         if [] = v_include_ then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_include_
+           in
+           let bnd = "include", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_exclude_origin in
          ("exclude_origin", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_check_presence
-         in
-         ("check_presence", arg) :: bnds
+         if [] = v_check_presence then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_check_presence
+           in
+           let bnd = "check_presence", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rulesets__rules__action_parameters__cache_key__custom_key__header ->
@@ -1109,7 +1154,9 @@ let _ =
 
 type rulesets__rules__action_parameters__cache_key__custom_key__cookie = {
   check_presence : string prop list;
-  include_ : string prop list; [@key "include"]
+      [@default []] [@yojson_drop_default ( = )]
+  include_ : string prop list;
+      [@default []] [@yojson_drop_default ( = )] [@key "include"]
 }
 [@@deriving_inline yojson_of]
 
@@ -1126,20 +1173,24 @@ let yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__cookie
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_include_
-         in
-         ("include", arg) :: bnds
+         if [] = v_include_ then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_include_
+           in
+           let bnd = "include", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_check_presence
-         in
-         ("check_presence", arg) :: bnds
+         if [] = v_check_presence then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_check_presence
+           in
+           let bnd = "check_presence", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rulesets__rules__action_parameters__cache_key__custom_key__cookie ->
@@ -1154,18 +1205,23 @@ type rulesets__rules__action_parameters__cache_key__custom_key = {
   cookie :
     rulesets__rules__action_parameters__cache_key__custom_key__cookie
     list;
+      [@default []] [@yojson_drop_default ( = )]
   header :
     rulesets__rules__action_parameters__cache_key__custom_key__header
     list;
+      [@default []] [@yojson_drop_default ( = )]
   host :
     rulesets__rules__action_parameters__cache_key__custom_key__host
     list;
+      [@default []] [@yojson_drop_default ( = )]
   query_string :
     rulesets__rules__action_parameters__cache_key__custom_key__query_string
     list;
+      [@default []] [@yojson_drop_default ( = )]
   user :
     rulesets__rules__action_parameters__cache_key__custom_key__user
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1187,44 +1243,59 @@ let yojson_of_rulesets__rules__action_parameters__cache_key__custom_key
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__user
-             v_user
-         in
-         ("user", arg) :: bnds
+         if [] = v_user then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__user)
+               v_user
+           in
+           let bnd = "user", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__query_string
-             v_query_string
-         in
-         ("query_string", arg) :: bnds
+         if [] = v_query_string then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__query_string)
+               v_query_string
+           in
+           let bnd = "query_string", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__host
-             v_host
-         in
-         ("host", arg) :: bnds
+         if [] = v_host then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__host)
+               v_host
+           in
+           let bnd = "host", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__header
-             v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__cookie
-             v_cookie
-         in
-         ("cookie", arg) :: bnds
+         if [] = v_cookie then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__cache_key__custom_key__cookie)
+               v_cookie
+           in
+           let bnd = "cookie", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rulesets__rules__action_parameters__cache_key__custom_key ->
@@ -1240,6 +1311,7 @@ type rulesets__rules__action_parameters__cache_key = {
   cache_deception_armor : bool prop;
   custom_key :
     rulesets__rules__action_parameters__cache_key__custom_key list;
+      [@default []] [@yojson_drop_default ( = )]
   ignore_query_strings_order : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -1264,12 +1336,15 @@ let yojson_of_rulesets__rules__action_parameters__cache_key =
          ("ignore_query_strings_order", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__cache_key__custom_key
-             v_custom_key
-         in
-         ("custom_key", arg) :: bnds
+         if [] = v_custom_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__cache_key__custom_key)
+               v_custom_key
+           in
+           let bnd = "custom_key", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1360,55 +1435,76 @@ let _ = yojson_of_rulesets__rules__action_parameters__autominify
 
 type rulesets__rules__action_parameters = {
   additional_cacheable_ports : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   automatic_https_rewrites : bool prop;
   autominify : rulesets__rules__action_parameters__autominify list;
+      [@default []] [@yojson_drop_default ( = )]
   bic : bool prop;
   browser_ttl : rulesets__rules__action_parameters__browser_ttl list;
+      [@default []] [@yojson_drop_default ( = )]
   cache : bool prop;
   cache_key : rulesets__rules__action_parameters__cache_key list;
+      [@default []] [@yojson_drop_default ( = )]
   content : string prop;
   content_type : string prop;
   cookie_fields : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   disable_apps : bool prop;
   disable_railgun : bool prop;
   disable_zaraz : bool prop;
   edge_ttl : rulesets__rules__action_parameters__edge_ttl list;
+      [@default []] [@yojson_drop_default ( = )]
   email_obfuscation : bool prop;
   from_list : rulesets__rules__action_parameters__from_list list;
+      [@default []] [@yojson_drop_default ( = )]
   from_value : rulesets__rules__action_parameters__from_value list;
+      [@default []] [@yojson_drop_default ( = )]
   headers : rulesets__rules__action_parameters__headers list;
+      [@default []] [@yojson_drop_default ( = )]
   host_header : string prop;
   hotlink_protection : bool prop;
   id : string prop;
   increment : float prop;
   matched_data :
     rulesets__rules__action_parameters__matched_data list;
+      [@default []] [@yojson_drop_default ( = )]
   mirage : bool prop;
   opportunistic_encryption : bool prop;
   origin : rulesets__rules__action_parameters__origin list;
+      [@default []] [@yojson_drop_default ( = )]
   origin_cache_control : bool prop;
   origin_error_page_passthru : bool prop;
   overrides : rulesets__rules__action_parameters__overrides list;
+      [@default []] [@yojson_drop_default ( = )]
   phases : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   polish : string prop;
   products : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   read_timeout : float prop;
   request_fields : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   respect_strong_etags : bool prop;
   response : rulesets__rules__action_parameters__response list;
+      [@default []] [@yojson_drop_default ( = )]
   response_fields : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   rocket_loader : bool prop;
   rules : (string * string prop) list;
   ruleset : string prop;
   rulesets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   security_level : string prop;
   serve_stale : rulesets__rules__action_parameters__serve_stale list;
+      [@default []] [@yojson_drop_default ( = )]
   server_side_excludes : bool prop;
   sni : rulesets__rules__action_parameters__sni list;
+      [@default []] [@yojson_drop_default ( = )]
   ssl : string prop;
   status_code : float prop;
   sxg : bool prop;
   uri : rulesets__rules__action_parameters__uri list;
+      [@default []] [@yojson_drop_default ( = )]
   version : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1477,11 +1573,15 @@ let yojson_of_rulesets__rules__action_parameters =
          ("version", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__uri v_uri
-         in
-         ("uri", arg) :: bnds
+         if [] = v_uri then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__uri)
+               v_uri
+           in
+           let bnd = "uri", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_sxg in
@@ -1496,11 +1596,15 @@ let yojson_of_rulesets__rules__action_parameters =
          ("ssl", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__sni v_sni
-         in
-         ("sni", arg) :: bnds
+         if [] = v_sni then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__sni)
+               v_sni
+           in
+           let bnd = "sni", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1509,12 +1613,15 @@ let yojson_of_rulesets__rules__action_parameters =
          ("server_side_excludes", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__serve_stale
-             v_serve_stale
-         in
-         ("serve_stale", arg) :: bnds
+         if [] = v_serve_stale then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__serve_stale)
+               v_serve_stale
+           in
+           let bnd = "serve_stale", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1523,12 +1630,14 @@ let yojson_of_rulesets__rules__action_parameters =
          ("security_level", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_rulesets
-         in
-         ("rulesets", arg) :: bnds
+         if [] = v_rulesets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_rulesets
+           in
+           let bnd = "rulesets", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_ruleset in
@@ -1551,20 +1660,25 @@ let yojson_of_rulesets__rules__action_parameters =
          ("rocket_loader", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_response_fields
-         in
-         ("response_fields", arg) :: bnds
+         if [] = v_response_fields then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_response_fields
+           in
+           let bnd = "response_fields", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1573,42 +1687,53 @@ let yojson_of_rulesets__rules__action_parameters =
          ("respect_strong_etags", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_request_fields
-         in
-         ("request_fields", arg) :: bnds
+         if [] = v_request_fields then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_request_fields
+           in
+           let bnd = "request_fields", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_read_timeout in
          ("read_timeout", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_products
-         in
-         ("products", arg) :: bnds
+         if [] = v_products then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_products
+           in
+           let bnd = "products", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_polish in
          ("polish", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_phases
-         in
-         ("phases", arg) :: bnds
+         if [] = v_phases then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_phases
+           in
+           let bnd = "phases", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__overrides
-             v_overrides
-         in
-         ("overrides", arg) :: bnds
+         if [] = v_overrides then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__overrides)
+               v_overrides
+           in
+           let bnd = "overrides", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1623,12 +1748,15 @@ let yojson_of_rulesets__rules__action_parameters =
          ("origin_cache_control", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__origin
-             v_origin
-         in
-         ("origin", arg) :: bnds
+         if [] = v_origin then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__origin)
+               v_origin
+           in
+           let bnd = "origin", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1641,12 +1769,15 @@ let yojson_of_rulesets__rules__action_parameters =
          ("mirage", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__matched_data
-             v_matched_data
-         in
-         ("matched_data", arg) :: bnds
+         if [] = v_matched_data then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__matched_data)
+               v_matched_data
+           in
+           let bnd = "matched_data", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_increment in
@@ -1667,28 +1798,37 @@ let yojson_of_rulesets__rules__action_parameters =
          ("host_header", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__headers
-             v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__from_value
-             v_from_value
-         in
-         ("from_value", arg) :: bnds
+         if [] = v_from_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__from_value)
+               v_from_value
+           in
+           let bnd = "from_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__from_list
-             v_from_list
-         in
-         ("from_list", arg) :: bnds
+         if [] = v_from_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__from_list)
+               v_from_list
+           in
+           let bnd = "from_list", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1697,12 +1837,15 @@ let yojson_of_rulesets__rules__action_parameters =
          ("email_obfuscation", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__edge_ttl
-             v_edge_ttl
-         in
-         ("edge_ttl", arg) :: bnds
+         if [] = v_edge_ttl then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__edge_ttl)
+               v_edge_ttl
+           in
+           let bnd = "edge_ttl", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_disable_zaraz in
@@ -1717,12 +1860,14 @@ let yojson_of_rulesets__rules__action_parameters =
          ("disable_apps", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cookie_fields
-         in
-         ("cookie_fields", arg) :: bnds
+         if [] = v_cookie_fields then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cookie_fields
+           in
+           let bnd = "cookie_fields", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_content_type in
@@ -1733,36 +1878,45 @@ let yojson_of_rulesets__rules__action_parameters =
          ("content", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__cache_key
-             v_cache_key
-         in
-         ("cache_key", arg) :: bnds
+         if [] = v_cache_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__cache_key)
+               v_cache_key
+           in
+           let bnd = "cache_key", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_cache in
          ("cache", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__browser_ttl
-             v_browser_ttl
-         in
-         ("browser_ttl", arg) :: bnds
+         if [] = v_browser_ttl then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__browser_ttl)
+               v_browser_ttl
+           in
+           let bnd = "browser_ttl", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_bic in
          ("bic", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters__autominify
-             v_autominify
-         in
-         ("autominify", arg) :: bnds
+         if [] = v_autominify then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters__autominify)
+               v_autominify
+           in
+           let bnd = "autominify", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1771,12 +1925,14 @@ let yojson_of_rulesets__rules__action_parameters =
          ("automatic_https_rewrites", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_additional_cacheable_ports
-         in
-         ("additional_cacheable_ports", arg) :: bnds
+         if [] = v_additional_cacheable_ports then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_additional_cacheable_ports
+           in
+           let bnd = "additional_cacheable_ports", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rulesets__rules__action_parameters ->
@@ -1789,15 +1945,19 @@ let _ = yojson_of_rulesets__rules__action_parameters
 type rulesets__rules = {
   action : string prop;
   action_parameters : rulesets__rules__action_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   description : string prop;
   enabled : bool prop;
   exposed_credential_check :
     rulesets__rules__exposed_credential_check list;
+      [@default []] [@yojson_drop_default ( = )]
   expression : string prop;
   id : string prop;
   last_updated : string prop;
   logging : rulesets__rules__logging list;
+      [@default []] [@yojson_drop_default ( = )]
   ratelimit : rulesets__rules__ratelimit list;
+      [@default []] [@yojson_drop_default ( = )]
   ref : string prop;
   version : string prop;
 }
@@ -1833,18 +1993,24 @@ let yojson_of_rulesets__rules =
          ("ref", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rulesets__rules__ratelimit
-             v_ratelimit
-         in
-         ("ratelimit", arg) :: bnds
+         if [] = v_ratelimit then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rulesets__rules__ratelimit)
+               v_ratelimit
+           in
+           let bnd = "ratelimit", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rulesets__rules__logging
-             v_logging
-         in
-         ("logging", arg) :: bnds
+         if [] = v_logging then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rulesets__rules__logging)
+               v_logging
+           in
+           let bnd = "logging", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_last_updated in
@@ -1859,12 +2025,15 @@ let yojson_of_rulesets__rules =
          ("expression", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__exposed_credential_check
-             v_exposed_credential_check
-         in
-         ("exposed_credential_check", arg) :: bnds
+         if [] = v_exposed_credential_check then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__exposed_credential_check)
+               v_exposed_credential_check
+           in
+           let bnd = "exposed_credential_check", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in
@@ -1875,12 +2044,15 @@ let yojson_of_rulesets__rules =
          ("description", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rulesets__rules__action_parameters
-             v_action_parameters
-         in
-         ("action_parameters", arg) :: bnds
+         if [] = v_action_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rulesets__rules__action_parameters)
+               v_action_parameters
+           in
+           let bnd = "action_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_action in
@@ -1900,6 +2072,7 @@ type rulesets = {
   name : string prop;
   phase : string prop;
   rules : rulesets__rules list;
+      [@default []] [@yojson_drop_default ( = )]
   version : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1925,10 +2098,13 @@ let yojson_of_rulesets =
          ("version", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rulesets__rules v_rules
-         in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rulesets__rules) v_rules
+           in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_phase in
@@ -1962,7 +2138,7 @@ type cloudflare_rulesets = {
   id : string prop option; [@option]
   include_rules : bool prop option; [@option]
   zone_id : string prop option; [@option]
-  filter : filter list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1981,8 +2157,11 @@ let yojson_of_cloudflare_rulesets =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone_id with

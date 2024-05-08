@@ -44,6 +44,7 @@ type hadoop_config = {
   main_jar_file_uri : string prop option; [@option]
   properties : (string * string prop) list option; [@option]
   logging_config : hadoop_config__logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,11 +66,14 @@ let yojson_of_hadoop_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hadoop_config__logging_config
-             v_logging_config
-         in
-         ("logging_config", arg) :: bnds
+         if [] = v_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hadoop_config__logging_config)
+               v_logging_config
+           in
+           let bnd = "logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_properties with
@@ -290,6 +294,7 @@ type pig_config = {
   query_list : string prop list option; [@option]
   script_variables : (string * string prop) list option; [@option]
   logging_config : pig_config__logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -310,11 +315,14 @@ let yojson_of_pig_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pig_config__logging_config
-             v_logging_config
-         in
-         ("logging_config", arg) :: bnds
+         if [] = v_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pig_config__logging_config)
+               v_logging_config
+           in
+           let bnd = "logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_script_variables with
@@ -454,6 +462,7 @@ type presto_config = {
   query_file_uri : string prop option; [@option]
   query_list : string prop list option; [@option]
   logging_config : presto_config__logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -474,11 +483,14 @@ let yojson_of_presto_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_presto_config__logging_config
-             v_logging_config
-         in
-         ("logging_config", arg) :: bnds
+         if [] = v_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_presto_config__logging_config)
+               v_logging_config
+           in
+           let bnd = "logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_query_list with
@@ -589,6 +601,7 @@ type pyspark_config = {
   properties : (string * string prop) list option; [@option]
   python_file_uris : string prop list option; [@option]
   logging_config : pyspark_config__logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -610,11 +623,14 @@ let yojson_of_pyspark_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pyspark_config__logging_config
-             v_logging_config
-         in
-         ("logging_config", arg) :: bnds
+         if [] = v_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pyspark_config__logging_config)
+               v_logging_config
+           in
+           let bnd = "logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_python_file_uris with
@@ -799,6 +815,7 @@ type spark_config = {
   main_jar_file_uri : string prop option; [@option]
   properties : (string * string prop) list option; [@option]
   logging_config : spark_config__logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -820,11 +837,14 @@ let yojson_of_spark_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spark_config__logging_config
-             v_logging_config
-         in
-         ("logging_config", arg) :: bnds
+         if [] = v_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spark_config__logging_config)
+               v_logging_config
+           in
+           let bnd = "logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_properties with
@@ -945,6 +965,7 @@ type sparksql_config = {
   query_list : string prop list option; [@option]
   script_variables : (string * string prop) list option; [@option]
   logging_config : sparksql_config__logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -964,11 +985,15 @@ let yojson_of_sparksql_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sparksql_config__logging_config
-             v_logging_config
-         in
-         ("logging_config", arg) :: bnds
+         if [] = v_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_sparksql_config__logging_config)
+               v_logging_config
+           in
+           let bnd = "logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_script_variables with
@@ -1127,15 +1152,25 @@ type google_dataproc_job = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   hadoop_config : hadoop_config list;
+      [@default []] [@yojson_drop_default ( = )]
   hive_config : hive_config list;
+      [@default []] [@yojson_drop_default ( = )]
   pig_config : pig_config list;
+      [@default []] [@yojson_drop_default ( = )]
   placement : placement list;
+      [@default []] [@yojson_drop_default ( = )]
   presto_config : presto_config list;
+      [@default []] [@yojson_drop_default ( = )]
   pyspark_config : pyspark_config list;
+      [@default []] [@yojson_drop_default ( = )]
   reference : reference list;
+      [@default []] [@yojson_drop_default ( = )]
   scheduling : scheduling list;
+      [@default []] [@yojson_drop_default ( = )]
   spark_config : spark_config list;
+      [@default []] [@yojson_drop_default ( = )]
   sparksql_config : sparksql_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1170,60 +1205,96 @@ let yojson_of_google_dataproc_job =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sparksql_config v_sparksql_config
-         in
-         ("sparksql_config", arg) :: bnds
+         if [] = v_sparksql_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sparksql_config)
+               v_sparksql_config
+           in
+           let bnd = "sparksql_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spark_config v_spark_config
-         in
-         ("spark_config", arg) :: bnds
+         if [] = v_spark_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spark_config) v_spark_config
+           in
+           let bnd = "spark_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scheduling v_scheduling
-         in
-         ("scheduling", arg) :: bnds
+         if [] = v_scheduling then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scheduling) v_scheduling
+           in
+           let bnd = "scheduling", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_reference v_reference in
-         ("reference", arg) :: bnds
+         if [] = v_reference then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_reference) v_reference
+           in
+           let bnd = "reference", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pyspark_config v_pyspark_config
-         in
-         ("pyspark_config", arg) :: bnds
+         if [] = v_pyspark_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pyspark_config)
+               v_pyspark_config
+           in
+           let bnd = "pyspark_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_presto_config v_presto_config
-         in
-         ("presto_config", arg) :: bnds
+         if [] = v_presto_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_presto_config) v_presto_config
+           in
+           let bnd = "presto_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_placement v_placement in
-         ("placement", arg) :: bnds
+         if [] = v_placement then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_placement) v_placement
+           in
+           let bnd = "placement", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pig_config v_pig_config
-         in
-         ("pig_config", arg) :: bnds
+         if [] = v_pig_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pig_config) v_pig_config
+           in
+           let bnd = "pig_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hive_config v_hive_config
-         in
-         ("hive_config", arg) :: bnds
+         if [] = v_hive_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hive_config) v_hive_config
+           in
+           let bnd = "hive_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hadoop_config v_hadoop_config
-         in
-         ("hadoop_config", arg) :: bnds
+         if [] = v_hadoop_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hadoop_config) v_hadoop_config
+           in
+           let bnd = "hadoop_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

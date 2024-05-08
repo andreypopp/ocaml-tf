@@ -10,6 +10,7 @@ type principal_info__service_account = {
 
 type principal_info = {
   service_account : principal_info__service_account list;
+      [@default []] [@yojson_drop_default ( = )]
       (** service_account *)
 }
 

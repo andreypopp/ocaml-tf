@@ -170,8 +170,11 @@ type google_healthcare_hl7_v2_store = {
   name : string prop;
   reject_duplicate_message : bool prop option; [@option]
   notification_config : notification_config list;
+      [@default []] [@yojson_drop_default ( = )]
   notification_configs : notification_configs list;
+      [@default []] [@yojson_drop_default ( = )]
   parser_config : parser_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -199,24 +202,33 @@ let yojson_of_google_healthcare_hl7_v2_store =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_parser_config v_parser_config
-         in
-         ("parser_config", arg) :: bnds
+         if [] = v_parser_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_parser_config) v_parser_config
+           in
+           let bnd = "parser_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification_configs
-             v_notification_configs
-         in
-         ("notification_configs", arg) :: bnds
+         if [] = v_notification_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification_configs)
+               v_notification_configs
+           in
+           let bnd = "notification_configs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification_config
-             v_notification_config
-         in
-         ("notification_config", arg) :: bnds
+         if [] = v_notification_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification_config)
+               v_notification_config
+           in
+           let bnd = "notification_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_reject_duplicate_message with

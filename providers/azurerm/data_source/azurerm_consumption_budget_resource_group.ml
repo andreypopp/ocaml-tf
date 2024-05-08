@@ -32,6 +32,7 @@ type filter__tag = {
   name : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -44,10 +45,14 @@ let yojson_of_filter__tag =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -68,6 +73,7 @@ type filter__not__tag = {
   name : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -80,10 +86,14 @@ let yojson_of_filter__not__tag =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -104,6 +114,7 @@ type filter__not__dimension = {
   name : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -116,10 +127,14 @@ let yojson_of_filter__not__dimension =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -138,7 +153,9 @@ let _ = yojson_of_filter__not__dimension
 
 type filter__not = {
   dimension : filter__not__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   tag : filter__not__tag list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -151,15 +168,23 @@ let yojson_of_filter__not =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter__not__tag v_tag in
-         ("tag", arg) :: bnds
+         if [] = v_tag then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__not__tag) v_tag
+           in
+           let bnd = "tag", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__not__dimension
-             v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__not__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : filter__not -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -172,6 +197,7 @@ type filter__dimension = {
   name : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,10 +210,14 @@ let yojson_of_filter__dimension =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -206,8 +236,9 @@ let _ = yojson_of_filter__dimension
 
 type filter = {
   dimension : filter__dimension list;
-  not : filter__not list;
-  tag : filter__tag list;
+      [@default []] [@yojson_drop_default ( = )]
+  not : filter__not list; [@default []] [@yojson_drop_default ( = )]
+  tag : filter__tag list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -220,18 +251,27 @@ let yojson_of_filter =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter__tag v_tag in
-         ("tag", arg) :: bnds
+         if [] = v_tag then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter__tag) v_tag in
+           let bnd = "tag", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter__not v_not in
-         ("not", arg) :: bnds
+         if [] = v_not then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter__not) v_not in
+           let bnd = "not", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter__dimension v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter__dimension) v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -242,8 +282,11 @@ let _ = yojson_of_filter
 
 type notification = {
   contact_emails : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   contact_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   contact_roles : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   enabled : bool prop;
   operator : string prop;
   threshold : float prop;
@@ -286,28 +329,34 @@ let yojson_of_notification =
          ("enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_contact_roles
-         in
-         ("contact_roles", arg) :: bnds
+         if [] = v_contact_roles then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_contact_roles
+           in
+           let bnd = "contact_roles", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_contact_groups
-         in
-         ("contact_groups", arg) :: bnds
+         if [] = v_contact_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_contact_groups
+           in
+           let bnd = "contact_groups", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_contact_emails
-         in
-         ("contact_emails", arg) :: bnds
+         if [] = v_contact_emails then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_contact_emails
+           in
+           let bnd = "contact_emails", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : notification -> Ppx_yojson_conv_lib.Yojson.Safe.t)

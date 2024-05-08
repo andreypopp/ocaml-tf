@@ -45,6 +45,7 @@ type fair_share_policy = {
   compute_reservation : float prop option; [@option]
   share_decay_seconds : float prop option; [@option]
   share_distribution : fair_share_policy__share_distribution list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -61,12 +62,15 @@ let yojson_of_fair_share_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fair_share_policy__share_distribution
-             v_share_distribution
-         in
-         ("share_distribution", arg) :: bnds
+         if [] = v_share_distribution then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fair_share_policy__share_distribution)
+               v_share_distribution
+           in
+           let bnd = "share_distribution", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_share_decay_seconds with
@@ -97,6 +101,7 @@ type aws_batch_scheduling_policy = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   fair_share_policy : fair_share_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -115,11 +120,14 @@ let yojson_of_aws_batch_scheduling_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_fair_share_policy
-             v_fair_share_policy
-         in
-         ("fair_share_policy", arg) :: bnds
+         if [] = v_fair_share_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_fair_share_policy)
+               v_fair_share_policy
+           in
+           let bnd = "fair_share_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

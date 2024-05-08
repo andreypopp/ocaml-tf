@@ -101,7 +101,7 @@ type azurerm_express_route_circuit = {
   resource_group_name : string prop;
   service_provider_name : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
-  sku : sku list;
+  sku : sku list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -134,8 +134,11 @@ let yojson_of_azurerm_express_route_circuit =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sku v_sku in
-         ("sku", arg) :: bnds
+         if [] = v_sku then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sku) v_sku in
+           let bnd = "sku", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

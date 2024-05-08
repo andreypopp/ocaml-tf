@@ -161,9 +161,9 @@ type azurerm_new_relic_monitor = {
   organization_id : string prop option; [@option]
   resource_group_name : string prop;
   user_id : string prop option; [@option]
-  plan : plan list;
+  plan : plan list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  user : user list;
+  user : user list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -190,16 +190,22 @@ let yojson_of_azurerm_new_relic_monitor =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_user v_user in
-         ("user", arg) :: bnds
+         if [] = v_user then bnds
+         else
+           let arg = (yojson_of_list yojson_of_user) v_user in
+           let bnd = "user", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_plan v_plan in
-         ("plan", arg) :: bnds
+         if [] = v_plan then bnds
+         else
+           let arg = (yojson_of_list yojson_of_plan) v_plan in
+           let bnd = "plan", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_id with

@@ -130,8 +130,11 @@ type access_logs = {
   include_trust_context : bool prop option; [@option]
   log_version : string prop option; [@option]
   cloudwatch_logs : access_logs__cloudwatch_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_data_firehose : access_logs__kinesis_data_firehose list;
+      [@default []] [@yojson_drop_default ( = )]
   s3 : access_logs__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,23 +153,34 @@ let yojson_of_access_logs =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_access_logs__s3 v_s3 in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_logs__s3) v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_access_logs__kinesis_data_firehose
-             v_kinesis_data_firehose
-         in
-         ("kinesis_data_firehose", arg) :: bnds
+         if [] = v_kinesis_data_firehose then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_access_logs__kinesis_data_firehose)
+               v_kinesis_data_firehose
+           in
+           let bnd = "kinesis_data_firehose", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access_logs__cloudwatch_logs
-             v_cloudwatch_logs
-         in
-         ("cloudwatch_logs", arg) :: bnds
+         if [] = v_cloudwatch_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_logs__cloudwatch_logs)
+               v_cloudwatch_logs
+           in
+           let bnd = "cloudwatch_logs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_log_version with
@@ -195,6 +209,7 @@ type aws_verifiedaccess_instance_logging_configuration = {
   id : string prop option; [@option]
   verifiedaccess_instance_id : string prop;
   access_logs : access_logs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -212,10 +227,13 @@ let yojson_of_aws_verifiedaccess_instance_logging_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access_logs v_access_logs
-         in
-         ("access_logs", arg) :: bnds
+         if [] = v_access_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access_logs) v_access_logs
+           in
+           let bnd = "access_logs", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

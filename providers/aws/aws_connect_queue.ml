@@ -64,6 +64,7 @@ type aws_connect_queue = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   outbound_caller_config : outbound_caller_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,11 +89,14 @@ let yojson_of_aws_connect_queue =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_outbound_caller_config
-             v_outbound_caller_config
-         in
-         ("outbound_caller_config", arg) :: bnds
+         if [] = v_outbound_caller_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_outbound_caller_config)
+               v_outbound_caller_config
+           in
+           let bnd = "outbound_caller_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

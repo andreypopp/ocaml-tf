@@ -15,7 +15,7 @@ type configuration__sheet__tile__border = {
 [@@@deriving.end]
 
 type configuration__sheet__tile = {
-  border: configuration__sheet__tile__border list;
+  border: configuration__sheet__tile__border list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -30,14 +30,14 @@ type configuration__sheet__tile_layout__margin = {
 [@@@deriving.end]
 
 type configuration__sheet__tile_layout = {
-  gutter: configuration__sheet__tile_layout__gutter list;
-  margin: configuration__sheet__tile_layout__margin list;
+  gutter: configuration__sheet__tile_layout__gutter list; [@default []] [@yojson_drop_default ( = )]
+  margin: configuration__sheet__tile_layout__margin list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type configuration__sheet = {
-  tile: configuration__sheet__tile list;
-  tile_layout: configuration__sheet__tile_layout list;
+  tile: configuration__sheet__tile list; [@default []] [@yojson_drop_default ( = )]
+  tile_layout: configuration__sheet__tile_layout list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -47,7 +47,7 @@ type configuration__typography__font_families = {
 [@@@deriving.end]
 
 type configuration__typography = {
-  font_families: configuration__typography__font_families list;
+  font_families: configuration__typography__font_families list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -72,15 +72,15 @@ type configuration__ui_color_palette = {
 [@@@deriving.end]
 
 type configuration = {
-  data_color_palette: configuration__data_color_palette list;
-  sheet: configuration__sheet list;
-  typography: configuration__typography list;
-  ui_color_palette: configuration__ui_color_palette list;
+  data_color_palette: configuration__data_color_palette list; [@default []] [@yojson_drop_default ( = )]
+  sheet: configuration__sheet list; [@default []] [@yojson_drop_default ( = )]
+  typography: configuration__typography list; [@default []] [@yojson_drop_default ( = )]
+  ui_color_palette: configuration__ui_color_palette list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type permissions = {
-  actions: string  prop list; 
+  actions: string  prop list; [@default []] [@yojson_drop_default ( = )]
   principal: string prop; 
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
@@ -101,8 +101,8 @@ type aws_quicksight_theme = {
   tags_all: (string * string   prop) list option; [@option]
   theme_id: string prop; 
   version_description: string  prop option; [@option]
-  configuration: configuration list;
-  permissions: permissions list;
+  configuration: configuration list; [@default []] [@yojson_drop_default ( = )]
+  permissions: permissions list; [@default []] [@yojson_drop_default ( = )]
   timeouts: timeouts option;
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]

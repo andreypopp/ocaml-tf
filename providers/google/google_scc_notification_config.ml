@@ -77,6 +77,7 @@ type google_scc_notification_config = {
   organization : string prop;
   pubsub_topic : string prop;
   streaming_config : streaming_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -102,11 +103,14 @@ let yojson_of_google_scc_notification_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_streaming_config
-             v_streaming_config
-         in
-         ("streaming_config", arg) :: bnds
+         if [] = v_streaming_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_streaming_config)
+               v_streaming_config
+           in
+           let bnd = "streaming_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_pubsub_topic in

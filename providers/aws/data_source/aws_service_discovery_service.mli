@@ -10,7 +10,9 @@ type dns_config__dns_records = {
 }
 
 type dns_config = {
-  dns_records : dns_config__dns_records list;  (** dns_records *)
+  dns_records : dns_config__dns_records list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** dns_records *)
   namespace_id : string prop;  (** namespace_id *)
   routing_policy : string prop;  (** routing_policy *)
 }

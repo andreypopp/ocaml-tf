@@ -31,6 +31,7 @@ type aws_codeguruprofiler_profiling_group = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   agent_orchestration_config : agent_orchestration_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,11 +49,14 @@ let yojson_of_aws_codeguruprofiler_profiling_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_agent_orchestration_config
-             v_agent_orchestration_config
-         in
-         ("agent_orchestration_config", arg) :: bnds
+         if [] = v_agent_orchestration_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_agent_orchestration_config)
+               v_agent_orchestration_config
+           in
+           let bnd = "agent_orchestration_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

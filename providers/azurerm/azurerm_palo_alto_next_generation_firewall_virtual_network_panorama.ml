@@ -71,7 +71,9 @@ type destination_nat = {
   name : string prop;
   protocol : string prop;
   backend_config : destination_nat__backend_config list;
+      [@default []] [@yojson_drop_default ( = )]
   frontend_config : destination_nat__frontend_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,18 +91,26 @@ let yojson_of_destination_nat =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_nat__frontend_config
-             v_frontend_config
-         in
-         ("frontend_config", arg) :: bnds
+         if [] = v_frontend_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_nat__frontend_config)
+               v_frontend_config
+           in
+           let bnd = "frontend_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_nat__backend_config
-             v_backend_config
-         in
-         ("backend_config", arg) :: bnds
+         if [] = v_backend_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_nat__backend_config)
+               v_backend_config
+           in
+           let bnd = "backend_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_protocol in
@@ -209,8 +219,10 @@ let _ = yojson_of_network_profile__vnet_configuration
 type network_profile = {
   egress_nat_ip_address_ids : string prop list option; [@option]
   public_ip_address_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   trusted_address_ranges : string prop list option; [@option]
   vnet_configuration : network_profile__vnet_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -228,12 +240,15 @@ let yojson_of_network_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_profile__vnet_configuration
-             v_vnet_configuration
-         in
-         ("vnet_configuration", arg) :: bnds
+         if [] = v_vnet_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_profile__vnet_configuration)
+               v_vnet_configuration
+           in
+           let bnd = "vnet_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_trusted_address_ranges with
@@ -246,12 +261,14 @@ let yojson_of_network_profile =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_public_ip_address_ids
-         in
-         ("public_ip_address_ids", arg) :: bnds
+         if [] = v_public_ip_address_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_public_ip_address_ids
+           in
+           let bnd = "public_ip_address_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_egress_nat_ip_address_ids with
@@ -408,8 +425,11 @@ type azurerm_palo_alto_next_generation_firewall_virtual_network_panorama = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   destination_nat : destination_nat list;
+      [@default []] [@yojson_drop_default ( = )]
   dns_settings : dns_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   network_profile : network_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -442,22 +462,33 @@ let yojson_of_azurerm_palo_alto_next_generation_firewall_virtual_network_panoram
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_profile v_network_profile
-         in
-         ("network_profile", arg) :: bnds
+         if [] = v_network_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_profile)
+               v_network_profile
+           in
+           let bnd = "network_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dns_settings v_dns_settings
-         in
-         ("dns_settings", arg) :: bnds
+         if [] = v_dns_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dns_settings) v_dns_settings
+           in
+           let bnd = "dns_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_nat v_destination_nat
-         in
-         ("destination_nat", arg) :: bnds
+         if [] = v_destination_nat then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_nat)
+               v_destination_nat
+           in
+           let bnd = "destination_nat", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

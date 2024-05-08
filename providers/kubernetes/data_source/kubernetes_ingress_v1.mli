@@ -5,7 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type spec__tls = {
-  hosts : string prop list;  (** hosts *)
+  hosts : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** hosts *)
   secret_name : string prop;  (** secret_name *)
 }
 
@@ -17,6 +19,7 @@ type spec__rule__http__path__backend__service__port = {
 type spec__rule__http__path__backend__service = {
   name : string prop;  (** name *)
   port : spec__rule__http__path__backend__service__port list;
+      [@default []] [@yojson_drop_default ( = )]
       (** port *)
 }
 
@@ -28,24 +31,32 @@ type spec__rule__http__path__backend__resource = {
 
 type spec__rule__http__path__backend = {
   resource : spec__rule__http__path__backend__resource list;
+      [@default []] [@yojson_drop_default ( = )]
       (** resource *)
   service : spec__rule__http__path__backend__service list;
+      [@default []] [@yojson_drop_default ( = )]
       (** service *)
 }
 
 type spec__rule__http__path = {
-  backend : spec__rule__http__path__backend list;  (** backend *)
+  backend : spec__rule__http__path__backend list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** backend *)
   path : string prop;  (** path *)
   path_type : string prop;  (** path_type *)
 }
 
 type spec__rule__http = {
-  path : spec__rule__http__path list;  (** path *)
+  path : spec__rule__http__path list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** path *)
 }
 
 type spec__rule = {
   host : string prop;  (** host *)
-  http : spec__rule__http list;  (** http *)
+  http : spec__rule__http list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** http *)
 }
 
 type spec__default_backend__service__port = {
@@ -55,7 +66,9 @@ type spec__default_backend__service__port = {
 
 type spec__default_backend__service = {
   name : string prop;  (** name *)
-  port : spec__default_backend__service__port list;  (** port *)
+  port : spec__default_backend__service__port list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** port *)
 }
 
 type spec__default_backend__resource = {
@@ -65,16 +78,23 @@ type spec__default_backend__resource = {
 }
 
 type spec__default_backend = {
-  resource : spec__default_backend__resource list;  (** resource *)
-  service : spec__default_backend__service list;  (** service *)
+  resource : spec__default_backend__resource list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** resource *)
+  service : spec__default_backend__service list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** service *)
 }
 
 type spec = {
   default_backend : spec__default_backend list;
+      [@default []] [@yojson_drop_default ( = )]
       (** default_backend *)
   ingress_class_name : string prop;  (** ingress_class_name *)
-  rule : spec__rule list;  (** rule *)
-  tls : spec__tls list;  (** tls *)
+  rule : spec__rule list; [@default []] [@yojson_drop_default ( = )]
+      (** rule *)
+  tls : spec__tls list; [@default []] [@yojson_drop_default ( = )]
+      (** tls *)
 }
 
 type status__load_balancer__ingress = {
@@ -83,11 +103,15 @@ type status__load_balancer__ingress = {
 }
 
 type status__load_balancer = {
-  ingress : status__load_balancer__ingress list;  (** ingress *)
+  ingress : status__load_balancer__ingress list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ingress *)
 }
 
 type status = {
-  load_balancer : status__load_balancer list;  (** load_balancer *)
+  load_balancer : status__load_balancer list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** load_balancer *)
 }
 
 type metadata

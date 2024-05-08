@@ -32,6 +32,7 @@ type auto_scaling_policy = {
   estimated_instance_warmup : float prop option; [@option]
   target_tracking_configuration :
     auto_scaling_policy__target_tracking_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,12 +49,15 @@ let yojson_of_auto_scaling_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auto_scaling_policy__target_tracking_configuration
-             v_target_tracking_configuration
-         in
-         ("target_tracking_configuration", arg) :: bnds
+         if [] = v_target_tracking_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auto_scaling_policy__target_tracking_configuration)
+               v_target_tracking_configuration
+           in
+           let bnd = "target_tracking_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_estimated_instance_warmup with
@@ -201,8 +205,11 @@ type aws_gamelift_game_server_group = {
   tags_all : (string * string prop) list option; [@option]
   vpc_subnets : string prop list option; [@option]
   auto_scaling_policy : auto_scaling_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_definition : instance_definition list;
+      [@default []] [@yojson_drop_default ( = )]
   launch_template : launch_template list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -236,24 +243,34 @@ let yojson_of_aws_gamelift_game_server_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_launch_template v_launch_template
-         in
-         ("launch_template", arg) :: bnds
+         if [] = v_launch_template then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_launch_template)
+               v_launch_template
+           in
+           let bnd = "launch_template", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_definition
-             v_instance_definition
-         in
-         ("instance_definition", arg) :: bnds
+         if [] = v_instance_definition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instance_definition)
+               v_instance_definition
+           in
+           let bnd = "instance_definition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_scaling_policy
-             v_auto_scaling_policy
-         in
-         ("auto_scaling_policy", arg) :: bnds
+         if [] = v_auto_scaling_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_scaling_policy)
+               v_auto_scaling_policy
+           in
+           let bnd = "auto_scaling_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_subnets with

@@ -47,6 +47,7 @@ type aws_directory_service_radius_settings = {
   radius_port : float prop;
   radius_retries : float prop;
   radius_servers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   radius_timeout : float prop;
   shared_secret : string prop;
   use_same_username : bool prop option; [@option]
@@ -95,12 +96,14 @@ let yojson_of_aws_directory_service_radius_settings =
          ("radius_timeout", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_radius_servers
-         in
-         ("radius_servers", arg) :: bnds
+         if [] = v_radius_servers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_radius_servers
+           in
+           let bnd = "radius_servers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_radius_retries in

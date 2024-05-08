@@ -34,6 +34,7 @@ type digitalocean_custom_image = {
   id : string prop option; [@option]
   name : string prop;
   regions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : string prop list option; [@option]
   url : string prop;
   timeouts : timeouts option;
@@ -76,10 +77,14 @@ let yojson_of_digitalocean_custom_image =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_regions
-         in
-         ("regions", arg) :: bnds
+         if [] = v_regions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_regions
+           in
+           let bnd = "regions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

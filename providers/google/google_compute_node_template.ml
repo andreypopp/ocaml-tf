@@ -109,7 +109,9 @@ type google_compute_node_template = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   node_type_flexibility : node_type_flexibility list;
+      [@default []] [@yojson_drop_default ( = )]
   server_binding : server_binding list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -139,17 +141,24 @@ let yojson_of_google_compute_node_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_server_binding v_server_binding
-         in
-         ("server_binding", arg) :: bnds
+         if [] = v_server_binding then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_server_binding)
+               v_server_binding
+           in
+           let bnd = "server_binding", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_type_flexibility
-             v_node_type_flexibility
-         in
-         ("node_type_flexibility", arg) :: bnds
+         if [] = v_node_type_flexibility then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_type_flexibility)
+               v_node_type_flexibility
+           in
+           let bnd = "node_type_flexibility", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

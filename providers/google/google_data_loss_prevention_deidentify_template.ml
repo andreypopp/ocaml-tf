@@ -130,6 +130,7 @@ type deidentify_config__image_transformations__transforms__selected_info_types__
   sensitivity_score :
     deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,12 +151,15 @@ let yojson_of_deidentify_config__image_transformations__transforms__selected_inf
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -182,6 +186,7 @@ type deidentify_config__image_transformations__transforms__selected_info_types =
   info_types :
     deidentify_config__image_transformations__transforms__selected_info_types__info_types
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -198,12 +203,15 @@ let yojson_of_deidentify_config__image_transformations__transforms__selected_inf
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__image_transformations__transforms__selected_info_types__info_types
-             v_info_types
-         in
-         ("info_types", arg) :: bnds
+         if [] = v_info_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__image_transformations__transforms__selected_info_types__info_types)
+               v_info_types
+           in
+           let bnd = "info_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__image_transformations__transforms__selected_info_types ->
@@ -218,15 +226,19 @@ type deidentify_config__image_transformations__transforms = {
   all_info_types :
     deidentify_config__image_transformations__transforms__all_info_types
     list;
+      [@default []] [@yojson_drop_default ( = )]
   all_text :
     deidentify_config__image_transformations__transforms__all_text
     list;
+      [@default []] [@yojson_drop_default ( = )]
   redaction_color :
     deidentify_config__image_transformations__transforms__redaction_color
     list;
+      [@default []] [@yojson_drop_default ( = )]
   selected_info_types :
     deidentify_config__image_transformations__transforms__selected_info_types
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -245,36 +257,48 @@ let yojson_of_deidentify_config__image_transformations__transforms =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__image_transformations__transforms__selected_info_types
-             v_selected_info_types
-         in
-         ("selected_info_types", arg) :: bnds
+         if [] = v_selected_info_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__image_transformations__transforms__selected_info_types)
+               v_selected_info_types
+           in
+           let bnd = "selected_info_types", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__image_transformations__transforms__redaction_color
-             v_redaction_color
-         in
-         ("redaction_color", arg) :: bnds
+         if [] = v_redaction_color then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__image_transformations__transforms__redaction_color)
+               v_redaction_color
+           in
+           let bnd = "redaction_color", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__image_transformations__transforms__all_text
-             v_all_text
-         in
-         ("all_text", arg) :: bnds
+         if [] = v_all_text then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__image_transformations__transforms__all_text)
+               v_all_text
+           in
+           let bnd = "all_text", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__image_transformations__transforms__all_info_types
-             v_all_info_types
-         in
-         ("all_info_types", arg) :: bnds
+         if [] = v_all_info_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__image_transformations__transforms__all_info_types)
+               v_all_info_types
+           in
+           let bnd = "all_info_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__image_transformations__transforms ->
@@ -288,6 +312,7 @@ let _ =
 type deidentify_config__image_transformations = {
   transforms :
     deidentify_config__image_transformations__transforms list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -300,12 +325,15 @@ let yojson_of_deidentify_config__image_transformations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__image_transformations__transforms
-             v_transforms
-         in
-         ("transforms", arg) :: bnds
+         if [] = v_transforms then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__image_transformations__transforms)
+               v_transforms
+           in
+           let bnd = "transforms", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__image_transformations ->
@@ -351,6 +379,7 @@ type deidentify_config__info_type_transformations__transformations__info_types =
   sensitivity_score :
     deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -371,12 +400,15 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__inf
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -526,9 +558,11 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   date_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -553,20 +587,26 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -744,9 +784,11 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   date_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -771,20 +813,26 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -962,9 +1010,11 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   date_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -989,20 +1039,26 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -1057,12 +1113,15 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   max :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
     list;
+      [@default []] [@yojson_drop_default ( = )]
   min :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
     list;
+      [@default []] [@yojson_drop_default ( = )]
   replacement_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1083,28 +1142,37 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
-             v_replacement_value
-         in
-         ("replacement_value", arg) :: bnds
+         if [] = v_replacement_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value)
+               v_replacement_value
+           in
+           let bnd = "replacement_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
-             v_min
-         in
-         ("min", arg) :: bnds
+         if [] = v_min then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min)
+               v_min
+           in
+           let bnd = "min", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
-             v_max
-         in
-         ("max", arg) :: bnds
+         if [] = v_max then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max)
+               v_max
+           in
+           let bnd = "max", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets ->
@@ -1119,6 +1187,7 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   buckets :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1135,12 +1204,15 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
-             v_buckets
-         in
-         ("buckets", arg) :: bnds
+         if [] = v_buckets then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets)
+               v_buckets
+           in
+           let bnd = "buckets", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config ->
@@ -1204,6 +1276,7 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   characters_to_ignore :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1225,12 +1298,15 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
-             v_characters_to_ignore
-         in
-         ("characters_to_ignore", arg) :: bnds
+         if [] = v_characters_to_ignore then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore)
+               v_characters_to_ignore
+           in
+           let bnd = "characters_to_ignore", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_reverse_order with
@@ -1403,12 +1479,15 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   kms_wrapped :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1429,28 +1508,37 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key ->
@@ -1497,6 +1585,7 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   sensitivity_score :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1517,12 +1606,15 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -1553,12 +1645,15 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   context :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_key :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
   surrogate_info_type :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1579,28 +1674,37 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
-             v_surrogate_info_type
-         in
-         ("surrogate_info_type", arg) :: bnds
+         if [] = v_surrogate_info_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type)
+               v_surrogate_info_type
+           in
+           let bnd = "surrogate_info_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
-             v_context
-         in
-         ("context", arg) :: bnds
+         if [] = v_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context)
+               v_context
+           in
+           let bnd = "context", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config ->
@@ -1715,12 +1819,15 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   kms_wrapped :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1741,28 +1848,37 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key ->
@@ -1777,6 +1893,7 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   crypto_key :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1793,12 +1910,15 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config ->
@@ -1947,12 +2067,15 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   kms_wrapped :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1973,28 +2096,37 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key ->
@@ -2041,6 +2173,7 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   sensitivity_score :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2061,12 +2194,15 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -2100,12 +2236,15 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   context :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_key :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
   surrogate_info_type :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2129,28 +2268,37 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
-             v_surrogate_info_type
-         in
-         ("surrogate_info_type", arg) :: bnds
+         if [] = v_surrogate_info_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type)
+               v_surrogate_info_type
+           in
+           let bnd = "surrogate_info_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
-             v_context
-         in
-         ("context", arg) :: bnds
+         if [] = v_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context)
+               v_context
+           in
+           let bnd = "context", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_radix with
@@ -2319,12 +2467,15 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   kms_wrapped :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2345,28 +2496,37 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key ->
@@ -2383,9 +2543,11 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   context :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_key :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2407,20 +2569,26 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
-             v_context
-         in
-         ("context", arg) :: bnds
+         if [] = v_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context)
+               v_context
+           in
+           let bnd = "context", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2536,9 +2704,11 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   lower_bound :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
     list;
+      [@default []] [@yojson_drop_default ( = )]
   upper_bound :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2559,20 +2729,26 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
-             v_upper_bound
-         in
-         ("upper_bound", arg) :: bnds
+         if [] = v_upper_bound then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound)
+               v_upper_bound
+           in
+           let bnd = "upper_bound", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
-             v_lower_bound
-         in
-         ("lower_bound", arg) :: bnds
+         if [] = v_lower_bound then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound)
+               v_lower_bound
+           in
+           let bnd = "lower_bound", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_bucket_size in
@@ -2735,9 +2911,11 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   date_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2763,20 +2941,26 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -2839,6 +3023,7 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   new_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2855,12 +3040,15 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
-             v_new_value
-         in
-         ("new_value", arg) :: bnds
+         if [] = v_new_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value)
+               v_new_value
+           in
+           let bnd = "new_value", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config ->
@@ -2872,7 +3060,7 @@ let _ =
 [@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list = {
-  words : string prop list;
+  words : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2889,10 +3077,14 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_words
-         in
-         ("words", arg) :: bnds
+         if [] = v_words then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_words
+           in
+           let bnd = "words", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list ->
@@ -2907,6 +3099,7 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   word_list :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2923,12 +3116,15 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
-             v_word_list
-         in
-         ("word_list", arg) :: bnds
+         if [] = v_word_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list)
+               v_word_list
+           in
+           let bnd = "word_list", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config ->
@@ -2978,36 +3174,47 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
   bucketing_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   character_mask_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_deterministic_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_hash_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_replace_ffx_fpe_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   date_shift_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   fixed_size_bucketing_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   redact_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   replace_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   replace_dictionary_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_part_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3039,92 +3246,125 @@ let yojson_of_deidentify_config__info_type_transformations__transformations__pri
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
-             v_time_part_config
-         in
-         ("time_part_config", arg) :: bnds
+         if [] = v_time_part_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config)
+               v_time_part_config
+           in
+           let bnd = "time_part_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
-             v_replace_dictionary_config
-         in
-         ("replace_dictionary_config", arg) :: bnds
+         if [] = v_replace_dictionary_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config)
+               v_replace_dictionary_config
+           in
+           let bnd = "replace_dictionary_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config
-             v_replace_config
-         in
-         ("replace_config", arg) :: bnds
+         if [] = v_replace_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config)
+               v_replace_config
+           in
+           let bnd = "replace_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config
-             v_redact_config
-         in
-         ("redact_config", arg) :: bnds
+         if [] = v_redact_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config)
+               v_redact_config
+           in
+           let bnd = "redact_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
-             v_fixed_size_bucketing_config
-         in
-         ("fixed_size_bucketing_config", arg) :: bnds
+         if [] = v_fixed_size_bucketing_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config)
+               v_fixed_size_bucketing_config
+           in
+           let bnd = "fixed_size_bucketing_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
-             v_date_shift_config
-         in
-         ("date_shift_config", arg) :: bnds
+         if [] = v_date_shift_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config)
+               v_date_shift_config
+           in
+           let bnd = "date_shift_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
-             v_crypto_replace_ffx_fpe_config
-         in
-         ("crypto_replace_ffx_fpe_config", arg) :: bnds
+         if [] = v_crypto_replace_ffx_fpe_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config)
+               v_crypto_replace_ffx_fpe_config
+           in
+           let bnd = "crypto_replace_ffx_fpe_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
-             v_crypto_hash_config
-         in
-         ("crypto_hash_config", arg) :: bnds
+         if [] = v_crypto_hash_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config)
+               v_crypto_hash_config
+           in
+           let bnd = "crypto_hash_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
-             v_crypto_deterministic_config
-         in
-         ("crypto_deterministic_config", arg) :: bnds
+         if [] = v_crypto_deterministic_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config)
+               v_crypto_deterministic_config
+           in
+           let bnd = "crypto_deterministic_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
-             v_character_mask_config
-         in
-         ("character_mask_config", arg) :: bnds
+         if [] = v_character_mask_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config)
+               v_character_mask_config
+           in
+           let bnd = "character_mask_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
-             v_bucketing_config
-         in
-         ("bucketing_config", arg) :: bnds
+         if [] = v_bucketing_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config)
+               v_bucketing_config
+           in
+           let bnd = "bucketing_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_replace_with_info_type_config with
@@ -3147,9 +3387,11 @@ type deidentify_config__info_type_transformations__transformations = {
   info_types :
     deidentify_config__info_type_transformations__transformations__info_types
     list;
+      [@default []] [@yojson_drop_default ( = )]
   primitive_transformation :
     deidentify_config__info_type_transformations__transformations__primitive_transformation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3169,20 +3411,26 @@ let yojson_of_deidentify_config__info_type_transformations__transformations
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation
-             v_primitive_transformation
-         in
-         ("primitive_transformation", arg) :: bnds
+         if [] = v_primitive_transformation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation)
+               v_primitive_transformation
+           in
+           let bnd = "primitive_transformation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations__info_types
-             v_info_types
-         in
-         ("info_types", arg) :: bnds
+         if [] = v_info_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations__info_types)
+               v_info_types
+           in
+           let bnd = "info_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations__transformations ->
@@ -3197,6 +3445,7 @@ type deidentify_config__info_type_transformations = {
   transformations :
     deidentify_config__info_type_transformations__transformations
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3209,12 +3458,15 @@ let yojson_of_deidentify_config__info_type_transformations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations__transformations
-             v_transformations
-         in
-         ("transformations", arg) :: bnds
+         if [] = v_transformations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations__transformations)
+               v_transformations
+           in
+           let bnd = "transformations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__info_type_transformations ->
@@ -3386,9 +3638,11 @@ type deidentify_config__record_transformations__field_transformations__condition
   date_value :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3414,20 +3668,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -3491,9 +3751,11 @@ type deidentify_config__record_transformations__field_transformations__condition
   field :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
     list;
+      [@default []] [@yojson_drop_default ( = )]
   value :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3510,20 +3772,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
-             v_field
-         in
-         ("field", arg) :: bnds
+         if [] = v_field then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field)
+               v_field
+           in
+           let bnd = "field", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -3542,6 +3810,7 @@ type deidentify_config__record_transformations__field_transformations__condition
   conditions :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3558,12 +3827,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
-             v_conditions
-         in
-         ("conditions", arg) :: bnds
+         if [] = v_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions)
+               v_conditions
+           in
+           let bnd = "conditions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__condition__expressions__conditions ->
@@ -3579,6 +3851,7 @@ type deidentify_config__record_transformations__field_transformations__condition
   conditions :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3598,12 +3871,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
-             v_conditions
-         in
-         ("conditions", arg) :: bnds
+         if [] = v_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions)
+               v_conditions
+           in
+           let bnd = "conditions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_logical_operator with
@@ -3626,6 +3902,7 @@ type deidentify_config__record_transformations__field_transformations__condition
   expressions :
     deidentify_config__record_transformations__field_transformations__condition__expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3642,12 +3919,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions
-             v_expressions
-         in
-         ("expressions", arg) :: bnds
+         if [] = v_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions)
+               v_expressions
+           in
+           let bnd = "expressions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__condition ->
@@ -3728,6 +4008,7 @@ type deidentify_config__record_transformations__field_transformations__info_type
   sensitivity_score :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3748,12 +4029,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -3903,9 +4187,11 @@ type deidentify_config__record_transformations__field_transformations__info_type
   date_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3930,20 +4216,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -4121,9 +4413,11 @@ type deidentify_config__record_transformations__field_transformations__info_type
   date_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4148,20 +4442,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -4339,9 +4639,11 @@ type deidentify_config__record_transformations__field_transformations__info_type
   date_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4366,20 +4668,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -4434,12 +4742,15 @@ type deidentify_config__record_transformations__field_transformations__info_type
   max :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
     list;
+      [@default []] [@yojson_drop_default ( = )]
   min :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
     list;
+      [@default []] [@yojson_drop_default ( = )]
   replacement_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4460,28 +4771,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
-             v_replacement_value
-         in
-         ("replacement_value", arg) :: bnds
+         if [] = v_replacement_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value)
+               v_replacement_value
+           in
+           let bnd = "replacement_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
-             v_min
-         in
-         ("min", arg) :: bnds
+         if [] = v_min then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min)
+               v_min
+           in
+           let bnd = "min", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
-             v_max
-         in
-         ("max", arg) :: bnds
+         if [] = v_max then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max)
+               v_max
+           in
+           let bnd = "max", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets ->
@@ -4496,6 +4816,7 @@ type deidentify_config__record_transformations__field_transformations__info_type
   buckets :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4512,12 +4833,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
-             v_buckets
-         in
-         ("buckets", arg) :: bnds
+         if [] = v_buckets then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets)
+               v_buckets
+           in
+           let bnd = "buckets", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config ->
@@ -4581,6 +4905,7 @@ type deidentify_config__record_transformations__field_transformations__info_type
   characters_to_ignore :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4602,12 +4927,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
-             v_characters_to_ignore
-         in
-         ("characters_to_ignore", arg) :: bnds
+         if [] = v_characters_to_ignore then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore)
+               v_characters_to_ignore
+           in
+           let bnd = "characters_to_ignore", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_reverse_order with
@@ -4776,12 +5104,15 @@ type deidentify_config__record_transformations__field_transformations__info_type
   kms_wrapped :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4802,28 +5133,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key ->
@@ -4870,6 +5210,7 @@ type deidentify_config__record_transformations__field_transformations__info_type
   sensitivity_score :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4890,12 +5231,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -4922,12 +5266,15 @@ type deidentify_config__record_transformations__field_transformations__info_type
   context :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_key :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
   surrogate_info_type :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4948,28 +5295,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
-             v_surrogate_info_type
-         in
-         ("surrogate_info_type", arg) :: bnds
+         if [] = v_surrogate_info_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type)
+               v_surrogate_info_type
+           in
+           let bnd = "surrogate_info_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
-             v_context
-         in
-         ("context", arg) :: bnds
+         if [] = v_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context)
+               v_context
+           in
+           let bnd = "context", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config ->
@@ -5084,12 +5440,15 @@ type deidentify_config__record_transformations__field_transformations__info_type
   kms_wrapped :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5110,28 +5469,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key ->
@@ -5146,6 +5514,7 @@ type deidentify_config__record_transformations__field_transformations__info_type
   crypto_key :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5162,12 +5531,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config ->
@@ -5312,12 +5684,15 @@ type deidentify_config__record_transformations__field_transformations__info_type
   kms_wrapped :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5338,28 +5713,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key ->
@@ -5406,6 +5790,7 @@ type deidentify_config__record_transformations__field_transformations__info_type
   sensitivity_score :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5426,12 +5811,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -5461,12 +5849,15 @@ type deidentify_config__record_transformations__field_transformations__info_type
   context :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_key :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
   surrogate_info_type :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5490,28 +5881,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
-             v_surrogate_info_type
-         in
-         ("surrogate_info_type", arg) :: bnds
+         if [] = v_surrogate_info_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type)
+               v_surrogate_info_type
+           in
+           let bnd = "surrogate_info_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
-             v_context
-         in
-         ("context", arg) :: bnds
+         if [] = v_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context)
+               v_context
+           in
+           let bnd = "context", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_radix with
@@ -5680,12 +6080,15 @@ type deidentify_config__record_transformations__field_transformations__info_type
   kms_wrapped :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5706,28 +6109,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key ->
@@ -5744,9 +6156,11 @@ type deidentify_config__record_transformations__field_transformations__info_type
   context :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_key :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5768,20 +6182,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
-             v_context
-         in
-         ("context", arg) :: bnds
+         if [] = v_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context)
+               v_context
+           in
+           let bnd = "context", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -5897,9 +6317,11 @@ type deidentify_config__record_transformations__field_transformations__info_type
   lower_bound :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
     list;
+      [@default []] [@yojson_drop_default ( = )]
   upper_bound :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5920,20 +6342,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
-             v_upper_bound
-         in
-         ("upper_bound", arg) :: bnds
+         if [] = v_upper_bound then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound)
+               v_upper_bound
+           in
+           let bnd = "upper_bound", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
-             v_lower_bound
-         in
-         ("lower_bound", arg) :: bnds
+         if [] = v_lower_bound then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound)
+               v_lower_bound
+           in
+           let bnd = "lower_bound", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_bucket_size in
@@ -6096,9 +6524,11 @@ type deidentify_config__record_transformations__field_transformations__info_type
   date_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6124,20 +6554,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -6200,6 +6636,7 @@ type deidentify_config__record_transformations__field_transformations__info_type
   new_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6216,12 +6653,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
-             v_new_value
-         in
-         ("new_value", arg) :: bnds
+         if [] = v_new_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value)
+               v_new_value
+           in
+           let bnd = "new_value", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config ->
@@ -6233,7 +6673,7 @@ let _ =
 [@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list = {
-  words : string prop list;
+  words : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6250,10 +6690,14 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_words
-         in
-         ("words", arg) :: bnds
+         if [] = v_words then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_words
+           in
+           let bnd = "words", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list ->
@@ -6268,6 +6712,7 @@ type deidentify_config__record_transformations__field_transformations__info_type
   word_list :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6284,12 +6729,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
-             v_word_list
-         in
-         ("word_list", arg) :: bnds
+         if [] = v_word_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list)
+               v_word_list
+           in
+           let bnd = "word_list", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config ->
@@ -6356,39 +6804,51 @@ type deidentify_config__record_transformations__field_transformations__info_type
   bucketing_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   character_mask_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_deterministic_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_hash_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_replace_ffx_fpe_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   date_shift_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   fixed_size_bucketing_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   redact_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   replace_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   replace_dictionary_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   replace_with_info_type_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_part_config :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6420,100 +6880,136 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
-             v_time_part_config
-         in
-         ("time_part_config", arg) :: bnds
+         if [] = v_time_part_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config)
+               v_time_part_config
+           in
+           let bnd = "time_part_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config
-             v_replace_with_info_type_config
-         in
-         ("replace_with_info_type_config", arg) :: bnds
+         if [] = v_replace_with_info_type_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config)
+               v_replace_with_info_type_config
+           in
+           let bnd = "replace_with_info_type_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
-             v_replace_dictionary_config
-         in
-         ("replace_dictionary_config", arg) :: bnds
+         if [] = v_replace_dictionary_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config)
+               v_replace_dictionary_config
+           in
+           let bnd = "replace_dictionary_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config
-             v_replace_config
-         in
-         ("replace_config", arg) :: bnds
+         if [] = v_replace_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config)
+               v_replace_config
+           in
+           let bnd = "replace_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config
-             v_redact_config
-         in
-         ("redact_config", arg) :: bnds
+         if [] = v_redact_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config)
+               v_redact_config
+           in
+           let bnd = "redact_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
-             v_fixed_size_bucketing_config
-         in
-         ("fixed_size_bucketing_config", arg) :: bnds
+         if [] = v_fixed_size_bucketing_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config)
+               v_fixed_size_bucketing_config
+           in
+           let bnd = "fixed_size_bucketing_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
-             v_date_shift_config
-         in
-         ("date_shift_config", arg) :: bnds
+         if [] = v_date_shift_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config)
+               v_date_shift_config
+           in
+           let bnd = "date_shift_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
-             v_crypto_replace_ffx_fpe_config
-         in
-         ("crypto_replace_ffx_fpe_config", arg) :: bnds
+         if [] = v_crypto_replace_ffx_fpe_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config)
+               v_crypto_replace_ffx_fpe_config
+           in
+           let bnd = "crypto_replace_ffx_fpe_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
-             v_crypto_hash_config
-         in
-         ("crypto_hash_config", arg) :: bnds
+         if [] = v_crypto_hash_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config)
+               v_crypto_hash_config
+           in
+           let bnd = "crypto_hash_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
-             v_crypto_deterministic_config
-         in
-         ("crypto_deterministic_config", arg) :: bnds
+         if [] = v_crypto_deterministic_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config)
+               v_crypto_deterministic_config
+           in
+           let bnd = "crypto_deterministic_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
-             v_character_mask_config
-         in
-         ("character_mask_config", arg) :: bnds
+         if [] = v_character_mask_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config)
+               v_character_mask_config
+           in
+           let bnd = "character_mask_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config
-             v_bucketing_config
-         in
-         ("bucketing_config", arg) :: bnds
+         if [] = v_bucketing_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config)
+               v_bucketing_config
+           in
+           let bnd = "bucketing_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation ->
@@ -6528,9 +7024,11 @@ type deidentify_config__record_transformations__field_transformations__info_type
   info_types :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
     list;
+      [@default []] [@yojson_drop_default ( = )]
   primitive_transformation :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6550,20 +7048,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
-             v_primitive_transformation
-         in
-         ("primitive_transformation", arg) :: bnds
+         if [] = v_primitive_transformation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation)
+               v_primitive_transformation
+           in
+           let bnd = "primitive_transformation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
-             v_info_types
-         in
-         ("info_types", arg) :: bnds
+         if [] = v_info_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types)
+               v_info_types
+           in
+           let bnd = "info_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations ->
@@ -6578,6 +7082,7 @@ type deidentify_config__record_transformations__field_transformations__info_type
   transformations :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6594,12 +7099,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
-             v_transformations
-         in
-         ("transformations", arg) :: bnds
+         if [] = v_transformations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations)
+               v_transformations
+           in
+           let bnd = "transformations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__info_type_transformations ->
@@ -6738,9 +7246,11 @@ type deidentify_config__record_transformations__field_transformations__primitive
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6766,20 +7276,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -6966,9 +7482,11 @@ type deidentify_config__record_transformations__field_transformations__primitive
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6994,20 +7512,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -7194,9 +7718,11 @@ type deidentify_config__record_transformations__field_transformations__primitive
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7222,20 +7748,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -7298,12 +7830,15 @@ type deidentify_config__record_transformations__field_transformations__primitive
   max :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
     list;
+      [@default []] [@yojson_drop_default ( = )]
   min :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
     list;
+      [@default []] [@yojson_drop_default ( = )]
   replacement_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7324,28 +7859,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
-             v_replacement_value
-         in
-         ("replacement_value", arg) :: bnds
+         if [] = v_replacement_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value)
+               v_replacement_value
+           in
+           let bnd = "replacement_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
-             v_min
-         in
-         ("min", arg) :: bnds
+         if [] = v_min then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min)
+               v_min
+           in
+           let bnd = "min", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
-             v_max
-         in
-         ("max", arg) :: bnds
+         if [] = v_max then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max)
+               v_max
+           in
+           let bnd = "max", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets ->
@@ -7360,6 +7904,7 @@ type deidentify_config__record_transformations__field_transformations__primitive
   buckets :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7376,12 +7921,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
-             v_buckets
-         in
-         ("buckets", arg) :: bnds
+         if [] = v_buckets then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets)
+               v_buckets
+           in
+           let bnd = "buckets", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config ->
@@ -7445,6 +7993,7 @@ type deidentify_config__record_transformations__field_transformations__primitive
   characters_to_ignore :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7466,12 +8015,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
-             v_characters_to_ignore
-         in
-         ("characters_to_ignore", arg) :: bnds
+         if [] = v_characters_to_ignore then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore)
+               v_characters_to_ignore
+           in
+           let bnd = "characters_to_ignore", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_reverse_order with
@@ -7644,12 +8196,15 @@ type deidentify_config__record_transformations__field_transformations__primitive
   kms_wrapped :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7670,28 +8225,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key ->
@@ -7738,6 +8302,7 @@ type deidentify_config__record_transformations__field_transformations__primitive
   sensitivity_score :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7758,12 +8323,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -7794,12 +8362,15 @@ type deidentify_config__record_transformations__field_transformations__primitive
   context :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_key :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
   surrogate_info_type :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7820,28 +8391,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
-             v_surrogate_info_type
-         in
-         ("surrogate_info_type", arg) :: bnds
+         if [] = v_surrogate_info_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type)
+               v_surrogate_info_type
+           in
+           let bnd = "surrogate_info_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context
-             v_context
-         in
-         ("context", arg) :: bnds
+         if [] = v_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context)
+               v_context
+           in
+           let bnd = "context", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config ->
@@ -7956,12 +8536,15 @@ type deidentify_config__record_transformations__field_transformations__primitive
   kms_wrapped :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7982,28 +8565,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key ->
@@ -8018,6 +8610,7 @@ type deidentify_config__record_transformations__field_transformations__primitive
   crypto_key :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8034,12 +8627,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config ->
@@ -8188,12 +8784,15 @@ type deidentify_config__record_transformations__field_transformations__primitive
   kms_wrapped :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8214,28 +8813,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key ->
@@ -8282,6 +8890,7 @@ type deidentify_config__record_transformations__field_transformations__primitive
   sensitivity_score :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8302,12 +8911,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -8341,12 +8953,15 @@ type deidentify_config__record_transformations__field_transformations__primitive
   context :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_key :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
   surrogate_info_type :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8370,28 +8985,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
-             v_surrogate_info_type
-         in
-         ("surrogate_info_type", arg) :: bnds
+         if [] = v_surrogate_info_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type)
+               v_surrogate_info_type
+           in
+           let bnd = "surrogate_info_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
-             v_context
-         in
-         ("context", arg) :: bnds
+         if [] = v_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context)
+               v_context
+           in
+           let bnd = "context", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_radix with
@@ -8564,12 +9188,15 @@ type deidentify_config__record_transformations__field_transformations__primitive
   kms_wrapped :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
   transient :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient
     list;
+      [@default []] [@yojson_drop_default ( = )]
   unwrapped :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8590,28 +9217,37 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
-             v_unwrapped
-         in
-         ("unwrapped", arg) :: bnds
+         if [] = v_unwrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped)
+               v_unwrapped
+           in
+           let bnd = "unwrapped", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient
-             v_transient
-         in
-         ("transient", arg) :: bnds
+         if [] = v_transient then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient)
+               v_transient
+           in
+           let bnd = "transient", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
-             v_kms_wrapped
-         in
-         ("kms_wrapped", arg) :: bnds
+         if [] = v_kms_wrapped then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped)
+               v_kms_wrapped
+           in
+           let bnd = "kms_wrapped", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key ->
@@ -8628,9 +9264,11 @@ type deidentify_config__record_transformations__field_transformations__primitive
   context :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_key :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8652,20 +9290,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
-             v_crypto_key
-         in
-         ("crypto_key", arg) :: bnds
+         if [] = v_crypto_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key)
+               v_crypto_key
+           in
+           let bnd = "crypto_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
-             v_context
-         in
-         ("context", arg) :: bnds
+         if [] = v_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context)
+               v_context
+           in
+           let bnd = "context", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -8816,9 +9460,11 @@ type deidentify_config__record_transformations__field_transformations__primitive
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8844,20 +9490,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -9044,9 +9696,11 @@ type deidentify_config__record_transformations__field_transformations__primitive
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9072,20 +9726,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -9149,9 +9809,11 @@ type deidentify_config__record_transformations__field_transformations__primitive
   lower_bound :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
     list;
+      [@default []] [@yojson_drop_default ( = )]
   upper_bound :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9172,20 +9834,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
-             v_upper_bound
-         in
-         ("upper_bound", arg) :: bnds
+         if [] = v_upper_bound then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound)
+               v_upper_bound
+           in
+           let bnd = "upper_bound", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
-             v_lower_bound
-         in
-         ("lower_bound", arg) :: bnds
+         if [] = v_lower_bound then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound)
+               v_lower_bound
+           in
+           let bnd = "lower_bound", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_bucket_size in
@@ -9348,9 +10016,11 @@ type deidentify_config__record_transformations__field_transformations__primitive
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9376,20 +10046,26 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -9452,6 +10128,7 @@ type deidentify_config__record_transformations__field_transformations__primitive
   new_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9468,12 +10145,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
-             v_new_value
-         in
-         ("new_value", arg) :: bnds
+         if [] = v_new_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value)
+               v_new_value
+           in
+           let bnd = "new_value", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config ->
@@ -9485,7 +10165,7 @@ let _ =
 [@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list = {
-  words : string prop list;
+  words : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9502,10 +10182,14 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_words
-         in
-         ("words", arg) :: bnds
+         if [] = v_words then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_words
+           in
+           let bnd = "words", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list ->
@@ -9520,6 +10204,7 @@ type deidentify_config__record_transformations__field_transformations__primitive
   word_list :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9536,12 +10221,15 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
-             v_word_list
-         in
-         ("word_list", arg) :: bnds
+         if [] = v_word_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list)
+               v_word_list
+           in
+           let bnd = "word_list", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config ->
@@ -9590,36 +10278,47 @@ type deidentify_config__record_transformations__field_transformations__primitive
   bucketing_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   character_mask_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_deterministic_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_hash_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_replace_ffx_fpe_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   date_shift_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   fixed_size_bucketing_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   redact_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   replace_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   replace_dictionary_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_part_config :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9649,92 +10348,125 @@ let yojson_of_deidentify_config__record_transformations__field_transformations__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
-             v_time_part_config
-         in
-         ("time_part_config", arg) :: bnds
+         if [] = v_time_part_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config)
+               v_time_part_config
+           in
+           let bnd = "time_part_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
-             v_replace_dictionary_config
-         in
-         ("replace_dictionary_config", arg) :: bnds
+         if [] = v_replace_dictionary_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config)
+               v_replace_dictionary_config
+           in
+           let bnd = "replace_dictionary_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config
-             v_replace_config
-         in
-         ("replace_config", arg) :: bnds
+         if [] = v_replace_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config)
+               v_replace_config
+           in
+           let bnd = "replace_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config
-             v_redact_config
-         in
-         ("redact_config", arg) :: bnds
+         if [] = v_redact_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config)
+               v_redact_config
+           in
+           let bnd = "redact_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config
-             v_fixed_size_bucketing_config
-         in
-         ("fixed_size_bucketing_config", arg) :: bnds
+         if [] = v_fixed_size_bucketing_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config)
+               v_fixed_size_bucketing_config
+           in
+           let bnd = "fixed_size_bucketing_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
-             v_date_shift_config
-         in
-         ("date_shift_config", arg) :: bnds
+         if [] = v_date_shift_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config)
+               v_date_shift_config
+           in
+           let bnd = "date_shift_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
-             v_crypto_replace_ffx_fpe_config
-         in
-         ("crypto_replace_ffx_fpe_config", arg) :: bnds
+         if [] = v_crypto_replace_ffx_fpe_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config)
+               v_crypto_replace_ffx_fpe_config
+           in
+           let bnd = "crypto_replace_ffx_fpe_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
-             v_crypto_hash_config
-         in
-         ("crypto_hash_config", arg) :: bnds
+         if [] = v_crypto_hash_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config)
+               v_crypto_hash_config
+           in
+           let bnd = "crypto_hash_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
-             v_crypto_deterministic_config
-         in
-         ("crypto_deterministic_config", arg) :: bnds
+         if [] = v_crypto_deterministic_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config)
+               v_crypto_deterministic_config
+           in
+           let bnd = "crypto_deterministic_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
-             v_character_mask_config
-         in
-         ("character_mask_config", arg) :: bnds
+         if [] = v_character_mask_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config)
+               v_character_mask_config
+           in
+           let bnd = "character_mask_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
-             v_bucketing_config
-         in
-         ("bucketing_config", arg) :: bnds
+         if [] = v_bucketing_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config)
+               v_bucketing_config
+           in
+           let bnd = "bucketing_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations__primitive_transformation ->
@@ -9749,15 +10481,19 @@ type deidentify_config__record_transformations__field_transformations = {
   condition :
     deidentify_config__record_transformations__field_transformations__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   fields :
     deidentify_config__record_transformations__field_transformations__fields
     list;
+      [@default []] [@yojson_drop_default ( = )]
   info_type_transformations :
     deidentify_config__record_transformations__field_transformations__info_type_transformations
     list;
+      [@default []] [@yojson_drop_default ( = )]
   primitive_transformation :
     deidentify_config__record_transformations__field_transformations__primitive_transformation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9779,36 +10515,48 @@ let yojson_of_deidentify_config__record_transformations__field_transformations
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation
-             v_primitive_transformation
-         in
-         ("primitive_transformation", arg) :: bnds
+         if [] = v_primitive_transformation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation)
+               v_primitive_transformation
+           in
+           let bnd = "primitive_transformation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations
-             v_info_type_transformations
-         in
-         ("info_type_transformations", arg) :: bnds
+         if [] = v_info_type_transformations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations)
+               v_info_type_transformations
+           in
+           let bnd = "info_type_transformations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__fields
-             v_fields
-         in
-         ("fields", arg) :: bnds
+         if [] = v_fields then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__fields)
+               v_fields
+           in
+           let bnd = "fields", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__field_transformations ->
@@ -9981,9 +10729,11 @@ type deidentify_config__record_transformations__record_suppressions__condition__
   date_value :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   time_value :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10009,20 +10759,26 @@ let yojson_of_deidentify_config__record_transformations__record_suppressions__co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
-             v_time_value
-         in
-         ("time_value", arg) :: bnds
+         if [] = v_time_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value)
+               v_time_value
+           in
+           let bnd = "time_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
-             v_date_value
-         in
-         ("date_value", arg) :: bnds
+         if [] = v_date_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value)
+               v_date_value
+           in
+           let bnd = "date_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timestamp_value with
@@ -10086,9 +10842,11 @@ type deidentify_config__record_transformations__record_suppressions__condition__
   field :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
     list;
+      [@default []] [@yojson_drop_default ( = )]
   value :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10105,20 +10863,26 @@ let yojson_of_deidentify_config__record_transformations__record_suppressions__co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
-             v_field
-         in
-         ("field", arg) :: bnds
+         if [] = v_field then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field)
+               v_field
+           in
+           let bnd = "field", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -10137,6 +10901,7 @@ type deidentify_config__record_transformations__record_suppressions__condition__
   conditions :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10153,12 +10918,15 @@ let yojson_of_deidentify_config__record_transformations__record_suppressions__co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
-             v_conditions
-         in
-         ("conditions", arg) :: bnds
+         if [] = v_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions)
+               v_conditions
+           in
+           let bnd = "conditions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions ->
@@ -10174,6 +10942,7 @@ type deidentify_config__record_transformations__record_suppressions__condition__
   conditions :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10193,12 +10962,15 @@ let yojson_of_deidentify_config__record_transformations__record_suppressions__co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
-             v_conditions
-         in
-         ("conditions", arg) :: bnds
+         if [] = v_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions)
+               v_conditions
+           in
+           let bnd = "conditions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_logical_operator with
@@ -10221,6 +10993,7 @@ type deidentify_config__record_transformations__record_suppressions__condition =
   expressions :
     deidentify_config__record_transformations__record_suppressions__condition__expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10237,12 +11010,15 @@ let yojson_of_deidentify_config__record_transformations__record_suppressions__co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions
-             v_expressions
-         in
-         ("expressions", arg) :: bnds
+         if [] = v_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions)
+               v_expressions
+           in
+           let bnd = "expressions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__record_suppressions__condition ->
@@ -10257,6 +11033,7 @@ type deidentify_config__record_transformations__record_suppressions = {
   condition :
     deidentify_config__record_transformations__record_suppressions__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10273,12 +11050,15 @@ let yojson_of_deidentify_config__record_transformations__record_suppressions
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__record_suppressions__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__record_suppressions__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations__record_suppressions ->
@@ -10293,9 +11073,11 @@ type deidentify_config__record_transformations = {
   field_transformations :
     deidentify_config__record_transformations__field_transformations
     list;
+      [@default []] [@yojson_drop_default ( = )]
   record_suppressions :
     deidentify_config__record_transformations__record_suppressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10311,20 +11093,26 @@ let yojson_of_deidentify_config__record_transformations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__record_suppressions
-             v_record_suppressions
-         in
-         ("record_suppressions", arg) :: bnds
+         if [] = v_record_suppressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__record_suppressions)
+               v_record_suppressions
+           in
+           let bnd = "record_suppressions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations__field_transformations
-             v_field_transformations
-         in
-         ("field_transformations", arg) :: bnds
+         if [] = v_field_transformations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations__field_transformations)
+               v_field_transformations
+           in
+           let bnd = "field_transformations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config__record_transformations ->
@@ -10337,10 +11125,13 @@ let _ = yojson_of_deidentify_config__record_transformations
 type deidentify_config = {
   image_transformations :
     deidentify_config__image_transformations list;
+      [@default []] [@yojson_drop_default ( = )]
   info_type_transformations :
     deidentify_config__info_type_transformations list;
+      [@default []] [@yojson_drop_default ( = )]
   record_transformations :
     deidentify_config__record_transformations list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10357,28 +11148,37 @@ let yojson_of_deidentify_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__record_transformations
-             v_record_transformations
-         in
-         ("record_transformations", arg) :: bnds
+         if [] = v_record_transformations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__record_transformations)
+               v_record_transformations
+           in
+           let bnd = "record_transformations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__info_type_transformations
-             v_info_type_transformations
-         in
-         ("info_type_transformations", arg) :: bnds
+         if [] = v_info_type_transformations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__info_type_transformations)
+               v_info_type_transformations
+           in
+           let bnd = "info_type_transformations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deidentify_config__image_transformations
-             v_image_transformations
-         in
-         ("image_transformations", arg) :: bnds
+         if [] = v_image_transformations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deidentify_config__image_transformations)
+               v_image_transformations
+           in
+           let bnd = "image_transformations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deidentify_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -10440,6 +11240,7 @@ type google_data_loss_prevention_deidentify_template = {
   parent : string prop;
   template_id : string prop option; [@option]
   deidentify_config : deidentify_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -10466,11 +11267,14 @@ let yojson_of_google_data_loss_prevention_deidentify_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_deidentify_config
-             v_deidentify_config
-         in
-         ("deidentify_config", arg) :: bnds
+         if [] = v_deidentify_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_deidentify_config)
+               v_deidentify_config
+           in
+           let bnd = "deidentify_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_template_id with

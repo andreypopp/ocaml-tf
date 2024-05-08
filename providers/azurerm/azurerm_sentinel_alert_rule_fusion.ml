@@ -6,6 +6,7 @@ type source__sub_type = {
   enabled : bool prop option; [@option]
   name : string prop;
   severities_allowed : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22,12 +23,14 @@ let yojson_of_source__sub_type =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_severities_allowed
-         in
-         ("severities_allowed", arg) :: bnds
+         if [] = v_severities_allowed then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_severities_allowed
+           in
+           let bnd = "severities_allowed", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -52,6 +55,7 @@ type source = {
   enabled : bool prop option; [@option]
   name : string prop;
   sub_type : source__sub_type list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,10 +68,13 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__sub_type v_sub_type
-         in
-         ("sub_type", arg) :: bnds
+         if [] = v_sub_type then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__sub_type) v_sub_type
+           in
+           let bnd = "sub_type", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -154,7 +161,7 @@ type azurerm_sentinel_alert_rule_fusion = {
   id : string prop option; [@option]
   log_analytics_workspace_id : string prop;
   name : string prop;
-  source : source list;
+  source : source list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -180,8 +187,11 @@ let yojson_of_azurerm_sentinel_alert_rule_fusion =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

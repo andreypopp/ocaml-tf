@@ -2,7 +2,11 @@
 
 open! Tf_core
 
-type targets = { key : string prop; values : string prop list }
+type targets = {
+  key : string prop;
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : targets) -> ()
@@ -14,10 +18,14 @@ let yojson_of_targets =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -33,6 +41,7 @@ let _ = yojson_of_targets
 type task_invocation_parameters__automation_parameters__parameter = {
   name : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,10 +58,14 @@ let yojson_of_task_invocation_parameters__automation_parameters__parameter
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -71,6 +84,7 @@ type task_invocation_parameters__automation_parameters = {
   document_version : string prop option; [@option]
   parameter :
     task_invocation_parameters__automation_parameters__parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -87,12 +101,15 @@ let yojson_of_task_invocation_parameters__automation_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_task_invocation_parameters__automation_parameters__parameter
-             v_parameter
-         in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_task_invocation_parameters__automation_parameters__parameter)
+               v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_document_version with
@@ -268,6 +285,7 @@ let _ =
 type task_invocation_parameters__run_command_parameters__parameter = {
   name : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -284,10 +302,14 @@ let yojson_of_task_invocation_parameters__run_command_parameters__parameter
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -314,12 +336,15 @@ type task_invocation_parameters__run_command_parameters = {
   cloudwatch_config :
     task_invocation_parameters__run_command_parameters__cloudwatch_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   notification_config :
     task_invocation_parameters__run_command_parameters__notification_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   parameter :
     task_invocation_parameters__run_command_parameters__parameter
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -345,28 +370,37 @@ let yojson_of_task_invocation_parameters__run_command_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_task_invocation_parameters__run_command_parameters__parameter
-             v_parameter
-         in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_task_invocation_parameters__run_command_parameters__parameter)
+               v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_task_invocation_parameters__run_command_parameters__notification_config
-             v_notification_config
-         in
-         ("notification_config", arg) :: bnds
+         if [] = v_notification_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_task_invocation_parameters__run_command_parameters__notification_config)
+               v_notification_config
+           in
+           let bnd = "notification_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_task_invocation_parameters__run_command_parameters__cloudwatch_config
-             v_cloudwatch_config
-         in
-         ("cloudwatch_config", arg) :: bnds
+         if [] = v_cloudwatch_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_task_invocation_parameters__run_command_parameters__cloudwatch_config)
+               v_cloudwatch_config
+           in
+           let bnd = "cloudwatch_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_seconds with
@@ -484,12 +518,16 @@ let _ =
 type task_invocation_parameters = {
   automation_parameters :
     task_invocation_parameters__automation_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   lambda_parameters :
     task_invocation_parameters__lambda_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   run_command_parameters :
     task_invocation_parameters__run_command_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   step_functions_parameters :
     task_invocation_parameters__step_functions_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -507,36 +545,48 @@ let yojson_of_task_invocation_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_task_invocation_parameters__step_functions_parameters
-             v_step_functions_parameters
-         in
-         ("step_functions_parameters", arg) :: bnds
+         if [] = v_step_functions_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_task_invocation_parameters__step_functions_parameters)
+               v_step_functions_parameters
+           in
+           let bnd = "step_functions_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_task_invocation_parameters__run_command_parameters
-             v_run_command_parameters
-         in
-         ("run_command_parameters", arg) :: bnds
+         if [] = v_run_command_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_task_invocation_parameters__run_command_parameters)
+               v_run_command_parameters
+           in
+           let bnd = "run_command_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_task_invocation_parameters__lambda_parameters
-             v_lambda_parameters
-         in
-         ("lambda_parameters", arg) :: bnds
+         if [] = v_lambda_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_task_invocation_parameters__lambda_parameters)
+               v_lambda_parameters
+           in
+           let bnd = "lambda_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_task_invocation_parameters__automation_parameters
-             v_automation_parameters
-         in
-         ("automation_parameters", arg) :: bnds
+         if [] = v_automation_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_task_invocation_parameters__automation_parameters)
+               v_automation_parameters
+           in
+           let bnd = "automation_parameters", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : task_invocation_parameters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -557,8 +607,9 @@ type aws_ssm_maintenance_window_task = {
   task_arn : string prop;
   task_type : string prop;
   window_id : string prop;
-  targets : targets list;
+  targets : targets list; [@default []] [@yojson_drop_default ( = )]
   task_invocation_parameters : task_invocation_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -585,15 +636,21 @@ let yojson_of_aws_ssm_maintenance_window_task =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_task_invocation_parameters
-             v_task_invocation_parameters
-         in
-         ("task_invocation_parameters", arg) :: bnds
+         if [] = v_task_invocation_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_task_invocation_parameters)
+               v_task_invocation_parameters
+           in
+           let bnd = "task_invocation_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_targets v_targets in
-         ("targets", arg) :: bnds
+         if [] = v_targets then bnds
+         else
+           let arg = (yojson_of_list yojson_of_targets) v_targets in
+           let bnd = "targets", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_window_id in

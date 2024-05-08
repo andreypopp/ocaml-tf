@@ -4,7 +4,9 @@ open! Tf_core
 
 type network_access_control = {
   prefix_list_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpce_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,20 +20,24 @@ let yojson_of_network_access_control =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_vpce_ids
-         in
-         ("vpce_ids", arg) :: bnds
+         if [] = v_vpce_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_vpce_ids
+           in
+           let bnd = "vpce_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_prefix_list_ids
-         in
-         ("prefix_list_ids", arg) :: bnds
+         if [] = v_prefix_list_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_prefix_list_ids
+           in
+           let bnd = "prefix_list_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : network_access_control -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -79,7 +85,9 @@ let _ = yojson_of_timeouts
 
 type vpc_configuration = {
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,20 +103,24 @@ let yojson_of_vpc_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vpc_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -120,6 +132,7 @@ let _ = yojson_of_vpc_configuration
 type aws_grafana_workspace = {
   account_access_type : string prop;
   authentication_providers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   configuration : string prop option; [@option]
   data_sources : string prop list option; [@option]
   description : string prop option; [@option]
@@ -135,8 +148,10 @@ type aws_grafana_workspace = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   network_access_control : network_access_control list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   vpc_configuration : vpc_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,22 +184,28 @@ let yojson_of_aws_grafana_workspace =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_configuration
-             v_vpc_configuration
-         in
-         ("vpc_configuration", arg) :: bnds
+         if [] = v_vpc_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_configuration)
+               v_vpc_configuration
+           in
+           let bnd = "vpc_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_access_control
-             v_network_access_control
-         in
-         ("network_access_control", arg) :: bnds
+         if [] = v_network_access_control then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_access_control)
+               v_network_access_control
+           in
+           let bnd = "network_access_control", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -319,12 +340,14 @@ let yojson_of_aws_grafana_workspace =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_authentication_providers
-         in
-         ("authentication_providers", arg) :: bnds
+         if [] = v_authentication_providers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_authentication_providers
+           in
+           let bnd = "authentication_providers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

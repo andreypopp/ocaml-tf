@@ -167,6 +167,7 @@ type google_compute_subnetwork = {
   secondary_ip_range : secondary_ip_range list option; [@option]
   stack_type : string prop option; [@option]
   log_config : log_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -202,10 +203,13 @@ let yojson_of_google_compute_subnetwork =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_config v_log_config
-         in
-         ("log_config", arg) :: bnds
+         if [] = v_log_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_config) v_log_config
+           in
+           let bnd = "log_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_stack_type with

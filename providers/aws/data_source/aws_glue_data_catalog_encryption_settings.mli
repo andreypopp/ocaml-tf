@@ -20,9 +20,11 @@ type data_catalog_encryption_settings = {
   connection_password_encryption :
     data_catalog_encryption_settings__connection_password_encryption
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** connection_password_encryption *)
   encryption_at_rest :
     data_catalog_encryption_settings__encryption_at_rest list;
+      [@default []] [@yojson_drop_default ( = )]
       (** encryption_at_rest *)
 }
 

@@ -45,6 +45,7 @@ type aws_load_balancer_policy = {
   policy_name : string prop;
   policy_type_name : string prop;
   policy_attribute : policy_attribute list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,11 +64,14 @@ let yojson_of_aws_load_balancer_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policy_attribute
-             v_policy_attribute
-         in
-         ("policy_attribute", arg) :: bnds
+         if [] = v_policy_attribute then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_policy_attribute)
+               v_policy_attribute
+           in
+           let bnd = "policy_attribute", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

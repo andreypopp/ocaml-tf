@@ -103,6 +103,7 @@ type azurerm_private_dns_resolver_forwarding_rule = {
   metadata : (string * string prop) list option; [@option]
   name : string prop;
   target_dns_servers : target_dns_servers list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -129,11 +130,14 @@ let yojson_of_azurerm_private_dns_resolver_forwarding_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_dns_servers
-             v_target_dns_servers
-         in
-         ("target_dns_servers", arg) :: bnds
+         if [] = v_target_dns_servers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_dns_servers)
+               v_target_dns_servers
+           in
+           let bnd = "target_dns_servers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

@@ -27,6 +27,7 @@ let _ = yojson_of_destination_configuration__s3
 
 type destination_configuration = {
   s3 : destination_configuration__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,11 +40,14 @@ let yojson_of_destination_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_configuration__s3
-             v_s3
-         in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_configuration__s3)
+               v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : destination_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -136,7 +140,9 @@ type aws_ivs_recording_configuration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   destination_configuration : destination_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   thumbnail_configuration : thumbnail_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -164,18 +170,24 @@ let yojson_of_aws_ivs_recording_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_thumbnail_configuration
-             v_thumbnail_configuration
-         in
-         ("thumbnail_configuration", arg) :: bnds
+         if [] = v_thumbnail_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_thumbnail_configuration)
+               v_thumbnail_configuration
+           in
+           let bnd = "thumbnail_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_configuration
-             v_destination_configuration
-         in
-         ("destination_configuration", arg) :: bnds
+         if [] = v_destination_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_configuration)
+               v_destination_configuration
+           in
+           let bnd = "destination_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

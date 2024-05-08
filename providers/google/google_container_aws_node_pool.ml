@@ -258,11 +258,17 @@ type config = {
   tags : (string * string prop) list option; [@option]
   autoscaling_metrics_collection :
     config__autoscaling_metrics_collection list;
+      [@default []] [@yojson_drop_default ( = )]
   config_encryption : config__config_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   proxy_config : config__proxy_config list;
+      [@default []] [@yojson_drop_default ( = )]
   root_volume : config__root_volume list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_config : config__ssh_config list;
+      [@default []] [@yojson_drop_default ( = )]
   taints : config__taints list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -288,44 +294,64 @@ let yojson_of_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__taints v_taints
-         in
-         ("taints", arg) :: bnds
+         if [] = v_taints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__taints) v_taints
+           in
+           let bnd = "taints", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__ssh_config v_ssh_config
-         in
-         ("ssh_config", arg) :: bnds
+         if [] = v_ssh_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__ssh_config)
+               v_ssh_config
+           in
+           let bnd = "ssh_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__root_volume v_root_volume
-         in
-         ("root_volume", arg) :: bnds
+         if [] = v_root_volume then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__root_volume)
+               v_root_volume
+           in
+           let bnd = "root_volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__proxy_config
-             v_proxy_config
-         in
-         ("proxy_config", arg) :: bnds
+         if [] = v_proxy_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__proxy_config)
+               v_proxy_config
+           in
+           let bnd = "proxy_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__config_encryption
-             v_config_encryption
-         in
-         ("config_encryption", arg) :: bnds
+         if [] = v_config_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__config_encryption)
+               v_config_encryption
+           in
+           let bnd = "config_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__autoscaling_metrics_collection
-             v_autoscaling_metrics_collection
-         in
-         ("autoscaling_metrics_collection", arg) :: bnds
+         if [] = v_autoscaling_metrics_collection then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__autoscaling_metrics_collection)
+               v_autoscaling_metrics_collection
+           in
+           let bnd = "autoscaling_metrics_collection", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -527,6 +553,7 @@ let _ = yojson_of_update_settings__surge_settings
 
 type update_settings = {
   surge_settings : update_settings__surge_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -539,11 +566,15 @@ let yojson_of_update_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_update_settings__surge_settings
-             v_surge_settings
-         in
-         ("surge_settings", arg) :: bnds
+         if [] = v_surge_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_update_settings__surge_settings)
+               v_surge_settings
+           in
+           let bnd = "surge_settings", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : update_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -562,11 +593,15 @@ type google_container_aws_node_pool = {
   subnet_id : string prop;
   version : string prop;
   autoscaling : autoscaling list;
-  config : config list;
+      [@default []] [@yojson_drop_default ( = )]
+  config : config list; [@default []] [@yojson_drop_default ( = )]
   management : management list;
+      [@default []] [@yojson_drop_default ( = )]
   max_pods_constraint : max_pods_constraint list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   update_settings : update_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -594,37 +629,53 @@ let yojson_of_google_container_aws_node_pool =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_update_settings v_update_settings
-         in
-         ("update_settings", arg) :: bnds
+         if [] = v_update_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_update_settings)
+               v_update_settings
+           in
+           let bnd = "update_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_max_pods_constraint
-             v_max_pods_constraint
-         in
-         ("max_pods_constraint", arg) :: bnds
+         if [] = v_max_pods_constraint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_max_pods_constraint)
+               v_max_pods_constraint
+           in
+           let bnd = "max_pods_constraint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_management v_management
-         in
-         ("management", arg) :: bnds
+         if [] = v_management then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_management) v_management
+           in
+           let bnd = "management", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_config v_config in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg = (yojson_of_list yojson_of_config) v_config in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_autoscaling v_autoscaling
-         in
-         ("autoscaling", arg) :: bnds
+         if [] = v_autoscaling then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscaling) v_autoscaling
+           in
+           let bnd = "autoscaling", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_version in

@@ -15,7 +15,12 @@ type logging__s3_logs = {
   s3_key_prefix : string prop;  (** s3_key_prefix *)
 }
 
-type logging = { s3_logs : logging__s3_logs list  (** s3_logs *) }
+type logging = {
+  s3_logs : logging__s3_logs list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** s3_logs *)
+}
+
 type aws_imagebuilder_infrastructure_configuration
 
 val aws_imagebuilder_infrastructure_configuration :

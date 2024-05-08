@@ -80,6 +80,7 @@ let _ = yojson_of_timeouts
 type aws_route53domains_delegation_signer_record = {
   domain_name : string prop;
   signing_attributes : signing_attributes list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -101,11 +102,14 @@ let yojson_of_aws_route53domains_delegation_signer_record =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_signing_attributes
-             v_signing_attributes
-         in
-         ("signing_attributes", arg) :: bnds
+         if [] = v_signing_attributes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_signing_attributes)
+               v_signing_attributes
+           in
+           let bnd = "signing_attributes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_domain_name in

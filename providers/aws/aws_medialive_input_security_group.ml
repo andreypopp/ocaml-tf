@@ -76,6 +76,7 @@ type aws_medialive_input_security_group = {
   tags_all : (string * string prop) list option; [@option]
   timeouts : timeouts option;
   whitelist_rules : whitelist_rules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -94,10 +95,14 @@ let yojson_of_aws_medialive_input_security_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_whitelist_rules v_whitelist_rules
-         in
-         ("whitelist_rules", arg) :: bnds
+         if [] = v_whitelist_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_whitelist_rules)
+               v_whitelist_rules
+           in
+           let bnd = "whitelist_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

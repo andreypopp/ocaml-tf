@@ -32,6 +32,7 @@ let _ = yojson_of_auto_adjust_data__historical_options
 type auto_adjust_data = {
   auto_adjust_type : string prop;
   historical_options : auto_adjust_data__historical_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,12 +48,15 @@ let yojson_of_auto_adjust_data =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auto_adjust_data__historical_options
-             v_historical_options
-         in
-         ("historical_options", arg) :: bnds
+         if [] = v_historical_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auto_adjust_data__historical_options)
+               v_historical_options
+           in
+           let bnd = "historical_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -67,7 +71,11 @@ let _ = yojson_of_auto_adjust_data
 
 [@@@deriving.end]
 
-type cost_filter = { name : string prop; values : string prop list }
+type cost_filter = {
+  name : string prop;
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : cost_filter) -> ()
@@ -79,10 +87,14 @@ let yojson_of_cost_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -346,10 +358,15 @@ type aws_budgets_budget = {
   time_period_start : string prop option; [@option]
   time_unit : string prop;
   auto_adjust_data : auto_adjust_data list;
+      [@default []] [@yojson_drop_default ( = )]
   cost_filter : cost_filter list;
+      [@default []] [@yojson_drop_default ( = )]
   cost_types : cost_types list;
+      [@default []] [@yojson_drop_default ( = )]
   notification : notification list;
+      [@default []] [@yojson_drop_default ( = )]
   planned_limit : planned_limit list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -378,35 +395,50 @@ let yojson_of_aws_budgets_budget =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_planned_limit v_planned_limit
-         in
-         ("planned_limit", arg) :: bnds
+         if [] = v_planned_limit then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_planned_limit) v_planned_limit
+           in
+           let bnd = "planned_limit", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification v_notification
-         in
-         ("notification", arg) :: bnds
+         if [] = v_notification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification) v_notification
+           in
+           let bnd = "notification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cost_types v_cost_types
-         in
-         ("cost_types", arg) :: bnds
+         if [] = v_cost_types then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cost_types) v_cost_types
+           in
+           let bnd = "cost_types", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cost_filter v_cost_filter
-         in
-         ("cost_filter", arg) :: bnds
+         if [] = v_cost_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cost_filter) v_cost_filter
+           in
+           let bnd = "cost_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_adjust_data
-             v_auto_adjust_data
-         in
-         ("auto_adjust_data", arg) :: bnds
+         if [] = v_auto_adjust_data then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_adjust_data)
+               v_auto_adjust_data
+           in
+           let bnd = "auto_adjust_data", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_time_unit in

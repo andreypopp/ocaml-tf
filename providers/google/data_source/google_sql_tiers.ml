@@ -6,6 +6,7 @@ type tiers = {
   disk_quota : float prop;
   ram : float prop;
   region : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tier : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -28,10 +29,14 @@ let yojson_of_tiers =
          ("tier", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_region
-         in
-         ("region", arg) :: bnds
+         if [] = v_region then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_region
+           in
+           let bnd = "region", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_ram in

@@ -107,7 +107,7 @@ let _ = yojson_of_timeouts
 type azurerm_key_vault_certificate_contacts = {
   id : string prop option; [@option]
   key_vault_id : string prop;
-  contact : contact list;
+  contact : contact list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -130,8 +130,11 @@ let yojson_of_azurerm_key_vault_certificate_contacts =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_contact v_contact in
-         ("contact", arg) :: bnds
+         if [] = v_contact then bnds
+         else
+           let arg = (yojson_of_list yojson_of_contact) v_contact in
+           let bnd = "contact", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key_vault_id in

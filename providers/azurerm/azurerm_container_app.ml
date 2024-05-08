@@ -241,8 +241,11 @@ type ingress = {
   target_port : float prop;
   transport : string prop option; [@option]
   custom_domain : ingress__custom_domain list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_security_restriction : ingress__ip_security_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
   traffic_weight : ingress__traffic_weight list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -264,25 +267,35 @@ let yojson_of_ingress =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ingress__traffic_weight
-             v_traffic_weight
-         in
-         ("traffic_weight", arg) :: bnds
+         if [] = v_traffic_weight then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ingress__traffic_weight)
+               v_traffic_weight
+           in
+           let bnd = "traffic_weight", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ingress__ip_security_restriction
-             v_ip_security_restriction
-         in
-         ("ip_security_restriction", arg) :: bnds
+         if [] = v_ip_security_restriction then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ingress__ip_security_restriction)
+               v_ip_security_restriction
+           in
+           let bnd = "ip_security_restriction", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ingress__custom_domain
-             v_custom_domain
-         in
-         ("custom_domain", arg) :: bnds
+         if [] = v_custom_domain then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ingress__custom_domain)
+               v_custom_domain
+           in
+           let bnd = "custom_domain", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_transport with
@@ -451,6 +464,7 @@ type template__azure_queue_scale_rule = {
   queue_name : string prop;
   authentication :
     template__azure_queue_scale_rule__authentication list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -468,12 +482,15 @@ let yojson_of_template__azure_queue_scale_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__azure_queue_scale_rule__authentication
-             v_authentication
-         in
-         ("authentication", arg) :: bnds
+         if [] = v_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__azure_queue_scale_rule__authentication)
+               v_authentication
+           in
+           let bnd = "authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_queue_name in
@@ -578,6 +595,7 @@ type template__container__liveness_probe = {
   timeout : float prop option; [@option]
   transport : string prop;
   header : template__container__liveness_probe__header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -600,12 +618,15 @@ let yojson_of_template__container__liveness_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__container__liveness_probe__header
-             v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__container__liveness_probe__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_transport in
@@ -711,6 +732,7 @@ type template__container__readiness_probe = {
   timeout : float prop option; [@option]
   transport : string prop;
   header : template__container__readiness_probe__header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -733,12 +755,15 @@ let yojson_of_template__container__readiness_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__container__readiness_probe__header
-             v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__container__readiness_probe__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_transport in
@@ -843,6 +868,7 @@ type template__container__startup_probe = {
   timeout : float prop option; [@option]
   transport : string prop;
   header : template__container__startup_probe__header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -864,12 +890,15 @@ let yojson_of_template__container__startup_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__container__startup_probe__header
-             v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__container__startup_probe__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_transport in
@@ -965,10 +994,15 @@ type template__container = {
   memory : string prop;
   name : string prop;
   env : template__container__env list;
+      [@default []] [@yojson_drop_default ( = )]
   liveness_probe : template__container__liveness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   readiness_probe : template__container__readiness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   startup_probe : template__container__startup_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_mounts : template__container__volume_mounts list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -993,42 +1027,58 @@ let yojson_of_template__container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__container__volume_mounts
-             v_volume_mounts
-         in
-         ("volume_mounts", arg) :: bnds
+         if [] = v_volume_mounts then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__container__volume_mounts)
+               v_volume_mounts
+           in
+           let bnd = "volume_mounts", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__container__startup_probe
-             v_startup_probe
-         in
-         ("startup_probe", arg) :: bnds
+         if [] = v_startup_probe then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__container__startup_probe)
+               v_startup_probe
+           in
+           let bnd = "startup_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__container__readiness_probe
-             v_readiness_probe
-         in
-         ("readiness_probe", arg) :: bnds
+         if [] = v_readiness_probe then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__container__readiness_probe)
+               v_readiness_probe
+           in
+           let bnd = "readiness_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__container__liveness_probe
-             v_liveness_probe
-         in
-         ("liveness_probe", arg) :: bnds
+         if [] = v_liveness_probe then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__container__liveness_probe)
+               v_liveness_probe
+           in
+           let bnd = "liveness_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__container__env v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__container__env)
+               v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1113,6 +1163,7 @@ type template__custom_scale_rule = {
   metadata : (string * string prop) list;
   name : string prop;
   authentication : template__custom_scale_rule__authentication list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1130,12 +1181,15 @@ let yojson_of_template__custom_scale_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__custom_scale_rule__authentication
-             v_authentication
-         in
-         ("authentication", arg) :: bnds
+         if [] = v_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__custom_scale_rule__authentication)
+               v_authentication
+           in
+           let bnd = "authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1208,6 +1262,7 @@ type template__http_scale_rule = {
   concurrent_requests : string prop;
   name : string prop;
   authentication : template__http_scale_rule__authentication list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1224,12 +1279,15 @@ let yojson_of_template__http_scale_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__http_scale_rule__authentication
-             v_authentication
-         in
-         ("authentication", arg) :: bnds
+         if [] = v_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__http_scale_rule__authentication)
+               v_authentication
+           in
+           let bnd = "authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1330,7 +1388,9 @@ type template__init_container = {
   memory : string prop option; [@option]
   name : string prop;
   env : template__init_container__env list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_mounts : template__init_container__volume_mounts list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1352,19 +1412,25 @@ let yojson_of_template__init_container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__init_container__volume_mounts
-             v_volume_mounts
-         in
-         ("volume_mounts", arg) :: bnds
+         if [] = v_volume_mounts then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__init_container__volume_mounts)
+               v_volume_mounts
+           in
+           let bnd = "volume_mounts", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__init_container__env
-             v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__init_container__env)
+               v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1458,6 +1524,7 @@ type template__tcp_scale_rule = {
   concurrent_requests : string prop;
   name : string prop;
   authentication : template__tcp_scale_rule__authentication list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1474,12 +1541,15 @@ let yojson_of_template__tcp_scale_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_template__tcp_scale_rule__authentication
-             v_authentication
-         in
-         ("authentication", arg) :: bnds
+         if [] = v_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__tcp_scale_rule__authentication)
+               v_authentication
+           in
+           let bnd = "authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1549,12 +1619,19 @@ type template = {
   min_replicas : float prop option; [@option]
   revision_suffix : string prop option; [@option]
   azure_queue_scale_rule : template__azure_queue_scale_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   container : template__container list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_scale_rule : template__custom_scale_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   http_scale_rule : template__http_scale_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   init_container : template__init_container list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_scale_rule : template__tcp_scale_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   volume : template__volume list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1578,51 +1655,74 @@ let yojson_of_template =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__volume v_volume
-         in
-         ("volume", arg) :: bnds
+         if [] = v_volume then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__volume) v_volume
+           in
+           let bnd = "volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__tcp_scale_rule
-             v_tcp_scale_rule
-         in
-         ("tcp_scale_rule", arg) :: bnds
+         if [] = v_tcp_scale_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__tcp_scale_rule)
+               v_tcp_scale_rule
+           in
+           let bnd = "tcp_scale_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__init_container
-             v_init_container
-         in
-         ("init_container", arg) :: bnds
+         if [] = v_init_container then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__init_container)
+               v_init_container
+           in
+           let bnd = "init_container", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__http_scale_rule
-             v_http_scale_rule
-         in
-         ("http_scale_rule", arg) :: bnds
+         if [] = v_http_scale_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__http_scale_rule)
+               v_http_scale_rule
+           in
+           let bnd = "http_scale_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__custom_scale_rule
-             v_custom_scale_rule
-         in
-         ("custom_scale_rule", arg) :: bnds
+         if [] = v_custom_scale_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__custom_scale_rule)
+               v_custom_scale_rule
+           in
+           let bnd = "custom_scale_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__container v_container
-         in
-         ("container", arg) :: bnds
+         if [] = v_container then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template__container)
+               v_container
+           in
+           let bnd = "container", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_template__azure_queue_scale_rule
-             v_azure_queue_scale_rule
-         in
-         ("azure_queue_scale_rule", arg) :: bnds
+         if [] = v_azure_queue_scale_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_template__azure_queue_scale_rule)
+               v_azure_queue_scale_rule
+           in
+           let bnd = "azure_queue_scale_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_revision_suffix with
@@ -1723,12 +1823,15 @@ type azurerm_container_app = {
   revision_mode : string prop;
   tags : (string * string prop) list option; [@option]
   workload_profile_name : string prop option; [@option]
-  dapr : dapr list;
+  dapr : dapr list; [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
-  ingress : ingress list;
+      [@default []] [@yojson_drop_default ( = )]
+  ingress : ingress list; [@default []] [@yojson_drop_default ( = )]
   registry : registry list;
-  secret : secret list;
+      [@default []] [@yojson_drop_default ( = )]
+  secret : secret list; [@default []] [@yojson_drop_default ( = )]
   template : template list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1761,28 +1864,52 @@ let yojson_of_azurerm_container_app =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_template v_template in
-         ("template", arg) :: bnds
+         if [] = v_template then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_template) v_template
+           in
+           let bnd = "template", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_secret v_secret in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg = (yojson_of_list yojson_of_secret) v_secret in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_registry v_registry in
-         ("registry", arg) :: bnds
+         if [] = v_registry then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_registry) v_registry
+           in
+           let bnd = "registry", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_ingress v_ingress in
-         ("ingress", arg) :: bnds
+         if [] = v_ingress then bnds
+         else
+           let arg = (yojson_of_list yojson_of_ingress) v_ingress in
+           let bnd = "ingress", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_dapr v_dapr in
-         ("dapr", arg) :: bnds
+         if [] = v_dapr then bnds
+         else
+           let arg = (yojson_of_list yojson_of_dapr) v_dapr in
+           let bnd = "dapr", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_workload_profile_name with

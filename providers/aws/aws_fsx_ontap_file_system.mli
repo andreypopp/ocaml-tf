@@ -6,17 +6,25 @@ open! Tf_core
 
 type endpoints__management = {
   dns_name : string prop;  (** dns_name *)
-  ip_addresses : string prop list;  (** ip_addresses *)
+  ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ip_addresses *)
 }
 
 type endpoints__intercluster = {
   dns_name : string prop;  (** dns_name *)
-  ip_addresses : string prop list;  (** ip_addresses *)
+  ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ip_addresses *)
 }
 
 type endpoints = {
-  intercluster : endpoints__intercluster list;  (** intercluster *)
-  management : endpoints__management list;  (** management *)
+  intercluster : endpoints__intercluster list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** intercluster *)
+  management : endpoints__management list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** management *)
 }
 
 type disk_iops_configuration

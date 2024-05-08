@@ -287,11 +287,15 @@ type google_notebooks_instance = {
   tags : string prop list option; [@option]
   update_time : string prop option; [@option]
   accelerator_config : accelerator_config list;
+      [@default []] [@yojson_drop_default ( = )]
   container_image : container_image list;
+      [@default []] [@yojson_drop_default ( = )]
   reservation_affinity : reservation_affinity list;
+      [@default []] [@yojson_drop_default ( = )]
   shielded_instance_config : shielded_instance_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  vm_image : vm_image list;
+  vm_image : vm_image list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -340,39 +344,57 @@ let yojson_of_google_notebooks_instance =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_vm_image v_vm_image in
-         ("vm_image", arg) :: bnds
+         if [] = v_vm_image then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vm_image) v_vm_image
+           in
+           let bnd = "vm_image", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_shielded_instance_config
-             v_shielded_instance_config
-         in
-         ("shielded_instance_config", arg) :: bnds
+         if [] = v_shielded_instance_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_shielded_instance_config)
+               v_shielded_instance_config
+           in
+           let bnd = "shielded_instance_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_reservation_affinity
-             v_reservation_affinity
-         in
-         ("reservation_affinity", arg) :: bnds
+         if [] = v_reservation_affinity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_reservation_affinity)
+               v_reservation_affinity
+           in
+           let bnd = "reservation_affinity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container_image v_container_image
-         in
-         ("container_image", arg) :: bnds
+         if [] = v_container_image then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container_image)
+               v_container_image
+           in
+           let bnd = "container_image", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_accelerator_config
-             v_accelerator_config
-         in
-         ("accelerator_config", arg) :: bnds
+         if [] = v_accelerator_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_accelerator_config)
+               v_accelerator_config
+           in
+           let bnd = "accelerator_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_update_time with

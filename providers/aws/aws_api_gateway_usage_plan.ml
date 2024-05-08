@@ -52,6 +52,7 @@ type api_stages = {
   api_id : string prop;
   stage : string prop;
   throttle : api_stages__throttle list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,10 +65,14 @@ let yojson_of_api_stages =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_api_stages__throttle v_throttle
-         in
-         ("throttle", arg) :: bnds
+         if [] = v_throttle then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_api_stages__throttle)
+               v_throttle
+           in
+           let bnd = "throttle", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_stage in
@@ -167,8 +172,11 @@ type aws_api_gateway_usage_plan = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   api_stages : api_stages list;
+      [@default []] [@yojson_drop_default ( = )]
   quota_settings : quota_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   throttle_settings : throttle_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -191,23 +199,33 @@ let yojson_of_aws_api_gateway_usage_plan =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_throttle_settings
-             v_throttle_settings
-         in
-         ("throttle_settings", arg) :: bnds
+         if [] = v_throttle_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_throttle_settings)
+               v_throttle_settings
+           in
+           let bnd = "throttle_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_quota_settings v_quota_settings
-         in
-         ("quota_settings", arg) :: bnds
+         if [] = v_quota_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_quota_settings)
+               v_quota_settings
+           in
+           let bnd = "quota_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_api_stages v_api_stages
-         in
-         ("api_stages", arg) :: bnds
+         if [] = v_api_stages then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_api_stages) v_api_stages
+           in
+           let bnd = "api_stages", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

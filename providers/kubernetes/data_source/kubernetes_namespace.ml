@@ -68,7 +68,10 @@ let _ = yojson_of_metadata
 
 [@@@deriving.end]
 
-type spec = { finalizers : string prop list }
+type spec = {
+  finalizers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : spec) -> ()
@@ -80,12 +83,14 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_finalizers
-         in
-         ("finalizers", arg) :: bnds
+         if [] = v_finalizers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_finalizers
+           in
+           let bnd = "finalizers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -96,7 +101,7 @@ let _ = yojson_of_spec
 
 type kubernetes_namespace = {
   id : string prop option; [@option]
-  metadata : metadata list;
+  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,8 +114,13 @@ let yojson_of_kubernetes_namespace =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

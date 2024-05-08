@@ -199,8 +199,11 @@ type azurerm_storage_account_sas = {
   signed_version : string prop option; [@option]
   start : string prop;
   permissions : permissions list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_types : resource_types list;
+      [@default []] [@yojson_drop_default ( = )]
   services : services list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -230,20 +233,32 @@ let yojson_of_azurerm_storage_account_sas =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_services v_services in
-         ("services", arg) :: bnds
+         if [] = v_services then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_services) v_services
+           in
+           let bnd = "services", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resource_types v_resource_types
-         in
-         ("resource_types", arg) :: bnds
+         if [] = v_resource_types then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resource_types)
+               v_resource_types
+           in
+           let bnd = "resource_types", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_permissions v_permissions
-         in
-         ("permissions", arg) :: bnds
+         if [] = v_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_permissions) v_permissions
+           in
+           let bnd = "permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_start in

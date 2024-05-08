@@ -69,7 +69,9 @@ type aws_athena_database = {
   name : string prop;
   properties : (string * string prop) list option; [@option]
   acl_configuration : acl_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   encryption_configuration : encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -92,18 +94,24 @@ let yojson_of_aws_athena_database =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_configuration
-             v_encryption_configuration
-         in
-         ("encryption_configuration", arg) :: bnds
+         if [] = v_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_configuration)
+               v_encryption_configuration
+           in
+           let bnd = "encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_acl_configuration
-             v_acl_configuration
-         in
-         ("acl_configuration", arg) :: bnds
+         if [] = v_acl_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_acl_configuration)
+               v_acl_configuration
+           in
+           let bnd = "acl_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_properties with

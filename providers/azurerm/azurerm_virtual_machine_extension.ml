@@ -113,6 +113,7 @@ type azurerm_virtual_machine_extension = {
   virtual_machine_id : string prop;
   protected_settings_from_key_vault :
     protected_settings_from_key_vault list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -147,11 +148,15 @@ let yojson_of_azurerm_virtual_machine_extension =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_protected_settings_from_key_vault
-             v_protected_settings_from_key_vault
-         in
-         ("protected_settings_from_key_vault", arg) :: bnds
+         if [] = v_protected_settings_from_key_vault then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_protected_settings_from_key_vault)
+               v_protected_settings_from_key_vault
+           in
+           let bnd = "protected_settings_from_key_vault", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

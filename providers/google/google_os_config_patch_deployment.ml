@@ -41,6 +41,7 @@ type instance_filter = {
   instances : string prop list option; [@option]
   zones : string prop list option; [@option]
   group_labels : instance_filter__group_labels list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,11 +60,14 @@ let yojson_of_instance_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_filter__group_labels
-             v_group_labels
-         in
-         ("group_labels", arg) :: bnds
+         if [] = v_group_labels then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instance_filter__group_labels)
+               v_group_labels
+           in
+           let bnd = "group_labels", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with
@@ -260,6 +264,7 @@ type patch_config__post_step__linux_exec_step_config = {
   local_path : string prop option; [@option]
   gcs_object :
     patch_config__post_step__linux_exec_step_config__gcs_object list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -278,12 +283,15 @@ let yojson_of_patch_config__post_step__linux_exec_step_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_patch_config__post_step__linux_exec_step_config__gcs_object
-             v_gcs_object
-         in
-         ("gcs_object", arg) :: bnds
+         if [] = v_gcs_object then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_patch_config__post_step__linux_exec_step_config__gcs_object)
+               v_gcs_object
+           in
+           let bnd = "gcs_object", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_local_path with
@@ -372,6 +380,7 @@ type patch_config__post_step__windows_exec_step_config = {
   gcs_object :
     patch_config__post_step__windows_exec_step_config__gcs_object
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -390,12 +399,15 @@ let yojson_of_patch_config__post_step__windows_exec_step_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_patch_config__post_step__windows_exec_step_config__gcs_object
-             v_gcs_object
-         in
-         ("gcs_object", arg) :: bnds
+         if [] = v_gcs_object then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_patch_config__post_step__windows_exec_step_config__gcs_object)
+               v_gcs_object
+           in
+           let bnd = "gcs_object", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_local_path with
@@ -434,8 +446,10 @@ let _ = yojson_of_patch_config__post_step__windows_exec_step_config
 type patch_config__post_step = {
   linux_exec_step_config :
     patch_config__post_step__linux_exec_step_config list;
+      [@default []] [@yojson_drop_default ( = )]
   windows_exec_step_config :
     patch_config__post_step__windows_exec_step_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -451,20 +465,26 @@ let yojson_of_patch_config__post_step =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_patch_config__post_step__windows_exec_step_config
-             v_windows_exec_step_config
-         in
-         ("windows_exec_step_config", arg) :: bnds
+         if [] = v_windows_exec_step_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_patch_config__post_step__windows_exec_step_config)
+               v_windows_exec_step_config
+           in
+           let bnd = "windows_exec_step_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_patch_config__post_step__linux_exec_step_config
-             v_linux_exec_step_config
-         in
-         ("linux_exec_step_config", arg) :: bnds
+         if [] = v_linux_exec_step_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_patch_config__post_step__linux_exec_step_config)
+               v_linux_exec_step_config
+           in
+           let bnd = "linux_exec_step_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : patch_config__post_step -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -524,6 +544,7 @@ type patch_config__pre_step__linux_exec_step_config = {
   local_path : string prop option; [@option]
   gcs_object :
     patch_config__pre_step__linux_exec_step_config__gcs_object list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -542,12 +563,15 @@ let yojson_of_patch_config__pre_step__linux_exec_step_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_patch_config__pre_step__linux_exec_step_config__gcs_object
-             v_gcs_object
-         in
-         ("gcs_object", arg) :: bnds
+         if [] = v_gcs_object then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_patch_config__pre_step__linux_exec_step_config__gcs_object)
+               v_gcs_object
+           in
+           let bnd = "gcs_object", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_local_path with
@@ -635,6 +659,7 @@ type patch_config__pre_step__windows_exec_step_config = {
   local_path : string prop option; [@option]
   gcs_object :
     patch_config__pre_step__windows_exec_step_config__gcs_object list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -653,12 +678,15 @@ let yojson_of_patch_config__pre_step__windows_exec_step_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_patch_config__pre_step__windows_exec_step_config__gcs_object
-             v_gcs_object
-         in
-         ("gcs_object", arg) :: bnds
+         if [] = v_gcs_object then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_patch_config__pre_step__windows_exec_step_config__gcs_object)
+               v_gcs_object
+           in
+           let bnd = "gcs_object", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_local_path with
@@ -697,8 +725,10 @@ let _ = yojson_of_patch_config__pre_step__windows_exec_step_config
 type patch_config__pre_step = {
   linux_exec_step_config :
     patch_config__pre_step__linux_exec_step_config list;
+      [@default []] [@yojson_drop_default ( = )]
   windows_exec_step_config :
     patch_config__pre_step__windows_exec_step_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -714,20 +744,26 @@ let yojson_of_patch_config__pre_step =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_patch_config__pre_step__windows_exec_step_config
-             v_windows_exec_step_config
-         in
-         ("windows_exec_step_config", arg) :: bnds
+         if [] = v_windows_exec_step_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_patch_config__pre_step__windows_exec_step_config)
+               v_windows_exec_step_config
+           in
+           let bnd = "windows_exec_step_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_patch_config__pre_step__linux_exec_step_config
-             v_linux_exec_step_config
-         in
-         ("linux_exec_step_config", arg) :: bnds
+         if [] = v_linux_exec_step_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_patch_config__pre_step__linux_exec_step_config)
+               v_linux_exec_step_config
+           in
+           let bnd = "linux_exec_step_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : patch_config__pre_step -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -949,12 +985,19 @@ type patch_config = {
   mig_instances_allowed : bool prop option; [@option]
   reboot_config : string prop option; [@option]
   apt : patch_config__apt list;
+      [@default []] [@yojson_drop_default ( = )]
   goo : patch_config__goo list;
+      [@default []] [@yojson_drop_default ( = )]
   post_step : patch_config__post_step list;
+      [@default []] [@yojson_drop_default ( = )]
   pre_step : patch_config__pre_step list;
+      [@default []] [@yojson_drop_default ( = )]
   windows_update : patch_config__windows_update list;
+      [@default []] [@yojson_drop_default ( = )]
   yum : patch_config__yum list;
+      [@default []] [@yojson_drop_default ( = )]
   zypper : patch_config__zypper list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -977,48 +1020,70 @@ let yojson_of_patch_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_patch_config__zypper v_zypper
-         in
-         ("zypper", arg) :: bnds
+         if [] = v_zypper then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_patch_config__zypper) v_zypper
+           in
+           let bnd = "zypper", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_patch_config__yum v_yum
-         in
-         ("yum", arg) :: bnds
+         if [] = v_yum then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_patch_config__yum) v_yum
+           in
+           let bnd = "yum", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_patch_config__windows_update
-             v_windows_update
-         in
-         ("windows_update", arg) :: bnds
+         if [] = v_windows_update then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_patch_config__windows_update)
+               v_windows_update
+           in
+           let bnd = "windows_update", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_patch_config__pre_step v_pre_step
-         in
-         ("pre_step", arg) :: bnds
+         if [] = v_pre_step then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_patch_config__pre_step)
+               v_pre_step
+           in
+           let bnd = "pre_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_patch_config__post_step
-             v_post_step
-         in
-         ("post_step", arg) :: bnds
+         if [] = v_post_step then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_patch_config__post_step)
+               v_post_step
+           in
+           let bnd = "post_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_patch_config__goo v_goo
-         in
-         ("goo", arg) :: bnds
+         if [] = v_goo then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_patch_config__goo) v_goo
+           in
+           let bnd = "goo", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_patch_config__apt v_apt
-         in
-         ("apt", arg) :: bnds
+         if [] = v_apt then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_patch_config__apt) v_apt
+           in
+           let bnd = "apt", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_reboot_config with
@@ -1091,6 +1156,7 @@ type recurring_schedule__monthly = {
   month_day : float prop option; [@option]
   week_day_of_month :
     recurring_schedule__monthly__week_day_of_month list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1106,12 +1172,15 @@ let yojson_of_recurring_schedule__monthly =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_recurring_schedule__monthly__week_day_of_month
-             v_week_day_of_month
-         in
-         ("week_day_of_month", arg) :: bnds
+         if [] = v_week_day_of_month then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_recurring_schedule__monthly__week_day_of_month)
+               v_week_day_of_month
+           in
+           let bnd = "week_day_of_month", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_month_day with
@@ -1250,9 +1319,13 @@ type recurring_schedule = {
   end_time : string prop option; [@option]
   start_time : string prop option; [@option]
   monthly : recurring_schedule__monthly list;
+      [@default []] [@yojson_drop_default ( = )]
   time_of_day : recurring_schedule__time_of_day list;
+      [@default []] [@yojson_drop_default ( = )]
   time_zone : recurring_schedule__time_zone list;
+      [@default []] [@yojson_drop_default ( = )]
   weekly : recurring_schedule__weekly list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1272,32 +1345,45 @@ let yojson_of_recurring_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurring_schedule__weekly
-             v_weekly
-         in
-         ("weekly", arg) :: bnds
+         if [] = v_weekly then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recurring_schedule__weekly)
+               v_weekly
+           in
+           let bnd = "weekly", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurring_schedule__time_zone
-             v_time_zone
-         in
-         ("time_zone", arg) :: bnds
+         if [] = v_time_zone then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recurring_schedule__time_zone)
+               v_time_zone
+           in
+           let bnd = "time_zone", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurring_schedule__time_of_day
-             v_time_of_day
-         in
-         ("time_of_day", arg) :: bnds
+         if [] = v_time_of_day then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_recurring_schedule__time_of_day)
+               v_time_of_day
+           in
+           let bnd = "time_of_day", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurring_schedule__monthly
-             v_monthly
-         in
-         ("monthly", arg) :: bnds
+         if [] = v_monthly then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recurring_schedule__monthly)
+               v_monthly
+           in
+           let bnd = "monthly", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start_time with
@@ -1362,6 +1448,7 @@ let _ = yojson_of_rollout__disruption_budget
 type rollout = {
   mode : string prop;
   disruption_budget : rollout__disruption_budget list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1374,11 +1461,14 @@ let yojson_of_rollout =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rollout__disruption_budget
-             v_disruption_budget
-         in
-         ("disruption_budget", arg) :: bnds
+         if [] = v_disruption_budget then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rollout__disruption_budget)
+               v_disruption_budget
+           in
+           let bnd = "disruption_budget", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_mode in
@@ -1435,10 +1525,14 @@ type google_os_config_patch_deployment = {
   patch_deployment_id : string prop;
   project : string prop option; [@option]
   instance_filter : instance_filter list;
+      [@default []] [@yojson_drop_default ( = )]
   one_time_schedule : one_time_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   patch_config : patch_config list;
+      [@default []] [@yojson_drop_default ( = )]
   recurring_schedule : recurring_schedule list;
-  rollout : rollout list;
+      [@default []] [@yojson_drop_default ( = )]
+  rollout : rollout list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1468,34 +1562,50 @@ let yojson_of_google_os_config_patch_deployment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rollout v_rollout in
-         ("rollout", arg) :: bnds
+         if [] = v_rollout then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rollout) v_rollout in
+           let bnd = "rollout", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recurring_schedule
-             v_recurring_schedule
-         in
-         ("recurring_schedule", arg) :: bnds
+         if [] = v_recurring_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recurring_schedule)
+               v_recurring_schedule
+           in
+           let bnd = "recurring_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_patch_config v_patch_config
-         in
-         ("patch_config", arg) :: bnds
+         if [] = v_patch_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_patch_config) v_patch_config
+           in
+           let bnd = "patch_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_one_time_schedule
-             v_one_time_schedule
-         in
-         ("one_time_schedule", arg) :: bnds
+         if [] = v_one_time_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_one_time_schedule)
+               v_one_time_schedule
+           in
+           let bnd = "one_time_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_filter v_instance_filter
-         in
-         ("instance_filter", arg) :: bnds
+         if [] = v_instance_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instance_filter)
+               v_instance_filter
+           in
+           let bnd = "instance_filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

@@ -38,9 +38,12 @@ let _ = yojson_of_autoclass
 
 type cors = {
   max_age_seconds : float prop;
-  method_ : string prop list; [@key "method"]
+  method_ : string prop list;
+      [@default []] [@yojson_drop_default ( = )] [@key "method"]
   origin : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   response_header : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,24 +61,34 @@ let yojson_of_cors =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_response_header
-         in
-         ("response_header", arg) :: bnds
+         if [] = v_response_header then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_response_header
+           in
+           let bnd = "response_header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_origin
-         in
-         ("origin", arg) :: bnds
+         if [] = v_origin then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_origin
+           in
+           let bnd = "origin", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_method_
-         in
-         ("method", arg) :: bnds
+         if [] = v_method_ then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_method_
+           in
+           let bnd = "method", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -90,7 +103,10 @@ let _ = yojson_of_cors
 
 [@@@deriving.end]
 
-type custom_placement_config = { data_locations : string prop list }
+type custom_placement_config = {
+  data_locations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : custom_placement_config) -> ()
@@ -102,12 +118,14 @@ let yojson_of_custom_placement_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_data_locations
-         in
-         ("data_locations", arg) :: bnds
+         if [] = v_data_locations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_data_locations
+           in
+           let bnd = "data_locations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : custom_placement_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -147,8 +165,11 @@ type lifecycle_rule__condition = {
   days_since_custom_time : float prop;
   days_since_noncurrent_time : float prop;
   matches_prefix : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   matches_storage_class : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   matches_suffix : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   no_age : bool prop;
   noncurrent_time_before : string prop;
   num_newer_versions : float prop;
@@ -198,28 +219,34 @@ let yojson_of_lifecycle_rule__condition =
          ("no_age", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_matches_suffix
-         in
-         ("matches_suffix", arg) :: bnds
+         if [] = v_matches_suffix then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_matches_suffix
+           in
+           let bnd = "matches_suffix", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_matches_storage_class
-         in
-         ("matches_storage_class", arg) :: bnds
+         if [] = v_matches_storage_class then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_matches_storage_class
+           in
+           let bnd = "matches_storage_class", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_matches_prefix
-         in
-         ("matches_prefix", arg) :: bnds
+         if [] = v_matches_prefix then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_matches_prefix
+           in
+           let bnd = "matches_prefix", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -288,7 +315,9 @@ let _ = yojson_of_lifecycle_rule__action
 
 type lifecycle_rule = {
   action : lifecycle_rule__action list;
+      [@default []] [@yojson_drop_default ( = )]
   condition : lifecycle_rule__condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -301,17 +330,24 @@ let yojson_of_lifecycle_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lifecycle_rule__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lifecycle_rule__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lifecycle_rule__action v_action
-         in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lifecycle_rule__action)
+               v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : lifecycle_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)

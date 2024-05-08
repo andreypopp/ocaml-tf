@@ -11,10 +11,15 @@ type rule__filters__match_blob_index_tag = {
 }
 
 type rule__filters = {
-  blob_types : string prop list;  (** blob_types *)
+  blob_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** blob_types *)
   match_blob_index_tag : rule__filters__match_blob_index_tag list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_blob_index_tag *)
-  prefix_match : string prop list;  (** prefix_match *)
+  prefix_match : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** prefix_match *)
 }
 
 type rule__actions__version = {
@@ -85,15 +90,25 @@ type rule__actions__base_blob = {
 }
 
 type rule__actions = {
-  base_blob : rule__actions__base_blob list;  (** base_blob *)
-  snapshot : rule__actions__snapshot list;  (** snapshot *)
-  version : rule__actions__version list;  (** version *)
+  base_blob : rule__actions__base_blob list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** base_blob *)
+  snapshot : rule__actions__snapshot list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** snapshot *)
+  version : rule__actions__version list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** version *)
 }
 
 type rule = {
-  actions : rule__actions list;  (** actions *)
+  actions : rule__actions list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** actions *)
   enabled : bool prop;  (** enabled *)
-  filters : rule__filters list;  (** filters *)
+  filters : rule__filters list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** filters *)
   name : string prop;  (** name *)
 }
 

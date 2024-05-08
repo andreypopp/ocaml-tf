@@ -4,7 +4,7 @@ open! Tf_core
 
 type action_group = {
   email_subject : string prop option; [@option]
-  ids : string prop list;
+  ids : string prop list; [@default []] [@yojson_drop_default ( = )]
   webhook_payload : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -30,10 +30,13 @@ let yojson_of_action_group =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_ids
-         in
-         ("ids", arg) :: bnds
+         if [] = v_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string)) v_ids
+           in
+           let bnd = "ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_email_subject with
@@ -119,10 +122,12 @@ type azurerm_monitor_smart_detector_alert_rule = {
   name : string prop;
   resource_group_name : string prop;
   scope_resource_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   severity : string prop;
   tags : (string * string prop) list option; [@option]
   throttling_duration : string prop option; [@option]
   action_group : action_group list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -154,10 +159,13 @@ let yojson_of_azurerm_monitor_smart_detector_alert_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action_group v_action_group
-         in
-         ("action_group", arg) :: bnds
+         if [] = v_action_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action_group) v_action_group
+           in
+           let bnd = "action_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_throttling_duration with
@@ -188,12 +196,14 @@ let yojson_of_azurerm_monitor_smart_detector_alert_rule =
          ("severity", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_scope_resource_ids
-         in
-         ("scope_resource_ids", arg) :: bnds
+         if [] = v_scope_resource_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scope_resource_ids
+           in
+           let bnd = "scope_resource_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

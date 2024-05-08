@@ -131,6 +131,7 @@ type spec = {
   min_replicas : float prop option; [@option]
   target_cpu_utilization_percentage : float prop option; [@option]
   scale_target_ref : spec__scale_target_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -149,11 +150,14 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__scale_target_ref
-             v_scale_target_ref
-         in
-         ("scale_target_ref", arg) :: bnds
+         if [] = v_scale_target_ref then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__scale_target_ref)
+               v_scale_target_ref
+           in
+           let bnd = "scale_target_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_cpu_utilization_percentage with
@@ -185,7 +189,8 @@ let _ = yojson_of_spec
 type kubernetes_horizontal_pod_autoscaler_v1 = {
   id : string prop option; [@option]
   metadata : metadata list;
-  spec : spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -198,12 +203,20 @@ let yojson_of_kubernetes_horizontal_pod_autoscaler_v1 =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

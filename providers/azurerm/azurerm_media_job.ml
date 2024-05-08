@@ -137,7 +137,9 @@ type azurerm_media_job = {
   resource_group_name : string prop;
   transform_name : string prop;
   input_asset : input_asset list;
+      [@default []] [@yojson_drop_default ( = )]
   output_asset : output_asset list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -166,16 +168,22 @@ let yojson_of_azurerm_media_job =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_output_asset v_output_asset
-         in
-         ("output_asset", arg) :: bnds
+         if [] = v_output_asset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_output_asset) v_output_asset
+           in
+           let bnd = "output_asset", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_input_asset v_input_asset
-         in
-         ("input_asset", arg) :: bnds
+         if [] = v_input_asset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_input_asset) v_input_asset
+           in
+           let bnd = "input_asset", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -213,6 +213,7 @@ type schedule = {
   start_time_offset_minutes : float prop option; [@option]
   time_zone : string prop option; [@option]
   monthly_occurrence : schedule__monthly_occurrence list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -240,11 +241,14 @@ let yojson_of_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schedule__monthly_occurrence
-             v_monthly_occurrence
-         in
-         ("monthly_occurrence", arg) :: bnds
+         if [] = v_monthly_occurrence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule__monthly_occurrence)
+               v_monthly_occurrence
+           in
+           let bnd = "monthly_occurrence", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_time_zone with
@@ -360,6 +364,7 @@ let _ = yojson_of_schedule
 type target__azure_query__tags = {
   tag : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -372,10 +377,14 @@ let yojson_of_target__azure_query__tags =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_tag in
@@ -393,6 +402,7 @@ type target__azure_query = {
   scope : string prop list option; [@option]
   tag_filter : string prop option; [@option]
   tags : target__azure_query__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -410,10 +420,14 @@ let yojson_of_target__azure_query =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__azure_query__tags v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__azure_query__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tag_filter with
@@ -492,7 +506,9 @@ let _ = yojson_of_target__non_azure_query
 
 type target = {
   azure_query : target__azure_query list;
+      [@default []] [@yojson_drop_default ( = )]
   non_azure_query : target__non_azure_query list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -508,17 +524,24 @@ let yojson_of_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__non_azure_query
-             v_non_azure_query
-         in
-         ("non_azure_query", arg) :: bnds
+         if [] = v_non_azure_query then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__non_azure_query)
+               v_non_azure_query
+           in
+           let bnd = "non_azure_query", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__azure_query v_azure_query
-         in
-         ("azure_query", arg) :: bnds
+         if [] = v_azure_query then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__azure_query)
+               v_azure_query
+           in
+           let bnd = "azure_query", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -675,13 +698,16 @@ type azurerm_automation_software_update_configuration = {
   non_azure_computer_names : string prop list option; [@option]
   operating_system : string prop option; [@option]
   virtual_machine_ids : string prop list option; [@option]
-  linux : linux list;
+  linux : linux list; [@default []] [@yojson_drop_default ( = )]
   post_task : post_task list;
+      [@default []] [@yojson_drop_default ( = )]
   pre_task : pre_task list;
+      [@default []] [@yojson_drop_default ( = )]
   schedule : schedule list;
-  target : target list;
+      [@default []] [@yojson_drop_default ( = )]
+  target : target list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  windows : windows list;
+  windows : windows list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -710,32 +736,56 @@ let yojson_of_azurerm_automation_software_update_configuration =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_windows v_windows in
-         ("windows", arg) :: bnds
+         if [] = v_windows then bnds
+         else
+           let arg = (yojson_of_list yojson_of_windows) v_windows in
+           let bnd = "windows", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_target v_target in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg = (yojson_of_list yojson_of_target) v_target in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_schedule v_schedule in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule) v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_pre_task v_pre_task in
-         ("pre_task", arg) :: bnds
+         if [] = v_pre_task then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pre_task) v_pre_task
+           in
+           let bnd = "pre_task", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_post_task v_post_task in
-         ("post_task", arg) :: bnds
+         if [] = v_post_task then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_post_task) v_post_task
+           in
+           let bnd = "post_task", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_linux v_linux in
-         ("linux", arg) :: bnds
+         if [] = v_linux then bnds
+         else
+           let arg = (yojson_of_list yojson_of_linux) v_linux in
+           let bnd = "linux", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_machine_ids with

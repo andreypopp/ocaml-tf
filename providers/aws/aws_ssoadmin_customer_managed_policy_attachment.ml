@@ -79,6 +79,7 @@ type aws_ssoadmin_customer_managed_policy_attachment = {
   permission_set_arn : string prop;
   customer_managed_policy_reference :
     customer_managed_policy_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -104,11 +105,15 @@ let yojson_of_aws_ssoadmin_customer_managed_policy_attachment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_customer_managed_policy_reference
-             v_customer_managed_policy_reference
-         in
-         ("customer_managed_policy_reference", arg) :: bnds
+         if [] = v_customer_managed_policy_reference then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_customer_managed_policy_reference)
+               v_customer_managed_policy_reference
+           in
+           let bnd = "customer_managed_policy_reference", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

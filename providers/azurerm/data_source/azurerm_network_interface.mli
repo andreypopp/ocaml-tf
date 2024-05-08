@@ -6,14 +6,18 @@ open! Tf_core
 
 type ip_configuration = {
   application_gateway_backend_address_pools_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** application_gateway_backend_address_pools_ids *)
   application_security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** application_security_group_ids *)
   gateway_load_balancer_frontend_ip_configuration_id : string prop;
       (** gateway_load_balancer_frontend_ip_configuration_id *)
   load_balancer_backend_address_pools_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** load_balancer_backend_address_pools_ids *)
   load_balancer_inbound_nat_rules_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** load_balancer_inbound_nat_rules_ids *)
   name : string prop;  (** name *)
   primary : bool prop;  (** primary *)

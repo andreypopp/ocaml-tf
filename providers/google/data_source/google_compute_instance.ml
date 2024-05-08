@@ -208,6 +208,7 @@ type boot_disk = {
   disk_encryption_key_raw : string prop;
   disk_encryption_key_sha256 : string prop;
   initialize_params : boot_disk__initialize_params list;
+      [@default []] [@yojson_drop_default ( = )]
   kms_key_self_link : string prop;
   mode : string prop;
   source : string prop;
@@ -246,11 +247,14 @@ let yojson_of_boot_disk =
          ("kms_key_self_link", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_boot_disk__initialize_params
-             v_initialize_params
-         in
-         ("initialize_params", arg) :: bnds
+         if [] = v_initialize_params then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_boot_disk__initialize_params)
+               v_initialize_params
+           in
+           let bnd = "initialize_params", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -472,9 +476,12 @@ let _ = yojson_of_network_interface__access_config
 
 type network_interface = {
   access_config : network_interface__access_config list;
+      [@default []] [@yojson_drop_default ( = )]
   alias_ip_range : network_interface__alias_ip_range list;
+      [@default []] [@yojson_drop_default ( = )]
   internal_ipv6_prefix_length : float prop;
   ipv6_access_config : network_interface__ipv6_access_config list;
+      [@default []] [@yojson_drop_default ( = )]
   ipv6_access_type : string prop;
   ipv6_address : string prop;
   name : string prop;
@@ -556,12 +563,15 @@ let yojson_of_network_interface =
          ("ipv6_access_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_interface__ipv6_access_config
-             v_ipv6_access_config
-         in
-         ("ipv6_access_config", arg) :: bnds
+         if [] = v_ipv6_access_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_interface__ipv6_access_config)
+               v_ipv6_access_config
+           in
+           let bnd = "ipv6_access_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -571,18 +581,26 @@ let yojson_of_network_interface =
          ("internal_ipv6_prefix_length", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_interface__alias_ip_range
-             v_alias_ip_range
-         in
-         ("alias_ip_range", arg) :: bnds
+         if [] = v_alias_ip_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_interface__alias_ip_range)
+               v_alias_ip_range
+           in
+           let bnd = "alias_ip_range", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_interface__access_config
-             v_access_config
-         in
-         ("access_config", arg) :: bnds
+         if [] = v_access_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_interface__access_config)
+               v_access_config
+           in
+           let bnd = "access_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : network_interface -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -652,6 +670,7 @@ let _ = yojson_of_params
 type reservation_affinity__specific_reservation = {
   key : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -664,10 +683,14 @@ let yojson_of_reservation_affinity__specific_reservation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -684,6 +707,7 @@ let _ = yojson_of_reservation_affinity__specific_reservation
 type reservation_affinity = {
   specific_reservation :
     reservation_affinity__specific_reservation list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -704,12 +728,15 @@ let yojson_of_reservation_affinity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_reservation_affinity__specific_reservation
-             v_specific_reservation
-         in
-         ("specific_reservation", arg) :: bnds
+         if [] = v_specific_reservation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_reservation_affinity__specific_reservation)
+               v_specific_reservation
+           in
+           let bnd = "specific_reservation", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : reservation_affinity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -722,6 +749,7 @@ type scheduling__node_affinities = {
   key : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -734,10 +762,14 @@ let yojson_of_scheduling__node_affinities =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -790,8 +822,10 @@ type scheduling = {
   instance_termination_action : string prop;
   local_ssd_recovery_timeout :
     scheduling__local_ssd_recovery_timeout list;
+      [@default []] [@yojson_drop_default ( = )]
   min_node_cpus : float prop;
   node_affinities : scheduling__node_affinities list;
+      [@default []] [@yojson_drop_default ( = )]
   on_host_maintenance : string prop;
   preemptible : bool prop;
   provisioning_model : string prop;
@@ -832,23 +866,29 @@ let yojson_of_scheduling =
          ("on_host_maintenance", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scheduling__node_affinities
-             v_node_affinities
-         in
-         ("node_affinities", arg) :: bnds
+         if [] = v_node_affinities then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scheduling__node_affinities)
+               v_node_affinities
+           in
+           let bnd = "node_affinities", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_min_node_cpus in
          ("min_node_cpus", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_scheduling__local_ssd_recovery_timeout
-             v_local_ssd_recovery_timeout
-         in
-         ("local_ssd_recovery_timeout", arg) :: bnds
+         if [] = v_local_ssd_recovery_timeout then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scheduling__local_ssd_recovery_timeout)
+               v_local_ssd_recovery_timeout
+           in
+           let bnd = "local_ssd_recovery_timeout", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -911,6 +951,7 @@ let _ = yojson_of_scratch_disk
 type service_account = {
   email : string prop;
   scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -923,10 +964,14 @@ let yojson_of_service_account =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
-         in
-         ("scopes", arg) :: bnds
+         if [] = v_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scopes
+           in
+           let bnd = "scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_email in

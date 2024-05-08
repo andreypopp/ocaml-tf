@@ -50,7 +50,9 @@ let _ = yojson_of_destination_config__on_success
 
 type destination_config = {
   on_failure : destination_config__on_failure list;
+      [@default []] [@yojson_drop_default ( = )]
   on_success : destination_config__on_success list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -63,18 +65,24 @@ let yojson_of_destination_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_config__on_success
-             v_on_success
-         in
-         ("on_success", arg) :: bnds
+         if [] = v_on_success then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_config__on_success)
+               v_on_success
+           in
+           let bnd = "on_success", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_config__on_failure
-             v_on_failure
-         in
-         ("on_failure", arg) :: bnds
+         if [] = v_on_failure then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_config__on_failure)
+               v_on_failure
+           in
+           let bnd = "on_failure", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : destination_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -90,6 +98,7 @@ type aws_lambda_function_event_invoke_config = {
   maximum_retry_attempts : float prop option; [@option]
   qualifier : string prop option; [@option]
   destination_config : destination_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -109,11 +118,14 @@ let yojson_of_aws_lambda_function_event_invoke_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_config
-             v_destination_config
-         in
-         ("destination_config", arg) :: bnds
+         if [] = v_destination_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_config)
+               v_destination_config
+           in
+           let bnd = "destination_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_qualifier with

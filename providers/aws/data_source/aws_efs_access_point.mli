@@ -6,7 +6,9 @@ open! Tf_core
 
 type posix_user = {
   gid : float prop;  (** gid *)
-  secondary_gids : float prop list;  (** secondary_gids *)
+  secondary_gids : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** secondary_gids *)
   uid : float prop;  (** uid *)
 }
 
@@ -18,6 +20,7 @@ type root_directory__creation_info = {
 
 type root_directory = {
   creation_info : root_directory__creation_info list;
+      [@default []] [@yojson_drop_default ( = )]
       (** creation_info *)
   path : string prop;  (** path *)
 }

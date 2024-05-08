@@ -113,6 +113,7 @@ type storage_class_analysis__data_export__destination = {
   s3_bucket_destination :
     storage_class_analysis__data_export__destination__s3_bucket_destination
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,12 +127,15 @@ let yojson_of_storage_class_analysis__data_export__destination =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_class_analysis__data_export__destination__s3_bucket_destination
-             v_s3_bucket_destination
-         in
-         ("s3_bucket_destination", arg) :: bnds
+         if [] = v_s3_bucket_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_class_analysis__data_export__destination__s3_bucket_destination)
+               v_s3_bucket_destination
+           in
+           let bnd = "s3_bucket_destination", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : storage_class_analysis__data_export__destination ->
@@ -144,6 +148,7 @@ let _ = yojson_of_storage_class_analysis__data_export__destination
 type storage_class_analysis__data_export = {
   output_schema_version : string prop option; [@option]
   destination : storage_class_analysis__data_export__destination list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -159,12 +164,15 @@ let yojson_of_storage_class_analysis__data_export =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_class_analysis__data_export__destination
-             v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_class_analysis__data_export__destination)
+               v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_output_schema_version with
@@ -184,6 +192,7 @@ let _ = yojson_of_storage_class_analysis__data_export
 
 type storage_class_analysis = {
   data_export : storage_class_analysis__data_export list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,12 +205,15 @@ let yojson_of_storage_class_analysis =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_class_analysis__data_export
-             v_data_export
-         in
-         ("data_export", arg) :: bnds
+         if [] = v_data_export then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_class_analysis__data_export)
+               v_data_export
+           in
+           let bnd = "data_export", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : storage_class_analysis -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -214,8 +226,9 @@ type aws_s3_bucket_analytics_configuration = {
   bucket : string prop;
   id : string prop option; [@option]
   name : string prop;
-  filter : filter list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
   storage_class_analysis : storage_class_analysis list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -234,15 +247,21 @@ let yojson_of_aws_s3_bucket_analytics_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_class_analysis
-             v_storage_class_analysis
-         in
-         ("storage_class_analysis", arg) :: bnds
+         if [] = v_storage_class_analysis then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_class_analysis)
+               v_storage_class_analysis
+           in
+           let bnd = "storage_class_analysis", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

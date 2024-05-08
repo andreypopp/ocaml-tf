@@ -34,6 +34,7 @@ let _ = yojson_of_metadata_filters__filter_labels
 
 type metadata_filters = {
   filter_labels : metadata_filters__filter_labels list;
+      [@default []] [@yojson_drop_default ( = )]
   filter_match_criteria : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -56,11 +57,15 @@ let yojson_of_metadata_filters =
          ("filter_match_criteria", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metadata_filters__filter_labels
-             v_filter_labels
-         in
-         ("filter_labels", arg) :: bnds
+         if [] = v_filter_labels then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_metadata_filters__filter_labels)
+               v_filter_labels
+           in
+           let bnd = "filter_labels", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : metadata_filters -> Ppx_yojson_conv_lib.Yojson.Safe.t)

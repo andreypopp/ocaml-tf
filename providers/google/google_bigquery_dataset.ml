@@ -33,7 +33,9 @@ let _ = yojson_of_access__dataset__dataset
 
 type access__dataset = {
   target_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   dataset : access__dataset__dataset list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,19 +48,24 @@ let yojson_of_access__dataset =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access__dataset__dataset
-             v_dataset
-         in
-         ("dataset", arg) :: bnds
+         if [] = v_dataset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access__dataset__dataset)
+               v_dataset
+           in
+           let bnd = "dataset", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_target_types
-         in
-         ("target_types", arg) :: bnds
+         if [] = v_target_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_target_types
+           in
+           let bnd = "target_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : access__dataset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -151,8 +158,10 @@ type access = {
   special_group : string prop option; [@option]
   user_by_email : string prop option; [@option]
   dataset : access__dataset list;
+      [@default []] [@yojson_drop_default ( = )]
   routine : access__routine list;
-  view : access__view list;
+      [@default []] [@yojson_drop_default ( = )]
+  view : access__view list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -175,20 +184,31 @@ let yojson_of_access =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_access__view v_view in
-         ("view", arg) :: bnds
+         if [] = v_view then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access__view) v_view
+           in
+           let bnd = "view", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access__routine v_routine
-         in
-         ("routine", arg) :: bnds
+         if [] = v_routine then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access__routine) v_routine
+           in
+           let bnd = "routine", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_access__dataset v_dataset
-         in
-         ("dataset", arg) :: bnds
+         if [] = v_dataset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_access__dataset) v_dataset
+           in
+           let bnd = "dataset", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_by_email with
@@ -331,9 +351,10 @@ type google_bigquery_dataset = {
   max_time_travel_hours : string prop option; [@option]
   project : string prop option; [@option]
   storage_billing_model : string prop option; [@option]
-  access : access list;
+  access : access list; [@default []] [@yojson_drop_default ( = )]
   default_encryption_configuration :
     default_encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -371,15 +392,22 @@ let yojson_of_google_bigquery_dataset =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_encryption_configuration
-             v_default_encryption_configuration
-         in
-         ("default_encryption_configuration", arg) :: bnds
+         if [] = v_default_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_encryption_configuration)
+               v_default_encryption_configuration
+           in
+           let bnd = "default_encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_access v_access in
-         ("access", arg) :: bnds
+         if [] = v_access then bnds
+         else
+           let arg = (yojson_of_list yojson_of_access) v_access in
+           let bnd = "access", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_storage_billing_model with

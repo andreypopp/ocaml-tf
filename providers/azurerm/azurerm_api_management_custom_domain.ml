@@ -461,10 +461,12 @@ type azurerm_api_management_custom_domain = {
   api_management_id : string prop;
   id : string prop option; [@option]
   developer_portal : developer_portal list;
-  gateway : gateway list;
+      [@default []] [@yojson_drop_default ( = )]
+  gateway : gateway list; [@default []] [@yojson_drop_default ( = )]
   management : management list;
-  portal : portal list;
-  scm : scm list;
+      [@default []] [@yojson_drop_default ( = )]
+  portal : portal list; [@default []] [@yojson_drop_default ( = )]
+  scm : scm list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -491,29 +493,44 @@ let yojson_of_azurerm_api_management_custom_domain =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_scm v_scm in
-         ("scm", arg) :: bnds
+         if [] = v_scm then bnds
+         else
+           let arg = (yojson_of_list yojson_of_scm) v_scm in
+           let bnd = "scm", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_portal v_portal in
-         ("portal", arg) :: bnds
+         if [] = v_portal then bnds
+         else
+           let arg = (yojson_of_list yojson_of_portal) v_portal in
+           let bnd = "portal", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_management v_management
-         in
-         ("management", arg) :: bnds
+         if [] = v_management then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_management) v_management
+           in
+           let bnd = "management", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_gateway v_gateway in
-         ("gateway", arg) :: bnds
+         if [] = v_gateway then bnds
+         else
+           let arg = (yojson_of_list yojson_of_gateway) v_gateway in
+           let bnd = "gateway", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_developer_portal
-             v_developer_portal
-         in
-         ("developer_portal", arg) :: bnds
+         if [] = v_developer_portal then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_developer_portal)
+               v_developer_portal
+           in
+           let bnd = "developer_portal", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

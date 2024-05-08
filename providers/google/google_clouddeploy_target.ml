@@ -33,6 +33,7 @@ type execution_configs = {
   execution_timeout : string prop option; [@option]
   service_account : string prop option; [@option]
   usages : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   worker_pool : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -60,10 +61,14 @@ let yojson_of_execution_configs =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_usages
-         in
-         ("usages", arg) :: bnds
+         if [] = v_usages then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_usages
+           in
+           let bnd = "usages", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_service_account with
@@ -133,7 +138,10 @@ let _ = yojson_of_gke
 
 [@@@deriving.end]
 
-type multi_target = { target_ids : string prop list }
+type multi_target = {
+  target_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : multi_target) -> ()
@@ -145,12 +153,14 @@ let yojson_of_multi_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_target_ids
-         in
-         ("target_ids", arg) :: bnds
+         if [] = v_target_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_target_ids
+           in
+           let bnd = "target_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : multi_target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -237,10 +247,13 @@ type google_clouddeploy_target = {
   project : string prop option; [@option]
   require_approval : bool prop option; [@option]
   anthos_cluster : anthos_cluster list;
+      [@default []] [@yojson_drop_default ( = )]
   execution_configs : execution_configs list;
-  gke : gke list;
+      [@default []] [@yojson_drop_default ( = )]
+  gke : gke list; [@default []] [@yojson_drop_default ( = )]
   multi_target : multi_target list;
-  run : run list;
+      [@default []] [@yojson_drop_default ( = )]
+  run : run list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -274,31 +287,47 @@ let yojson_of_google_clouddeploy_target =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_run v_run in
-         ("run", arg) :: bnds
+         if [] = v_run then bnds
+         else
+           let arg = (yojson_of_list yojson_of_run) v_run in
+           let bnd = "run", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_multi_target v_multi_target
-         in
-         ("multi_target", arg) :: bnds
+         if [] = v_multi_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_multi_target) v_multi_target
+           in
+           let bnd = "multi_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_gke v_gke in
-         ("gke", arg) :: bnds
+         if [] = v_gke then bnds
+         else
+           let arg = (yojson_of_list yojson_of_gke) v_gke in
+           let bnd = "gke", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_execution_configs
-             v_execution_configs
-         in
-         ("execution_configs", arg) :: bnds
+         if [] = v_execution_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_execution_configs)
+               v_execution_configs
+           in
+           let bnd = "execution_configs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_anthos_cluster v_anthos_cluster
-         in
-         ("anthos_cluster", arg) :: bnds
+         if [] = v_anthos_cluster then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_anthos_cluster)
+               v_anthos_cluster
+           in
+           let bnd = "anthos_cluster", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_require_approval with

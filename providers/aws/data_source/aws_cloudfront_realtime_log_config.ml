@@ -34,6 +34,7 @@ let _ = yojson_of_endpoint__kinesis_stream_config
 
 type endpoint = {
   kinesis_stream_config : endpoint__kinesis_stream_config list;
+      [@default []] [@yojson_drop_default ( = )]
   stream_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -54,11 +55,15 @@ let yojson_of_endpoint =
          ("stream_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint__kinesis_stream_config
-             v_kinesis_stream_config
-         in
-         ("kinesis_stream_config", arg) :: bnds
+         if [] = v_kinesis_stream_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_endpoint__kinesis_stream_config)
+               v_kinesis_stream_config
+           in
+           let bnd = "kinesis_stream_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)

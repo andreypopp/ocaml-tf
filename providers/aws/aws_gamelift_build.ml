@@ -58,6 +58,7 @@ type aws_gamelift_build = {
   tags_all : (string * string prop) list option; [@option]
   version : string prop option; [@option]
   storage_location : storage_location list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,11 +79,14 @@ let yojson_of_aws_gamelift_build =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_location
-             v_storage_location
-         in
-         ("storage_location", arg) :: bnds
+         if [] = v_storage_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_location)
+               v_storage_location
+           in
+           let bnd = "storage_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with

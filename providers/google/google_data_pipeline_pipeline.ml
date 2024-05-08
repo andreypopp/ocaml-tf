@@ -293,6 +293,7 @@ type workload__dataflow_flex_template_request__launch_parameter = {
   environment :
     workload__dataflow_flex_template_request__launch_parameter__environment
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -316,12 +317,15 @@ let yojson_of_workload__dataflow_flex_template_request__launch_parameter
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_workload__dataflow_flex_template_request__launch_parameter__environment
-             v_environment
-         in
-         ("environment", arg) :: bnds
+         if [] = v_environment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_workload__dataflow_flex_template_request__launch_parameter__environment)
+               v_environment
+           in
+           let bnd = "environment", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_update with
@@ -406,6 +410,7 @@ type workload__dataflow_flex_template_request = {
   validate_only : bool prop option; [@option]
   launch_parameter :
     workload__dataflow_flex_template_request__launch_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -423,12 +428,15 @@ let yojson_of_workload__dataflow_flex_template_request =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_workload__dataflow_flex_template_request__launch_parameter
-             v_launch_parameter
-         in
-         ("launch_parameter", arg) :: bnds
+         if [] = v_launch_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_workload__dataflow_flex_template_request__launch_parameter)
+               v_launch_parameter
+           in
+           let bnd = "launch_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_validate_only with
@@ -660,6 +668,7 @@ type workload__dataflow_launch_template_request__launch_parameters = {
   environment :
     workload__dataflow_launch_template_request__launch_parameters__environment
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -682,12 +691,15 @@ let yojson_of_workload__dataflow_launch_template_request__launch_parameters
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_workload__dataflow_launch_template_request__launch_parameters__environment
-             v_environment
-         in
-         ("environment", arg) :: bnds
+         if [] = v_environment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_workload__dataflow_launch_template_request__launch_parameters__environment)
+               v_environment
+           in
+           let bnd = "environment", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_update with
@@ -750,6 +762,7 @@ type workload__dataflow_launch_template_request = {
   launch_parameters :
     workload__dataflow_launch_template_request__launch_parameters
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -768,12 +781,15 @@ let yojson_of_workload__dataflow_launch_template_request =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_workload__dataflow_launch_template_request__launch_parameters
-             v_launch_parameters
-         in
-         ("launch_parameters", arg) :: bnds
+         if [] = v_launch_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_workload__dataflow_launch_template_request__launch_parameters)
+               v_launch_parameters
+           in
+           let bnd = "launch_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_validate_only with
@@ -814,8 +830,10 @@ let _ = yojson_of_workload__dataflow_launch_template_request
 type workload = {
   dataflow_flex_template_request :
     workload__dataflow_flex_template_request list;
+      [@default []] [@yojson_drop_default ( = )]
   dataflow_launch_template_request :
     workload__dataflow_launch_template_request list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -833,20 +851,26 @@ let yojson_of_workload =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_workload__dataflow_launch_template_request
-             v_dataflow_launch_template_request
-         in
-         ("dataflow_launch_template_request", arg) :: bnds
+         if [] = v_dataflow_launch_template_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_workload__dataflow_launch_template_request)
+               v_dataflow_launch_template_request
+           in
+           let bnd = "dataflow_launch_template_request", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_workload__dataflow_flex_template_request
-             v_dataflow_flex_template_request
-         in
-         ("dataflow_flex_template_request", arg) :: bnds
+         if [] = v_dataflow_flex_template_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_workload__dataflow_flex_template_request)
+               v_dataflow_flex_template_request
+           in
+           let bnd = "dataflow_flex_template_request", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : workload -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -866,8 +890,9 @@ type google_data_pipeline_pipeline = {
   state : string prop;
   type_ : string prop; [@key "type"]
   schedule_info : schedule_info list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  workload : workload list;
+  workload : workload list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -894,18 +919,26 @@ let yojson_of_google_data_pipeline_pipeline =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_workload v_workload in
-         ("workload", arg) :: bnds
+         if [] = v_workload then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workload) v_workload
+           in
+           let bnd = "workload", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schedule_info v_schedule_info
-         in
-         ("schedule_info", arg) :: bnds
+         if [] = v_schedule_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule_info) v_schedule_info
+           in
+           let bnd = "schedule_info", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

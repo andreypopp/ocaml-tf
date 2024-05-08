@@ -3,7 +3,7 @@
 open! Tf_core
 
 type cors_config__access_control_expose_headers = {
-  items : string prop list;
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16,10 +16,14 @@ let yojson_of_cors_config__access_control_expose_headers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cors_config__access_control_expose_headers ->
@@ -30,7 +34,7 @@ let _ = yojson_of_cors_config__access_control_expose_headers
 [@@@deriving.end]
 
 type cors_config__access_control_allow_origins = {
-  items : string prop list;
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -43,10 +47,14 @@ let yojson_of_cors_config__access_control_allow_origins =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cors_config__access_control_allow_origins ->
@@ -57,7 +65,7 @@ let _ = yojson_of_cors_config__access_control_allow_origins
 [@@@deriving.end]
 
 type cors_config__access_control_allow_methods = {
-  items : string prop list;
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,10 +78,14 @@ let yojson_of_cors_config__access_control_allow_methods =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cors_config__access_control_allow_methods ->
@@ -84,7 +96,7 @@ let _ = yojson_of_cors_config__access_control_allow_methods
 [@@@deriving.end]
 
 type cors_config__access_control_allow_headers = {
-  items : string prop list;
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -97,10 +109,14 @@ let yojson_of_cors_config__access_control_allow_headers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cors_config__access_control_allow_headers ->
@@ -114,12 +130,16 @@ type cors_config = {
   access_control_allow_credentials : bool prop;
   access_control_allow_headers :
     cors_config__access_control_allow_headers list;
+      [@default []] [@yojson_drop_default ( = )]
   access_control_allow_methods :
     cors_config__access_control_allow_methods list;
+      [@default []] [@yojson_drop_default ( = )]
   access_control_allow_origins :
     cors_config__access_control_allow_origins list;
+      [@default []] [@yojson_drop_default ( = )]
   access_control_expose_headers :
     cors_config__access_control_expose_headers list;
+      [@default []] [@yojson_drop_default ( = )]
   access_control_max_age_sec : float prop;
   origin_override : bool prop;
 }
@@ -155,36 +175,48 @@ let yojson_of_cors_config =
          ("access_control_max_age_sec", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cors_config__access_control_expose_headers
-             v_access_control_expose_headers
-         in
-         ("access_control_expose_headers", arg) :: bnds
+         if [] = v_access_control_expose_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cors_config__access_control_expose_headers)
+               v_access_control_expose_headers
+           in
+           let bnd = "access_control_expose_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cors_config__access_control_allow_origins
-             v_access_control_allow_origins
-         in
-         ("access_control_allow_origins", arg) :: bnds
+         if [] = v_access_control_allow_origins then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cors_config__access_control_allow_origins)
+               v_access_control_allow_origins
+           in
+           let bnd = "access_control_allow_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cors_config__access_control_allow_methods
-             v_access_control_allow_methods
-         in
-         ("access_control_allow_methods", arg) :: bnds
+         if [] = v_access_control_allow_methods then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cors_config__access_control_allow_methods)
+               v_access_control_allow_methods
+           in
+           let bnd = "access_control_allow_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cors_config__access_control_allow_headers
-             v_access_control_allow_headers
-         in
-         ("access_control_allow_headers", arg) :: bnds
+         if [] = v_access_control_allow_headers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cors_config__access_control_allow_headers)
+               v_access_control_allow_headers
+           in
+           let bnd = "access_control_allow_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -237,6 +269,7 @@ let _ = yojson_of_custom_headers_config__items
 
 type custom_headers_config = {
   items : custom_headers_config__items list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -249,11 +282,14 @@ let yojson_of_custom_headers_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_headers_config__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_headers_config__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : custom_headers_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -287,6 +323,7 @@ let _ = yojson_of_remove_headers_config__items
 
 type remove_headers_config = {
   items : remove_headers_config__items list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -299,11 +336,14 @@ let yojson_of_remove_headers_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_remove_headers_config__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_remove_headers_config__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : remove_headers_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -535,13 +575,19 @@ let _ = yojson_of_security_headers_config__content_security_policy
 type security_headers_config = {
   content_security_policy :
     security_headers_config__content_security_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   content_type_options :
     security_headers_config__content_type_options list;
+      [@default []] [@yojson_drop_default ( = )]
   frame_options : security_headers_config__frame_options list;
+      [@default []] [@yojson_drop_default ( = )]
   referrer_policy : security_headers_config__referrer_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   strict_transport_security :
     security_headers_config__strict_transport_security list;
+      [@default []] [@yojson_drop_default ( = )]
   xss_protection : security_headers_config__xss_protection list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -561,52 +607,70 @@ let yojson_of_security_headers_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_headers_config__xss_protection
-             v_xss_protection
-         in
-         ("xss_protection", arg) :: bnds
+         if [] = v_xss_protection then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_headers_config__xss_protection)
+               v_xss_protection
+           in
+           let bnd = "xss_protection", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_headers_config__strict_transport_security
-             v_strict_transport_security
-         in
-         ("strict_transport_security", arg) :: bnds
+         if [] = v_strict_transport_security then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_headers_config__strict_transport_security)
+               v_strict_transport_security
+           in
+           let bnd = "strict_transport_security", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_headers_config__referrer_policy
-             v_referrer_policy
-         in
-         ("referrer_policy", arg) :: bnds
+         if [] = v_referrer_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_headers_config__referrer_policy)
+               v_referrer_policy
+           in
+           let bnd = "referrer_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_headers_config__frame_options
-             v_frame_options
-         in
-         ("frame_options", arg) :: bnds
+         if [] = v_frame_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_headers_config__frame_options)
+               v_frame_options
+           in
+           let bnd = "frame_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_headers_config__content_type_options
-             v_content_type_options
-         in
-         ("content_type_options", arg) :: bnds
+         if [] = v_content_type_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_headers_config__content_type_options)
+               v_content_type_options
+           in
+           let bnd = "content_type_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_headers_config__content_security_policy
-             v_content_security_policy
-         in
-         ("content_security_policy", arg) :: bnds
+         if [] = v_content_security_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_headers_config__content_security_policy)
+               v_content_security_policy
+           in
+           let bnd = "content_security_policy", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : security_headers_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)

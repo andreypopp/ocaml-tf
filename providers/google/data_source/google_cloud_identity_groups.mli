@@ -16,11 +16,14 @@ type groups__additional_group_keys = {
 
 type groups = {
   additional_group_keys : groups__additional_group_keys list;
+      [@default []] [@yojson_drop_default ( = )]
       (** additional_group_keys *)
   create_time : string prop;  (** create_time *)
   description : string prop;  (** description *)
   display_name : string prop;  (** display_name *)
-  group_key : groups__group_key list;  (** group_key *)
+  group_key : groups__group_key list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** group_key *)
   initial_group_config : string prop;  (** initial_group_config *)
   labels : (string * string prop) list;  (** labels *)
   name : string prop;  (** name *)

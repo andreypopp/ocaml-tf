@@ -69,6 +69,7 @@ type azurerm_databricks_virtual_network_peering = {
   id : string prop option; [@option]
   name : string prop;
   remote_address_space_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   remote_virtual_network_id : string prop;
   resource_group_name : string prop;
   use_remote_gateways : bool prop option; [@option]
@@ -128,12 +129,14 @@ let yojson_of_azurerm_databricks_virtual_network_peering =
          ("remote_virtual_network_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_remote_address_space_prefixes
-         in
-         ("remote_address_space_prefixes", arg) :: bnds
+         if [] = v_remote_address_space_prefixes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_remote_address_space_prefixes
+           in
+           let bnd = "remote_address_space_prefixes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

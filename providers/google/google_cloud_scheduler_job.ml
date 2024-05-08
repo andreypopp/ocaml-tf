@@ -60,6 +60,7 @@ type app_engine_http_target = {
   relative_uri : string prop;
   app_engine_routing :
     app_engine_http_target__app_engine_routing list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,12 +79,15 @@ let yojson_of_app_engine_http_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_app_engine_http_target__app_engine_routing
-             v_app_engine_routing
-         in
-         ("app_engine_routing", arg) :: bnds
+         if [] = v_app_engine_routing then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_app_engine_http_target__app_engine_routing)
+               v_app_engine_routing
+           in
+           let bnd = "app_engine_routing", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_relative_uri in
@@ -210,7 +214,9 @@ type http_target = {
   http_method : string prop option; [@option]
   uri : string prop;
   oauth_token : http_target__oauth_token list;
+      [@default []] [@yojson_drop_default ( = )]
   oidc_token : http_target__oidc_token list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -230,18 +236,24 @@ let yojson_of_http_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_target__oidc_token
-             v_oidc_token
-         in
-         ("oidc_token", arg) :: bnds
+         if [] = v_oidc_token then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_target__oidc_token)
+               v_oidc_token
+           in
+           let bnd = "oidc_token", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_target__oauth_token
-             v_oauth_token
-         in
-         ("oauth_token", arg) :: bnds
+         if [] = v_oauth_token then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_target__oauth_token)
+               v_oauth_token
+           in
+           let bnd = "oauth_token", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_uri in
@@ -467,9 +479,13 @@ type google_cloud_scheduler_job = {
   schedule : string prop option; [@option]
   time_zone : string prop option; [@option]
   app_engine_http_target : app_engine_http_target list;
+      [@default []] [@yojson_drop_default ( = )]
   http_target : http_target list;
+      [@default []] [@yojson_drop_default ( = )]
   pubsub_target : pubsub_target list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_config : retry_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -502,29 +518,41 @@ let yojson_of_google_cloud_scheduler_job =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retry_config v_retry_config
-         in
-         ("retry_config", arg) :: bnds
+         if [] = v_retry_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retry_config) v_retry_config
+           in
+           let bnd = "retry_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pubsub_target v_pubsub_target
-         in
-         ("pubsub_target", arg) :: bnds
+         if [] = v_pubsub_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pubsub_target) v_pubsub_target
+           in
+           let bnd = "pubsub_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_target v_http_target
-         in
-         ("http_target", arg) :: bnds
+         if [] = v_http_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_target) v_http_target
+           in
+           let bnd = "http_target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_app_engine_http_target
-             v_app_engine_http_target
-         in
-         ("app_engine_http_target", arg) :: bnds
+         if [] = v_app_engine_http_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_app_engine_http_target)
+               v_app_engine_http_target
+           in
+           let bnd = "app_engine_http_target", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_time_zone with

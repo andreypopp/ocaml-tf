@@ -47,10 +47,12 @@ let _ = yojson_of_condition
 type google_scc_source_iam_binding = {
   id : string prop option; [@option]
   members : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   organization : string prop;
   role : string prop;
   source : string prop;
   condition : condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,8 +72,13 @@ let yojson_of_google_scc_source_iam_binding =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_condition v_condition in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition) v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_source in
@@ -86,10 +93,14 @@ let yojson_of_google_scc_source_iam_binding =
          ("organization", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_members
-         in
-         ("members", arg) :: bnds
+         if [] = v_members then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_members
+           in
+           let bnd = "members", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

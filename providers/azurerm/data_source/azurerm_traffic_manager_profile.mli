@@ -16,8 +16,10 @@ type monitor_config__custom_header = {
 
 type monitor_config = {
   custom_header : monitor_config__custom_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** custom_header *)
   expected_status_code_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** expected_status_code_ranges *)
   interval_in_seconds : float prop;  (** interval_in_seconds *)
   path : string prop;  (** path *)

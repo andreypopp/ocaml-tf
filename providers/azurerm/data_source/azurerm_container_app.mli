@@ -11,7 +11,9 @@ type dapr = {
 }
 
 type identity = {
-  identity_ids : string prop list;  (** identity_ids *)
+  identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** identity_ids *)
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
@@ -41,14 +43,18 @@ type ingress__custom_domain = {
 type ingress = {
   allow_insecure_connections : bool prop;
       (** allow_insecure_connections *)
-  custom_domain : ingress__custom_domain list;  (** custom_domain *)
+  custom_domain : ingress__custom_domain list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** custom_domain *)
   exposed_port : float prop;  (** exposed_port *)
   external_enabled : bool prop;  (** external_enabled *)
   fqdn : string prop;  (** fqdn *)
   ip_security_restriction : ingress__ip_security_restriction list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ip_security_restriction *)
   target_port : float prop;  (** target_port *)
   traffic_weight : ingress__traffic_weight list;
+      [@default []] [@yojson_drop_default ( = )]
       (** traffic_weight *)
   transport : string prop;  (** transport *)
 }
@@ -78,6 +84,7 @@ type template__tcp_scale_rule__authentication = {
 
 type template__tcp_scale_rule = {
   authentication : template__tcp_scale_rule__authentication list;
+      [@default []] [@yojson_drop_default ( = )]
       (** authentication *)
   concurrent_requests : string prop;  (** concurrent_requests *)
   name : string prop;  (** name *)
@@ -95,15 +102,21 @@ type template__init_container__env = {
 }
 
 type template__init_container = {
-  args : string prop list;  (** args *)
-  command : string prop list;  (** command *)
+  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** args *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
   cpu : float prop;  (** cpu *)
-  env : template__init_container__env list;  (** env *)
+  env : template__init_container__env list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env *)
   ephemeral_storage : string prop;  (** ephemeral_storage *)
   image : string prop;  (** image *)
   memory : string prop;  (** memory *)
   name : string prop;  (** name *)
   volume_mounts : template__init_container__volume_mounts list;
+      [@default []] [@yojson_drop_default ( = )]
       (** volume_mounts *)
 }
 
@@ -114,6 +127,7 @@ type template__http_scale_rule__authentication = {
 
 type template__http_scale_rule = {
   authentication : template__http_scale_rule__authentication list;
+      [@default []] [@yojson_drop_default ( = )]
       (** authentication *)
   concurrent_requests : string prop;  (** concurrent_requests *)
   name : string prop;  (** name *)
@@ -126,6 +140,7 @@ type template__custom_scale_rule__authentication = {
 
 type template__custom_scale_rule = {
   authentication : template__custom_scale_rule__authentication list;
+      [@default []] [@yojson_drop_default ( = )]
       (** authentication *)
   custom_rule_type : string prop;  (** custom_rule_type *)
   metadata : (string * string prop) list;  (** metadata *)
@@ -146,6 +161,7 @@ type template__container__startup_probe = {
   failure_count_threshold : float prop;
       (** failure_count_threshold *)
   header : template__container__startup_probe__header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** header *)
   host : string prop;  (** host *)
   interval_seconds : float prop;  (** interval_seconds *)
@@ -166,6 +182,7 @@ type template__container__readiness_probe = {
   failure_count_threshold : float prop;
       (** failure_count_threshold *)
   header : template__container__readiness_probe__header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** header *)
   host : string prop;  (** host *)
   interval_seconds : float prop;  (** interval_seconds *)
@@ -186,6 +203,7 @@ type template__container__liveness_probe = {
   failure_count_threshold : float prop;
       (** failure_count_threshold *)
   header : template__container__liveness_probe__header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** header *)
   host : string prop;  (** host *)
   initial_delay : float prop;  (** initial_delay *)
@@ -205,21 +223,30 @@ type template__container__env = {
 }
 
 type template__container = {
-  args : string prop list;  (** args *)
-  command : string prop list;  (** command *)
+  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** args *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
   cpu : float prop;  (** cpu *)
-  env : template__container__env list;  (** env *)
+  env : template__container__env list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env *)
   ephemeral_storage : string prop;  (** ephemeral_storage *)
   image : string prop;  (** image *)
   liveness_probe : template__container__liveness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** liveness_probe *)
   memory : string prop;  (** memory *)
   name : string prop;  (** name *)
   readiness_probe : template__container__readiness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** readiness_probe *)
   startup_probe : template__container__startup_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** startup_probe *)
   volume_mounts : template__container__volume_mounts list;
+      [@default []] [@yojson_drop_default ( = )]
       (** volume_mounts *)
 }
 
@@ -231,6 +258,7 @@ type template__azure_queue_scale_rule__authentication = {
 type template__azure_queue_scale_rule = {
   authentication :
     template__azure_queue_scale_rule__authentication list;
+      [@default []] [@yojson_drop_default ( = )]
       (** authentication *)
   name : string prop;  (** name *)
   queue_length : float prop;  (** queue_length *)
@@ -239,20 +267,29 @@ type template__azure_queue_scale_rule = {
 
 type template = {
   azure_queue_scale_rule : template__azure_queue_scale_rule list;
+      [@default []] [@yojson_drop_default ( = )]
       (** azure_queue_scale_rule *)
-  container : template__container list;  (** container *)
+  container : template__container list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** container *)
   custom_scale_rule : template__custom_scale_rule list;
+      [@default []] [@yojson_drop_default ( = )]
       (** custom_scale_rule *)
   http_scale_rule : template__http_scale_rule list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_scale_rule *)
   init_container : template__init_container list;
+      [@default []] [@yojson_drop_default ( = )]
       (** init_container *)
   max_replicas : float prop;  (** max_replicas *)
   min_replicas : float prop;  (** min_replicas *)
   revision_suffix : string prop;  (** revision_suffix *)
   tcp_scale_rule : template__tcp_scale_rule list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_scale_rule *)
-  volume : template__volume list;  (** volume *)
+  volume : template__volume list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** volume *)
 }
 
 type timeouts

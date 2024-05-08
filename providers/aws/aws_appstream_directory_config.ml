@@ -41,7 +41,9 @@ type aws_appstream_directory_config = {
   directory_name : string prop;
   id : string prop option; [@option]
   organizational_unit_distinguished_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   service_account_credentials : service_account_credentials list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,19 +62,26 @@ let yojson_of_aws_appstream_directory_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_account_credentials
-             v_service_account_credentials
-         in
-         ("service_account_credentials", arg) :: bnds
+         if [] = v_service_account_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_account_credentials)
+               v_service_account_credentials
+           in
+           let bnd = "service_account_credentials", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_organizational_unit_distinguished_names
-         in
-         ("organizational_unit_distinguished_names", arg) :: bnds
+         if [] = v_organizational_unit_distinguished_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_organizational_unit_distinguished_names
+           in
+           let bnd =
+             "organizational_unit_distinguished_names", arg
+           in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

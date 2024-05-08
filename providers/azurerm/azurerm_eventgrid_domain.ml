@@ -272,8 +272,11 @@ type azurerm_eventgrid_domain = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   input_mapping_default_values : input_mapping_default_values list;
+      [@default []] [@yojson_drop_default ( = )]
   input_mapping_fields : input_mapping_fields list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -310,22 +313,33 @@ let yojson_of_azurerm_eventgrid_domain =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_input_mapping_fields
-             v_input_mapping_fields
-         in
-         ("input_mapping_fields", arg) :: bnds
+         if [] = v_input_mapping_fields then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_input_mapping_fields)
+               v_input_mapping_fields
+           in
+           let bnd = "input_mapping_fields", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_input_mapping_default_values
-             v_input_mapping_default_values
-         in
-         ("input_mapping_default_values", arg) :: bnds
+         if [] = v_input_mapping_default_values then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_input_mapping_default_values)
+               v_input_mapping_default_values
+           in
+           let bnd = "input_mapping_default_values", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

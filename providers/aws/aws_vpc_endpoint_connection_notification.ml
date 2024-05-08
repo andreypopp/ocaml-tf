@@ -4,6 +4,7 @@ open! Tf_core
 
 type aws_vpc_endpoint_connection_notification = {
   connection_events : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   connection_notification_arn : string prop;
   id : string prop option; [@option]
   vpc_endpoint_id : string prop option; [@option]
@@ -57,12 +58,14 @@ let yojson_of_aws_vpc_endpoint_connection_notification =
          ("connection_notification_arn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_connection_events
-         in
-         ("connection_events", arg) :: bnds
+         if [] = v_connection_events then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_connection_events
+           in
+           let bnd = "connection_events", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_vpc_endpoint_connection_notification ->

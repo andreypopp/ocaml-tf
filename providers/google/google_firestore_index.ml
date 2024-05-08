@@ -96,7 +96,7 @@ type google_firestore_index = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   query_scope : string prop option; [@option]
-  fields : fields list;
+  fields : fields list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -123,8 +123,11 @@ let yojson_of_google_firestore_index =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_fields v_fields in
-         ("fields", arg) :: bnds
+         if [] = v_fields then bnds
+         else
+           let arg = (yojson_of_list yojson_of_fields) v_fields in
+           let bnd = "fields", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_query_scope with

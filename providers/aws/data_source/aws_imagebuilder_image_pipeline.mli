@@ -5,13 +5,16 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type image_scanning_configuration__ecr_configuration = {
-  container_tags : string prop list;  (** container_tags *)
+  container_tags : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** container_tags *)
   repository_name : string prop;  (** repository_name *)
 }
 
 type image_scanning_configuration = {
   ecr_configuration :
     image_scanning_configuration__ecr_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ecr_configuration *)
   image_scanning_enabled : bool prop;  (** image_scanning_enabled *)
 }

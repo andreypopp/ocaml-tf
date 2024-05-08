@@ -65,7 +65,9 @@ let _ = yojson_of_managed_cluster_update__upgrade
 type managed_cluster_update = {
   node_image_selection :
     managed_cluster_update__node_image_selection list;
+      [@default []] [@yojson_drop_default ( = )]
   upgrade : managed_cluster_update__upgrade list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -81,19 +83,26 @@ let yojson_of_managed_cluster_update =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_managed_cluster_update__upgrade
-             v_upgrade
-         in
-         ("upgrade", arg) :: bnds
+         if [] = v_upgrade then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_managed_cluster_update__upgrade)
+               v_upgrade
+           in
+           let bnd = "upgrade", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_managed_cluster_update__node_image_selection
-             v_node_image_selection
-         in
-         ("node_image_selection", arg) :: bnds
+         if [] = v_node_image_selection then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_managed_cluster_update__node_image_selection)
+               v_node_image_selection
+           in
+           let bnd = "node_image_selection", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : managed_cluster_update -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -128,6 +137,7 @@ type stage = {
   after_stage_wait_in_seconds : float prop option; [@option]
   name : string prop;
   group : stage__group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,8 +154,13 @@ let yojson_of_stage =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_stage__group v_group in
-         ("group", arg) :: bnds
+         if [] = v_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stage__group) v_group
+           in
+           let bnd = "group", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -232,7 +247,8 @@ type azurerm_kubernetes_fleet_update_run = {
   kubernetes_fleet_manager_id : string prop;
   name : string prop;
   managed_cluster_update : managed_cluster_update list;
-  stage : stage list;
+      [@default []] [@yojson_drop_default ( = )]
+  stage : stage list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -258,15 +274,21 @@ let yojson_of_azurerm_kubernetes_fleet_update_run =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_stage v_stage in
-         ("stage", arg) :: bnds
+         if [] = v_stage then bnds
+         else
+           let arg = (yojson_of_list yojson_of_stage) v_stage in
+           let bnd = "stage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_managed_cluster_update
-             v_managed_cluster_update
-         in
-         ("managed_cluster_update", arg) :: bnds
+         if [] = v_managed_cluster_update then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_managed_cluster_update)
+               v_managed_cluster_update
+           in
+           let bnd = "managed_cluster_update", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

@@ -11,6 +11,7 @@ type endpoint__kinesis_stream_config = {
 
 type endpoint = {
   kinesis_stream_config : endpoint__kinesis_stream_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** kinesis_stream_config *)
   stream_type : string prop;  (** stream_type *)
 }

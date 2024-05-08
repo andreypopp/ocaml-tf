@@ -71,7 +71,9 @@ let _ = yojson_of_data_delivery__s3_destination
 
 type data_delivery = {
   cloudwatch_logs : data_delivery__cloudwatch_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_destination : data_delivery__s3_destination list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -87,18 +89,24 @@ let yojson_of_data_delivery =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_delivery__s3_destination
-             v_s3_destination
-         in
-         ("s3_destination", arg) :: bnds
+         if [] = v_s3_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_delivery__s3_destination)
+               v_s3_destination
+           in
+           let bnd = "s3_destination", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_delivery__cloudwatch_logs
-             v_cloudwatch_logs
-         in
-         ("cloudwatch_logs", arg) :: bnds
+         if [] = v_cloudwatch_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_delivery__cloudwatch_logs)
+               v_cloudwatch_logs
+           in
+           let bnd = "cloudwatch_logs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : data_delivery -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -160,6 +168,7 @@ type aws_evidently_project = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   data_delivery : data_delivery list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -185,10 +194,13 @@ let yojson_of_aws_evidently_project =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_delivery v_data_delivery
-         in
-         ("data_delivery", arg) :: bnds
+         if [] = v_data_delivery then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_delivery) v_data_delivery
+           in
+           let bnd = "data_delivery", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

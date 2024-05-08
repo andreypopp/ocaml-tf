@@ -13,7 +13,9 @@ type recommendations = {
       (** recommendation_type_id *)
   resource_name : string prop;  (** resource_name *)
   resource_type : string prop;  (** resource_type *)
-  suppression_names : string prop list;  (** suppression_names *)
+  suppression_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** suppression_names *)
   updated_time : string prop;  (** updated_time *)
 }
 

@@ -90,6 +90,7 @@ type google_app_engine_application_url_dispatch_rules = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   dispatch_rules : dispatch_rules list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -113,10 +114,14 @@ let yojson_of_google_app_engine_application_url_dispatch_rules =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dispatch_rules v_dispatch_rules
-         in
-         ("dispatch_rules", arg) :: bnds
+         if [] = v_dispatch_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dispatch_rules)
+               v_dispatch_rules
+           in
+           let bnd = "dispatch_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

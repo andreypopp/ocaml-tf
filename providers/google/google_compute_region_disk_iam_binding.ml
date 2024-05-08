@@ -47,11 +47,13 @@ let _ = yojson_of_condition
 type google_compute_region_disk_iam_binding = {
   id : string prop option; [@option]
   members : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   project : string prop option; [@option]
   region : string prop option; [@option]
   role : string prop;
   condition : condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -72,8 +74,13 @@ let yojson_of_google_compute_region_disk_iam_binding =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_condition v_condition in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition) v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_role in
@@ -100,10 +107,14 @@ let yojson_of_google_compute_region_disk_iam_binding =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_members
-         in
-         ("members", arg) :: bnds
+         if [] = v_members then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_members
+           in
+           let bnd = "members", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

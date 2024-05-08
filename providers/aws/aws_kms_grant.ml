@@ -67,9 +67,11 @@ type aws_kms_grant = {
   key_id : string prop;
   name : string prop option; [@option]
   operations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   retire_on_delete : bool prop option; [@option]
   retiring_principal : string prop option; [@option]
   constraints : constraints list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -92,10 +94,13 @@ let yojson_of_aws_kms_grant =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_constraints v_constraints
-         in
-         ("constraints", arg) :: bnds
+         if [] = v_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_constraints) v_constraints
+           in
+           let bnd = "constraints", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retiring_principal with
@@ -114,12 +119,14 @@ let yojson_of_aws_kms_grant =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_operations
-         in
-         ("operations", arg) :: bnds
+         if [] = v_operations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_operations
+           in
+           let bnd = "operations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with

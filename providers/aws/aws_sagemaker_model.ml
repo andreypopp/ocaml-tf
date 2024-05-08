@@ -38,6 +38,7 @@ type container__image_config = {
   repository_access_mode : string prop;
   repository_auth_config :
     container__image_config__repository_auth_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,12 +54,15 @@ let yojson_of_container__image_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_container__image_config__repository_auth_config
-             v_repository_auth_config
-         in
-         ("repository_auth_config", arg) :: bnds
+         if [] = v_repository_auth_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_container__image_config__repository_auth_config)
+               v_repository_auth_config
+           in
+           let bnd = "repository_auth_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -116,6 +120,7 @@ let _ = yojson_of_container__model_data_source__s3_data_source
 
 type container__model_data_source = {
   s3_data_source : container__model_data_source__s3_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -128,12 +133,15 @@ let yojson_of_container__model_data_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_container__model_data_source__s3_data_source
-             v_s3_data_source
-         in
-         ("s3_data_source", arg) :: bnds
+         if [] = v_s3_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_container__model_data_source__s3_data_source)
+               v_s3_data_source
+           in
+           let bnd = "s3_data_source", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : container__model_data_source ->
@@ -151,7 +159,9 @@ type container = {
   model_data_url : string prop option; [@option]
   model_package_name : string prop option; [@option]
   image_config : container__image_config list;
+      [@default []] [@yojson_drop_default ( = )]
   model_data_source : container__model_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -173,18 +183,24 @@ let yojson_of_container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container__model_data_source
-             v_model_data_source
-         in
-         ("model_data_source", arg) :: bnds
+         if [] = v_model_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container__model_data_source)
+               v_model_data_source
+           in
+           let bnd = "model_data_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container__image_config
-             v_image_config
-         in
-         ("image_config", arg) :: bnds
+         if [] = v_image_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container__image_config)
+               v_image_config
+           in
+           let bnd = "image_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_model_package_name with
@@ -310,6 +326,7 @@ type primary_container__image_config = {
   repository_access_mode : string prop;
   repository_auth_config :
     primary_container__image_config__repository_auth_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -325,12 +342,15 @@ let yojson_of_primary_container__image_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_primary_container__image_config__repository_auth_config
-             v_repository_auth_config
-         in
-         ("repository_auth_config", arg) :: bnds
+         if [] = v_repository_auth_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_primary_container__image_config__repository_auth_config)
+               v_repository_auth_config
+           in
+           let bnd = "repository_auth_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -392,6 +412,7 @@ let _ =
 type primary_container__model_data_source = {
   s3_data_source :
     primary_container__model_data_source__s3_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -404,12 +425,15 @@ let yojson_of_primary_container__model_data_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_primary_container__model_data_source__s3_data_source
-             v_s3_data_source
-         in
-         ("s3_data_source", arg) :: bnds
+         if [] = v_s3_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_primary_container__model_data_source__s3_data_source)
+               v_s3_data_source
+           in
+           let bnd = "s3_data_source", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : primary_container__model_data_source ->
@@ -427,7 +451,9 @@ type primary_container = {
   model_data_url : string prop option; [@option]
   model_package_name : string prop option; [@option]
   image_config : primary_container__image_config list;
+      [@default []] [@yojson_drop_default ( = )]
   model_data_source : primary_container__model_data_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -449,19 +475,26 @@ let yojson_of_primary_container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_primary_container__model_data_source
-             v_model_data_source
-         in
-         ("model_data_source", arg) :: bnds
+         if [] = v_model_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_primary_container__model_data_source)
+               v_model_data_source
+           in
+           let bnd = "model_data_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_primary_container__image_config
-             v_image_config
-         in
-         ("image_config", arg) :: bnds
+         if [] = v_image_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_primary_container__image_config)
+               v_image_config
+           in
+           let bnd = "image_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_model_package_name with
@@ -528,7 +561,9 @@ let _ = yojson_of_primary_container
 
 type vpc_config = {
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -544,18 +579,24 @@ let yojson_of_vpc_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
-         in
-         ("subnets", arg) :: bnds
+         if [] = v_subnets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnets
+           in
+           let bnd = "subnets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vpc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -572,9 +613,13 @@ type aws_sagemaker_model = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   container : container list;
+      [@default []] [@yojson_drop_default ( = )]
   inference_execution_config : inference_execution_config list;
+      [@default []] [@yojson_drop_default ( = )]
   primary_container : primary_container list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_config : vpc_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -598,28 +643,42 @@ let yojson_of_aws_sagemaker_model =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_config v_vpc_config
-         in
-         ("vpc_config", arg) :: bnds
+         if [] = v_vpc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_config) v_vpc_config
+           in
+           let bnd = "vpc_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_primary_container
-             v_primary_container
-         in
-         ("primary_container", arg) :: bnds
+         if [] = v_primary_container then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_primary_container)
+               v_primary_container
+           in
+           let bnd = "primary_container", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inference_execution_config
-             v_inference_execution_config
-         in
-         ("inference_execution_config", arg) :: bnds
+         if [] = v_inference_execution_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_inference_execution_config)
+               v_inference_execution_config
+           in
+           let bnd = "inference_execution_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_container v_container in
-         ("container", arg) :: bnds
+         if [] = v_container then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container) v_container
+           in
+           let bnd = "container", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

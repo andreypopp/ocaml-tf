@@ -93,8 +93,10 @@ let _ = yojson_of_revocation_configuration__crl_configuration
 type revocation_configuration = {
   crl_configuration :
     revocation_configuration__crl_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   ocsp_configuration :
     revocation_configuration__ocsp_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,20 +112,26 @@ let yojson_of_revocation_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_revocation_configuration__ocsp_configuration
-             v_ocsp_configuration
-         in
-         ("ocsp_configuration", arg) :: bnds
+         if [] = v_ocsp_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_revocation_configuration__ocsp_configuration)
+               v_ocsp_configuration
+           in
+           let bnd = "ocsp_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_revocation_configuration__crl_configuration
-             v_crl_configuration
-         in
-         ("crl_configuration", arg) :: bnds
+         if [] = v_crl_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_revocation_configuration__crl_configuration)
+               v_crl_configuration
+           in
+           let bnd = "crl_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : revocation_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)

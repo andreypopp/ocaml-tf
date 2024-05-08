@@ -10,7 +10,11 @@ type settings__acl = {
   topic : string prop;  (** topic *)
 }
 
-type settings = { acl : settings__acl list  (** acl *) }
+type settings = {
+  acl : settings__acl list; [@default []] [@yojson_drop_default ( = )]
+      (** acl *)
+}
+
 type digitalocean_database_user
 
 val digitalocean_database_user :

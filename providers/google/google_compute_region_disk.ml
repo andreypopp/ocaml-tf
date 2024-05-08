@@ -168,15 +168,20 @@ type google_compute_region_disk = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   replica_zones : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   size : float prop option; [@option]
   snapshot : string prop option; [@option]
   source_disk : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   async_primary_disk : async_primary_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   disk_encryption_key : disk_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
   guest_os_features : guest_os_features list;
+      [@default []] [@yojson_drop_default ( = )]
   source_snapshot_encryption_key :
     source_snapshot_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -214,32 +219,44 @@ let yojson_of_google_compute_region_disk =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_snapshot_encryption_key
-             v_source_snapshot_encryption_key
-         in
-         ("source_snapshot_encryption_key", arg) :: bnds
+         if [] = v_source_snapshot_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_snapshot_encryption_key)
+               v_source_snapshot_encryption_key
+           in
+           let bnd = "source_snapshot_encryption_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_guest_os_features
-             v_guest_os_features
-         in
-         ("guest_os_features", arg) :: bnds
+         if [] = v_guest_os_features then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_guest_os_features)
+               v_guest_os_features
+           in
+           let bnd = "guest_os_features", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_disk_encryption_key
-             v_disk_encryption_key
-         in
-         ("disk_encryption_key", arg) :: bnds
+         if [] = v_disk_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_disk_encryption_key)
+               v_disk_encryption_key
+           in
+           let bnd = "disk_encryption_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_async_primary_disk
-             v_async_primary_disk
-         in
-         ("async_primary_disk", arg) :: bnds
+         if [] = v_async_primary_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_async_primary_disk)
+               v_async_primary_disk
+           in
+           let bnd = "async_primary_disk", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with
@@ -274,12 +291,14 @@ let yojson_of_google_compute_region_disk =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_replica_zones
-         in
-         ("replica_zones", arg) :: bnds
+         if [] = v_replica_zones then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_replica_zones
+           in
+           let bnd = "replica_zones", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

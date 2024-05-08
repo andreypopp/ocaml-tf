@@ -58,7 +58,7 @@ type cloudflare_fallback_domain = {
   account_id : string prop;
   id : string prop option; [@option]
   policy_id : string prop option; [@option]
-  domains : domains list;
+  domains : domains list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,8 +76,11 @@ let yojson_of_cloudflare_fallback_domain =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_domains v_domains in
-         ("domains", arg) :: bnds
+         if [] = v_domains then bnds
+         else
+           let arg = (yojson_of_list yojson_of_domains) v_domains in
+           let bnd = "domains", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_policy_id with

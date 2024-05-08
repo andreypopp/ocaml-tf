@@ -29,6 +29,7 @@ type activated_rule = {
   rule_id : string prop;
   type_ : string prop option; [@option] [@key "type"]
   action : activated_rule__action list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,10 +47,14 @@ let yojson_of_activated_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_activated_rule__action v_action
-         in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_activated_rule__action)
+               v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with
@@ -81,6 +86,7 @@ type aws_waf_rule_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   activated_rule : activated_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -100,10 +106,14 @@ let yojson_of_aws_waf_rule_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_activated_rule v_activated_rule
-         in
-         ("activated_rule", arg) :: bnds
+         if [] = v_activated_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_activated_rule)
+               v_activated_rule
+           in
+           let bnd = "activated_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

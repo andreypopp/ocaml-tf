@@ -13,7 +13,9 @@ type destinations = {
   ip : string prop;  (** ip *)
   port : string prop;  (** port *)
   url : string prop;  (** url *)
-  vpc : destinations__vpc list;  (** vpc *)
+  vpc : destinations__vpc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** vpc *)
 }
 
 type input_devices = { id : string prop  (** id *) }

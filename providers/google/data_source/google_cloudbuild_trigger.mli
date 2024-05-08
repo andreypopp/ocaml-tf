@@ -25,8 +25,11 @@ type bitbucket_server_trigger_config = {
       (** bitbucket_server_config_resource *)
   project_key : string prop;  (** project_key *)
   pull_request : bitbucket_server_trigger_config__pull_request list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pull_request *)
-  push : bitbucket_server_trigger_config__push list;  (** push *)
+  push : bitbucket_server_trigger_config__push list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** push *)
   repo_slug : string prop;  (** repo_slug *)
 }
 
@@ -36,20 +39,30 @@ type build__step__volumes = {
 }
 
 type build__step = {
-  allow_exit_codes : float prop list;  (** allow_exit_codes *)
+  allow_exit_codes : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allow_exit_codes *)
   allow_failure : bool prop;  (** allow_failure *)
-  args : string prop list;  (** args *)
+  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** args *)
   dir : string prop;  (** dir *)
   entrypoint : string prop;  (** entrypoint *)
-  env : string prop list;  (** env *)
+  env : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** env *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
   script : string prop;  (** script *)
-  secret_env : string prop list;  (** secret_env *)
+  secret_env : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** secret_env *)
   timeout : string prop;  (** timeout *)
   timing : string prop;  (** timing *)
-  volumes : build__step__volumes list;  (** volumes *)
-  wait_for : string prop list;  (** wait_for *)
+  volumes : build__step__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** volumes *)
+  wait_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** wait_for *)
 }
 
 type build__source__storage_source = {
@@ -70,8 +83,11 @@ type build__source__repo_source = {
 }
 
 type build__source = {
-  repo_source : build__source__repo_source list;  (** repo_source *)
+  repo_source : build__source__repo_source list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** repo_source *)
   storage_source : build__source__storage_source list;
+      [@default []] [@yojson_drop_default ( = )]
       (** storage_source *)
 }
 
@@ -88,17 +104,23 @@ type build__options__volumes = {
 type build__options = {
   disk_size_gb : float prop;  (** disk_size_gb *)
   dynamic_substitutions : bool prop;  (** dynamic_substitutions *)
-  env : string prop list;  (** env *)
+  env : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** env *)
   log_streaming_option : string prop;  (** log_streaming_option *)
   logging : string prop;  (** logging *)
   machine_type : string prop;  (** machine_type *)
   requested_verify_option : string prop;
       (** requested_verify_option *)
-  secret_env : string prop list;  (** secret_env *)
+  secret_env : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** secret_env *)
   source_provenance_hash : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** source_provenance_hash *)
   substitution_option : string prop;  (** substitution_option *)
-  volumes : build__options__volumes list;  (** volumes *)
+  volumes : build__options__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** volumes *)
   worker_pool : string prop;  (** worker_pool *)
 }
 
@@ -109,11 +131,14 @@ type build__available_secrets__secret_manager = {
 
 type build__available_secrets = {
   secret_manager : build__available_secrets__secret_manager list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret_manager *)
 }
 
 type build__artifacts__python_packages = {
-  paths : string prop list;  (** paths *)
+  paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** paths *)
   repository : string prop;  (** repository *)
 }
 
@@ -124,8 +149,12 @@ type build__artifacts__objects__timing = {
 
 type build__artifacts__objects = {
   location : string prop;  (** location *)
-  paths : string prop list;  (** paths *)
-  timing : build__artifacts__objects__timing list;  (** timing *)
+  paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** paths *)
+  timing : build__artifacts__objects__timing list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** timing *)
 }
 
 type build__artifacts__npm_packages = {
@@ -142,29 +171,49 @@ type build__artifacts__maven_artifacts = {
 }
 
 type build__artifacts = {
-  images : string prop list;  (** images *)
+  images : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** images *)
   maven_artifacts : build__artifacts__maven_artifacts list;
+      [@default []] [@yojson_drop_default ( = )]
       (** maven_artifacts *)
   npm_packages : build__artifacts__npm_packages list;
+      [@default []] [@yojson_drop_default ( = )]
       (** npm_packages *)
-  objects : build__artifacts__objects list;  (** objects *)
+  objects : build__artifacts__objects list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** objects *)
   python_packages : build__artifacts__python_packages list;
+      [@default []] [@yojson_drop_default ( = )]
       (** python_packages *)
 }
 
 type build = {
-  artifacts : build__artifacts list;  (** artifacts *)
+  artifacts : build__artifacts list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** artifacts *)
   available_secrets : build__available_secrets list;
+      [@default []] [@yojson_drop_default ( = )]
       (** available_secrets *)
-  images : string prop list;  (** images *)
+  images : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** images *)
   logs_bucket : string prop;  (** logs_bucket *)
-  options : build__options list;  (** options *)
+  options : build__options list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** options *)
   queue_ttl : string prop;  (** queue_ttl *)
-  secret : build__secret list;  (** secret *)
-  source : build__source list;  (** source *)
-  step : build__step list;  (** step *)
+  secret : build__secret list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** secret *)
+  source : build__source list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** source *)
+  step : build__step list; [@default []] [@yojson_drop_default ( = )]
+      (** step *)
   substitutions : (string * string prop) list;  (** substitutions *)
-  tags : string prop list;  (** tags *)
+  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** tags *)
   timeout : string prop;  (** timeout *)
 }
 
@@ -197,8 +246,11 @@ type github = {
       (** enterprise_config_resource_name *)
   name : string prop;  (** name *)
   owner : string prop;  (** owner *)
-  pull_request : github__pull_request list;  (** pull_request *)
-  push : github__push list;  (** push *)
+  pull_request : github__pull_request list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** pull_request *)
+  push : github__push list; [@default []] [@yojson_drop_default ( = )]
+      (** push *)
 }
 
 type pubsub_config = {
@@ -222,8 +274,11 @@ type repository_event_config__pull_request = {
 
 type repository_event_config = {
   pull_request : repository_event_config__pull_request list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pull_request *)
-  push : repository_event_config__push list;  (** push *)
+  push : repository_event_config__push list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** push *)
   repository : string prop;  (** repository *)
 }
 

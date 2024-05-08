@@ -34,6 +34,7 @@ let _ = yojson_of_composite_slot_type_setting__subslots
 
 type composite_slot_type_setting = {
   subslots : composite_slot_type_setting__subslots list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,12 +47,15 @@ let yojson_of_composite_slot_type_setting =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_composite_slot_type_setting__subslots
-             v_subslots
-         in
-         ("subslots", arg) :: bnds
+         if [] = v_subslots then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_composite_slot_type_setting__subslots)
+               v_subslots
+           in
+           let bnd = "subslots", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : composite_slot_type_setting ->
@@ -109,6 +113,7 @@ let _ =
 type external_source_setting__grammar_slot_type_setting = {
   source :
     external_source_setting__grammar_slot_type_setting__source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,12 +127,15 @@ let yojson_of_external_source_setting__grammar_slot_type_setting =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_external_source_setting__grammar_slot_type_setting__source
-             v_source
-         in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_source_setting__grammar_slot_type_setting__source)
+               v_source
+           in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : external_source_setting__grammar_slot_type_setting ->
@@ -140,6 +148,7 @@ let _ = yojson_of_external_source_setting__grammar_slot_type_setting
 type external_source_setting = {
   grammar_slot_type_setting :
     external_source_setting__grammar_slot_type_setting list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -152,12 +161,15 @@ let yojson_of_external_source_setting =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_external_source_setting__grammar_slot_type_setting
-             v_grammar_slot_type_setting
-         in
-         ("grammar_slot_type_setting", arg) :: bnds
+         if [] = v_grammar_slot_type_setting then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_external_source_setting__grammar_slot_type_setting)
+               v_grammar_slot_type_setting
+           in
+           let bnd = "grammar_slot_type_setting", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : external_source_setting -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -213,7 +225,9 @@ let _ = yojson_of_slot_type_values__synonyms
 
 type slot_type_values = {
   slot_type_value : slot_type_values__slot_type_value list;
+      [@default []] [@yojson_drop_default ( = )]
   synonyms : slot_type_values__synonyms list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -227,18 +241,25 @@ let yojson_of_slot_type_values =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_slot_type_values__synonyms
-             v_synonyms
-         in
-         ("synonyms", arg) :: bnds
+         if [] = v_synonyms then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_slot_type_values__synonyms)
+               v_synonyms
+           in
+           let bnd = "synonyms", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_slot_type_values__slot_type_value
-             v_slot_type_value
-         in
-         ("slot_type_value", arg) :: bnds
+         if [] = v_slot_type_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_slot_type_values__slot_type_value)
+               v_slot_type_value
+           in
+           let bnd = "slot_type_value", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : slot_type_values -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -354,7 +375,9 @@ type value_selection_setting = {
   resolution_strategy : string prop;
   advanced_recognition_setting :
     value_selection_setting__advanced_recognition_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   regex_filter : value_selection_setting__regex_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -371,20 +394,26 @@ let yojson_of_value_selection_setting =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_selection_setting__regex_filter
-             v_regex_filter
-         in
-         ("regex_filter", arg) :: bnds
+         if [] = v_regex_filter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_selection_setting__regex_filter)
+               v_regex_filter
+           in
+           let bnd = "regex_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_value_selection_setting__advanced_recognition_setting
-             v_advanced_recognition_setting
-         in
-         ("advanced_recognition_setting", arg) :: bnds
+         if [] = v_advanced_recognition_setting then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_value_selection_setting__advanced_recognition_setting)
+               v_advanced_recognition_setting
+           in
+           let bnd = "advanced_recognition_setting", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -407,10 +436,14 @@ type aws_lexv2models_slot_type = {
   name : string prop;
   parent_slot_type_signature : string prop option; [@option]
   composite_slot_type_setting : composite_slot_type_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   external_source_setting : external_source_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   slot_type_values : slot_type_values list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   value_selection_setting : value_selection_setting list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -435,36 +468,48 @@ let yojson_of_aws_lexv2models_slot_type =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_value_selection_setting
-             v_value_selection_setting
-         in
-         ("value_selection_setting", arg) :: bnds
+         if [] = v_value_selection_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_value_selection_setting)
+               v_value_selection_setting
+           in
+           let bnd = "value_selection_setting", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_slot_type_values
-             v_slot_type_values
-         in
-         ("slot_type_values", arg) :: bnds
+         if [] = v_slot_type_values then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_slot_type_values)
+               v_slot_type_values
+           in
+           let bnd = "slot_type_values", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_external_source_setting
-             v_external_source_setting
-         in
-         ("external_source_setting", arg) :: bnds
+         if [] = v_external_source_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_external_source_setting)
+               v_external_source_setting
+           in
+           let bnd = "external_source_setting", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_composite_slot_type_setting
-             v_composite_slot_type_setting
-         in
-         ("composite_slot_type_setting", arg) :: bnds
+         if [] = v_composite_slot_type_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_composite_slot_type_setting)
+               v_composite_slot_type_setting
+           in
+           let bnd = "composite_slot_type_setting", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_parent_slot_type_signature with

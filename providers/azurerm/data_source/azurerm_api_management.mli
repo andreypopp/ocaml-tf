@@ -9,10 +9,14 @@ type additional_location = {
   gateway_regional_url : string prop;  (** gateway_regional_url *)
   location : string prop;  (** location *)
   private_ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** private_ip_addresses *)
   public_ip_address_id : string prop;  (** public_ip_address_id *)
-  public_ip_addresses : string prop list;  (** public_ip_addresses *)
-  zones : string prop list;  (** zones *)
+  public_ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** public_ip_addresses *)
+  zones : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** zones *)
 }
 
 type hostname_configuration__scm = {
@@ -53,16 +57,26 @@ type hostname_configuration__developer_portal = {
 
 type hostname_configuration = {
   developer_portal : hostname_configuration__developer_portal list;
+      [@default []] [@yojson_drop_default ( = )]
       (** developer_portal *)
   management : hostname_configuration__management list;
+      [@default []] [@yojson_drop_default ( = )]
       (** management *)
-  portal : hostname_configuration__portal list;  (** portal *)
-  proxy : hostname_configuration__proxy list;  (** proxy *)
-  scm : hostname_configuration__scm list;  (** scm *)
+  portal : hostname_configuration__portal list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** portal *)
+  proxy : hostname_configuration__proxy list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** proxy *)
+  scm : hostname_configuration__scm list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** scm *)
 }
 
 type identity = {
-  identity_ids : string prop list;  (** identity_ids *)
+  identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** identity_ids *)
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)

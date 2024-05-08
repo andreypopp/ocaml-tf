@@ -65,6 +65,7 @@ type rules__deny_rule = {
   exception_permissions : string prop list option; [@option]
   exception_principals : string prop list option; [@option]
   denial_condition : rules__deny_rule__denial_condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -83,12 +84,15 @@ let yojson_of_rules__deny_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rules__deny_rule__denial_condition
-             v_denial_condition
-         in
-         ("denial_condition", arg) :: bnds
+         if [] = v_denial_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rules__deny_rule__denial_condition)
+               v_denial_condition
+           in
+           let bnd = "denial_condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_exception_principals with
@@ -140,6 +144,7 @@ let _ = yojson_of_rules__deny_rule
 type rules = {
   description : string prop option; [@option]
   deny_rule : rules__deny_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -152,10 +157,13 @@ let yojson_of_rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rules__deny_rule v_deny_rule
-         in
-         ("deny_rule", arg) :: bnds
+         if [] = v_deny_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rules__deny_rule) v_deny_rule
+           in
+           let bnd = "deny_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_description with
@@ -223,7 +231,7 @@ type google_iam_deny_policy = {
   id : string prop option; [@option]
   name : string prop;
   parent : string prop;
-  rules : rules list;
+  rules : rules list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -248,8 +256,11 @@ let yojson_of_google_iam_deny_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rules v_rules in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rules) v_rules in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_parent in

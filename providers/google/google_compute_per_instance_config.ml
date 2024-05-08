@@ -87,6 +87,7 @@ type preserved_state__external_ip = {
   auto_delete : string prop option; [@option]
   interface_name : string prop;
   ip_address : preserved_state__external_ip__ip_address list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -103,12 +104,15 @@ let yojson_of_preserved_state__external_ip =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_preserved_state__external_ip__ip_address
-             v_ip_address
-         in
-         ("ip_address", arg) :: bnds
+         if [] = v_ip_address then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_preserved_state__external_ip__ip_address)
+               v_ip_address
+           in
+           let bnd = "ip_address", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -165,6 +169,7 @@ type preserved_state__internal_ip = {
   auto_delete : string prop option; [@option]
   interface_name : string prop;
   ip_address : preserved_state__internal_ip__ip_address list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -181,12 +186,15 @@ let yojson_of_preserved_state__internal_ip =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_preserved_state__internal_ip__ip_address
-             v_ip_address
-         in
-         ("ip_address", arg) :: bnds
+         if [] = v_ip_address then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_preserved_state__internal_ip__ip_address)
+               v_ip_address
+           in
+           let bnd = "ip_address", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -213,8 +221,11 @@ let _ = yojson_of_preserved_state__internal_ip
 type preserved_state = {
   metadata : (string * string prop) list option; [@option]
   disk : preserved_state__disk list;
+      [@default []] [@yojson_drop_default ( = )]
   external_ip : preserved_state__external_ip list;
+      [@default []] [@yojson_drop_default ( = )]
   internal_ip : preserved_state__internal_ip list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -232,24 +243,33 @@ let yojson_of_preserved_state =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_preserved_state__internal_ip
-             v_internal_ip
-         in
-         ("internal_ip", arg) :: bnds
+         if [] = v_internal_ip then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_preserved_state__internal_ip)
+               v_internal_ip
+           in
+           let bnd = "internal_ip", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_preserved_state__external_ip
-             v_external_ip
-         in
-         ("external_ip", arg) :: bnds
+         if [] = v_external_ip then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_preserved_state__external_ip)
+               v_external_ip
+           in
+           let bnd = "external_ip", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_preserved_state__disk v_disk
-         in
-         ("disk", arg) :: bnds
+         if [] = v_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_preserved_state__disk) v_disk
+           in
+           let bnd = "disk", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_metadata with
@@ -331,6 +351,7 @@ type google_compute_per_instance_config = {
   remove_instance_state_on_destroy : bool prop option; [@option]
   zone : string prop option; [@option]
   preserved_state : preserved_state list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -362,10 +383,14 @@ let yojson_of_google_compute_per_instance_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_preserved_state v_preserved_state
-         in
-         ("preserved_state", arg) :: bnds
+         if [] = v_preserved_state then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_preserved_state)
+               v_preserved_state
+           in
+           let bnd = "preserved_state", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

@@ -4,7 +4,7 @@ open! Tf_core
 
 type linked_interconnect_attachments = {
   site_to_site_data_transfer : bool prop;
-  uris : string prop list;
+  uris : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20,10 +20,14 @@ let yojson_of_linked_interconnect_attachments =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_uris
-         in
-         ("uris", arg) :: bnds
+         if [] = v_uris then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_uris
+           in
+           let bnd = "uris", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -83,6 +87,7 @@ let _ = yojson_of_linked_router_appliance_instances__instances
 type linked_router_appliance_instances = {
   site_to_site_data_transfer : bool prop;
   instances : linked_router_appliance_instances__instances list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -98,12 +103,15 @@ let yojson_of_linked_router_appliance_instances =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_linked_router_appliance_instances__instances
-             v_instances
-         in
-         ("instances", arg) :: bnds
+         if [] = v_instances then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_linked_router_appliance_instances__instances)
+               v_instances
+           in
+           let bnd = "instances", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -157,7 +165,7 @@ let _ = yojson_of_linked_vpc_network
 
 type linked_vpn_tunnels = {
   site_to_site_data_transfer : bool prop;
-  uris : string prop list;
+  uris : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -173,10 +181,14 @@ let yojson_of_linked_vpn_tunnels =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_uris
-         in
-         ("uris", arg) :: bnds
+         if [] = v_uris then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_uris
+           in
+           let bnd = "uris", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -247,10 +259,14 @@ type google_network_connectivity_spoke = {
   project : string prop option; [@option]
   linked_interconnect_attachments :
     linked_interconnect_attachments list;
+      [@default []] [@yojson_drop_default ( = )]
   linked_router_appliance_instances :
     linked_router_appliance_instances list;
+      [@default []] [@yojson_drop_default ( = )]
   linked_vpc_network : linked_vpc_network list;
+      [@default []] [@yojson_drop_default ( = )]
   linked_vpn_tunnels : linked_vpn_tunnels list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -283,32 +299,46 @@ let yojson_of_google_network_connectivity_spoke =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_linked_vpn_tunnels
-             v_linked_vpn_tunnels
-         in
-         ("linked_vpn_tunnels", arg) :: bnds
+         if [] = v_linked_vpn_tunnels then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_linked_vpn_tunnels)
+               v_linked_vpn_tunnels
+           in
+           let bnd = "linked_vpn_tunnels", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_linked_vpc_network
-             v_linked_vpc_network
-         in
-         ("linked_vpc_network", arg) :: bnds
+         if [] = v_linked_vpc_network then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_linked_vpc_network)
+               v_linked_vpc_network
+           in
+           let bnd = "linked_vpc_network", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_linked_router_appliance_instances
-             v_linked_router_appliance_instances
-         in
-         ("linked_router_appliance_instances", arg) :: bnds
+         if [] = v_linked_router_appliance_instances then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_linked_router_appliance_instances)
+               v_linked_router_appliance_instances
+           in
+           let bnd = "linked_router_appliance_instances", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_linked_interconnect_attachments
-             v_linked_interconnect_attachments
-         in
-         ("linked_interconnect_attachments", arg) :: bnds
+         if [] = v_linked_interconnect_attachments then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_linked_interconnect_attachments)
+               v_linked_interconnect_attachments
+           in
+           let bnd = "linked_interconnect_attachments", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

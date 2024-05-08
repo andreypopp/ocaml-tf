@@ -50,6 +50,7 @@ let _ = yojson_of_table_data__row_filter__all_rows_wildcard
 type table_data__row_filter = {
   filter_expression : string prop option; [@option]
   all_rows_wildcard : table_data__row_filter__all_rows_wildcard list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -65,12 +66,15 @@ let yojson_of_table_data__row_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_table_data__row_filter__all_rows_wildcard
-             v_all_rows_wildcard
-         in
-         ("all_rows_wildcard", arg) :: bnds
+         if [] = v_all_rows_wildcard then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_table_data__row_filter__all_rows_wildcard)
+               v_all_rows_wildcard
+           in
+           let bnd = "all_rows_wildcard", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_filter_expression with
@@ -95,7 +99,9 @@ type table_data = {
   table_name : string prop;
   version_id : string prop option; [@option]
   column_wildcard : table_data__column_wildcard list;
+      [@default []] [@yojson_drop_default ( = )]
   row_filter : table_data__row_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -117,18 +123,24 @@ let yojson_of_table_data =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_table_data__row_filter
-             v_row_filter
-         in
-         ("row_filter", arg) :: bnds
+         if [] = v_row_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_table_data__row_filter)
+               v_row_filter
+           in
+           let bnd = "row_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_table_data__column_wildcard
-             v_column_wildcard
-         in
-         ("column_wildcard", arg) :: bnds
+         if [] = v_column_wildcard then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_table_data__column_wildcard)
+               v_column_wildcard
+           in
+           let bnd = "column_wildcard", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version_id with
@@ -201,6 +213,7 @@ let _ = yojson_of_timeouts
 
 type aws_lakeformation_data_cells_filter = {
   table_data : table_data list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -218,10 +231,13 @@ let yojson_of_aws_lakeformation_data_cells_filter =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_table_data v_table_data
-         in
-         ("table_data", arg) :: bnds
+         if [] = v_table_data then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_table_data) v_table_data
+           in
+           let bnd = "table_data", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_lakeformation_data_cells_filter ->

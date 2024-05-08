@@ -106,7 +106,9 @@ let _ = yojson_of_build_config__source__repo_source
 
 type build_config__source = {
   repo_source : build_config__source__repo_source list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_source : build_config__source__storage_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,19 +124,26 @@ let yojson_of_build_config__source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_build_config__source__storage_source
-             v_storage_source
-         in
-         ("storage_source", arg) :: bnds
+         if [] = v_storage_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build_config__source__storage_source)
+               v_storage_source
+           in
+           let bnd = "storage_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build_config__source__repo_source
-             v_repo_source
-         in
-         ("repo_source", arg) :: bnds
+         if [] = v_repo_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build_config__source__repo_source)
+               v_repo_source
+           in
+           let bnd = "repo_source", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build_config__source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -150,6 +159,7 @@ type build_config = {
   environment_variables : (string * string prop) list;
   runtime : string prop;
   source : build_config__source list;
+      [@default []] [@yojson_drop_default ( = )]
   worker_pool : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -175,10 +185,13 @@ let yojson_of_build_config =
          ("worker_pool", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build_config__source v_source
-         in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build_config__source) v_source
+           in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_runtime in
@@ -258,6 +271,7 @@ let _ = yojson_of_event_trigger__event_filters
 
 type event_trigger = {
   event_filters : event_trigger__event_filters list;
+      [@default []] [@yojson_drop_default ( = )]
   event_type : string prop;
   pubsub_topic : string prop;
   retry_policy : string prop;
@@ -312,11 +326,14 @@ let yojson_of_event_trigger =
          ("event_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_trigger__event_filters
-             v_event_filters
-         in
-         ("event_filters", arg) :: bnds
+         if [] = v_event_filters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_trigger__event_filters)
+               v_event_filters
+           in
+           let bnd = "event_filters", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : event_trigger -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -360,6 +377,7 @@ type service_config__secret_volumes = {
   project_id : string prop;
   secret : string prop;
   versions : service_config__secret_volumes__versions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -377,12 +395,15 @@ let yojson_of_service_config__secret_volumes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_config__secret_volumes__versions
-             v_versions
-         in
-         ("versions", arg) :: bnds
+         if [] = v_versions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_config__secret_volumes__versions)
+               v_versions
+           in
+           let bnd = "versions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_secret in
@@ -461,7 +482,9 @@ type service_config = {
   min_instance_count : float prop;
   secret_environment_variables :
     service_config__secret_environment_variables list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_volumes : service_config__secret_volumes list;
+      [@default []] [@yojson_drop_default ( = )]
   service : string prop;
   service_account_email : string prop;
   timeout_seconds : float prop;
@@ -532,19 +555,25 @@ let yojson_of_service_config =
          ("service", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_config__secret_volumes
-             v_secret_volumes
-         in
-         ("secret_volumes", arg) :: bnds
+         if [] = v_secret_volumes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_config__secret_volumes)
+               v_secret_volumes
+           in
+           let bnd = "secret_volumes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_config__secret_environment_variables
-             v_secret_environment_variables
-         in
-         ("secret_environment_variables", arg) :: bnds
+         if [] = v_secret_environment_variables then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_config__secret_environment_variables)
+               v_secret_environment_variables
+           in
+           let bnd = "secret_environment_variables", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

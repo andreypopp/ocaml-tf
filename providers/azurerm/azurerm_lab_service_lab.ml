@@ -449,9 +449,13 @@ type virtual_machine = {
   shared_password_enabled : bool prop option; [@option]
   usage_quota : string prop option; [@option]
   admin_user : virtual_machine__admin_user list;
+      [@default []] [@yojson_drop_default ( = )]
   image_reference : virtual_machine__image_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   non_admin_user : virtual_machine__non_admin_user list;
+      [@default []] [@yojson_drop_default ( = )]
   sku : virtual_machine__sku list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -474,31 +478,45 @@ let yojson_of_virtual_machine =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_virtual_machine__sku v_sku
-         in
-         ("sku", arg) :: bnds
+         if [] = v_sku then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_virtual_machine__sku) v_sku
+           in
+           let bnd = "sku", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_virtual_machine__non_admin_user
-             v_non_admin_user
-         in
-         ("non_admin_user", arg) :: bnds
+         if [] = v_non_admin_user then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_virtual_machine__non_admin_user)
+               v_non_admin_user
+           in
+           let bnd = "non_admin_user", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_virtual_machine__image_reference
-             v_image_reference
-         in
-         ("image_reference", arg) :: bnds
+         if [] = v_image_reference then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_virtual_machine__image_reference)
+               v_image_reference
+           in
+           let bnd = "image_reference", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_virtual_machine__admin_user
-             v_admin_user
-         in
-         ("admin_user", arg) :: bnds
+         if [] = v_admin_user then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_virtual_machine__admin_user)
+               v_admin_user
+           in
+           let bnd = "admin_user", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_usage_quota with
@@ -551,12 +569,16 @@ type azurerm_lab_service_lab = {
   tags : (string * string prop) list option; [@option]
   title : string prop;
   auto_shutdown : auto_shutdown list;
+      [@default []] [@yojson_drop_default ( = )]
   connection_setting : connection_setting list;
-  network : network list;
-  roster : roster list;
+      [@default []] [@yojson_drop_default ( = )]
+  network : network list; [@default []] [@yojson_drop_default ( = )]
+  roster : roster list; [@default []] [@yojson_drop_default ( = )]
   security : security list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   virtual_machine : virtual_machine list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -585,39 +607,60 @@ let yojson_of_azurerm_lab_service_lab =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_virtual_machine v_virtual_machine
-         in
-         ("virtual_machine", arg) :: bnds
+         if [] = v_virtual_machine then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_virtual_machine)
+               v_virtual_machine
+           in
+           let bnd = "virtual_machine", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_security v_security in
-         ("security", arg) :: bnds
+         if [] = v_security then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_security) v_security
+           in
+           let bnd = "security", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_roster v_roster in
-         ("roster", arg) :: bnds
+         if [] = v_roster then bnds
+         else
+           let arg = (yojson_of_list yojson_of_roster) v_roster in
+           let bnd = "roster", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_network v_network in
-         ("network", arg) :: bnds
+         if [] = v_network then bnds
+         else
+           let arg = (yojson_of_list yojson_of_network) v_network in
+           let bnd = "network", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_connection_setting
-             v_connection_setting
-         in
-         ("connection_setting", arg) :: bnds
+         if [] = v_connection_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_connection_setting)
+               v_connection_setting
+           in
+           let bnd = "connection_setting", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_shutdown v_auto_shutdown
-         in
-         ("auto_shutdown", arg) :: bnds
+         if [] = v_auto_shutdown then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_shutdown) v_auto_shutdown
+           in
+           let bnd = "auto_shutdown", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in

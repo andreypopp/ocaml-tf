@@ -100,6 +100,7 @@ type google_compute_network_endpoints = {
   project : string prop option; [@option]
   zone : string prop option; [@option]
   network_endpoints : network_endpoints list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -124,11 +125,14 @@ let yojson_of_google_compute_network_endpoints =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_endpoints
-             v_network_endpoints
-         in
-         ("network_endpoints", arg) :: bnds
+         if [] = v_network_endpoints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_endpoints)
+               v_network_endpoints
+           in
+           let bnd = "network_endpoints", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

@@ -17,6 +17,7 @@ let _ = yojson_of_managed_zones
 type google_dns_managed_zones = {
   project : string prop option; [@option]
   managed_zones : managed_zones list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29,10 +30,13 @@ let yojson_of_google_dns_managed_zones =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_managed_zones v_managed_zones
-         in
-         ("managed_zones", arg) :: bnds
+         if [] = v_managed_zones then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_managed_zones) v_managed_zones
+           in
+           let bnd = "managed_zones", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

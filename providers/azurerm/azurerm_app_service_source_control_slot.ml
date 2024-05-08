@@ -97,8 +97,10 @@ type github_action_configuration = {
   generate_workflow_file : bool prop option; [@option]
   code_configuration :
     github_action_configuration__code_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   container_configuration :
     github_action_configuration__container_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -115,20 +117,26 @@ let yojson_of_github_action_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_github_action_configuration__container_configuration
-             v_container_configuration
-         in
-         ("container_configuration", arg) :: bnds
+         if [] = v_container_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_github_action_configuration__container_configuration)
+               v_container_configuration
+           in
+           let bnd = "container_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_github_action_configuration__code_configuration
-             v_code_configuration
-         in
-         ("code_configuration", arg) :: bnds
+         if [] = v_code_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_github_action_configuration__code_configuration)
+               v_code_configuration
+           in
+           let bnd = "code_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_generate_workflow_file with
@@ -202,6 +210,7 @@ type azurerm_app_service_source_control_slot = {
   use_manual_integration : bool prop option; [@option]
   use_mercurial : bool prop option; [@option]
   github_action_configuration : github_action_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -230,11 +239,14 @@ let yojson_of_azurerm_app_service_source_control_slot =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_github_action_configuration
-             v_github_action_configuration
-         in
-         ("github_action_configuration", arg) :: bnds
+         if [] = v_github_action_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_github_action_configuration)
+               v_github_action_configuration
+           in
+           let bnd = "github_action_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_mercurial with

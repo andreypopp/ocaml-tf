@@ -101,7 +101,9 @@ let _ = yojson_of_notification__webhook
 
 type notification = {
   email : notification__email list;
+      [@default []] [@yojson_drop_default ( = )]
   webhook : notification__webhook list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,16 +116,23 @@ let yojson_of_notification =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification__webhook v_webhook
-         in
-         ("webhook", arg) :: bnds
+         if [] = v_webhook then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification__webhook)
+               v_webhook
+           in
+           let bnd = "webhook", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification__email v_email
-         in
-         ("email", arg) :: bnds
+         if [] = v_email then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification__email) v_email
+           in
+           let bnd = "email", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : notification -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -245,9 +254,10 @@ let _ = yojson_of_profile__fixed_date
 [@@@deriving.end]
 
 type profile__recurrence = {
-  days : string prop list;
-  hours : float prop list;
+  days : string prop list; [@default []] [@yojson_drop_default ( = )]
+  hours : float prop list; [@default []] [@yojson_drop_default ( = )]
   minutes : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   timezone : string prop option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -274,22 +284,34 @@ let yojson_of_profile__recurrence =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_float) v_minutes
-         in
-         ("minutes", arg) :: bnds
+         if [] = v_minutes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_minutes
+           in
+           let bnd = "minutes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_float) v_hours
-         in
-         ("hours", arg) :: bnds
+         if [] = v_hours then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_hours
+           in
+           let bnd = "hours", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_days
-         in
-         ("days", arg) :: bnds
+         if [] = v_days then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_days
+           in
+           let bnd = "days", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : profile__recurrence -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -302,6 +324,7 @@ type profile__rule__metric_trigger__dimensions = {
   name : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -314,10 +337,14 @@ let yojson_of_profile__rule__metric_trigger__dimensions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -347,6 +374,7 @@ type profile__rule__metric_trigger = {
   time_grain : string prop;
   time_window : string prop;
   dimensions : profile__rule__metric_trigger__dimensions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -371,12 +399,15 @@ let yojson_of_profile__rule__metric_trigger =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_profile__rule__metric_trigger__dimensions
-             v_dimensions
-         in
-         ("dimensions", arg) :: bnds
+         if [] = v_dimensions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_profile__rule__metric_trigger__dimensions)
+               v_dimensions
+           in
+           let bnd = "dimensions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_time_window in
@@ -485,7 +516,9 @@ let _ = yojson_of_profile__rule__scale_action
 
 type profile__rule = {
   metric_trigger : profile__rule__metric_trigger list;
+      [@default []] [@yojson_drop_default ( = )]
   scale_action : profile__rule__scale_action list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -501,18 +534,24 @@ let yojson_of_profile__rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_profile__rule__scale_action
-             v_scale_action
-         in
-         ("scale_action", arg) :: bnds
+         if [] = v_scale_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_profile__rule__scale_action)
+               v_scale_action
+           in
+           let bnd = "scale_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_profile__rule__metric_trigger
-             v_metric_trigger
-         in
-         ("metric_trigger", arg) :: bnds
+         if [] = v_metric_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_profile__rule__metric_trigger)
+               v_metric_trigger
+           in
+           let bnd = "metric_trigger", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : profile__rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -524,9 +563,13 @@ let _ = yojson_of_profile__rule
 type profile = {
   name : string prop;
   capacity : profile__capacity list;
+      [@default []] [@yojson_drop_default ( = )]
   fixed_date : profile__fixed_date list;
+      [@default []] [@yojson_drop_default ( = )]
   recurrence : profile__recurrence list;
+      [@default []] [@yojson_drop_default ( = )]
   rule : profile__rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -545,26 +588,42 @@ let yojson_of_profile =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_profile__rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_profile__rule) v_rule
+           in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_profile__recurrence v_recurrence
-         in
-         ("recurrence", arg) :: bnds
+         if [] = v_recurrence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_profile__recurrence)
+               v_recurrence
+           in
+           let bnd = "recurrence", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_profile__fixed_date v_fixed_date
-         in
-         ("fixed_date", arg) :: bnds
+         if [] = v_fixed_date then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_profile__fixed_date)
+               v_fixed_date
+           in
+           let bnd = "fixed_date", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_profile__capacity v_capacity
-         in
-         ("capacity", arg) :: bnds
+         if [] = v_capacity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_profile__capacity) v_capacity
+           in
+           let bnd = "capacity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -646,8 +705,10 @@ type azurerm_monitor_autoscale_setting = {
   tags : (string * string prop) list option; [@option]
   target_resource_id : string prop;
   notification : notification list;
+      [@default []] [@yojson_drop_default ( = )]
   predictive : predictive list;
-  profile : profile list;
+      [@default []] [@yojson_drop_default ( = )]
+  profile : profile list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -677,20 +738,29 @@ let yojson_of_azurerm_monitor_autoscale_setting =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_profile v_profile in
-         ("profile", arg) :: bnds
+         if [] = v_profile then bnds
+         else
+           let arg = (yojson_of_list yojson_of_profile) v_profile in
+           let bnd = "profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_predictive v_predictive
-         in
-         ("predictive", arg) :: bnds
+         if [] = v_predictive then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_predictive) v_predictive
+           in
+           let bnd = "predictive", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notification v_notification
-         in
-         ("notification", arg) :: bnds
+         if [] = v_notification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notification) v_notification
+           in
+           let bnd = "notification", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

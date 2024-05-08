@@ -317,6 +317,7 @@ type azurerm_databricks_workspace = {
   sku : string prop;
   tags : (string * string prop) list option; [@option]
   custom_parameters : custom_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -359,11 +360,14 @@ let yojson_of_azurerm_databricks_workspace =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_parameters
-             v_custom_parameters
-         in
-         ("custom_parameters", arg) :: bnds
+         if [] = v_custom_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_parameters)
+               v_custom_parameters
+           in
+           let bnd = "custom_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

@@ -81,6 +81,7 @@ type google_app_engine_service_network_settings = {
   project : string prop option; [@option]
   service : string prop;
   network_settings : network_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -104,11 +105,14 @@ let yojson_of_google_app_engine_service_network_settings =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_settings
-             v_network_settings
-         in
-         ("network_settings", arg) :: bnds
+         if [] = v_network_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_settings)
+               v_network_settings
+           in
+           let bnd = "network_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_service in

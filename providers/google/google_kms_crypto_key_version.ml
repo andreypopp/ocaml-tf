@@ -88,8 +88,11 @@ let _ = yojson_of_attestation__external_protection_level_options
 
 type attestation__cert_chains = {
   cavium_certs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   google_card_certs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   google_partition_certs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,28 +109,34 @@ let yojson_of_attestation__cert_chains =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_google_partition_certs
-         in
-         ("google_partition_certs", arg) :: bnds
+         if [] = v_google_partition_certs then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_google_partition_certs
+           in
+           let bnd = "google_partition_certs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_google_card_certs
-         in
-         ("google_card_certs", arg) :: bnds
+         if [] = v_google_card_certs then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_google_card_certs
+           in
+           let bnd = "google_card_certs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cavium_certs
-         in
-         ("cavium_certs", arg) :: bnds
+         if [] = v_cavium_certs then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cavium_certs
+           in
+           let bnd = "cavium_certs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : attestation__cert_chains -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -138,9 +147,11 @@ let _ = yojson_of_attestation__cert_chains
 
 type attestation = {
   cert_chains : attestation__cert_chains list;
+      [@default []] [@yojson_drop_default ( = )]
   content : string prop;
   external_protection_level_options :
     attestation__external_protection_level_options list;
+      [@default []] [@yojson_drop_default ( = )]
   format : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -164,23 +175,29 @@ let yojson_of_attestation =
          ("format", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_attestation__external_protection_level_options
-             v_external_protection_level_options
-         in
-         ("external_protection_level_options", arg) :: bnds
+         if [] = v_external_protection_level_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_attestation__external_protection_level_options)
+               v_external_protection_level_options
+           in
+           let bnd = "external_protection_level_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_content in
          ("content", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attestation__cert_chains
-             v_cert_chains
-         in
-         ("cert_chains", arg) :: bnds
+         if [] = v_cert_chains then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attestation__cert_chains)
+               v_cert_chains
+           in
+           let bnd = "cert_chains", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : attestation -> Ppx_yojson_conv_lib.Yojson.Safe.t)

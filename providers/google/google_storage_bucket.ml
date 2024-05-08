@@ -104,7 +104,10 @@ let _ = yojson_of_cors
 
 [@@@deriving.end]
 
-type custom_placement_config = { data_locations : string prop list }
+type custom_placement_config = {
+  data_locations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : custom_placement_config) -> ()
@@ -116,12 +119,14 @@ let yojson_of_custom_placement_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_data_locations
-         in
-         ("data_locations", arg) :: bnds
+         if [] = v_data_locations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_data_locations
+           in
+           let bnd = "data_locations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : custom_placement_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -335,7 +340,9 @@ let _ = yojson_of_lifecycle_rule__condition
 
 type lifecycle_rule = {
   action : lifecycle_rule__action list;
+      [@default []] [@yojson_drop_default ( = )]
   condition : lifecycle_rule__condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -348,17 +355,24 @@ let yojson_of_lifecycle_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lifecycle_rule__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lifecycle_rule__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lifecycle_rule__action v_action
-         in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lifecycle_rule__action)
+               v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : lifecycle_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -564,15 +578,21 @@ type google_storage_bucket = {
   storage_class : string prop option; [@option]
   uniform_bucket_level_access : bool prop option; [@option]
   autoclass : autoclass list;
-  cors : cors list;
+      [@default []] [@yojson_drop_default ( = )]
+  cors : cors list; [@default []] [@yojson_drop_default ( = )]
   custom_placement_config : custom_placement_config list;
+      [@default []] [@yojson_drop_default ( = )]
   encryption : encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   lifecycle_rule : lifecycle_rule list;
-  logging : logging list;
+      [@default []] [@yojson_drop_default ( = )]
+  logging : logging list; [@default []] [@yojson_drop_default ( = )]
   retention_policy : retention_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   versioning : versioning list;
-  website : website list;
+      [@default []] [@yojson_drop_default ( = )]
+  website : website list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -609,56 +629,86 @@ let yojson_of_google_storage_bucket =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_website v_website in
-         ("website", arg) :: bnds
+         if [] = v_website then bnds
+         else
+           let arg = (yojson_of_list yojson_of_website) v_website in
+           let bnd = "website", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_versioning v_versioning
-         in
-         ("versioning", arg) :: bnds
+         if [] = v_versioning then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_versioning) v_versioning
+           in
+           let bnd = "versioning", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_policy
-             v_retention_policy
-         in
-         ("retention_policy", arg) :: bnds
+         if [] = v_retention_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_policy)
+               v_retention_policy
+           in
+           let bnd = "retention_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_logging v_logging in
-         ("logging", arg) :: bnds
+         if [] = v_logging then bnds
+         else
+           let arg = (yojson_of_list yojson_of_logging) v_logging in
+           let bnd = "logging", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lifecycle_rule v_lifecycle_rule
-         in
-         ("lifecycle_rule", arg) :: bnds
+         if [] = v_lifecycle_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lifecycle_rule)
+               v_lifecycle_rule
+           in
+           let bnd = "lifecycle_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption v_encryption
-         in
-         ("encryption", arg) :: bnds
+         if [] = v_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption) v_encryption
+           in
+           let bnd = "encryption", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_placement_config
-             v_custom_placement_config
-         in
-         ("custom_placement_config", arg) :: bnds
+         if [] = v_custom_placement_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_placement_config)
+               v_custom_placement_config
+           in
+           let bnd = "custom_placement_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_cors v_cors in
-         ("cors", arg) :: bnds
+         if [] = v_cors then bnds
+         else
+           let arg = (yojson_of_list yojson_of_cors) v_cors in
+           let bnd = "cors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_autoclass v_autoclass in
-         ("autoclass", arg) :: bnds
+         if [] = v_autoclass then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoclass) v_autoclass
+           in
+           let bnd = "autoclass", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_uniform_bucket_level_access with

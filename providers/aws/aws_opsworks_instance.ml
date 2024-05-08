@@ -233,6 +233,7 @@ type aws_opsworks_instance = {
   instance_profile_arn : string prop option; [@option]
   instance_type : string prop option; [@option]
   layer_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   os : string prop option; [@option]
   root_device_type : string prop option; [@option]
   security_group_ids : string prop list option; [@option]
@@ -244,8 +245,11 @@ type aws_opsworks_instance = {
   tenancy : string prop option; [@option]
   virtualization_type : string prop option; [@option]
   ebs_block_device : ebs_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   ephemeral_block_device : ephemeral_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   root_block_device : root_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -296,25 +300,34 @@ let yojson_of_aws_opsworks_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_root_block_device
-             v_root_block_device
-         in
-         ("root_block_device", arg) :: bnds
+         if [] = v_root_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_root_block_device)
+               v_root_block_device
+           in
+           let bnd = "root_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ephemeral_block_device
-             v_ephemeral_block_device
-         in
-         ("ephemeral_block_device", arg) :: bnds
+         if [] = v_ephemeral_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ephemeral_block_device)
+               v_ephemeral_block_device
+           in
+           let bnd = "ephemeral_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ebs_block_device
-             v_ebs_block_device
-         in
-         ("ebs_block_device", arg) :: bnds
+         if [] = v_ebs_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ebs_block_device)
+               v_ebs_block_device
+           in
+           let bnd = "ebs_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtualization_type with
@@ -395,12 +408,14 @@ let yojson_of_aws_opsworks_instance =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_layer_ids
-         in
-         ("layer_ids", arg) :: bnds
+         if [] = v_layer_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_layer_ids
+           in
+           let bnd = "layer_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_instance_type with

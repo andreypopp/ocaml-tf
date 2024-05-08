@@ -60,6 +60,7 @@ let _ = yojson_of_chat_engine_config__agent_creation_config
 type chat_engine_config = {
   agent_creation_config :
     chat_engine_config__agent_creation_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -72,12 +73,15 @@ let yojson_of_chat_engine_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_chat_engine_config__agent_creation_config
-             v_agent_creation_config
-         in
-         ("agent_creation_config", arg) :: bnds
+         if [] = v_agent_creation_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_chat_engine_config__agent_creation_config)
+               v_agent_creation_config
+           in
+           let bnd = "agent_creation_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : chat_engine_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -185,6 +189,7 @@ let _ = yojson_of_chat_engine_metadata
 type google_discovery_engine_chat_engine = {
   collection_id : string prop;
   data_store_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   display_name : string prop;
   engine_id : string prop;
   id : string prop option; [@option]
@@ -192,7 +197,9 @@ type google_discovery_engine_chat_engine = {
   location : string prop;
   project : string prop option; [@option]
   chat_engine_config : chat_engine_config list;
+      [@default []] [@yojson_drop_default ( = )]
   common_config : common_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -222,17 +229,23 @@ let yojson_of_google_discovery_engine_chat_engine =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_common_config v_common_config
-         in
-         ("common_config", arg) :: bnds
+         if [] = v_common_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_common_config) v_common_config
+           in
+           let bnd = "common_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_chat_engine_config
-             v_chat_engine_config
-         in
-         ("chat_engine_config", arg) :: bnds
+         if [] = v_chat_engine_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_chat_engine_config)
+               v_chat_engine_config
+           in
+           let bnd = "chat_engine_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with
@@ -271,12 +284,14 @@ let yojson_of_google_discovery_engine_chat_engine =
          ("display_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_data_store_ids
-         in
-         ("data_store_ids", arg) :: bnds
+         if [] = v_data_store_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_data_store_ids
+           in
+           let bnd = "data_store_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_collection_id in

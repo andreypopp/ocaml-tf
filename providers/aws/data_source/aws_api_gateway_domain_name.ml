@@ -2,7 +2,9 @@
 
 open! Tf_core
 
-type endpoint_configuration = { types : string prop list }
+type endpoint_configuration = {
+  types : string prop list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : endpoint_configuration) -> ()
@@ -14,10 +16,14 @@ let yojson_of_endpoint_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_types
-         in
-         ("types", arg) :: bnds
+         if [] = v_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_types
+           in
+           let bnd = "types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : endpoint_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)

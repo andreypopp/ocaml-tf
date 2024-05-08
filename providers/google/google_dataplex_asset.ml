@@ -110,7 +110,9 @@ type discovery_spec = {
   include_patterns : string prop list option; [@option]
   schedule : string prop option; [@option]
   csv_options : discovery_spec__csv_options list;
+      [@default []] [@yojson_drop_default ( = )]
   json_options : discovery_spec__json_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,18 +132,24 @@ let yojson_of_discovery_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_discovery_spec__json_options
-             v_json_options
-         in
-         ("json_options", arg) :: bnds
+         if [] = v_json_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_discovery_spec__json_options)
+               v_json_options
+           in
+           let bnd = "json_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_discovery_spec__csv_options
-             v_csv_options
-         in
-         ("csv_options", arg) :: bnds
+         if [] = v_csv_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_discovery_spec__csv_options)
+               v_csv_options
+           in
+           let bnd = "csv_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_schedule with
@@ -324,6 +332,7 @@ type discovery_status = {
   message : string prop;
   state : string prop;
   stats : discovery_status__stats list;
+      [@default []] [@yojson_drop_default ( = )]
   update_time : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -348,10 +357,14 @@ let yojson_of_discovery_status =
          ("update_time", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_discovery_status__stats v_stats
-         in
-         ("stats", arg) :: bnds
+         if [] = v_stats then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_discovery_status__stats)
+               v_stats
+           in
+           let bnd = "stats", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_state in
@@ -465,7 +478,9 @@ type google_dataplex_asset = {
   name : string prop;
   project : string prop option; [@option]
   discovery_spec : discovery_spec list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_spec : resource_spec list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -496,16 +511,23 @@ let yojson_of_google_dataplex_asset =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resource_spec v_resource_spec
-         in
-         ("resource_spec", arg) :: bnds
+         if [] = v_resource_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resource_spec) v_resource_spec
+           in
+           let bnd = "resource_spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_discovery_spec v_discovery_spec
-         in
-         ("discovery_spec", arg) :: bnds
+         if [] = v_discovery_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_discovery_spec)
+               v_discovery_spec
+           in
+           let bnd = "discovery_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

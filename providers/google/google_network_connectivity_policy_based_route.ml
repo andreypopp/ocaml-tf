@@ -128,7 +128,9 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
-type virtual_machine = { tags : string prop list }
+type virtual_machine = {
+  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : virtual_machine) -> ()
@@ -140,10 +142,14 @@ let yojson_of_virtual_machine =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : virtual_machine -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -210,10 +216,12 @@ type google_network_connectivity_policy_based_route = {
   next_hop_other_routes : string prop option; [@option]
   priority : float prop option; [@option]
   project : string prop option; [@option]
-  filter : filter list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
   interconnect_attachment : interconnect_attachment list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   virtual_machine : virtual_machine list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -241,25 +249,35 @@ let yojson_of_google_network_connectivity_policy_based_route =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_virtual_machine v_virtual_machine
-         in
-         ("virtual_machine", arg) :: bnds
+         if [] = v_virtual_machine then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_virtual_machine)
+               v_virtual_machine
+           in
+           let bnd = "virtual_machine", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_interconnect_attachment
-             v_interconnect_attachment
-         in
-         ("interconnect_attachment", arg) :: bnds
+         if [] = v_interconnect_attachment then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_interconnect_attachment)
+               v_interconnect_attachment
+           in
+           let bnd = "interconnect_attachment", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

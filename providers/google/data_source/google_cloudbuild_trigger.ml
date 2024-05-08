@@ -110,7 +110,9 @@ type bitbucket_server_trigger_config = {
   bitbucket_server_config_resource : string prop;
   project_key : string prop;
   pull_request : bitbucket_server_trigger_config__pull_request list;
+      [@default []] [@yojson_drop_default ( = )]
   push : bitbucket_server_trigger_config__push list;
+      [@default []] [@yojson_drop_default ( = )]
   repo_slug : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -135,19 +137,26 @@ let yojson_of_bitbucket_server_trigger_config =
          ("repo_slug", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_bitbucket_server_trigger_config__push v_push
-         in
-         ("push", arg) :: bnds
+         if [] = v_push then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bitbucket_server_trigger_config__push)
+               v_push
+           in
+           let bnd = "push", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_bitbucket_server_trigger_config__pull_request
-             v_pull_request
-         in
-         ("pull_request", arg) :: bnds
+         if [] = v_pull_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_bitbucket_server_trigger_config__pull_request)
+               v_pull_request
+           in
+           let bnd = "pull_request", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_project_key in
@@ -199,19 +208,23 @@ let _ = yojson_of_build__step__volumes
 
 type build__step = {
   allow_exit_codes : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_failure : bool prop;
-  args : string prop list;
+  args : string prop list; [@default []] [@yojson_drop_default ( = )]
   dir : string prop;
   entrypoint : string prop;
-  env : string prop list;
+  env : string prop list; [@default []] [@yojson_drop_default ( = )]
   id : string prop;
   name : string prop;
   script : string prop;
   secret_env : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout : string prop;
   timing : string prop;
   volumes : build__step__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
   wait_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -239,18 +252,24 @@ let yojson_of_build__step =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_wait_for
-         in
-         ("wait_for", arg) :: bnds
+         if [] = v_wait_for then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_wait_for
+           in
+           let bnd = "wait_for", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__step__volumes v_volumes
-         in
-         ("volumes", arg) :: bnds
+         if [] = v_volumes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__step__volumes)
+               v_volumes
+           in
+           let bnd = "volumes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_timing in
@@ -261,12 +280,14 @@ let yojson_of_build__step =
          ("timeout", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_secret_env
-         in
-         ("secret_env", arg) :: bnds
+         if [] = v_secret_env then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_secret_env
+           in
+           let bnd = "secret_env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_script in
@@ -281,10 +302,13 @@ let yojson_of_build__step =
          ("id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string)) v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_entrypoint in
@@ -295,22 +319,28 @@ let yojson_of_build__step =
          ("dir", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_args
-         in
-         ("args", arg) :: bnds
+         if [] = v_args then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_args
+           in
+           let bnd = "args", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_allow_failure in
          ("allow_failure", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_allow_exit_codes
-         in
-         ("allow_exit_codes", arg) :: bnds
+         if [] = v_allow_exit_codes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_allow_exit_codes
+           in
+           let bnd = "allow_exit_codes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build__step -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -436,7 +466,9 @@ let _ = yojson_of_build__source__repo_source
 
 type build__source = {
   repo_source : build__source__repo_source list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_source : build__source__storage_source list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -452,18 +484,24 @@ let yojson_of_build__source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__source__storage_source
-             v_storage_source
-         in
-         ("storage_source", arg) :: bnds
+         if [] = v_storage_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__source__storage_source)
+               v_storage_source
+           in
+           let bnd = "storage_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__source__repo_source
-             v_repo_source
-         in
-         ("repo_source", arg) :: bnds
+         if [] = v_repo_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__source__repo_source)
+               v_repo_source
+           in
+           let bnd = "repo_source", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build__source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -541,15 +579,18 @@ let _ = yojson_of_build__options__volumes
 type build__options = {
   disk_size_gb : float prop;
   dynamic_substitutions : bool prop;
-  env : string prop list;
+  env : string prop list; [@default []] [@yojson_drop_default ( = )]
   log_streaming_option : string prop;
   logging : string prop;
   machine_type : string prop;
   requested_verify_option : string prop;
   secret_env : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   source_provenance_hash : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   substitution_option : string prop;
   volumes : build__options__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
   worker_pool : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -580,10 +621,14 @@ let yojson_of_build__options =
          ("worker_pool", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__options__volumes v_volumes
-         in
-         ("volumes", arg) :: bnds
+         if [] = v_volumes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__options__volumes)
+               v_volumes
+           in
+           let bnd = "volumes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -592,20 +637,24 @@ let yojson_of_build__options =
          ("substitution_option", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_provenance_hash
-         in
-         ("source_provenance_hash", arg) :: bnds
+         if [] = v_source_provenance_hash then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_provenance_hash
+           in
+           let bnd = "source_provenance_hash", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_secret_env
-         in
-         ("secret_env", arg) :: bnds
+         if [] = v_secret_env then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_secret_env
+           in
+           let bnd = "secret_env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -628,10 +677,13 @@ let yojson_of_build__options =
          ("log_streaming_option", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string)) v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -682,6 +734,7 @@ let _ = yojson_of_build__available_secrets__secret_manager
 
 type build__available_secrets = {
   secret_manager : build__available_secrets__secret_manager list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -694,12 +747,15 @@ let yojson_of_build__available_secrets =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_build__available_secrets__secret_manager
-             v_secret_manager
-         in
-         ("secret_manager", arg) :: bnds
+         if [] = v_secret_manager then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build__available_secrets__secret_manager)
+               v_secret_manager
+           in
+           let bnd = "secret_manager", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build__available_secrets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -710,6 +766,7 @@ let _ = yojson_of_build__available_secrets
 
 type build__artifacts__python_packages = {
   paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   repository : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -727,10 +784,14 @@ let yojson_of_build__artifacts__python_packages =
          ("repository", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_paths
-         in
-         ("paths", arg) :: bnds
+         if [] = v_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_paths
+           in
+           let bnd = "paths", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build__artifacts__python_packages ->
@@ -773,7 +834,9 @@ let _ = yojson_of_build__artifacts__objects__timing
 type build__artifacts__objects = {
   location : string prop;
   paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   timing : build__artifacts__objects__timing list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -786,17 +849,25 @@ let yojson_of_build__artifacts__objects =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts__objects__timing
-             v_timing
-         in
-         ("timing", arg) :: bnds
+         if [] = v_timing then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build__artifacts__objects__timing)
+               v_timing
+           in
+           let bnd = "timing", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_paths
-         in
-         ("paths", arg) :: bnds
+         if [] = v_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_paths
+           in
+           let bnd = "paths", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_location in
@@ -892,10 +963,15 @@ let _ = yojson_of_build__artifacts__maven_artifacts
 
 type build__artifacts = {
   images : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   maven_artifacts : build__artifacts__maven_artifacts list;
+      [@default []] [@yojson_drop_default ( = )]
   npm_packages : build__artifacts__npm_packages list;
+      [@default []] [@yojson_drop_default ( = )]
   objects : build__artifacts__objects list;
+      [@default []] [@yojson_drop_default ( = )]
   python_packages : build__artifacts__python_packages list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -914,38 +990,56 @@ let yojson_of_build__artifacts =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts__python_packages
-             v_python_packages
-         in
-         ("python_packages", arg) :: bnds
+         if [] = v_python_packages then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build__artifacts__python_packages)
+               v_python_packages
+           in
+           let bnd = "python_packages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts__objects
-             v_objects
-         in
-         ("objects", arg) :: bnds
+         if [] = v_objects then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__artifacts__objects)
+               v_objects
+           in
+           let bnd = "objects", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts__npm_packages
-             v_npm_packages
-         in
-         ("npm_packages", arg) :: bnds
+         if [] = v_npm_packages then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__artifacts__npm_packages)
+               v_npm_packages
+           in
+           let bnd = "npm_packages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts__maven_artifacts
-             v_maven_artifacts
-         in
-         ("maven_artifacts", arg) :: bnds
+         if [] = v_maven_artifacts then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build__artifacts__maven_artifacts)
+               v_maven_artifacts
+           in
+           let bnd = "maven_artifacts", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_images
-         in
-         ("images", arg) :: bnds
+         if [] = v_images then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_images
+           in
+           let bnd = "images", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build__artifacts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -956,16 +1050,22 @@ let _ = yojson_of_build__artifacts
 
 type build = {
   artifacts : build__artifacts list;
+      [@default []] [@yojson_drop_default ( = )]
   available_secrets : build__available_secrets list;
+      [@default []] [@yojson_drop_default ( = )]
   images : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   logs_bucket : string prop;
   options : build__options list;
+      [@default []] [@yojson_drop_default ( = )]
   queue_ttl : string prop;
   secret : build__secret list;
+      [@default []] [@yojson_drop_default ( = )]
   source : build__source list;
-  step : build__step list;
+      [@default []] [@yojson_drop_default ( = )]
+  step : build__step list; [@default []] [@yojson_drop_default ( = )]
   substitutions : (string * string prop) list;
-  tags : string prop list;
+  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
   timeout : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -996,10 +1096,14 @@ let yojson_of_build =
          ("timeout", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1014,49 +1118,75 @@ let yojson_of_build =
          ("substitutions", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_build__step v_step in
-         ("step", arg) :: bnds
+         if [] = v_step then bnds
+         else
+           let arg = (yojson_of_list yojson_of_build__step) v_step in
+           let bnd = "step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_build__source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__source) v_source
+           in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_build__secret v_secret in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__secret) v_secret
+           in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_queue_ttl in
          ("queue_ttl", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__options v_options
-         in
-         ("options", arg) :: bnds
+         if [] = v_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__options) v_options
+           in
+           let bnd = "options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_logs_bucket in
          ("logs_bucket", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_images
-         in
-         ("images", arg) :: bnds
+         if [] = v_images then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_images
+           in
+           let bnd = "images", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__available_secrets
-             v_available_secrets
-         in
-         ("available_secrets", arg) :: bnds
+         if [] = v_available_secrets then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__available_secrets)
+               v_available_secrets
+           in
+           let bnd = "available_secrets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build__artifacts v_artifacts
-         in
-         ("artifacts", arg) :: bnds
+         if [] = v_artifacts then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build__artifacts) v_artifacts
+           in
+           let bnd = "artifacts", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : build -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1214,7 +1344,8 @@ type github = {
   name : string prop;
   owner : string prop;
   pull_request : github__pull_request list;
-  push : github__push list;
+      [@default []] [@yojson_drop_default ( = )]
+  push : github__push list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1234,15 +1365,23 @@ let yojson_of_github =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_github__push v_push in
-         ("push", arg) :: bnds
+         if [] = v_push then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_github__push) v_push
+           in
+           let bnd = "push", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_github__pull_request
-             v_pull_request
-         in
-         ("pull_request", arg) :: bnds
+         if [] = v_pull_request then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_github__pull_request)
+               v_pull_request
+           in
+           let bnd = "pull_request", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_owner in
@@ -1394,7 +1533,9 @@ let _ = yojson_of_repository_event_config__pull_request
 
 type repository_event_config = {
   pull_request : repository_event_config__pull_request list;
+      [@default []] [@yojson_drop_default ( = )]
   push : repository_event_config__push list;
+      [@default []] [@yojson_drop_default ( = )]
   repository : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1416,19 +1557,25 @@ let yojson_of_repository_event_config =
          ("repository", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_repository_event_config__push
-             v_push
-         in
-         ("push", arg) :: bnds
+         if [] = v_push then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_repository_event_config__push)
+               v_push
+           in
+           let bnd = "push", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_repository_event_config__pull_request
-             v_pull_request
-         in
-         ("pull_request", arg) :: bnds
+         if [] = v_pull_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_repository_event_config__pull_request)
+               v_pull_request
+           in
+           let bnd = "pull_request", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : repository_event_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)

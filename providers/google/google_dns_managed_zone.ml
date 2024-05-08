@@ -90,6 +90,7 @@ type dnssec_config = {
   non_existence : string prop option; [@option]
   state : string prop option; [@option]
   default_key_specs : dnssec_config__default_key_specs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -107,11 +108,15 @@ let yojson_of_dnssec_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dnssec_config__default_key_specs
-             v_default_key_specs
-         in
-         ("default_key_specs", arg) :: bnds
+         if [] = v_default_key_specs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_dnssec_config__default_key_specs)
+               v_default_key_specs
+           in
+           let bnd = "default_key_specs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_state with
@@ -183,6 +188,7 @@ let _ = yojson_of_forwarding_config__target_name_servers
 
 type forwarding_config = {
   target_name_servers : forwarding_config__target_name_servers list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,12 +201,15 @@ let yojson_of_forwarding_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_forwarding_config__target_name_servers
-             v_target_name_servers
-         in
-         ("target_name_servers", arg) :: bnds
+         if [] = v_target_name_servers then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_forwarding_config__target_name_servers)
+               v_target_name_servers
+           in
+           let bnd = "target_name_servers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : forwarding_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -234,6 +243,7 @@ let _ = yojson_of_peering_config__target_network
 
 type peering_config = {
   target_network : peering_config__target_network list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -246,11 +256,14 @@ let yojson_of_peering_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_peering_config__target_network
-             v_target_network
-         in
-         ("target_network", arg) :: bnds
+         if [] = v_target_network then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_peering_config__target_network)
+               v_target_network
+           in
+           let bnd = "target_network", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : peering_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -313,7 +326,9 @@ let _ = yojson_of_private_visibility_config__networks
 
 type private_visibility_config = {
   gke_clusters : private_visibility_config__gke_clusters list;
+      [@default []] [@yojson_drop_default ( = )]
   networks : private_visibility_config__networks list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -326,19 +341,26 @@ let yojson_of_private_visibility_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_private_visibility_config__networks v_networks
-         in
-         ("networks", arg) :: bnds
+         if [] = v_networks then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_private_visibility_config__networks)
+               v_networks
+           in
+           let bnd = "networks", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_private_visibility_config__gke_clusters
-             v_gke_clusters
-         in
-         ("gke_clusters", arg) :: bnds
+         if [] = v_gke_clusters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_private_visibility_config__gke_clusters)
+               v_gke_clusters
+           in
+           let bnd = "gke_clusters", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : private_visibility_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -403,10 +425,15 @@ type google_dns_managed_zone = {
   project : string prop option; [@option]
   visibility : string prop option; [@option]
   cloud_logging_config : cloud_logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
   dnssec_config : dnssec_config list;
+      [@default []] [@yojson_drop_default ( = )]
   forwarding_config : forwarding_config list;
+      [@default []] [@yojson_drop_default ( = )]
   peering_config : peering_config list;
+      [@default []] [@yojson_drop_default ( = )]
   private_visibility_config : private_visibility_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -439,37 +466,53 @@ let yojson_of_google_dns_managed_zone =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_visibility_config
-             v_private_visibility_config
-         in
-         ("private_visibility_config", arg) :: bnds
+         if [] = v_private_visibility_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_visibility_config)
+               v_private_visibility_config
+           in
+           let bnd = "private_visibility_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_peering_config v_peering_config
-         in
-         ("peering_config", arg) :: bnds
+         if [] = v_peering_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_peering_config)
+               v_peering_config
+           in
+           let bnd = "peering_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_forwarding_config
-             v_forwarding_config
-         in
-         ("forwarding_config", arg) :: bnds
+         if [] = v_forwarding_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_forwarding_config)
+               v_forwarding_config
+           in
+           let bnd = "forwarding_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dnssec_config v_dnssec_config
-         in
-         ("dnssec_config", arg) :: bnds
+         if [] = v_dnssec_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dnssec_config) v_dnssec_config
+           in
+           let bnd = "dnssec_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cloud_logging_config
-             v_cloud_logging_config
-         in
-         ("cloud_logging_config", arg) :: bnds
+         if [] = v_cloud_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cloud_logging_config)
+               v_cloud_logging_config
+           in
+           let bnd = "cloud_logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_visibility with

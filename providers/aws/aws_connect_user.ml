@@ -118,10 +118,13 @@ type aws_connect_user = {
   password : string prop option; [@option]
   routing_profile_id : string prop;
   security_profile_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   identity_info : identity_info list;
+      [@default []] [@yojson_drop_default ( = )]
   phone_config : phone_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -147,16 +150,22 @@ let yojson_of_aws_connect_user =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_phone_config v_phone_config
-         in
-         ("phone_config", arg) :: bnds
+         if [] = v_phone_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_phone_config) v_phone_config
+           in
+           let bnd = "phone_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_identity_info v_identity_info
-         in
-         ("identity_info", arg) :: bnds
+         if [] = v_identity_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity_info) v_identity_info
+           in
+           let bnd = "identity_info", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -191,12 +200,14 @@ let yojson_of_aws_connect_user =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_profile_ids
-         in
-         ("security_profile_ids", arg) :: bnds
+         if [] = v_security_profile_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_profile_ids
+           in
+           let bnd = "security_profile_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

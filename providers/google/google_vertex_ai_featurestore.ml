@@ -60,6 +60,7 @@ let _ = yojson_of_online_serving_config__scaling
 type online_serving_config = {
   fixed_node_count : float prop option; [@option]
   scaling : online_serving_config__scaling list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -73,11 +74,14 @@ let yojson_of_online_serving_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_online_serving_config__scaling
-             v_scaling
-         in
-         ("scaling", arg) :: bnds
+         if [] = v_scaling then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_online_serving_config__scaling)
+               v_scaling
+           in
+           let bnd = "scaling", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_fixed_node_count with
@@ -148,7 +152,9 @@ type google_vertex_ai_featurestore = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   encryption_spec : encryption_spec list;
+      [@default []] [@yojson_drop_default ( = )]
   online_serving_config : online_serving_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -176,17 +182,24 @@ let yojson_of_google_vertex_ai_featurestore =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_online_serving_config
-             v_online_serving_config
-         in
-         ("online_serving_config", arg) :: bnds
+         if [] = v_online_serving_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_online_serving_config)
+               v_online_serving_config
+           in
+           let bnd = "online_serving_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_spec v_encryption_spec
-         in
-         ("encryption_spec", arg) :: bnds
+         if [] = v_encryption_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_spec)
+               v_encryption_spec
+           in
+           let bnd = "encryption_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

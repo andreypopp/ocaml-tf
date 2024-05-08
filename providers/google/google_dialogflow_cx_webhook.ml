@@ -118,6 +118,7 @@ let _ = yojson_of_service_directory__generic_web_service
 type service_directory = {
   service : string prop;
   generic_web_service : service_directory__generic_web_service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,12 +134,15 @@ let yojson_of_service_directory =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_directory__generic_web_service
-             v_generic_web_service
-         in
-         ("generic_web_service", arg) :: bnds
+         if [] = v_generic_web_service then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_directory__generic_web_service)
+               v_generic_web_service
+           in
+           let bnd = "generic_web_service", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_service in
@@ -207,7 +211,9 @@ type google_dialogflow_cx_webhook = {
   security_settings : string prop option; [@option]
   timeout : string prop option; [@option]
   generic_web_service : generic_web_service list;
+      [@default []] [@yojson_drop_default ( = )]
   service_directory : service_directory list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -237,18 +243,24 @@ let yojson_of_google_dialogflow_cx_webhook =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_directory
-             v_service_directory
-         in
-         ("service_directory", arg) :: bnds
+         if [] = v_service_directory then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_directory)
+               v_service_directory
+           in
+           let bnd = "service_directory", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_generic_web_service
-             v_generic_web_service
-         in
-         ("generic_web_service", arg) :: bnds
+         if [] = v_generic_web_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_generic_web_service)
+               v_generic_web_service
+           in
+           let bnd = "generic_web_service", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout with

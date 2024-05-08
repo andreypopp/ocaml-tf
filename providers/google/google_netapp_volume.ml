@@ -132,7 +132,10 @@ let _ = yojson_of_export_policy__rules
 
 [@@@deriving.end]
 
-type export_policy = { rules : export_policy__rules list }
+type export_policy = {
+  rules : export_policy__rules list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : export_policy) -> ()
@@ -144,10 +147,13 @@ let yojson_of_export_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_export_policy__rules v_rules
-         in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_export_policy__rules) v_rules
+           in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : export_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -403,9 +409,13 @@ let _ = yojson_of_snapshot_policy__weekly_schedule
 type snapshot_policy = {
   enabled : bool prop option; [@option]
   daily_schedule : snapshot_policy__daily_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   hourly_schedule : snapshot_policy__hourly_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   monthly_schedule : snapshot_policy__monthly_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   weekly_schedule : snapshot_policy__weekly_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -424,32 +434,48 @@ let yojson_of_snapshot_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_snapshot_policy__weekly_schedule
-             v_weekly_schedule
-         in
-         ("weekly_schedule", arg) :: bnds
+         if [] = v_weekly_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snapshot_policy__weekly_schedule)
+               v_weekly_schedule
+           in
+           let bnd = "weekly_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_snapshot_policy__monthly_schedule
-             v_monthly_schedule
-         in
-         ("monthly_schedule", arg) :: bnds
+         if [] = v_monthly_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snapshot_policy__monthly_schedule)
+               v_monthly_schedule
+           in
+           let bnd = "monthly_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_snapshot_policy__hourly_schedule
-             v_hourly_schedule
-         in
-         ("hourly_schedule", arg) :: bnds
+         if [] = v_hourly_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snapshot_policy__hourly_schedule)
+               v_hourly_schedule
+           in
+           let bnd = "hourly_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_snapshot_policy__daily_schedule
-             v_daily_schedule
-         in
-         ("daily_schedule", arg) :: bnds
+         if [] = v_daily_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_snapshot_policy__daily_schedule)
+               v_daily_schedule
+           in
+           let bnd = "daily_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enabled with
@@ -567,6 +593,7 @@ type google_netapp_volume = {
   name : string prop;
   project : string prop option; [@option]
   protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   restricted_actions : string prop list option; [@option]
   security_style : string prop option; [@option]
   share_name : string prop;
@@ -575,8 +602,11 @@ type google_netapp_volume = {
   storage_pool : string prop;
   unix_permissions : string prop option; [@option]
   export_policy : export_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   restore_parameters : restore_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   snapshot_policy : snapshot_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -616,23 +646,33 @@ let yojson_of_google_netapp_volume =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_snapshot_policy v_snapshot_policy
-         in
-         ("snapshot_policy", arg) :: bnds
+         if [] = v_snapshot_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_snapshot_policy)
+               v_snapshot_policy
+           in
+           let bnd = "snapshot_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restore_parameters
-             v_restore_parameters
-         in
-         ("restore_parameters", arg) :: bnds
+         if [] = v_restore_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restore_parameters)
+               v_restore_parameters
+           in
+           let bnd = "restore_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_export_policy v_export_policy
-         in
-         ("export_policy", arg) :: bnds
+         if [] = v_export_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_export_policy) v_export_policy
+           in
+           let bnd = "export_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_unix_permissions with
@@ -687,12 +727,14 @@ let yojson_of_google_netapp_volume =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_protocols
-         in
-         ("protocols", arg) :: bnds
+         if [] = v_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_protocols
+           in
+           let bnd = "protocols", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

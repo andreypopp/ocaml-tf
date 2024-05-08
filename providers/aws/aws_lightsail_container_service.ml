@@ -35,6 +35,7 @@ let _ = yojson_of_private_registry_access__ecr_image_puller_role
 type private_registry_access = {
   ecr_image_puller_role :
     private_registry_access__ecr_image_puller_role list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -47,12 +48,15 @@ let yojson_of_private_registry_access =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_private_registry_access__ecr_image_puller_role
-             v_ecr_image_puller_role
-         in
-         ("ecr_image_puller_role", arg) :: bnds
+         if [] = v_ecr_image_puller_role then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_private_registry_access__ecr_image_puller_role)
+               v_ecr_image_puller_role
+           in
+           let bnd = "ecr_image_puller_role", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : private_registry_access -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -64,6 +68,7 @@ let _ = yojson_of_private_registry_access
 type public_domain_names__certificate = {
   certificate_name : string prop;
   domain_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,12 +84,14 @@ let yojson_of_public_domain_names__certificate =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_domain_names
-         in
-         ("domain_names", arg) :: bnds
+         if [] = v_domain_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_domain_names
+           in
+           let bnd = "domain_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -102,6 +109,7 @@ let _ = yojson_of_public_domain_names__certificate
 
 type public_domain_names = {
   certificate : public_domain_names__certificate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,11 +122,15 @@ let yojson_of_public_domain_names =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_public_domain_names__certificate
-             v_certificate
-         in
-         ("certificate", arg) :: bnds
+         if [] = v_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_public_domain_names__certificate)
+               v_certificate
+           in
+           let bnd = "certificate", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : public_domain_names -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -182,7 +194,9 @@ type aws_lightsail_container_service = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   private_registry_access : private_registry_access list;
+      [@default []] [@yojson_drop_default ( = )]
   public_domain_names : public_domain_names list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -211,18 +225,24 @@ let yojson_of_aws_lightsail_container_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_public_domain_names
-             v_public_domain_names
-         in
-         ("public_domain_names", arg) :: bnds
+         if [] = v_public_domain_names then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_public_domain_names)
+               v_public_domain_names
+           in
+           let bnd = "public_domain_names", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_registry_access
-             v_private_registry_access
-         in
-         ("private_registry_access", arg) :: bnds
+         if [] = v_private_registry_access then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_registry_access)
+               v_private_registry_access
+           in
+           let bnd = "private_registry_access", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

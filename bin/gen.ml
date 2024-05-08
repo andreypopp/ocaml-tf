@@ -228,6 +228,12 @@ let gen_attribute_types ~is_mli name ppf attributes =
         | true -> Opt ty, "[@option]" :: ext
         | false -> ty, ext
       in
+      let ext =
+        match ty with
+        | List _ | Set _ ->
+            "[@default []] [@yojson_drop_default ( = )]" :: ext
+        | _ -> ext
+      in
       Format.fprintf ppf "  %s: %a; %s%s@." ocaml_name pp_ty ty
         (concat_space ext) doc)
 
@@ -286,16 +292,18 @@ let gen_block_type_name ~kind basename
     | Some basename ->
         to_ocaml_name (Printf.sprintf "%s__%s" basename block_name)
   in
-  let ty_mod =
+  let ty_mod, yojson_attrs =
     match block_name, block.nesting_mode, kind with
-    | "timeouts", Single, `arg -> ""
-    | "timeouts", Single, `record -> " option"
-    | _, Single, _ -> ""
-    | _, List, _ -> " list"
-    | _, Set, _ -> " list"
-    | _, Map, _ -> " assoc"
+    | "timeouts", Single, `arg -> "", ""
+    | "timeouts", Single, `record -> " option", ""
+    | _, Single, _ -> "", ""
+    | _, List, _ ->
+        " list", " [@default []] [@yojson_drop_default ( = )]"
+    | _, Set, _ ->
+        " list", " [@default []] [@yojson_drop_default ( = )]"
+    | _, Map, _ -> " assoc", ""
   in
-  Printf.sprintf "%s%s" ty_name ty_mod
+  Printf.sprintf "%s%s" ty_name ty_mod, yojson_attrs
 
 let rec gen_block_type_ml ?(is_resource = false) ~is_mli ~input_only
     ppf (name, (block : block)) =
@@ -330,15 +338,17 @@ let rec gen_block_type_ml ?(is_resource = false) ~is_mli ~input_only
         gen_attribute_types ~is_mli basename ppf attributes;
         List.iter block.block_types ~f:(fun (block_name, block) ->
             let ocaml_name = to_ocaml_name block_name in
-            let ty =
+            let ty, yojson_attr =
               gen_block_type_name ~kind:`record basename
                 (block_name, block)
             in
             match String.equal ocaml_name block_name with
-            | true -> Format.fprintf ppf "  %s: %s;@." ocaml_name ty
+            | true ->
+                Format.fprintf ppf "  %s: %s;%s@." ocaml_name ty
+                  yojson_attr
             | false ->
-                Format.fprintf ppf "  %s: %s; [@key %S]@." ocaml_name
-                  ty block_name);
+                Format.fprintf ppf "  %s: %s; [@key %S]%s@."
+                  ocaml_name ty block_name yojson_attr);
         Format.fprintf ppf "} [%@%@deriving_inline yojson_of]@.";
         Format.fprintf ppf "[%@%@%@deriving.end]@.@.")
 
@@ -490,7 +500,7 @@ let gen_block_args_sig basename block =
                  | Some name -> [ attr_name; name ]))
               attr.type_
         | `block (block_name, block) ->
-            let ty =
+            let ty, _ =
               gen_block_type_name ~kind:`arg basename
                 (block_name, block)
             in
@@ -507,7 +517,7 @@ let gen_block_args_sig basename block =
                  | Some name -> [ attr_name; name ]))
               attr.type_
         | `block (block_name, block) ->
-            let ty =
+            let ty, _ =
               gen_block_type_name ~kind:`arg basename
                 (block_name, block)
             in

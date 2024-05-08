@@ -59,6 +59,7 @@ type antimalware = {
   scheduled_scan_time_in_minutes : float prop option; [@option]
   scheduled_scan_type : string prop option; [@option]
   exclusions : antimalware__exclusions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,11 +80,14 @@ let yojson_of_antimalware =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_antimalware__exclusions
-             v_exclusions
-         in
-         ("exclusions", arg) :: bnds
+         if [] = v_exclusions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_antimalware__exclusions)
+               v_exclusions
+           in
+           let bnd = "exclusions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheduled_scan_type with
@@ -207,6 +211,7 @@ type backup__retention_policy__daily_schedule = {
   retention_times : string prop list option; [@option]
   retention_duration :
     backup__retention_policy__daily_schedule__retention_duration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -222,12 +227,15 @@ let yojson_of_backup__retention_policy__daily_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backup__retention_policy__daily_schedule__retention_duration
-             v_retention_duration
-         in
-         ("retention_duration", arg) :: bnds
+         if [] = v_retention_duration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backup__retention_policy__daily_schedule__retention_duration)
+               v_retention_duration
+           in
+           let bnd = "retention_duration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retention_times with
@@ -295,6 +303,7 @@ type backup__retention_policy__weekly_schedule = {
   retention_duration :
     backup__retention_policy__weekly_schedule__retention_duration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -310,12 +319,15 @@ let yojson_of_backup__retention_policy__weekly_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backup__retention_policy__weekly_schedule__retention_duration
-             v_retention_duration
-         in
-         ("retention_duration", arg) :: bnds
+         if [] = v_retention_duration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backup__retention_policy__weekly_schedule__retention_duration)
+               v_retention_duration
+           in
+           let bnd = "retention_duration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retention_times with
@@ -338,7 +350,9 @@ let _ = yojson_of_backup__retention_policy__weekly_schedule
 type backup__retention_policy = {
   retention_policy_type : string prop option; [@option]
   daily_schedule : backup__retention_policy__daily_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   weekly_schedule : backup__retention_policy__weekly_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -355,20 +369,26 @@ let yojson_of_backup__retention_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backup__retention_policy__weekly_schedule
-             v_weekly_schedule
-         in
-         ("weekly_schedule", arg) :: bnds
+         if [] = v_weekly_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backup__retention_policy__weekly_schedule)
+               v_weekly_schedule
+           in
+           let bnd = "weekly_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backup__retention_policy__daily_schedule
-             v_daily_schedule
-         in
-         ("daily_schedule", arg) :: bnds
+         if [] = v_daily_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backup__retention_policy__daily_schedule)
+               v_daily_schedule
+           in
+           let bnd = "daily_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retention_policy_type with
@@ -454,7 +474,9 @@ type backup = {
   policy_name : string prop option; [@option]
   time_zone : string prop option; [@option]
   retention_policy : backup__retention_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   schedule_policy : backup__schedule_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -474,18 +496,24 @@ let yojson_of_backup =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backup__schedule_policy
-             v_schedule_policy
-         in
-         ("schedule_policy", arg) :: bnds
+         if [] = v_schedule_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backup__schedule_policy)
+               v_schedule_policy
+           in
+           let bnd = "schedule_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backup__retention_policy
-             v_retention_policy
-         in
-         ("retention_policy", arg) :: bnds
+         if [] = v_retention_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backup__retention_policy)
+               v_retention_policy
+           in
+           let bnd = "retention_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_time_zone with
@@ -591,8 +619,10 @@ type azurerm_automanage_configuration = {
   status_change_alert_enabled : bool prop option; [@option]
   tags : (string * string prop) list option; [@option]
   antimalware : antimalware list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_security_baseline : azure_security_baseline list;
-  backup : backup list;
+      [@default []] [@yojson_drop_default ( = )]
+  backup : backup list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -626,21 +656,30 @@ let yojson_of_azurerm_automanage_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_backup v_backup in
-         ("backup", arg) :: bnds
+         if [] = v_backup then bnds
+         else
+           let arg = (yojson_of_list yojson_of_backup) v_backup in
+           let bnd = "backup", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_azure_security_baseline
-             v_azure_security_baseline
-         in
-         ("azure_security_baseline", arg) :: bnds
+         if [] = v_azure_security_baseline then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_azure_security_baseline)
+               v_azure_security_baseline
+           in
+           let bnd = "azure_security_baseline", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_antimalware v_antimalware
-         in
-         ("antimalware", arg) :: bnds
+         if [] = v_antimalware then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_antimalware) v_antimalware
+           in
+           let bnd = "antimalware", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

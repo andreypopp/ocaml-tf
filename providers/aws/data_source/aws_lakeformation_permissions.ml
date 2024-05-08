@@ -118,6 +118,7 @@ type lf_tag = {
   catalog_id : string prop option; [@option]
   key : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,10 +131,14 @@ let yojson_of_lf_tag =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -157,6 +162,7 @@ let _ = yojson_of_lf_tag
 type lf_tag_policy__expression = {
   key : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -169,10 +175,14 @@ let yojson_of_lf_tag_policy__expression =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -189,6 +199,7 @@ type lf_tag_policy = {
   catalog_id : string prop option; [@option]
   resource_type : string prop;
   expression : lf_tag_policy__expression list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -205,11 +216,14 @@ let yojson_of_lf_tag_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lf_tag_policy__expression
-             v_expression
-         in
-         ("expression", arg) :: bnds
+         if [] = v_expression then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lf_tag_policy__expression)
+               v_expression
+           in
+           let bnd = "expression", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_resource_type in
@@ -368,12 +382,17 @@ type aws_lakeformation_permissions = {
   id : string prop option; [@option]
   principal : string prop;
   data_cells_filter : data_cells_filter list;
+      [@default []] [@yojson_drop_default ( = )]
   data_location : data_location list;
+      [@default []] [@yojson_drop_default ( = )]
   database : database list;
-  lf_tag : lf_tag list;
+      [@default []] [@yojson_drop_default ( = )]
+  lf_tag : lf_tag list; [@default []] [@yojson_drop_default ( = )]
   lf_tag_policy : lf_tag_policy list;
-  table : table list;
+      [@default []] [@yojson_drop_default ( = )]
+  table : table list; [@default []] [@yojson_drop_default ( = )]
   table_with_columns : table_with_columns list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -398,42 +417,65 @@ let yojson_of_aws_lakeformation_permissions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_table_with_columns
-             v_table_with_columns
-         in
-         ("table_with_columns", arg) :: bnds
+         if [] = v_table_with_columns then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_table_with_columns)
+               v_table_with_columns
+           in
+           let bnd = "table_with_columns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_table v_table in
-         ("table", arg) :: bnds
+         if [] = v_table then bnds
+         else
+           let arg = (yojson_of_list yojson_of_table) v_table in
+           let bnd = "table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lf_tag_policy v_lf_tag_policy
-         in
-         ("lf_tag_policy", arg) :: bnds
+         if [] = v_lf_tag_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lf_tag_policy) v_lf_tag_policy
+           in
+           let bnd = "lf_tag_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_lf_tag v_lf_tag in
-         ("lf_tag", arg) :: bnds
+         if [] = v_lf_tag then bnds
+         else
+           let arg = (yojson_of_list yojson_of_lf_tag) v_lf_tag in
+           let bnd = "lf_tag", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_database v_database in
-         ("database", arg) :: bnds
+         if [] = v_database then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_database) v_database
+           in
+           let bnd = "database", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_location v_data_location
-         in
-         ("data_location", arg) :: bnds
+         if [] = v_data_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_location) v_data_location
+           in
+           let bnd = "data_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_cells_filter
-             v_data_cells_filter
-         in
-         ("data_cells_filter", arg) :: bnds
+         if [] = v_data_cells_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_cells_filter)
+               v_data_cells_filter
+           in
+           let bnd = "data_cells_filter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_principal in

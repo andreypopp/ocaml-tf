@@ -20,6 +20,7 @@ type management_cluster__node_type_configs = {
 type management_cluster = {
   cluster_id : string prop;  (** cluster_id *)
   node_type_configs : management_cluster__node_type_configs list;
+      [@default []] [@yojson_drop_default ( = )]
       (** node_type_configs *)
 }
 

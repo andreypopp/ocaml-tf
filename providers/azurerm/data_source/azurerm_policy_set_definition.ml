@@ -87,6 +87,7 @@ type policy_definition_reference = {
   parameters : (string * string prop) list;
   policy_definition_id : string prop;
   policy_group_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   reference_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -110,12 +111,14 @@ let yojson_of_policy_definition_reference =
          ("reference_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_policy_group_names
-         in
-         ("policy_group_names", arg) :: bnds
+         if [] = v_policy_group_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_policy_group_names
+           in
+           let bnd = "policy_group_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

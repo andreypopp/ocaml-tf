@@ -21,12 +21,15 @@ type eks_properties__pod_properties__volumes__empty_dir = {
 type eks_properties__pod_properties__volumes = {
   empty_dir :
     eks_properties__pod_properties__volumes__empty_dir list;
+      [@default []] [@yojson_drop_default ( = )]
       (** empty_dir *)
   host_path :
     eks_properties__pod_properties__volumes__host_path list;
+      [@default []] [@yojson_drop_default ( = )]
       (** host_path *)
   name : string prop;  (** name *)
   secret : eks_properties__pod_properties__volumes__secret list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret *)
 }
 
@@ -60,38 +63,49 @@ type eks_properties__pod_properties__containers__env = {
 }
 
 type eks_properties__pod_properties__containers = {
-  args : string prop list;  (** args *)
-  command : string prop list;  (** command *)
+  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** args *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
   env : eks_properties__pod_properties__containers__env list;
+      [@default []] [@yojson_drop_default ( = )]
       (** env *)
   image : string prop;  (** image *)
   image_pull_policy : string prop;  (** image_pull_policy *)
   name : string prop;  (** name *)
   resources :
     eks_properties__pod_properties__containers__resources list;
+      [@default []] [@yojson_drop_default ( = )]
       (** resources *)
   security_context :
     eks_properties__pod_properties__containers__security_context list;
+      [@default []] [@yojson_drop_default ( = )]
       (** security_context *)
   volume_mounts :
     eks_properties__pod_properties__containers__volume_mounts list;
+      [@default []] [@yojson_drop_default ( = )]
       (** volume_mounts *)
 }
 
 type eks_properties__pod_properties = {
   containers : eks_properties__pod_properties__containers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** containers *)
   dns_policy : string prop;  (** dns_policy *)
   host_network : bool prop;  (** host_network *)
   metadata : eks_properties__pod_properties__metadata list;
+      [@default []] [@yojson_drop_default ( = )]
       (** metadata *)
   service_account_name : bool prop;  (** service_account_name *)
   volumes : eks_properties__pod_properties__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
       (** volumes *)
 }
 
 type eks_properties = {
   pod_properties : eks_properties__pod_properties list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pod_properties *)
 }
 
@@ -108,6 +122,7 @@ type node_properties__node_range_properties__container__volumes__efs_volume_conf
   authorization_config :
     node_properties__node_range_properties__container__volumes__efs_volume_configuration__authorization_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** authorization_config *)
   file_system_id : string prop;  (** file_system_id *)
   root_directory : string prop;  (** root_directory *)
@@ -120,10 +135,12 @@ type node_properties__node_range_properties__container__volumes = {
   efs_volume_configuration :
     node_properties__node_range_properties__container__volumes__efs_volume_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** efs_volume_configuration *)
   host :
     node_properties__node_range_properties__container__volumes__host
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** host *)
   name : string prop;  (** name *)
 }
@@ -171,25 +188,31 @@ type node_properties__node_range_properties__container__log_configuration = {
   secret_options :
     node_properties__node_range_properties__container__log_configuration__secret_options
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret_options *)
 }
 
 type node_properties__node_range_properties__container__linux_parameters__tmpfs = {
   container_path : string prop;  (** container_path *)
-  mount_options : string prop list;  (** mount_options *)
+  mount_options : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** mount_options *)
   size : float prop;  (** size *)
 }
 
 type node_properties__node_range_properties__container__linux_parameters__devices = {
   container_path : string prop;  (** container_path *)
   host_path : string prop;  (** host_path *)
-  permissions : string prop list;  (** permissions *)
+  permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** permissions *)
 }
 
 type node_properties__node_range_properties__container__linux_parameters = {
   devices :
     node_properties__node_range_properties__container__linux_parameters__devices
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** devices *)
   init_process_enabled : bool prop;  (** init_process_enabled *)
   max_swap : float prop;  (** max_swap *)
@@ -198,6 +221,7 @@ type node_properties__node_range_properties__container__linux_parameters = {
   tmpfs :
     node_properties__node_range_properties__container__linux_parameters__tmpfs
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tmpfs *)
 }
 
@@ -215,19 +239,24 @@ type node_properties__node_range_properties__container__environment = {
 }
 
 type node_properties__node_range_properties__container = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
   environment :
     node_properties__node_range_properties__container__environment
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** environment *)
   ephemeral_storage :
     node_properties__node_range_properties__container__ephemeral_storage
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ephemeral_storage *)
   execution_role_arn : string prop;  (** execution_role_arn *)
   fargate_platform_configuration :
     node_properties__node_range_properties__container__fargate_platform_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** fargate_platform_configuration *)
   image : string prop;  (** image *)
   instance_type : string prop;  (** instance_type *)
@@ -235,18 +264,22 @@ type node_properties__node_range_properties__container = {
   linux_parameters :
     node_properties__node_range_properties__container__linux_parameters
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** linux_parameters *)
   log_configuration :
     node_properties__node_range_properties__container__log_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** log_configuration *)
   mount_points :
     node_properties__node_range_properties__container__mount_points
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** mount_points *)
   network_configuration :
     node_properties__node_range_properties__container__network_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** network_configuration *)
   privileged : bool prop;  (** privileged *)
   readonly_root_filesystem : bool prop;
@@ -254,25 +287,31 @@ type node_properties__node_range_properties__container = {
   resource_requirements :
     node_properties__node_range_properties__container__resource_requirements
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** resource_requirements *)
   runtime_platform :
     node_properties__node_range_properties__container__runtime_platform
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** runtime_platform *)
   secrets :
     node_properties__node_range_properties__container__secrets list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secrets *)
   ulimits :
     node_properties__node_range_properties__container__ulimits list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ulimits *)
   user : string prop;  (** user *)
   volumes :
     node_properties__node_range_properties__container__volumes list;
+      [@default []] [@yojson_drop_default ( = )]
       (** volumes *)
 }
 
 type node_properties__node_range_properties = {
   container : node_properties__node_range_properties__container list;
+      [@default []] [@yojson_drop_default ( = )]
       (** container *)
   target_nodes : string prop;  (** target_nodes *)
 }
@@ -281,6 +320,7 @@ type node_properties = {
   main_node : float prop;  (** main_node *)
   node_range_properties :
     node_properties__node_range_properties list;
+      [@default []] [@yojson_drop_default ( = )]
       (** node_range_properties *)
   num_nodes : float prop;  (** num_nodes *)
 }
@@ -295,6 +335,7 @@ type retry_strategy__evaluate_on_exit = {
 type retry_strategy = {
   attempts : float prop;  (** attempts *)
   evaluate_on_exit : retry_strategy__evaluate_on_exit list;
+      [@default []] [@yojson_drop_default ( = )]
       (** evaluate_on_exit *)
 }
 

@@ -75,7 +75,9 @@ type auth_config__additional_variable = {
   string_value : string prop option; [@option]
   encryption_key_value :
     auth_config__additional_variable__encryption_key_value list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_value : auth_config__additional_variable__secret_value list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,20 +97,26 @@ let yojson_of_auth_config__additional_variable =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__additional_variable__secret_value
-             v_secret_value
-         in
-         ("secret_value", arg) :: bnds
+         if [] = v_secret_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__additional_variable__secret_value)
+               v_secret_value
+           in
+           let bnd = "secret_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__additional_variable__encryption_key_value
-             v_encryption_key_value
-         in
-         ("encryption_key_value", arg) :: bnds
+         if [] = v_encryption_key_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__additional_variable__encryption_key_value)
+               v_encryption_key_value
+           in
+           let bnd = "encryption_key_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_string_value with
@@ -181,6 +189,7 @@ type auth_config__oauth2_auth_code_flow = {
   scopes : string prop list option; [@option]
   client_secret :
     auth_config__oauth2_auth_code_flow__client_secret list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -199,12 +208,15 @@ let yojson_of_auth_config__oauth2_auth_code_flow =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__oauth2_auth_code_flow__client_secret
-             v_client_secret
-         in
-         ("client_secret", arg) :: bnds
+         if [] = v_client_secret then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__oauth2_auth_code_flow__client_secret)
+               v_client_secret
+           in
+           let bnd = "client_secret", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scopes with
@@ -282,6 +294,7 @@ type auth_config__oauth2_client_credentials = {
   client_id : string prop;
   client_secret :
     auth_config__oauth2_client_credentials__client_secret list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -294,12 +307,15 @@ let yojson_of_auth_config__oauth2_client_credentials =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__oauth2_client_credentials__client_secret
-             v_client_secret
-         in
-         ("client_secret", arg) :: bnds
+         if [] = v_client_secret then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__oauth2_client_credentials__client_secret)
+               v_client_secret
+           in
+           let bnd = "client_secret", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_client_id in
@@ -393,7 +409,9 @@ let _ = yojson_of_auth_config__oauth2_jwt_bearer__jwt_claims
 
 type auth_config__oauth2_jwt_bearer = {
   client_key : auth_config__oauth2_jwt_bearer__client_key list;
+      [@default []] [@yojson_drop_default ( = )]
   jwt_claims : auth_config__oauth2_jwt_bearer__jwt_claims list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -406,20 +424,26 @@ let yojson_of_auth_config__oauth2_jwt_bearer =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__oauth2_jwt_bearer__jwt_claims
-             v_jwt_claims
-         in
-         ("jwt_claims", arg) :: bnds
+         if [] = v_jwt_claims then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__oauth2_jwt_bearer__jwt_claims)
+               v_jwt_claims
+           in
+           let bnd = "jwt_claims", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__oauth2_jwt_bearer__client_key
-             v_client_key
-         in
-         ("client_key", arg) :: bnds
+         if [] = v_client_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__oauth2_jwt_bearer__client_key)
+               v_client_key
+           in
+           let bnd = "client_key", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : auth_config__oauth2_jwt_bearer ->
@@ -489,8 +513,10 @@ type auth_config__ssh_public_key = {
   username : string prop;
   ssh_client_cert :
     auth_config__ssh_public_key__ssh_client_cert list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_client_cert_pass :
     auth_config__ssh_public_key__ssh_client_cert_pass list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -508,20 +534,26 @@ let yojson_of_auth_config__ssh_public_key =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__ssh_public_key__ssh_client_cert_pass
-             v_ssh_client_cert_pass
-         in
-         ("ssh_client_cert_pass", arg) :: bnds
+         if [] = v_ssh_client_cert_pass then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__ssh_public_key__ssh_client_cert_pass)
+               v_ssh_client_cert_pass
+           in
+           let bnd = "ssh_client_cert_pass", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__ssh_public_key__ssh_client_cert
-             v_ssh_client_cert
-         in
-         ("ssh_client_cert", arg) :: bnds
+         if [] = v_ssh_client_cert then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__ssh_public_key__ssh_client_cert)
+               v_ssh_client_cert
+           in
+           let bnd = "ssh_client_cert", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_username in
@@ -573,6 +605,7 @@ let _ = yojson_of_auth_config__user_password__password
 type auth_config__user_password = {
   username : string prop;
   password : auth_config__user_password__password list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -585,12 +618,15 @@ let yojson_of_auth_config__user_password =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__user_password__password
-             v_password
-         in
-         ("password", arg) :: bnds
+         if [] = v_password then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__user_password__password)
+               v_password
+           in
+           let bnd = "password", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_username in
@@ -607,12 +643,18 @@ type auth_config = {
   auth_key : string prop option; [@option]
   auth_type : string prop;
   additional_variable : auth_config__additional_variable list;
+      [@default []] [@yojson_drop_default ( = )]
   oauth2_auth_code_flow : auth_config__oauth2_auth_code_flow list;
+      [@default []] [@yojson_drop_default ( = )]
   oauth2_client_credentials :
     auth_config__oauth2_client_credentials list;
+      [@default []] [@yojson_drop_default ( = )]
   oauth2_jwt_bearer : auth_config__oauth2_jwt_bearer list;
+      [@default []] [@yojson_drop_default ( = )]
   ssh_public_key : auth_config__ssh_public_key list;
+      [@default []] [@yojson_drop_default ( = )]
   user_password : auth_config__user_password list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -634,48 +676,67 @@ let yojson_of_auth_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_config__user_password
-             v_user_password
-         in
-         ("user_password", arg) :: bnds
+         if [] = v_user_password then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_config__user_password)
+               v_user_password
+           in
+           let bnd = "user_password", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_config__ssh_public_key
-             v_ssh_public_key
-         in
-         ("ssh_public_key", arg) :: bnds
+         if [] = v_ssh_public_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_config__ssh_public_key)
+               v_ssh_public_key
+           in
+           let bnd = "ssh_public_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_config__oauth2_jwt_bearer
-             v_oauth2_jwt_bearer
-         in
-         ("oauth2_jwt_bearer", arg) :: bnds
+         if [] = v_oauth2_jwt_bearer then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_config__oauth2_jwt_bearer)
+               v_oauth2_jwt_bearer
+           in
+           let bnd = "oauth2_jwt_bearer", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__oauth2_client_credentials
-             v_oauth2_client_credentials
-         in
-         ("oauth2_client_credentials", arg) :: bnds
+         if [] = v_oauth2_client_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__oauth2_client_credentials)
+               v_oauth2_client_credentials
+           in
+           let bnd = "oauth2_client_credentials", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auth_config__oauth2_auth_code_flow
-             v_oauth2_auth_code_flow
-         in
-         ("oauth2_auth_code_flow", arg) :: bnds
+         if [] = v_oauth2_auth_code_flow then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__oauth2_auth_code_flow)
+               v_oauth2_auth_code_flow
+           in
+           let bnd = "oauth2_auth_code_flow", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_config__additional_variable
-             v_additional_variable
-         in
-         ("additional_variable", arg) :: bnds
+         if [] = v_additional_variable then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auth_config__additional_variable)
+               v_additional_variable
+           in
+           let bnd = "additional_variable", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_auth_type in
@@ -761,7 +822,9 @@ type config_variable = {
   key : string prop;
   string_value : string prop option; [@option]
   encryption_key_value : config_variable__encryption_key_value list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_value : config_variable__secret_value list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -781,19 +844,25 @@ let yojson_of_config_variable =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config_variable__secret_value
-             v_secret_value
-         in
-         ("secret_value", arg) :: bnds
+         if [] = v_secret_value then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config_variable__secret_value)
+               v_secret_value
+           in
+           let bnd = "secret_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config_variable__encryption_key_value
-             v_encryption_key_value
-         in
-         ("encryption_key_value", arg) :: bnds
+         if [] = v_encryption_key_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config_variable__encryption_key_value)
+               v_encryption_key_value
+           in
+           let bnd = "encryption_key_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_string_value with
@@ -884,6 +953,7 @@ let _ = yojson_of_destination_config__destination
 type destination_config = {
   key : string prop;
   destination : destination_config__destination list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -896,11 +966,15 @@ let yojson_of_destination_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_config__destination
-             v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_config__destination)
+               v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -990,8 +1064,10 @@ type eventing_config__additional_variable = {
   string_value : string prop option; [@option]
   encryption_key_value :
     eventing_config__additional_variable__encryption_key_value list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_value :
     eventing_config__additional_variable__secret_value list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1011,20 +1087,26 @@ let yojson_of_eventing_config__additional_variable =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eventing_config__additional_variable__secret_value
-             v_secret_value
-         in
-         ("secret_value", arg) :: bnds
+         if [] = v_secret_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eventing_config__additional_variable__secret_value)
+               v_secret_value
+           in
+           let bnd = "secret_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eventing_config__additional_variable__encryption_key_value
-             v_encryption_key_value
-         in
-         ("encryption_key_value", arg) :: bnds
+         if [] = v_encryption_key_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eventing_config__additional_variable__encryption_key_value)
+               v_encryption_key_value
+           in
+           let bnd = "encryption_key_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_string_value with
@@ -1145,9 +1227,11 @@ type eventing_config__auth_config__additional_variable = {
   encryption_key_value :
     eventing_config__auth_config__additional_variable__encryption_key_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_value :
     eventing_config__auth_config__additional_variable__secret_value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1168,20 +1252,26 @@ let yojson_of_eventing_config__auth_config__additional_variable =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eventing_config__auth_config__additional_variable__secret_value
-             v_secret_value
-         in
-         ("secret_value", arg) :: bnds
+         if [] = v_secret_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eventing_config__auth_config__additional_variable__secret_value)
+               v_secret_value
+           in
+           let bnd = "secret_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eventing_config__auth_config__additional_variable__encryption_key_value
-             v_encryption_key_value
-         in
-         ("encryption_key_value", arg) :: bnds
+         if [] = v_encryption_key_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eventing_config__auth_config__additional_variable__encryption_key_value)
+               v_encryption_key_value
+           in
+           let bnd = "encryption_key_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_string_value with
@@ -1253,6 +1343,7 @@ type eventing_config__auth_config__user_password = {
   username : string prop option; [@option]
   password :
     eventing_config__auth_config__user_password__password list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1265,12 +1356,15 @@ let yojson_of_eventing_config__auth_config__user_password =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eventing_config__auth_config__user_password__password
-             v_password
-         in
-         ("password", arg) :: bnds
+         if [] = v_password then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eventing_config__auth_config__user_password__password)
+               v_password
+           in
+           let bnd = "password", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_username with
@@ -1293,7 +1387,9 @@ type eventing_config__auth_config = {
   auth_type : string prop;
   additional_variable :
     eventing_config__auth_config__additional_variable list;
+      [@default []] [@yojson_drop_default ( = )]
   user_password : eventing_config__auth_config__user_password list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1311,20 +1407,26 @@ let yojson_of_eventing_config__auth_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eventing_config__auth_config__user_password
-             v_user_password
-         in
-         ("user_password", arg) :: bnds
+         if [] = v_user_password then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eventing_config__auth_config__user_password)
+               v_user_password
+           in
+           let bnd = "user_password", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eventing_config__auth_config__additional_variable
-             v_additional_variable
-         in
-         ("additional_variable", arg) :: bnds
+         if [] = v_additional_variable then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eventing_config__auth_config__additional_variable)
+               v_additional_variable
+           in
+           let bnd = "additional_variable", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_auth_type in
@@ -1407,6 +1509,7 @@ type eventing_config__registration_destination_config = {
   destination :
     eventing_config__registration_destination_config__destination
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1420,12 +1523,15 @@ let yojson_of_eventing_config__registration_destination_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eventing_config__registration_destination_config__destination
-             v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eventing_config__registration_destination_config__destination)
+               v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_key with
@@ -1446,9 +1552,12 @@ let _ = yojson_of_eventing_config__registration_destination_config
 type eventing_config = {
   enrichment_enabled : bool prop option; [@option]
   additional_variable : eventing_config__additional_variable list;
+      [@default []] [@yojson_drop_default ( = )]
   auth_config : eventing_config__auth_config list;
+      [@default []] [@yojson_drop_default ( = )]
   registration_destination_config :
     eventing_config__registration_destination_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1467,27 +1576,36 @@ let yojson_of_eventing_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eventing_config__registration_destination_config
-             v_registration_destination_config
-         in
-         ("registration_destination_config", arg) :: bnds
+         if [] = v_registration_destination_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eventing_config__registration_destination_config)
+               v_registration_destination_config
+           in
+           let bnd = "registration_destination_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_eventing_config__auth_config
-             v_auth_config
-         in
-         ("auth_config", arg) :: bnds
+         if [] = v_auth_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_eventing_config__auth_config)
+               v_auth_config
+           in
+           let bnd = "auth_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_eventing_config__additional_variable
-             v_additional_variable
-         in
-         ("additional_variable", arg) :: bnds
+         if [] = v_additional_variable then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_eventing_config__additional_variable)
+               v_additional_variable
+           in
+           let bnd = "additional_variable", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enrichment_enabled with
@@ -1674,7 +1792,9 @@ type ssl_config__additional_variable = {
   string_value : string prop option; [@option]
   encryption_key_value :
     ssl_config__additional_variable__encryption_key_value list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_value : ssl_config__additional_variable__secret_value list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1694,20 +1814,26 @@ let yojson_of_ssl_config__additional_variable =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_ssl_config__additional_variable__secret_value
-             v_secret_value
-         in
-         ("secret_value", arg) :: bnds
+         if [] = v_secret_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ssl_config__additional_variable__secret_value)
+               v_secret_value
+           in
+           let bnd = "secret_value", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_ssl_config__additional_variable__encryption_key_value
-             v_encryption_key_value
-         in
-         ("encryption_key_value", arg) :: bnds
+         if [] = v_encryption_key_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ssl_config__additional_variable__encryption_key_value)
+               v_encryption_key_value
+           in
+           let bnd = "encryption_key_value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_string_value with
@@ -1860,11 +1986,16 @@ type ssl_config = {
   type_ : string prop; [@key "type"]
   use_ssl : bool prop option; [@option]
   additional_variable : ssl_config__additional_variable list;
+      [@default []] [@yojson_drop_default ( = )]
   client_certificate : ssl_config__client_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   client_private_key : ssl_config__client_private_key list;
+      [@default []] [@yojson_drop_default ( = )]
   client_private_key_pass : ssl_config__client_private_key_pass list;
+      [@default []] [@yojson_drop_default ( = )]
   private_server_certificate :
     ssl_config__private_server_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1888,41 +2019,57 @@ let yojson_of_ssl_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_ssl_config__private_server_certificate
-             v_private_server_certificate
-         in
-         ("private_server_certificate", arg) :: bnds
+         if [] = v_private_server_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ssl_config__private_server_certificate)
+               v_private_server_certificate
+           in
+           let bnd = "private_server_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_ssl_config__client_private_key_pass
-             v_client_private_key_pass
-         in
-         ("client_private_key_pass", arg) :: bnds
+         if [] = v_client_private_key_pass then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ssl_config__client_private_key_pass)
+               v_client_private_key_pass
+           in
+           let bnd = "client_private_key_pass", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_config__client_private_key
-             v_client_private_key
-         in
-         ("client_private_key", arg) :: bnds
+         if [] = v_client_private_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssl_config__client_private_key)
+               v_client_private_key
+           in
+           let bnd = "client_private_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_config__client_certificate
-             v_client_certificate
-         in
-         ("client_certificate", arg) :: bnds
+         if [] = v_client_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssl_config__client_certificate)
+               v_client_certificate
+           in
+           let bnd = "client_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_config__additional_variable
-             v_additional_variable
-         in
-         ("additional_variable", arg) :: bnds
+         if [] = v_additional_variable then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_ssl_config__additional_variable)
+               v_additional_variable
+           in
+           let bnd = "additional_variable", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_ssl with
@@ -2073,6 +2220,7 @@ let _ = yojson_of_eventing_runtime_data__status
 type eventing_runtime_data = {
   events_listener_endpoint : string prop;
   status : eventing_runtime_data__status list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2088,11 +2236,14 @@ let yojson_of_eventing_runtime_data =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_eventing_runtime_data__status
-             v_status
-         in
-         ("status", arg) :: bnds
+         if [] = v_status then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_eventing_runtime_data__status)
+               v_status
+           in
+           let bnd = "status", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2157,13 +2308,21 @@ type google_integration_connectors_connection = {
   service_account : string prop option; [@option]
   suspended : bool prop option; [@option]
   auth_config : auth_config list;
+      [@default []] [@yojson_drop_default ( = )]
   config_variable : config_variable list;
+      [@default []] [@yojson_drop_default ( = )]
   destination_config : destination_config list;
+      [@default []] [@yojson_drop_default ( = )]
   eventing_config : eventing_config list;
+      [@default []] [@yojson_drop_default ( = )]
   lock_config : lock_config list;
+      [@default []] [@yojson_drop_default ( = )]
   log_config : log_config list;
+      [@default []] [@yojson_drop_default ( = )]
   node_config : node_config list;
+      [@default []] [@yojson_drop_default ( = )]
   ssl_config : ssl_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -2201,53 +2360,79 @@ let yojson_of_google_integration_connectors_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_config v_ssl_config
-         in
-         ("ssl_config", arg) :: bnds
+         if [] = v_ssl_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssl_config) v_ssl_config
+           in
+           let bnd = "ssl_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_config v_node_config
-         in
-         ("node_config", arg) :: bnds
+         if [] = v_node_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_config) v_node_config
+           in
+           let bnd = "node_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_config v_log_config
-         in
-         ("log_config", arg) :: bnds
+         if [] = v_log_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_config) v_log_config
+           in
+           let bnd = "log_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lock_config v_lock_config
-         in
-         ("lock_config", arg) :: bnds
+         if [] = v_lock_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lock_config) v_lock_config
+           in
+           let bnd = "lock_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_eventing_config v_eventing_config
-         in
-         ("eventing_config", arg) :: bnds
+         if [] = v_eventing_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_eventing_config)
+               v_eventing_config
+           in
+           let bnd = "eventing_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_config
-             v_destination_config
-         in
-         ("destination_config", arg) :: bnds
+         if [] = v_destination_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_config)
+               v_destination_config
+           in
+           let bnd = "destination_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config_variable v_config_variable
-         in
-         ("config_variable", arg) :: bnds
+         if [] = v_config_variable then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config_variable)
+               v_config_variable
+           in
+           let bnd = "config_variable", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_config v_auth_config
-         in
-         ("auth_config", arg) :: bnds
+         if [] = v_auth_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_config) v_auth_config
+           in
+           let bnd = "auth_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_suspended with

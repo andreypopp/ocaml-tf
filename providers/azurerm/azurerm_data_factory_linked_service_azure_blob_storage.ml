@@ -151,8 +151,10 @@ type azurerm_data_factory_linked_service_azure_blob_storage = {
   tenant_id : string prop option; [@option]
   use_managed_identity : bool prop option; [@option]
   key_vault_sas_token : key_vault_sas_token list;
+      [@default []] [@yojson_drop_default ( = )]
   service_principal_linked_key_vault_key :
     service_principal_linked_key_vault_key list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -195,19 +197,25 @@ let yojson_of_azurerm_data_factory_linked_service_azure_blob_storage
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_principal_linked_key_vault_key
-             v_service_principal_linked_key_vault_key
-         in
-         ("service_principal_linked_key_vault_key", arg) :: bnds
+         if [] = v_service_principal_linked_key_vault_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_principal_linked_key_vault_key)
+               v_service_principal_linked_key_vault_key
+           in
+           let bnd = "service_principal_linked_key_vault_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_key_vault_sas_token
-             v_key_vault_sas_token
-         in
-         ("key_vault_sas_token", arg) :: bnds
+         if [] = v_key_vault_sas_token then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_vault_sas_token)
+               v_key_vault_sas_token
+           in
+           let bnd = "key_vault_sas_token", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_managed_identity with

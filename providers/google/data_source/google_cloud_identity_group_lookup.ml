@@ -38,6 +38,7 @@ let _ = yojson_of_group_key
 type google_cloud_identity_group_lookup = {
   id : string prop option; [@option]
   group_key : group_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,8 +51,13 @@ let yojson_of_google_cloud_identity_group_lookup =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_group_key v_group_key in
-         ("group_key", arg) :: bnds
+         if [] = v_group_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_group_key) v_group_key
+           in
+           let bnd = "group_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

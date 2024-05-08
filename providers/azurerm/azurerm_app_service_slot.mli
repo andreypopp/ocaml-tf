@@ -142,15 +142,24 @@ val logs :
   logs
 
 type site_config__ip_restriction__headers = {
-  x_azure_fdid : string prop list;  (** x_azure_fdid *)
-  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
-  x_forwarded_for : string prop list;  (** x_forwarded_for *)
-  x_forwarded_host : string prop list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_for *)
+  x_forwarded_host : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_host *)
 }
 
 type site_config__ip_restriction = {
   action : string prop;  (** action *)
   headers : site_config__ip_restriction__headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** headers *)
   ip_address : string prop;  (** ip_address *)
   name : string prop;  (** name *)
@@ -161,15 +170,24 @@ type site_config__ip_restriction = {
 }
 
 type site_config__scm_ip_restriction__headers = {
-  x_azure_fdid : string prop list;  (** x_azure_fdid *)
-  x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
-  x_forwarded_for : string prop list;  (** x_forwarded_for *)
-  x_forwarded_host : string prop list;  (** x_forwarded_host *)
+  x_azure_fdid : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_azure_fdid *)
+  x_fd_health_probe : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_fd_health_probe *)
+  x_forwarded_for : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_for *)
+  x_forwarded_host : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** x_forwarded_host *)
 }
 
 type site_config__scm_ip_restriction = {
   action : string prop;  (** action *)
   headers : site_config__scm_ip_restriction__headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** headers *)
   ip_address : string prop;  (** ip_address *)
   name : string prop;  (** name *)

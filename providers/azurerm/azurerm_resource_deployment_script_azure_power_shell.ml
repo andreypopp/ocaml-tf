@@ -78,6 +78,7 @@ let _ = yojson_of_environment_variable
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -95,12 +96,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -211,9 +214,13 @@ type azurerm_resource_deployment_script_azure_power_shell = {
   timeout : string prop option; [@option]
   version : string prop;
   container : container list;
+      [@default []] [@yojson_drop_default ( = )]
   environment_variable : environment_variable list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_account : storage_account list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -252,25 +259,42 @@ let yojson_of_azurerm_resource_deployment_script_azure_power_shell =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_account v_storage_account
-         in
-         ("storage_account", arg) :: bnds
+         if [] = v_storage_account then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_account)
+               v_storage_account
+           in
+           let bnd = "storage_account", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_environment_variable
-             v_environment_variable
-         in
-         ("environment_variable", arg) :: bnds
+         if [] = v_environment_variable then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_environment_variable)
+               v_environment_variable
+           in
+           let bnd = "environment_variable", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_container v_container in
-         ("container", arg) :: bnds
+         if [] = v_container then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container) v_container
+           in
+           let bnd = "container", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_version in

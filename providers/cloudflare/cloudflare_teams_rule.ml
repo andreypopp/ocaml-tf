@@ -309,13 +309,21 @@ type rule_settings = {
   override_host : string prop option; [@option]
   override_ips : string prop list option; [@option]
   audit_ssh : rule_settings__audit_ssh list;
+      [@default []] [@yojson_drop_default ( = )]
   biso_admin_controls : rule_settings__biso_admin_controls list;
+      [@default []] [@yojson_drop_default ( = )]
   check_session : rule_settings__check_session list;
+      [@default []] [@yojson_drop_default ( = )]
   egress : rule_settings__egress list;
+      [@default []] [@yojson_drop_default ( = )]
   l4override : rule_settings__l4override list;
+      [@default []] [@yojson_drop_default ( = )]
   notification_settings : rule_settings__notification_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   payload_log : rule_settings__payload_log list;
+      [@default []] [@yojson_drop_default ( = )]
   untrusted_cert : rule_settings__untrusted_cert list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -347,61 +355,86 @@ let yojson_of_rule_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule_settings__untrusted_cert
-             v_untrusted_cert
-         in
-         ("untrusted_cert", arg) :: bnds
+         if [] = v_untrusted_cert then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule_settings__untrusted_cert)
+               v_untrusted_cert
+           in
+           let bnd = "untrusted_cert", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule_settings__payload_log
-             v_payload_log
-         in
-         ("payload_log", arg) :: bnds
+         if [] = v_payload_log then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule_settings__payload_log)
+               v_payload_log
+           in
+           let bnd = "payload_log", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule_settings__notification_settings
-             v_notification_settings
-         in
-         ("notification_settings", arg) :: bnds
+         if [] = v_notification_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule_settings__notification_settings)
+               v_notification_settings
+           in
+           let bnd = "notification_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule_settings__l4override
-             v_l4override
-         in
-         ("l4override", arg) :: bnds
+         if [] = v_l4override then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule_settings__l4override)
+               v_l4override
+           in
+           let bnd = "l4override", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule_settings__egress v_egress
-         in
-         ("egress", arg) :: bnds
+         if [] = v_egress then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule_settings__egress)
+               v_egress
+           in
+           let bnd = "egress", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule_settings__check_session
-             v_check_session
-         in
-         ("check_session", arg) :: bnds
+         if [] = v_check_session then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule_settings__check_session)
+               v_check_session
+           in
+           let bnd = "check_session", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule_settings__biso_admin_controls
-             v_biso_admin_controls
-         in
-         ("biso_admin_controls", arg) :: bnds
+         if [] = v_biso_admin_controls then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule_settings__biso_admin_controls)
+               v_biso_admin_controls
+           in
+           let bnd = "biso_admin_controls", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule_settings__audit_ssh
-             v_audit_ssh
-         in
-         ("audit_ssh", arg) :: bnds
+         if [] = v_audit_ssh then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule_settings__audit_ssh)
+               v_audit_ssh
+           in
+           let bnd = "audit_ssh", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_override_ips with
@@ -505,6 +538,7 @@ type cloudflare_teams_rule = {
   precedence : float prop;
   traffic : string prop option; [@option]
   rule_settings : rule_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -530,10 +564,13 @@ let yojson_of_cloudflare_teams_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule_settings v_rule_settings
-         in
-         ("rule_settings", arg) :: bnds
+         if [] = v_rule_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule_settings) v_rule_settings
+           in
+           let bnd = "rule_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_traffic with

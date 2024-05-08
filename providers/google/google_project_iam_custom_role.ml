@@ -6,6 +6,7 @@ type google_project_iam_custom_role = {
   description : string prop option; [@option]
   id : string prop option; [@option]
   permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   project : string prop option; [@option]
   role_id : string prop;
   stage : string prop option; [@option]
@@ -54,12 +55,14 @@ let yojson_of_google_project_iam_custom_role =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_permissions
-         in
-         ("permissions", arg) :: bnds
+         if [] = v_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_permissions
+           in
+           let bnd = "permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

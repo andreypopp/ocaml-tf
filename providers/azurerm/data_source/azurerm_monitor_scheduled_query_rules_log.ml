@@ -32,6 +32,7 @@ type criteria__dimension = {
   name : string prop;
   operator : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -44,10 +45,14 @@ let yojson_of_criteria__dimension =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_operator in
@@ -66,6 +71,7 @@ let _ = yojson_of_criteria__dimension
 
 type criteria = {
   dimension : criteria__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   metric_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -83,10 +89,14 @@ let yojson_of_criteria =
          ("metric_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_criteria__dimension v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : criteria -> Ppx_yojson_conv_lib.Yojson.Safe.t)

@@ -83,6 +83,7 @@ let _ = yojson_of_feed_output_config__pubsub_destination
 
 type feed_output_config = {
   pubsub_destination : feed_output_config__pubsub_destination list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,12 +96,15 @@ let yojson_of_feed_output_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_feed_output_config__pubsub_destination
-             v_pubsub_destination
-         in
-         ("pubsub_destination", arg) :: bnds
+         if [] = v_pubsub_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_feed_output_config__pubsub_destination)
+               v_pubsub_destination
+           in
+           let bnd = "pubsub_destination", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : feed_output_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -164,7 +168,9 @@ type google_cloud_asset_project_feed = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   condition : condition list;
+      [@default []] [@yojson_drop_default ( = )]
   feed_output_config : feed_output_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -193,15 +199,23 @@ let yojson_of_google_cloud_asset_project_feed =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_feed_output_config
-             v_feed_output_config
-         in
-         ("feed_output_config", arg) :: bnds
+         if [] = v_feed_output_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_feed_output_config)
+               v_feed_output_config
+           in
+           let bnd = "feed_output_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_condition v_condition in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition) v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

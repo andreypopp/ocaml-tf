@@ -95,6 +95,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_key_vault_managed_hardware_security_module = {
   admin_object_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   location : string prop;
   name : string prop;
@@ -110,6 +111,7 @@ type azurerm_key_vault_managed_hardware_security_module = {
   tags : (string * string prop) list option; [@option]
   tenant_id : string prop;
   network_acls : network_acls list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -146,10 +148,13 @@ let yojson_of_azurerm_key_vault_managed_hardware_security_module =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_acls v_network_acls
-         in
-         ("network_acls", arg) :: bnds
+         if [] = v_network_acls then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_acls) v_network_acls
+           in
+           let bnd = "network_acls", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_tenant_id in
@@ -242,12 +247,14 @@ let yojson_of_azurerm_key_vault_managed_hardware_security_module =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_admin_object_ids
-         in
-         ("admin_object_ids", arg) :: bnds
+         if [] = v_admin_object_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_admin_object_ids
+           in
+           let bnd = "admin_object_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_key_vault_managed_hardware_security_module ->

@@ -260,7 +260,7 @@ type digitalocean_database_kafka_topic = {
   name : string prop;
   partition_count : float prop option; [@option]
   replication_factor : float prop option; [@option]
-  config : config list;
+  config : config list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -280,8 +280,11 @@ let yojson_of_digitalocean_database_kafka_topic =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_config v_config in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg = (yojson_of_list yojson_of_config) v_config in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_replication_factor with

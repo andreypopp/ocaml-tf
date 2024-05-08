@@ -113,7 +113,9 @@ type dry_run_spec__rules = {
   deny_all : string prop option; [@option]
   enforce : string prop option; [@option]
   condition : dry_run_spec__rules__condition list;
+      [@default []] [@yojson_drop_default ( = )]
   values : dry_run_spec__rules__values list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -132,18 +134,24 @@ let yojson_of_dry_run_spec__rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dry_run_spec__rules__values
-             v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dry_run_spec__rules__values)
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dry_run_spec__rules__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dry_run_spec__rules__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enforce with
@@ -180,6 +188,7 @@ type dry_run_spec = {
   inherit_from_parent : bool prop option; [@option]
   reset : bool prop option; [@option]
   rules : dry_run_spec__rules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,10 +205,13 @@ let yojson_of_dry_run_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dry_run_spec__rules v_rules
-         in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dry_run_spec__rules) v_rules
+           in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_reset with
@@ -333,7 +345,9 @@ type spec__rules = {
   deny_all : string prop option; [@option]
   enforce : string prop option; [@option]
   condition : spec__rules__condition list;
+      [@default []] [@yojson_drop_default ( = )]
   values : spec__rules__values list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -352,17 +366,23 @@ let yojson_of_spec__rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__rules__values v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__rules__values) v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__rules__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__rules__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enforce with
@@ -398,7 +418,7 @@ let _ = yojson_of_spec__rules
 type spec = {
   inherit_from_parent : bool prop option; [@option]
   reset : bool prop option; [@option]
-  rules : spec__rules list;
+  rules : spec__rules list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -415,8 +435,13 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec__rules v_rules in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__rules) v_rules
+           in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_reset with
@@ -492,7 +517,8 @@ type google_org_policy_policy = {
   name : string prop;
   parent : string prop;
   dry_run_spec : dry_run_spec list;
-  spec : spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -517,14 +543,20 @@ let yojson_of_google_org_policy_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dry_run_spec v_dry_run_spec
-         in
-         ("dry_run_spec", arg) :: bnds
+         if [] = v_dry_run_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dry_run_spec) v_dry_run_spec
+           in
+           let bnd = "dry_run_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_parent in

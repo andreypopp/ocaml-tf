@@ -79,7 +79,9 @@ let _ = yojson_of_azure_to_azure_settings
 type recovery_group__pre_action = {
   fabric_location : string prop;
   fail_over_directions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   fail_over_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   manual_action_instruction : string prop;
   name : string prop;
   runbook_id : string prop;
@@ -129,20 +131,24 @@ let yojson_of_recovery_group__pre_action =
          ("manual_action_instruction", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_fail_over_types
-         in
-         ("fail_over_types", arg) :: bnds
+         if [] = v_fail_over_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fail_over_types
+           in
+           let bnd = "fail_over_types", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_fail_over_directions
-         in
-         ("fail_over_directions", arg) :: bnds
+         if [] = v_fail_over_directions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fail_over_directions
+           in
+           let bnd = "fail_over_directions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -160,7 +166,9 @@ let _ = yojson_of_recovery_group__pre_action
 type recovery_group__post_action = {
   fabric_location : string prop;
   fail_over_directions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   fail_over_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   manual_action_instruction : string prop;
   name : string prop;
   runbook_id : string prop;
@@ -210,20 +218,24 @@ let yojson_of_recovery_group__post_action =
          ("manual_action_instruction", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_fail_over_types
-         in
-         ("fail_over_types", arg) :: bnds
+         if [] = v_fail_over_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fail_over_types
+           in
+           let bnd = "fail_over_types", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_fail_over_directions
-         in
-         ("fail_over_directions", arg) :: bnds
+         if [] = v_fail_over_directions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fail_over_directions
+           in
+           let bnd = "fail_over_directions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -241,8 +253,11 @@ let _ = yojson_of_recovery_group__post_action
 
 type recovery_group = {
   post_action : recovery_group__post_action list list;
+      [@default []] [@yojson_drop_default ( = )]
   pre_action : recovery_group__pre_action list list;
+      [@default []] [@yojson_drop_default ( = )]
   replicated_protected_items : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -265,28 +280,36 @@ let yojson_of_recovery_group =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_replicated_protected_items
-         in
-         ("replicated_protected_items", arg) :: bnds
+         if [] = v_replicated_protected_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_replicated_protected_items
+           in
+           let bnd = "replicated_protected_items", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_list yojson_of_recovery_group__pre_action)
-             v_pre_action
-         in
-         ("pre_action", arg) :: bnds
+         if [] = v_pre_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                (yojson_of_list yojson_of_recovery_group__pre_action))
+               v_pre_action
+           in
+           let bnd = "pre_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_list yojson_of_recovery_group__post_action)
-             v_post_action
-         in
-         ("post_action", arg) :: bnds
+         if [] = v_post_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                (yojson_of_list yojson_of_recovery_group__post_action))
+               v_post_action
+           in
+           let bnd = "post_action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : recovery_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)

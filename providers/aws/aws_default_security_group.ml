@@ -4,12 +4,16 @@ open! Tf_core
 
 type egress = {
   cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   description : string prop;
   from_port : float prop;
   ipv6_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix_list_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol : string prop;
   security_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   self : bool prop;
   to_port : float prop;
 }
@@ -42,32 +46,38 @@ let yojson_of_egress =
          ("self", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_groups
-         in
-         ("security_groups", arg) :: bnds
+         if [] = v_security_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_groups
+           in
+           let bnd = "security_groups", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_protocol in
          ("protocol", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_prefix_list_ids
-         in
-         ("prefix_list_ids", arg) :: bnds
+         if [] = v_prefix_list_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_prefix_list_ids
+           in
+           let bnd = "prefix_list_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ipv6_cidr_blocks
-         in
-         ("ipv6_cidr_blocks", arg) :: bnds
+         if [] = v_ipv6_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ipv6_cidr_blocks
+           in
+           let bnd = "ipv6_cidr_blocks", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_from_port in
@@ -78,12 +88,14 @@ let yojson_of_egress =
          ("description", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cidr_blocks
-         in
-         ("cidr_blocks", arg) :: bnds
+         if [] = v_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cidr_blocks
+           in
+           let bnd = "cidr_blocks", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : egress -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -94,12 +106,16 @@ let _ = yojson_of_egress
 
 type ingress = {
   cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   description : string prop;
   from_port : float prop;
   ipv6_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix_list_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol : string prop;
   security_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   self : bool prop;
   to_port : float prop;
 }
@@ -132,32 +148,38 @@ let yojson_of_ingress =
          ("self", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_groups
-         in
-         ("security_groups", arg) :: bnds
+         if [] = v_security_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_groups
+           in
+           let bnd = "security_groups", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_protocol in
          ("protocol", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_prefix_list_ids
-         in
-         ("prefix_list_ids", arg) :: bnds
+         if [] = v_prefix_list_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_prefix_list_ids
+           in
+           let bnd = "prefix_list_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ipv6_cidr_blocks
-         in
-         ("ipv6_cidr_blocks", arg) :: bnds
+         if [] = v_ipv6_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ipv6_cidr_blocks
+           in
+           let bnd = "ipv6_cidr_blocks", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_from_port in
@@ -168,12 +190,14 @@ let yojson_of_ingress =
          ("description", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cidr_blocks
-         in
-         ("cidr_blocks", arg) :: bnds
+         if [] = v_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cidr_blocks
+           in
+           let bnd = "cidr_blocks", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : ingress -> Ppx_yojson_conv_lib.Yojson.Safe.t)

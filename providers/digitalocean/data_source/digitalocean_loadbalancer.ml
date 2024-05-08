@@ -2,7 +2,11 @@
 
 open! Tf_core
 
-type firewall = { allow : string prop list; deny : string prop list }
+type firewall = {
+  allow : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+  deny : string prop list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : firewall) -> ()
@@ -14,16 +18,24 @@ let yojson_of_firewall =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_deny
-         in
-         ("deny", arg) :: bnds
+         if [] = v_deny then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_deny
+           in
+           let bnd = "deny", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_allow
-         in
-         ("allow", arg) :: bnds
+         if [] = v_allow then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow
+           in
+           let bnd = "allow", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : firewall -> Ppx_yojson_conv_lib.Yojson.Safe.t)

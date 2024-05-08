@@ -243,8 +243,10 @@ type aws_servicecatalog_provisioned_product = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   provisioning_parameters : provisioning_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   stack_set_provisioning_preferences :
     stack_set_provisioning_preferences list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -281,19 +283,25 @@ let yojson_of_aws_servicecatalog_provisioned_product =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_stack_set_provisioning_preferences
-             v_stack_set_provisioning_preferences
-         in
-         ("stack_set_provisioning_preferences", arg) :: bnds
+         if [] = v_stack_set_provisioning_preferences then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_stack_set_provisioning_preferences)
+               v_stack_set_provisioning_preferences
+           in
+           let bnd = "stack_set_provisioning_preferences", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_provisioning_parameters
-             v_provisioning_parameters
-         in
-         ("provisioning_parameters", arg) :: bnds
+         if [] = v_provisioning_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_provisioning_parameters)
+               v_provisioning_parameters
+           in
+           let bnd = "provisioning_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

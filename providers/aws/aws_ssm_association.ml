@@ -50,7 +50,11 @@ let _ = yojson_of_output_location
 
 [@@@deriving.end]
 
-type targets = { key : string prop; values : string prop list }
+type targets = {
+  key : string prop;
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : targets) -> ()
@@ -62,10 +66,14 @@ let yojson_of_targets =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -94,7 +102,8 @@ type aws_ssm_association = {
   sync_compliance : string prop option; [@option]
   wait_for_success_timeout_seconds : float prop option; [@option]
   output_location : output_location list;
-  targets : targets list;
+      [@default []] [@yojson_drop_default ( = )]
+  targets : targets list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,14 +135,21 @@ let yojson_of_aws_ssm_association =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_targets v_targets in
-         ("targets", arg) :: bnds
+         if [] = v_targets then bnds
+         else
+           let arg = (yojson_of_list yojson_of_targets) v_targets in
+           let bnd = "targets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_output_location v_output_location
-         in
-         ("output_location", arg) :: bnds
+         if [] = v_output_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_output_location)
+               v_output_location
+           in
+           let bnd = "output_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_wait_for_success_timeout_seconds with

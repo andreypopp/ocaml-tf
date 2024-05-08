@@ -104,7 +104,9 @@ let _ = yojson_of_statistics_configuration__include_metric
 
 type statistics_configuration = {
   additional_statistics : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   include_metric : statistics_configuration__include_metric list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -120,20 +122,25 @@ let yojson_of_statistics_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_statistics_configuration__include_metric
-             v_include_metric
-         in
-         ("include_metric", arg) :: bnds
+         if [] = v_include_metric then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_statistics_configuration__include_metric)
+               v_include_metric
+           in
+           let bnd = "include_metric", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_additional_statistics
-         in
-         ("additional_statistics", arg) :: bnds
+         if [] = v_additional_statistics then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_additional_statistics
+           in
+           let bnd = "additional_statistics", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : statistics_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -199,8 +206,11 @@ type aws_cloudwatch_metric_stream = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   exclude_filter : exclude_filter list;
+      [@default []] [@yojson_drop_default ( = )]
   include_filter : include_filter list;
+      [@default []] [@yojson_drop_default ( = )]
   statistics_configuration : statistics_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -233,23 +243,34 @@ let yojson_of_aws_cloudwatch_metric_stream =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_statistics_configuration
-             v_statistics_configuration
-         in
-         ("statistics_configuration", arg) :: bnds
+         if [] = v_statistics_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_statistics_configuration)
+               v_statistics_configuration
+           in
+           let bnd = "statistics_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_include_filter v_include_filter
-         in
-         ("include_filter", arg) :: bnds
+         if [] = v_include_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_include_filter)
+               v_include_filter
+           in
+           let bnd = "include_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_exclude_filter v_exclude_filter
-         in
-         ("exclude_filter", arg) :: bnds
+         if [] = v_exclude_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_exclude_filter)
+               v_exclude_filter
+           in
+           let bnd = "exclude_filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

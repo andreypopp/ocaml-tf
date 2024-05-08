@@ -70,6 +70,7 @@ let _ = yojson_of_qop_configuration
 
 type aws_datasync_location_hdfs = {
   agent_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   authentication_type : string prop option; [@option]
   block_size : float prop option; [@option]
   id : string prop option; [@option]
@@ -83,7 +84,9 @@ type aws_datasync_location_hdfs = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   name_node : name_node list;
+      [@default []] [@yojson_drop_default ( = )]
   qop_configuration : qop_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,15 +115,23 @@ let yojson_of_aws_datasync_location_hdfs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_qop_configuration
-             v_qop_configuration
-         in
-         ("qop_configuration", arg) :: bnds
+         if [] = v_qop_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_qop_configuration)
+               v_qop_configuration
+           in
+           let bnd = "qop_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_name_node v_name_node in
-         ("name_node", arg) :: bnds
+         if [] = v_name_node then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_name_node) v_name_node
+           in
+           let bnd = "name_node", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -235,12 +246,14 @@ let yojson_of_aws_datasync_location_hdfs =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_agent_arns
-         in
-         ("agent_arns", arg) :: bnds
+         if [] = v_agent_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_agent_arns
+           in
+           let bnd = "agent_arns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_datasync_location_hdfs -> Ppx_yojson_conv_lib.Yojson.Safe.t)

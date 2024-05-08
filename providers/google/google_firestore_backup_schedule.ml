@@ -92,8 +92,10 @@ type google_firestore_backup_schedule = {
   project : string prop option; [@option]
   retention : string prop;
   daily_recurrence : daily_recurrence list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   weekly_recurrence : weekly_recurrence list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,22 +116,28 @@ let yojson_of_google_firestore_backup_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_weekly_recurrence
-             v_weekly_recurrence
-         in
-         ("weekly_recurrence", arg) :: bnds
+         if [] = v_weekly_recurrence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_weekly_recurrence)
+               v_weekly_recurrence
+           in
+           let bnd = "weekly_recurrence", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_daily_recurrence
-             v_daily_recurrence
-         in
-         ("daily_recurrence", arg) :: bnds
+         if [] = v_daily_recurrence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_daily_recurrence)
+               v_daily_recurrence
+           in
+           let bnd = "daily_recurrence", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_retention in

@@ -110,7 +110,7 @@ type azurerm_attestation_provider = {
   sgx_enclave_policy_base64 : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tpm_policy_base64 : string prop option; [@option]
-  policy : policy list;
+  policy : policy list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -142,8 +142,11 @@ let yojson_of_azurerm_attestation_provider =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_policy v_policy in
-         ("policy", arg) :: bnds
+         if [] = v_policy then bnds
+         else
+           let arg = (yojson_of_list yojson_of_policy) v_policy in
+           let bnd = "policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tpm_policy_base64 with

@@ -144,7 +144,9 @@ type azurerm_notification_hub = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   apns_credential : apns_credential list;
+      [@default []] [@yojson_drop_default ( = )]
   gcm_credential : gcm_credential list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -172,16 +174,24 @@ let yojson_of_azurerm_notification_hub =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_gcm_credential v_gcm_credential
-         in
-         ("gcm_credential", arg) :: bnds
+         if [] = v_gcm_credential then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_gcm_credential)
+               v_gcm_credential
+           in
+           let bnd = "gcm_credential", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_apns_credential v_apns_credential
-         in
-         ("apns_credential", arg) :: bnds
+         if [] = v_apns_credential then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_apns_credential)
+               v_apns_credential
+           in
+           let bnd = "apns_credential", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

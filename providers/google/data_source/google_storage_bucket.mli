@@ -11,13 +11,21 @@ type autoclass = {
 
 type cors = {
   max_age_seconds : float prop;  (** max_age_seconds *)
-  method_ : string prop list; [@key "method"]  (** method *)
-  origin : string prop list;  (** origin *)
-  response_header : string prop list;  (** response_header *)
+  method_ : string prop list;
+      [@default []] [@yojson_drop_default ( = )] [@key "method"]
+      (** method *)
+  origin : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** origin *)
+  response_header : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** response_header *)
 }
 
 type custom_placement_config = {
-  data_locations : string prop list;  (** data_locations *)
+  data_locations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** data_locations *)
 }
 
 type encryption = {
@@ -31,10 +39,15 @@ type lifecycle_rule__condition = {
   days_since_custom_time : float prop;  (** days_since_custom_time *)
   days_since_noncurrent_time : float prop;
       (** days_since_noncurrent_time *)
-  matches_prefix : string prop list;  (** matches_prefix *)
+  matches_prefix : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** matches_prefix *)
   matches_storage_class : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** matches_storage_class *)
-  matches_suffix : string prop list;  (** matches_suffix *)
+  matches_suffix : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** matches_suffix *)
   no_age : bool prop;  (** no_age *)
   noncurrent_time_before : string prop;
       (** noncurrent_time_before *)
@@ -48,8 +61,12 @@ type lifecycle_rule__action = {
 }
 
 type lifecycle_rule = {
-  action : lifecycle_rule__action list;  (** action *)
-  condition : lifecycle_rule__condition list;  (** condition *)
+  action : lifecycle_rule__action list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** action *)
+  condition : lifecycle_rule__condition list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** condition *)
 }
 
 type logging = {

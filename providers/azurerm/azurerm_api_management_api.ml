@@ -84,6 +84,7 @@ type import = {
   content_format : string prop;
   content_value : string prop;
   wsdl_selector : import__wsdl_selector list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -100,11 +101,14 @@ let yojson_of_import =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_import__wsdl_selector
-             v_wsdl_selector
-         in
-         ("wsdl_selector", arg) :: bnds
+         if [] = v_wsdl_selector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_import__wsdl_selector)
+               v_wsdl_selector
+           in
+           let bnd = "wsdl_selector", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_content_value in
@@ -349,13 +353,16 @@ type azurerm_api_management_api = {
   version : string prop option; [@option]
   version_description : string prop option; [@option]
   version_set_id : string prop option; [@option]
-  contact : contact list;
-  import : import list;
-  license : license list;
+  contact : contact list; [@default []] [@yojson_drop_default ( = )]
+  import : import list; [@default []] [@yojson_drop_default ( = )]
+  license : license list; [@default []] [@yojson_drop_default ( = )]
   oauth2_authorization : oauth2_authorization list;
+      [@default []] [@yojson_drop_default ( = )]
   openid_authentication : openid_authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   subscription_key_parameter_names :
     subscription_key_parameter_names list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -401,37 +408,56 @@ let yojson_of_azurerm_api_management_api =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_subscription_key_parameter_names
-             v_subscription_key_parameter_names
-         in
-         ("subscription_key_parameter_names", arg) :: bnds
+         if [] = v_subscription_key_parameter_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_subscription_key_parameter_names)
+               v_subscription_key_parameter_names
+           in
+           let bnd = "subscription_key_parameter_names", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_openid_authentication
-             v_openid_authentication
-         in
-         ("openid_authentication", arg) :: bnds
+         if [] = v_openid_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_openid_authentication)
+               v_openid_authentication
+           in
+           let bnd = "openid_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_oauth2_authorization
-             v_oauth2_authorization
-         in
-         ("oauth2_authorization", arg) :: bnds
+         if [] = v_oauth2_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_oauth2_authorization)
+               v_oauth2_authorization
+           in
+           let bnd = "oauth2_authorization", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_license v_license in
-         ("license", arg) :: bnds
+         if [] = v_license then bnds
+         else
+           let arg = (yojson_of_list yojson_of_license) v_license in
+           let bnd = "license", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_import v_import in
-         ("import", arg) :: bnds
+         if [] = v_import then bnds
+         else
+           let arg = (yojson_of_list yojson_of_import) v_import in
+           let bnd = "import", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_contact v_contact in
-         ("contact", arg) :: bnds
+         if [] = v_contact then bnds
+         else
+           let arg = (yojson_of_list yojson_of_contact) v_contact in
+           let bnd = "contact", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version_set_id with

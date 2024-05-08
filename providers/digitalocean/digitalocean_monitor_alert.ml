@@ -31,6 +31,7 @@ let _ = yojson_of_alerts__slack
 type alerts = {
   email : string prop list option; [@option]
   slack : alerts__slack list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -43,8 +44,13 @@ let yojson_of_alerts =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_alerts__slack v_slack in
-         ("slack", arg) :: bnds
+         if [] = v_slack then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_alerts__slack) v_slack
+           in
+           let bnd = "slack", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_email with
@@ -73,7 +79,7 @@ type digitalocean_monitor_alert = {
   type_ : string prop; [@key "type"]
   value : float prop;
   window : string prop;
-  alerts : alerts list;
+  alerts : alerts list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -97,8 +103,11 @@ let yojson_of_digitalocean_monitor_alert =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_alerts v_alerts in
-         ("alerts", arg) :: bnds
+         if [] = v_alerts then bnds
+         else
+           let arg = (yojson_of_list yojson_of_alerts) v_alerts in
+           let bnd = "alerts", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_window in

@@ -109,7 +109,7 @@ type cloudflare_device_posture_integration = {
   interval : string prop option; [@option]
   name : string prop;
   type_ : string prop; [@key "type"]
-  config : config list;
+  config : config list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,8 +130,11 @@ let yojson_of_cloudflare_device_posture_integration =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_config v_config in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg = (yojson_of_list yojson_of_config) v_config in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

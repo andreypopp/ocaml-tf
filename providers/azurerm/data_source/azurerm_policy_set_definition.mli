@@ -17,7 +17,9 @@ type policy_definition_reference = {
   parameter_values : string prop;  (** parameter_values *)
   parameters : (string * string prop) list;  (** parameters *)
   policy_definition_id : string prop;  (** policy_definition_id *)
-  policy_group_names : string prop list;  (** policy_group_names *)
+  policy_group_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** policy_group_names *)
   reference_id : string prop;  (** reference_id *)
 }
 

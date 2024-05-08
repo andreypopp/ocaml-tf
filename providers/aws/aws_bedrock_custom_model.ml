@@ -108,6 +108,7 @@ let _ = yojson_of_validation_data_config__validator
 
 type validation_data_config = {
   validator : validation_data_config__validator list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -120,11 +121,15 @@ let yojson_of_validation_data_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_validation_data_config__validator
-             v_validator
-         in
-         ("validator", arg) :: bnds
+         if [] = v_validator then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_validation_data_config__validator)
+               v_validator
+           in
+           let bnd = "validator", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : validation_data_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -135,7 +140,9 @@ let _ = yojson_of_validation_data_config
 
 type vpc_config = {
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -151,20 +158,24 @@ let yojson_of_vpc_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vpc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -229,10 +240,14 @@ type aws_bedrock_custom_model = {
   role_arn : string prop;
   tags : (string * string prop) list option; [@option]
   output_data_config : output_data_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   training_data_config : training_data_config list;
+      [@default []] [@yojson_drop_default ( = )]
   validation_data_config : validation_data_config list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_config : vpc_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -259,35 +274,47 @@ let yojson_of_aws_bedrock_custom_model =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_config v_vpc_config
-         in
-         ("vpc_config", arg) :: bnds
+         if [] = v_vpc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_config) v_vpc_config
+           in
+           let bnd = "vpc_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_validation_data_config
-             v_validation_data_config
-         in
-         ("validation_data_config", arg) :: bnds
+         if [] = v_validation_data_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_validation_data_config)
+               v_validation_data_config
+           in
+           let bnd = "validation_data_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_training_data_config
-             v_training_data_config
-         in
-         ("training_data_config", arg) :: bnds
+         if [] = v_training_data_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_training_data_config)
+               v_training_data_config
+           in
+           let bnd = "training_data_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_output_data_config
-             v_output_data_config
-         in
-         ("output_data_config", arg) :: bnds
+         if [] = v_output_data_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_output_data_config)
+               v_output_data_config
+           in
+           let bnd = "output_data_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

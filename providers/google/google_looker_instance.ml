@@ -215,8 +215,11 @@ let _ = yojson_of_deny_maintenance_period__time
 
 type deny_maintenance_period = {
   end_date : deny_maintenance_period__end_date list;
+      [@default []] [@yojson_drop_default ( = )]
   start_date : deny_maintenance_period__start_date list;
+      [@default []] [@yojson_drop_default ( = )]
   time : deny_maintenance_period__time list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -233,26 +236,36 @@ let yojson_of_deny_maintenance_period =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_deny_maintenance_period__time
-             v_time
-         in
-         ("time", arg) :: bnds
+         if [] = v_time then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_deny_maintenance_period__time)
+               v_time
+           in
+           let bnd = "time", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deny_maintenance_period__start_date
-             v_start_date
-         in
-         ("start_date", arg) :: bnds
+         if [] = v_start_date then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deny_maintenance_period__start_date)
+               v_start_date
+           in
+           let bnd = "start_date", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_deny_maintenance_period__end_date
-             v_end_date
-         in
-         ("end_date", arg) :: bnds
+         if [] = v_end_date then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deny_maintenance_period__end_date)
+               v_end_date
+           in
+           let bnd = "end_date", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deny_maintenance_period -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -353,6 +366,7 @@ let _ = yojson_of_maintenance_window__start_time
 type maintenance_window = {
   day_of_week : string prop;
   start_time : maintenance_window__start_time list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -365,11 +379,14 @@ let yojson_of_maintenance_window =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_window__start_time
-             v_start_time
-         in
-         ("start_time", arg) :: bnds
+         if [] = v_start_time then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_window__start_time)
+               v_start_time
+           in
+           let bnd = "start_time", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_day_of_week in
@@ -520,13 +537,20 @@ type google_looker_instance = {
   region : string prop option; [@option]
   reserved_range : string prop option; [@option]
   admin_settings : admin_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_domain : custom_domain list;
+      [@default []] [@yojson_drop_default ( = )]
   deny_maintenance_period : deny_maintenance_period list;
+      [@default []] [@yojson_drop_default ( = )]
   encryption_config : encryption_config list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_window : maintenance_window list;
+      [@default []] [@yojson_drop_default ( = )]
   oauth_config : oauth_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   user_metadata : user_metadata list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -557,53 +581,75 @@ let yojson_of_google_looker_instance =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_user_metadata v_user_metadata
-         in
-         ("user_metadata", arg) :: bnds
+         if [] = v_user_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_user_metadata) v_user_metadata
+           in
+           let bnd = "user_metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_oauth_config v_oauth_config
-         in
-         ("oauth_config", arg) :: bnds
+         if [] = v_oauth_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_oauth_config) v_oauth_config
+           in
+           let bnd = "oauth_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_window
-             v_maintenance_window
-         in
-         ("maintenance_window", arg) :: bnds
+         if [] = v_maintenance_window then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_window)
+               v_maintenance_window
+           in
+           let bnd = "maintenance_window", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_config
-             v_encryption_config
-         in
-         ("encryption_config", arg) :: bnds
+         if [] = v_encryption_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_config)
+               v_encryption_config
+           in
+           let bnd = "encryption_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_deny_maintenance_period
-             v_deny_maintenance_period
-         in
-         ("deny_maintenance_period", arg) :: bnds
+         if [] = v_deny_maintenance_period then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_deny_maintenance_period)
+               v_deny_maintenance_period
+           in
+           let bnd = "deny_maintenance_period", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_domain v_custom_domain
-         in
-         ("custom_domain", arg) :: bnds
+         if [] = v_custom_domain then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_domain) v_custom_domain
+           in
+           let bnd = "custom_domain", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_admin_settings v_admin_settings
-         in
-         ("admin_settings", arg) :: bnds
+         if [] = v_admin_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_admin_settings)
+               v_admin_settings
+           in
+           let bnd = "admin_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_reserved_range with

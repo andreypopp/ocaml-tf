@@ -112,8 +112,11 @@ let _ = yojson_of_schema__partition_key
 
 type schema = {
   cluster_key : schema__cluster_key list;
+      [@default []] [@yojson_drop_default ( = )]
   column : schema__column list;
+      [@default []] [@yojson_drop_default ( = )]
   partition_key : schema__partition_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,23 +133,33 @@ let yojson_of_schema =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema__partition_key
-             v_partition_key
-         in
-         ("partition_key", arg) :: bnds
+         if [] = v_partition_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schema__partition_key)
+               v_partition_key
+           in
+           let bnd = "partition_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema__column v_column
-         in
-         ("column", arg) :: bnds
+         if [] = v_column then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schema__column) v_column
+           in
+           let bnd = "column", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema__cluster_key v_cluster_key
-         in
-         ("cluster_key", arg) :: bnds
+         if [] = v_cluster_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schema__cluster_key)
+               v_cluster_key
+           in
+           let bnd = "cluster_key", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : schema -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -223,7 +236,8 @@ type azurerm_cosmosdb_cassandra_table = {
   name : string prop;
   throughput : float prop option; [@option]
   autoscale_settings : autoscale_settings list;
-  schema : schema list;
+      [@default []] [@yojson_drop_default ( = )]
+  schema : schema list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -251,15 +265,21 @@ let yojson_of_azurerm_cosmosdb_cassandra_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_schema v_schema in
-         ("schema", arg) :: bnds
+         if [] = v_schema then bnds
+         else
+           let arg = (yojson_of_list yojson_of_schema) v_schema in
+           let bnd = "schema", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_autoscale_settings
-             v_autoscale_settings
-         in
-         ("autoscale_settings", arg) :: bnds
+         if [] = v_autoscale_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscale_settings)
+               v_autoscale_settings
+           in
+           let bnd = "autoscale_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_throughput with

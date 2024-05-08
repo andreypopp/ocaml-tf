@@ -108,6 +108,7 @@ type aws_elasticache_user = {
   user_id : string prop;
   user_name : string prop;
   authentication_mode : authentication_mode list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -137,11 +138,14 @@ let yojson_of_aws_elasticache_user =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authentication_mode
-             v_authentication_mode
-         in
-         ("authentication_mode", arg) :: bnds
+         if [] = v_authentication_mode then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authentication_mode)
+               v_authentication_mode
+           in
+           let bnd = "authentication_mode", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_user_name in

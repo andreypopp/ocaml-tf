@@ -76,6 +76,7 @@ type google_storage_transfer_agent_pool = {
   name : string prop;
   project : string prop option; [@option]
   bandwidth_limit : bandwidth_limit list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -100,10 +101,14 @@ let yojson_of_google_storage_transfer_agent_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bandwidth_limit v_bandwidth_limit
-         in
-         ("bandwidth_limit", arg) :: bnds
+         if [] = v_bandwidth_limit then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bandwidth_limit)
+               v_bandwidth_limit
+           in
+           let bnd = "bandwidth_limit", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

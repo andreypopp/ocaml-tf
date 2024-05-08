@@ -5,13 +5,16 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type image_scanning_configuration__ecr_configuration = {
-  container_tags : string prop list;  (** container_tags *)
+  container_tags : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** container_tags *)
   repository_name : string prop;  (** repository_name *)
 }
 
 type image_scanning_configuration = {
   ecr_configuration :
     image_scanning_configuration__ecr_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ecr_configuration *)
   image_scanning_enabled : bool prop;  (** image_scanning_enabled *)
 }
@@ -22,7 +25,9 @@ type image_tests_configuration = {
 }
 
 type output_resources__containers = {
-  image_uris : string prop list;  (** image_uris *)
+  image_uris : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** image_uris *)
   region : string prop;  (** region *)
 }
 
@@ -35,8 +40,12 @@ type output_resources__amis = {
 }
 
 type output_resources = {
-  amis : output_resources__amis list;  (** amis *)
-  containers : output_resources__containers list;  (** containers *)
+  amis : output_resources__amis list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** amis *)
+  containers : output_resources__containers list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** containers *)
 }
 
 type aws_imagebuilder_image

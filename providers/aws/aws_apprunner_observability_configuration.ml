@@ -34,6 +34,7 @@ type aws_apprunner_observability_configuration = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   trace_configuration : trace_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,11 +54,14 @@ let yojson_of_aws_apprunner_observability_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trace_configuration
-             v_trace_configuration
-         in
-         ("trace_configuration", arg) :: bnds
+         if [] = v_trace_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trace_configuration)
+               v_trace_configuration
+           in
+           let bnd = "trace_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

@@ -10,7 +10,12 @@ type access_config = {
 
 type certificate_authority = { data : string prop  (** data *) }
 type identity__oidc = { issuer : string prop  (** issuer *) }
-type identity = { oidc : identity__oidc list  (** oidc *) }
+
+type identity = {
+  oidc : identity__oidc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** oidc *)
+}
 
 type kubernetes_network_config = {
   ip_family : string prop;  (** ip_family *)
@@ -27,8 +32,11 @@ type outpost_config = {
       (** control_plane_instance_type *)
   control_plane_placement :
     outpost_config__control_plane_placement list;
+      [@default []] [@yojson_drop_default ( = )]
       (** control_plane_placement *)
-  outpost_arns : string prop list;  (** outpost_arns *)
+  outpost_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** outpost_arns *)
 }
 
 type vpc_config = {
@@ -37,9 +45,15 @@ type vpc_config = {
   endpoint_private_access : bool prop;
       (** endpoint_private_access *)
   endpoint_public_access : bool prop;  (** endpoint_public_access *)
-  public_access_cidrs : string prop list;  (** public_access_cidrs *)
-  security_group_ids : string prop list;  (** security_group_ids *)
-  subnet_ids : string prop list;  (** subnet_ids *)
+  public_access_cidrs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** public_access_cidrs *)
+  security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** security_group_ids *)
+  subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }
 

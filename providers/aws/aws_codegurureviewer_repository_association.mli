@@ -14,6 +14,7 @@ type s3_repository_details__code_artifacts = {
 type s3_repository_details = {
   bucket_name : string prop;  (** bucket_name *)
   code_artifacts : s3_repository_details__code_artifacts list;
+      [@default []] [@yojson_drop_default ( = )]
       (** code_artifacts *)
 }
 

@@ -177,9 +177,13 @@ type google_data_fusion_instance = {
   version : string prop option; [@option]
   zone : string prop option; [@option]
   accelerators : accelerators list;
+      [@default []] [@yojson_drop_default ( = )]
   crypto_key_config : crypto_key_config list;
+      [@default []] [@yojson_drop_default ( = )]
   event_publish_config : event_publish_config list;
+      [@default []] [@yojson_drop_default ( = )]
   network_config : network_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -220,30 +224,43 @@ let yojson_of_google_data_fusion_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_config v_network_config
-         in
-         ("network_config", arg) :: bnds
+         if [] = v_network_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_config)
+               v_network_config
+           in
+           let bnd = "network_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_publish_config
-             v_event_publish_config
-         in
-         ("event_publish_config", arg) :: bnds
+         if [] = v_event_publish_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_publish_config)
+               v_event_publish_config
+           in
+           let bnd = "event_publish_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_crypto_key_config
-             v_crypto_key_config
-         in
-         ("crypto_key_config", arg) :: bnds
+         if [] = v_crypto_key_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_crypto_key_config)
+               v_crypto_key_config
+           in
+           let bnd = "crypto_key_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_accelerators v_accelerators
-         in
-         ("accelerators", arg) :: bnds
+         if [] = v_accelerators then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_accelerators) v_accelerators
+           in
+           let bnd = "accelerators", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with

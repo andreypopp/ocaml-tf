@@ -126,7 +126,9 @@ type azurerm_nginx_configuration = {
   package_data : string prop option; [@option]
   root_file : string prop;
   config_file : config_file list;
+      [@default []] [@yojson_drop_default ( = )]
   protected_file : protected_file list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -152,16 +154,23 @@ let yojson_of_azurerm_nginx_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_protected_file v_protected_file
-         in
-         ("protected_file", arg) :: bnds
+         if [] = v_protected_file then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_protected_file)
+               v_protected_file
+           in
+           let bnd = "protected_file", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config_file v_config_file
-         in
-         ("config_file", arg) :: bnds
+         if [] = v_config_file then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config_file) v_config_file
+           in
+           let bnd = "config_file", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_root_file in

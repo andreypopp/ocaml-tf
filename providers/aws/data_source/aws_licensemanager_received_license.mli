@@ -18,9 +18,11 @@ type consumption_configuration__borrow_configuration = {
 type consumption_configuration = {
   borrow_configuration :
     consumption_configuration__borrow_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** borrow_configuration *)
   provisional_configuration :
     consumption_configuration__provisional_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** provisional_configuration *)
   renew_type : string prop;  (** renew_type *)
 }
@@ -45,7 +47,9 @@ type license_metadata = {
 }
 
 type received_metadata = {
-  allowed_operations : string prop list;  (** allowed_operations *)
+  allowed_operations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allowed_operations *)
   received_status : string prop;  (** received_status *)
   received_status_reason : string prop;  (** received_status_reason *)
 }

@@ -4,6 +4,7 @@ open! Tf_core
 
 type endpoint_configuration = {
   types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_endpoint_ids : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -27,10 +28,14 @@ let yojson_of_endpoint_configuration =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_types
-         in
-         ("types", arg) :: bnds
+         if [] = v_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_types
+           in
+           let bnd = "types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : endpoint_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -55,6 +60,7 @@ type aws_api_gateway_rest_api = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   endpoint_configuration : endpoint_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -83,11 +89,14 @@ let yojson_of_aws_api_gateway_rest_api =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint_configuration
-             v_endpoint_configuration
-         in
-         ("endpoint_configuration", arg) :: bnds
+         if [] = v_endpoint_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint_configuration)
+               v_endpoint_configuration
+           in
+           let bnd = "endpoint_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

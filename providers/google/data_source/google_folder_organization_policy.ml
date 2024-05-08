@@ -27,6 +27,7 @@ let _ = yojson_of_boolean_policy
 type list_policy__deny = {
   all : bool prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39,10 +40,14 @@ let yojson_of_list_policy__deny =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_all in
@@ -58,6 +63,7 @@ let _ = yojson_of_list_policy__deny
 type list_policy__allow = {
   all : bool prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,10 +76,14 @@ let yojson_of_list_policy__allow =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_all in
@@ -88,7 +98,9 @@ let _ = yojson_of_list_policy__allow
 
 type list_policy = {
   allow : list_policy__allow list;
+      [@default []] [@yojson_drop_default ( = )]
   deny : list_policy__deny list;
+      [@default []] [@yojson_drop_default ( = )]
   inherit_from_parent : bool prop;
   suggested_value : string prop;
 }
@@ -120,16 +132,22 @@ let yojson_of_list_policy =
          ("inherit_from_parent", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_list_policy__deny v_deny
-         in
-         ("deny", arg) :: bnds
+         if [] = v_deny then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_list_policy__deny) v_deny
+           in
+           let bnd = "deny", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_list_policy__allow v_allow
-         in
-         ("allow", arg) :: bnds
+         if [] = v_allow then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_list_policy__allow) v_allow
+           in
+           let bnd = "allow", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : list_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)

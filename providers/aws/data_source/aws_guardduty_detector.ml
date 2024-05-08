@@ -34,6 +34,7 @@ let _ = yojson_of_features__additional_configuration
 
 type features = {
   additional_configuration : features__additional_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   status : string prop;
 }
@@ -60,12 +61,15 @@ let yojson_of_features =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_features__additional_configuration
-             v_additional_configuration
-         in
-         ("additional_configuration", arg) :: bnds
+         if [] = v_additional_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_features__additional_configuration)
+               v_additional_configuration
+           in
+           let bnd = "additional_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : features -> Ppx_yojson_conv_lib.Yojson.Safe.t)

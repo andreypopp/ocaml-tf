@@ -248,9 +248,12 @@ let _ = yojson_of_notebook__infrastructure_spec__vpc_network
 
 type notebook__infrastructure_spec = {
   batch : notebook__infrastructure_spec__batch list;
+      [@default []] [@yojson_drop_default ( = )]
   container_image :
     notebook__infrastructure_spec__container_image list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_network : notebook__infrastructure_spec__vpc_network list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -267,27 +270,37 @@ let yojson_of_notebook__infrastructure_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_notebook__infrastructure_spec__vpc_network
-             v_vpc_network
-         in
-         ("vpc_network", arg) :: bnds
+         if [] = v_vpc_network then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_notebook__infrastructure_spec__vpc_network)
+               v_vpc_network
+           in
+           let bnd = "vpc_network", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_notebook__infrastructure_spec__container_image
-             v_container_image
-         in
-         ("container_image", arg) :: bnds
+         if [] = v_container_image then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_notebook__infrastructure_spec__container_image)
+               v_container_image
+           in
+           let bnd = "container_image", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_notebook__infrastructure_spec__batch v_batch
-         in
-         ("batch", arg) :: bnds
+         if [] = v_batch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_notebook__infrastructure_spec__batch)
+               v_batch
+           in
+           let bnd = "batch", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : notebook__infrastructure_spec ->
@@ -302,6 +315,7 @@ type notebook = {
   file_uris : string prop list option; [@option]
   notebook : string prop;
   infrastructure_spec : notebook__infrastructure_spec list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -319,11 +333,14 @@ let yojson_of_notebook =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_notebook__infrastructure_spec
-             v_infrastructure_spec
-         in
-         ("infrastructure_spec", arg) :: bnds
+         if [] = v_infrastructure_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notebook__infrastructure_spec)
+               v_infrastructure_spec
+           in
+           let bnd = "infrastructure_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_notebook in
@@ -525,8 +542,11 @@ let _ = yojson_of_spark__infrastructure_spec__vpc_network
 
 type spark__infrastructure_spec = {
   batch : spark__infrastructure_spec__batch list;
+      [@default []] [@yojson_drop_default ( = )]
   container_image : spark__infrastructure_spec__container_image list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_network : spark__infrastructure_spec__vpc_network list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -543,27 +563,37 @@ let yojson_of_spark__infrastructure_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spark__infrastructure_spec__vpc_network
-             v_vpc_network
-         in
-         ("vpc_network", arg) :: bnds
+         if [] = v_vpc_network then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spark__infrastructure_spec__vpc_network)
+               v_vpc_network
+           in
+           let bnd = "vpc_network", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spark__infrastructure_spec__container_image
-             v_container_image
-         in
-         ("container_image", arg) :: bnds
+         if [] = v_container_image then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spark__infrastructure_spec__container_image)
+               v_container_image
+           in
+           let bnd = "container_image", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spark__infrastructure_spec__batch
-             v_batch
-         in
-         ("batch", arg) :: bnds
+         if [] = v_batch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spark__infrastructure_spec__batch)
+               v_batch
+           in
+           let bnd = "batch", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spark__infrastructure_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -581,6 +611,7 @@ type spark = {
   sql_script : string prop option; [@option]
   sql_script_file : string prop option; [@option]
   infrastructure_spec : spark__infrastructure_spec list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -602,11 +633,14 @@ let yojson_of_spark =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spark__infrastructure_spec
-             v_infrastructure_spec
-         in
-         ("infrastructure_spec", arg) :: bnds
+         if [] = v_infrastructure_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spark__infrastructure_spec)
+               v_infrastructure_spec
+           in
+           let bnd = "infrastructure_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_sql_script_file with
@@ -864,6 +898,7 @@ let _ = yojson_of_execution_status__latest_job
 
 type execution_status = {
   latest_job : execution_status__latest_job list;
+      [@default []] [@yojson_drop_default ( = )]
   update_time : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -881,11 +916,14 @@ let yojson_of_execution_status =
          ("update_time", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_execution_status__latest_job
-             v_latest_job
-         in
-         ("latest_job", arg) :: bnds
+         if [] = v_latest_job then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_execution_status__latest_job)
+               v_latest_job
+           in
+           let bnd = "latest_job", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : execution_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -904,10 +942,13 @@ type google_dataplex_task = {
   project : string prop option; [@option]
   task_id : string prop option; [@option]
   execution_spec : execution_spec list;
+      [@default []] [@yojson_drop_default ( = )]
   notebook : notebook list;
-  spark : spark list;
+      [@default []] [@yojson_drop_default ( = )]
+  spark : spark list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   trigger_spec : trigger_spec list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -934,28 +975,43 @@ let yojson_of_google_dataplex_task =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trigger_spec v_trigger_spec
-         in
-         ("trigger_spec", arg) :: bnds
+         if [] = v_trigger_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trigger_spec) v_trigger_spec
+           in
+           let bnd = "trigger_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spark v_spark in
-         ("spark", arg) :: bnds
+         if [] = v_spark then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spark) v_spark in
+           let bnd = "spark", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_notebook v_notebook in
-         ("notebook", arg) :: bnds
+         if [] = v_notebook then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_notebook) v_notebook
+           in
+           let bnd = "notebook", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_execution_spec v_execution_spec
-         in
-         ("execution_spec", arg) :: bnds
+         if [] = v_execution_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_execution_spec)
+               v_execution_spec
+           in
+           let bnd = "execution_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_task_id with

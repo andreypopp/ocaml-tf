@@ -448,6 +448,7 @@ type linux_os_config = {
   transparent_huge_page_defrag : string prop option; [@option]
   transparent_huge_page_enabled : string prop option; [@option]
   sysctl_config : linux_os_config__sysctl_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -466,11 +467,14 @@ let yojson_of_linux_os_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_linux_os_config__sysctl_config
-             v_sysctl_config
-         in
-         ("sysctl_config", arg) :: bnds
+         if [] = v_sysctl_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_linux_os_config__sysctl_config)
+               v_sysctl_config
+           in
+           let bnd = "sysctl_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_transparent_huge_page_enabled with
@@ -558,6 +562,7 @@ type node_network_profile = {
   application_security_group_ids : string prop list option; [@option]
   node_public_ip_tags : (string * string prop) list option; [@option]
   allowed_host_ports : node_network_profile__allowed_host_ports list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -575,12 +580,15 @@ let yojson_of_node_network_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_node_network_profile__allowed_host_ports
-             v_allowed_host_ports
-         in
-         ("allowed_host_ports", arg) :: bnds
+         if [] = v_allowed_host_ports then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_node_network_profile__allowed_host_ports)
+               v_allowed_host_ports
+           in
+           let bnd = "allowed_host_ports", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_node_public_ip_tags with
@@ -766,11 +774,16 @@ type azurerm_kubernetes_cluster_node_pool = {
   workload_runtime : string prop option; [@option]
   zones : string prop list option; [@option]
   kubelet_config : kubelet_config list;
+      [@default []] [@yojson_drop_default ( = )]
   linux_os_config : linux_os_config list;
+      [@default []] [@yojson_drop_default ( = )]
   node_network_profile : node_network_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   upgrade_settings : upgrade_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   windows_profile : windows_profile list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -830,40 +843,58 @@ let yojson_of_azurerm_kubernetes_cluster_node_pool =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_windows_profile v_windows_profile
-         in
-         ("windows_profile", arg) :: bnds
+         if [] = v_windows_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_windows_profile)
+               v_windows_profile
+           in
+           let bnd = "windows_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_upgrade_settings
-             v_upgrade_settings
-         in
-         ("upgrade_settings", arg) :: bnds
+         if [] = v_upgrade_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_upgrade_settings)
+               v_upgrade_settings
+           in
+           let bnd = "upgrade_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_network_profile
-             v_node_network_profile
-         in
-         ("node_network_profile", arg) :: bnds
+         if [] = v_node_network_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_network_profile)
+               v_node_network_profile
+           in
+           let bnd = "node_network_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_linux_os_config v_linux_os_config
-         in
-         ("linux_os_config", arg) :: bnds
+         if [] = v_linux_os_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_linux_os_config)
+               v_linux_os_config
+           in
+           let bnd = "linux_os_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kubelet_config v_kubelet_config
-         in
-         ("kubelet_config", arg) :: bnds
+         if [] = v_kubelet_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kubelet_config)
+               v_kubelet_config
+           in
+           let bnd = "kubelet_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with

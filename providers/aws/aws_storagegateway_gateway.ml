@@ -198,7 +198,9 @@ type aws_storagegateway_gateway = {
   tags_all : (string * string prop) list option; [@option]
   tape_drive_type : string prop option; [@option]
   maintenance_start_time : maintenance_start_time list;
+      [@default []] [@yojson_drop_default ( = )]
   smb_active_directory_settings : smb_active_directory_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -240,18 +242,24 @@ let yojson_of_aws_storagegateway_gateway =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_smb_active_directory_settings
-             v_smb_active_directory_settings
-         in
-         ("smb_active_directory_settings", arg) :: bnds
+         if [] = v_smb_active_directory_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_smb_active_directory_settings)
+               v_smb_active_directory_settings
+           in
+           let bnd = "smb_active_directory_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_start_time
-             v_maintenance_start_time
-         in
-         ("maintenance_start_time", arg) :: bnds
+         if [] = v_maintenance_start_time then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_start_time)
+               v_maintenance_start_time
+           in
+           let bnd = "maintenance_start_time", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tape_drive_type with

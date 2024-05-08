@@ -46,7 +46,10 @@ let _ = yojson_of_endpoint__gke_cluster
 
 [@@@deriving.end]
 
-type endpoint = { gke_cluster : endpoint__gke_cluster list }
+type endpoint = {
+  gke_cluster : endpoint__gke_cluster list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : endpoint) -> ()
@@ -58,11 +61,14 @@ let yojson_of_endpoint =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint__gke_cluster
-             v_gke_cluster
-         in
-         ("gke_cluster", arg) :: bnds
+         if [] = v_gke_cluster then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint__gke_cluster)
+               v_gke_cluster
+           in
+           let bnd = "gke_cluster", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -124,7 +130,9 @@ type google_gke_hub_membership = {
   membership_id : string prop;
   project : string prop option; [@option]
   authority : authority list;
+      [@default []] [@yojson_drop_default ( = )]
   endpoint : endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -151,12 +159,22 @@ let yojson_of_google_gke_hub_membership =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_endpoint v_endpoint in
-         ("endpoint", arg) :: bnds
+         if [] = v_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint) v_endpoint
+           in
+           let bnd = "endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_authority v_authority in
-         ("authority", arg) :: bnds
+         if [] = v_authority then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authority) v_authority
+           in
+           let bnd = "authority", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

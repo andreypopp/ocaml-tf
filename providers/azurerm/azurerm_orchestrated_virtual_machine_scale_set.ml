@@ -247,6 +247,7 @@ type extension = {
   type_handler_version : string prop;
   protected_settings_from_key_vault :
     extension__protected_settings_from_key_vault list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -275,12 +276,15 @@ let yojson_of_extension =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_extension__protected_settings_from_key_vault
-             v_protected_settings_from_key_vault
-         in
-         ("protected_settings_from_key_vault", arg) :: bnds
+         if [] = v_protected_settings_from_key_vault then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_extension__protected_settings_from_key_vault)
+               v_protected_settings_from_key_vault
+           in
+           let bnd = "protected_settings_from_key_vault", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -361,6 +365,7 @@ let _ = yojson_of_extension
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -378,12 +383,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -437,6 +444,7 @@ type network_interface__ip_configuration__public_ip_address = {
   ip_tag :
     network_interface__ip_configuration__public_ip_address__ip_tag
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -460,12 +468,15 @@ let yojson_of_network_interface__ip_configuration__public_ip_address
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_interface__ip_configuration__public_ip_address__ip_tag
-             v_ip_tag
-         in
-         ("ip_tag", arg) :: bnds
+         if [] = v_ip_tag then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_interface__ip_configuration__public_ip_address__ip_tag)
+               v_ip_tag
+           in
+           let bnd = "ip_tag", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -533,6 +544,7 @@ type network_interface__ip_configuration = {
   version : string prop option; [@option]
   public_ip_address :
     network_interface__ip_configuration__public_ip_address list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -557,12 +569,15 @@ let yojson_of_network_interface__ip_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_interface__ip_configuration__public_ip_address
-             v_public_ip_address
-         in
-         ("public_ip_address", arg) :: bnds
+         if [] = v_public_ip_address then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_interface__ip_configuration__public_ip_address)
+               v_public_ip_address
+           in
+           let bnd = "public_ip_address", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -642,6 +657,7 @@ type network_interface = {
   network_security_group_id : string prop option; [@option]
   primary : bool prop option; [@option]
   ip_configuration : network_interface__ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -663,12 +679,15 @@ let yojson_of_network_interface =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_interface__ip_configuration
-             v_ip_configuration
-         in
-         ("ip_configuration", arg) :: bnds
+         if [] = v_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_interface__ip_configuration)
+               v_ip_configuration
+           in
+           let bnd = "ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_primary with
@@ -764,6 +783,7 @@ type os_disk = {
   storage_account_type : string prop;
   write_accelerator_enabled : bool prop option; [@option]
   diff_disk_settings : os_disk__diff_disk_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -783,11 +803,14 @@ let yojson_of_os_disk =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_os_disk__diff_disk_settings
-             v_diff_disk_settings
-         in
-         ("diff_disk_settings", arg) :: bnds
+         if [] = v_diff_disk_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_os_disk__diff_disk_settings)
+               v_diff_disk_settings
+           in
+           let bnd = "diff_disk_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_write_accelerator_enabled with
@@ -892,6 +915,7 @@ type os_profile__linux_configuration__secret = {
   key_vault_id : string prop;
   certificate :
     os_profile__linux_configuration__secret__certificate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -905,12 +929,15 @@ let yojson_of_os_profile__linux_configuration__secret =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_os_profile__linux_configuration__secret__certificate
-             v_certificate
-         in
-         ("certificate", arg) :: bnds
+         if [] = v_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_os_profile__linux_configuration__secret__certificate)
+               v_certificate
+           in
+           let bnd = "certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key_vault_id in
@@ -934,7 +961,9 @@ type os_profile__linux_configuration = {
   provision_vm_agent : bool prop option; [@option]
   admin_ssh_key :
     os_profile__linux_configuration__admin_ssh_key list;
+      [@default []] [@yojson_drop_default ( = )]
   secret : os_profile__linux_configuration__secret list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -958,20 +987,26 @@ let yojson_of_os_profile__linux_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_os_profile__linux_configuration__secret
-             v_secret
-         in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_os_profile__linux_configuration__secret)
+               v_secret
+           in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_os_profile__linux_configuration__admin_ssh_key
-             v_admin_ssh_key
-         in
-         ("admin_ssh_key", arg) :: bnds
+         if [] = v_admin_ssh_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_os_profile__linux_configuration__admin_ssh_key)
+               v_admin_ssh_key
+           in
+           let bnd = "admin_ssh_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_provision_vm_agent with
@@ -1108,6 +1143,7 @@ type os_profile__windows_configuration__secret = {
   key_vault_id : string prop;
   certificate :
     os_profile__windows_configuration__secret__certificate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1121,12 +1157,15 @@ let yojson_of_os_profile__windows_configuration__secret =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_os_profile__windows_configuration__secret__certificate
-             v_certificate
-         in
-         ("certificate", arg) :: bnds
+         if [] = v_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_os_profile__windows_configuration__secret__certificate)
+               v_certificate
+           in
+           let bnd = "certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key_vault_id in
@@ -1189,9 +1228,12 @@ type os_profile__windows_configuration = {
   additional_unattend_content :
     os_profile__windows_configuration__additional_unattend_content
     list;
+      [@default []] [@yojson_drop_default ( = )]
   secret : os_profile__windows_configuration__secret list;
+      [@default []] [@yojson_drop_default ( = )]
   winrm_listener :
     os_profile__windows_configuration__winrm_listener list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1217,28 +1259,37 @@ let yojson_of_os_profile__windows_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_os_profile__windows_configuration__winrm_listener
-             v_winrm_listener
-         in
-         ("winrm_listener", arg) :: bnds
+         if [] = v_winrm_listener then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_os_profile__windows_configuration__winrm_listener)
+               v_winrm_listener
+           in
+           let bnd = "winrm_listener", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_os_profile__windows_configuration__secret
-             v_secret
-         in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_os_profile__windows_configuration__secret)
+               v_secret
+           in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_os_profile__windows_configuration__additional_unattend_content
-             v_additional_unattend_content
-         in
-         ("additional_unattend_content", arg) :: bnds
+         if [] = v_additional_unattend_content then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_os_profile__windows_configuration__additional_unattend_content)
+               v_additional_unattend_content
+           in
+           let bnd = "additional_unattend_content", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timezone with
@@ -1319,7 +1370,9 @@ let _ = yojson_of_os_profile__windows_configuration
 type os_profile = {
   custom_data : string prop option; [@option]
   linux_configuration : os_profile__linux_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   windows_configuration : os_profile__windows_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1336,18 +1389,26 @@ let yojson_of_os_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_os_profile__windows_configuration
-             v_windows_configuration
-         in
-         ("windows_configuration", arg) :: bnds
+         if [] = v_windows_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_os_profile__windows_configuration)
+               v_windows_configuration
+           in
+           let bnd = "windows_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_os_profile__linux_configuration
-             v_linux_configuration
-         in
-         ("linux_configuration", arg) :: bnds
+         if [] = v_linux_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_os_profile__linux_configuration)
+               v_linux_configuration
+           in
+           let bnd = "linux_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_custom_data with
@@ -1601,18 +1662,29 @@ type azurerm_orchestrated_virtual_machine_scale_set = {
   zone_balance : bool prop option; [@option]
   zones : string prop list option; [@option]
   additional_capabilities : additional_capabilities list;
+      [@default []] [@yojson_drop_default ( = )]
   automatic_instance_repair : automatic_instance_repair list;
+      [@default []] [@yojson_drop_default ( = )]
   boot_diagnostics : boot_diagnostics list;
+      [@default []] [@yojson_drop_default ( = )]
   data_disk : data_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   extension : extension list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   network_interface : network_interface list;
-  os_disk : os_disk list;
+      [@default []] [@yojson_drop_default ( = )]
+  os_disk : os_disk list; [@default []] [@yojson_drop_default ( = )]
   os_profile : os_profile list;
-  plan : plan list;
+      [@default []] [@yojson_drop_default ( = )]
+  plan : plan list; [@default []] [@yojson_drop_default ( = )]
   priority_mix : priority_mix list;
+      [@default []] [@yojson_drop_default ( = )]
   source_image_reference : source_image_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   termination_notification : termination_notification list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1669,78 +1741,123 @@ let yojson_of_azurerm_orchestrated_virtual_machine_scale_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_termination_notification
-             v_termination_notification
-         in
-         ("termination_notification", arg) :: bnds
+         if [] = v_termination_notification then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_termination_notification)
+               v_termination_notification
+           in
+           let bnd = "termination_notification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_image_reference
-             v_source_image_reference
-         in
-         ("source_image_reference", arg) :: bnds
+         if [] = v_source_image_reference then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_image_reference)
+               v_source_image_reference
+           in
+           let bnd = "source_image_reference", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_priority_mix v_priority_mix
-         in
-         ("priority_mix", arg) :: bnds
+         if [] = v_priority_mix then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_priority_mix) v_priority_mix
+           in
+           let bnd = "priority_mix", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_plan v_plan in
-         ("plan", arg) :: bnds
+         if [] = v_plan then bnds
+         else
+           let arg = (yojson_of_list yojson_of_plan) v_plan in
+           let bnd = "plan", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_os_profile v_os_profile
-         in
-         ("os_profile", arg) :: bnds
+         if [] = v_os_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_os_profile) v_os_profile
+           in
+           let bnd = "os_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_os_disk v_os_disk in
-         ("os_disk", arg) :: bnds
+         if [] = v_os_disk then bnds
+         else
+           let arg = (yojson_of_list yojson_of_os_disk) v_os_disk in
+           let bnd = "os_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_interface
-             v_network_interface
-         in
-         ("network_interface", arg) :: bnds
+         if [] = v_network_interface then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_interface)
+               v_network_interface
+           in
+           let bnd = "network_interface", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_extension v_extension in
-         ("extension", arg) :: bnds
+         if [] = v_extension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_extension) v_extension
+           in
+           let bnd = "extension", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_data_disk v_data_disk in
-         ("data_disk", arg) :: bnds
+         if [] = v_data_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_disk) v_data_disk
+           in
+           let bnd = "data_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_boot_diagnostics
-             v_boot_diagnostics
-         in
-         ("boot_diagnostics", arg) :: bnds
+         if [] = v_boot_diagnostics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_boot_diagnostics)
+               v_boot_diagnostics
+           in
+           let bnd = "boot_diagnostics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_automatic_instance_repair
-             v_automatic_instance_repair
-         in
-         ("automatic_instance_repair", arg) :: bnds
+         if [] = v_automatic_instance_repair then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_automatic_instance_repair)
+               v_automatic_instance_repair
+           in
+           let bnd = "automatic_instance_repair", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_additional_capabilities
-             v_additional_capabilities
-         in
-         ("additional_capabilities", arg) :: bnds
+         if [] = v_additional_capabilities then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_additional_capabilities)
+               v_additional_capabilities
+           in
+           let bnd = "additional_capabilities", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with

@@ -148,9 +148,11 @@ let _ = yojson_of_images__data_disk
 
 type images = {
   data_disk : images__data_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   location : string prop;
   name : string prop;
   os_disk : images__os_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list;
   zone_resilient : bool prop;
 }
@@ -188,10 +190,13 @@ let yojson_of_images =
          ("tags", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_images__os_disk v_os_disk
-         in
-         ("os_disk", arg) :: bnds
+         if [] = v_os_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_images__os_disk) v_os_disk
+           in
+           let bnd = "os_disk", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -202,10 +207,13 @@ let yojson_of_images =
          ("location", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_images__data_disk v_data_disk
-         in
-         ("data_disk", arg) :: bnds
+         if [] = v_data_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_images__data_disk) v_data_disk
+           in
+           let bnd = "data_disk", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : images -> Ppx_yojson_conv_lib.Yojson.Safe.t)

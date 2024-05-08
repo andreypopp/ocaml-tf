@@ -74,6 +74,7 @@ type closing_setting__closing_response__message_group__message__image_response_c
   button :
     closing_setting__closing_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,12 +96,15 @@ let yojson_of_closing_setting__closing_response__message_group__message__image_r
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -195,15 +199,19 @@ type closing_setting__closing_response__message_group__message = {
   custom_payload :
     closing_setting__closing_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     closing_setting__closing_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     closing_setting__closing_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     closing_setting__closing_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -224,36 +232,48 @@ let yojson_of_closing_setting__closing_response__message_group__message
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : closing_setting__closing_response__message_group__message ->
@@ -336,6 +356,7 @@ type closing_setting__closing_response__message_group__variation__image_response
   button :
     closing_setting__closing_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -357,12 +378,15 @@ let yojson_of_closing_setting__closing_response__message_group__variation__image
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -457,15 +481,19 @@ type closing_setting__closing_response__message_group__variation = {
   custom_payload :
     closing_setting__closing_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     closing_setting__closing_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     closing_setting__closing_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     closing_setting__closing_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -487,36 +515,48 @@ let yojson_of_closing_setting__closing_response__message_group__variation
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : closing_setting__closing_response__message_group__variation ->
@@ -530,8 +570,10 @@ let _ =
 type closing_setting__closing_response__message_group = {
   message :
     closing_setting__closing_response__message_group__message list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     closing_setting__closing_response__message_group__variation list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -545,20 +587,26 @@ let yojson_of_closing_setting__closing_response__message_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : closing_setting__closing_response__message_group ->
@@ -572,6 +620,7 @@ type closing_setting__closing_response = {
   allow_interrupt : bool prop option; [@option]
   message_group :
     closing_setting__closing_response__message_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -587,12 +636,15 @@ let yojson_of_closing_setting__closing_response =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__closing_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -734,6 +786,7 @@ type closing_setting__conditional__conditional_branch__next_step__intent__slot =
   value :
     closing_setting__conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -754,12 +807,15 @@ let yojson_of_closing_setting__conditional__conditional_branch__next_step__inten
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -787,6 +843,7 @@ type closing_setting__conditional__conditional_branch__next_step__intent = {
   slot :
     closing_setting__conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -803,12 +860,15 @@ let yojson_of_closing_setting__conditional__conditional_branch__next_step__inten
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -832,9 +892,11 @@ type closing_setting__conditional__conditional_branch__next_step = {
   dialog_action :
     closing_setting__conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     closing_setting__conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -855,20 +917,26 @@ let yojson_of_closing_setting__conditional__conditional_branch__next_step
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -967,6 +1035,7 @@ type closing_setting__conditional__conditional_branch__response__message_group__
   button :
     closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -988,12 +1057,15 @@ let yojson_of_closing_setting__conditional__conditional_branch__response__messag
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -1088,15 +1160,19 @@ type closing_setting__conditional__conditional_branch__response__message_group__
   custom_payload :
     closing_setting__conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     closing_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     closing_setting__conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1118,36 +1194,48 @@ let yojson_of_closing_setting__conditional__conditional_branch__response__messag
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : closing_setting__conditional__conditional_branch__response__message_group__message ->
@@ -1230,6 +1318,7 @@ type closing_setting__conditional__conditional_branch__response__message_group__
   button :
     closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1251,12 +1340,15 @@ let yojson_of_closing_setting__conditional__conditional_branch__response__messag
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -1351,15 +1443,19 @@ type closing_setting__conditional__conditional_branch__response__message_group__
   custom_payload :
     closing_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     closing_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     closing_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1381,36 +1477,48 @@ let yojson_of_closing_setting__conditional__conditional_branch__response__messag
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : closing_setting__conditional__conditional_branch__response__message_group__variation ->
@@ -1425,9 +1533,11 @@ type closing_setting__conditional__conditional_branch__response__message_group =
   message :
     closing_setting__conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     closing_setting__conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1444,20 +1554,26 @@ let yojson_of_closing_setting__conditional__conditional_branch__response__messag
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : closing_setting__conditional__conditional_branch__response__message_group ->
@@ -1473,6 +1589,7 @@ type closing_setting__conditional__conditional_branch__response = {
   message_group :
     closing_setting__conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1491,12 +1608,15 @@ let yojson_of_closing_setting__conditional__conditional_branch__response
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -1519,10 +1639,13 @@ type closing_setting__conditional__conditional_branch = {
   name : string prop;
   condition :
     closing_setting__conditional__conditional_branch__condition list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     closing_setting__conditional__conditional_branch__next_step list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     closing_setting__conditional__conditional_branch__response list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1541,28 +1664,37 @@ let yojson_of_closing_setting__conditional__conditional_branch =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1668,6 +1800,7 @@ type closing_setting__conditional__default_branch__next_step__intent__slot = {
   value :
     closing_setting__conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1688,12 +1821,15 @@ let yojson_of_closing_setting__conditional__default_branch__next_step__intent__s
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -1721,6 +1857,7 @@ type closing_setting__conditional__default_branch__next_step__intent = {
   slot :
     closing_setting__conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1737,12 +1874,15 @@ let yojson_of_closing_setting__conditional__default_branch__next_step__intent
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -1766,9 +1906,11 @@ type closing_setting__conditional__default_branch__next_step = {
   dialog_action :
     closing_setting__conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     closing_setting__conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1788,20 +1930,26 @@ let yojson_of_closing_setting__conditional__default_branch__next_step
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -1900,6 +2048,7 @@ type closing_setting__conditional__default_branch__response__message_group__mess
   button :
     closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1921,12 +2070,15 @@ let yojson_of_closing_setting__conditional__default_branch__response__message_gr
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -2021,15 +2173,19 @@ type closing_setting__conditional__default_branch__response__message_group__mess
   custom_payload :
     closing_setting__conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     closing_setting__conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     closing_setting__conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     closing_setting__conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2051,36 +2207,48 @@ let yojson_of_closing_setting__conditional__default_branch__response__message_gr
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : closing_setting__conditional__default_branch__response__message_group__message ->
@@ -2163,6 +2331,7 @@ type closing_setting__conditional__default_branch__response__message_group__vari
   button :
     closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2184,12 +2353,15 @@ let yojson_of_closing_setting__conditional__default_branch__response__message_gr
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -2284,15 +2456,19 @@ type closing_setting__conditional__default_branch__response__message_group__vari
   custom_payload :
     closing_setting__conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     closing_setting__conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     closing_setting__conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     closing_setting__conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2314,36 +2490,48 @@ let yojson_of_closing_setting__conditional__default_branch__response__message_gr
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : closing_setting__conditional__default_branch__response__message_group__variation ->
@@ -2358,9 +2546,11 @@ type closing_setting__conditional__default_branch__response__message_group = {
   message :
     closing_setting__conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     closing_setting__conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2377,20 +2567,26 @@ let yojson_of_closing_setting__conditional__default_branch__response__message_gr
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : closing_setting__conditional__default_branch__response__message_group ->
@@ -2406,6 +2602,7 @@ type closing_setting__conditional__default_branch__response = {
   message_group :
     closing_setting__conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2424,12 +2621,15 @@ let yojson_of_closing_setting__conditional__default_branch__response
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -2451,8 +2651,10 @@ let _ =
 type closing_setting__conditional__default_branch = {
   next_step :
     closing_setting__conditional__default_branch__next_step list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     closing_setting__conditional__default_branch__response list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2465,20 +2667,26 @@ let yojson_of_closing_setting__conditional__default_branch =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : closing_setting__conditional__default_branch ->
@@ -2492,7 +2700,9 @@ type closing_setting__conditional = {
   active : bool prop;
   conditional_branch :
     closing_setting__conditional__conditional_branch list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch : closing_setting__conditional__default_branch list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2509,20 +2719,26 @@ let yojson_of_closing_setting__conditional =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -2617,6 +2833,7 @@ type closing_setting__next_step__intent__slot = {
   map_block_key : string prop;
   shape : string prop option; [@option]
   value : closing_setting__next_step__intent__slot__value list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2633,12 +2850,15 @@ let yojson_of_closing_setting__next_step__intent__slot =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -2663,6 +2883,7 @@ let _ = yojson_of_closing_setting__next_step__intent__slot
 type closing_setting__next_step__intent = {
   name : string prop option; [@option]
   slot : closing_setting__next_step__intent__slot list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2675,12 +2896,15 @@ let yojson_of_closing_setting__next_step__intent =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -2701,7 +2925,9 @@ let _ = yojson_of_closing_setting__next_step__intent
 type closing_setting__next_step = {
   session_attributes : (string * string prop) list option; [@option]
   dialog_action : closing_setting__next_step__dialog_action list;
+      [@default []] [@yojson_drop_default ( = )]
   intent : closing_setting__next_step__intent list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2718,19 +2944,26 @@ let yojson_of_closing_setting__next_step =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__next_step__intent v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_closing_setting__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -2758,8 +2991,11 @@ let _ = yojson_of_closing_setting__next_step
 type closing_setting = {
   active : bool prop option; [@option]
   closing_response : closing_setting__closing_response list;
+      [@default []] [@yojson_drop_default ( = )]
   conditional : closing_setting__conditional list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step : closing_setting__next_step list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2777,25 +3013,35 @@ let yojson_of_closing_setting =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_closing_setting__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_closing_setting__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_closing_setting__conditional
-             v_conditional
-         in
-         ("conditional", arg) :: bnds
+         if [] = v_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_closing_setting__conditional)
+               v_conditional
+           in
+           let bnd = "conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_closing_setting__closing_response
-             v_closing_response
-         in
-         ("closing_response", arg) :: bnds
+         if [] = v_closing_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_closing_setting__closing_response)
+               v_closing_response
+           in
+           let bnd = "closing_response", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_active with
@@ -2936,6 +3182,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   value :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2956,12 +3203,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -2989,6 +3239,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   slot :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3005,12 +3256,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -3034,9 +3288,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3057,20 +3313,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -3169,6 +3431,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3190,12 +3453,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -3290,15 +3556,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3320,36 +3590,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message ->
@@ -3432,6 +3714,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3453,12 +3736,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -3553,15 +3839,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3583,36 +3873,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation ->
@@ -3627,9 +3929,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3646,20 +3950,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group ->
@@ -3675,6 +3985,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   message_group :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3694,12 +4005,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -3723,12 +4037,15 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   condition :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3750,28 +4067,37 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -3878,6 +4204,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   value :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3898,12 +4225,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -3931,6 +4261,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   slot :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3947,12 +4278,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -3976,9 +4310,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3999,20 +4335,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -4111,6 +4453,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4132,12 +4475,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -4232,15 +4578,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4262,36 +4612,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message ->
@@ -4374,6 +4736,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4395,12 +4758,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -4495,15 +4861,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4525,36 +4895,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation ->
@@ -4569,9 +4951,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4588,20 +4972,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group ->
@@ -4617,6 +5007,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   message_group :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4636,12 +5027,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -4664,9 +5058,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   next_step :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4683,20 +5079,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch ->
@@ -4712,9 +5114,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_cond
   conditional_branch :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4735,20 +5139,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -4855,6 +5265,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_next
   value :
     confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4875,12 +5286,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -4908,6 +5322,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_next
   slot :
     confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4924,12 +5339,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -4953,9 +5371,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_next
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4976,20 +5396,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -5088,6 +5514,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_resp
   button :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5109,12 +5536,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -5209,15 +5639,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_resp
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5239,36 +5673,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message ->
@@ -5351,6 +5797,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_resp
   button :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5372,12 +5819,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -5472,15 +5922,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_resp
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5502,36 +5956,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation ->
@@ -5546,9 +6012,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_resp
   message :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5565,20 +6033,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group ->
@@ -5594,6 +6068,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__failure_resp
   message_group :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5613,12 +6088,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__fai
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -5761,6 +6239,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   value :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5781,12 +6260,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -5814,6 +6296,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   slot :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5830,12 +6313,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -5859,9 +6345,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5882,20 +6370,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -5994,6 +6488,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6015,12 +6510,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -6115,15 +6613,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6145,36 +6647,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message ->
@@ -6257,6 +6771,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6278,12 +6793,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -6378,15 +6896,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6408,36 +6930,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation ->
@@ -6452,9 +6986,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   message :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6471,20 +7007,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group ->
@@ -6500,6 +7042,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   message_group :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6519,12 +7062,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -6548,12 +7094,15 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   condition :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6575,28 +7124,37 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -6703,6 +7261,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   value :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6723,12 +7282,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -6756,6 +7318,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   slot :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6772,12 +7335,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -6801,9 +7367,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6824,20 +7392,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -6936,6 +7510,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6957,12 +7532,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -7057,15 +7635,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7087,36 +7669,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message ->
@@ -7199,6 +7793,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7220,12 +7815,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -7320,15 +7918,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7350,36 +7952,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation ->
@@ -7394,9 +8008,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   message :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7413,20 +8029,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group ->
@@ -7442,6 +8064,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   message_group :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7461,12 +8084,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -7489,9 +8115,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   next_step :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7508,20 +8136,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch ->
@@ -7537,9 +8171,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_cond
   conditional_branch :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7560,20 +8196,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -7680,6 +8322,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_next
   value :
     confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7700,12 +8343,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -7733,6 +8379,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_next
   slot :
     confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7749,12 +8396,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -7778,9 +8428,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_next
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7801,20 +8453,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -7913,6 +8571,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_resp
   button :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7934,12 +8593,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -8034,15 +8696,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_resp
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8064,36 +8730,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message ->
@@ -8176,6 +8854,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_resp
   button :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8197,12 +8876,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -8297,15 +8979,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_resp
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8327,36 +9013,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation ->
@@ -8371,9 +9069,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_resp
   message :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8390,20 +9090,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group ->
@@ -8419,6 +9125,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__success_resp
   message_group :
     confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8438,12 +9145,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__suc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -8586,6 +9296,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   value :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8606,12 +9317,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -8639,6 +9353,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   slot :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8655,12 +9370,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -8684,9 +9402,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8707,20 +9427,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -8819,6 +9545,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8840,12 +9567,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -8940,15 +9670,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8970,36 +9704,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message ->
@@ -9082,6 +9828,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9103,12 +9850,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -9203,15 +9953,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9233,36 +9987,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation ->
@@ -9277,9 +10043,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9296,20 +10064,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group ->
@@ -9325,6 +10099,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   message_group :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9344,12 +10119,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -9373,12 +10151,15 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   condition :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9400,28 +10181,37 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -9528,6 +10318,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   value :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9548,12 +10339,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -9581,6 +10375,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   slot :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9597,12 +10392,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -9626,9 +10424,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9649,20 +10449,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -9761,6 +10567,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9782,12 +10589,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -9882,15 +10692,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9912,36 +10726,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message ->
@@ -10024,6 +10850,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   button :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10045,12 +10872,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -10145,15 +10975,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10175,36 +11009,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation ->
@@ -10219,9 +11065,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10238,20 +11086,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group ->
@@ -10267,6 +11121,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   message_group :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10286,12 +11141,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -10314,9 +11172,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   next_step :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10333,20 +11193,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch ->
@@ -10362,9 +11228,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_cond
   conditional_branch :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10385,20 +11253,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -10505,6 +11379,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_next
   value :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10525,12 +11400,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -10558,6 +11436,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_next
   slot :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10574,12 +11453,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -10603,9 +11485,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_next
   dialog_action :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10626,20 +11510,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -10738,6 +11628,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_resp
   button :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10759,12 +11650,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -10859,15 +11753,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_resp
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10889,36 +11787,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message ->
@@ -11001,6 +11911,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_resp
   button :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11022,12 +11933,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -11122,15 +12036,19 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_resp
   custom_payload :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11152,36 +12070,48 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation ->
@@ -11196,9 +12126,11 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_resp
   message :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11215,20 +12147,26 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group ->
@@ -11244,6 +12182,7 @@ type confirmation_setting__code_hook__post_code_hook_specification__timeout_resp
   message_group :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11263,12 +12202,15 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification__tim
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -11291,30 +12233,39 @@ type confirmation_setting__code_hook__post_code_hook_specification = {
   failure_conditional :
     confirmation_setting__code_hook__post_code_hook_specification__failure_conditional
     list;
+      [@default []] [@yojson_drop_default ( = )]
   failure_next_step :
     confirmation_setting__code_hook__post_code_hook_specification__failure_next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   failure_response :
     confirmation_setting__code_hook__post_code_hook_specification__failure_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
   success_conditional :
     confirmation_setting__code_hook__post_code_hook_specification__success_conditional
     list;
+      [@default []] [@yojson_drop_default ( = )]
   success_next_step :
     confirmation_setting__code_hook__post_code_hook_specification__success_next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   success_response :
     confirmation_setting__code_hook__post_code_hook_specification__success_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout_conditional :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional
     list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout_next_step :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout_response :
     confirmation_setting__code_hook__post_code_hook_specification__timeout_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11341,76 +12292,103 @@ let yojson_of_confirmation_setting__code_hook__post_code_hook_specification
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response
-             v_timeout_response
-         in
-         ("timeout_response", arg) :: bnds
+         if [] = v_timeout_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_response)
+               v_timeout_response
+           in
+           let bnd = "timeout_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step
-             v_timeout_next_step
-         in
-         ("timeout_next_step", arg) :: bnds
+         if [] = v_timeout_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_next_step)
+               v_timeout_next_step
+           in
+           let bnd = "timeout_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional
-             v_timeout_conditional
-         in
-         ("timeout_conditional", arg) :: bnds
+         if [] = v_timeout_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__timeout_conditional)
+               v_timeout_conditional
+           in
+           let bnd = "timeout_conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response
-             v_success_response
-         in
-         ("success_response", arg) :: bnds
+         if [] = v_success_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_response)
+               v_success_response
+           in
+           let bnd = "success_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_next_step
-             v_success_next_step
-         in
-         ("success_next_step", arg) :: bnds
+         if [] = v_success_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_next_step)
+               v_success_next_step
+           in
+           let bnd = "success_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional
-             v_success_conditional
-         in
-         ("success_conditional", arg) :: bnds
+         if [] = v_success_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__success_conditional)
+               v_success_conditional
+           in
+           let bnd = "success_conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response
-             v_failure_response
-         in
-         ("failure_response", arg) :: bnds
+         if [] = v_failure_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_response)
+               v_failure_response
+           in
+           let bnd = "failure_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_next_step
-             v_failure_next_step
-         in
-         ("failure_next_step", arg) :: bnds
+         if [] = v_failure_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_next_step)
+               v_failure_next_step
+           in
+           let bnd = "failure_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional
-             v_failure_conditional
-         in
-         ("failure_conditional", arg) :: bnds
+         if [] = v_failure_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification__failure_conditional)
+               v_failure_conditional
+           in
+           let bnd = "failure_conditional", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__code_hook__post_code_hook_specification ->
@@ -11428,6 +12406,7 @@ type confirmation_setting__code_hook = {
   post_code_hook_specification :
     confirmation_setting__code_hook__post_code_hook_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11445,12 +12424,15 @@ let yojson_of_confirmation_setting__code_hook =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__code_hook__post_code_hook_specification
-             v_post_code_hook_specification
-         in
-         ("post_code_hook_specification", arg) :: bnds
+         if [] = v_post_code_hook_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook__post_code_hook_specification)
+               v_post_code_hook_specification
+           in
+           let bnd = "post_code_hook_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_invocation_label with
@@ -11603,6 +12585,7 @@ type confirmation_setting__confirmation_conditional__conditional_branch__next_st
   value :
     confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11623,12 +12606,15 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -11656,6 +12642,7 @@ type confirmation_setting__confirmation_conditional__conditional_branch__next_st
   slot :
     confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11672,12 +12659,15 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -11701,9 +12691,11 @@ type confirmation_setting__confirmation_conditional__conditional_branch__next_st
   dialog_action :
     confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11724,20 +12716,26 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -11836,6 +12834,7 @@ type confirmation_setting__confirmation_conditional__conditional_branch__respons
   button :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11857,12 +12856,15 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -11957,15 +12959,19 @@ type confirmation_setting__confirmation_conditional__conditional_branch__respons
   custom_payload :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11987,36 +12993,48 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message ->
@@ -12099,6 +13117,7 @@ type confirmation_setting__confirmation_conditional__conditional_branch__respons
   button :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12120,12 +13139,15 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -12220,15 +13242,19 @@ type confirmation_setting__confirmation_conditional__conditional_branch__respons
   custom_payload :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12250,36 +13276,48 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation ->
@@ -12294,9 +13332,11 @@ type confirmation_setting__confirmation_conditional__conditional_branch__respons
   message :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12313,20 +13353,26 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__confirmation_conditional__conditional_branch__response__message_group ->
@@ -12342,6 +13388,7 @@ type confirmation_setting__confirmation_conditional__conditional_branch__respons
   message_group :
     confirmation_setting__confirmation_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12361,12 +13408,15 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -12390,12 +13440,15 @@ type confirmation_setting__confirmation_conditional__conditional_branch = {
   condition :
     confirmation_setting__confirmation_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     confirmation_setting__confirmation_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__confirmation_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12417,28 +13470,37 @@ let yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -12545,6 +13607,7 @@ type confirmation_setting__confirmation_conditional__default_branch__next_step__
   value :
     confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12565,12 +13628,15 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch__ne
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -12598,6 +13664,7 @@ type confirmation_setting__confirmation_conditional__default_branch__next_step__
   slot :
     confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12614,12 +13681,15 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch__ne
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -12643,9 +13713,11 @@ type confirmation_setting__confirmation_conditional__default_branch__next_step =
   dialog_action :
     confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__confirmation_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12666,20 +13738,26 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch__ne
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -12778,6 +13856,7 @@ type confirmation_setting__confirmation_conditional__default_branch__response__m
   button :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12799,12 +13878,15 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch__re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -12899,15 +13981,19 @@ type confirmation_setting__confirmation_conditional__default_branch__response__m
   custom_payload :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -12929,36 +14015,48 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch__re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__confirmation_conditional__default_branch__response__message_group__message ->
@@ -13041,6 +14139,7 @@ type confirmation_setting__confirmation_conditional__default_branch__response__m
   button :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13062,12 +14161,15 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch__re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -13162,15 +14264,19 @@ type confirmation_setting__confirmation_conditional__default_branch__response__m
   custom_payload :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13192,36 +14298,48 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch__re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation ->
@@ -13236,9 +14354,11 @@ type confirmation_setting__confirmation_conditional__default_branch__response__m
   message :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13255,20 +14375,26 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch__re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__confirmation_conditional__default_branch__response__message_group ->
@@ -13284,6 +14410,7 @@ type confirmation_setting__confirmation_conditional__default_branch__response = 
   message_group :
     confirmation_setting__confirmation_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13303,12 +14430,15 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch__re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -13331,9 +14461,11 @@ type confirmation_setting__confirmation_conditional__default_branch = {
   next_step :
     confirmation_setting__confirmation_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__confirmation_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13350,20 +14482,26 @@ let yojson_of_confirmation_setting__confirmation_conditional__default_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__confirmation_conditional__default_branch ->
@@ -13379,9 +14517,11 @@ type confirmation_setting__confirmation_conditional = {
   conditional_branch :
     confirmation_setting__confirmation_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     confirmation_setting__confirmation_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13399,20 +14539,26 @@ let yojson_of_confirmation_setting__confirmation_conditional =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -13518,6 +14664,7 @@ type confirmation_setting__confirmation_next_step__intent__slot = {
   value :
     confirmation_setting__confirmation_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13537,12 +14684,15 @@ let yojson_of_confirmation_setting__confirmation_next_step__intent__slot
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -13569,6 +14719,7 @@ type confirmation_setting__confirmation_next_step__intent = {
   name : string prop option; [@option]
   slot :
     confirmation_setting__confirmation_next_step__intent__slot list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13582,12 +14733,15 @@ let yojson_of_confirmation_setting__confirmation_next_step__intent =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -13610,7 +14764,9 @@ type confirmation_setting__confirmation_next_step = {
   session_attributes : (string * string prop) list option; [@option]
   dialog_action :
     confirmation_setting__confirmation_next_step__dialog_action list;
+      [@default []] [@yojson_drop_default ( = )]
   intent : confirmation_setting__confirmation_next_step__intent list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13627,20 +14783,26 @@ let yojson_of_confirmation_setting__confirmation_next_step =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -13738,6 +14900,7 @@ type confirmation_setting__confirmation_response__message_group__message__image_
   button :
     confirmation_setting__confirmation_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13759,12 +14922,15 @@ let yojson_of_confirmation_setting__confirmation_response__message_group__messag
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -13859,15 +15025,19 @@ type confirmation_setting__confirmation_response__message_group__message = {
   custom_payload :
     confirmation_setting__confirmation_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__confirmation_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__confirmation_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__confirmation_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -13889,36 +15059,48 @@ let yojson_of_confirmation_setting__confirmation_response__message_group__messag
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__confirmation_response__message_group__message ->
@@ -14001,6 +15183,7 @@ type confirmation_setting__confirmation_response__message_group__variation__imag
   button :
     confirmation_setting__confirmation_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -14022,12 +15205,15 @@ let yojson_of_confirmation_setting__confirmation_response__message_group__variat
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -14122,15 +15308,19 @@ type confirmation_setting__confirmation_response__message_group__variation = {
   custom_payload :
     confirmation_setting__confirmation_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__confirmation_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__confirmation_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__confirmation_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -14152,36 +15342,48 @@ let yojson_of_confirmation_setting__confirmation_response__message_group__variat
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__confirmation_response__message_group__variation ->
@@ -14196,9 +15398,11 @@ type confirmation_setting__confirmation_response__message_group = {
   message :
     confirmation_setting__confirmation_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__confirmation_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -14214,20 +15418,26 @@ let yojson_of_confirmation_setting__confirmation_response__message_group
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__confirmation_response__message_group ->
@@ -14242,6 +15452,7 @@ type confirmation_setting__confirmation_response = {
   allow_interrupt : bool prop option; [@option]
   message_group :
     confirmation_setting__confirmation_response__message_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -14257,12 +15468,15 @@ let yojson_of_confirmation_setting__confirmation_response =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -14404,6 +15618,7 @@ type confirmation_setting__declination_conditional__conditional_branch__next_ste
   value :
     confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -14424,12 +15639,15 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -14457,6 +15675,7 @@ type confirmation_setting__declination_conditional__conditional_branch__next_ste
   slot :
     confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -14473,12 +15692,15 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -14502,9 +15724,11 @@ type confirmation_setting__declination_conditional__conditional_branch__next_ste
   dialog_action :
     confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__declination_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -14525,20 +15749,26 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -14637,6 +15867,7 @@ type confirmation_setting__declination_conditional__conditional_branch__response
   button :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -14658,12 +15889,15 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -14758,15 +15992,19 @@ type confirmation_setting__declination_conditional__conditional_branch__response
   custom_payload :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -14788,36 +16026,48 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__declination_conditional__conditional_branch__response__message_group__message ->
@@ -14900,6 +16150,7 @@ type confirmation_setting__declination_conditional__conditional_branch__response
   button :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -14921,12 +16172,15 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -15021,15 +16275,19 @@ type confirmation_setting__declination_conditional__conditional_branch__response
   custom_payload :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15051,36 +16309,48 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation ->
@@ -15095,9 +16365,11 @@ type confirmation_setting__declination_conditional__conditional_branch__response
   message :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15114,20 +16386,26 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__declination_conditional__conditional_branch__response__message_group ->
@@ -15143,6 +16421,7 @@ type confirmation_setting__declination_conditional__conditional_branch__response
   message_group :
     confirmation_setting__declination_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15162,12 +16441,15 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -15191,12 +16473,15 @@ type confirmation_setting__declination_conditional__conditional_branch = {
   condition :
     confirmation_setting__declination_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     confirmation_setting__declination_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__declination_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15218,28 +16503,37 @@ let yojson_of_confirmation_setting__declination_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -15346,6 +16640,7 @@ type confirmation_setting__declination_conditional__default_branch__next_step__i
   value :
     confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15366,12 +16661,15 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch__nex
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -15399,6 +16697,7 @@ type confirmation_setting__declination_conditional__default_branch__next_step__i
   slot :
     confirmation_setting__declination_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15415,12 +16714,15 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch__nex
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -15444,9 +16746,11 @@ type confirmation_setting__declination_conditional__default_branch__next_step = 
   dialog_action :
     confirmation_setting__declination_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__declination_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15467,20 +16771,26 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch__nex
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -15579,6 +16889,7 @@ type confirmation_setting__declination_conditional__default_branch__response__me
   button :
     confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15600,12 +16911,15 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -15700,15 +17014,19 @@ type confirmation_setting__declination_conditional__default_branch__response__me
   custom_payload :
     confirmation_setting__declination_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__declination_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__declination_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15730,36 +17048,48 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__declination_conditional__default_branch__response__message_group__message ->
@@ -15842,6 +17172,7 @@ type confirmation_setting__declination_conditional__default_branch__response__me
   button :
     confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15863,12 +17194,15 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -15963,15 +17297,19 @@ type confirmation_setting__declination_conditional__default_branch__response__me
   custom_payload :
     confirmation_setting__declination_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__declination_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__declination_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -15993,36 +17331,48 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__declination_conditional__default_branch__response__message_group__variation ->
@@ -16037,9 +17387,11 @@ type confirmation_setting__declination_conditional__default_branch__response__me
   message :
     confirmation_setting__declination_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__declination_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16056,20 +17408,26 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__declination_conditional__default_branch__response__message_group ->
@@ -16085,6 +17443,7 @@ type confirmation_setting__declination_conditional__default_branch__response = {
   message_group :
     confirmation_setting__declination_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16104,12 +17463,15 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -16132,9 +17494,11 @@ type confirmation_setting__declination_conditional__default_branch = {
   next_step :
     confirmation_setting__declination_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__declination_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16151,20 +17515,26 @@ let yojson_of_confirmation_setting__declination_conditional__default_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__declination_conditional__default_branch ->
@@ -16180,9 +17550,11 @@ type confirmation_setting__declination_conditional = {
   conditional_branch :
     confirmation_setting__declination_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     confirmation_setting__declination_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16199,20 +17571,26 @@ let yojson_of_confirmation_setting__declination_conditional =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -16317,6 +17695,7 @@ type confirmation_setting__declination_next_step__intent__slot = {
   value :
     confirmation_setting__declination_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16336,12 +17715,15 @@ let yojson_of_confirmation_setting__declination_next_step__intent__slot
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -16368,6 +17750,7 @@ type confirmation_setting__declination_next_step__intent = {
   name : string prop option; [@option]
   slot :
     confirmation_setting__declination_next_step__intent__slot list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16381,12 +17764,15 @@ let yojson_of_confirmation_setting__declination_next_step__intent =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -16408,7 +17794,9 @@ type confirmation_setting__declination_next_step = {
   session_attributes : (string * string prop) list option; [@option]
   dialog_action :
     confirmation_setting__declination_next_step__dialog_action list;
+      [@default []] [@yojson_drop_default ( = )]
   intent : confirmation_setting__declination_next_step__intent list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16425,20 +17813,26 @@ let yojson_of_confirmation_setting__declination_next_step =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -16536,6 +17930,7 @@ type confirmation_setting__declination_response__message_group__message__image_r
   button :
     confirmation_setting__declination_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16557,12 +17952,15 @@ let yojson_of_confirmation_setting__declination_response__message_group__message
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -16657,15 +18055,19 @@ type confirmation_setting__declination_response__message_group__message = {
   custom_payload :
     confirmation_setting__declination_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__declination_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__declination_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__declination_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16687,36 +18089,48 @@ let yojson_of_confirmation_setting__declination_response__message_group__message
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__declination_response__message_group__message ->
@@ -16799,6 +18213,7 @@ type confirmation_setting__declination_response__message_group__variation__image
   button :
     confirmation_setting__declination_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16820,12 +18235,15 @@ let yojson_of_confirmation_setting__declination_response__message_group__variati
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -16920,15 +18338,19 @@ type confirmation_setting__declination_response__message_group__variation = {
   custom_payload :
     confirmation_setting__declination_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__declination_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__declination_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__declination_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16950,36 +18372,48 @@ let yojson_of_confirmation_setting__declination_response__message_group__variati
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__declination_response__message_group__variation ->
@@ -16994,9 +18428,11 @@ type confirmation_setting__declination_response__message_group = {
   message :
     confirmation_setting__declination_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__declination_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17012,20 +18448,26 @@ let yojson_of_confirmation_setting__declination_response__message_group
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__declination_response__message_group ->
@@ -17040,6 +18482,7 @@ type confirmation_setting__declination_response = {
   allow_interrupt : bool prop option; [@option]
   message_group :
     confirmation_setting__declination_response__message_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17055,12 +18498,15 @@ let yojson_of_confirmation_setting__declination_response =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -17243,6 +18689,7 @@ type confirmation_setting__failure_conditional__conditional_branch__next_step__i
   value :
     confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17263,12 +18710,15 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch__nex
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -17296,6 +18746,7 @@ type confirmation_setting__failure_conditional__conditional_branch__next_step__i
   slot :
     confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17312,12 +18763,15 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch__nex
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -17341,9 +18795,11 @@ type confirmation_setting__failure_conditional__conditional_branch__next_step = 
   dialog_action :
     confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__failure_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17364,20 +18820,26 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch__nex
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -17476,6 +18938,7 @@ type confirmation_setting__failure_conditional__conditional_branch__response__me
   button :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17497,12 +18960,15 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -17597,15 +19063,19 @@ type confirmation_setting__failure_conditional__conditional_branch__response__me
   custom_payload :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17627,36 +19097,48 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__failure_conditional__conditional_branch__response__message_group__message ->
@@ -17739,6 +19221,7 @@ type confirmation_setting__failure_conditional__conditional_branch__response__me
   button :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17760,12 +19243,15 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -17860,15 +19346,19 @@ type confirmation_setting__failure_conditional__conditional_branch__response__me
   custom_payload :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17890,36 +19380,48 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation ->
@@ -17934,9 +19436,11 @@ type confirmation_setting__failure_conditional__conditional_branch__response__me
   message :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17953,20 +19457,26 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__failure_conditional__conditional_branch__response__message_group ->
@@ -17982,6 +19492,7 @@ type confirmation_setting__failure_conditional__conditional_branch__response = {
   message_group :
     confirmation_setting__failure_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18001,12 +19512,15 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch__res
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -18030,12 +19544,15 @@ type confirmation_setting__failure_conditional__conditional_branch = {
   condition :
     confirmation_setting__failure_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     confirmation_setting__failure_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__failure_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18057,28 +19574,37 @@ let yojson_of_confirmation_setting__failure_conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -18185,6 +19711,7 @@ type confirmation_setting__failure_conditional__default_branch__next_step__inten
   value :
     confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18205,12 +19732,15 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch__next_st
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -18238,6 +19768,7 @@ type confirmation_setting__failure_conditional__default_branch__next_step__inten
   slot :
     confirmation_setting__failure_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18254,12 +19785,15 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch__next_st
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -18283,9 +19817,11 @@ type confirmation_setting__failure_conditional__default_branch__next_step = {
   dialog_action :
     confirmation_setting__failure_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     confirmation_setting__failure_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18306,20 +19842,26 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch__next_st
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -18418,6 +19960,7 @@ type confirmation_setting__failure_conditional__default_branch__response__messag
   button :
     confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18439,12 +19982,15 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -18539,15 +20085,19 @@ type confirmation_setting__failure_conditional__default_branch__response__messag
   custom_payload :
     confirmation_setting__failure_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__failure_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__failure_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18569,36 +20119,48 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__failure_conditional__default_branch__response__message_group__message ->
@@ -18681,6 +20243,7 @@ type confirmation_setting__failure_conditional__default_branch__response__messag
   button :
     confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18702,12 +20265,15 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -18802,15 +20368,19 @@ type confirmation_setting__failure_conditional__default_branch__response__messag
   custom_payload :
     confirmation_setting__failure_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__failure_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__failure_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18832,36 +20402,48 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__failure_conditional__default_branch__response__message_group__variation ->
@@ -18876,9 +20458,11 @@ type confirmation_setting__failure_conditional__default_branch__response__messag
   message :
     confirmation_setting__failure_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__failure_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18895,20 +20479,26 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__failure_conditional__default_branch__response__message_group ->
@@ -18924,6 +20514,7 @@ type confirmation_setting__failure_conditional__default_branch__response = {
   message_group :
     confirmation_setting__failure_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18943,12 +20534,15 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -18971,9 +20565,11 @@ type confirmation_setting__failure_conditional__default_branch = {
   next_step :
     confirmation_setting__failure_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     confirmation_setting__failure_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18989,20 +20585,26 @@ let yojson_of_confirmation_setting__failure_conditional__default_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__failure_conditional__default_branch ->
@@ -19018,8 +20620,10 @@ type confirmation_setting__failure_conditional = {
   conditional_branch :
     confirmation_setting__failure_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     confirmation_setting__failure_conditional__default_branch list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19036,20 +20640,26 @@ let yojson_of_confirmation_setting__failure_conditional =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -19153,6 +20763,7 @@ type confirmation_setting__failure_next_step__intent__slot = {
   shape : string prop option; [@option]
   value :
     confirmation_setting__failure_next_step__intent__slot__value list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19171,12 +20782,15 @@ let yojson_of_confirmation_setting__failure_next_step__intent__slot =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -19202,6 +20816,7 @@ let _ =
 type confirmation_setting__failure_next_step__intent = {
   name : string prop option; [@option]
   slot : confirmation_setting__failure_next_step__intent__slot list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19215,12 +20830,15 @@ let yojson_of_confirmation_setting__failure_next_step__intent =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -19242,7 +20860,9 @@ type confirmation_setting__failure_next_step = {
   session_attributes : (string * string prop) list option; [@option]
   dialog_action :
     confirmation_setting__failure_next_step__dialog_action list;
+      [@default []] [@yojson_drop_default ( = )]
   intent : confirmation_setting__failure_next_step__intent list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19259,20 +20879,26 @@ let yojson_of_confirmation_setting__failure_next_step =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -19370,6 +20996,7 @@ type confirmation_setting__failure_response__message_group__message__image_respo
   button :
     confirmation_setting__failure_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19391,12 +21018,15 @@ let yojson_of_confirmation_setting__failure_response__message_group__message__im
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -19491,15 +21121,19 @@ type confirmation_setting__failure_response__message_group__message = {
   custom_payload :
     confirmation_setting__failure_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__failure_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__failure_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__failure_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19521,36 +21155,48 @@ let yojson_of_confirmation_setting__failure_response__message_group__message
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__failure_response__message_group__message ->
@@ -19633,6 +21279,7 @@ type confirmation_setting__failure_response__message_group__variation__image_res
   button :
     confirmation_setting__failure_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19654,12 +21301,15 @@ let yojson_of_confirmation_setting__failure_response__message_group__variation__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -19754,15 +21404,19 @@ type confirmation_setting__failure_response__message_group__variation = {
   custom_payload :
     confirmation_setting__failure_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__failure_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__failure_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__failure_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19784,36 +21438,48 @@ let yojson_of_confirmation_setting__failure_response__message_group__variation
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__failure_response__message_group__variation ->
@@ -19828,9 +21494,11 @@ type confirmation_setting__failure_response__message_group = {
   message :
     confirmation_setting__failure_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__failure_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19845,20 +21513,26 @@ let yojson_of_confirmation_setting__failure_response__message_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__failure_response__message_group ->
@@ -19873,6 +21547,7 @@ type confirmation_setting__failure_response = {
   allow_interrupt : bool prop option; [@option]
   message_group :
     confirmation_setting__failure_response__message_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -19888,12 +21563,15 @@ let yojson_of_confirmation_setting__failure_response =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -19983,6 +21661,7 @@ type confirmation_setting__prompt_specification__message_group__message__image_r
   button :
     confirmation_setting__prompt_specification__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20004,12 +21683,15 @@ let yojson_of_confirmation_setting__prompt_specification__message_group__message
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -20104,15 +21786,19 @@ type confirmation_setting__prompt_specification__message_group__message = {
   custom_payload :
     confirmation_setting__prompt_specification__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__prompt_specification__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__prompt_specification__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__prompt_specification__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20134,36 +21820,48 @@ let yojson_of_confirmation_setting__prompt_specification__message_group__message
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__prompt_specification__message_group__message ->
@@ -20246,6 +21944,7 @@ type confirmation_setting__prompt_specification__message_group__variation__image
   button :
     confirmation_setting__prompt_specification__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20267,12 +21966,15 @@ let yojson_of_confirmation_setting__prompt_specification__message_group__variati
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -20367,15 +22069,19 @@ type confirmation_setting__prompt_specification__message_group__variation = {
   custom_payload :
     confirmation_setting__prompt_specification__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     confirmation_setting__prompt_specification__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     confirmation_setting__prompt_specification__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     confirmation_setting__prompt_specification__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20397,36 +22103,48 @@ let yojson_of_confirmation_setting__prompt_specification__message_group__variati
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__prompt_specification__message_group__variation ->
@@ -20441,9 +22159,11 @@ type confirmation_setting__prompt_specification__message_group = {
   message :
     confirmation_setting__prompt_specification__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     confirmation_setting__prompt_specification__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20459,20 +22179,26 @@ let yojson_of_confirmation_setting__prompt_specification__message_group
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : confirmation_setting__prompt_specification__message_group ->
@@ -20620,9 +22346,11 @@ type confirmation_setting__prompt_specification__prompt_attempts_specification__
   audio_specification :
     confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
   dtmf_specification :
     confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20643,20 +22371,26 @@ let yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specif
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification
-             v_dtmf_specification
-         in
-         ("dtmf_specification", arg) :: bnds
+         if [] = v_dtmf_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__dtmf_specification)
+               v_dtmf_specification
+           in
+           let bnd = "dtmf_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification
-             v_audio_specification
-         in
-         ("audio_specification", arg) :: bnds
+         if [] = v_audio_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification__audio_specification)
+               v_audio_specification
+           in
+           let bnd = "audio_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -20711,12 +22445,15 @@ type confirmation_setting__prompt_specification__prompt_attempts_specification =
   allowed_input_types :
     confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types
     list;
+      [@default []] [@yojson_drop_default ( = )]
   audio_and_dtmf_input_specification :
     confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
   text_input_specification :
     confirmation_setting__prompt_specification__prompt_attempts_specification__text_input_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20740,28 +22477,37 @@ let yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specif
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification__text_input_specification
-             v_text_input_specification
-         in
-         ("text_input_specification", arg) :: bnds
+         if [] = v_text_input_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification__text_input_specification)
+               v_text_input_specification
+           in
+           let bnd = "text_input_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification
-             v_audio_and_dtmf_input_specification
-         in
-         ("audio_and_dtmf_input_specification", arg) :: bnds
+         if [] = v_audio_and_dtmf_input_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification__audio_and_dtmf_input_specification)
+               v_audio_and_dtmf_input_specification
+           in
+           let bnd = "audio_and_dtmf_input_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types
-             v_allowed_input_types
-         in
-         ("allowed_input_types", arg) :: bnds
+         if [] = v_allowed_input_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification__allowed_input_types)
+               v_allowed_input_types
+           in
+           let bnd = "allowed_input_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_map_block_key in
@@ -20790,9 +22536,11 @@ type confirmation_setting__prompt_specification = {
   message_selection_strategy : string prop option; [@option]
   message_group :
     confirmation_setting__prompt_specification__message_group list;
+      [@default []] [@yojson_drop_default ( = )]
   prompt_attempts_specification :
     confirmation_setting__prompt_specification__prompt_attempts_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20812,20 +22560,26 @@ let yojson_of_confirmation_setting__prompt_specification =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification
-             v_prompt_attempts_specification
-         in
-         ("prompt_attempts_specification", arg) :: bnds
+         if [] = v_prompt_attempts_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__prompt_attempts_specification)
+               v_prompt_attempts_specification
+           in
+           let bnd = "prompt_attempts_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_message_selection_strategy with
@@ -20858,26 +22612,38 @@ let _ = yojson_of_confirmation_setting__prompt_specification
 type confirmation_setting = {
   active : bool prop option; [@option]
   code_hook : confirmation_setting__code_hook list;
+      [@default []] [@yojson_drop_default ( = )]
   confirmation_conditional :
     confirmation_setting__confirmation_conditional list;
+      [@default []] [@yojson_drop_default ( = )]
   confirmation_next_step :
     confirmation_setting__confirmation_next_step list;
+      [@default []] [@yojson_drop_default ( = )]
   confirmation_response :
     confirmation_setting__confirmation_response list;
+      [@default []] [@yojson_drop_default ( = )]
   declination_conditional :
     confirmation_setting__declination_conditional list;
+      [@default []] [@yojson_drop_default ( = )]
   declination_next_step :
     confirmation_setting__declination_next_step list;
+      [@default []] [@yojson_drop_default ( = )]
   declination_response :
     confirmation_setting__declination_response list;
+      [@default []] [@yojson_drop_default ( = )]
   elicitation_code_hook :
     confirmation_setting__elicitation_code_hook list;
+      [@default []] [@yojson_drop_default ( = )]
   failure_conditional :
     confirmation_setting__failure_conditional list;
+      [@default []] [@yojson_drop_default ( = )]
   failure_next_step : confirmation_setting__failure_next_step list;
+      [@default []] [@yojson_drop_default ( = )]
   failure_response : confirmation_setting__failure_response list;
+      [@default []] [@yojson_drop_default ( = )]
   prompt_specification :
     confirmation_setting__prompt_specification list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -20904,99 +22670,136 @@ let yojson_of_confirmation_setting =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__prompt_specification
-             v_prompt_specification
-         in
-         ("prompt_specification", arg) :: bnds
+         if [] = v_prompt_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__prompt_specification)
+               v_prompt_specification
+           in
+           let bnd = "prompt_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_response
-             v_failure_response
-         in
-         ("failure_response", arg) :: bnds
+         if [] = v_failure_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_response)
+               v_failure_response
+           in
+           let bnd = "failure_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_next_step
-             v_failure_next_step
-         in
-         ("failure_next_step", arg) :: bnds
+         if [] = v_failure_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_next_step)
+               v_failure_next_step
+           in
+           let bnd = "failure_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__failure_conditional
-             v_failure_conditional
-         in
-         ("failure_conditional", arg) :: bnds
+         if [] = v_failure_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__failure_conditional)
+               v_failure_conditional
+           in
+           let bnd = "failure_conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__elicitation_code_hook
-             v_elicitation_code_hook
-         in
-         ("elicitation_code_hook", arg) :: bnds
+         if [] = v_elicitation_code_hook then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__elicitation_code_hook)
+               v_elicitation_code_hook
+           in
+           let bnd = "elicitation_code_hook", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_response
-             v_declination_response
-         in
-         ("declination_response", arg) :: bnds
+         if [] = v_declination_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_response)
+               v_declination_response
+           in
+           let bnd = "declination_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_next_step
-             v_declination_next_step
-         in
-         ("declination_next_step", arg) :: bnds
+         if [] = v_declination_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_next_step)
+               v_declination_next_step
+           in
+           let bnd = "declination_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__declination_conditional
-             v_declination_conditional
-         in
-         ("declination_conditional", arg) :: bnds
+         if [] = v_declination_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__declination_conditional)
+               v_declination_conditional
+           in
+           let bnd = "declination_conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_response
-             v_confirmation_response
-         in
-         ("confirmation_response", arg) :: bnds
+         if [] = v_confirmation_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_response)
+               v_confirmation_response
+           in
+           let bnd = "confirmation_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_next_step
-             v_confirmation_next_step
-         in
-         ("confirmation_next_step", arg) :: bnds
+         if [] = v_confirmation_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_next_step)
+               v_confirmation_next_step
+           in
+           let bnd = "confirmation_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_confirmation_setting__confirmation_conditional
-             v_confirmation_conditional
-         in
-         ("confirmation_conditional", arg) :: bnds
+         if [] = v_confirmation_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__confirmation_conditional)
+               v_confirmation_conditional
+           in
+           let bnd = "confirmation_conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_confirmation_setting__code_hook
-             v_code_hook
-         in
-         ("code_hook", arg) :: bnds
+         if [] = v_code_hook then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_confirmation_setting__code_hook)
+               v_code_hook
+           in
+           let bnd = "code_hook", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_active with
@@ -21107,6 +22910,7 @@ type fulfillment_code_hook__fulfillment_updates_specification__start_response__m
   button :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -21128,12 +22932,15 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -21228,15 +23035,19 @@ type fulfillment_code_hook__fulfillment_updates_specification__start_response__m
   custom_payload :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -21258,36 +23069,48 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message ->
@@ -21370,6 +23193,7 @@ type fulfillment_code_hook__fulfillment_updates_specification__start_response__m
   button :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -21391,12 +23215,15 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -21491,15 +23318,19 @@ type fulfillment_code_hook__fulfillment_updates_specification__start_response__m
   custom_payload :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -21521,36 +23352,48 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation ->
@@ -21565,9 +23408,11 @@ type fulfillment_code_hook__fulfillment_updates_specification__start_response__m
   message :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -21584,20 +23429,26 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group ->
@@ -21614,6 +23465,7 @@ type fulfillment_code_hook__fulfillment_updates_specification__start_response = 
   message_group :
     fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -21634,12 +23486,15 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_re
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_delay_in_seconds with
@@ -21738,6 +23593,7 @@ type fulfillment_code_hook__fulfillment_updates_specification__update_response__
   button :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -21759,12 +23615,15 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_r
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -21859,15 +23718,19 @@ type fulfillment_code_hook__fulfillment_updates_specification__update_response__
   custom_payload :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -21889,36 +23752,48 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_r
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message ->
@@ -22001,6 +23876,7 @@ type fulfillment_code_hook__fulfillment_updates_specification__update_response__
   button :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22022,12 +23898,15 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_r
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -22122,15 +24001,19 @@ type fulfillment_code_hook__fulfillment_updates_specification__update_response__
   custom_payload :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22152,36 +24035,48 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_r
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation ->
@@ -22196,9 +24091,11 @@ type fulfillment_code_hook__fulfillment_updates_specification__update_response__
   message :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22215,20 +24112,26 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_r
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group ->
@@ -22245,6 +24148,7 @@ type fulfillment_code_hook__fulfillment_updates_specification__update_response =
   message_group :
     fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22265,12 +24169,15 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_r
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -22301,9 +24208,11 @@ type fulfillment_code_hook__fulfillment_updates_specification = {
   start_response :
     fulfillment_code_hook__fulfillment_updates_specification__start_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
   update_response :
     fulfillment_code_hook__fulfillment_updates_specification__update_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22324,20 +24233,26 @@ let yojson_of_fulfillment_code_hook__fulfillment_updates_specification
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response
-             v_update_response
-         in
-         ("update_response", arg) :: bnds
+         if [] = v_update_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__update_response)
+               v_update_response
+           in
+           let bnd = "update_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response
-             v_start_response
-         in
-         ("start_response", arg) :: bnds
+         if [] = v_start_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification__start_response)
+               v_start_response
+           in
+           let bnd = "start_response", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_in_seconds with
@@ -22484,6 +24399,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   value :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22504,12 +24420,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -22537,6 +24456,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   slot :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22553,12 +24473,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -22582,9 +24505,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22605,20 +24530,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -22717,6 +24648,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22738,12 +24670,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -22838,15 +24773,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -22868,36 +24807,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message ->
@@ -22980,6 +24931,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23001,12 +24953,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -23101,15 +25056,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23131,36 +25090,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation ->
@@ -23175,9 +25146,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23194,20 +25167,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group ->
@@ -23223,6 +25202,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   message_group :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23242,12 +25222,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -23271,12 +25254,15 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   condition :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23298,28 +25284,37 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -23426,6 +25421,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   value :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23446,12 +25442,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -23479,6 +25478,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   slot :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23495,12 +25495,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -23524,9 +25527,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23547,20 +25552,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -23659,6 +25670,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23680,12 +25692,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -23780,15 +25795,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23810,36 +25829,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message ->
@@ -23922,6 +25953,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -23943,12 +25975,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -24043,15 +26078,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24073,36 +26112,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation ->
@@ -24117,9 +26168,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24136,20 +26189,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group ->
@@ -24165,6 +26224,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   message_group :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24184,12 +26244,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -24212,9 +26275,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   next_step :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24231,20 +26296,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch ->
@@ -24260,9 +26331,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_condi
   conditional_branch :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24283,20 +26356,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -24403,6 +26482,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_next_
   value :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24423,12 +26503,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -24456,6 +26539,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_next_
   slot :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24472,12 +26556,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -24501,9 +26588,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_next_
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24524,20 +26613,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -24636,6 +26731,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_respo
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24657,12 +26753,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -24757,15 +26856,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_respo
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24787,36 +26890,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message ->
@@ -24899,6 +27014,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_respo
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -24920,12 +27036,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -25020,15 +27139,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_respo
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25050,36 +27173,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation ->
@@ -25094,9 +27229,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_respo
   message :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25113,20 +27250,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group ->
@@ -25142,6 +27285,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__failure_respo
   message_group :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25161,12 +27305,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__fail
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -25309,6 +27456,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   value :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25329,12 +27477,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -25362,6 +27513,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   slot :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25378,12 +27530,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -25407,9 +27562,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25430,20 +27587,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -25542,6 +27705,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25563,12 +27727,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -25663,15 +27830,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25693,36 +27864,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message ->
@@ -25805,6 +27988,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25826,12 +28010,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -25926,15 +28113,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -25956,36 +28147,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation ->
@@ -26000,9 +28203,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26019,20 +28224,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group ->
@@ -26048,6 +28259,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   message_group :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26067,12 +28279,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -26096,12 +28311,15 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   condition :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26123,28 +28341,37 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -26251,6 +28478,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   value :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26271,12 +28499,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -26304,6 +28535,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   slot :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26320,12 +28552,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -26349,9 +28584,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26372,20 +28609,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -26484,6 +28727,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26505,12 +28749,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -26605,15 +28852,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26635,36 +28886,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message ->
@@ -26747,6 +29010,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26768,12 +29032,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -26868,15 +29135,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26898,36 +29169,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation ->
@@ -26942,9 +29225,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -26961,20 +29246,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group ->
@@ -26990,6 +29281,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   message_group :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27009,12 +29301,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -27037,9 +29332,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   next_step :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27056,20 +29353,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch ->
@@ -27085,9 +29388,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_condi
   conditional_branch :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27108,20 +29413,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -27228,6 +29539,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_next_
   value :
     fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27248,12 +29560,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -27281,6 +29596,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_next_
   slot :
     fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27297,12 +29613,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -27326,9 +29645,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_next_
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27349,20 +29670,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -27461,6 +29788,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_respo
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27482,12 +29810,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -27582,15 +29913,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_respo
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27612,36 +29947,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message ->
@@ -27724,6 +30071,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_respo
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27745,12 +30093,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -27845,15 +30196,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_respo
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27875,36 +30230,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation ->
@@ -27919,9 +30286,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_respo
   message :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27938,20 +30307,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group ->
@@ -27967,6 +30342,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__success_respo
   message_group :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -27986,12 +30362,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__succ
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -28134,6 +30513,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   value :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28154,12 +30534,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -28187,6 +30570,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   slot :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28203,12 +30587,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -28232,9 +30619,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28255,20 +30644,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -28367,6 +30762,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28388,12 +30784,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -28488,15 +30887,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28518,36 +30921,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message ->
@@ -28630,6 +31045,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28651,12 +31067,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -28751,15 +31170,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28781,36 +31204,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation ->
@@ -28825,9 +31260,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28844,20 +31281,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group ->
@@ -28873,6 +31316,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   message_group :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28892,12 +31336,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -28921,12 +31368,15 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   condition :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -28948,28 +31398,37 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -29076,6 +31535,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   value :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29096,12 +31556,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -29129,6 +31592,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   slot :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29145,12 +31609,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -29174,9 +31641,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29197,20 +31666,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -29309,6 +31784,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29330,12 +31806,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -29430,15 +31909,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29460,36 +31943,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message ->
@@ -29572,6 +32067,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29593,12 +32089,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -29693,15 +32192,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29723,36 +32226,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation ->
@@ -29767,9 +32282,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29786,20 +32303,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group ->
@@ -29815,6 +32338,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   message_group :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29834,12 +32358,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -29862,9 +32389,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   next_step :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29881,20 +32410,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch ->
@@ -29910,9 +32445,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_condi
   conditional_branch :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -29933,20 +32470,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -30053,6 +32596,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_
   value :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30073,12 +32617,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -30106,6 +32653,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_
   slot :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30122,12 +32670,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -30151,9 +32702,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_
   dialog_action :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30174,20 +32727,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -30286,6 +32845,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_respo
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30307,12 +32867,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -30407,15 +32970,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_respo
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30437,36 +33004,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message ->
@@ -30549,6 +33128,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_respo
   button :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30570,12 +33150,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -30670,15 +33253,19 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_respo
   custom_payload :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30700,36 +33287,48 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation ->
@@ -30744,9 +33343,11 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_respo
   message :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30763,20 +33364,26 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group ->
@@ -30792,6 +33399,7 @@ type fulfillment_code_hook__post_fulfillment_status_specification__timeout_respo
   message_group :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30811,12 +33419,15 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__time
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -30839,30 +33450,39 @@ type fulfillment_code_hook__post_fulfillment_status_specification = {
   failure_conditional :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional
     list;
+      [@default []] [@yojson_drop_default ( = )]
   failure_next_step :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   failure_response :
     fulfillment_code_hook__post_fulfillment_status_specification__failure_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
   success_conditional :
     fulfillment_code_hook__post_fulfillment_status_specification__success_conditional
     list;
+      [@default []] [@yojson_drop_default ( = )]
   success_next_step :
     fulfillment_code_hook__post_fulfillment_status_specification__success_next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   success_response :
     fulfillment_code_hook__post_fulfillment_status_specification__success_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout_conditional :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional
     list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout_next_step :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout_response :
     fulfillment_code_hook__post_fulfillment_status_specification__timeout_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30889,76 +33509,103 @@ let yojson_of_fulfillment_code_hook__post_fulfillment_status_specification
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response
-             v_timeout_response
-         in
-         ("timeout_response", arg) :: bnds
+         if [] = v_timeout_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_response)
+               v_timeout_response
+           in
+           let bnd = "timeout_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step
-             v_timeout_next_step
-         in
-         ("timeout_next_step", arg) :: bnds
+         if [] = v_timeout_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_next_step)
+               v_timeout_next_step
+           in
+           let bnd = "timeout_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional
-             v_timeout_conditional
-         in
-         ("timeout_conditional", arg) :: bnds
+         if [] = v_timeout_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__timeout_conditional)
+               v_timeout_conditional
+           in
+           let bnd = "timeout_conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response
-             v_success_response
-         in
-         ("success_response", arg) :: bnds
+         if [] = v_success_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_response)
+               v_success_response
+           in
+           let bnd = "success_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_next_step
-             v_success_next_step
-         in
-         ("success_next_step", arg) :: bnds
+         if [] = v_success_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_next_step)
+               v_success_next_step
+           in
+           let bnd = "success_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional
-             v_success_conditional
-         in
-         ("success_conditional", arg) :: bnds
+         if [] = v_success_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__success_conditional)
+               v_success_conditional
+           in
+           let bnd = "success_conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response
-             v_failure_response
-         in
-         ("failure_response", arg) :: bnds
+         if [] = v_failure_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_response)
+               v_failure_response
+           in
+           let bnd = "failure_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step
-             v_failure_next_step
-         in
-         ("failure_next_step", arg) :: bnds
+         if [] = v_failure_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_next_step)
+               v_failure_next_step
+           in
+           let bnd = "failure_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional
-             v_failure_conditional
-         in
-         ("failure_conditional", arg) :: bnds
+         if [] = v_failure_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification__failure_conditional)
+               v_failure_conditional
+           in
+           let bnd = "failure_conditional", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : fulfillment_code_hook__post_fulfillment_status_specification ->
@@ -30974,8 +33621,10 @@ type fulfillment_code_hook = {
   enabled : bool prop;
   fulfillment_updates_specification :
     fulfillment_code_hook__fulfillment_updates_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   post_fulfillment_status_specification :
     fulfillment_code_hook__post_fulfillment_status_specification list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -30995,20 +33644,26 @@ let yojson_of_fulfillment_code_hook =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__post_fulfillment_status_specification
-             v_post_fulfillment_status_specification
-         in
-         ("post_fulfillment_status_specification", arg) :: bnds
+         if [] = v_post_fulfillment_status_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__post_fulfillment_status_specification)
+               v_post_fulfillment_status_specification
+           in
+           let bnd = "post_fulfillment_status_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_fulfillment_code_hook__fulfillment_updates_specification
-             v_fulfillment_updates_specification
-         in
-         ("fulfillment_updates_specification", arg) :: bnds
+         if [] = v_fulfillment_updates_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_fulfillment_code_hook__fulfillment_updates_specification)
+               v_fulfillment_updates_specification
+           in
+           let bnd = "fulfillment_updates_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in
@@ -31153,6 +33808,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   value :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31173,12 +33829,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -31206,6 +33865,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   slot :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31222,12 +33882,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -31251,9 +33914,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31274,20 +33939,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -31386,6 +34057,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31407,12 +34079,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -31507,15 +34182,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31537,36 +34216,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message ->
@@ -31649,6 +34340,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31670,12 +34362,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -31770,15 +34465,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31800,36 +34499,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation ->
@@ -31844,9 +34555,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31863,20 +34576,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group ->
@@ -31892,6 +34611,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   message_group :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31911,12 +34631,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -31940,12 +34663,15 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   condition :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -31967,28 +34693,37 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -32095,6 +34830,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   value :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32115,12 +34851,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -32148,6 +34887,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   slot :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32164,12 +34904,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -32193,9 +34936,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32216,20 +34961,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -32328,6 +35079,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32349,12 +35101,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -32449,15 +35204,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32479,36 +35238,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message ->
@@ -32591,6 +35362,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32612,12 +35384,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -32712,15 +35487,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32742,36 +35521,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation ->
@@ -32786,9 +35577,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32805,20 +35598,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group ->
@@ -32834,6 +35633,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   message_group :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32853,12 +35653,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -32881,9 +35684,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   next_step :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32900,20 +35705,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch ->
@@ -32929,9 +35740,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   conditional_branch :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -32952,20 +35765,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -33072,6 +35891,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   value :
     initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33092,12 +35912,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -33125,6 +35948,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   slot :
     initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33141,12 +35965,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -33170,9 +35997,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33193,20 +36022,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -33305,6 +36140,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33326,12 +36162,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -33426,15 +36265,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33456,36 +36299,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message ->
@@ -33568,6 +36423,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33589,12 +36445,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -33689,15 +36548,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33719,36 +36582,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation ->
@@ -33763,9 +36638,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   message :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33782,20 +36659,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group ->
@@ -33811,6 +36694,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__failure_
   message_group :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33830,12 +36714,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -33978,6 +36865,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   value :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33998,12 +36886,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -34031,6 +36922,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   slot :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34047,12 +36939,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -34076,9 +36971,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34099,20 +36996,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -34211,6 +37114,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34232,12 +37136,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -34332,15 +37239,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34362,36 +37273,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message ->
@@ -34474,6 +37397,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34495,12 +37419,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -34595,15 +37522,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34625,36 +37556,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation ->
@@ -34669,9 +37612,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   message :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34688,20 +37633,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group ->
@@ -34717,6 +37668,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   message_group :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34736,12 +37688,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -34765,12 +37720,15 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   condition :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34792,28 +37750,37 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -34920,6 +37887,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   value :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34940,12 +37908,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -34973,6 +37944,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   slot :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -34989,12 +37961,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -35018,9 +37993,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35041,20 +38018,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -35153,6 +38136,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35174,12 +38158,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -35274,15 +38261,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35304,36 +38295,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message ->
@@ -35416,6 +38419,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35437,12 +38441,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -35537,15 +38544,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35567,36 +38578,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation ->
@@ -35611,9 +38634,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   message :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35630,20 +38655,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group ->
@@ -35659,6 +38690,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   message_group :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35678,12 +38710,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -35706,9 +38741,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   next_step :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35725,20 +38762,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch ->
@@ -35754,9 +38797,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   conditional_branch :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35777,20 +38822,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -35897,6 +38948,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   value :
     initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35917,12 +38969,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -35950,6 +39005,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   slot :
     initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -35966,12 +39022,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -35995,9 +39054,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36018,20 +39079,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -36130,6 +39197,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36151,12 +39219,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -36251,15 +39322,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36281,36 +39356,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message ->
@@ -36393,6 +39480,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36414,12 +39502,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -36514,15 +39605,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36544,36 +39639,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation ->
@@ -36588,9 +39695,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   message :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36607,20 +39716,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group ->
@@ -36636,6 +39751,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__success_
   message_group :
     initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36655,12 +39771,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -36803,6 +39922,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   value :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36823,12 +39943,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -36856,6 +39979,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   slot :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36872,12 +39996,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -36901,9 +40028,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -36924,20 +40053,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -37036,6 +40171,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37057,12 +40193,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -37157,15 +40296,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37187,36 +40330,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message ->
@@ -37299,6 +40454,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37320,12 +40476,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -37420,15 +40579,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37450,36 +40613,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation ->
@@ -37494,9 +40669,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37513,20 +40690,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group ->
@@ -37542,6 +40725,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   message_group :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37561,12 +40745,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -37590,12 +40777,15 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   condition :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37617,28 +40807,37 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -37745,6 +40944,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   value :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37765,12 +40965,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -37798,6 +41001,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   slot :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37814,12 +41018,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -37843,9 +41050,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37866,20 +41075,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -37978,6 +41193,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -37999,12 +41215,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -38099,15 +41318,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38129,36 +41352,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message ->
@@ -38241,6 +41476,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38262,12 +41498,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -38362,15 +41601,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38392,36 +41635,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation ->
@@ -38436,9 +41691,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38455,20 +41712,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group ->
@@ -38484,6 +41747,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   message_group :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38503,12 +41767,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -38531,9 +41798,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   next_step :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38550,20 +41819,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch ->
@@ -38579,9 +41854,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   conditional_branch :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38602,20 +41879,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -38722,6 +42005,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   value :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38742,12 +42026,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -38775,6 +42062,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   slot :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38791,12 +42079,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -38820,9 +42111,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   dialog_action :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38843,20 +42136,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -38955,6 +42254,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -38976,12 +42276,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -39076,15 +42379,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39106,36 +42413,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message ->
@@ -39218,6 +42537,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   button :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39239,12 +42559,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -39339,15 +42662,19 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   custom_payload :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39369,36 +42696,48 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation ->
@@ -39413,9 +42752,11 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   message :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39432,20 +42773,26 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group ->
@@ -39461,6 +42808,7 @@ type initial_response_setting__code_hook__post_code_hook_specification__timeout_
   message_group :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39480,12 +42828,15 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -39508,30 +42859,39 @@ type initial_response_setting__code_hook__post_code_hook_specification = {
   failure_conditional :
     initial_response_setting__code_hook__post_code_hook_specification__failure_conditional
     list;
+      [@default []] [@yojson_drop_default ( = )]
   failure_next_step :
     initial_response_setting__code_hook__post_code_hook_specification__failure_next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   failure_response :
     initial_response_setting__code_hook__post_code_hook_specification__failure_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
   success_conditional :
     initial_response_setting__code_hook__post_code_hook_specification__success_conditional
     list;
+      [@default []] [@yojson_drop_default ( = )]
   success_next_step :
     initial_response_setting__code_hook__post_code_hook_specification__success_next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   success_response :
     initial_response_setting__code_hook__post_code_hook_specification__success_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout_conditional :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional
     list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout_next_step :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   timeout_response :
     initial_response_setting__code_hook__post_code_hook_specification__timeout_response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39558,76 +42918,103 @@ let yojson_of_initial_response_setting__code_hook__post_code_hook_specification
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response
-             v_timeout_response
-         in
-         ("timeout_response", arg) :: bnds
+         if [] = v_timeout_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_response)
+               v_timeout_response
+           in
+           let bnd = "timeout_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step
-             v_timeout_next_step
-         in
-         ("timeout_next_step", arg) :: bnds
+         if [] = v_timeout_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_next_step)
+               v_timeout_next_step
+           in
+           let bnd = "timeout_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional
-             v_timeout_conditional
-         in
-         ("timeout_conditional", arg) :: bnds
+         if [] = v_timeout_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__timeout_conditional)
+               v_timeout_conditional
+           in
+           let bnd = "timeout_conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response
-             v_success_response
-         in
-         ("success_response", arg) :: bnds
+         if [] = v_success_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_response)
+               v_success_response
+           in
+           let bnd = "success_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_next_step
-             v_success_next_step
-         in
-         ("success_next_step", arg) :: bnds
+         if [] = v_success_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_next_step)
+               v_success_next_step
+           in
+           let bnd = "success_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional
-             v_success_conditional
-         in
-         ("success_conditional", arg) :: bnds
+         if [] = v_success_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__success_conditional)
+               v_success_conditional
+           in
+           let bnd = "success_conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response
-             v_failure_response
-         in
-         ("failure_response", arg) :: bnds
+         if [] = v_failure_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_response)
+               v_failure_response
+           in
+           let bnd = "failure_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_next_step
-             v_failure_next_step
-         in
-         ("failure_next_step", arg) :: bnds
+         if [] = v_failure_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_next_step)
+               v_failure_next_step
+           in
+           let bnd = "failure_next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional
-             v_failure_conditional
-         in
-         ("failure_conditional", arg) :: bnds
+         if [] = v_failure_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification__failure_conditional)
+               v_failure_conditional
+           in
+           let bnd = "failure_conditional", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__code_hook__post_code_hook_specification ->
@@ -39645,6 +43032,7 @@ type initial_response_setting__code_hook = {
   post_code_hook_specification :
     initial_response_setting__code_hook__post_code_hook_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39662,12 +43050,15 @@ let yojson_of_initial_response_setting__code_hook =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook__post_code_hook_specification
-             v_post_code_hook_specification
-         in
-         ("post_code_hook_specification", arg) :: bnds
+         if [] = v_post_code_hook_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook__post_code_hook_specification)
+               v_post_code_hook_specification
+           in
+           let bnd = "post_code_hook_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_invocation_label with
@@ -39820,6 +43211,7 @@ type initial_response_setting__conditional__conditional_branch__next_step__inten
   value :
     initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39840,12 +43232,15 @@ let yojson_of_initial_response_setting__conditional__conditional_branch__next_st
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -39873,6 +43268,7 @@ type initial_response_setting__conditional__conditional_branch__next_step__inten
   slot :
     initial_response_setting__conditional__conditional_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39889,12 +43285,15 @@ let yojson_of_initial_response_setting__conditional__conditional_branch__next_st
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -39918,9 +43317,11 @@ type initial_response_setting__conditional__conditional_branch__next_step = {
   dialog_action :
     initial_response_setting__conditional__conditional_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__conditional__conditional_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -39941,20 +43342,26 @@ let yojson_of_initial_response_setting__conditional__conditional_branch__next_st
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -40053,6 +43460,7 @@ type initial_response_setting__conditional__conditional_branch__response__messag
   button :
     initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40074,12 +43482,15 @@ let yojson_of_initial_response_setting__conditional__conditional_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -40174,15 +43585,19 @@ type initial_response_setting__conditional__conditional_branch__response__messag
   custom_payload :
     initial_response_setting__conditional__conditional_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__conditional__conditional_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40204,36 +43619,48 @@ let yojson_of_initial_response_setting__conditional__conditional_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__conditional__conditional_branch__response__message_group__message ->
@@ -40316,6 +43743,7 @@ type initial_response_setting__conditional__conditional_branch__response__messag
   button :
     initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40337,12 +43765,15 @@ let yojson_of_initial_response_setting__conditional__conditional_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -40437,15 +43868,19 @@ type initial_response_setting__conditional__conditional_branch__response__messag
   custom_payload :
     initial_response_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40467,36 +43902,48 @@ let yojson_of_initial_response_setting__conditional__conditional_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__conditional__conditional_branch__response__message_group__variation ->
@@ -40511,9 +43958,11 @@ type initial_response_setting__conditional__conditional_branch__response__messag
   message :
     initial_response_setting__conditional__conditional_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__conditional__conditional_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40530,20 +43979,26 @@ let yojson_of_initial_response_setting__conditional__conditional_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__conditional__conditional_branch__response__message_group ->
@@ -40559,6 +44014,7 @@ type initial_response_setting__conditional__conditional_branch__response = {
   message_group :
     initial_response_setting__conditional__conditional_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40578,12 +44034,15 @@ let yojson_of_initial_response_setting__conditional__conditional_branch__respons
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -40607,12 +44066,15 @@ type initial_response_setting__conditional__conditional_branch = {
   condition :
     initial_response_setting__conditional__conditional_branch__condition
     list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step :
     initial_response_setting__conditional__conditional_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     initial_response_setting__conditional__conditional_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40633,28 +44095,37 @@ let yojson_of_initial_response_setting__conditional__conditional_branch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -40761,6 +44232,7 @@ type initial_response_setting__conditional__default_branch__next_step__intent__s
   value :
     initial_response_setting__conditional__default_branch__next_step__intent__slot__value
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40781,12 +44253,15 @@ let yojson_of_initial_response_setting__conditional__default_branch__next_step__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -40814,6 +44289,7 @@ type initial_response_setting__conditional__default_branch__next_step__intent = 
   slot :
     initial_response_setting__conditional__default_branch__next_step__intent__slot
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40830,12 +44306,15 @@ let yojson_of_initial_response_setting__conditional__default_branch__next_step__
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -40859,9 +44338,11 @@ type initial_response_setting__conditional__default_branch__next_step = {
   dialog_action :
     initial_response_setting__conditional__default_branch__next_step__dialog_action
     list;
+      [@default []] [@yojson_drop_default ( = )]
   intent :
     initial_response_setting__conditional__default_branch__next_step__intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -40882,20 +44363,26 @@ let yojson_of_initial_response_setting__conditional__default_branch__next_step
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -40994,6 +44481,7 @@ type initial_response_setting__conditional__default_branch__response__message_gr
   button :
     initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41015,12 +44503,15 @@ let yojson_of_initial_response_setting__conditional__default_branch__response__m
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -41115,15 +44606,19 @@ type initial_response_setting__conditional__default_branch__response__message_gr
   custom_payload :
     initial_response_setting__conditional__default_branch__response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__conditional__default_branch__response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__conditional__default_branch__response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41145,36 +44640,48 @@ let yojson_of_initial_response_setting__conditional__default_branch__response__m
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__conditional__default_branch__response__message_group__message ->
@@ -41257,6 +44764,7 @@ type initial_response_setting__conditional__default_branch__response__message_gr
   button :
     initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41278,12 +44786,15 @@ let yojson_of_initial_response_setting__conditional__default_branch__response__m
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -41378,15 +44889,19 @@ type initial_response_setting__conditional__default_branch__response__message_gr
   custom_payload :
     initial_response_setting__conditional__default_branch__response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__conditional__default_branch__response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__conditional__default_branch__response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41408,36 +44923,48 @@ let yojson_of_initial_response_setting__conditional__default_branch__response__m
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__conditional__default_branch__response__message_group__variation ->
@@ -41452,9 +44979,11 @@ type initial_response_setting__conditional__default_branch__response__message_gr
   message :
     initial_response_setting__conditional__default_branch__response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__conditional__default_branch__response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41471,20 +45000,26 @@ let yojson_of_initial_response_setting__conditional__default_branch__response__m
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__conditional__default_branch__response__message_group ->
@@ -41500,6 +45035,7 @@ type initial_response_setting__conditional__default_branch__response = {
   message_group :
     initial_response_setting__conditional__default_branch__response__message_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41519,12 +45055,15 @@ let yojson_of_initial_response_setting__conditional__default_branch__response
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -41547,9 +45086,11 @@ type initial_response_setting__conditional__default_branch = {
   next_step :
     initial_response_setting__conditional__default_branch__next_step
     list;
+      [@default []] [@yojson_drop_default ( = )]
   response :
     initial_response_setting__conditional__default_branch__response
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41564,20 +45105,26 @@ let yojson_of_initial_response_setting__conditional__default_branch =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__response
-             v_response
-         in
-         ("response", arg) :: bnds
+         if [] = v_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__response)
+               v_response
+           in
+           let bnd = "response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__conditional__default_branch ->
@@ -41592,8 +45139,10 @@ type initial_response_setting__conditional = {
   active : bool prop;
   conditional_branch :
     initial_response_setting__conditional__conditional_branch list;
+      [@default []] [@yojson_drop_default ( = )]
   default_branch :
     initial_response_setting__conditional__default_branch list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41610,20 +45159,26 @@ let yojson_of_initial_response_setting__conditional =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__default_branch
-             v_default_branch
-         in
-         ("default_branch", arg) :: bnds
+         if [] = v_default_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__default_branch)
+               v_default_branch
+           in
+           let bnd = "default_branch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional__conditional_branch
-             v_conditional_branch
-         in
-         ("conditional_branch", arg) :: bnds
+         if [] = v_conditional_branch then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional__conditional_branch)
+               v_conditional_branch
+           in
+           let bnd = "conditional_branch", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_active in
@@ -41709,6 +45264,7 @@ type initial_response_setting__initial_response__message_group__message__image_r
   button :
     initial_response_setting__initial_response__message_group__message__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41730,12 +45286,15 @@ let yojson_of_initial_response_setting__initial_response__message_group__message
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__message__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__message__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -41830,15 +45389,19 @@ type initial_response_setting__initial_response__message_group__message = {
   custom_payload :
     initial_response_setting__initial_response__message_group__message__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__initial_response__message_group__message__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__initial_response__message_group__message__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__initial_response__message_group__message__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41860,36 +45423,48 @@ let yojson_of_initial_response_setting__initial_response__message_group__message
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__message__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__message__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__message__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__message__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__message__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__message__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__message__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__message__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__initial_response__message_group__message ->
@@ -41972,6 +45547,7 @@ type initial_response_setting__initial_response__message_group__variation__image
   button :
     initial_response_setting__initial_response__message_group__variation__image_response_card__button
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41993,12 +45569,15 @@ let yojson_of_initial_response_setting__initial_response__message_group__variati
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__variation__image_response_card__button
-             v_button
-         in
-         ("button", arg) :: bnds
+         if [] = v_button then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__variation__image_response_card__button)
+               v_button
+           in
+           let bnd = "button", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in
@@ -42093,15 +45672,19 @@ type initial_response_setting__initial_response__message_group__variation = {
   custom_payload :
     initial_response_setting__initial_response__message_group__variation__custom_payload
     list;
+      [@default []] [@yojson_drop_default ( = )]
   image_response_card :
     initial_response_setting__initial_response__message_group__variation__image_response_card
     list;
+      [@default []] [@yojson_drop_default ( = )]
   plain_text_message :
     initial_response_setting__initial_response__message_group__variation__plain_text_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ssml_message :
     initial_response_setting__initial_response__message_group__variation__ssml_message
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -42123,36 +45706,48 @@ let yojson_of_initial_response_setting__initial_response__message_group__variati
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__variation__ssml_message
-             v_ssml_message
-         in
-         ("ssml_message", arg) :: bnds
+         if [] = v_ssml_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__variation__ssml_message)
+               v_ssml_message
+           in
+           let bnd = "ssml_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__variation__plain_text_message
-             v_plain_text_message
-         in
-         ("plain_text_message", arg) :: bnds
+         if [] = v_plain_text_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__variation__plain_text_message)
+               v_plain_text_message
+           in
+           let bnd = "plain_text_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__variation__image_response_card
-             v_image_response_card
-         in
-         ("image_response_card", arg) :: bnds
+         if [] = v_image_response_card then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__variation__image_response_card)
+               v_image_response_card
+           in
+           let bnd = "image_response_card", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__variation__custom_payload
-             v_custom_payload
-         in
-         ("custom_payload", arg) :: bnds
+         if [] = v_custom_payload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__variation__custom_payload)
+               v_custom_payload
+           in
+           let bnd = "custom_payload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__initial_response__message_group__variation ->
@@ -42167,9 +45762,11 @@ type initial_response_setting__initial_response__message_group = {
   message :
     initial_response_setting__initial_response__message_group__message
     list;
+      [@default []] [@yojson_drop_default ( = )]
   variation :
     initial_response_setting__initial_response__message_group__variation
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -42185,20 +45782,26 @@ let yojson_of_initial_response_setting__initial_response__message_group
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__variation
-             v_variation
-         in
-         ("variation", arg) :: bnds
+         if [] = v_variation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__variation)
+               v_variation
+           in
+           let bnd = "variation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group__message
-             v_message
-         in
-         ("message", arg) :: bnds
+         if [] = v_message then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group__message)
+               v_message
+           in
+           let bnd = "message", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting__initial_response__message_group ->
@@ -42213,6 +45816,7 @@ type initial_response_setting__initial_response = {
   allow_interrupt : bool prop option; [@option]
   message_group :
     initial_response_setting__initial_response__message_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -42228,12 +45832,15 @@ let yojson_of_initial_response_setting__initial_response =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response__message_group
-             v_message_group
-         in
-         ("message_group", arg) :: bnds
+         if [] = v_message_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response__message_group)
+               v_message_group
+           in
+           let bnd = "message_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_interrupt with
@@ -42337,6 +45944,7 @@ type initial_response_setting__next_step__intent__slot = {
   shape : string prop option; [@option]
   value :
     initial_response_setting__next_step__intent__slot__value list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -42354,12 +45962,15 @@ let yojson_of_initial_response_setting__next_step__intent__slot =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__next_step__intent__slot__value
-             v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__next_step__intent__slot__value)
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_shape with
@@ -42384,6 +45995,7 @@ let _ = yojson_of_initial_response_setting__next_step__intent__slot
 type initial_response_setting__next_step__intent = {
   name : string prop option; [@option]
   slot : initial_response_setting__next_step__intent__slot list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -42396,12 +46008,15 @@ let yojson_of_initial_response_setting__next_step__intent =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__next_step__intent__slot
-             v_slot
-         in
-         ("slot", arg) :: bnds
+         if [] = v_slot then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__next_step__intent__slot)
+               v_slot
+           in
+           let bnd = "slot", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -42423,7 +46038,9 @@ type initial_response_setting__next_step = {
   session_attributes : (string * string prop) list option; [@option]
   dialog_action :
     initial_response_setting__next_step__dialog_action list;
+      [@default []] [@yojson_drop_default ( = )]
   intent : initial_response_setting__next_step__intent list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -42440,20 +46057,26 @@ let yojson_of_initial_response_setting__next_step =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__next_step__intent
-             v_intent
-         in
-         ("intent", arg) :: bnds
+         if [] = v_intent then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__next_step__intent)
+               v_intent
+           in
+           let bnd = "intent", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__next_step__dialog_action
-             v_dialog_action
-         in
-         ("dialog_action", arg) :: bnds
+         if [] = v_dialog_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__next_step__dialog_action)
+               v_dialog_action
+           in
+           let bnd = "dialog_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_session_attributes with
@@ -42481,9 +46104,13 @@ let _ = yojson_of_initial_response_setting__next_step
 
 type initial_response_setting = {
   code_hook : initial_response_setting__code_hook list;
+      [@default []] [@yojson_drop_default ( = )]
   conditional : initial_response_setting__conditional list;
+      [@default []] [@yojson_drop_default ( = )]
   initial_response : initial_response_setting__initial_response list;
+      [@default []] [@yojson_drop_default ( = )]
   next_step : initial_response_setting__next_step list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -42501,36 +46128,48 @@ let yojson_of_initial_response_setting =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__next_step
-             v_next_step
-         in
-         ("next_step", arg) :: bnds
+         if [] = v_next_step then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__next_step)
+               v_next_step
+           in
+           let bnd = "next_step", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__initial_response
-             v_initial_response
-         in
-         ("initial_response", arg) :: bnds
+         if [] = v_initial_response then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__initial_response)
+               v_initial_response
+           in
+           let bnd = "initial_response", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__conditional
-             v_conditional
-         in
-         ("conditional", arg) :: bnds
+         if [] = v_conditional then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__conditional)
+               v_conditional
+           in
+           let bnd = "conditional", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_initial_response_setting__code_hook
-             v_code_hook
-         in
-         ("code_hook", arg) :: bnds
+         if [] = v_code_hook then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_initial_response_setting__code_hook)
+               v_code_hook
+           in
+           let bnd = "code_hook", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : initial_response_setting -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -42749,15 +46388,25 @@ type aws_lexv2models_intent = {
   name : string prop;
   parent_intent_signature : string prop option; [@option]
   closing_setting : closing_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   confirmation_setting : confirmation_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   dialog_code_hook : dialog_code_hook list;
+      [@default []] [@yojson_drop_default ( = )]
   fulfillment_code_hook : fulfillment_code_hook list;
+      [@default []] [@yojson_drop_default ( = )]
   initial_response_setting : initial_response_setting list;
+      [@default []] [@yojson_drop_default ( = )]
   input_context : input_context list;
+      [@default []] [@yojson_drop_default ( = )]
   kendra_configuration : kendra_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   output_context : output_context list;
+      [@default []] [@yojson_drop_default ( = )]
   sample_utterance : sample_utterance list;
+      [@default []] [@yojson_drop_default ( = )]
   slot_priority : slot_priority list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -42793,70 +46442,102 @@ let yojson_of_aws_lexv2models_intent =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_slot_priority v_slot_priority
-         in
-         ("slot_priority", arg) :: bnds
+         if [] = v_slot_priority then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_slot_priority) v_slot_priority
+           in
+           let bnd = "slot_priority", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sample_utterance
-             v_sample_utterance
-         in
-         ("sample_utterance", arg) :: bnds
+         if [] = v_sample_utterance then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sample_utterance)
+               v_sample_utterance
+           in
+           let bnd = "sample_utterance", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_output_context v_output_context
-         in
-         ("output_context", arg) :: bnds
+         if [] = v_output_context then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_output_context)
+               v_output_context
+           in
+           let bnd = "output_context", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kendra_configuration
-             v_kendra_configuration
-         in
-         ("kendra_configuration", arg) :: bnds
+         if [] = v_kendra_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kendra_configuration)
+               v_kendra_configuration
+           in
+           let bnd = "kendra_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_input_context v_input_context
-         in
-         ("input_context", arg) :: bnds
+         if [] = v_input_context then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_input_context) v_input_context
+           in
+           let bnd = "input_context", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_initial_response_setting
-             v_initial_response_setting
-         in
-         ("initial_response_setting", arg) :: bnds
+         if [] = v_initial_response_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_initial_response_setting)
+               v_initial_response_setting
+           in
+           let bnd = "initial_response_setting", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_fulfillment_code_hook
-             v_fulfillment_code_hook
-         in
-         ("fulfillment_code_hook", arg) :: bnds
+         if [] = v_fulfillment_code_hook then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_fulfillment_code_hook)
+               v_fulfillment_code_hook
+           in
+           let bnd = "fulfillment_code_hook", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dialog_code_hook
-             v_dialog_code_hook
-         in
-         ("dialog_code_hook", arg) :: bnds
+         if [] = v_dialog_code_hook then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dialog_code_hook)
+               v_dialog_code_hook
+           in
+           let bnd = "dialog_code_hook", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_confirmation_setting
-             v_confirmation_setting
-         in
-         ("confirmation_setting", arg) :: bnds
+         if [] = v_confirmation_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_confirmation_setting)
+               v_confirmation_setting
+           in
+           let bnd = "confirmation_setting", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_closing_setting v_closing_setting
-         in
-         ("closing_setting", arg) :: bnds
+         if [] = v_closing_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_closing_setting)
+               v_closing_setting
+           in
+           let bnd = "closing_setting", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_parent_intent_signature with

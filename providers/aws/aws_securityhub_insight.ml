@@ -169,6 +169,7 @@ type filters__created_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : filters__created_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -181,11 +182,15 @@ let yojson_of_filters__created_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__created_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__created_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -572,6 +577,7 @@ type filters__first_observed_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : filters__first_observed_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -584,12 +590,15 @@ let yojson_of_filters__first_observed_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__first_observed_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__first_observed_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -725,6 +734,7 @@ type filters__last_observed_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : filters__last_observed_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -737,12 +747,15 @@ let yojson_of_filters__last_observed_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__last_observed_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__last_observed_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -1280,6 +1293,7 @@ type filters__note_updated_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : filters__note_updated_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1292,12 +1306,15 @@ let yojson_of_filters__note_updated_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__note_updated_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__note_updated_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -1385,6 +1402,7 @@ type filters__process_launched_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : filters__process_launched_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1397,12 +1415,15 @@ let yojson_of_filters__process_launched_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__process_launched_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__process_launched_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -1613,6 +1634,7 @@ type filters__process_terminated_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : filters__process_terminated_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1625,12 +1647,15 @@ let yojson_of_filters__process_terminated_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__process_terminated_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__process_terminated_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -2053,6 +2078,7 @@ type filters__resource_aws_ec2_instance_launched_at = {
   start : string prop option; [@option]
   date_range :
     filters__resource_aws_ec2_instance_launched_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2066,12 +2092,15 @@ let yojson_of_filters__resource_aws_ec2_instance_launched_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_ec2_instance_launched_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_ec2_instance_launched_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -2227,6 +2256,7 @@ type filters__resource_aws_iam_access_key_created_at = {
   start : string prop option; [@option]
   date_range :
     filters__resource_aws_iam_access_key_created_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2240,12 +2270,15 @@ let yojson_of_filters__resource_aws_iam_access_key_created_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_iam_access_key_created_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_iam_access_key_created_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -2488,6 +2521,7 @@ type filters__resource_container_launched_at = {
   start : string prop option; [@option]
   date_range :
     filters__resource_container_launched_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2500,12 +2534,15 @@ let yojson_of_filters__resource_container_launched_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_container_launched_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_container_launched_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -2875,6 +2912,7 @@ type filters__threat_intel_indicator_last_observed_at = {
   start : string prop option; [@option]
   date_range :
     filters__threat_intel_indicator_last_observed_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2888,12 +2926,15 @@ let yojson_of_filters__threat_intel_indicator_last_observed_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__threat_intel_indicator_last_observed_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__threat_intel_indicator_last_observed_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -3131,6 +3172,7 @@ type filters__updated_at = {
   end_ : string prop option; [@option] [@key "end"]
   start : string prop option; [@option]
   date_range : filters__updated_at__date_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3143,11 +3185,15 @@ let yojson_of_filters__updated_at =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__updated_at__date_range
-             v_date_range
-         in
-         ("date_range", arg) :: bnds
+         if [] = v_date_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__updated_at__date_range)
+               v_date_range
+           in
+           let bnd = "date_range", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start with
@@ -3268,126 +3314,213 @@ let _ = yojson_of_filters__workflow_status
 
 type filters = {
   aws_account_id : filters__aws_account_id list;
+      [@default []] [@yojson_drop_default ( = )]
   company_name : filters__company_name list;
+      [@default []] [@yojson_drop_default ( = )]
   compliance_status : filters__compliance_status list;
+      [@default []] [@yojson_drop_default ( = )]
   confidence : filters__confidence list;
+      [@default []] [@yojson_drop_default ( = )]
   created_at : filters__created_at list;
+      [@default []] [@yojson_drop_default ( = )]
   criticality : filters__criticality list;
+      [@default []] [@yojson_drop_default ( = )]
   description : filters__description list;
+      [@default []] [@yojson_drop_default ( = )]
   finding_provider_fields_confidence :
     filters__finding_provider_fields_confidence list;
+      [@default []] [@yojson_drop_default ( = )]
   finding_provider_fields_criticality :
     filters__finding_provider_fields_criticality list;
+      [@default []] [@yojson_drop_default ( = )]
   finding_provider_fields_related_findings_id :
     filters__finding_provider_fields_related_findings_id list;
+      [@default []] [@yojson_drop_default ( = )]
   finding_provider_fields_related_findings_product_arn :
     filters__finding_provider_fields_related_findings_product_arn
     list;
+      [@default []] [@yojson_drop_default ( = )]
   finding_provider_fields_severity_label :
     filters__finding_provider_fields_severity_label list;
+      [@default []] [@yojson_drop_default ( = )]
   finding_provider_fields_severity_original :
     filters__finding_provider_fields_severity_original list;
+      [@default []] [@yojson_drop_default ( = )]
   finding_provider_fields_types :
     filters__finding_provider_fields_types list;
+      [@default []] [@yojson_drop_default ( = )]
   first_observed_at : filters__first_observed_at list;
+      [@default []] [@yojson_drop_default ( = )]
   generator_id : filters__generator_id list;
-  id : filters__id list;
+      [@default []] [@yojson_drop_default ( = )]
+  id : filters__id list; [@default []] [@yojson_drop_default ( = )]
   keyword : filters__keyword list;
+      [@default []] [@yojson_drop_default ( = )]
   last_observed_at : filters__last_observed_at list;
+      [@default []] [@yojson_drop_default ( = )]
   malware_name : filters__malware_name list;
+      [@default []] [@yojson_drop_default ( = )]
   malware_path : filters__malware_path list;
+      [@default []] [@yojson_drop_default ( = )]
   malware_state : filters__malware_state list;
+      [@default []] [@yojson_drop_default ( = )]
   malware_type : filters__malware_type list;
+      [@default []] [@yojson_drop_default ( = )]
   network_destination_domain :
     filters__network_destination_domain list;
+      [@default []] [@yojson_drop_default ( = )]
   network_destination_ipv4 : filters__network_destination_ipv4 list;
+      [@default []] [@yojson_drop_default ( = )]
   network_destination_ipv6 : filters__network_destination_ipv6 list;
+      [@default []] [@yojson_drop_default ( = )]
   network_destination_port : filters__network_destination_port list;
+      [@default []] [@yojson_drop_default ( = )]
   network_direction : filters__network_direction list;
+      [@default []] [@yojson_drop_default ( = )]
   network_protocol : filters__network_protocol list;
+      [@default []] [@yojson_drop_default ( = )]
   network_source_domain : filters__network_source_domain list;
+      [@default []] [@yojson_drop_default ( = )]
   network_source_ipv4 : filters__network_source_ipv4 list;
+      [@default []] [@yojson_drop_default ( = )]
   network_source_ipv6 : filters__network_source_ipv6 list;
+      [@default []] [@yojson_drop_default ( = )]
   network_source_mac : filters__network_source_mac list;
+      [@default []] [@yojson_drop_default ( = )]
   network_source_port : filters__network_source_port list;
+      [@default []] [@yojson_drop_default ( = )]
   note_text : filters__note_text list;
+      [@default []] [@yojson_drop_default ( = )]
   note_updated_at : filters__note_updated_at list;
+      [@default []] [@yojson_drop_default ( = )]
   note_updated_by : filters__note_updated_by list;
+      [@default []] [@yojson_drop_default ( = )]
   process_launched_at : filters__process_launched_at list;
+      [@default []] [@yojson_drop_default ( = )]
   process_name : filters__process_name list;
+      [@default []] [@yojson_drop_default ( = )]
   process_parent_pid : filters__process_parent_pid list;
+      [@default []] [@yojson_drop_default ( = )]
   process_path : filters__process_path list;
+      [@default []] [@yojson_drop_default ( = )]
   process_pid : filters__process_pid list;
+      [@default []] [@yojson_drop_default ( = )]
   process_terminated_at : filters__process_terminated_at list;
+      [@default []] [@yojson_drop_default ( = )]
   product_arn : filters__product_arn list;
+      [@default []] [@yojson_drop_default ( = )]
   product_fields : filters__product_fields list;
+      [@default []] [@yojson_drop_default ( = )]
   product_name : filters__product_name list;
+      [@default []] [@yojson_drop_default ( = )]
   recommendation_text : filters__recommendation_text list;
+      [@default []] [@yojson_drop_default ( = )]
   record_state : filters__record_state list;
+      [@default []] [@yojson_drop_default ( = )]
   related_findings_id : filters__related_findings_id list;
+      [@default []] [@yojson_drop_default ( = )]
   related_findings_product_arn :
     filters__related_findings_product_arn list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_ec2_instance_iam_instance_profile_arn :
     filters__resource_aws_ec2_instance_iam_instance_profile_arn list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_ec2_instance_image_id :
     filters__resource_aws_ec2_instance_image_id list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_ec2_instance_ipv4_addresses :
     filters__resource_aws_ec2_instance_ipv4_addresses list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_ec2_instance_ipv6_addresses :
     filters__resource_aws_ec2_instance_ipv6_addresses list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_ec2_instance_key_name :
     filters__resource_aws_ec2_instance_key_name list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_ec2_instance_launched_at :
     filters__resource_aws_ec2_instance_launched_at list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_ec2_instance_subnet_id :
     filters__resource_aws_ec2_instance_subnet_id list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_ec2_instance_type :
     filters__resource_aws_ec2_instance_type list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_ec2_instance_vpc_id :
     filters__resource_aws_ec2_instance_vpc_id list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_iam_access_key_created_at :
     filters__resource_aws_iam_access_key_created_at list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_iam_access_key_status :
     filters__resource_aws_iam_access_key_status list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_iam_access_key_user_name :
     filters__resource_aws_iam_access_key_user_name list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_s3_bucket_owner_id :
     filters__resource_aws_s3_bucket_owner_id list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_aws_s3_bucket_owner_name :
     filters__resource_aws_s3_bucket_owner_name list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_container_image_id :
     filters__resource_container_image_id list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_container_image_name :
     filters__resource_container_image_name list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_container_launched_at :
     filters__resource_container_launched_at list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_container_name : filters__resource_container_name list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_details_other : filters__resource_details_other list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_id : filters__resource_id list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_partition : filters__resource_partition list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_region : filters__resource_region list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_tags : filters__resource_tags list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_type : filters__resource_type list;
+      [@default []] [@yojson_drop_default ( = )]
   severity_label : filters__severity_label list;
+      [@default []] [@yojson_drop_default ( = )]
   source_url : filters__source_url list;
+      [@default []] [@yojson_drop_default ( = )]
   threat_intel_indicator_category :
     filters__threat_intel_indicator_category list;
+      [@default []] [@yojson_drop_default ( = )]
   threat_intel_indicator_last_observed_at :
     filters__threat_intel_indicator_last_observed_at list;
+      [@default []] [@yojson_drop_default ( = )]
   threat_intel_indicator_source :
     filters__threat_intel_indicator_source list;
+      [@default []] [@yojson_drop_default ( = )]
   threat_intel_indicator_source_url :
     filters__threat_intel_indicator_source_url list;
+      [@default []] [@yojson_drop_default ( = )]
   threat_intel_indicator_type :
     filters__threat_intel_indicator_type list;
+      [@default []] [@yojson_drop_default ( = )]
   threat_intel_indicator_value :
     filters__threat_intel_indicator_value list;
+      [@default []] [@yojson_drop_default ( = )]
   title : filters__title list;
-  type_ : filters__type list; [@key "type"]
+      [@default []] [@yojson_drop_default ( = )]
+  type_ : filters__type list;
+      [@key "type"] [@default []] [@yojson_drop_default ( = )]
   updated_at : filters__updated_at list;
+      [@default []] [@yojson_drop_default ( = )]
   user_defined_values : filters__user_defined_values list;
+      [@default []] [@yojson_drop_default ( = )]
   verification_state : filters__verification_state list;
+      [@default []] [@yojson_drop_default ( = )]
   workflow_status : filters__workflow_status list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3516,639 +3649,937 @@ let yojson_of_filters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__workflow_status
-             v_workflow_status
-         in
-         ("workflow_status", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__verification_state
-             v_verification_state
-         in
-         ("verification_state", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__user_defined_values
-             v_user_defined_values
-         in
-         ("user_defined_values", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__updated_at v_updated_at
-         in
-         ("updated_at", arg) :: bnds
-       in
-       let bnds =
-         let arg = yojson_of_list yojson_of_filters__type v_type_ in
-         ("type", arg) :: bnds
-       in
-       let bnds =
-         let arg = yojson_of_list yojson_of_filters__title v_title in
-         ("title", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__threat_intel_indicator_value
-             v_threat_intel_indicator_value
-         in
-         ("threat_intel_indicator_value", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__threat_intel_indicator_type
-             v_threat_intel_indicator_type
-         in
-         ("threat_intel_indicator_type", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__threat_intel_indicator_source_url
-             v_threat_intel_indicator_source_url
-         in
-         ("threat_intel_indicator_source_url", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__threat_intel_indicator_source
-             v_threat_intel_indicator_source
-         in
-         ("threat_intel_indicator_source", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__threat_intel_indicator_last_observed_at
-             v_threat_intel_indicator_last_observed_at
-         in
-         ("threat_intel_indicator_last_observed_at", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__threat_intel_indicator_category
-             v_threat_intel_indicator_category
-         in
-         ("threat_intel_indicator_category", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__source_url v_source_url
-         in
-         ("source_url", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__severity_label
-             v_severity_label
-         in
-         ("severity_label", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__resource_type
-             v_resource_type
-         in
-         ("resource_type", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__resource_tags
-             v_resource_tags
-         in
-         ("resource_tags", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__resource_region
-             v_resource_region
-         in
-         ("resource_region", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__resource_partition
-             v_resource_partition
-         in
-         ("resource_partition", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__resource_id
-             v_resource_id
-         in
-         ("resource_id", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__resource_details_other
-             v_resource_details_other
-         in
-         ("resource_details_other", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__resource_container_name
-             v_resource_container_name
-         in
-         ("resource_container_name", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_container_launched_at
-             v_resource_container_launched_at
-         in
-         ("resource_container_launched_at", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_container_image_name
-             v_resource_container_image_name
-         in
-         ("resource_container_image_name", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_container_image_id
-             v_resource_container_image_id
-         in
-         ("resource_container_image_id", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_s3_bucket_owner_name
-             v_resource_aws_s3_bucket_owner_name
-         in
-         ("resource_aws_s3_bucket_owner_name", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_s3_bucket_owner_id
-             v_resource_aws_s3_bucket_owner_id
-         in
-         ("resource_aws_s3_bucket_owner_id", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_iam_access_key_user_name
-             v_resource_aws_iam_access_key_user_name
-         in
-         ("resource_aws_iam_access_key_user_name", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_iam_access_key_status
-             v_resource_aws_iam_access_key_status
-         in
-         ("resource_aws_iam_access_key_status", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_iam_access_key_created_at
-             v_resource_aws_iam_access_key_created_at
-         in
-         ("resource_aws_iam_access_key_created_at", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_ec2_instance_vpc_id
-             v_resource_aws_ec2_instance_vpc_id
-         in
-         ("resource_aws_ec2_instance_vpc_id", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_ec2_instance_type
-             v_resource_aws_ec2_instance_type
-         in
-         ("resource_aws_ec2_instance_type", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_ec2_instance_subnet_id
-             v_resource_aws_ec2_instance_subnet_id
-         in
-         ("resource_aws_ec2_instance_subnet_id", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_ec2_instance_launched_at
-             v_resource_aws_ec2_instance_launched_at
-         in
-         ("resource_aws_ec2_instance_launched_at", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_ec2_instance_key_name
-             v_resource_aws_ec2_instance_key_name
-         in
-         ("resource_aws_ec2_instance_key_name", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_ec2_instance_ipv6_addresses
-             v_resource_aws_ec2_instance_ipv6_addresses
-         in
-         ("resource_aws_ec2_instance_ipv6_addresses", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_ec2_instance_ipv4_addresses
-             v_resource_aws_ec2_instance_ipv4_addresses
-         in
-         ("resource_aws_ec2_instance_ipv4_addresses", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_ec2_instance_image_id
-             v_resource_aws_ec2_instance_image_id
-         in
-         ("resource_aws_ec2_instance_image_id", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__resource_aws_ec2_instance_iam_instance_profile_arn
-             v_resource_aws_ec2_instance_iam_instance_profile_arn
-         in
-         ("resource_aws_ec2_instance_iam_instance_profile_arn", arg)
-         :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__related_findings_product_arn
-             v_related_findings_product_arn
-         in
-         ("related_findings_product_arn", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__related_findings_id
-             v_related_findings_id
-         in
-         ("related_findings_id", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__record_state
-             v_record_state
-         in
-         ("record_state", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__recommendation_text
-             v_recommendation_text
-         in
-         ("recommendation_text", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__product_name
-             v_product_name
-         in
-         ("product_name", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__product_fields
-             v_product_fields
-         in
-         ("product_fields", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__product_arn
-             v_product_arn
-         in
-         ("product_arn", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__process_terminated_at
-             v_process_terminated_at
-         in
-         ("process_terminated_at", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__process_pid
-             v_process_pid
-         in
-         ("process_pid", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__process_path
-             v_process_path
-         in
-         ("process_path", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__process_parent_pid
-             v_process_parent_pid
-         in
-         ("process_parent_pid", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__process_name
-             v_process_name
-         in
-         ("process_name", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__process_launched_at
-             v_process_launched_at
-         in
-         ("process_launched_at", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__note_updated_by
-             v_note_updated_by
-         in
-         ("note_updated_by", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__note_updated_at
-             v_note_updated_at
-         in
-         ("note_updated_at", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__note_text v_note_text
-         in
-         ("note_text", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__network_source_port
-             v_network_source_port
-         in
-         ("network_source_port", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__network_source_mac
-             v_network_source_mac
-         in
-         ("network_source_mac", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__network_source_ipv6
-             v_network_source_ipv6
-         in
-         ("network_source_ipv6", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__network_source_ipv4
-             v_network_source_ipv4
-         in
-         ("network_source_ipv4", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__network_source_domain
-             v_network_source_domain
-         in
-         ("network_source_domain", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__network_protocol
-             v_network_protocol
-         in
-         ("network_protocol", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__network_direction
-             v_network_direction
-         in
-         ("network_direction", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__network_destination_port
-             v_network_destination_port
-         in
-         ("network_destination_port", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__network_destination_ipv6
-             v_network_destination_ipv6
-         in
-         ("network_destination_ipv6", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__network_destination_ipv4
-             v_network_destination_ipv4
-         in
-         ("network_destination_ipv4", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__network_destination_domain
-             v_network_destination_domain
-         in
-         ("network_destination_domain", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__malware_type
-             v_malware_type
-         in
-         ("malware_type", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__malware_state
-             v_malware_state
-         in
-         ("malware_state", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__malware_path
-             v_malware_path
-         in
-         ("malware_path", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__malware_name
-             v_malware_name
-         in
-         ("malware_name", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__last_observed_at
-             v_last_observed_at
-         in
-         ("last_observed_at", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__keyword v_keyword
-         in
-         ("keyword", arg) :: bnds
-       in
-       let bnds =
-         let arg = yojson_of_list yojson_of_filters__id v_id in
-         ("id", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__generator_id
-             v_generator_id
-         in
-         ("generator_id", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__first_observed_at
-             v_first_observed_at
-         in
-         ("first_observed_at", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__finding_provider_fields_types
-             v_finding_provider_fields_types
-         in
-         ("finding_provider_fields_types", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__finding_provider_fields_severity_original
-             v_finding_provider_fields_severity_original
-         in
-         ("finding_provider_fields_severity_original", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__finding_provider_fields_severity_label
-             v_finding_provider_fields_severity_label
-         in
-         ("finding_provider_fields_severity_label", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__finding_provider_fields_related_findings_product_arn
-             v_finding_provider_fields_related_findings_product_arn
-         in
-         ("finding_provider_fields_related_findings_product_arn", arg)
-         :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__finding_provider_fields_related_findings_id
-             v_finding_provider_fields_related_findings_id
-         in
-         ("finding_provider_fields_related_findings_id", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__finding_provider_fields_criticality
-             v_finding_provider_fields_criticality
-         in
-         ("finding_provider_fields_criticality", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_filters__finding_provider_fields_confidence
-             v_finding_provider_fields_confidence
-         in
-         ("finding_provider_fields_confidence", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__description
-             v_description
-         in
-         ("description", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__criticality
-             v_criticality
-         in
-         ("criticality", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__created_at v_created_at
-         in
-         ("created_at", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__confidence v_confidence
-         in
-         ("confidence", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__compliance_status
-             v_compliance_status
-         in
-         ("compliance_status", arg) :: bnds
-       in
-       let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__company_name
-             v_company_name
-         in
-         ("company_name", arg) :: bnds
-       in
+         if [] = v_workflow_status then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__workflow_status)
+               v_workflow_status
+           in
+           let bnd = "workflow_status", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_verification_state then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__verification_state)
+               v_verification_state
+           in
+           let bnd = "verification_state", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_user_defined_values then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__user_defined_values)
+               v_user_defined_values
+           in
+           let bnd = "user_defined_values", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_updated_at then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__updated_at)
+               v_updated_at
+           in
+           let bnd = "updated_at", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_type_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__type) v_type_
+           in
+           let bnd = "type", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_title then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__title) v_title
+           in
+           let bnd = "title", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_threat_intel_indicator_value then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__threat_intel_indicator_value)
+               v_threat_intel_indicator_value
+           in
+           let bnd = "threat_intel_indicator_value", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_threat_intel_indicator_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__threat_intel_indicator_type)
+               v_threat_intel_indicator_type
+           in
+           let bnd = "threat_intel_indicator_type", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_threat_intel_indicator_source_url then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__threat_intel_indicator_source_url)
+               v_threat_intel_indicator_source_url
+           in
+           let bnd = "threat_intel_indicator_source_url", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_threat_intel_indicator_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__threat_intel_indicator_source)
+               v_threat_intel_indicator_source
+           in
+           let bnd = "threat_intel_indicator_source", arg in
+           bnd :: bnds
+       in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filters__aws_account_id
-             v_aws_account_id
-         in
-         ("aws_account_id", arg) :: bnds
+         if [] = v_threat_intel_indicator_last_observed_at then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__threat_intel_indicator_last_observed_at)
+               v_threat_intel_indicator_last_observed_at
+           in
+           let bnd =
+             "threat_intel_indicator_last_observed_at", arg
+           in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_threat_intel_indicator_category then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__threat_intel_indicator_category)
+               v_threat_intel_indicator_category
+           in
+           let bnd = "threat_intel_indicator_category", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_source_url then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__source_url)
+               v_source_url
+           in
+           let bnd = "source_url", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_severity_label then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__severity_label)
+               v_severity_label
+           in
+           let bnd = "severity_label", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_type then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__resource_type)
+               v_resource_type
+           in
+           let bnd = "resource_type", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__resource_tags)
+               v_resource_tags
+           in
+           let bnd = "resource_tags", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_region then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__resource_region)
+               v_resource_region
+           in
+           let bnd = "resource_region", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_partition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__resource_partition)
+               v_resource_partition
+           in
+           let bnd = "resource_partition", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_id then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__resource_id)
+               v_resource_id
+           in
+           let bnd = "resource_id", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_details_other then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_details_other)
+               v_resource_details_other
+           in
+           let bnd = "resource_details_other", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_container_name then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_container_name)
+               v_resource_container_name
+           in
+           let bnd = "resource_container_name", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_container_launched_at then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_container_launched_at)
+               v_resource_container_launched_at
+           in
+           let bnd = "resource_container_launched_at", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_container_image_name then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_container_image_name)
+               v_resource_container_image_name
+           in
+           let bnd = "resource_container_image_name", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_container_image_id then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_container_image_id)
+               v_resource_container_image_id
+           in
+           let bnd = "resource_container_image_id", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_s3_bucket_owner_name then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_s3_bucket_owner_name)
+               v_resource_aws_s3_bucket_owner_name
+           in
+           let bnd = "resource_aws_s3_bucket_owner_name", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_s3_bucket_owner_id then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_s3_bucket_owner_id)
+               v_resource_aws_s3_bucket_owner_id
+           in
+           let bnd = "resource_aws_s3_bucket_owner_id", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_iam_access_key_user_name then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_iam_access_key_user_name)
+               v_resource_aws_iam_access_key_user_name
+           in
+           let bnd = "resource_aws_iam_access_key_user_name", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_iam_access_key_status then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_iam_access_key_status)
+               v_resource_aws_iam_access_key_status
+           in
+           let bnd = "resource_aws_iam_access_key_status", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_iam_access_key_created_at then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_iam_access_key_created_at)
+               v_resource_aws_iam_access_key_created_at
+           in
+           let bnd = "resource_aws_iam_access_key_created_at", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_ec2_instance_vpc_id then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_ec2_instance_vpc_id)
+               v_resource_aws_ec2_instance_vpc_id
+           in
+           let bnd = "resource_aws_ec2_instance_vpc_id", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_ec2_instance_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_ec2_instance_type)
+               v_resource_aws_ec2_instance_type
+           in
+           let bnd = "resource_aws_ec2_instance_type", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_ec2_instance_subnet_id then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_ec2_instance_subnet_id)
+               v_resource_aws_ec2_instance_subnet_id
+           in
+           let bnd = "resource_aws_ec2_instance_subnet_id", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_ec2_instance_launched_at then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_ec2_instance_launched_at)
+               v_resource_aws_ec2_instance_launched_at
+           in
+           let bnd = "resource_aws_ec2_instance_launched_at", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_ec2_instance_key_name then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_ec2_instance_key_name)
+               v_resource_aws_ec2_instance_key_name
+           in
+           let bnd = "resource_aws_ec2_instance_key_name", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_ec2_instance_ipv6_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_ec2_instance_ipv6_addresses)
+               v_resource_aws_ec2_instance_ipv6_addresses
+           in
+           let bnd =
+             "resource_aws_ec2_instance_ipv6_addresses", arg
+           in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_ec2_instance_ipv4_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_ec2_instance_ipv4_addresses)
+               v_resource_aws_ec2_instance_ipv4_addresses
+           in
+           let bnd =
+             "resource_aws_ec2_instance_ipv4_addresses", arg
+           in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_ec2_instance_image_id then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_ec2_instance_image_id)
+               v_resource_aws_ec2_instance_image_id
+           in
+           let bnd = "resource_aws_ec2_instance_image_id", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_resource_aws_ec2_instance_iam_instance_profile_arn
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__resource_aws_ec2_instance_iam_instance_profile_arn)
+               v_resource_aws_ec2_instance_iam_instance_profile_arn
+           in
+           let bnd =
+             ( "resource_aws_ec2_instance_iam_instance_profile_arn",
+               arg )
+           in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_related_findings_product_arn then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__related_findings_product_arn)
+               v_related_findings_product_arn
+           in
+           let bnd = "related_findings_product_arn", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_related_findings_id then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__related_findings_id)
+               v_related_findings_id
+           in
+           let bnd = "related_findings_id", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_record_state then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__record_state)
+               v_record_state
+           in
+           let bnd = "record_state", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_recommendation_text then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__recommendation_text)
+               v_recommendation_text
+           in
+           let bnd = "recommendation_text", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_product_name then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__product_name)
+               v_product_name
+           in
+           let bnd = "product_name", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_product_fields then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__product_fields)
+               v_product_fields
+           in
+           let bnd = "product_fields", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_product_arn then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__product_arn)
+               v_product_arn
+           in
+           let bnd = "product_arn", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_process_terminated_at then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__process_terminated_at)
+               v_process_terminated_at
+           in
+           let bnd = "process_terminated_at", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_process_pid then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__process_pid)
+               v_process_pid
+           in
+           let bnd = "process_pid", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_process_path then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__process_path)
+               v_process_path
+           in
+           let bnd = "process_path", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_process_parent_pid then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__process_parent_pid)
+               v_process_parent_pid
+           in
+           let bnd = "process_parent_pid", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_process_name then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__process_name)
+               v_process_name
+           in
+           let bnd = "process_name", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_process_launched_at then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__process_launched_at)
+               v_process_launched_at
+           in
+           let bnd = "process_launched_at", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_note_updated_by then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__note_updated_by)
+               v_note_updated_by
+           in
+           let bnd = "note_updated_by", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_note_updated_at then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__note_updated_at)
+               v_note_updated_at
+           in
+           let bnd = "note_updated_at", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_note_text then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__note_text)
+               v_note_text
+           in
+           let bnd = "note_text", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_source_port then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__network_source_port)
+               v_network_source_port
+           in
+           let bnd = "network_source_port", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_source_mac then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__network_source_mac)
+               v_network_source_mac
+           in
+           let bnd = "network_source_mac", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_source_ipv6 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__network_source_ipv6)
+               v_network_source_ipv6
+           in
+           let bnd = "network_source_ipv6", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_source_ipv4 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__network_source_ipv4)
+               v_network_source_ipv4
+           in
+           let bnd = "network_source_ipv4", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_source_domain then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__network_source_domain)
+               v_network_source_domain
+           in
+           let bnd = "network_source_domain", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_protocol then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__network_protocol)
+               v_network_protocol
+           in
+           let bnd = "network_protocol", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_direction then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__network_direction)
+               v_network_direction
+           in
+           let bnd = "network_direction", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_destination_port then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__network_destination_port)
+               v_network_destination_port
+           in
+           let bnd = "network_destination_port", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_destination_ipv6 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__network_destination_ipv6)
+               v_network_destination_ipv6
+           in
+           let bnd = "network_destination_ipv6", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_destination_ipv4 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__network_destination_ipv4)
+               v_network_destination_ipv4
+           in
+           let bnd = "network_destination_ipv4", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_network_destination_domain then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__network_destination_domain)
+               v_network_destination_domain
+           in
+           let bnd = "network_destination_domain", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_malware_type then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__malware_type)
+               v_malware_type
+           in
+           let bnd = "malware_type", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_malware_state then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__malware_state)
+               v_malware_state
+           in
+           let bnd = "malware_state", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_malware_path then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__malware_path)
+               v_malware_path
+           in
+           let bnd = "malware_path", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_malware_name then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__malware_name)
+               v_malware_name
+           in
+           let bnd = "malware_name", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_last_observed_at then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__last_observed_at)
+               v_last_observed_at
+           in
+           let bnd = "last_observed_at", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_keyword then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__keyword) v_keyword
+           in
+           let bnd = "keyword", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_id then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filters__id) v_id in
+           let bnd = "id", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_generator_id then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__generator_id)
+               v_generator_id
+           in
+           let bnd = "generator_id", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_first_observed_at then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__first_observed_at)
+               v_first_observed_at
+           in
+           let bnd = "first_observed_at", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_finding_provider_fields_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__finding_provider_fields_types)
+               v_finding_provider_fields_types
+           in
+           let bnd = "finding_provider_fields_types", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_finding_provider_fields_severity_original then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__finding_provider_fields_severity_original)
+               v_finding_provider_fields_severity_original
+           in
+           let bnd =
+             "finding_provider_fields_severity_original", arg
+           in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_finding_provider_fields_severity_label then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__finding_provider_fields_severity_label)
+               v_finding_provider_fields_severity_label
+           in
+           let bnd = "finding_provider_fields_severity_label", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if
+           []
+           = v_finding_provider_fields_related_findings_product_arn
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__finding_provider_fields_related_findings_product_arn)
+               v_finding_provider_fields_related_findings_product_arn
+           in
+           let bnd =
+             ( "finding_provider_fields_related_findings_product_arn",
+               arg )
+           in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_finding_provider_fields_related_findings_id then
+           bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__finding_provider_fields_related_findings_id)
+               v_finding_provider_fields_related_findings_id
+           in
+           let bnd =
+             "finding_provider_fields_related_findings_id", arg
+           in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_finding_provider_fields_criticality then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__finding_provider_fields_criticality)
+               v_finding_provider_fields_criticality
+           in
+           let bnd = "finding_provider_fields_criticality", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_finding_provider_fields_confidence then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_filters__finding_provider_fields_confidence)
+               v_finding_provider_fields_confidence
+           in
+           let bnd = "finding_provider_fields_confidence", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_description then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__description)
+               v_description
+           in
+           let bnd = "description", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_criticality then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__criticality)
+               v_criticality
+           in
+           let bnd = "criticality", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_created_at then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__created_at)
+               v_created_at
+           in
+           let bnd = "created_at", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_confidence then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__confidence)
+               v_confidence
+           in
+           let bnd = "confidence", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_compliance_status then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__compliance_status)
+               v_compliance_status
+           in
+           let bnd = "compliance_status", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_company_name then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__company_name)
+               v_company_name
+           in
+           let bnd = "company_name", arg in
+           bnd :: bnds
+       in
+       let bnds =
+         if [] = v_aws_account_id then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filters__aws_account_id)
+               v_aws_account_id
+           in
+           let bnd = "aws_account_id", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : filters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -4161,7 +4592,7 @@ type aws_securityhub_insight = {
   group_by_attribute : string prop;
   id : string prop option; [@option]
   name : string prop;
-  filters : filters list;
+  filters : filters list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4179,8 +4610,11 @@ let yojson_of_aws_securityhub_insight =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filters v_filters in
-         ("filters", arg) :: bnds
+         if [] = v_filters then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filters) v_filters in
+           let bnd = "filters", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

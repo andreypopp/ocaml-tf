@@ -109,6 +109,7 @@ let _ = yojson_of_indexing_policy__composite_index__index
 
 type indexing_policy__composite_index = {
   index : indexing_policy__composite_index__index list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,12 +122,15 @@ let yojson_of_indexing_policy__composite_index =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_indexing_policy__composite_index__index
-             v_index
-         in
-         ("index", arg) :: bnds
+         if [] = v_index then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_indexing_policy__composite_index__index)
+               v_index
+           in
+           let bnd = "index", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : indexing_policy__composite_index ->
@@ -208,9 +212,13 @@ let _ = yojson_of_indexing_policy__spatial_index
 type indexing_policy = {
   indexing_mode : string prop option; [@option]
   composite_index : indexing_policy__composite_index list;
+      [@default []] [@yojson_drop_default ( = )]
   excluded_path : indexing_policy__excluded_path list;
+      [@default []] [@yojson_drop_default ( = )]
   included_path : indexing_policy__included_path list;
+      [@default []] [@yojson_drop_default ( = )]
   spatial_index : indexing_policy__spatial_index list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -229,32 +237,45 @@ let yojson_of_indexing_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_indexing_policy__spatial_index
-             v_spatial_index
-         in
-         ("spatial_index", arg) :: bnds
+         if [] = v_spatial_index then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_indexing_policy__spatial_index)
+               v_spatial_index
+           in
+           let bnd = "spatial_index", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_indexing_policy__included_path
-             v_included_path
-         in
-         ("included_path", arg) :: bnds
+         if [] = v_included_path then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_indexing_policy__included_path)
+               v_included_path
+           in
+           let bnd = "included_path", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_indexing_policy__excluded_path
-             v_excluded_path
-         in
-         ("excluded_path", arg) :: bnds
+         if [] = v_excluded_path then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_indexing_policy__excluded_path)
+               v_excluded_path
+           in
+           let bnd = "excluded_path", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_indexing_policy__composite_index
-             v_composite_index
-         in
-         ("composite_index", arg) :: bnds
+         if [] = v_composite_index then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_indexing_policy__composite_index)
+               v_composite_index
+           in
+           let bnd = "composite_index", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_indexing_mode with
@@ -331,7 +352,9 @@ let _ = yojson_of_timeouts
 
 [@@@deriving.end]
 
-type unique_key = { paths : string prop list }
+type unique_key = {
+  paths : string prop list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : unique_key) -> ()
@@ -343,10 +366,14 @@ let yojson_of_unique_key =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_paths
-         in
-         ("paths", arg) :: bnds
+         if [] = v_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_paths
+           in
+           let bnd = "paths", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : unique_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -367,10 +394,14 @@ type azurerm_cosmosdb_sql_container = {
   resource_group_name : string prop;
   throughput : float prop option; [@option]
   autoscale_settings : autoscale_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   conflict_resolution_policy : conflict_resolution_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   indexing_policy : indexing_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   unique_key : unique_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -399,34 +430,47 @@ let yojson_of_azurerm_cosmosdb_sql_container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_unique_key v_unique_key
-         in
-         ("unique_key", arg) :: bnds
+         if [] = v_unique_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_unique_key) v_unique_key
+           in
+           let bnd = "unique_key", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_indexing_policy v_indexing_policy
-         in
-         ("indexing_policy", arg) :: bnds
+         if [] = v_indexing_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_indexing_policy)
+               v_indexing_policy
+           in
+           let bnd = "indexing_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_conflict_resolution_policy
-             v_conflict_resolution_policy
-         in
-         ("conflict_resolution_policy", arg) :: bnds
+         if [] = v_conflict_resolution_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_conflict_resolution_policy)
+               v_conflict_resolution_policy
+           in
+           let bnd = "conflict_resolution_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_autoscale_settings
-             v_autoscale_settings
-         in
-         ("autoscale_settings", arg) :: bnds
+         if [] = v_autoscale_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscale_settings)
+               v_autoscale_settings
+           in
+           let bnd = "autoscale_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_throughput with

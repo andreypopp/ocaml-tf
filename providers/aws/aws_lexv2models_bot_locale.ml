@@ -90,6 +90,7 @@ type aws_lexv2models_bot_locale = {
   name : string prop option; [@option]
   timeouts : timeouts option;
   voice_settings : voice_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,10 +113,14 @@ let yojson_of_aws_lexv2models_bot_locale =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_voice_settings v_voice_settings
-         in
-         ("voice_settings", arg) :: bnds
+         if [] = v_voice_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_voice_settings)
+               v_voice_settings
+           in
+           let bnd = "voice_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

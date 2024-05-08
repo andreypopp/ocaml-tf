@@ -166,6 +166,7 @@ type build_batch_config = {
   service_role : string prop;
   timeout_in_mins : float prop option; [@option]
   restrictions : build_batch_config__restrictions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -183,11 +184,15 @@ let yojson_of_build_batch_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build_batch_config__restrictions
-             v_restrictions
-         in
-         ("restrictions", arg) :: bnds
+         if [] = v_restrictions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_build_batch_config__restrictions)
+               v_restrictions
+           in
+           let bnd = "restrictions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_in_mins with
@@ -346,7 +351,9 @@ type environment = {
   privileged_mode : bool prop option; [@option]
   type_ : string prop; [@key "type"]
   environment_variable : environment__environment_variable list;
+      [@default []] [@yojson_drop_default ( = )]
   registry_credential : environment__registry_credential list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -368,18 +375,26 @@ let yojson_of_environment =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_environment__registry_credential
-             v_registry_credential
-         in
-         ("registry_credential", arg) :: bnds
+         if [] = v_registry_credential then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_environment__registry_credential)
+               v_registry_credential
+           in
+           let bnd = "registry_credential", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_environment__environment_variable
-             v_environment_variable
-         in
-         ("environment_variable", arg) :: bnds
+         if [] = v_environment_variable then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_environment__environment_variable)
+               v_environment_variable
+           in
+           let bnd = "environment_variable", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -607,7 +622,9 @@ let _ = yojson_of_logs_config__s3_logs
 
 type logs_config = {
   cloudwatch_logs : logs_config__cloudwatch_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_logs : logs_config__s3_logs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -620,17 +637,24 @@ let yojson_of_logs_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logs_config__s3_logs v_s3_logs
-         in
-         ("s3_logs", arg) :: bnds
+         if [] = v_s3_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logs_config__s3_logs)
+               v_s3_logs
+           in
+           let bnd = "s3_logs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logs_config__cloudwatch_logs
-             v_cloudwatch_logs
-         in
-         ("cloudwatch_logs", arg) :: bnds
+         if [] = v_cloudwatch_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logs_config__cloudwatch_logs)
+               v_cloudwatch_logs
+           in
+           let bnd = "cloudwatch_logs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logs_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -863,8 +887,10 @@ type secondary_sources = {
   source_identifier : string prop;
   type_ : string prop; [@key "type"]
   build_status_config : secondary_sources__build_status_config list;
+      [@default []] [@yojson_drop_default ( = )]
   git_submodules_config :
     secondary_sources__git_submodules_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -887,20 +913,26 @@ let yojson_of_secondary_sources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_secondary_sources__git_submodules_config
-             v_git_submodules_config
-         in
-         ("git_submodules_config", arg) :: bnds
+         if [] = v_git_submodules_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_secondary_sources__git_submodules_config)
+               v_git_submodules_config
+           in
+           let bnd = "git_submodules_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_secondary_sources__build_status_config
-             v_build_status_config
-         in
-         ("build_status_config", arg) :: bnds
+         if [] = v_build_status_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_secondary_sources__build_status_config)
+               v_build_status_config
+           in
+           let bnd = "build_status_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -1030,7 +1062,9 @@ type source = {
   report_build_status : bool prop option; [@option]
   type_ : string prop; [@key "type"]
   build_status_config : source__build_status_config list;
+      [@default []] [@yojson_drop_default ( = )]
   git_submodules_config : source__git_submodules_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1052,18 +1086,24 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__git_submodules_config
-             v_git_submodules_config
-         in
-         ("git_submodules_config", arg) :: bnds
+         if [] = v_git_submodules_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__git_submodules_config)
+               v_git_submodules_config
+           in
+           let bnd = "git_submodules_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__build_status_config
-             v_build_status_config
-         in
-         ("build_status_config", arg) :: bnds
+         if [] = v_build_status_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source__build_status_config)
+               v_build_status_config
+           in
+           let bnd = "build_status_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -1118,7 +1158,9 @@ let _ = yojson_of_source
 
 type vpc_config = {
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1140,18 +1182,24 @@ let yojson_of_vpc_config =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
-         in
-         ("subnets", arg) :: bnds
+         if [] = v_subnets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnets
+           in
+           let bnd = "subnets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vpc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1176,16 +1224,25 @@ type aws_codebuild_project = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   artifacts : artifacts list;
+      [@default []] [@yojson_drop_default ( = )]
   build_batch_config : build_batch_config list;
-  cache : cache list;
+      [@default []] [@yojson_drop_default ( = )]
+  cache : cache list; [@default []] [@yojson_drop_default ( = )]
   environment : environment list;
+      [@default []] [@yojson_drop_default ( = )]
   file_system_locations : file_system_locations list;
+      [@default []] [@yojson_drop_default ( = )]
   logs_config : logs_config list;
+      [@default []] [@yojson_drop_default ( = )]
   secondary_artifacts : secondary_artifacts list;
+      [@default []] [@yojson_drop_default ( = )]
   secondary_source_version : secondary_source_version list;
+      [@default []] [@yojson_drop_default ( = )]
   secondary_sources : secondary_sources list;
-  source : source list;
+      [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
   vpc_config : vpc_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1224,69 +1281,104 @@ let yojson_of_aws_codebuild_project =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_config v_vpc_config
-         in
-         ("vpc_config", arg) :: bnds
+         if [] = v_vpc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_config) v_vpc_config
+           in
+           let bnd = "vpc_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secondary_sources
-             v_secondary_sources
-         in
-         ("secondary_sources", arg) :: bnds
+         if [] = v_secondary_sources then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secondary_sources)
+               v_secondary_sources
+           in
+           let bnd = "secondary_sources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secondary_source_version
-             v_secondary_source_version
-         in
-         ("secondary_source_version", arg) :: bnds
+         if [] = v_secondary_source_version then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secondary_source_version)
+               v_secondary_source_version
+           in
+           let bnd = "secondary_source_version", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secondary_artifacts
-             v_secondary_artifacts
-         in
-         ("secondary_artifacts", arg) :: bnds
+         if [] = v_secondary_artifacts then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secondary_artifacts)
+               v_secondary_artifacts
+           in
+           let bnd = "secondary_artifacts", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logs_config v_logs_config
-         in
-         ("logs_config", arg) :: bnds
+         if [] = v_logs_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logs_config) v_logs_config
+           in
+           let bnd = "logs_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_file_system_locations
-             v_file_system_locations
-         in
-         ("file_system_locations", arg) :: bnds
+         if [] = v_file_system_locations then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_file_system_locations)
+               v_file_system_locations
+           in
+           let bnd = "file_system_locations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_environment v_environment
-         in
-         ("environment", arg) :: bnds
+         if [] = v_environment then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_environment) v_environment
+           in
+           let bnd = "environment", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_cache v_cache in
-         ("cache", arg) :: bnds
+         if [] = v_cache then bnds
+         else
+           let arg = (yojson_of_list yojson_of_cache) v_cache in
+           let bnd = "cache", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_build_batch_config
-             v_build_batch_config
-         in
-         ("build_batch_config", arg) :: bnds
+         if [] = v_build_batch_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_build_batch_config)
+               v_build_batch_config
+           in
+           let bnd = "build_batch_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_artifacts v_artifacts in
-         ("artifacts", arg) :: bnds
+         if [] = v_artifacts then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_artifacts) v_artifacts
+           in
+           let bnd = "artifacts", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

@@ -4,7 +4,9 @@ open! Tf_core
 
 type control__scope = {
   compliance_resource_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   compliance_resource_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list;
 }
 [@@deriving_inline yojson_of]
@@ -34,20 +36,24 @@ let yojson_of_control__scope =
          ("tags", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_compliance_resource_types
-         in
-         ("compliance_resource_types", arg) :: bnds
+         if [] = v_compliance_resource_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_compliance_resource_types
+           in
+           let bnd = "compliance_resource_types", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_compliance_resource_ids
-         in
-         ("compliance_resource_ids", arg) :: bnds
+         if [] = v_compliance_resource_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_compliance_resource_ids
+           in
+           let bnd = "compliance_resource_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : control__scope -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -87,8 +93,10 @@ let _ = yojson_of_control__input_parameter
 
 type control = {
   input_parameter : control__input_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   scope : control__scope list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -105,19 +113,27 @@ let yojson_of_control =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_control__scope v_scope in
-         ("scope", arg) :: bnds
+         if [] = v_scope then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control__scope) v_scope
+           in
+           let bnd = "scope", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_control__input_parameter
-             v_input_parameter
-         in
-         ("input_parameter", arg) :: bnds
+         if [] = v_input_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_control__input_parameter)
+               v_input_parameter
+           in
+           let bnd = "input_parameter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : control -> Ppx_yojson_conv_lib.Yojson.Safe.t)

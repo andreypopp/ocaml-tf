@@ -37,6 +37,7 @@ type configuration = {
   content_uri : string prop option; [@option]
   version : string prop option; [@option]
   parameter : configuration__parameter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,11 +56,14 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration__parameter
-             v_parameter
-         in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration__parameter)
+               v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -166,6 +170,7 @@ type azurerm_policy_virtual_machine_configuration_assignment = {
   name : string prop;
   virtual_machine_id : string prop;
   configuration : configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -193,10 +198,13 @@ let yojson_of_azurerm_policy_virtual_machine_configuration_assignment
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration v_configuration
-         in
-         ("configuration", arg) :: bnds
+         if [] = v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

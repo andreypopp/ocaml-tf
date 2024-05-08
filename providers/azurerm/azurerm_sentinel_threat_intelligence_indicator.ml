@@ -241,6 +241,7 @@ let _ = yojson_of_parsed_pattern__pattern_type_values
 type parsed_pattern = {
   pattern_type_key : string prop;
   pattern_type_values : parsed_pattern__pattern_type_values list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -256,12 +257,15 @@ let yojson_of_parsed_pattern =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_parsed_pattern__pattern_type_values
-             v_pattern_type_values
-         in
-         ("pattern_type_values", arg) :: bnds
+         if [] = v_pattern_type_values then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_parsed_pattern__pattern_type_values)
+               v_pattern_type_values
+           in
+           let bnd = "pattern_type_values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -296,8 +300,11 @@ type azurerm_sentinel_threat_intelligence_indicator = {
   validate_until_utc : string prop option; [@option]
   workspace_id : string prop;
   external_reference : external_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   granular_marking : granular_marking list;
+      [@default []] [@yojson_drop_default ( = )]
   kill_chain_phase : kill_chain_phase list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -339,25 +346,34 @@ let yojson_of_azurerm_sentinel_threat_intelligence_indicator =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kill_chain_phase
-             v_kill_chain_phase
-         in
-         ("kill_chain_phase", arg) :: bnds
+         if [] = v_kill_chain_phase then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kill_chain_phase)
+               v_kill_chain_phase
+           in
+           let bnd = "kill_chain_phase", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_granular_marking
-             v_granular_marking
-         in
-         ("granular_marking", arg) :: bnds
+         if [] = v_granular_marking then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_granular_marking)
+               v_granular_marking
+           in
+           let bnd = "granular_marking", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_external_reference
-             v_external_reference
-         in
-         ("external_reference", arg) :: bnds
+         if [] = v_external_reference then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_external_reference)
+               v_external_reference
+           in
+           let bnd = "external_reference", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_workspace_id in

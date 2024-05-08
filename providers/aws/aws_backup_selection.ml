@@ -121,9 +121,13 @@ let _ = yojson_of_condition__string_not_like
 
 type condition = {
   string_equals : condition__string_equals list;
+      [@default []] [@yojson_drop_default ( = )]
   string_like : condition__string_like list;
+      [@default []] [@yojson_drop_default ( = )]
   string_not_equals : condition__string_not_equals list;
+      [@default []] [@yojson_drop_default ( = )]
   string_not_like : condition__string_not_like list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -141,32 +145,44 @@ let yojson_of_condition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__string_not_like
-             v_string_not_like
-         in
-         ("string_not_like", arg) :: bnds
+         if [] = v_string_not_like then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__string_not_like)
+               v_string_not_like
+           in
+           let bnd = "string_not_like", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__string_not_equals
-             v_string_not_equals
-         in
-         ("string_not_equals", arg) :: bnds
+         if [] = v_string_not_equals then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__string_not_equals)
+               v_string_not_equals
+           in
+           let bnd = "string_not_equals", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__string_like
-             v_string_like
-         in
-         ("string_like", arg) :: bnds
+         if [] = v_string_like then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__string_like)
+               v_string_like
+           in
+           let bnd = "string_like", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__string_equals
-             v_string_equals
-         in
-         ("string_equals", arg) :: bnds
+         if [] = v_string_equals then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__string_equals)
+               v_string_equals
+           in
+           let bnd = "string_equals", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -217,7 +233,9 @@ type aws_backup_selection = {
   plan_id : string prop;
   resources : string prop list option; [@option]
   condition : condition list;
+      [@default []] [@yojson_drop_default ( = )]
   selection_tag : selection_tag list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -239,14 +257,22 @@ let yojson_of_aws_backup_selection =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_selection_tag v_selection_tag
-         in
-         ("selection_tag", arg) :: bnds
+         if [] = v_selection_tag then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_selection_tag) v_selection_tag
+           in
+           let bnd = "selection_tag", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_condition v_condition in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition) v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resources with

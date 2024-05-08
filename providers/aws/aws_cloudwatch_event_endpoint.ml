@@ -110,7 +110,9 @@ let _ = yojson_of_routing_config__failover_config__secondary
 
 type routing_config__failover_config = {
   primary : routing_config__failover_config__primary list;
+      [@default []] [@yojson_drop_default ( = )]
   secondary : routing_config__failover_config__secondary list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -123,20 +125,26 @@ let yojson_of_routing_config__failover_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_routing_config__failover_config__secondary
-             v_secondary
-         in
-         ("secondary", arg) :: bnds
+         if [] = v_secondary then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_routing_config__failover_config__secondary)
+               v_secondary
+           in
+           let bnd = "secondary", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_routing_config__failover_config__primary
-             v_primary
-         in
-         ("primary", arg) :: bnds
+         if [] = v_primary then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_routing_config__failover_config__primary)
+               v_primary
+           in
+           let bnd = "primary", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : routing_config__failover_config ->
@@ -148,6 +156,7 @@ let _ = yojson_of_routing_config__failover_config
 
 type routing_config = {
   failover_config : routing_config__failover_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -160,11 +169,15 @@ let yojson_of_routing_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing_config__failover_config
-             v_failover_config
-         in
-         ("failover_config", arg) :: bnds
+         if [] = v_failover_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_routing_config__failover_config)
+               v_failover_config
+           in
+           let bnd = "failover_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : routing_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -179,8 +192,11 @@ type aws_cloudwatch_event_endpoint = {
   name : string prop;
   role_arn : string prop option; [@option]
   event_bus : event_bus list;
+      [@default []] [@yojson_drop_default ( = )]
   replication_config : replication_config list;
+      [@default []] [@yojson_drop_default ( = )]
   routing_config : routing_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -201,21 +217,33 @@ let yojson_of_aws_cloudwatch_event_endpoint =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing_config v_routing_config
-         in
-         ("routing_config", arg) :: bnds
+         if [] = v_routing_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_routing_config)
+               v_routing_config
+           in
+           let bnd = "routing_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_replication_config
-             v_replication_config
-         in
-         ("replication_config", arg) :: bnds
+         if [] = v_replication_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_replication_config)
+               v_replication_config
+           in
+           let bnd = "replication_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_event_bus v_event_bus in
-         ("event_bus", arg) :: bnds
+         if [] = v_event_bus then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_bus) v_event_bus
+           in
+           let bnd = "event_bus", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_role_arn with

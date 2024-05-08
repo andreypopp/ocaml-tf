@@ -91,6 +91,7 @@ type aws_globalaccelerator_listener = {
   id : string prop option; [@option]
   protocol : string prop;
   port_range : port_range list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -115,10 +116,13 @@ let yojson_of_aws_globalaccelerator_listener =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_port_range v_port_range
-         in
-         ("port_range", arg) :: bnds
+         if [] = v_port_range then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_port_range) v_port_range
+           in
+           let bnd = "port_range", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_protocol in

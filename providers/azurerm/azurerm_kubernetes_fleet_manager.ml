@@ -91,6 +91,7 @@ type azurerm_kubernetes_fleet_manager = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   hub_profile : hub_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -116,10 +117,13 @@ let yojson_of_azurerm_kubernetes_fleet_manager =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hub_profile v_hub_profile
-         in
-         ("hub_profile", arg) :: bnds
+         if [] = v_hub_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hub_profile) v_hub_profile
+           in
+           let bnd = "hub_profile", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

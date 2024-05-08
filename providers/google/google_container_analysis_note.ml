@@ -31,6 +31,7 @@ let _ = yojson_of_attestation_authority__hint
 
 type attestation_authority = {
   hint : attestation_authority__hint list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -43,11 +44,14 @@ let yojson_of_attestation_authority =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attestation_authority__hint
-             v_hint
-         in
-         ("hint", arg) :: bnds
+         if [] = v_hint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attestation_authority__hint)
+               v_hint
+           in
+           let bnd = "hint", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : attestation_authority -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -144,7 +148,9 @@ type google_container_analysis_note = {
   related_note_names : string prop list option; [@option]
   short_description : string prop option; [@option]
   attestation_authority : attestation_authority list;
+      [@default []] [@yojson_drop_default ( = )]
   related_url : related_url list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -173,17 +179,23 @@ let yojson_of_google_container_analysis_note =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_related_url v_related_url
-         in
-         ("related_url", arg) :: bnds
+         if [] = v_related_url then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_related_url) v_related_url
+           in
+           let bnd = "related_url", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attestation_authority
-             v_attestation_authority
-         in
-         ("attestation_authority", arg) :: bnds
+         if [] = v_attestation_authority then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attestation_authority)
+               v_attestation_authority
+           in
+           let bnd = "attestation_authority", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_short_description with

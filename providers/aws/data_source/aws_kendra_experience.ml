@@ -31,8 +31,10 @@ let _ = yojson_of_configuration__user_identity_configuration
 
 type configuration__content_source_configuration = {
   data_source_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   direct_put_content : bool prop;
   faq_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,10 +51,14 @@ let yojson_of_configuration__content_source_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_faq_ids
-         in
-         ("faq_ids", arg) :: bnds
+         if [] = v_faq_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_faq_ids
+           in
+           let bnd = "faq_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -61,12 +67,14 @@ let yojson_of_configuration__content_source_configuration =
          ("direct_put_content", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_data_source_ids
-         in
-         ("data_source_ids", arg) :: bnds
+         if [] = v_data_source_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_data_source_ids
+           in
+           let bnd = "data_source_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration__content_source_configuration ->
@@ -79,8 +87,10 @@ let _ = yojson_of_configuration__content_source_configuration
 type configuration = {
   content_source_configuration :
     configuration__content_source_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   user_identity_configuration :
     configuration__user_identity_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -96,20 +106,26 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__user_identity_configuration
-             v_user_identity_configuration
-         in
-         ("user_identity_configuration", arg) :: bnds
+         if [] = v_user_identity_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__user_identity_configuration)
+               v_user_identity_configuration
+           in
+           let bnd = "user_identity_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__content_source_configuration
-             v_content_source_configuration
-         in
-         ("content_source_configuration", arg) :: bnds
+         if [] = v_content_source_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__content_source_configuration)
+               v_content_source_configuration
+           in
+           let bnd = "content_source_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)

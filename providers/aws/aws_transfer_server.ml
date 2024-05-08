@@ -212,7 +212,9 @@ let _ = yojson_of_workflow_details__on_upload
 
 type workflow_details = {
   on_partial_upload : workflow_details__on_partial_upload list;
+      [@default []] [@yojson_drop_default ( = )]
   on_upload : workflow_details__on_upload list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -228,19 +230,25 @@ let yojson_of_workflow_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_workflow_details__on_upload
-             v_on_upload
-         in
-         ("on_upload", arg) :: bnds
+         if [] = v_on_upload then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workflow_details__on_upload)
+               v_on_upload
+           in
+           let bnd = "on_upload", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_workflow_details__on_partial_upload
-             v_on_partial_upload
-         in
-         ("on_partial_upload", arg) :: bnds
+         if [] = v_on_partial_upload then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_workflow_details__on_partial_upload)
+               v_on_partial_upload
+           in
+           let bnd = "on_partial_upload", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : workflow_details -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -270,8 +278,11 @@ type aws_transfer_server = {
   tags_all : (string * string prop) list option; [@option]
   url : string prop option; [@option]
   endpoint_details : endpoint_details list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol_details : protocol_details list;
+      [@default []] [@yojson_drop_default ( = )]
   workflow_details : workflow_details list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -309,25 +320,34 @@ let yojson_of_aws_transfer_server =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_workflow_details
-             v_workflow_details
-         in
-         ("workflow_details", arg) :: bnds
+         if [] = v_workflow_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workflow_details)
+               v_workflow_details
+           in
+           let bnd = "workflow_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_protocol_details
-             v_protocol_details
-         in
-         ("protocol_details", arg) :: bnds
+         if [] = v_protocol_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_protocol_details)
+               v_protocol_details
+           in
+           let bnd = "protocol_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint_details
-             v_endpoint_details
-         in
-         ("endpoint_details", arg) :: bnds
+         if [] = v_endpoint_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint_details)
+               v_endpoint_details
+           in
+           let bnd = "endpoint_details", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_url with

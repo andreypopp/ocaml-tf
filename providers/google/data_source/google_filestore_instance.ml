@@ -7,6 +7,7 @@ type file_shares__nfs_export_options = {
   anon_gid : float prop;
   anon_uid : float prop;
   ip_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   squash_mode : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -30,12 +31,14 @@ let yojson_of_file_shares__nfs_export_options =
          ("squash_mode", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_ranges
-         in
-         ("ip_ranges", arg) :: bnds
+         if [] = v_ip_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_ranges
+           in
+           let bnd = "ip_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_anon_uid in
@@ -61,6 +64,7 @@ type file_shares = {
   capacity_gb : float prop;
   name : string prop;
   nfs_export_options : file_shares__nfs_export_options list;
+      [@default []] [@yojson_drop_default ( = )]
   source_backup : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -83,11 +87,15 @@ let yojson_of_file_shares =
          ("source_backup", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_file_shares__nfs_export_options
-             v_nfs_export_options
-         in
-         ("nfs_export_options", arg) :: bnds
+         if [] = v_nfs_export_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_file_shares__nfs_export_options)
+               v_nfs_export_options
+           in
+           let bnd = "nfs_export_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -107,7 +115,9 @@ let _ = yojson_of_file_shares
 type networks = {
   connect_mode : string prop;
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   modes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   network : string prop;
   reserved_ip_range : string prop;
 }
@@ -138,18 +148,24 @@ let yojson_of_networks =
          ("network", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_modes
-         in
-         ("modes", arg) :: bnds
+         if [] = v_modes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_modes
+           in
+           let bnd = "modes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_connect_mode in

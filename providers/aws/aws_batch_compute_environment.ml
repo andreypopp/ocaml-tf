@@ -108,10 +108,13 @@ type compute_resources = {
   security_group_ids : string prop list option; [@option]
   spot_iam_fleet_role : string prop option; [@option]
   subnets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   ec2_configuration : compute_resources__ec2_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   launch_template : compute_resources__launch_template list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -142,20 +145,26 @@ let yojson_of_compute_resources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_compute_resources__launch_template
-             v_launch_template
-         in
-         ("launch_template", arg) :: bnds
+         if [] = v_launch_template then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_compute_resources__launch_template)
+               v_launch_template
+           in
+           let bnd = "launch_template", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_compute_resources__ec2_configuration
-             v_ec2_configuration
-         in
-         ("ec2_configuration", arg) :: bnds
+         if [] = v_ec2_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_compute_resources__ec2_configuration)
+               v_ec2_configuration
+           in
+           let bnd = "ec2_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -178,10 +187,14 @@ let yojson_of_compute_resources =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
-         in
-         ("subnets", arg) :: bnds
+         if [] = v_subnets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnets
+           in
+           let bnd = "subnets", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_spot_iam_fleet_role with
@@ -370,8 +383,11 @@ type aws_batch_compute_environment = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   compute_resources : compute_resources list;
+      [@default []] [@yojson_drop_default ( = )]
   eks_configuration : eks_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   update_policy : update_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -397,24 +413,33 @@ let yojson_of_aws_batch_compute_environment =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_update_policy v_update_policy
-         in
-         ("update_policy", arg) :: bnds
+         if [] = v_update_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_update_policy) v_update_policy
+           in
+           let bnd = "update_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_eks_configuration
-             v_eks_configuration
-         in
-         ("eks_configuration", arg) :: bnds
+         if [] = v_eks_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_eks_configuration)
+               v_eks_configuration
+           in
+           let bnd = "eks_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_compute_resources
-             v_compute_resources
-         in
-         ("compute_resources", arg) :: bnds
+         if [] = v_compute_resources then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_compute_resources)
+               v_compute_resources
+           in
+           let bnd = "compute_resources", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

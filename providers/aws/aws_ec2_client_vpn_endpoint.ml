@@ -209,9 +209,13 @@ type aws_ec2_client_vpn_endpoint = {
   vpc_id : string prop option; [@option]
   vpn_port : float prop option; [@option]
   authentication_options : authentication_options list;
+      [@default []] [@yojson_drop_default ( = )]
   client_connect_options : client_connect_options list;
+      [@default []] [@yojson_drop_default ( = )]
   client_login_banner_options : client_login_banner_options list;
+      [@default []] [@yojson_drop_default ( = )]
   connection_log_options : connection_log_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -243,32 +247,44 @@ let yojson_of_aws_ec2_client_vpn_endpoint =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_connection_log_options
-             v_connection_log_options
-         in
-         ("connection_log_options", arg) :: bnds
+         if [] = v_connection_log_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_connection_log_options)
+               v_connection_log_options
+           in
+           let bnd = "connection_log_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_login_banner_options
-             v_client_login_banner_options
-         in
-         ("client_login_banner_options", arg) :: bnds
+         if [] = v_client_login_banner_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_login_banner_options)
+               v_client_login_banner_options
+           in
+           let bnd = "client_login_banner_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_connect_options
-             v_client_connect_options
-         in
-         ("client_connect_options", arg) :: bnds
+         if [] = v_client_connect_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_connect_options)
+               v_client_connect_options
+           in
+           let bnd = "client_connect_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authentication_options
-             v_authentication_options
-         in
-         ("authentication_options", arg) :: bnds
+         if [] = v_authentication_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authentication_options)
+               v_authentication_options
+           in
+           let bnd = "authentication_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpn_port with

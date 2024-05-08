@@ -65,6 +65,7 @@ type aws_emr_instance_group = {
   instance_type : string prop;
   name : string prop option; [@option]
   ebs_config : ebs_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,10 +89,13 @@ let yojson_of_aws_emr_instance_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ebs_config v_ebs_config
-         in
-         ("ebs_config", arg) :: bnds
+         if [] = v_ebs_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ebs_config) v_ebs_config
+           in
+           let bnd = "ebs_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with

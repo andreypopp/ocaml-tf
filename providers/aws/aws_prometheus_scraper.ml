@@ -24,7 +24,10 @@ let _ = yojson_of_destination__amp
 
 [@@@deriving.end]
 
-type destination = { amp : destination__amp list }
+type destination = {
+  amp : destination__amp list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : destination) -> ()
@@ -36,8 +39,13 @@ let yojson_of_destination =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_destination__amp v_amp in
-         ("amp", arg) :: bnds
+         if [] = v_amp then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination__amp) v_amp
+           in
+           let bnd = "amp", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -50,6 +58,7 @@ type source__eks = {
   cluster_arn : string prop;
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,12 +75,14 @@ let yojson_of_source__eks =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_security_group_ids with
@@ -94,7 +105,9 @@ let _ = yojson_of_source__eks
 
 [@@@deriving.end]
 
-type source = { eks : source__eks list }
+type source = {
+  eks : source__eks list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : source) -> ()
@@ -106,8 +119,11 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source__eks v_eks in
-         ("eks", arg) :: bnds
+         if [] = v_eks then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source__eks) v_eks in
+           let bnd = "eks", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -158,7 +174,8 @@ type aws_prometheus_scraper = {
   scrape_configuration : string prop;
   tags : (string * string prop) list option; [@option]
   destination : destination list;
-  source : source list;
+      [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -183,14 +200,20 @@ let yojson_of_aws_prometheus_scraper =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination) v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

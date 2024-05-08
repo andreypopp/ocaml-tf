@@ -4,6 +4,7 @@ open! Tf_core
 
 type additional_workspace = {
   data_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   workspace_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -21,12 +22,14 @@ let yojson_of_additional_workspace =
          ("workspace_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_data_types
-         in
-         ("data_types", arg) :: bnds
+         if [] = v_data_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_data_types
+           in
+           let bnd = "data_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : additional_workspace -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -284,6 +287,7 @@ type azurerm_iot_security_solution = {
   events_to_export : string prop list option; [@option]
   id : string prop option; [@option]
   iothub_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   location : string prop;
   log_analytics_workspace_id : string prop option; [@option]
   log_unmasked_ips_enabled : bool prop option; [@option]
@@ -293,7 +297,9 @@ type azurerm_iot_security_solution = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   additional_workspace : additional_workspace list;
+      [@default []] [@yojson_drop_default ( = )]
   recommendations_enabled : recommendations_enabled list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -329,18 +335,24 @@ let yojson_of_azurerm_iot_security_solution =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recommendations_enabled
-             v_recommendations_enabled
-         in
-         ("recommendations_enabled", arg) :: bnds
+         if [] = v_recommendations_enabled then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recommendations_enabled)
+               v_recommendations_enabled
+           in
+           let bnd = "recommendations_enabled", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_additional_workspace
-             v_additional_workspace
-         in
-         ("additional_workspace", arg) :: bnds
+         if [] = v_additional_workspace then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_additional_workspace)
+               v_additional_workspace
+           in
+           let bnd = "additional_workspace", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -407,12 +419,14 @@ let yojson_of_azurerm_iot_security_solution =
          ("location", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_iothub_ids
-         in
-         ("iothub_ids", arg) :: bnds
+         if [] = v_iothub_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_iothub_ids
+           in
+           let bnd = "iothub_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

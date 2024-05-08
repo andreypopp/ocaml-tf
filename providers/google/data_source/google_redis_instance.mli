@@ -16,6 +16,7 @@ type maintenance_policy__weekly_maintenance_window = {
   duration : string prop;  (** duration *)
   start_time :
     maintenance_policy__weekly_maintenance_window__start_time list;
+      [@default []] [@yojson_drop_default ( = )]
       (** start_time *)
 }
 
@@ -25,6 +26,7 @@ type maintenance_policy = {
   update_time : string prop;  (** update_time *)
   weekly_maintenance_window :
     maintenance_policy__weekly_maintenance_window list;
+      [@default []] [@yojson_drop_default ( = )]
       (** weekly_maintenance_window *)
 }
 

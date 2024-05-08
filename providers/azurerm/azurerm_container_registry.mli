@@ -22,8 +22,11 @@ type network_rule_set__ip_rule = {
 
 type network_rule_set = {
   default_action : string prop;  (** default_action *)
-  ip_rule : network_rule_set__ip_rule list;  (** ip_rule *)
+  ip_rule : network_rule_set__ip_rule list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ip_rule *)
   virtual_network : network_rule_set__virtual_network list;
+      [@default []] [@yojson_drop_default ( = )]
       (** virtual_network *)
 }
 

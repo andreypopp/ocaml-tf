@@ -126,12 +126,14 @@ type azurerm_private_link_service = {
   fqdns : string prop list option; [@option]
   id : string prop option; [@option]
   load_balancer_frontend_ip_configuration_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   visibility_subscription_ids : string prop list option; [@option]
   nat_ip_configuration : nat_ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -164,11 +166,14 @@ let yojson_of_azurerm_private_link_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_nat_ip_configuration
-             v_nat_ip_configuration
-         in
-         ("nat_ip_configuration", arg) :: bnds
+         if [] = v_nat_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_nat_ip_configuration)
+               v_nat_ip_configuration
+           in
+           let bnd = "nat_ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_visibility_subscription_ids with
@@ -211,12 +216,17 @@ let yojson_of_azurerm_private_link_service =
          ("location", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_load_balancer_frontend_ip_configuration_ids
-         in
-         ("load_balancer_frontend_ip_configuration_ids", arg) :: bnds
+         if [] = v_load_balancer_frontend_ip_configuration_ids then
+           bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_load_balancer_frontend_ip_configuration_ids
+           in
+           let bnd =
+             "load_balancer_frontend_ip_configuration_ids", arg
+           in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

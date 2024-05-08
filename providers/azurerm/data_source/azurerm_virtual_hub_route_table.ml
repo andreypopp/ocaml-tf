@@ -30,6 +30,7 @@ let _ = yojson_of_timeouts
 
 type route = {
   destinations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   destinations_type : string prop;
   name : string prop;
   next_hop : string prop;
@@ -70,12 +71,14 @@ let yojson_of_route =
          ("destinations_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destinations
-         in
-         ("destinations", arg) :: bnds
+         if [] = v_destinations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destinations
+           in
+           let bnd = "destinations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : route -> Ppx_yojson_conv_lib.Yojson.Safe.t)

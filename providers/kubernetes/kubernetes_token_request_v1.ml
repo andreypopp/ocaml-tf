@@ -152,6 +152,7 @@ type spec = {
   audiences : string prop list option; [@option]
   expiration_seconds : float prop option; [@option]
   bound_object_ref : spec__bound_object_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,11 +169,14 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__bound_object_ref
-             v_bound_object_ref
-         in
-         ("bound_object_ref", arg) :: bnds
+         if [] = v_bound_object_ref then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__bound_object_ref)
+               v_bound_object_ref
+           in
+           let bnd = "bound_object_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_expiration_seconds with
@@ -202,7 +206,8 @@ let _ = yojson_of_spec
 type kubernetes_token_request_v1 = {
   id : string prop option; [@option]
   metadata : metadata list;
-  spec : spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -215,12 +220,20 @@ let yojson_of_kubernetes_token_request_v1 =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

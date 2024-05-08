@@ -30,7 +30,9 @@ let _ = yojson_of_log_config
 
 type rules__action = {
   source_nat_active_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   source_nat_drain_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,20 +48,24 @@ let yojson_of_rules__action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_nat_drain_ips
-         in
-         ("source_nat_drain_ips", arg) :: bnds
+         if [] = v_source_nat_drain_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_nat_drain_ips
+           in
+           let bnd = "source_nat_drain_ips", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_nat_active_ips
-         in
-         ("source_nat_active_ips", arg) :: bnds
+         if [] = v_source_nat_active_ips then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_nat_active_ips
+           in
+           let bnd = "source_nat_active_ips", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rules__action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -70,6 +76,7 @@ let _ = yojson_of_rules__action
 
 type rules = {
   action : rules__action list;
+      [@default []] [@yojson_drop_default ( = )]
   description : string prop;
   match_ : string prop; [@key "match"]
   rule_number : float prop;
@@ -102,8 +109,13 @@ let yojson_of_rules =
          ("description", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rules__action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rules__action) v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -115,7 +127,9 @@ let _ = yojson_of_rules
 type subnetwork = {
   name : string prop;
   secondary_ip_range_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   source_ip_ranges_to_nat : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -132,20 +146,24 @@ let yojson_of_subnetwork =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_ip_ranges_to_nat
-         in
-         ("source_ip_ranges_to_nat", arg) :: bnds
+         if [] = v_source_ip_ranges_to_nat then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_ip_ranges_to_nat
+           in
+           let bnd = "source_ip_ranges_to_nat", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_secondary_ip_range_names
-         in
-         ("secondary_ip_range_names", arg) :: bnds
+         if [] = v_secondary_ip_range_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_secondary_ip_range_names
+           in
+           let bnd = "secondary_ip_range_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

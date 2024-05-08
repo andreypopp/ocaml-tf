@@ -156,8 +156,10 @@ let _ = yojson_of_source__custom_log_source_resource
 
 type source = {
   aws_log_source_resource : source__aws_log_source_resource list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_log_source_resource :
     source__custom_log_source_resource list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -173,19 +175,26 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source__custom_log_source_resource
-             v_custom_log_source_resource
-         in
-         ("custom_log_source_resource", arg) :: bnds
+         if [] = v_custom_log_source_resource then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source__custom_log_source_resource)
+               v_custom_log_source_resource
+           in
+           let bnd = "custom_log_source_resource", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source__aws_log_source_resource
-             v_aws_log_source_resource
-         in
-         ("aws_log_source_resource", arg) :: bnds
+         if [] = v_aws_log_source_resource then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source__aws_log_source_resource)
+               v_aws_log_source_resource
+           in
+           let bnd = "aws_log_source_resource", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -274,8 +283,9 @@ type aws_securitylake_subscriber = {
   subscriber_description : string prop option; [@option]
   subscriber_name : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
-  source : source list;
+  source : source list; [@default []] [@yojson_drop_default ( = )]
   subscriber_identity : subscriber_identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -301,15 +311,21 @@ let yojson_of_aws_securitylake_subscriber =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_subscriber_identity
-             v_subscriber_identity
-         in
-         ("subscriber_identity", arg) :: bnds
+         if [] = v_subscriber_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subscriber_identity)
+               v_subscriber_identity
+           in
+           let bnd = "subscriber_identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

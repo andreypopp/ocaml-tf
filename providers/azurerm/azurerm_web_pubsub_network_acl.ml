@@ -161,7 +161,9 @@ type azurerm_web_pubsub_network_acl = {
   id : string prop option; [@option]
   web_pubsub_id : string prop;
   private_endpoint : private_endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
   public_network : public_network list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -186,17 +188,24 @@ let yojson_of_azurerm_web_pubsub_network_acl =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_public_network v_public_network
-         in
-         ("public_network", arg) :: bnds
+         if [] = v_public_network then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_public_network)
+               v_public_network
+           in
+           let bnd = "public_network", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_endpoint
-             v_private_endpoint
-         in
-         ("private_endpoint", arg) :: bnds
+         if [] = v_private_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_endpoint)
+               v_private_endpoint
+           in
+           let bnd = "private_endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_web_pubsub_id in

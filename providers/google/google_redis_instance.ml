@@ -71,6 +71,7 @@ type maintenance_policy__weekly_maintenance_window = {
   day : string prop;
   start_time :
     maintenance_policy__weekly_maintenance_window__start_time list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -83,12 +84,15 @@ let yojson_of_maintenance_policy__weekly_maintenance_window =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_maintenance_policy__weekly_maintenance_window__start_time
-             v_start_time
-         in
-         ("start_time", arg) :: bnds
+         if [] = v_start_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_policy__weekly_maintenance_window__start_time)
+               v_start_time
+           in
+           let bnd = "start_time", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_day in
@@ -106,6 +110,7 @@ type maintenance_policy = {
   description : string prop option; [@option]
   weekly_maintenance_window :
     maintenance_policy__weekly_maintenance_window list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,12 +126,15 @@ let yojson_of_maintenance_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_maintenance_policy__weekly_maintenance_window
-             v_weekly_maintenance_window
-         in
-         ("weekly_maintenance_window", arg) :: bnds
+         if [] = v_weekly_maintenance_window then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_maintenance_policy__weekly_maintenance_window)
+               v_weekly_maintenance_window
+           in
+           let bnd = "weekly_maintenance_window", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_description with
@@ -380,7 +388,9 @@ type google_redis_instance = {
   tier : string prop option; [@option]
   transit_encryption_mode : string prop option; [@option]
   maintenance_policy : maintenance_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   persistence_config : persistence_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -423,18 +433,24 @@ let yojson_of_google_redis_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_persistence_config
-             v_persistence_config
-         in
-         ("persistence_config", arg) :: bnds
+         if [] = v_persistence_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_persistence_config)
+               v_persistence_config
+           in
+           let bnd = "persistence_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_policy
-             v_maintenance_policy
-         in
-         ("maintenance_policy", arg) :: bnds
+         if [] = v_maintenance_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_policy)
+               v_maintenance_policy
+           in
+           let bnd = "maintenance_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_transit_encryption_mode with

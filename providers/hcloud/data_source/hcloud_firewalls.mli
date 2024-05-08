@@ -6,11 +6,15 @@ open! Tf_core
 
 type firewalls__rule = {
   description : string prop;  (** description *)
-  destination_ips : string prop list;  (** destination_ips *)
+  destination_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** destination_ips *)
   direction : string prop;  (** direction *)
   port : string prop;  (** port *)
   protocol : string prop;  (** protocol *)
-  source_ips : string prop list;  (** source_ips *)
+  source_ips : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** source_ips *)
 }
 
 type firewalls__apply_to = {
@@ -19,11 +23,15 @@ type firewalls__apply_to = {
 }
 
 type firewalls = {
-  apply_to : firewalls__apply_to list;  (** apply_to *)
+  apply_to : firewalls__apply_to list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** apply_to *)
   id : float prop;  (** id *)
   labels : (string * string prop) list;  (** labels *)
   name : string prop;  (** name *)
-  rule : firewalls__rule list;  (** rule *)
+  rule : firewalls__rule list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** rule *)
 }
 
 type hcloud_firewalls

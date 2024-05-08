@@ -113,7 +113,8 @@ type cloudflare_list_item = {
   ip : string prop option; [@option]
   list_id : string prop;
   hostname : hostname list;
-  redirect : redirect list;
+      [@default []] [@yojson_drop_default ( = )]
+  redirect : redirect list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -134,12 +135,22 @@ let yojson_of_cloudflare_list_item =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_redirect v_redirect in
-         ("redirect", arg) :: bnds
+         if [] = v_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_redirect) v_redirect
+           in
+           let bnd = "redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_hostname v_hostname in
-         ("hostname", arg) :: bnds
+         if [] = v_hostname then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hostname) v_hostname
+           in
+           let bnd = "hostname", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_list_id in

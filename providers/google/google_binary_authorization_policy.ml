@@ -179,8 +179,11 @@ type google_binary_authorization_policy = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   admission_whitelist_patterns : admission_whitelist_patterns list;
+      [@default []] [@yojson_drop_default ( = )]
   cluster_admission_rules : cluster_admission_rules list;
+      [@default []] [@yojson_drop_default ( = )]
   default_admission_rule : default_admission_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -208,25 +211,34 @@ let yojson_of_google_binary_authorization_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_admission_rule
-             v_default_admission_rule
-         in
-         ("default_admission_rule", arg) :: bnds
+         if [] = v_default_admission_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_admission_rule)
+               v_default_admission_rule
+           in
+           let bnd = "default_admission_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cluster_admission_rules
-             v_cluster_admission_rules
-         in
-         ("cluster_admission_rules", arg) :: bnds
+         if [] = v_cluster_admission_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cluster_admission_rules)
+               v_cluster_admission_rules
+           in
+           let bnd = "cluster_admission_rules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_admission_whitelist_patterns
-             v_admission_whitelist_patterns
-         in
-         ("admission_whitelist_patterns", arg) :: bnds
+         if [] = v_admission_whitelist_patterns then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_admission_whitelist_patterns)
+               v_admission_whitelist_patterns
+           in
+           let bnd = "admission_whitelist_patterns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

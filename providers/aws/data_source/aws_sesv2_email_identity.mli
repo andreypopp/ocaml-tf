@@ -18,7 +18,9 @@ type dkim_signing_attributes = {
   signing_attributes_origin : string prop;
       (** signing_attributes_origin *)
   status : string prop;  (** status *)
-  tokens : string prop list;  (** tokens *)
+  tokens : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** tokens *)
 }
 
 type aws_sesv2_email_identity

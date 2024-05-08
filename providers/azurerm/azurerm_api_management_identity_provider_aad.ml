@@ -64,6 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_api_management_identity_provider_aad = {
   allowed_tenants : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   api_management_name : string prop;
   client_id : string prop;
   client_secret : string prop;
@@ -132,12 +133,14 @@ let yojson_of_azurerm_api_management_identity_provider_aad =
          ("api_management_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_tenants
-         in
-         ("allowed_tenants", arg) :: bnds
+         if [] = v_allowed_tenants then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_tenants
+           in
+           let bnd = "allowed_tenants", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_api_management_identity_provider_aad ->

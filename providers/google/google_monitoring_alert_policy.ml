@@ -78,8 +78,10 @@ type alert_strategy = {
   auto_close : string prop option; [@option]
   notification_channel_strategy :
     alert_strategy__notification_channel_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
   notification_rate_limit :
     alert_strategy__notification_rate_limit list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -97,20 +99,26 @@ let yojson_of_alert_strategy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_alert_strategy__notification_rate_limit
-             v_notification_rate_limit
-         in
-         ("notification_rate_limit", arg) :: bnds
+         if [] = v_notification_rate_limit then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_alert_strategy__notification_rate_limit)
+               v_notification_rate_limit
+           in
+           let bnd = "notification_rate_limit", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_alert_strategy__notification_channel_strategy
-             v_notification_channel_strategy
-         in
-         ("notification_channel_strategy", arg) :: bnds
+         if [] = v_notification_channel_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_alert_strategy__notification_channel_strategy)
+               v_notification_channel_strategy
+           in
+           let bnd = "notification_channel_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_auto_close with
@@ -232,7 +240,9 @@ type conditions__condition_absent = {
   duration : string prop;
   filter : string prop option; [@option]
   aggregations : conditions__condition_absent__aggregations list;
+      [@default []] [@yojson_drop_default ( = )]
   trigger : conditions__condition_absent__trigger list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -250,20 +260,26 @@ let yojson_of_conditions__condition_absent =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_conditions__condition_absent__trigger
-             v_trigger
-         in
-         ("trigger", arg) :: bnds
+         if [] = v_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_absent__trigger)
+               v_trigger
+           in
+           let bnd = "trigger", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_conditions__condition_absent__aggregations
-             v_aggregations
-         in
-         ("aggregations", arg) :: bnds
+         if [] = v_aggregations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_absent__aggregations)
+               v_aggregations
+           in
+           let bnd = "aggregations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_filter with
@@ -375,6 +391,7 @@ type conditions__condition_monitoring_query_language = {
   query : string prop;
   trigger :
     conditions__condition_monitoring_query_language__trigger list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -393,12 +410,15 @@ let yojson_of_conditions__condition_monitoring_query_language =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_conditions__condition_monitoring_query_language__trigger
-             v_trigger
-         in
-         ("trigger", arg) :: bnds
+         if [] = v_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_monitoring_query_language__trigger)
+               v_trigger
+           in
+           let bnd = "trigger", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_query in
@@ -714,11 +734,15 @@ type conditions__condition_threshold = {
   filter : string prop option; [@option]
   threshold_value : float prop option; [@option]
   aggregations : conditions__condition_threshold__aggregations list;
+      [@default []] [@yojson_drop_default ( = )]
   denominator_aggregations :
     conditions__condition_threshold__denominator_aggregations list;
+      [@default []] [@yojson_drop_default ( = )]
   forecast_options :
     conditions__condition_threshold__forecast_options list;
+      [@default []] [@yojson_drop_default ( = )]
   trigger : conditions__condition_threshold__trigger list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -742,36 +766,48 @@ let yojson_of_conditions__condition_threshold =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_conditions__condition_threshold__trigger
-             v_trigger
-         in
-         ("trigger", arg) :: bnds
+         if [] = v_trigger then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_threshold__trigger)
+               v_trigger
+           in
+           let bnd = "trigger", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_conditions__condition_threshold__forecast_options
-             v_forecast_options
-         in
-         ("forecast_options", arg) :: bnds
+         if [] = v_forecast_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_threshold__forecast_options)
+               v_forecast_options
+           in
+           let bnd = "forecast_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_conditions__condition_threshold__denominator_aggregations
-             v_denominator_aggregations
-         in
-         ("denominator_aggregations", arg) :: bnds
+         if [] = v_denominator_aggregations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_threshold__denominator_aggregations)
+               v_denominator_aggregations
+           in
+           let bnd = "denominator_aggregations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_conditions__condition_threshold__aggregations
-             v_aggregations
-         in
-         ("aggregations", arg) :: bnds
+         if [] = v_aggregations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_threshold__aggregations)
+               v_aggregations
+           in
+           let bnd = "aggregations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_threshold_value with
@@ -824,12 +860,17 @@ let _ = yojson_of_conditions__condition_threshold
 type conditions = {
   display_name : string prop;
   condition_absent : conditions__condition_absent list;
+      [@default []] [@yojson_drop_default ( = )]
   condition_matched_log : conditions__condition_matched_log list;
+      [@default []] [@yojson_drop_default ( = )]
   condition_monitoring_query_language :
     conditions__condition_monitoring_query_language list;
+      [@default []] [@yojson_drop_default ( = )]
   condition_prometheus_query_language :
     conditions__condition_prometheus_query_language list;
+      [@default []] [@yojson_drop_default ( = )]
   condition_threshold : conditions__condition_threshold list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -851,41 +892,58 @@ let yojson_of_conditions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_conditions__condition_threshold
-             v_condition_threshold
-         in
-         ("condition_threshold", arg) :: bnds
+         if [] = v_condition_threshold then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_threshold)
+               v_condition_threshold
+           in
+           let bnd = "condition_threshold", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_conditions__condition_prometheus_query_language
-             v_condition_prometheus_query_language
-         in
-         ("condition_prometheus_query_language", arg) :: bnds
+         if [] = v_condition_prometheus_query_language then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_prometheus_query_language)
+               v_condition_prometheus_query_language
+           in
+           let bnd = "condition_prometheus_query_language", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_conditions__condition_monitoring_query_language
-             v_condition_monitoring_query_language
-         in
-         ("condition_monitoring_query_language", arg) :: bnds
+         if [] = v_condition_monitoring_query_language then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_monitoring_query_language)
+               v_condition_monitoring_query_language
+           in
+           let bnd = "condition_monitoring_query_language", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_conditions__condition_matched_log
-             v_condition_matched_log
-         in
-         ("condition_matched_log", arg) :: bnds
+         if [] = v_condition_matched_log then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_conditions__condition_matched_log)
+               v_condition_matched_log
+           in
+           let bnd = "condition_matched_log", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_conditions__condition_absent
-             v_condition_absent
-         in
-         ("condition_absent", arg) :: bnds
+         if [] = v_condition_absent then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_conditions__condition_absent)
+               v_condition_absent
+           in
+           let bnd = "condition_absent", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_display_name in
@@ -1033,8 +1091,11 @@ type google_monitoring_alert_policy = {
   severity : string prop option; [@option]
   user_labels : (string * string prop) list option; [@option]
   alert_strategy : alert_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
   conditions : conditions list;
+      [@default []] [@yojson_drop_default ( = )]
   documentation : documentation list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1065,22 +1126,32 @@ let yojson_of_google_monitoring_alert_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_documentation v_documentation
-         in
-         ("documentation", arg) :: bnds
+         if [] = v_documentation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_documentation) v_documentation
+           in
+           let bnd = "documentation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_conditions v_conditions
-         in
-         ("conditions", arg) :: bnds
+         if [] = v_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_conditions) v_conditions
+           in
+           let bnd = "conditions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_alert_strategy v_alert_strategy
-         in
-         ("alert_strategy", arg) :: bnds
+         if [] = v_alert_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_alert_strategy)
+               v_alert_strategy
+           in
+           let bnd = "alert_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_labels with

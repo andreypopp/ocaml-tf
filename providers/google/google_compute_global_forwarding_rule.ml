@@ -35,6 +35,7 @@ let _ = yojson_of_metadata_filters__filter_labels
 type metadata_filters = {
   filter_match_criteria : string prop;
   filter_labels : metadata_filters__filter_labels list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,11 +51,15 @@ let yojson_of_metadata_filters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metadata_filters__filter_labels
-             v_filter_labels
-         in
-         ("filter_labels", arg) :: bnds
+         if [] = v_filter_labels then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_metadata_filters__filter_labels)
+               v_filter_labels
+           in
+           let bnd = "filter_labels", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -173,8 +178,10 @@ type google_compute_global_forwarding_rule = {
   subnetwork : string prop option; [@option]
   target : string prop;
   metadata_filters : metadata_filters list;
+      [@default []] [@yojson_drop_default ( = )]
   service_directory_registrations :
     service_directory_registrations list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -212,18 +219,25 @@ let yojson_of_google_compute_global_forwarding_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_directory_registrations
-             v_service_directory_registrations
-         in
-         ("service_directory_registrations", arg) :: bnds
+         if [] = v_service_directory_registrations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_directory_registrations)
+               v_service_directory_registrations
+           in
+           let bnd = "service_directory_registrations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metadata_filters
-             v_metadata_filters
-         in
-         ("metadata_filters", arg) :: bnds
+         if [] = v_metadata_filters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata_filters)
+               v_metadata_filters
+           in
+           let bnd = "metadata_filters", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_target in

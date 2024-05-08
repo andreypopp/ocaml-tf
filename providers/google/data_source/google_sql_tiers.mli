@@ -7,7 +7,9 @@ open! Tf_core
 type tiers = {
   disk_quota : float prop;  (** disk_quota *)
   ram : float prop;  (** ram *)
-  region : string prop list;  (** region *)
+  region : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** region *)
   tier : string prop;  (** tier *)
 }
 

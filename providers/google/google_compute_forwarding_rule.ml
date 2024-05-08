@@ -114,6 +114,7 @@ type google_compute_forwarding_rule = {
   target : string prop option; [@option]
   service_directory_registrations :
     service_directory_registrations list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -160,11 +161,15 @@ let yojson_of_google_compute_forwarding_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_directory_registrations
-             v_service_directory_registrations
-         in
-         ("service_directory_registrations", arg) :: bnds
+         if [] = v_service_directory_registrations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_directory_registrations)
+               v_service_directory_registrations
+           in
+           let bnd = "service_directory_registrations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target with

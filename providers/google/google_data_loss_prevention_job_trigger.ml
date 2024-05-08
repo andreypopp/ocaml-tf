@@ -110,6 +110,7 @@ type inspect_job__actions__deidentify__transformation_details_storage_config = {
   table :
     inspect_job__actions__deidentify__transformation_details_storage_config__table
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,12 +127,15 @@ let yojson_of_inspect_job__actions__deidentify__transformation_details_storage_c
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__actions__deidentify__transformation_details_storage_config__table
-             v_table
-         in
-         ("table", arg) :: bnds
+         if [] = v_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__deidentify__transformation_details_storage_config__table)
+               v_table
+           in
+           let bnd = "table", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__actions__deidentify__transformation_details_storage_config ->
@@ -147,9 +151,11 @@ type inspect_job__actions__deidentify = {
   file_types_to_transform : string prop list option; [@option]
   transformation_config :
     inspect_job__actions__deidentify__transformation_config list;
+      [@default []] [@yojson_drop_default ( = )]
   transformation_details_storage_config :
     inspect_job__actions__deidentify__transformation_details_storage_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -168,20 +174,26 @@ let yojson_of_inspect_job__actions__deidentify =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__actions__deidentify__transformation_details_storage_config
-             v_transformation_details_storage_config
-         in
-         ("transformation_details_storage_config", arg) :: bnds
+         if [] = v_transformation_details_storage_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__deidentify__transformation_details_storage_config)
+               v_transformation_details_storage_config
+           in
+           let bnd = "transformation_details_storage_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__actions__deidentify__transformation_config
-             v_transformation_config
-         in
-         ("transformation_config", arg) :: bnds
+         if [] = v_transformation_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__deidentify__transformation_config)
+               v_transformation_config
+           in
+           let bnd = "transformation_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_file_types_to_transform with
@@ -343,6 +355,7 @@ type inspect_job__actions__save_findings__output_config = {
   output_schema : string prop option; [@option]
   table :
     inspect_job__actions__save_findings__output_config__table list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -356,12 +369,15 @@ let yojson_of_inspect_job__actions__save_findings__output_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__actions__save_findings__output_config__table
-             v_table
-         in
-         ("table", arg) :: bnds
+         if [] = v_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__save_findings__output_config__table)
+               v_table
+           in
+           let bnd = "table", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_output_schema with
@@ -382,6 +398,7 @@ let _ = yojson_of_inspect_job__actions__save_findings__output_config
 type inspect_job__actions__save_findings = {
   output_config :
     inspect_job__actions__save_findings__output_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -394,12 +411,15 @@ let yojson_of_inspect_job__actions__save_findings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__actions__save_findings__output_config
-             v_output_config
-         in
-         ("output_config", arg) :: bnds
+         if [] = v_output_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__save_findings__output_config)
+               v_output_config
+           in
+           let bnd = "output_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__actions__save_findings ->
@@ -411,16 +431,23 @@ let _ = yojson_of_inspect_job__actions__save_findings
 
 type inspect_job__actions = {
   deidentify : inspect_job__actions__deidentify list;
+      [@default []] [@yojson_drop_default ( = )]
   job_notification_emails :
     inspect_job__actions__job_notification_emails list;
+      [@default []] [@yojson_drop_default ( = )]
   pub_sub : inspect_job__actions__pub_sub list;
+      [@default []] [@yojson_drop_default ( = )]
   publish_findings_to_cloud_data_catalog :
     inspect_job__actions__publish_findings_to_cloud_data_catalog list;
+      [@default []] [@yojson_drop_default ( = )]
   publish_summary_to_cscc :
     inspect_job__actions__publish_summary_to_cscc list;
+      [@default []] [@yojson_drop_default ( = )]
   publish_to_stackdriver :
     inspect_job__actions__publish_to_stackdriver list;
+      [@default []] [@yojson_drop_default ( = )]
   save_findings : inspect_job__actions__save_findings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -442,58 +469,80 @@ let yojson_of_inspect_job__actions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__actions__save_findings
-             v_save_findings
-         in
-         ("save_findings", arg) :: bnds
+         if [] = v_save_findings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__save_findings)
+               v_save_findings
+           in
+           let bnd = "save_findings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__actions__publish_to_stackdriver
-             v_publish_to_stackdriver
-         in
-         ("publish_to_stackdriver", arg) :: bnds
+         if [] = v_publish_to_stackdriver then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__publish_to_stackdriver)
+               v_publish_to_stackdriver
+           in
+           let bnd = "publish_to_stackdriver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__actions__publish_summary_to_cscc
-             v_publish_summary_to_cscc
-         in
-         ("publish_summary_to_cscc", arg) :: bnds
+         if [] = v_publish_summary_to_cscc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__publish_summary_to_cscc)
+               v_publish_summary_to_cscc
+           in
+           let bnd = "publish_summary_to_cscc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__actions__publish_findings_to_cloud_data_catalog
-             v_publish_findings_to_cloud_data_catalog
-         in
-         ("publish_findings_to_cloud_data_catalog", arg) :: bnds
+         if [] = v_publish_findings_to_cloud_data_catalog then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__publish_findings_to_cloud_data_catalog)
+               v_publish_findings_to_cloud_data_catalog
+           in
+           let bnd = "publish_findings_to_cloud_data_catalog", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inspect_job__actions__pub_sub
-             v_pub_sub
-         in
-         ("pub_sub", arg) :: bnds
+         if [] = v_pub_sub then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_inspect_job__actions__pub_sub)
+               v_pub_sub
+           in
+           let bnd = "pub_sub", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__actions__job_notification_emails
-             v_job_notification_emails
-         in
-         ("job_notification_emails", arg) :: bnds
+         if [] = v_job_notification_emails then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__job_notification_emails)
+               v_job_notification_emails
+           in
+           let bnd = "job_notification_emails", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inspect_job__actions__deidentify
-             v_deidentify
-         in
-         ("deidentify", arg) :: bnds
+         if [] = v_deidentify then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__actions__deidentify)
+               v_deidentify
+           in
+           let bnd = "deidentify", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__actions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -533,7 +582,7 @@ let _ =
 [@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types__dictionary__word_list = {
-  words : string prop list;
+  words : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -550,10 +599,14 @@ let yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__word_l
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_words
-         in
-         ("words", arg) :: bnds
+         if [] = v_words then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_words
+           in
+           let bnd = "words", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__inspect_config__custom_info_types__dictionary__word_list ->
@@ -568,9 +621,11 @@ type inspect_job__inspect_config__custom_info_types__dictionary = {
   cloud_storage_path :
     inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path
     list;
+      [@default []] [@yojson_drop_default ( = )]
   word_list :
     inspect_job__inspect_config__custom_info_types__dictionary__word_list
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -589,20 +644,26 @@ let yojson_of_inspect_job__inspect_config__custom_info_types__dictionary
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__word_list
-             v_word_list
-         in
-         ("word_list", arg) :: bnds
+         if [] = v_word_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__word_list)
+               v_word_list
+           in
+           let bnd = "word_list", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path
-             v_cloud_storage_path
-         in
-         ("cloud_storage_path", arg) :: bnds
+         if [] = v_cloud_storage_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path)
+               v_cloud_storage_path
+           in
+           let bnd = "cloud_storage_path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__inspect_config__custom_info_types__dictionary ->
@@ -649,6 +710,7 @@ type inspect_job__inspect_config__custom_info_types__info_type = {
   sensitivity_score :
     inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -668,12 +730,15 @@ let yojson_of_inspect_job__inspect_config__custom_info_types__info_type
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -820,17 +885,23 @@ type inspect_job__inspect_config__custom_info_types = {
   likelihood : string prop option; [@option]
   dictionary :
     inspect_job__inspect_config__custom_info_types__dictionary list;
+      [@default []] [@yojson_drop_default ( = )]
   info_type :
     inspect_job__inspect_config__custom_info_types__info_type list;
+      [@default []] [@yojson_drop_default ( = )]
   regex : inspect_job__inspect_config__custom_info_types__regex list;
+      [@default []] [@yojson_drop_default ( = )]
   sensitivity_score :
     inspect_job__inspect_config__custom_info_types__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
   stored_type :
     inspect_job__inspect_config__custom_info_types__stored_type list;
+      [@default []] [@yojson_drop_default ( = )]
   surrogate_type :
     inspect_job__inspect_config__custom_info_types__surrogate_type
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -853,52 +924,70 @@ let yojson_of_inspect_job__inspect_config__custom_info_types =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__custom_info_types__surrogate_type
-             v_surrogate_type
-         in
-         ("surrogate_type", arg) :: bnds
+         if [] = v_surrogate_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__custom_info_types__surrogate_type)
+               v_surrogate_type
+           in
+           let bnd = "surrogate_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__custom_info_types__stored_type
-             v_stored_type
-         in
-         ("stored_type", arg) :: bnds
+         if [] = v_stored_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__custom_info_types__stored_type)
+               v_stored_type
+           in
+           let bnd = "stored_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__custom_info_types__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__custom_info_types__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__custom_info_types__regex
-             v_regex
-         in
-         ("regex", arg) :: bnds
+         if [] = v_regex then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__custom_info_types__regex)
+               v_regex
+           in
+           let bnd = "regex", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__custom_info_types__info_type
-             v_info_type
-         in
-         ("info_type", arg) :: bnds
+         if [] = v_info_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__custom_info_types__info_type)
+               v_info_type
+           in
+           let bnd = "info_type", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__custom_info_types__dictionary
-             v_dictionary
-         in
-         ("dictionary", arg) :: bnds
+         if [] = v_dictionary then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__custom_info_types__dictionary)
+               v_dictionary
+           in
+           let bnd = "dictionary", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_likelihood with
@@ -958,6 +1047,7 @@ type inspect_job__inspect_config__info_types = {
   version : string prop option; [@option]
   sensitivity_score :
     inspect_job__inspect_config__info_types__sensitivity_score list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -974,12 +1064,15 @@ let yojson_of_inspect_job__inspect_config__info_types =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__info_types__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__info_types__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -1037,6 +1130,7 @@ type inspect_job__inspect_config__limits__max_findings_per_info_type__info_type 
   sensitivity_score :
     inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1057,12 +1151,15 @@ let yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__i
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -1090,6 +1187,7 @@ type inspect_job__inspect_config__limits__max_findings_per_info_type = {
   info_type :
     inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1106,12 +1204,15 @@ let yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
-             v_info_type
-         in
-         ("info_type", arg) :: bnds
+         if [] = v_info_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__info_type)
+               v_info_type
+           in
+           let bnd = "info_type", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_max_findings with
@@ -1136,6 +1237,7 @@ type inspect_job__inspect_config__limits = {
   max_findings_per_info_type :
     inspect_job__inspect_config__limits__max_findings_per_info_type
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1152,12 +1254,15 @@ let yojson_of_inspect_job__inspect_config__limits =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type
-             v_max_findings_per_info_type
-         in
-         ("max_findings_per_info_type", arg) :: bnds
+         if [] = v_max_findings_per_info_type then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type)
+               v_max_findings_per_info_type
+           in
+           let bnd = "max_findings_per_info_type", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_max_findings_per_request with
@@ -1219,6 +1324,7 @@ type inspect_job__inspect_config__rule_set__info_types = {
   sensitivity_score :
     inspect_job__inspect_config__rule_set__info_types__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1236,12 +1342,15 @@ let yojson_of_inspect_job__inspect_config__rule_set__info_types =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__info_types__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__info_types__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -1294,7 +1403,7 @@ let _ =
 [@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list = {
-  words : string prop list;
+  words : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1311,10 +1420,14 @@ let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dict
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_words
-         in
-         ("words", arg) :: bnds
+         if [] = v_words then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_words
+           in
+           let bnd = "words", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list ->
@@ -1329,9 +1442,11 @@ type inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary = 
   cloud_storage_path :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path
     list;
+      [@default []] [@yojson_drop_default ( = )]
   word_list :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1351,20 +1466,26 @@ let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dict
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list
-             v_word_list
-         in
-         ("word_list", arg) :: bnds
+         if [] = v_word_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list)
+               v_word_list
+           in
+           let bnd = "word_list", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path
-             v_cloud_storage_path
-         in
-         ("cloud_storage_path", arg) :: bnds
+         if [] = v_cloud_storage_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path)
+               v_cloud_storage_path
+           in
+           let bnd = "cloud_storage_path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary ->
@@ -1470,9 +1591,11 @@ type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_ho
   hotword_regex :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex
     list;
+      [@default []] [@yojson_drop_default ( = )]
   proximity :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1489,20 +1612,26 @@ let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__excl
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity
-             v_proximity
-         in
-         ("proximity", arg) :: bnds
+         if [] = v_proximity then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity)
+               v_proximity
+           in
+           let bnd = "proximity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex
-             v_hotword_regex
-         in
-         ("hotword_regex", arg) :: bnds
+         if [] = v_hotword_regex then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex)
+               v_hotword_regex
+           in
+           let bnd = "hotword_regex", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword ->
@@ -1549,6 +1678,7 @@ type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_
   sensitivity_score :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1569,12 +1699,15 @@ let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__excl
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score
-             v_sensitivity_score
-         in
-         ("sensitivity_score", arg) :: bnds
+         if [] = v_sensitivity_score then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score)
+               v_sensitivity_score
+           in
+           let bnd = "sensitivity_score", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -1601,6 +1734,7 @@ type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_
   info_types :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1617,12 +1751,15 @@ let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__excl
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
-             v_info_types
-         in
-         ("info_types", arg) :: bnds
+         if [] = v_info_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types)
+               v_info_types
+           in
+           let bnd = "info_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types ->
@@ -1679,15 +1816,19 @@ type inspect_job__inspect_config__rule_set__rules__exclusion_rule = {
   dictionary :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
     list;
+      [@default []] [@yojson_drop_default ( = )]
   exclude_by_hotword :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword
     list;
+      [@default []] [@yojson_drop_default ( = )]
   exclude_info_types :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types
     list;
+      [@default []] [@yojson_drop_default ( = )]
   regex :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1710,36 +1851,48 @@ let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex
-             v_regex
-         in
-         ("regex", arg) :: bnds
+         if [] = v_regex then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex)
+               v_regex
+           in
+           let bnd = "regex", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types
-             v_exclude_info_types
-         in
-         ("exclude_info_types", arg) :: bnds
+         if [] = v_exclude_info_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types)
+               v_exclude_info_types
+           in
+           let bnd = "exclude_info_types", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword
-             v_exclude_by_hotword
-         in
-         ("exclude_by_hotword", arg) :: bnds
+         if [] = v_exclude_by_hotword then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword)
+               v_exclude_by_hotword
+           in
+           let bnd = "exclude_by_hotword", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
-             v_dictionary
-         in
-         ("dictionary", arg) :: bnds
+         if [] = v_dictionary then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary)
+               v_dictionary
+           in
+           let bnd = "dictionary", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_matching_type in
@@ -1895,12 +2048,15 @@ type inspect_job__inspect_config__rule_set__rules__hotword_rule = {
   hotword_regex :
     inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex
     list;
+      [@default []] [@yojson_drop_default ( = )]
   likelihood_adjustment :
     inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment
     list;
+      [@default []] [@yojson_drop_default ( = )]
   proximity :
     inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1920,28 +2076,37 @@ let yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity
-             v_proximity
-         in
-         ("proximity", arg) :: bnds
+         if [] = v_proximity then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity)
+               v_proximity
+           in
+           let bnd = "proximity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment
-             v_likelihood_adjustment
-         in
-         ("likelihood_adjustment", arg) :: bnds
+         if [] = v_likelihood_adjustment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment)
+               v_likelihood_adjustment
+           in
+           let bnd = "likelihood_adjustment", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex
-             v_hotword_regex
-         in
-         ("hotword_regex", arg) :: bnds
+         if [] = v_hotword_regex then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex)
+               v_hotword_regex
+           in
+           let bnd = "hotword_regex", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__inspect_config__rule_set__rules__hotword_rule ->
@@ -1955,8 +2120,10 @@ let _ =
 type inspect_job__inspect_config__rule_set__rules = {
   exclusion_rule :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   hotword_rule :
     inspect_job__inspect_config__rule_set__rules__hotword_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1972,20 +2139,26 @@ let yojson_of_inspect_job__inspect_config__rule_set__rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule
-             v_hotword_rule
-         in
-         ("hotword_rule", arg) :: bnds
+         if [] = v_hotword_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule)
+               v_hotword_rule
+           in
+           let bnd = "hotword_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule
-             v_exclusion_rule
-         in
-         ("exclusion_rule", arg) :: bnds
+         if [] = v_exclusion_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule)
+               v_exclusion_rule
+           in
+           let bnd = "exclusion_rule", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__inspect_config__rule_set__rules ->
@@ -1998,7 +2171,9 @@ let _ = yojson_of_inspect_job__inspect_config__rule_set__rules
 type inspect_job__inspect_config__rule_set = {
   info_types :
     inspect_job__inspect_config__rule_set__info_types list;
+      [@default []] [@yojson_drop_default ( = )]
   rules : inspect_job__inspect_config__rule_set__rules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2011,20 +2186,26 @@ let yojson_of_inspect_job__inspect_config__rule_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__rules
-             v_rules
-         in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__rules)
+               v_rules
+           in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set__info_types
-             v_info_types
-         in
-         ("info_types", arg) :: bnds
+         if [] = v_info_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set__info_types)
+               v_info_types
+           in
+           let bnd = "info_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__inspect_config__rule_set ->
@@ -2040,9 +2221,13 @@ type inspect_job__inspect_config = {
   min_likelihood : string prop option; [@option]
   custom_info_types :
     inspect_job__inspect_config__custom_info_types list;
+      [@default []] [@yojson_drop_default ( = )]
   info_types : inspect_job__inspect_config__info_types list;
+      [@default []] [@yojson_drop_default ( = )]
   limits : inspect_job__inspect_config__limits list;
+      [@default []] [@yojson_drop_default ( = )]
   rule_set : inspect_job__inspect_config__rule_set list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2063,35 +2248,48 @@ let yojson_of_inspect_job__inspect_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__rule_set
-             v_rule_set
-         in
-         ("rule_set", arg) :: bnds
+         if [] = v_rule_set then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__rule_set)
+               v_rule_set
+           in
+           let bnd = "rule_set", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__limits v_limits
-         in
-         ("limits", arg) :: bnds
+         if [] = v_limits then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__limits)
+               v_limits
+           in
+           let bnd = "limits", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__info_types
-             v_info_types
-         in
-         ("info_types", arg) :: bnds
+         if [] = v_info_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__info_types)
+               v_info_types
+           in
+           let bnd = "info_types", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__inspect_config__custom_info_types
-             v_custom_info_types
-         in
-         ("custom_info_types", arg) :: bnds
+         if [] = v_custom_info_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__inspect_config__custom_info_types)
+               v_custom_info_types
+           in
+           let bnd = "custom_info_types", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_min_likelihood with
@@ -2266,15 +2464,19 @@ type inspect_job__storage_config__big_query_options = {
   excluded_fields :
     inspect_job__storage_config__big_query_options__excluded_fields
     list;
+      [@default []] [@yojson_drop_default ( = )]
   identifying_fields :
     inspect_job__storage_config__big_query_options__identifying_fields
     list;
+      [@default []] [@yojson_drop_default ( = )]
   included_fields :
     inspect_job__storage_config__big_query_options__included_fields
     list;
+      [@default []] [@yojson_drop_default ( = )]
   table_reference :
     inspect_job__storage_config__big_query_options__table_reference
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2296,36 +2498,48 @@ let yojson_of_inspect_job__storage_config__big_query_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__big_query_options__table_reference
-             v_table_reference
-         in
-         ("table_reference", arg) :: bnds
+         if [] = v_table_reference then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__big_query_options__table_reference)
+               v_table_reference
+           in
+           let bnd = "table_reference", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__big_query_options__included_fields
-             v_included_fields
-         in
-         ("included_fields", arg) :: bnds
+         if [] = v_included_fields then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__big_query_options__included_fields)
+               v_included_fields
+           in
+           let bnd = "included_fields", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__big_query_options__identifying_fields
-             v_identifying_fields
-         in
-         ("identifying_fields", arg) :: bnds
+         if [] = v_identifying_fields then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__big_query_options__identifying_fields)
+               v_identifying_fields
+           in
+           let bnd = "identifying_fields", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__big_query_options__excluded_fields
-             v_excluded_fields
-         in
-         ("excluded_fields", arg) :: bnds
+         if [] = v_excluded_fields then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__big_query_options__excluded_fields)
+               v_excluded_fields
+           in
+           let bnd = "excluded_fields", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_sample_method with
@@ -2420,6 +2634,7 @@ type inspect_job__storage_config__cloud_storage_options__file_set = {
   regex_file_set :
     inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2436,12 +2651,15 @@ let yojson_of_inspect_job__storage_config__cloud_storage_options__file_set
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set
-             v_regex_file_set
-         in
-         ("regex_file_set", arg) :: bnds
+         if [] = v_regex_file_set then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set)
+               v_regex_file_set
+           in
+           let bnd = "regex_file_set", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_url with
@@ -2468,6 +2686,7 @@ type inspect_job__storage_config__cloud_storage_options = {
   sample_method : string prop option; [@option]
   file_set :
     inspect_job__storage_config__cloud_storage_options__file_set list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2488,12 +2707,15 @@ let yojson_of_inspect_job__storage_config__cloud_storage_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__cloud_storage_options__file_set
-             v_file_set
-         in
-         ("file_set", arg) :: bnds
+         if [] = v_file_set then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__cloud_storage_options__file_set)
+               v_file_set
+           in
+           let bnd = "file_set", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_sample_method with
@@ -2613,8 +2835,10 @@ let _ =
 
 type inspect_job__storage_config__datastore_options = {
   kind : inspect_job__storage_config__datastore_options__kind list;
+      [@default []] [@yojson_drop_default ( = )]
   partition_id :
     inspect_job__storage_config__datastore_options__partition_id list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2628,20 +2852,26 @@ let yojson_of_inspect_job__storage_config__datastore_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__datastore_options__partition_id
-             v_partition_id
-         in
-         ("partition_id", arg) :: bnds
+         if [] = v_partition_id then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__datastore_options__partition_id)
+               v_partition_id
+           in
+           let bnd = "partition_id", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__datastore_options__kind
-             v_kind
-         in
-         ("kind", arg) :: bnds
+         if [] = v_kind then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__datastore_options__kind)
+               v_kind
+           in
+           let bnd = "kind", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__storage_config__datastore_options ->
@@ -2685,6 +2915,7 @@ type inspect_job__storage_config__hybrid_options__table_options = {
   identifying_fields :
     inspect_job__storage_config__hybrid_options__table_options__identifying_fields
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2700,12 +2931,15 @@ let yojson_of_inspect_job__storage_config__hybrid_options__table_options
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__hybrid_options__table_options__identifying_fields
-             v_identifying_fields
-         in
-         ("identifying_fields", arg) :: bnds
+         if [] = v_identifying_fields then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__hybrid_options__table_options__identifying_fields)
+               v_identifying_fields
+           in
+           let bnd = "identifying_fields", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__storage_config__hybrid_options__table_options ->
@@ -2722,6 +2956,7 @@ type inspect_job__storage_config__hybrid_options = {
   required_finding_label_keys : string prop list option; [@option]
   table_options :
     inspect_job__storage_config__hybrid_options__table_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2739,12 +2974,15 @@ let yojson_of_inspect_job__storage_config__hybrid_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__hybrid_options__table_options
-             v_table_options
-         in
-         ("table_options", arg) :: bnds
+         if [] = v_table_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__hybrid_options__table_options)
+               v_table_options
+           in
+           let bnd = "table_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_required_finding_label_keys with
@@ -2826,6 +3064,7 @@ type inspect_job__storage_config__timespan_config = {
   timestamp_field :
     inspect_job__storage_config__timespan_config__timestamp_field
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2844,12 +3083,15 @@ let yojson_of_inspect_job__storage_config__timespan_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__timespan_config__timestamp_field
-             v_timestamp_field
-         in
-         ("timestamp_field", arg) :: bnds
+         if [] = v_timestamp_field then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__timespan_config__timestamp_field)
+               v_timestamp_field
+           in
+           let bnd = "timestamp_field", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start_time with
@@ -2888,12 +3130,17 @@ let _ = yojson_of_inspect_job__storage_config__timespan_config
 type inspect_job__storage_config = {
   big_query_options :
     inspect_job__storage_config__big_query_options list;
+      [@default []] [@yojson_drop_default ( = )]
   cloud_storage_options :
     inspect_job__storage_config__cloud_storage_options list;
+      [@default []] [@yojson_drop_default ( = )]
   datastore_options :
     inspect_job__storage_config__datastore_options list;
+      [@default []] [@yojson_drop_default ( = )]
   hybrid_options : inspect_job__storage_config__hybrid_options list;
+      [@default []] [@yojson_drop_default ( = )]
   timespan_config : inspect_job__storage_config__timespan_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2912,44 +3159,59 @@ let yojson_of_inspect_job__storage_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__timespan_config
-             v_timespan_config
-         in
-         ("timespan_config", arg) :: bnds
+         if [] = v_timespan_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__timespan_config)
+               v_timespan_config
+           in
+           let bnd = "timespan_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__hybrid_options
-             v_hybrid_options
-         in
-         ("hybrid_options", arg) :: bnds
+         if [] = v_hybrid_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__hybrid_options)
+               v_hybrid_options
+           in
+           let bnd = "hybrid_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__datastore_options
-             v_datastore_options
-         in
-         ("datastore_options", arg) :: bnds
+         if [] = v_datastore_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__datastore_options)
+               v_datastore_options
+           in
+           let bnd = "datastore_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__cloud_storage_options
-             v_cloud_storage_options
-         in
-         ("cloud_storage_options", arg) :: bnds
+         if [] = v_cloud_storage_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__cloud_storage_options)
+               v_cloud_storage_options
+           in
+           let bnd = "cloud_storage_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_inspect_job__storage_config__big_query_options
-             v_big_query_options
-         in
-         ("big_query_options", arg) :: bnds
+         if [] = v_big_query_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_inspect_job__storage_config__big_query_options)
+               v_big_query_options
+           in
+           let bnd = "big_query_options", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : inspect_job__storage_config ->
@@ -2962,8 +3224,11 @@ let _ = yojson_of_inspect_job__storage_config
 type inspect_job = {
   inspect_template_name : string prop option; [@option]
   actions : inspect_job__actions list;
+      [@default []] [@yojson_drop_default ( = )]
   inspect_config : inspect_job__inspect_config list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_config : inspect_job__storage_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2981,24 +3246,34 @@ let yojson_of_inspect_job =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inspect_job__storage_config
-             v_storage_config
-         in
-         ("storage_config", arg) :: bnds
+         if [] = v_storage_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_inspect_job__storage_config)
+               v_storage_config
+           in
+           let bnd = "storage_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inspect_job__inspect_config
-             v_inspect_config
-         in
-         ("inspect_config", arg) :: bnds
+         if [] = v_inspect_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_inspect_job__inspect_config)
+               v_inspect_config
+           in
+           let bnd = "inspect_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inspect_job__actions v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_inspect_job__actions)
+               v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_inspect_template_name with
@@ -3103,7 +3378,9 @@ let _ = yojson_of_triggers__schedule
 
 type triggers = {
   manual : triggers__manual list;
+      [@default []] [@yojson_drop_default ( = )]
   schedule : triggers__schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3116,16 +3393,22 @@ let yojson_of_triggers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_triggers__schedule v_schedule
-         in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_triggers__schedule) v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_triggers__manual v_manual
-         in
-         ("manual", arg) :: bnds
+         if [] = v_manual then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_triggers__manual) v_manual
+           in
+           let bnd = "manual", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : triggers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -3142,8 +3425,9 @@ type google_data_loss_prevention_job_trigger = {
   status : string prop option; [@option]
   trigger_id : string prop option; [@option]
   inspect_job : inspect_job list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  triggers : triggers list;
+  triggers : triggers list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3166,18 +3450,26 @@ let yojson_of_google_data_loss_prevention_job_trigger =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_triggers v_triggers in
-         ("triggers", arg) :: bnds
+         if [] = v_triggers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_triggers) v_triggers
+           in
+           let bnd = "triggers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_inspect_job v_inspect_job
-         in
-         ("inspect_job", arg) :: bnds
+         if [] = v_inspect_job then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_inspect_job) v_inspect_job
+           in
+           let bnd = "inspect_job", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_trigger_id with

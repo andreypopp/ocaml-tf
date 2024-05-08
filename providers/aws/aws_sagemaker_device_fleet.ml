@@ -49,6 +49,7 @@ type aws_sagemaker_device_fleet = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   output_config : output_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,10 +71,13 @@ let yojson_of_aws_sagemaker_device_fleet =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_output_config v_output_config
-         in
-         ("output_config", arg) :: bnds
+         if [] = v_output_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_output_config) v_output_config
+           in
+           let bnd = "output_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

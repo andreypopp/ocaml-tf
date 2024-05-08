@@ -6,6 +6,7 @@ type criteria__dimension = {
   name : string prop;
   operator : string prop option; [@option]
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,10 +19,14 @@ let yojson_of_criteria__dimension =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_operator with
@@ -45,6 +50,7 @@ let _ = yojson_of_criteria__dimension
 type criteria = {
   metric_name : string prop;
   dimension : criteria__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,10 +63,14 @@ let yojson_of_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_criteria__dimension v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_metric_name in
@@ -144,6 +154,7 @@ type azurerm_monitor_scheduled_query_rules_log = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   criteria : criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -173,8 +184,13 @@ let yojson_of_azurerm_monitor_scheduled_query_rules_log =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_criteria v_criteria in
-         ("criteria", arg) :: bnds
+         if [] = v_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_criteria) v_criteria
+           in
+           let bnd = "criteria", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

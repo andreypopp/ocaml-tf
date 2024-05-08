@@ -53,6 +53,7 @@ type google_essential_contacts_contact = {
   id : string prop option; [@option]
   language_tag : string prop;
   notification_category_subscriptions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   parent : string prop;
   timeouts : timeouts option;
 }
@@ -83,12 +84,14 @@ let yojson_of_google_essential_contacts_contact =
          ("parent", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_notification_category_subscriptions
-         in
-         ("notification_category_subscriptions", arg) :: bnds
+         if [] = v_notification_category_subscriptions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_notification_category_subscriptions
+           in
+           let bnd = "notification_category_subscriptions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_language_tag in

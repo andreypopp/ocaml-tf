@@ -5,6 +5,7 @@ open! Tf_core
 type aws_cur_report_definition = {
   additional_artifacts : string prop list option; [@option]
   additional_schema_elements : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   compression : string prop;
   format : string prop;
   id : string prop option; [@option]
@@ -96,12 +97,14 @@ let yojson_of_aws_cur_report_definition =
          ("compression", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_additional_schema_elements
-         in
-         ("additional_schema_elements", arg) :: bnds
+         if [] = v_additional_schema_elements then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_additional_schema_elements
+           in
+           let bnd = "additional_schema_elements", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_additional_artifacts with

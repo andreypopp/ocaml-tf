@@ -509,11 +509,14 @@ type aws_elastictranscoder_preset = {
   name : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   video_codec_options : (string * string prop) list option; [@option]
-  audio : audio list;
+  audio : audio list; [@default []] [@yojson_drop_default ( = )]
   audio_codec_options : audio_codec_options list;
+      [@default []] [@yojson_drop_default ( = )]
   thumbnails : thumbnails list;
-  video : video list;
+      [@default []] [@yojson_drop_default ( = )]
+  video : video list; [@default []] [@yojson_drop_default ( = )]
   video_watermarks : video_watermarks list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -538,32 +541,47 @@ let yojson_of_aws_elastictranscoder_preset =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_video_watermarks
-             v_video_watermarks
-         in
-         ("video_watermarks", arg) :: bnds
+         if [] = v_video_watermarks then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_video_watermarks)
+               v_video_watermarks
+           in
+           let bnd = "video_watermarks", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_video v_video in
-         ("video", arg) :: bnds
+         if [] = v_video then bnds
+         else
+           let arg = (yojson_of_list yojson_of_video) v_video in
+           let bnd = "video", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_thumbnails v_thumbnails
-         in
-         ("thumbnails", arg) :: bnds
+         if [] = v_thumbnails then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_thumbnails) v_thumbnails
+           in
+           let bnd = "thumbnails", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_audio_codec_options
-             v_audio_codec_options
-         in
-         ("audio_codec_options", arg) :: bnds
+         if [] = v_audio_codec_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_audio_codec_options)
+               v_audio_codec_options
+           in
+           let bnd = "audio_codec_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_audio v_audio in
-         ("audio", arg) :: bnds
+         if [] = v_audio then bnds
+         else
+           let arg = (yojson_of_list yojson_of_audio) v_audio in
+           let bnd = "audio", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_video_codec_options with

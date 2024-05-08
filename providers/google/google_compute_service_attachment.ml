@@ -134,11 +134,13 @@ type google_compute_service_attachment = {
   id : string prop option; [@option]
   name : string prop;
   nat_subnets : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   project : string prop option; [@option]
   reconcile_connections : bool prop option; [@option]
   region : string prop option; [@option]
   target_service : string prop;
   consumer_accept_lists : consumer_accept_lists list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -171,11 +173,14 @@ let yojson_of_google_compute_service_attachment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_consumer_accept_lists
-             v_consumer_accept_lists
-         in
-         ("consumer_accept_lists", arg) :: bnds
+         if [] = v_consumer_accept_lists then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_consumer_accept_lists)
+               v_consumer_accept_lists
+           in
+           let bnd = "consumer_accept_lists", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -208,12 +213,14 @@ let yojson_of_google_compute_service_attachment =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_nat_subnets
-         in
-         ("nat_subnets", arg) :: bnds
+         if [] = v_nat_subnets then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_nat_subnets
+           in
+           let bnd = "nat_subnets", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

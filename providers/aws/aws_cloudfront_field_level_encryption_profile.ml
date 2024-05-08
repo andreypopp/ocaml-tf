@@ -37,6 +37,7 @@ type encryption_entities__items = {
   provider_id : string prop;
   public_key_id : string prop;
   field_patterns : encryption_entities__items__field_patterns list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,12 +54,15 @@ let yojson_of_encryption_entities__items =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_encryption_entities__items__field_patterns
-             v_field_patterns
-         in
-         ("field_patterns", arg) :: bnds
+         if [] = v_field_patterns then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_encryption_entities__items__field_patterns)
+               v_field_patterns
+           in
+           let bnd = "field_patterns", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_public_key_id in
@@ -77,6 +81,7 @@ let _ = yojson_of_encryption_entities__items
 
 type encryption_entities = {
   items : encryption_entities__items list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,11 +94,14 @@ let yojson_of_encryption_entities =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_entities__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_entities__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : encryption_entities -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -107,6 +115,7 @@ type aws_cloudfront_field_level_encryption_profile = {
   id : string prop option; [@option]
   name : string prop;
   encryption_entities : encryption_entities list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,11 +133,14 @@ let yojson_of_aws_cloudfront_field_level_encryption_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_entities
-             v_encryption_entities
-         in
-         ("encryption_entities", arg) :: bnds
+         if [] = v_encryption_entities then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_entities)
+               v_encryption_entities
+           in
+           let bnd = "encryption_entities", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

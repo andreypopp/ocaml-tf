@@ -85,6 +85,7 @@ type configuration__execute_command_configuration = {
   log_configuration :
     configuration__execute_command_configuration__log_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,12 +102,15 @@ let yojson_of_configuration__execute_command_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__execute_command_configuration__log_configuration
-             v_log_configuration
-         in
-         ("log_configuration", arg) :: bnds
+         if [] = v_log_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__execute_command_configuration__log_configuration)
+               v_log_configuration
+           in
+           let bnd = "log_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_logging with
@@ -135,6 +139,7 @@ let _ = yojson_of_configuration__execute_command_configuration
 type configuration = {
   execute_command_configuration :
     configuration__execute_command_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -150,12 +155,15 @@ let yojson_of_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration__execute_command_configuration
-             v_execute_command_configuration
-         in
-         ("execute_command_configuration", arg) :: bnds
+         if [] = v_execute_command_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration__execute_command_configuration)
+               v_execute_command_configuration
+           in
+           let bnd = "execute_command_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -218,8 +226,10 @@ type aws_ecs_cluster = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   configuration : configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   service_connect_defaults : service_connect_defaults list;
-  setting : setting list;
+      [@default []] [@yojson_drop_default ( = )]
+  setting : setting list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -240,21 +250,30 @@ let yojson_of_aws_ecs_cluster =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_setting v_setting in
-         ("setting", arg) :: bnds
+         if [] = v_setting then bnds
+         else
+           let arg = (yojson_of_list yojson_of_setting) v_setting in
+           let bnd = "setting", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_connect_defaults
-             v_service_connect_defaults
-         in
-         ("service_connect_defaults", arg) :: bnds
+         if [] = v_service_connect_defaults then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_connect_defaults)
+               v_service_connect_defaults
+           in
+           let bnd = "service_connect_defaults", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration v_configuration
-         in
-         ("configuration", arg) :: bnds
+         if [] = v_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration) v_configuration
+           in
+           let bnd = "configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

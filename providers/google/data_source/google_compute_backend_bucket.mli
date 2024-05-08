@@ -11,8 +11,10 @@ type cdn_policy__negative_caching_policy = {
 
 type cdn_policy__cache_key_policy = {
   include_http_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** include_http_headers *)
   query_string_whitelist : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** query_string_whitelist *)
 }
 
@@ -23,8 +25,10 @@ type cdn_policy__bypass_cache_on_request_headers = {
 type cdn_policy = {
   bypass_cache_on_request_headers :
     cdn_policy__bypass_cache_on_request_headers list;
+      [@default []] [@yojson_drop_default ( = )]
       (** bypass_cache_on_request_headers *)
   cache_key_policy : cdn_policy__cache_key_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** cache_key_policy *)
   cache_mode : string prop;  (** cache_mode *)
   client_ttl : float prop;  (** client_ttl *)
@@ -32,6 +36,7 @@ type cdn_policy = {
   max_ttl : float prop;  (** max_ttl *)
   negative_caching : bool prop;  (** negative_caching *)
   negative_caching_policy : cdn_policy__negative_caching_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** negative_caching_policy *)
   request_coalescing : bool prop;  (** request_coalescing *)
   serve_while_stale : float prop;  (** serve_while_stale *)

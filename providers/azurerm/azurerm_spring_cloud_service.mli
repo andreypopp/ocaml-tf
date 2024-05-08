@@ -6,8 +6,12 @@ open! Tf_core
 
 type required_network_traffic_rules = {
   direction : string prop;  (** direction *)
-  fqdns : string prop list;  (** fqdns *)
-  ip_addresses : string prop list;  (** ip_addresses *)
+  fqdns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** fqdns *)
+  ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ip_addresses *)
   port : float prop;  (** port *)
   protocol : string prop;  (** protocol *)
 }

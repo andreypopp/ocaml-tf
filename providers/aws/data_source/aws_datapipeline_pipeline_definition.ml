@@ -46,6 +46,7 @@ let _ = yojson_of_parameter_object__attribute
 
 type parameter_object = {
   attribute : parameter_object__attribute list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -63,11 +64,14 @@ let yojson_of_parameter_object =
          ("id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_parameter_object__attribute
-             v_attribute
-         in
-         ("attribute", arg) :: bnds
+         if [] = v_attribute then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_parameter_object__attribute)
+               v_attribute
+           in
+           let bnd = "attribute", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : parameter_object -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -116,6 +120,7 @@ let _ = yojson_of_pipeline_object__field
 
 type pipeline_object = {
   field : pipeline_object__field list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop;
   name : string prop;
 }
@@ -138,10 +143,14 @@ let yojson_of_pipeline_object =
          ("id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pipeline_object__field v_field
-         in
-         ("field", arg) :: bnds
+         if [] = v_field then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pipeline_object__field)
+               v_field
+           in
+           let bnd = "field", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : pipeline_object -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -154,6 +163,7 @@ type aws_datapipeline_pipeline_definition = {
   id : string prop option; [@option]
   pipeline_id : string prop;
   parameter_value : parameter_value list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -170,10 +180,14 @@ let yojson_of_aws_datapipeline_pipeline_definition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_parameter_value v_parameter_value
-         in
-         ("parameter_value", arg) :: bnds
+         if [] = v_parameter_value then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_parameter_value)
+               v_parameter_value
+           in
+           let bnd = "parameter_value", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_pipeline_id in

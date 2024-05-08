@@ -246,9 +246,11 @@ type aws_lakeformation_resource_lf_tags = {
   catalog_id : string prop option; [@option]
   id : string prop option; [@option]
   database : database list;
-  lf_tag : lf_tag list;
-  table : table list;
+      [@default []] [@yojson_drop_default ( = )]
+  lf_tag : lf_tag list; [@default []] [@yojson_drop_default ( = )]
+  table : table list; [@default []] [@yojson_drop_default ( = )]
   table_with_columns : table_with_columns list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -274,23 +276,37 @@ let yojson_of_aws_lakeformation_resource_lf_tags =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_table_with_columns
-             v_table_with_columns
-         in
-         ("table_with_columns", arg) :: bnds
+         if [] = v_table_with_columns then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_table_with_columns)
+               v_table_with_columns
+           in
+           let bnd = "table_with_columns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_table v_table in
-         ("table", arg) :: bnds
+         if [] = v_table then bnds
+         else
+           let arg = (yojson_of_list yojson_of_table) v_table in
+           let bnd = "table", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_lf_tag v_lf_tag in
-         ("lf_tag", arg) :: bnds
+         if [] = v_lf_tag then bnds
+         else
+           let arg = (yojson_of_list yojson_of_lf_tag) v_lf_tag in
+           let bnd = "lf_tag", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_database v_database in
-         ("database", arg) :: bnds
+         if [] = v_database then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_database) v_database
+           in
+           let bnd = "database", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

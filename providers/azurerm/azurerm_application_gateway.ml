@@ -188,8 +188,10 @@ type backend_http_settings = {
   trusted_root_certificate_names : string prop list option; [@option]
   authentication_certificate :
     backend_http_settings__authentication_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   connection_draining :
     backend_http_settings__connection_draining list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -218,20 +220,26 @@ let yojson_of_backend_http_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backend_http_settings__connection_draining
-             v_connection_draining
-         in
-         ("connection_draining", arg) :: bnds
+         if [] = v_connection_draining then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backend_http_settings__connection_draining)
+               v_connection_draining
+           in
+           let bnd = "connection_draining", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_backend_http_settings__authentication_certificate
-             v_authentication_certificate
-         in
-         ("authentication_certificate", arg) :: bnds
+         if [] = v_authentication_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_backend_http_settings__authentication_certificate)
+               v_authentication_certificate
+           in
+           let bnd = "authentication_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_trusted_root_certificate_names with
@@ -567,6 +575,7 @@ type http_listener = {
   ssl_profile_name : string prop option; [@option]
   custom_error_configuration :
     http_listener__custom_error_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -592,12 +601,15 @@ let yojson_of_http_listener =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_http_listener__custom_error_configuration
-             v_custom_error_configuration
-         in
-         ("custom_error_configuration", arg) :: bnds
+         if [] = v_custom_error_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_http_listener__custom_error_configuration)
+               v_custom_error_configuration
+           in
+           let bnd = "custom_error_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_ssl_profile_name with
@@ -679,6 +691,7 @@ let _ = yojson_of_http_listener
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -696,12 +709,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -773,6 +788,7 @@ type private_link_configuration = {
   name : string prop;
   ip_configuration :
     private_link_configuration__ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -785,12 +801,15 @@ let yojson_of_private_link_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_private_link_configuration__ip_configuration
-             v_ip_configuration
-         in
-         ("ip_configuration", arg) :: bnds
+         if [] = v_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_private_link_configuration__ip_configuration)
+               v_ip_configuration
+           in
+           let bnd = "ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -806,6 +825,7 @@ let _ = yojson_of_private_link_configuration
 type probe__match = {
   body : string prop option; [@option]
   status_code : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -818,12 +838,14 @@ let yojson_of_probe__match =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_status_code
-         in
-         ("status_code", arg) :: bnds
+         if [] = v_status_code then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_status_code
+           in
+           let bnd = "status_code", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_body with
@@ -852,7 +874,8 @@ type probe = {
   protocol : string prop;
   timeout : float prop;
   unhealthy_threshold : float prop;
-  match_ : probe__match list; [@key "match"]
+  match_ : probe__match list;
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -878,8 +901,13 @@ let yojson_of_probe =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_probe__match v_match_ in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_probe__match) v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1310,12 +1338,16 @@ type rewrite_rule_set__rewrite_rule = {
   name : string prop;
   rule_sequence : float prop;
   condition : rewrite_rule_set__rewrite_rule__condition list;
+      [@default []] [@yojson_drop_default ( = )]
   request_header_configuration :
     rewrite_rule_set__rewrite_rule__request_header_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   response_header_configuration :
     rewrite_rule_set__rewrite_rule__response_header_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   url : rewrite_rule_set__rewrite_rule__url list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1336,35 +1368,48 @@ let yojson_of_rewrite_rule_set__rewrite_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rewrite_rule_set__rewrite_rule__url v_url
-         in
-         ("url", arg) :: bnds
+         if [] = v_url then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rewrite_rule_set__rewrite_rule__url)
+               v_url
+           in
+           let bnd = "url", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rewrite_rule_set__rewrite_rule__response_header_configuration
-             v_response_header_configuration
-         in
-         ("response_header_configuration", arg) :: bnds
+         if [] = v_response_header_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rewrite_rule_set__rewrite_rule__response_header_configuration)
+               v_response_header_configuration
+           in
+           let bnd = "response_header_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rewrite_rule_set__rewrite_rule__request_header_configuration
-             v_request_header_configuration
-         in
-         ("request_header_configuration", arg) :: bnds
+         if [] = v_request_header_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rewrite_rule_set__rewrite_rule__request_header_configuration)
+               v_request_header_configuration
+           in
+           let bnd = "request_header_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rewrite_rule_set__rewrite_rule__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rewrite_rule_set__rewrite_rule__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_rule_sequence in
@@ -1385,6 +1430,7 @@ let _ = yojson_of_rewrite_rule_set__rewrite_rule
 type rewrite_rule_set = {
   name : string prop;
   rewrite_rule : rewrite_rule_set__rewrite_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1397,11 +1443,14 @@ let yojson_of_rewrite_rule_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rewrite_rule_set__rewrite_rule
-             v_rewrite_rule
-         in
-         ("rewrite_rule", arg) :: bnds
+         if [] = v_rewrite_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rewrite_rule_set__rewrite_rule)
+               v_rewrite_rule
+           in
+           let bnd = "rewrite_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1664,6 +1713,7 @@ type ssl_profile = {
   verify_client_certificate_revocation : string prop option;
       [@option]
   ssl_policy : ssl_profile__ssl_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1684,11 +1734,14 @@ let yojson_of_ssl_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_profile__ssl_policy
-             v_ssl_policy
-         in
-         ("ssl_policy", arg) :: bnds
+         if [] = v_ssl_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssl_profile__ssl_policy)
+               v_ssl_policy
+           in
+           let bnd = "ssl_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_verify_client_certificate_revocation with
@@ -1868,6 +1921,7 @@ type url_path_map__path_rule = {
   firewall_policy_id : string prop option; [@option]
   name : string prop;
   paths : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   redirect_configuration_name : string prop option; [@option]
   rewrite_rule_set_name : string prop option; [@option]
 }
@@ -1906,10 +1960,14 @@ let yojson_of_url_path_map__path_rule =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_paths
-         in
-         ("paths", arg) :: bnds
+         if [] = v_paths then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_paths
+           in
+           let bnd = "paths", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1953,6 +2011,7 @@ type url_path_map = {
   default_rewrite_rule_set_name : string prop option; [@option]
   name : string prop;
   path_rule : url_path_map__path_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1976,11 +2035,14 @@ let yojson_of_url_path_map =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_url_path_map__path_rule
-             v_path_rule
-         in
-         ("path_rule", arg) :: bnds
+         if [] = v_path_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_url_path_map__path_rule)
+               v_path_rule
+           in
+           let bnd = "path_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -2121,7 +2183,9 @@ type waf_configuration = {
   rule_set_type : string prop option; [@option]
   rule_set_version : string prop;
   disabled_rule_group : waf_configuration__disabled_rule_group list;
+      [@default []] [@yojson_drop_default ( = )]
   exclusion : waf_configuration__exclusion list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2144,19 +2208,25 @@ let yojson_of_waf_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_waf_configuration__exclusion
-             v_exclusion
-         in
-         ("exclusion", arg) :: bnds
+         if [] = v_exclusion then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_waf_configuration__exclusion)
+               v_exclusion
+           in
+           let bnd = "exclusion", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_waf_configuration__disabled_rule_group
-             v_disabled_rule_group
-         in
-         ("disabled_rule_group", arg) :: bnds
+         if [] = v_disabled_rule_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_waf_configuration__disabled_rule_group)
+               v_disabled_rule_group
+           in
+           let bnd = "disabled_rule_group", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2253,30 +2323,51 @@ type azurerm_application_gateway = {
   tags : (string * string prop) list option; [@option]
   zones : string prop list option; [@option]
   authentication_certificate : authentication_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   autoscale_configuration : autoscale_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   backend_address_pool : backend_address_pool list;
+      [@default []] [@yojson_drop_default ( = )]
   backend_http_settings : backend_http_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_error_configuration : custom_error_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   frontend_ip_configuration : frontend_ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   frontend_port : frontend_port list;
+      [@default []] [@yojson_drop_default ( = )]
   gateway_ip_configuration : gateway_ip_configuration list;
-  global : global list;
+      [@default []] [@yojson_drop_default ( = )]
+  global : global list; [@default []] [@yojson_drop_default ( = )]
   http_listener : http_listener list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   private_link_configuration : private_link_configuration list;
-  probe : probe list;
+      [@default []] [@yojson_drop_default ( = )]
+  probe : probe list; [@default []] [@yojson_drop_default ( = )]
   redirect_configuration : redirect_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   request_routing_rule : request_routing_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   rewrite_rule_set : rewrite_rule_set list;
-  sku : sku list;
+      [@default []] [@yojson_drop_default ( = )]
+  sku : sku list; [@default []] [@yojson_drop_default ( = )]
   ssl_certificate : ssl_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   ssl_policy : ssl_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   ssl_profile : ssl_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   trusted_client_certificate : trusted_client_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   trusted_root_certificate : trusted_root_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   url_path_map : url_path_map list;
+      [@default []] [@yojson_drop_default ( = )]
   waf_configuration : waf_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2326,158 +2417,233 @@ let yojson_of_azurerm_application_gateway =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_waf_configuration
-             v_waf_configuration
-         in
-         ("waf_configuration", arg) :: bnds
+         if [] = v_waf_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_waf_configuration)
+               v_waf_configuration
+           in
+           let bnd = "waf_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_url_path_map v_url_path_map
-         in
-         ("url_path_map", arg) :: bnds
+         if [] = v_url_path_map then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_url_path_map) v_url_path_map
+           in
+           let bnd = "url_path_map", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trusted_root_certificate
-             v_trusted_root_certificate
-         in
-         ("trusted_root_certificate", arg) :: bnds
+         if [] = v_trusted_root_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trusted_root_certificate)
+               v_trusted_root_certificate
+           in
+           let bnd = "trusted_root_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trusted_client_certificate
-             v_trusted_client_certificate
-         in
-         ("trusted_client_certificate", arg) :: bnds
+         if [] = v_trusted_client_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trusted_client_certificate)
+               v_trusted_client_certificate
+           in
+           let bnd = "trusted_client_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_profile v_ssl_profile
-         in
-         ("ssl_profile", arg) :: bnds
+         if [] = v_ssl_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssl_profile) v_ssl_profile
+           in
+           let bnd = "ssl_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_policy v_ssl_policy
-         in
-         ("ssl_policy", arg) :: bnds
+         if [] = v_ssl_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssl_policy) v_ssl_policy
+           in
+           let bnd = "ssl_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ssl_certificate v_ssl_certificate
-         in
-         ("ssl_certificate", arg) :: bnds
+         if [] = v_ssl_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ssl_certificate)
+               v_ssl_certificate
+           in
+           let bnd = "ssl_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sku v_sku in
-         ("sku", arg) :: bnds
+         if [] = v_sku then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sku) v_sku in
+           let bnd = "sku", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rewrite_rule_set
-             v_rewrite_rule_set
-         in
-         ("rewrite_rule_set", arg) :: bnds
+         if [] = v_rewrite_rule_set then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rewrite_rule_set)
+               v_rewrite_rule_set
+           in
+           let bnd = "rewrite_rule_set", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_request_routing_rule
-             v_request_routing_rule
-         in
-         ("request_routing_rule", arg) :: bnds
+         if [] = v_request_routing_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_request_routing_rule)
+               v_request_routing_rule
+           in
+           let bnd = "request_routing_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_redirect_configuration
-             v_redirect_configuration
-         in
-         ("redirect_configuration", arg) :: bnds
+         if [] = v_redirect_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_redirect_configuration)
+               v_redirect_configuration
+           in
+           let bnd = "redirect_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_probe v_probe in
-         ("probe", arg) :: bnds
+         if [] = v_probe then bnds
+         else
+           let arg = (yojson_of_list yojson_of_probe) v_probe in
+           let bnd = "probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_link_configuration
-             v_private_link_configuration
-         in
-         ("private_link_configuration", arg) :: bnds
+         if [] = v_private_link_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_link_configuration)
+               v_private_link_configuration
+           in
+           let bnd = "private_link_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_listener v_http_listener
-         in
-         ("http_listener", arg) :: bnds
+         if [] = v_http_listener then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_listener) v_http_listener
+           in
+           let bnd = "http_listener", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_global v_global in
-         ("global", arg) :: bnds
+         if [] = v_global then bnds
+         else
+           let arg = (yojson_of_list yojson_of_global) v_global in
+           let bnd = "global", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_gateway_ip_configuration
-             v_gateway_ip_configuration
-         in
-         ("gateway_ip_configuration", arg) :: bnds
+         if [] = v_gateway_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_gateway_ip_configuration)
+               v_gateway_ip_configuration
+           in
+           let bnd = "gateway_ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_frontend_port v_frontend_port
-         in
-         ("frontend_port", arg) :: bnds
+         if [] = v_frontend_port then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_frontend_port) v_frontend_port
+           in
+           let bnd = "frontend_port", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_frontend_ip_configuration
-             v_frontend_ip_configuration
-         in
-         ("frontend_ip_configuration", arg) :: bnds
+         if [] = v_frontend_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_frontend_ip_configuration)
+               v_frontend_ip_configuration
+           in
+           let bnd = "frontend_ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_error_configuration
-             v_custom_error_configuration
-         in
-         ("custom_error_configuration", arg) :: bnds
+         if [] = v_custom_error_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_error_configuration)
+               v_custom_error_configuration
+           in
+           let bnd = "custom_error_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backend_http_settings
-             v_backend_http_settings
-         in
-         ("backend_http_settings", arg) :: bnds
+         if [] = v_backend_http_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backend_http_settings)
+               v_backend_http_settings
+           in
+           let bnd = "backend_http_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backend_address_pool
-             v_backend_address_pool
-         in
-         ("backend_address_pool", arg) :: bnds
+         if [] = v_backend_address_pool then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backend_address_pool)
+               v_backend_address_pool
+           in
+           let bnd = "backend_address_pool", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_autoscale_configuration
-             v_autoscale_configuration
-         in
-         ("autoscale_configuration", arg) :: bnds
+         if [] = v_autoscale_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_autoscale_configuration)
+               v_autoscale_configuration
+           in
+           let bnd = "autoscale_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authentication_certificate
-             v_authentication_certificate
-         in
-         ("authentication_certificate", arg) :: bnds
+         if [] = v_authentication_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authentication_certificate)
+               v_authentication_certificate
+           in
+           let bnd = "authentication_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with

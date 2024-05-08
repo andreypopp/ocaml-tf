@@ -253,8 +253,11 @@ type aws_workspaces_directory = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   self_service_permissions : self_service_permissions list;
+      [@default []] [@yojson_drop_default ( = )]
   workspace_access_properties : workspace_access_properties list;
+      [@default []] [@yojson_drop_default ( = )]
   workspace_creation_properties : workspace_creation_properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -278,25 +281,34 @@ let yojson_of_aws_workspaces_directory =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_workspace_creation_properties
-             v_workspace_creation_properties
-         in
-         ("workspace_creation_properties", arg) :: bnds
+         if [] = v_workspace_creation_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workspace_creation_properties)
+               v_workspace_creation_properties
+           in
+           let bnd = "workspace_creation_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_workspace_access_properties
-             v_workspace_access_properties
-         in
-         ("workspace_access_properties", arg) :: bnds
+         if [] = v_workspace_access_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workspace_access_properties)
+               v_workspace_access_properties
+           in
+           let bnd = "workspace_access_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_self_service_permissions
-             v_self_service_permissions
-         in
-         ("self_service_permissions", arg) :: bnds
+         if [] = v_self_service_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_self_service_permissions)
+               v_self_service_permissions
+           in
+           let bnd = "self_service_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

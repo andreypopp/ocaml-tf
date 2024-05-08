@@ -40,6 +40,7 @@ type aws_chime_voice_connector_group = {
   id : string prop option; [@option]
   name : string prop;
   connector : connector list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -52,8 +53,13 @@ let yojson_of_aws_chime_voice_connector_group =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_connector v_connector in
-         ("connector", arg) :: bnds
+         if [] = v_connector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_connector) v_connector
+           in
+           let bnd = "connector", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

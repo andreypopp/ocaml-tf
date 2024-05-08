@@ -26,11 +26,13 @@ type distribution__fast_launch_configuration = {
   enabled : bool prop;  (** enabled *)
   launch_template :
     distribution__fast_launch_configuration__launch_template list;
+      [@default []] [@yojson_drop_default ( = )]
       (** launch_template *)
   max_parallel_launches : float prop;  (** max_parallel_launches *)
   snapshot_configuration :
     distribution__fast_launch_configuration__snapshot_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** snapshot_configuration *)
 }
 
@@ -40,20 +42,30 @@ type distribution__container_distribution_configuration__target_repository = {
 }
 
 type distribution__container_distribution_configuration = {
-  container_tags : string prop list;  (** container_tags *)
+  container_tags : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** container_tags *)
   description : string prop;  (** description *)
   target_repository :
     distribution__container_distribution_configuration__target_repository
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** target_repository *)
 }
 
 type distribution__ami_distribution_configuration__launch_permission = {
-  organization_arns : string prop list;  (** organization_arns *)
+  organization_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** organization_arns *)
   organizational_unit_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** organizational_unit_arns *)
-  user_groups : string prop list;  (** user_groups *)
-  user_ids : string prop list;  (** user_ids *)
+  user_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** user_groups *)
+  user_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** user_ids *)
 }
 
 type distribution__ami_distribution_configuration = {
@@ -63,25 +75,33 @@ type distribution__ami_distribution_configuration = {
   launch_permission :
     distribution__ami_distribution_configuration__launch_permission
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** launch_permission *)
   name : string prop;  (** name *)
-  target_account_ids : string prop list;  (** target_account_ids *)
+  target_account_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** target_account_ids *)
 }
 
 type distribution = {
   ami_distribution_configuration :
     distribution__ami_distribution_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ami_distribution_configuration *)
   container_distribution_configuration :
     distribution__container_distribution_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** container_distribution_configuration *)
   fast_launch_configuration :
     distribution__fast_launch_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** fast_launch_configuration *)
   launch_template_configuration :
     distribution__launch_template_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** launch_template_configuration *)
   license_configuration_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** license_configuration_arns *)
   region : string prop;  (** region *)
 }

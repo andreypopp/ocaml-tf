@@ -37,6 +37,7 @@ let _ = yojson_of_default_retention_rule__life_cycle
 
 type default_retention_rule = {
   life_cycle : default_retention_rule__life_cycle list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -49,12 +50,15 @@ let yojson_of_default_retention_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_default_retention_rule__life_cycle
-             v_life_cycle
-         in
-         ("life_cycle", arg) :: bnds
+         if [] = v_life_cycle then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_default_retention_rule__life_cycle)
+               v_life_cycle
+           in
+           let bnd = "life_cycle", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : default_retention_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -177,7 +181,9 @@ type retention_rule = {
   name : string prop;
   priority : float prop;
   criteria : retention_rule__criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   life_cycle : retention_rule__life_cycle list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,18 +201,24 @@ let yojson_of_retention_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_rule__life_cycle
-             v_life_cycle
-         in
-         ("life_cycle", arg) :: bnds
+         if [] = v_life_cycle then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_rule__life_cycle)
+               v_life_cycle
+           in
+           let bnd = "life_cycle", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_rule__criteria
-             v_criteria
-         in
-         ("criteria", arg) :: bnds
+         if [] = v_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_rule__criteria)
+               v_criteria
+           in
+           let bnd = "criteria", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_priority in
@@ -271,13 +283,16 @@ let _ = yojson_of_timeouts
 
 type azurerm_data_protection_backup_policy_kubernetes_cluster = {
   backup_repeating_time_intervals : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
   time_zone : string prop option; [@option]
   vault_name : string prop;
   default_retention_rule : default_retention_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   retention_rule : retention_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -309,17 +324,24 @@ let yojson_of_azurerm_data_protection_backup_policy_kubernetes_cluster
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_rule v_retention_rule
-         in
-         ("retention_rule", arg) :: bnds
+         if [] = v_retention_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_rule)
+               v_retention_rule
+           in
+           let bnd = "retention_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_retention_rule
-             v_default_retention_rule
-         in
-         ("default_retention_rule", arg) :: bnds
+         if [] = v_default_retention_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_retention_rule)
+               v_default_retention_rule
+           in
+           let bnd = "default_retention_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_vault_name in
@@ -352,12 +374,14 @@ let yojson_of_azurerm_data_protection_backup_policy_kubernetes_cluster
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_backup_repeating_time_intervals
-         in
-         ("backup_repeating_time_intervals", arg) :: bnds
+         if [] = v_backup_repeating_time_intervals then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_backup_repeating_time_intervals
+           in
+           let bnd = "backup_repeating_time_intervals", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_data_protection_backup_policy_kubernetes_cluster ->

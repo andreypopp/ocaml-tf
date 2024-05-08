@@ -13,6 +13,7 @@ type vpc_endpoint__network_interface = {
 
 type vpc_endpoint = {
   network_interface : vpc_endpoint__network_interface list;
+      [@default []] [@yojson_drop_default ( = )]
       (** network_interface *)
   vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
   vpc_id : string prop;  (** vpc_id *)

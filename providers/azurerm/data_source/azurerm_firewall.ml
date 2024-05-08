@@ -128,6 +128,7 @@ let _ = yojson_of_management_ip_configuration
 type virtual_hub = {
   private_ip_address : string prop;
   public_ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   public_ip_count : float prop;
   virtual_hub_id : string prop;
 }
@@ -159,12 +160,14 @@ let yojson_of_virtual_hub =
          ("public_ip_count", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_public_ip_addresses
-         in
-         ("public_ip_addresses", arg) :: bnds
+         if [] = v_public_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_public_ip_addresses
+           in
+           let bnd = "public_ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

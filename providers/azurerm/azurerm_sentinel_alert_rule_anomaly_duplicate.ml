@@ -5,6 +5,7 @@ open! Tf_core
 type multi_select_observation = {
   name : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,10 +18,14 @@ let yojson_of_multi_select_observation =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -201,6 +206,7 @@ let _ = yojson_of_timeouts
 type required_data_connector = {
   connector_id : string prop;
   data_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -213,12 +219,14 @@ let yojson_of_required_data_connector =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_data_types
-         in
-         ("data_types", arg) :: bnds
+         if [] = v_data_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_data_types
+           in
+           let bnd = "data_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_connector_id in
@@ -239,10 +247,14 @@ type azurerm_sentinel_alert_rule_anomaly_duplicate = {
   log_analytics_workspace_id : string prop;
   mode : string prop;
   multi_select_observation : multi_select_observation list;
+      [@default []] [@yojson_drop_default ( = )]
   prioritized_exclude_observation :
     prioritized_exclude_observation list;
+      [@default []] [@yojson_drop_default ( = )]
   single_select_observation : single_select_observation list;
+      [@default []] [@yojson_drop_default ( = )]
   threshold_observation : threshold_observation list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -273,32 +285,45 @@ let yojson_of_azurerm_sentinel_alert_rule_anomaly_duplicate =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threshold_observation
-             v_threshold_observation
-         in
-         ("threshold_observation", arg) :: bnds
+         if [] = v_threshold_observation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_threshold_observation)
+               v_threshold_observation
+           in
+           let bnd = "threshold_observation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_single_select_observation
-             v_single_select_observation
-         in
-         ("single_select_observation", arg) :: bnds
+         if [] = v_single_select_observation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_single_select_observation)
+               v_single_select_observation
+           in
+           let bnd = "single_select_observation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_prioritized_exclude_observation
-             v_prioritized_exclude_observation
-         in
-         ("prioritized_exclude_observation", arg) :: bnds
+         if [] = v_prioritized_exclude_observation then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_prioritized_exclude_observation)
+               v_prioritized_exclude_observation
+           in
+           let bnd = "prioritized_exclude_observation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_multi_select_observation
-             v_multi_select_observation
-         in
-         ("multi_select_observation", arg) :: bnds
+         if [] = v_multi_select_observation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_multi_select_observation)
+               v_multi_select_observation
+           in
+           let bnd = "multi_select_observation", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_mode in

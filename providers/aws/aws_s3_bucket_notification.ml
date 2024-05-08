@@ -4,6 +4,7 @@ open! Tf_core
 
 type lambda_function = {
   events : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   filter_prefix : string prop option; [@option]
   filter_suffix : string prop option; [@option]
   id : string prop option; [@option]
@@ -58,10 +59,14 @@ let yojson_of_lambda_function =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_events
-         in
-         ("events", arg) :: bnds
+         if [] = v_events then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_events
+           in
+           let bnd = "events", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : lambda_function -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -72,6 +77,7 @@ let _ = yojson_of_lambda_function
 
 type queue = {
   events : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   filter_prefix : string prop option; [@option]
   filter_suffix : string prop option; [@option]
   id : string prop option; [@option]
@@ -122,10 +128,14 @@ let yojson_of_queue =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_events
-         in
-         ("events", arg) :: bnds
+         if [] = v_events then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_events
+           in
+           let bnd = "events", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : queue -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -136,6 +146,7 @@ let _ = yojson_of_queue
 
 type topic = {
   events : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   filter_prefix : string prop option; [@option]
   filter_suffix : string prop option; [@option]
   id : string prop option; [@option]
@@ -186,10 +197,14 @@ let yojson_of_topic =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_events
-         in
-         ("events", arg) :: bnds
+         if [] = v_events then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_events
+           in
+           let bnd = "events", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : topic -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -203,8 +218,9 @@ type aws_s3_bucket_notification = {
   eventbridge : bool prop option; [@option]
   id : string prop option; [@option]
   lambda_function : lambda_function list;
-  queue : queue list;
-  topic : topic list;
+      [@default []] [@yojson_drop_default ( = )]
+  queue : queue list; [@default []] [@yojson_drop_default ( = )]
+  topic : topic list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -224,18 +240,28 @@ let yojson_of_aws_s3_bucket_notification =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_topic v_topic in
-         ("topic", arg) :: bnds
+         if [] = v_topic then bnds
+         else
+           let arg = (yojson_of_list yojson_of_topic) v_topic in
+           let bnd = "topic", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_queue v_queue in
-         ("queue", arg) :: bnds
+         if [] = v_queue then bnds
+         else
+           let arg = (yojson_of_list yojson_of_queue) v_queue in
+           let bnd = "queue", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lambda_function v_lambda_function
-         in
-         ("lambda_function", arg) :: bnds
+         if [] = v_lambda_function then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lambda_function)
+               v_lambda_function
+           in
+           let bnd = "lambda_function", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

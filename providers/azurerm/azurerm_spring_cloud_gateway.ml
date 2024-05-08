@@ -466,14 +466,18 @@ type azurerm_spring_cloud_gateway = {
       [@option]
   spring_cloud_service_id : string prop;
   api_metadata : api_metadata list;
+      [@default []] [@yojson_drop_default ( = )]
   client_authorization : client_authorization list;
-  cors : cors list;
+      [@default []] [@yojson_drop_default ( = )]
+  cors : cors list; [@default []] [@yojson_drop_default ( = )]
   local_response_cache_per_instance :
     local_response_cache_per_instance list;
+      [@default []] [@yojson_drop_default ( = )]
   local_response_cache_per_route :
     local_response_cache_per_route list;
-  quota : quota list;
-  sso : sso list;
+      [@default []] [@yojson_drop_default ( = )]
+  quota : quota list; [@default []] [@yojson_drop_default ( = )]
+  sso : sso list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -516,43 +520,65 @@ let yojson_of_azurerm_spring_cloud_gateway =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sso v_sso in
-         ("sso", arg) :: bnds
+         if [] = v_sso then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sso) v_sso in
+           let bnd = "sso", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_quota v_quota in
-         ("quota", arg) :: bnds
+         if [] = v_quota then bnds
+         else
+           let arg = (yojson_of_list yojson_of_quota) v_quota in
+           let bnd = "quota", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_local_response_cache_per_route
-             v_local_response_cache_per_route
-         in
-         ("local_response_cache_per_route", arg) :: bnds
+         if [] = v_local_response_cache_per_route then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_local_response_cache_per_route)
+               v_local_response_cache_per_route
+           in
+           let bnd = "local_response_cache_per_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_local_response_cache_per_instance
-             v_local_response_cache_per_instance
-         in
-         ("local_response_cache_per_instance", arg) :: bnds
+         if [] = v_local_response_cache_per_instance then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_local_response_cache_per_instance)
+               v_local_response_cache_per_instance
+           in
+           let bnd = "local_response_cache_per_instance", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_cors v_cors in
-         ("cors", arg) :: bnds
+         if [] = v_cors then bnds
+         else
+           let arg = (yojson_of_list yojson_of_cors) v_cors in
+           let bnd = "cors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_client_authorization
-             v_client_authorization
-         in
-         ("client_authorization", arg) :: bnds
+         if [] = v_client_authorization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_client_authorization)
+               v_client_authorization
+           in
+           let bnd = "client_authorization", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_api_metadata v_api_metadata
-         in
-         ("api_metadata", arg) :: bnds
+         if [] = v_api_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_api_metadata) v_api_metadata
+           in
+           let bnd = "api_metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

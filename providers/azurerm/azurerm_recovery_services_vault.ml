@@ -212,8 +212,11 @@ type azurerm_recovery_services_vault = {
   storage_mode_type : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   encryption : encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   monitoring : monitoring list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -250,20 +253,31 @@ let yojson_of_azurerm_recovery_services_vault =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitoring v_monitoring
-         in
-         ("monitoring", arg) :: bnds
+         if [] = v_monitoring then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitoring) v_monitoring
+           in
+           let bnd = "monitoring", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption v_encryption
-         in
-         ("encryption", arg) :: bnds
+         if [] = v_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption) v_encryption
+           in
+           let bnd = "encryption", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

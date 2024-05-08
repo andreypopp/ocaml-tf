@@ -100,6 +100,7 @@ let _ = yojson_of_rule__copy_action__lifecycle
 type rule__copy_action = {
   destination_vault_arn : string prop;
   lifecycle : rule__copy_action__lifecycle list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -115,11 +116,14 @@ let yojson_of_rule__copy_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__copy_action__lifecycle
-             v_lifecycle
-         in
-         ("lifecycle", arg) :: bnds
+         if [] = v_lifecycle then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__copy_action__lifecycle)
+               v_lifecycle
+           in
+           let bnd = "lifecycle", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -197,7 +201,9 @@ type rule = {
   start_window : float prop option; [@option]
   target_vault_name : string prop;
   copy_action : rule__copy_action list;
+      [@default []] [@yojson_drop_default ( = )]
   lifecycle : rule__lifecycle list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -220,16 +226,23 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__lifecycle v_lifecycle
-         in
-         ("lifecycle", arg) :: bnds
+         if [] = v_lifecycle then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__lifecycle) v_lifecycle
+           in
+           let bnd = "lifecycle", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__copy_action v_copy_action
-         in
-         ("copy_action", arg) :: bnds
+         if [] = v_copy_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__copy_action)
+               v_copy_action
+           in
+           let bnd = "copy_action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -302,7 +315,8 @@ type aws_backup_plan = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   advanced_backup_setting : advanced_backup_setting list;
-  rule : rule list;
+      [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -322,15 +336,21 @@ let yojson_of_aws_backup_plan =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_advanced_backup_setting
-             v_advanced_backup_setting
-         in
-         ("advanced_backup_setting", arg) :: bnds
+         if [] = v_advanced_backup_setting then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_advanced_backup_setting)
+               v_advanced_backup_setting
+           in
+           let bnd = "advanced_backup_setting", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

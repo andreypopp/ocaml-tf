@@ -5,25 +5,43 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type certificate_description__x509_description__policy_ids = {
-  object_id_path : float prop list;  (** object_id_path *)
+  object_id_path : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** object_id_path *)
 }
 
 type certificate_description__x509_description__name_constraints = {
   critical : bool prop;  (** critical *)
-  excluded_dns_names : string prop list;  (** excluded_dns_names *)
+  excluded_dns_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** excluded_dns_names *)
   excluded_email_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** excluded_email_addresses *)
-  excluded_ip_ranges : string prop list;  (** excluded_ip_ranges *)
-  excluded_uris : string prop list;  (** excluded_uris *)
-  permitted_dns_names : string prop list;  (** permitted_dns_names *)
+  excluded_ip_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** excluded_ip_ranges *)
+  excluded_uris : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** excluded_uris *)
+  permitted_dns_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** permitted_dns_names *)
   permitted_email_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** permitted_email_addresses *)
-  permitted_ip_ranges : string prop list;  (** permitted_ip_ranges *)
-  permitted_uris : string prop list;  (** permitted_uris *)
+  permitted_ip_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** permitted_ip_ranges *)
+  permitted_uris : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** permitted_uris *)
 }
 
 type certificate_description__x509_description__key_usage__unknown_extended_key_usages = {
-  object_id_path : float prop list;  (** object_id_path *)
+  object_id_path : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** object_id_path *)
 }
 
 type certificate_description__x509_description__key_usage__extended_key_usage = {
@@ -51,14 +69,17 @@ type certificate_description__x509_description__key_usage = {
   base_key_usage :
     certificate_description__x509_description__key_usage__base_key_usage
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** base_key_usage *)
   extended_key_usage :
     certificate_description__x509_description__key_usage__extended_key_usage
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** extended_key_usage *)
   unknown_extended_key_usages :
     certificate_description__x509_description__key_usage__unknown_extended_key_usages
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** unknown_extended_key_usages *)
 }
 
@@ -68,7 +89,9 @@ type certificate_description__x509_description__ca_options = {
 }
 
 type certificate_description__x509_description__additional_extensions__object_id = {
-  object_id_path : float prop list;  (** object_id_path *)
+  object_id_path : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** object_id_path *)
 }
 
 type certificate_description__x509_description__additional_extensions = {
@@ -76,6 +99,7 @@ type certificate_description__x509_description__additional_extensions = {
   object_id :
     certificate_description__x509_description__additional_extensions__object_id
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** object_id *)
   value : string prop;  (** value *)
 }
@@ -84,19 +108,26 @@ type certificate_description__x509_description = {
   additional_extensions :
     certificate_description__x509_description__additional_extensions
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** additional_extensions *)
-  aia_ocsp_servers : string prop list;  (** aia_ocsp_servers *)
+  aia_ocsp_servers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** aia_ocsp_servers *)
   ca_options :
     certificate_description__x509_description__ca_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ca_options *)
   key_usage :
     certificate_description__x509_description__key_usage list;
+      [@default []] [@yojson_drop_default ( = )]
       (** key_usage *)
   name_constraints :
     certificate_description__x509_description__name_constraints list;
+      [@default []] [@yojson_drop_default ( = )]
       (** name_constraints *)
   policy_ids :
     certificate_description__x509_description__policy_ids list;
+      [@default []] [@yojson_drop_default ( = )]
       (** policy_ids *)
 }
 
@@ -105,7 +136,9 @@ type certificate_description__subject_key_id = {
 }
 
 type certificate_description__subject_description__subject_alt_name__custom_sans__obect_id = {
-  object_id_path : float prop list;  (** object_id_path *)
+  object_id_path : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** object_id_path *)
 }
 
 type certificate_description__subject_description__subject_alt_name__custom_sans = {
@@ -113,6 +146,7 @@ type certificate_description__subject_description__subject_alt_name__custom_sans
   obect_id :
     certificate_description__subject_description__subject_alt_name__custom_sans__obect_id
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** obect_id *)
   value : string prop;  (** value *)
 }
@@ -121,11 +155,19 @@ type certificate_description__subject_description__subject_alt_name = {
   custom_sans :
     certificate_description__subject_description__subject_alt_name__custom_sans
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** custom_sans *)
-  dns_names : string prop list;  (** dns_names *)
-  email_addresses : string prop list;  (** email_addresses *)
-  ip_addresses : string prop list;  (** ip_addresses *)
-  uris : string prop list;  (** uris *)
+  dns_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** dns_names *)
+  email_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** email_addresses *)
+  ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ip_addresses *)
+  uris : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** uris *)
 }
 
 type certificate_description__subject_description__subject = {
@@ -146,10 +188,12 @@ type certificate_description__subject_description = {
   not_before_time : string prop;  (** not_before_time *)
   subject :
     certificate_description__subject_description__subject list;
+      [@default []] [@yojson_drop_default ( = )]
       (** subject *)
   subject_alt_name :
     certificate_description__subject_description__subject_alt_name
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** subject_alt_name *)
 }
 
@@ -168,21 +212,29 @@ type certificate_description__authority_key_id = {
 
 type certificate_description = {
   aia_issuing_certificate_urls : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** aia_issuing_certificate_urls *)
   authority_key_id : certificate_description__authority_key_id list;
+      [@default []] [@yojson_drop_default ( = )]
       (** authority_key_id *)
   cert_fingerprint : certificate_description__cert_fingerprint list;
+      [@default []] [@yojson_drop_default ( = )]
       (** cert_fingerprint *)
   crl_distribution_points : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** crl_distribution_points *)
   public_key : certificate_description__public_key list;
+      [@default []] [@yojson_drop_default ( = )]
       (** public_key *)
   subject_description :
     certificate_description__subject_description list;
+      [@default []] [@yojson_drop_default ( = )]
       (** subject_description *)
   subject_key_id : certificate_description__subject_key_id list;
+      [@default []] [@yojson_drop_default ( = )]
       (** subject_key_id *)
   x509_description : certificate_description__x509_description list;
+      [@default []] [@yojson_drop_default ( = )]
       (** x509_description *)
 }
 

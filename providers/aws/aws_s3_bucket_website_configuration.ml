@@ -192,7 +192,9 @@ let _ = yojson_of_routing_rule__redirect
 
 type routing_rule = {
   condition : routing_rule__condition list;
+      [@default []] [@yojson_drop_default ( = )]
   redirect : routing_rule__redirect list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -205,17 +207,24 @@ let yojson_of_routing_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing_rule__redirect v_redirect
-         in
-         ("redirect", arg) :: bnds
+         if [] = v_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_routing_rule__redirect)
+               v_redirect
+           in
+           let bnd = "redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing_rule__condition
-             v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_routing_rule__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : routing_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -230,9 +239,13 @@ type aws_s3_bucket_website_configuration = {
   id : string prop option; [@option]
   routing_rules : string prop option; [@option]
   error_document : error_document list;
+      [@default []] [@yojson_drop_default ( = )]
   index_document : index_document list;
+      [@default []] [@yojson_drop_default ( = )]
   redirect_all_requests_to : redirect_all_requests_to list;
+      [@default []] [@yojson_drop_default ( = )]
   routing_rule : routing_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -254,29 +267,43 @@ let yojson_of_aws_s3_bucket_website_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing_rule v_routing_rule
-         in
-         ("routing_rule", arg) :: bnds
+         if [] = v_routing_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_routing_rule) v_routing_rule
+           in
+           let bnd = "routing_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_redirect_all_requests_to
-             v_redirect_all_requests_to
-         in
-         ("redirect_all_requests_to", arg) :: bnds
+         if [] = v_redirect_all_requests_to then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_redirect_all_requests_to)
+               v_redirect_all_requests_to
+           in
+           let bnd = "redirect_all_requests_to", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_index_document v_index_document
-         in
-         ("index_document", arg) :: bnds
+         if [] = v_index_document then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_index_document)
+               v_index_document
+           in
+           let bnd = "index_document", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_document v_error_document
-         in
-         ("error_document", arg) :: bnds
+         if [] = v_error_document then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_document)
+               v_error_document
+           in
+           let bnd = "error_document", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_routing_rules with

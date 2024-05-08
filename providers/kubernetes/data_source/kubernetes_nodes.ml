@@ -154,9 +154,11 @@ let _ = yojson_of_nodes__status__addresses
 
 type nodes__status = {
   addresses : nodes__status__addresses list;
+      [@default []] [@yojson_drop_default ( = )]
   allocatable : (string * string prop) list;
   capacity : (string * string prop) list;
   node_info : nodes__status__node_info list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -174,11 +176,14 @@ let yojson_of_nodes__status =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_nodes__status__node_info
-             v_node_info
-         in
-         ("node_info", arg) :: bnds
+         if [] = v_node_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_nodes__status__node_info)
+               v_node_info
+           in
+           let bnd = "node_info", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -205,11 +210,14 @@ let yojson_of_nodes__status =
          ("allocatable", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_nodes__status__addresses
-             v_addresses
-         in
-         ("addresses", arg) :: bnds
+         if [] = v_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_nodes__status__addresses)
+               v_addresses
+           in
+           let bnd = "addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : nodes__status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -255,8 +263,10 @@ let _ = yojson_of_nodes__spec__taints
 type nodes__spec = {
   pod_cidr : string prop;
   pod_cidrs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   provider_id : string prop;
   taints : nodes__spec__taints list;
+      [@default []] [@yojson_drop_default ( = )]
   unschedulable : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -280,22 +290,27 @@ let yojson_of_nodes__spec =
          ("unschedulable", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_nodes__spec__taints v_taints
-         in
-         ("taints", arg) :: bnds
+         if [] = v_taints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_nodes__spec__taints) v_taints
+           in
+           let bnd = "taints", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_provider_id in
          ("provider_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_pod_cidrs
-         in
-         ("pod_cidrs", arg) :: bnds
+         if [] = v_pod_cidrs then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_pod_cidrs
+           in
+           let bnd = "pod_cidrs", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_pod_cidr in
@@ -384,8 +399,10 @@ let _ = yojson_of_nodes__metadata
 
 type nodes = {
   metadata : nodes__metadata list;
-  spec : nodes__spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : nodes__spec list; [@default []] [@yojson_drop_default ( = )]
   status : nodes__status list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -398,18 +415,29 @@ let yojson_of_nodes =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_nodes__status v_status in
-         ("status", arg) :: bnds
+         if [] = v_status then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_nodes__status) v_status
+           in
+           let bnd = "status", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_nodes__spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_nodes__spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_nodes__metadata v_metadata
-         in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_nodes__metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : nodes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -420,7 +448,7 @@ let _ = yojson_of_nodes
 
 type kubernetes_nodes = {
   id : string prop option; [@option]
-  metadata : metadata list;
+  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -433,8 +461,13 @@ let yojson_of_kubernetes_nodes =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

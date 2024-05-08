@@ -61,6 +61,7 @@ type profiling_status = {
   latest_agent_profile_reported_at : string prop;
   latest_aggregated_profile :
     profiling_status__latest_aggregated_profile list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,12 +79,15 @@ let yojson_of_profiling_status =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_profiling_status__latest_aggregated_profile
-             v_latest_aggregated_profile
-         in
-         ("latest_aggregated_profile", arg) :: bnds
+         if [] = v_latest_aggregated_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_profiling_status__latest_aggregated_profile)
+               v_latest_aggregated_profile
+           in
+           let bnd = "latest_aggregated_profile", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

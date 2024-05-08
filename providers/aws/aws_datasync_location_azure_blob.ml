@@ -27,6 +27,7 @@ let _ = yojson_of_sas_configuration
 type aws_datasync_location_azure_blob = {
   access_tier : string prop option; [@option]
   agent_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   authentication_type : string prop;
   blob_type : string prop option; [@option]
   container_url : string prop;
@@ -35,6 +36,7 @@ type aws_datasync_location_azure_blob = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   sas_configuration : sas_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,11 +60,14 @@ let yojson_of_aws_datasync_location_azure_blob =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sas_configuration
-             v_sas_configuration
-         in
-         ("sas_configuration", arg) :: bnds
+         if [] = v_sas_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sas_configuration)
+               v_sas_configuration
+           in
+           let bnd = "sas_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -131,12 +136,14 @@ let yojson_of_aws_datasync_location_azure_blob =
          ("authentication_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_agent_arns
-         in
-         ("agent_arns", arg) :: bnds
+         if [] = v_agent_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_agent_arns
+           in
+           let bnd = "agent_arns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_access_tier with

@@ -9,7 +9,9 @@ type spec__egress_filter = {
 }
 
 type spec = {
-  egress_filter : spec__egress_filter list;  (** egress_filter *)
+  egress_filter : spec__egress_filter list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** egress_filter *)
 }
 
 type aws_appmesh_mesh

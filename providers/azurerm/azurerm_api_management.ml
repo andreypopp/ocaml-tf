@@ -36,6 +36,7 @@ type additional_location = {
   zones : string prop list option; [@option]
   virtual_network_configuration :
     additional_location__virtual_network_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,12 +57,15 @@ let yojson_of_additional_location =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_additional_location__virtual_network_configuration
-             v_virtual_network_configuration
-         in
-         ("virtual_network_configuration", arg) :: bnds
+         if [] = v_virtual_network_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_additional_location__virtual_network_configuration)
+               v_virtual_network_configuration
+           in
+           let bnd = "virtual_network_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with
@@ -614,10 +618,15 @@ let _ = yojson_of_hostname_configuration__scm
 
 type hostname_configuration = {
   developer_portal : hostname_configuration__developer_portal list;
+      [@default []] [@yojson_drop_default ( = )]
   management : hostname_configuration__management list;
+      [@default []] [@yojson_drop_default ( = )]
   portal : hostname_configuration__portal list;
+      [@default []] [@yojson_drop_default ( = )]
   proxy : hostname_configuration__proxy list;
+      [@default []] [@yojson_drop_default ( = )]
   scm : hostname_configuration__scm list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -636,40 +645,56 @@ let yojson_of_hostname_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hostname_configuration__scm v_scm
-         in
-         ("scm", arg) :: bnds
+         if [] = v_scm then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hostname_configuration__scm)
+               v_scm
+           in
+           let bnd = "scm", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hostname_configuration__proxy
-             v_proxy
-         in
-         ("proxy", arg) :: bnds
+         if [] = v_proxy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hostname_configuration__proxy)
+               v_proxy
+           in
+           let bnd = "proxy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hostname_configuration__portal
-             v_portal
-         in
-         ("portal", arg) :: bnds
+         if [] = v_portal then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hostname_configuration__portal)
+               v_portal
+           in
+           let bnd = "portal", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_hostname_configuration__management
-             v_management
-         in
-         ("management", arg) :: bnds
+         if [] = v_management then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_hostname_configuration__management)
+               v_management
+           in
+           let bnd = "management", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_hostname_configuration__developer_portal
-             v_developer_portal
-         in
-         ("developer_portal", arg) :: bnds
+         if [] = v_developer_portal then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_hostname_configuration__developer_portal)
+               v_developer_portal
+           in
+           let bnd = "developer_portal", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : hostname_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1053,6 +1078,7 @@ let _ = yojson_of_sign_up__terms_of_service
 type sign_up = {
   enabled : bool prop;
   terms_of_service : sign_up__terms_of_service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1066,11 +1092,14 @@ let yojson_of_sign_up =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sign_up__terms_of_service
-             v_terms_of_service
-         in
-         ("terms_of_service", arg) :: bnds
+         if [] = v_terms_of_service then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sign_up__terms_of_service)
+               v_terms_of_service
+           in
+           let bnd = "terms_of_service", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in
@@ -1233,17 +1262,26 @@ type azurerm_api_management = {
   virtual_network_type : string prop option; [@option]
   zones : string prop list option; [@option]
   additional_location : additional_location list;
+      [@default []] [@yojson_drop_default ( = )]
   certificate : certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   delegation : delegation list;
+      [@default []] [@yojson_drop_default ( = )]
   hostname_configuration : hostname_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   protocols : protocols list;
+      [@default []] [@yojson_drop_default ( = )]
   security : security list;
-  sign_in : sign_in list;
-  sign_up : sign_up list;
+      [@default []] [@yojson_drop_default ( = )]
+  sign_in : sign_in list; [@default []] [@yojson_drop_default ( = )]
+  sign_up : sign_up list; [@default []] [@yojson_drop_default ( = )]
   tenant_access : tenant_access list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   virtual_network_configuration : virtual_network_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1288,67 +1326,106 @@ let yojson_of_azurerm_api_management =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_virtual_network_configuration
-             v_virtual_network_configuration
-         in
-         ("virtual_network_configuration", arg) :: bnds
+         if [] = v_virtual_network_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_virtual_network_configuration)
+               v_virtual_network_configuration
+           in
+           let bnd = "virtual_network_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tenant_access v_tenant_access
-         in
-         ("tenant_access", arg) :: bnds
+         if [] = v_tenant_access then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tenant_access) v_tenant_access
+           in
+           let bnd = "tenant_access", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sign_up v_sign_up in
-         ("sign_up", arg) :: bnds
+         if [] = v_sign_up then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sign_up) v_sign_up in
+           let bnd = "sign_up", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sign_in v_sign_in in
-         ("sign_in", arg) :: bnds
+         if [] = v_sign_in then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sign_in) v_sign_in in
+           let bnd = "sign_in", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_security v_security in
-         ("security", arg) :: bnds
+         if [] = v_security then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_security) v_security
+           in
+           let bnd = "security", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_protocols v_protocols in
-         ("protocols", arg) :: bnds
+         if [] = v_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_protocols) v_protocols
+           in
+           let bnd = "protocols", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hostname_configuration
-             v_hostname_configuration
-         in
-         ("hostname_configuration", arg) :: bnds
+         if [] = v_hostname_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hostname_configuration)
+               v_hostname_configuration
+           in
+           let bnd = "hostname_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delegation v_delegation
-         in
-         ("delegation", arg) :: bnds
+         if [] = v_delegation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_delegation) v_delegation
+           in
+           let bnd = "delegation", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_certificate v_certificate
-         in
-         ("certificate", arg) :: bnds
+         if [] = v_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_certificate) v_certificate
+           in
+           let bnd = "certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_additional_location
-             v_additional_location
-         in
-         ("additional_location", arg) :: bnds
+         if [] = v_additional_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_additional_location)
+               v_additional_location
+           in
+           let bnd = "additional_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zones with

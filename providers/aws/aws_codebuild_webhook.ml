@@ -44,7 +44,10 @@ let _ = yojson_of_filter_group__filter
 
 [@@@deriving.end]
 
-type filter_group = { filter : filter_group__filter list }
+type filter_group = {
+  filter : filter_group__filter list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : filter_group) -> ()
@@ -56,10 +59,13 @@ let yojson_of_filter_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter_group__filter v_filter
-         in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter_group__filter) v_filter
+           in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : filter_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -74,6 +80,7 @@ type aws_codebuild_webhook = {
   id : string prop option; [@option]
   project_name : string prop;
   filter_group : filter_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -92,10 +99,13 @@ let yojson_of_aws_codebuild_webhook =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_filter_group v_filter_group
-         in
-         ("filter_group", arg) :: bnds
+         if [] = v_filter_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_filter_group) v_filter_group
+           in
+           let bnd = "filter_group", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_project_name in

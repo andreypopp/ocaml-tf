@@ -120,11 +120,14 @@ let _ = yojson_of_endpoint__target_ref
 
 type endpoint = {
   addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   hostname : string prop option; [@option]
   node_name : string prop option; [@option]
   zone : string prop option; [@option]
   condition : endpoint__condition list;
+      [@default []] [@yojson_drop_default ( = )]
   target_ref : endpoint__target_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -144,16 +147,24 @@ let yojson_of_endpoint =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint__target_ref v_target_ref
-         in
-         ("target_ref", arg) :: bnds
+         if [] = v_target_ref then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint__target_ref)
+               v_target_ref
+           in
+           let bnd = "target_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint__condition v_condition
-         in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint__condition)
+               v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone with
@@ -180,12 +191,14 @@ let yojson_of_endpoint =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_addresses
-         in
-         ("addresses", arg) :: bnds
+         if [] = v_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_addresses
+           in
+           let bnd = "addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -336,8 +349,10 @@ type kubernetes_endpoint_slice_v1 = {
   address_type : string prop;
   id : string prop option; [@option]
   endpoint : endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
   metadata : metadata list;
-  port : port list;
+      [@default []] [@yojson_drop_default ( = )]
+  port : port list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -356,16 +371,29 @@ let yojson_of_kubernetes_endpoint_slice_v1 =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_port v_port in
-         ("port", arg) :: bnds
+         if [] = v_port then bnds
+         else
+           let arg = (yojson_of_list yojson_of_port) v_port in
+           let bnd = "port", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_endpoint v_endpoint in
-         ("endpoint", arg) :: bnds
+         if [] = v_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint) v_endpoint
+           in
+           let bnd = "endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

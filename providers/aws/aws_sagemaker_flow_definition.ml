@@ -42,6 +42,7 @@ type human_loop_activation_config = {
   human_loop_activation_conditions_config :
     human_loop_activation_config__human_loop_activation_conditions_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,12 +58,17 @@ let yojson_of_human_loop_activation_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_human_loop_activation_config__human_loop_activation_conditions_config
-             v_human_loop_activation_conditions_config
-         in
-         ("human_loop_activation_conditions_config", arg) :: bnds
+         if [] = v_human_loop_activation_conditions_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_human_loop_activation_config__human_loop_activation_conditions_config)
+               v_human_loop_activation_conditions_config
+           in
+           let bnd =
+             "human_loop_activation_conditions_config", arg
+           in
+           bnd :: bnds
        in
        `Assoc bnds
     : human_loop_activation_config ->
@@ -132,6 +138,7 @@ type human_loop_config__public_workforce_task_price = {
   amount_in_usd :
     human_loop_config__public_workforce_task_price__amount_in_usd
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -145,12 +152,15 @@ let yojson_of_human_loop_config__public_workforce_task_price =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_human_loop_config__public_workforce_task_price__amount_in_usd
-             v_amount_in_usd
-         in
-         ("amount_in_usd", arg) :: bnds
+         if [] = v_amount_in_usd then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_human_loop_config__public_workforce_task_price__amount_in_usd)
+               v_amount_in_usd
+           in
+           let bnd = "amount_in_usd", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : human_loop_config__public_workforce_task_price ->
@@ -172,6 +182,7 @@ type human_loop_config = {
   workteam_arn : string prop;
   public_workforce_task_price :
     human_loop_config__public_workforce_task_price list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -195,12 +206,15 @@ let yojson_of_human_loop_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_human_loop_config__public_workforce_task_price
-             v_public_workforce_task_price
-         in
-         ("public_workforce_task_price", arg) :: bnds
+         if [] = v_public_workforce_task_price then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_human_loop_config__public_workforce_task_price)
+               v_public_workforce_task_price
+           in
+           let bnd = "public_workforce_task_price", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_workteam_arn in
@@ -334,9 +348,13 @@ type aws_sagemaker_flow_definition = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   human_loop_activation_config : human_loop_activation_config list;
+      [@default []] [@yojson_drop_default ( = )]
   human_loop_config : human_loop_config list;
+      [@default []] [@yojson_drop_default ( = )]
   human_loop_request_source : human_loop_request_source list;
+      [@default []] [@yojson_drop_default ( = )]
   output_config : output_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -359,31 +377,43 @@ let yojson_of_aws_sagemaker_flow_definition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_output_config v_output_config
-         in
-         ("output_config", arg) :: bnds
+         if [] = v_output_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_output_config) v_output_config
+           in
+           let bnd = "output_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_human_loop_request_source
-             v_human_loop_request_source
-         in
-         ("human_loop_request_source", arg) :: bnds
+         if [] = v_human_loop_request_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_human_loop_request_source)
+               v_human_loop_request_source
+           in
+           let bnd = "human_loop_request_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_human_loop_config
-             v_human_loop_config
-         in
-         ("human_loop_config", arg) :: bnds
+         if [] = v_human_loop_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_human_loop_config)
+               v_human_loop_config
+           in
+           let bnd = "human_loop_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_human_loop_activation_config
-             v_human_loop_activation_config
-         in
-         ("human_loop_activation_config", arg) :: bnds
+         if [] = v_human_loop_activation_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_human_loop_activation_config)
+               v_human_loop_activation_config
+           in
+           let bnd = "human_loop_activation_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

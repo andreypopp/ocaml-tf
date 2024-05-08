@@ -139,6 +139,7 @@ type node_pool = {
   size : string prop;
   tags : string prop list option; [@option]
   taint : node_pool__taint list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,10 +162,13 @@ let yojson_of_node_pool =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_pool__taint v_taint
-         in
-         ("taint", arg) :: bnds
+         if [] = v_taint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_pool__taint) v_taint
+           in
+           let bnd = "taint", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -344,7 +348,9 @@ type digitalocean_kubernetes_cluster = {
   version : string prop;
   vpc_uuid : string prop option; [@option]
   maintenance_policy : maintenance_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   node_pool : node_pool list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -378,15 +384,23 @@ let yojson_of_digitalocean_kubernetes_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_node_pool v_node_pool in
-         ("node_pool", arg) :: bnds
+         if [] = v_node_pool then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_pool) v_node_pool
+           in
+           let bnd = "node_pool", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_policy
-             v_maintenance_policy
-         in
-         ("maintenance_policy", arg) :: bnds
+         if [] = v_maintenance_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_policy)
+               v_maintenance_policy
+           in
+           let bnd = "maintenance_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_uuid with

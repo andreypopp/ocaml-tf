@@ -1249,13 +1249,21 @@ type aws_dms_endpoint = {
   tags_all : (string * string prop) list option; [@option]
   username : string prop option; [@option]
   elasticsearch_settings : elasticsearch_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   kafka_settings : kafka_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_settings : kinesis_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   mongodb_settings : mongodb_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   postgres_settings : postgres_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   redis_settings : redis_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   redshift_settings : redshift_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_settings : s3_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1303,57 +1311,83 @@ let yojson_of_aws_dms_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_s3_settings v_s3_settings
-         in
-         ("s3_settings", arg) :: bnds
+         if [] = v_s3_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3_settings) v_s3_settings
+           in
+           let bnd = "s3_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_redshift_settings
-             v_redshift_settings
-         in
-         ("redshift_settings", arg) :: bnds
+         if [] = v_redshift_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_redshift_settings)
+               v_redshift_settings
+           in
+           let bnd = "redshift_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_redis_settings v_redis_settings
-         in
-         ("redis_settings", arg) :: bnds
+         if [] = v_redis_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_redis_settings)
+               v_redis_settings
+           in
+           let bnd = "redis_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_postgres_settings
-             v_postgres_settings
-         in
-         ("postgres_settings", arg) :: bnds
+         if [] = v_postgres_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_postgres_settings)
+               v_postgres_settings
+           in
+           let bnd = "postgres_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mongodb_settings
-             v_mongodb_settings
-         in
-         ("mongodb_settings", arg) :: bnds
+         if [] = v_mongodb_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mongodb_settings)
+               v_mongodb_settings
+           in
+           let bnd = "mongodb_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kinesis_settings
-             v_kinesis_settings
-         in
-         ("kinesis_settings", arg) :: bnds
+         if [] = v_kinesis_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kinesis_settings)
+               v_kinesis_settings
+           in
+           let bnd = "kinesis_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kafka_settings v_kafka_settings
-         in
-         ("kafka_settings", arg) :: bnds
+         if [] = v_kafka_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kafka_settings)
+               v_kafka_settings
+           in
+           let bnd = "kafka_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_elasticsearch_settings
-             v_elasticsearch_settings
-         in
-         ("elasticsearch_settings", arg) :: bnds
+         if [] = v_elasticsearch_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_elasticsearch_settings)
+               v_elasticsearch_settings
+           in
+           let bnd = "elasticsearch_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_username with

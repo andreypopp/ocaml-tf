@@ -103,7 +103,9 @@ type routing = {
   static_vnet_local_route_override_criteria : string prop option;
       [@option]
   propagated_route_table : routing__propagated_route_table list;
+      [@default []] [@yojson_drop_default ( = )]
   static_vnet_route : routing__static_vnet_route list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,18 +126,25 @@ let yojson_of_routing =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing__static_vnet_route
-             v_static_vnet_route
-         in
-         ("static_vnet_route", arg) :: bnds
+         if [] = v_static_vnet_route then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_routing__static_vnet_route)
+               v_static_vnet_route
+           in
+           let bnd = "static_vnet_route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing__propagated_route_table
-             v_propagated_route_table
-         in
-         ("propagated_route_table", arg) :: bnds
+         if [] = v_propagated_route_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_routing__propagated_route_table)
+               v_propagated_route_table
+           in
+           let bnd = "propagated_route_table", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_static_vnet_local_route_override_criteria with
@@ -244,7 +253,7 @@ type azurerm_virtual_hub_connection = {
   name : string prop;
   remote_virtual_network_id : string prop;
   virtual_hub_id : string prop;
-  routing : routing list;
+  routing : routing list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -270,8 +279,11 @@ let yojson_of_azurerm_virtual_hub_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_routing v_routing in
-         ("routing", arg) :: bnds
+         if [] = v_routing then bnds
+         else
+           let arg = (yojson_of_list yojson_of_routing) v_routing in
+           let bnd = "routing", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

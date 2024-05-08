@@ -65,6 +65,7 @@ let _ =
 type logging_configuration__redacted_fields = {
   field_to_match :
     logging_configuration__redacted_fields__field_to_match list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -77,12 +78,15 @@ let yojson_of_logging_configuration__redacted_fields =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logging_configuration__redacted_fields__field_to_match
-             v_field_to_match
-         in
-         ("field_to_match", arg) :: bnds
+         if [] = v_field_to_match then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logging_configuration__redacted_fields__field_to_match)
+               v_field_to_match
+           in
+           let bnd = "field_to_match", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : logging_configuration__redacted_fields ->
@@ -95,6 +99,7 @@ let _ = yojson_of_logging_configuration__redacted_fields
 type logging_configuration = {
   log_destination : string prop;
   redacted_fields : logging_configuration__redacted_fields list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,12 +115,15 @@ let yojson_of_logging_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_logging_configuration__redacted_fields
-             v_redacted_fields
-         in
-         ("redacted_fields", arg) :: bnds
+         if [] = v_redacted_fields then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_logging_configuration__redacted_fields)
+               v_redacted_fields
+           in
+           let bnd = "redacted_fields", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -179,7 +187,9 @@ type rules = {
   rule_id : string prop;
   type_ : string prop option; [@option] [@key "type"]
   action : rules__action list;
+      [@default []] [@yojson_drop_default ( = )]
   override_action : rules__override_action list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -198,15 +208,23 @@ let yojson_of_rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rules__override_action
-             v_override_action
-         in
-         ("override_action", arg) :: bnds
+         if [] = v_override_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rules__override_action)
+               v_override_action
+           in
+           let bnd = "override_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rules__action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rules__action) v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with
@@ -238,8 +256,10 @@ type aws_waf_web_acl = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   default_action : default_action list;
+      [@default []] [@yojson_drop_default ( = )]
   logging_configuration : logging_configuration list;
-  rules : rules list;
+      [@default []] [@yojson_drop_default ( = )]
+  rules : rules list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -261,21 +281,31 @@ let yojson_of_aws_waf_web_acl =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rules v_rules in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rules) v_rules in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging_configuration
-             v_logging_configuration
-         in
-         ("logging_configuration", arg) :: bnds
+         if [] = v_logging_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging_configuration)
+               v_logging_configuration
+           in
+           let bnd = "logging_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_default_action v_default_action
-         in
-         ("default_action", arg) :: bnds
+         if [] = v_default_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_default_action)
+               v_default_action
+           in
+           let bnd = "default_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

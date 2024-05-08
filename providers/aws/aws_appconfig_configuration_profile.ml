@@ -47,6 +47,7 @@ type aws_appconfig_configuration_profile = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   validator : validator list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -71,8 +72,13 @@ let yojson_of_aws_appconfig_configuration_profile =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_validator v_validator in
-         ("validator", arg) :: bnds
+         if [] = v_validator then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_validator) v_validator
+           in
+           let bnd = "validator", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

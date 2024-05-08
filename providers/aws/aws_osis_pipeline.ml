@@ -78,6 +78,7 @@ type log_publishing_options = {
   is_logging_enabled : bool prop option; [@option]
   cloudwatch_log_destination :
     log_publishing_options__cloudwatch_log_destination list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -93,12 +94,15 @@ let yojson_of_log_publishing_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_log_publishing_options__cloudwatch_log_destination
-             v_cloudwatch_log_destination
-         in
-         ("cloudwatch_log_destination", arg) :: bnds
+         if [] = v_cloudwatch_log_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_log_publishing_options__cloudwatch_log_destination)
+               v_cloudwatch_log_destination
+           in
+           let bnd = "cloudwatch_log_destination", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_is_logging_enabled with
@@ -164,6 +168,7 @@ let _ = yojson_of_timeouts
 type vpc_options = {
   security_group_ids : string prop list option; [@option]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -179,12 +184,14 @@ let yojson_of_vpc_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_security_group_ids with
@@ -210,10 +217,14 @@ type aws_osis_pipeline = {
   pipeline_name : string prop;
   tags : (string * string prop) list option; [@option]
   buffer_options : buffer_options list;
+      [@default []] [@yojson_drop_default ( = )]
   encryption_at_rest_options : encryption_at_rest_options list;
+      [@default []] [@yojson_drop_default ( = )]
   log_publishing_options : log_publishing_options list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   vpc_options : vpc_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -237,34 +248,47 @@ let yojson_of_aws_osis_pipeline =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_options v_vpc_options
-         in
-         ("vpc_options", arg) :: bnds
+         if [] = v_vpc_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_options) v_vpc_options
+           in
+           let bnd = "vpc_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_publishing_options
-             v_log_publishing_options
-         in
-         ("log_publishing_options", arg) :: bnds
+         if [] = v_log_publishing_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_publishing_options)
+               v_log_publishing_options
+           in
+           let bnd = "log_publishing_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_at_rest_options
-             v_encryption_at_rest_options
-         in
-         ("encryption_at_rest_options", arg) :: bnds
+         if [] = v_encryption_at_rest_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_at_rest_options)
+               v_encryption_at_rest_options
+           in
+           let bnd = "encryption_at_rest_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_buffer_options v_buffer_options
-         in
-         ("buffer_options", arg) :: bnds
+         if [] = v_buffer_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_buffer_options)
+               v_buffer_options
+           in
+           let bnd = "buffer_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

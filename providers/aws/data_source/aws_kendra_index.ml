@@ -148,7 +148,9 @@ type document_metadata_configuration_updates = {
   name : string prop;
   relevance :
     document_metadata_configuration_updates__relevance list;
+      [@default []] [@yojson_drop_default ( = )]
   search : document_metadata_configuration_updates__search list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -171,20 +173,26 @@ let yojson_of_document_metadata_configuration_updates =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_document_metadata_configuration_updates__search
-             v_search
-         in
-         ("search", arg) :: bnds
+         if [] = v_search then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_document_metadata_configuration_updates__search)
+               v_search
+           in
+           let bnd = "search", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_document_metadata_configuration_updates__relevance
-             v_relevance
-         in
-         ("relevance", arg) :: bnds
+         if [] = v_relevance then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_document_metadata_configuration_updates__relevance)
+               v_relevance
+           in
+           let bnd = "relevance", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -269,8 +277,10 @@ let _ = yojson_of_index_statistics__faq_statistics
 
 type index_statistics = {
   faq_statistics : index_statistics__faq_statistics list;
+      [@default []] [@yojson_drop_default ( = )]
   text_document_statistics :
     index_statistics__text_document_statistics list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -286,19 +296,26 @@ let yojson_of_index_statistics =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_index_statistics__text_document_statistics
-             v_text_document_statistics
-         in
-         ("text_document_statistics", arg) :: bnds
+         if [] = v_text_document_statistics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_index_statistics__text_document_statistics)
+               v_text_document_statistics
+           in
+           let bnd = "text_document_statistics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_index_statistics__faq_statistics
-             v_faq_statistics
-         in
-         ("faq_statistics", arg) :: bnds
+         if [] = v_faq_statistics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_index_statistics__faq_statistics)
+               v_faq_statistics
+           in
+           let bnd = "faq_statistics", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : index_statistics -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -479,8 +496,10 @@ let _ =
 type user_token_configurations = {
   json_token_type_configuration :
     user_token_configurations__json_token_type_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   jwt_token_type_configuration :
     user_token_configurations__jwt_token_type_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -497,20 +516,26 @@ let yojson_of_user_token_configurations =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_user_token_configurations__jwt_token_type_configuration
-             v_jwt_token_type_configuration
-         in
-         ("jwt_token_type_configuration", arg) :: bnds
+         if [] = v_jwt_token_type_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_user_token_configurations__jwt_token_type_configuration)
+               v_jwt_token_type_configuration
+           in
+           let bnd = "jwt_token_type_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_user_token_configurations__json_token_type_configuration
-             v_json_token_type_configuration
-         in
-         ("json_token_type_configuration", arg) :: bnds
+         if [] = v_json_token_type_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_user_token_configurations__json_token_type_configuration)
+               v_json_token_type_configuration
+           in
+           let bnd = "json_token_type_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : user_token_configurations -> Ppx_yojson_conv_lib.Yojson.Safe.t)

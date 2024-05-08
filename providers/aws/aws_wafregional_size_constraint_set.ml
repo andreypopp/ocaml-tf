@@ -41,6 +41,7 @@ type size_constraints = {
   size : float prop;
   text_transformation : string prop;
   field_to_match : size_constraints__field_to_match list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,11 +59,15 @@ let yojson_of_size_constraints =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_size_constraints__field_to_match
-             v_field_to_match
-         in
-         ("field_to_match", arg) :: bnds
+         if [] = v_field_to_match then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_size_constraints__field_to_match)
+               v_field_to_match
+           in
+           let bnd = "field_to_match", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -91,6 +96,7 @@ type aws_wafregional_size_constraint_set = {
   id : string prop option; [@option]
   name : string prop;
   size_constraints : size_constraints list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -107,11 +113,14 @@ let yojson_of_aws_wafregional_size_constraint_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_size_constraints
-             v_size_constraints
-         in
-         ("size_constraints", arg) :: bnds
+         if [] = v_size_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_size_constraints)
+               v_size_constraints
+           in
+           let bnd = "size_constraints", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

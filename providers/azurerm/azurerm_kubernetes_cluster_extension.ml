@@ -172,7 +172,7 @@ type azurerm_kubernetes_cluster_extension = {
   release_train : string prop option; [@option]
   target_namespace : string prop option; [@option]
   version : string prop option; [@option]
-  plan : plan list;
+  plan : plan list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -204,8 +204,11 @@ let yojson_of_azurerm_kubernetes_cluster_extension =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_plan v_plan in
-         ("plan", arg) :: bnds
+         if [] = v_plan then bnds
+         else
+           let arg = (yojson_of_list yojson_of_plan) v_plan in
+           let bnd = "plan", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with

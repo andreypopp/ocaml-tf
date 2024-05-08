@@ -165,8 +165,11 @@ let _ = yojson_of_sign_in__hash_config
 type sign_in = {
   allow_duplicate_emails : bool prop option; [@option]
   anonymous : sign_in__anonymous list;
+      [@default []] [@yojson_drop_default ( = )]
   email : sign_in__email list;
+      [@default []] [@yojson_drop_default ( = )]
   phone_number : sign_in__phone_number list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -184,21 +187,33 @@ let yojson_of_sign_in =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sign_in__phone_number
-             v_phone_number
-         in
-         ("phone_number", arg) :: bnds
+         if [] = v_phone_number then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sign_in__phone_number)
+               v_phone_number
+           in
+           let bnd = "phone_number", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sign_in__email v_email in
-         ("email", arg) :: bnds
+         if [] = v_email then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sign_in__email) v_email
+           in
+           let bnd = "email", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sign_in__anonymous v_anonymous
-         in
-         ("anonymous", arg) :: bnds
+         if [] = v_anonymous then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sign_in__anonymous)
+               v_anonymous
+           in
+           let bnd = "anonymous", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_allow_duplicate_emails with
@@ -264,7 +279,7 @@ let _ = yojson_of_timeouts
 type google_identity_platform_project_default_config = {
   id : string prop option; [@option]
   project : string prop option; [@option]
-  sign_in : sign_in list;
+  sign_in : sign_in list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -288,8 +303,11 @@ let yojson_of_google_identity_platform_project_default_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sign_in v_sign_in in
-         ("sign_in", arg) :: bnds
+         if [] = v_sign_in then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sign_in) v_sign_in in
+           let bnd = "sign_in", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

@@ -33,7 +33,9 @@ let _ = yojson_of_dataset__dataset
 
 type dataset = {
   target_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   dataset : dataset__dataset list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,18 +48,23 @@ let yojson_of_dataset =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dataset__dataset v_dataset
-         in
-         ("dataset", arg) :: bnds
+         if [] = v_dataset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dataset__dataset) v_dataset
+           in
+           let bnd = "dataset", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_target_types
-         in
-         ("target_types", arg) :: bnds
+         if [] = v_target_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_target_types
+           in
+           let bnd = "target_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : dataset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -189,10 +196,10 @@ type google_bigquery_dataset_access = {
   role : string prop option; [@option]
   special_group : string prop option; [@option]
   user_by_email : string prop option; [@option]
-  dataset : dataset list;
-  routine : routine list;
+  dataset : dataset list; [@default []] [@yojson_drop_default ( = )]
+  routine : routine list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
-  view : view list;
+  view : view list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -219,20 +226,29 @@ let yojson_of_google_bigquery_dataset_access =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_view v_view in
-         ("view", arg) :: bnds
+         if [] = v_view then bnds
+         else
+           let arg = (yojson_of_list yojson_of_view) v_view in
+           let bnd = "view", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_routine v_routine in
-         ("routine", arg) :: bnds
+         if [] = v_routine then bnds
+         else
+           let arg = (yojson_of_list yojson_of_routine) v_routine in
+           let bnd = "routine", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_dataset v_dataset in
-         ("dataset", arg) :: bnds
+         if [] = v_dataset then bnds
+         else
+           let arg = (yojson_of_list yojson_of_dataset) v_dataset in
+           let bnd = "dataset", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_by_email with

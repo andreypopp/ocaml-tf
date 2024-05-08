@@ -45,6 +45,7 @@ type aws_wafregional_rate_based_rule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   predicate : predicate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -66,8 +67,13 @@ let yojson_of_aws_wafregional_rate_based_rule =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_predicate v_predicate in
-         ("predicate", arg) :: bnds
+         if [] = v_predicate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_predicate) v_predicate
+           in
+           let bnd = "predicate", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

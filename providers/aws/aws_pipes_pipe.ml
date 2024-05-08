@@ -75,6 +75,7 @@ let _ = yojson_of_enrichment_parameters__http_parameters
 type enrichment_parameters = {
   input_template : string prop option; [@option]
   http_parameters : enrichment_parameters__http_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -90,12 +91,15 @@ let yojson_of_enrichment_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_enrichment_parameters__http_parameters
-             v_http_parameters
-         in
-         ("http_parameters", arg) :: bnds
+         if [] = v_http_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_enrichment_parameters__http_parameters)
+               v_http_parameters
+           in
+           let bnd = "http_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_input_template with
@@ -147,6 +151,7 @@ type source_parameters__activemq_broker_parameters = {
   queue_name : string prop;
   credentials :
     source_parameters__activemq_broker_parameters__credentials list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -165,12 +170,15 @@ let yojson_of_source_parameters__activemq_broker_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__activemq_broker_parameters__credentials
-             v_credentials
-         in
-         ("credentials", arg) :: bnds
+         if [] = v_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__activemq_broker_parameters__credentials)
+               v_credentials
+           in
+           let bnd = "credentials", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_queue_name in
@@ -245,6 +253,7 @@ type source_parameters__dynamodb_stream_parameters = {
   dead_letter_config :
     source_parameters__dynamodb_stream_parameters__dead_letter_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -269,12 +278,15 @@ let yojson_of_source_parameters__dynamodb_stream_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__dynamodb_stream_parameters__dead_letter_config
-             v_dead_letter_config
-         in
-         ("dead_letter_config", arg) :: bnds
+         if [] = v_dead_letter_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__dynamodb_stream_parameters__dead_letter_config)
+               v_dead_letter_config
+           in
+           let bnd = "dead_letter_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -365,6 +377,7 @@ let _ = yojson_of_source_parameters__filter_criteria__filter
 
 type source_parameters__filter_criteria = {
   filter : source_parameters__filter_criteria__filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -377,12 +390,15 @@ let yojson_of_source_parameters__filter_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__filter_criteria__filter
-             v_filter
-         in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__filter_criteria__filter)
+               v_filter
+           in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : source_parameters__filter_criteria ->
@@ -438,6 +454,7 @@ type source_parameters__kinesis_stream_parameters = {
   dead_letter_config :
     source_parameters__kinesis_stream_parameters__dead_letter_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -463,12 +480,15 @@ let yojson_of_source_parameters__kinesis_stream_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__kinesis_stream_parameters__dead_letter_config
-             v_dead_letter_config
-         in
-         ("dead_letter_config", arg) :: bnds
+         if [] = v_dead_letter_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__kinesis_stream_parameters__dead_letter_config)
+               v_dead_letter_config
+           in
+           let bnd = "dead_letter_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_starting_position_timestamp with
@@ -595,6 +615,7 @@ type source_parameters__managed_streaming_kafka_parameters = {
   credentials :
     source_parameters__managed_streaming_kafka_parameters__credentials
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -617,12 +638,15 @@ let yojson_of_source_parameters__managed_streaming_kafka_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__managed_streaming_kafka_parameters__credentials
-             v_credentials
-         in
-         ("credentials", arg) :: bnds
+         if [] = v_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__managed_streaming_kafka_parameters__credentials)
+               v_credentials
+           in
+           let bnd = "credentials", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topic_name in
@@ -705,6 +729,7 @@ type source_parameters__rabbitmq_broker_parameters = {
   virtual_host : string prop option; [@option]
   credentials :
     source_parameters__rabbitmq_broker_parameters__credentials list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -724,12 +749,15 @@ let yojson_of_source_parameters__rabbitmq_broker_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__rabbitmq_broker_parameters__credentials
-             v_credentials
-         in
-         ("credentials", arg) :: bnds
+         if [] = v_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__rabbitmq_broker_parameters__credentials)
+               v_credentials
+           in
+           let bnd = "credentials", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_host with
@@ -885,7 +913,9 @@ type source_parameters__self_managed_kafka_parameters = {
   credentials :
     source_parameters__self_managed_kafka_parameters__credentials
     list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc : source_parameters__self_managed_kafka_parameters__vpc list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -910,20 +940,26 @@ let yojson_of_source_parameters__self_managed_kafka_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__self_managed_kafka_parameters__vpc
-             v_vpc
-         in
-         ("vpc", arg) :: bnds
+         if [] = v_vpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__self_managed_kafka_parameters__vpc)
+               v_vpc
+           in
+           let bnd = "vpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__self_managed_kafka_parameters__credentials
-             v_credentials
-         in
-         ("credentials", arg) :: bnds
+         if [] = v_credentials then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__self_managed_kafka_parameters__credentials)
+               v_credentials
+           in
+           let bnd = "credentials", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topic_name in
@@ -1032,18 +1068,26 @@ let _ = yojson_of_source_parameters__sqs_queue_parameters
 type source_parameters = {
   activemq_broker_parameters :
     source_parameters__activemq_broker_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   dynamodb_stream_parameters :
     source_parameters__dynamodb_stream_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   filter_criteria : source_parameters__filter_criteria list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_stream_parameters :
     source_parameters__kinesis_stream_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   managed_streaming_kafka_parameters :
     source_parameters__managed_streaming_kafka_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   rabbitmq_broker_parameters :
     source_parameters__rabbitmq_broker_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   self_managed_kafka_parameters :
     source_parameters__self_managed_kafka_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   sqs_queue_parameters : source_parameters__sqs_queue_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1067,68 +1111,92 @@ let yojson_of_source_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__sqs_queue_parameters
-             v_sqs_queue_parameters
-         in
-         ("sqs_queue_parameters", arg) :: bnds
+         if [] = v_sqs_queue_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__sqs_queue_parameters)
+               v_sqs_queue_parameters
+           in
+           let bnd = "sqs_queue_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__self_managed_kafka_parameters
-             v_self_managed_kafka_parameters
-         in
-         ("self_managed_kafka_parameters", arg) :: bnds
+         if [] = v_self_managed_kafka_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__self_managed_kafka_parameters)
+               v_self_managed_kafka_parameters
+           in
+           let bnd = "self_managed_kafka_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__rabbitmq_broker_parameters
-             v_rabbitmq_broker_parameters
-         in
-         ("rabbitmq_broker_parameters", arg) :: bnds
+         if [] = v_rabbitmq_broker_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__rabbitmq_broker_parameters)
+               v_rabbitmq_broker_parameters
+           in
+           let bnd = "rabbitmq_broker_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__managed_streaming_kafka_parameters
-             v_managed_streaming_kafka_parameters
-         in
-         ("managed_streaming_kafka_parameters", arg) :: bnds
+         if [] = v_managed_streaming_kafka_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__managed_streaming_kafka_parameters)
+               v_managed_streaming_kafka_parameters
+           in
+           let bnd = "managed_streaming_kafka_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__kinesis_stream_parameters
-             v_kinesis_stream_parameters
-         in
-         ("kinesis_stream_parameters", arg) :: bnds
+         if [] = v_kinesis_stream_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__kinesis_stream_parameters)
+               v_kinesis_stream_parameters
+           in
+           let bnd = "kinesis_stream_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__filter_criteria
-             v_filter_criteria
-         in
-         ("filter_criteria", arg) :: bnds
+         if [] = v_filter_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__filter_criteria)
+               v_filter_criteria
+           in
+           let bnd = "filter_criteria", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__dynamodb_stream_parameters
-             v_dynamodb_stream_parameters
-         in
-         ("dynamodb_stream_parameters", arg) :: bnds
+         if [] = v_dynamodb_stream_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__dynamodb_stream_parameters)
+               v_dynamodb_stream_parameters
+           in
+           let bnd = "dynamodb_stream_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_parameters__activemq_broker_parameters
-             v_activemq_broker_parameters
-         in
-         ("activemq_broker_parameters", arg) :: bnds
+         if [] = v_activemq_broker_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_parameters__activemq_broker_parameters)
+               v_activemq_broker_parameters
+           in
+           let bnd = "activemq_broker_parameters", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : source_parameters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1254,9 +1322,11 @@ type target_parameters__batch_job_parameters__container_overrides = {
   environment :
     target_parameters__batch_job_parameters__container_overrides__environment
     list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_requirement :
     target_parameters__batch_job_parameters__container_overrides__resource_requirement
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1278,20 +1348,26 @@ let yojson_of_target_parameters__batch_job_parameters__container_overrides
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__batch_job_parameters__container_overrides__resource_requirement
-             v_resource_requirement
-         in
-         ("resource_requirement", arg) :: bnds
+         if [] = v_resource_requirement then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__batch_job_parameters__container_overrides__resource_requirement)
+               v_resource_requirement
+           in
+           let bnd = "resource_requirement", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__batch_job_parameters__container_overrides__environment
-             v_environment
-         in
-         ("environment", arg) :: bnds
+         if [] = v_environment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__batch_job_parameters__container_overrides__environment)
+               v_environment
+           in
+           let bnd = "environment", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_instance_type with
@@ -1398,12 +1474,16 @@ type target_parameters__batch_job_parameters = {
   parameters : (string * string prop) list option; [@option]
   array_properties :
     target_parameters__batch_job_parameters__array_properties list;
+      [@default []] [@yojson_drop_default ( = )]
   container_overrides :
     target_parameters__batch_job_parameters__container_overrides list;
+      [@default []] [@yojson_drop_default ( = )]
   depends_on :
     target_parameters__batch_job_parameters__depends_on list;
+      [@default []] [@yojson_drop_default ( = )]
   retry_strategy :
     target_parameters__batch_job_parameters__retry_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1424,36 +1504,48 @@ let yojson_of_target_parameters__batch_job_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__batch_job_parameters__retry_strategy
-             v_retry_strategy
-         in
-         ("retry_strategy", arg) :: bnds
+         if [] = v_retry_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__batch_job_parameters__retry_strategy)
+               v_retry_strategy
+           in
+           let bnd = "retry_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__batch_job_parameters__depends_on
-             v_depends_on
-         in
-         ("depends_on", arg) :: bnds
+         if [] = v_depends_on then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__batch_job_parameters__depends_on)
+               v_depends_on
+           in
+           let bnd = "depends_on", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__batch_job_parameters__container_overrides
-             v_container_overrides
-         in
-         ("container_overrides", arg) :: bnds
+         if [] = v_container_overrides then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__batch_job_parameters__container_overrides)
+               v_container_overrides
+           in
+           let bnd = "container_overrides", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__batch_job_parameters__array_properties
-             v_array_properties
-         in
-         ("array_properties", arg) :: bnds
+         if [] = v_array_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__batch_job_parameters__array_properties)
+               v_array_properties
+           in
+           let bnd = "array_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_parameters with
@@ -1646,6 +1738,7 @@ type target_parameters__ecs_task_parameters__network_configuration = {
   aws_vpc_configuration :
     target_parameters__ecs_task_parameters__network_configuration__aws_vpc_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1662,12 +1755,15 @@ let yojson_of_target_parameters__ecs_task_parameters__network_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__network_configuration__aws_vpc_configuration
-             v_aws_vpc_configuration
-         in
-         ("aws_vpc_configuration", arg) :: bnds
+         if [] = v_aws_vpc_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__network_configuration__aws_vpc_configuration)
+               v_aws_vpc_configuration
+           in
+           let bnd = "aws_vpc_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : target_parameters__ecs_task_parameters__network_configuration ->
@@ -1800,12 +1896,15 @@ type target_parameters__ecs_task_parameters__overrides__container_override = {
   environment :
     target_parameters__ecs_task_parameters__overrides__container_override__environment
     list;
+      [@default []] [@yojson_drop_default ( = )]
   environment_file :
     target_parameters__ecs_task_parameters__overrides__container_override__environment_file
     list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_requirement :
     target_parameters__ecs_task_parameters__overrides__container_override__resource_requirement
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1831,28 +1930,37 @@ let yojson_of_target_parameters__ecs_task_parameters__overrides__container_overr
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__overrides__container_override__resource_requirement
-             v_resource_requirement
-         in
-         ("resource_requirement", arg) :: bnds
+         if [] = v_resource_requirement then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__overrides__container_override__resource_requirement)
+               v_resource_requirement
+           in
+           let bnd = "resource_requirement", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__overrides__container_override__environment_file
-             v_environment_file
-         in
-         ("environment_file", arg) :: bnds
+         if [] = v_environment_file then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__overrides__container_override__environment_file)
+               v_environment_file
+           in
+           let bnd = "environment_file", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__overrides__container_override__environment
-             v_environment
-         in
-         ("environment", arg) :: bnds
+         if [] = v_environment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__overrides__container_override__environment)
+               v_environment
+           in
+           let bnd = "environment", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -1986,12 +2094,15 @@ type target_parameters__ecs_task_parameters__overrides = {
   container_override :
     target_parameters__ecs_task_parameters__overrides__container_override
     list;
+      [@default []] [@yojson_drop_default ( = )]
   ephemeral_storage :
     target_parameters__ecs_task_parameters__overrides__ephemeral_storage
     list;
+      [@default []] [@yojson_drop_default ( = )]
   inference_accelerator_override :
     target_parameters__ecs_task_parameters__overrides__inference_accelerator_override
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2014,28 +2125,37 @@ let yojson_of_target_parameters__ecs_task_parameters__overrides =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__overrides__inference_accelerator_override
-             v_inference_accelerator_override
-         in
-         ("inference_accelerator_override", arg) :: bnds
+         if [] = v_inference_accelerator_override then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__overrides__inference_accelerator_override)
+               v_inference_accelerator_override
+           in
+           let bnd = "inference_accelerator_override", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__overrides__ephemeral_storage
-             v_ephemeral_storage
-         in
-         ("ephemeral_storage", arg) :: bnds
+         if [] = v_ephemeral_storage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__overrides__ephemeral_storage)
+               v_ephemeral_storage
+           in
+           let bnd = "ephemeral_storage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__overrides__container_override
-             v_container_override
-         in
-         ("container_override", arg) :: bnds
+         if [] = v_container_override then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__overrides__container_override)
+               v_container_override
+           in
+           let bnd = "container_override", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_task_role_arn with
@@ -2176,14 +2296,19 @@ type target_parameters__ecs_task_parameters = {
   capacity_provider_strategy :
     target_parameters__ecs_task_parameters__capacity_provider_strategy
     list;
+      [@default []] [@yojson_drop_default ( = )]
   network_configuration :
     target_parameters__ecs_task_parameters__network_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   overrides : target_parameters__ecs_task_parameters__overrides list;
+      [@default []] [@yojson_drop_default ( = )]
   placement_constraint :
     target_parameters__ecs_task_parameters__placement_constraint list;
+      [@default []] [@yojson_drop_default ( = )]
   placement_strategy :
     target_parameters__ecs_task_parameters__placement_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2212,44 +2337,59 @@ let yojson_of_target_parameters__ecs_task_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__placement_strategy
-             v_placement_strategy
-         in
-         ("placement_strategy", arg) :: bnds
+         if [] = v_placement_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__placement_strategy)
+               v_placement_strategy
+           in
+           let bnd = "placement_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__placement_constraint
-             v_placement_constraint
-         in
-         ("placement_constraint", arg) :: bnds
+         if [] = v_placement_constraint then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__placement_constraint)
+               v_placement_constraint
+           in
+           let bnd = "placement_constraint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__overrides
-             v_overrides
-         in
-         ("overrides", arg) :: bnds
+         if [] = v_overrides then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__overrides)
+               v_overrides
+           in
+           let bnd = "overrides", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__network_configuration
-             v_network_configuration
-         in
-         ("network_configuration", arg) :: bnds
+         if [] = v_network_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__network_configuration)
+               v_network_configuration
+           in
+           let bnd = "network_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters__capacity_provider_strategy
-             v_capacity_provider_strategy
-         in
-         ("capacity_provider_strategy", arg) :: bnds
+         if [] = v_capacity_provider_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters__capacity_provider_strategy)
+               v_capacity_provider_strategy
+           in
+           let bnd = "capacity_provider_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2545,7 +2685,7 @@ type target_parameters__redshift_data_parameters = {
   database : string prop;
   db_user : string prop option; [@option]
   secret_manager_arn : string prop option; [@option]
-  sqls : string prop list;
+  sqls : string prop list; [@default []] [@yojson_drop_default ( = )]
   statement_name : string prop option; [@option]
   with_event : bool prop option; [@option]
 }
@@ -2583,10 +2723,14 @@ let yojson_of_target_parameters__redshift_data_parameters =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_sqls
-         in
-         ("sqls", arg) :: bnds
+         if [] = v_sqls then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_sqls
+           in
+           let bnd = "sqls", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_secret_manager_arn with
@@ -2655,6 +2799,7 @@ type target_parameters__sagemaker_pipeline_parameters = {
   pipeline_parameter :
     target_parameters__sagemaker_pipeline_parameters__pipeline_parameter
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2668,12 +2813,15 @@ let yojson_of_target_parameters__sagemaker_pipeline_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__sagemaker_pipeline_parameters__pipeline_parameter
-             v_pipeline_parameter
-         in
-         ("pipeline_parameter", arg) :: bnds
+         if [] = v_pipeline_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__sagemaker_pipeline_parameters__pipeline_parameter)
+               v_pipeline_parameter
+           in
+           let bnd = "pipeline_parameter", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : target_parameters__sagemaker_pipeline_parameters ->
@@ -2759,24 +2907,35 @@ type target_parameters = {
   input_template : string prop option; [@option]
   batch_job_parameters :
     target_parameters__batch_job_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   cloudwatch_logs_parameters :
     target_parameters__cloudwatch_logs_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   ecs_task_parameters : target_parameters__ecs_task_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   eventbridge_event_bus_parameters :
     target_parameters__eventbridge_event_bus_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   http_parameters : target_parameters__http_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_stream_parameters :
     target_parameters__kinesis_stream_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   lambda_function_parameters :
     target_parameters__lambda_function_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   redshift_data_parameters :
     target_parameters__redshift_data_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   sagemaker_pipeline_parameters :
     target_parameters__sagemaker_pipeline_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   sqs_queue_parameters :
     target_parameters__sqs_queue_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   step_function_state_machine_parameters :
     target_parameters__step_function_state_machine_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2805,92 +2964,125 @@ let yojson_of_target_parameters =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__step_function_state_machine_parameters
-             v_step_function_state_machine_parameters
-         in
-         ("step_function_state_machine_parameters", arg) :: bnds
+         if [] = v_step_function_state_machine_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__step_function_state_machine_parameters)
+               v_step_function_state_machine_parameters
+           in
+           let bnd = "step_function_state_machine_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__sqs_queue_parameters
-             v_sqs_queue_parameters
-         in
-         ("sqs_queue_parameters", arg) :: bnds
+         if [] = v_sqs_queue_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__sqs_queue_parameters)
+               v_sqs_queue_parameters
+           in
+           let bnd = "sqs_queue_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__sagemaker_pipeline_parameters
-             v_sagemaker_pipeline_parameters
-         in
-         ("sagemaker_pipeline_parameters", arg) :: bnds
+         if [] = v_sagemaker_pipeline_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__sagemaker_pipeline_parameters)
+               v_sagemaker_pipeline_parameters
+           in
+           let bnd = "sagemaker_pipeline_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__redshift_data_parameters
-             v_redshift_data_parameters
-         in
-         ("redshift_data_parameters", arg) :: bnds
+         if [] = v_redshift_data_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__redshift_data_parameters)
+               v_redshift_data_parameters
+           in
+           let bnd = "redshift_data_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__lambda_function_parameters
-             v_lambda_function_parameters
-         in
-         ("lambda_function_parameters", arg) :: bnds
+         if [] = v_lambda_function_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__lambda_function_parameters)
+               v_lambda_function_parameters
+           in
+           let bnd = "lambda_function_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__kinesis_stream_parameters
-             v_kinesis_stream_parameters
-         in
-         ("kinesis_stream_parameters", arg) :: bnds
+         if [] = v_kinesis_stream_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__kinesis_stream_parameters)
+               v_kinesis_stream_parameters
+           in
+           let bnd = "kinesis_stream_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__http_parameters
-             v_http_parameters
-         in
-         ("http_parameters", arg) :: bnds
+         if [] = v_http_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__http_parameters)
+               v_http_parameters
+           in
+           let bnd = "http_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__eventbridge_event_bus_parameters
-             v_eventbridge_event_bus_parameters
-         in
-         ("eventbridge_event_bus_parameters", arg) :: bnds
+         if [] = v_eventbridge_event_bus_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__eventbridge_event_bus_parameters)
+               v_eventbridge_event_bus_parameters
+           in
+           let bnd = "eventbridge_event_bus_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__ecs_task_parameters
-             v_ecs_task_parameters
-         in
-         ("ecs_task_parameters", arg) :: bnds
+         if [] = v_ecs_task_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__ecs_task_parameters)
+               v_ecs_task_parameters
+           in
+           let bnd = "ecs_task_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__cloudwatch_logs_parameters
-             v_cloudwatch_logs_parameters
-         in
-         ("cloudwatch_logs_parameters", arg) :: bnds
+         if [] = v_cloudwatch_logs_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__cloudwatch_logs_parameters)
+               v_cloudwatch_logs_parameters
+           in
+           let bnd = "cloudwatch_logs_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_target_parameters__batch_job_parameters
-             v_batch_job_parameters
-         in
-         ("batch_job_parameters", arg) :: bnds
+         if [] = v_batch_job_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_target_parameters__batch_job_parameters)
+               v_batch_job_parameters
+           in
+           let bnd = "batch_job_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_input_template with
@@ -2966,8 +3158,11 @@ type aws_pipes_pipe = {
   tags_all : (string * string prop) list option; [@option]
   target : string prop;
   enrichment_parameters : enrichment_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   source_parameters : source_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   target_parameters : target_parameters list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -3001,25 +3196,34 @@ let yojson_of_aws_pipes_pipe =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_parameters
-             v_target_parameters
-         in
-         ("target_parameters", arg) :: bnds
+         if [] = v_target_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_parameters)
+               v_target_parameters
+           in
+           let bnd = "target_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_parameters
-             v_source_parameters
-         in
-         ("source_parameters", arg) :: bnds
+         if [] = v_source_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_parameters)
+               v_source_parameters
+           in
+           let bnd = "source_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_enrichment_parameters
-             v_enrichment_parameters
-         in
-         ("enrichment_parameters", arg) :: bnds
+         if [] = v_enrichment_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_enrichment_parameters)
+               v_enrichment_parameters
+           in
+           let bnd = "enrichment_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_target in

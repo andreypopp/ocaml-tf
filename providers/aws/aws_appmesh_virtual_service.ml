@@ -58,7 +58,9 @@ let _ = yojson_of_spec__provider__virtual_router
 
 type spec__provider = {
   virtual_node : spec__provider__virtual_node list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_router : spec__provider__virtual_router list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,18 +76,24 @@ let yojson_of_spec__provider =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__provider__virtual_router
-             v_virtual_router
-         in
-         ("virtual_router", arg) :: bnds
+         if [] = v_virtual_router then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__provider__virtual_router)
+               v_virtual_router
+           in
+           let bnd = "virtual_router", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__provider__virtual_node
-             v_virtual_node
-         in
-         ("virtual_node", arg) :: bnds
+         if [] = v_virtual_node then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__provider__virtual_node)
+               v_virtual_node
+           in
+           let bnd = "virtual_node", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__provider -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -94,7 +102,10 @@ let _ = yojson_of_spec__provider
 
 [@@@deriving.end]
 
-type spec = { provider : spec__provider list }
+type spec = {
+  provider : spec__provider list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : spec) -> ()
@@ -106,10 +117,13 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__provider v_provider
-         in
-         ("provider", arg) :: bnds
+         if [] = v_provider then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__provider) v_provider
+           in
+           let bnd = "provider", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -125,7 +139,7 @@ type aws_appmesh_virtual_service = {
   name : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  spec : spec list;
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -146,8 +160,11 @@ let yojson_of_aws_appmesh_virtual_service =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

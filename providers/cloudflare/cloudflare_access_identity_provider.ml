@@ -364,8 +364,9 @@ type cloudflare_access_identity_provider = {
   name : string prop;
   type_ : string prop; [@key "type"]
   zone_id : string prop option; [@option]
-  config : config list;
+  config : config list; [@default []] [@yojson_drop_default ( = )]
   scim_config : scim_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -386,14 +387,20 @@ let yojson_of_cloudflare_access_identity_provider =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scim_config v_scim_config
-         in
-         ("scim_config", arg) :: bnds
+         if [] = v_scim_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scim_config) v_scim_config
+           in
+           let bnd = "scim_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_config v_config in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg = (yojson_of_list yojson_of_config) v_config in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone_id with

@@ -228,8 +228,10 @@ type network_configuration = {
   ip_address_type : string prop option; [@option]
   egress_configuration :
     network_configuration__egress_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   ingress_configuration :
     network_configuration__ingress_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -246,20 +248,26 @@ let yojson_of_network_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_configuration__ingress_configuration
-             v_ingress_configuration
-         in
-         ("ingress_configuration", arg) :: bnds
+         if [] = v_ingress_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_configuration__ingress_configuration)
+               v_ingress_configuration
+           in
+           let bnd = "ingress_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_configuration__egress_configuration
-             v_egress_configuration
-         in
-         ("egress_configuration", arg) :: bnds
+         if [] = v_egress_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_configuration__egress_configuration)
+               v_egress_configuration
+           in
+           let bnd = "egress_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_ip_address_type with
@@ -464,6 +472,7 @@ type source_configuration__code_repository__code_configuration = {
   code_configuration_values :
     source_configuration__code_repository__code_configuration__code_configuration_values
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -482,12 +491,15 @@ let yojson_of_source_configuration__code_repository__code_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_configuration__code_repository__code_configuration__code_configuration_values
-             v_code_configuration_values
-         in
-         ("code_configuration_values", arg) :: bnds
+         if [] = v_code_configuration_values then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_configuration__code_repository__code_configuration__code_configuration_values)
+               v_code_configuration_values
+           in
+           let bnd = "code_configuration_values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -543,8 +555,10 @@ type source_configuration__code_repository = {
   source_directory : string prop option; [@option]
   code_configuration :
     source_configuration__code_repository__code_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   source_code_version :
     source_configuration__code_repository__source_code_version list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -562,20 +576,26 @@ let yojson_of_source_configuration__code_repository =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_configuration__code_repository__source_code_version
-             v_source_code_version
-         in
-         ("source_code_version", arg) :: bnds
+         if [] = v_source_code_version then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_configuration__code_repository__source_code_version)
+               v_source_code_version
+           in
+           let bnd = "source_code_version", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_configuration__code_repository__code_configuration
-             v_code_configuration
-         in
-         ("code_configuration", arg) :: bnds
+         if [] = v_code_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_configuration__code_repository__code_configuration)
+               v_code_configuration
+           in
+           let bnd = "code_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_directory with
@@ -689,6 +709,7 @@ type source_configuration__image_repository = {
   image_repository_type : string prop;
   image_configuration :
     source_configuration__image_repository__image_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -705,12 +726,15 @@ let yojson_of_source_configuration__image_repository =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_configuration__image_repository__image_configuration
-             v_image_configuration
-         in
-         ("image_configuration", arg) :: bnds
+         if [] = v_image_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_configuration__image_repository__image_configuration)
+               v_image_configuration
+           in
+           let bnd = "image_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -736,8 +760,11 @@ type source_configuration = {
   auto_deployments_enabled : bool prop option; [@option]
   authentication_configuration :
     source_configuration__authentication_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   code_repository : source_configuration__code_repository list;
+      [@default []] [@yojson_drop_default ( = )]
   image_repository : source_configuration__image_repository list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -755,28 +782,37 @@ let yojson_of_source_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_configuration__image_repository
-             v_image_repository
-         in
-         ("image_repository", arg) :: bnds
+         if [] = v_image_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_configuration__image_repository)
+               v_image_repository
+           in
+           let bnd = "image_repository", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_configuration__code_repository
-             v_code_repository
-         in
-         ("code_repository", arg) :: bnds
+         if [] = v_code_repository then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_configuration__code_repository)
+               v_code_repository
+           in
+           let bnd = "code_repository", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_configuration__authentication_configuration
-             v_authentication_configuration
-         in
-         ("authentication_configuration", arg) :: bnds
+         if [] = v_authentication_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_configuration__authentication_configuration)
+               v_authentication_configuration
+           in
+           let bnd = "authentication_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_auto_deployments_enabled with
@@ -800,11 +836,17 @@ type aws_apprunner_service = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   encryption_configuration : encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   health_check_configuration : health_check_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   instance_configuration : instance_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   network_configuration : network_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   observability_configuration : observability_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   source_configuration : source_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -830,46 +872,64 @@ let yojson_of_aws_apprunner_service =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_configuration
-             v_source_configuration
-         in
-         ("source_configuration", arg) :: bnds
+         if [] = v_source_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_configuration)
+               v_source_configuration
+           in
+           let bnd = "source_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_observability_configuration
-             v_observability_configuration
-         in
-         ("observability_configuration", arg) :: bnds
+         if [] = v_observability_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_observability_configuration)
+               v_observability_configuration
+           in
+           let bnd = "observability_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_configuration
-             v_network_configuration
-         in
-         ("network_configuration", arg) :: bnds
+         if [] = v_network_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_configuration)
+               v_network_configuration
+           in
+           let bnd = "network_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_instance_configuration
-             v_instance_configuration
-         in
-         ("instance_configuration", arg) :: bnds
+         if [] = v_instance_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_instance_configuration)
+               v_instance_configuration
+           in
+           let bnd = "instance_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_health_check_configuration
-             v_health_check_configuration
-         in
-         ("health_check_configuration", arg) :: bnds
+         if [] = v_health_check_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_health_check_configuration)
+               v_health_check_configuration
+           in
+           let bnd = "health_check_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_configuration
-             v_encryption_configuration
-         in
-         ("encryption_configuration", arg) :: bnds
+         if [] = v_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_configuration)
+               v_encryption_configuration
+           in
+           let bnd = "encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

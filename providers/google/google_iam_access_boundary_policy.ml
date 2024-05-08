@@ -65,6 +65,7 @@ type rules__access_boundary_rule = {
   available_resource : string prop option; [@option]
   availability_condition :
     rules__access_boundary_rule__availability_condition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -81,12 +82,15 @@ let yojson_of_rules__access_boundary_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rules__access_boundary_rule__availability_condition
-             v_availability_condition
-         in
-         ("availability_condition", arg) :: bnds
+         if [] = v_availability_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rules__access_boundary_rule__availability_condition)
+               v_availability_condition
+           in
+           let bnd = "availability_condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_available_resource with
@@ -117,6 +121,7 @@ let _ = yojson_of_rules__access_boundary_rule
 type rules = {
   description : string prop option; [@option]
   access_boundary_rule : rules__access_boundary_rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -132,11 +137,14 @@ let yojson_of_rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rules__access_boundary_rule
-             v_access_boundary_rule
-         in
-         ("access_boundary_rule", arg) :: bnds
+         if [] = v_access_boundary_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rules__access_boundary_rule)
+               v_access_boundary_rule
+           in
+           let bnd = "access_boundary_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_description with
@@ -204,7 +212,7 @@ type google_iam_access_boundary_policy = {
   id : string prop option; [@option]
   name : string prop;
   parent : string prop;
-  rules : rules list;
+  rules : rules list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -229,8 +237,11 @@ let yojson_of_google_iam_access_boundary_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rules v_rules in
-         ("rules", arg) :: bnds
+         if [] = v_rules then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rules) v_rules in
+           let bnd = "rules", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_parent in

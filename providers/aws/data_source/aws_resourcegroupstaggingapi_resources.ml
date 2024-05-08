@@ -40,7 +40,9 @@ let _ = yojson_of_tag_filter
 type resource_tag_mapping_list__compliance_details = {
   compliance_status : bool prop;
   keys_with_noncompliant_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   non_compliant_keys : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,20 +60,24 @@ let yojson_of_resource_tag_mapping_list__compliance_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_non_compliant_keys
-         in
-         ("non_compliant_keys", arg) :: bnds
+         if [] = v_non_compliant_keys then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_non_compliant_keys
+           in
+           let bnd = "non_compliant_keys", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_keys_with_noncompliant_values
-         in
-         ("keys_with_noncompliant_values", arg) :: bnds
+         if [] = v_keys_with_noncompliant_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_keys_with_noncompliant_values
+           in
+           let bnd = "keys_with_noncompliant_values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -90,6 +96,7 @@ let _ = yojson_of_resource_tag_mapping_list__compliance_details
 type resource_tag_mapping_list = {
   compliance_details :
     resource_tag_mapping_list__compliance_details list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_arn : string prop;
   tags : (string * string prop) list;
 }
@@ -124,12 +131,15 @@ let yojson_of_resource_tag_mapping_list =
          ("resource_arn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_resource_tag_mapping_list__compliance_details
-             v_compliance_details
-         in
-         ("compliance_details", arg) :: bnds
+         if [] = v_compliance_details then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_resource_tag_mapping_list__compliance_details)
+               v_compliance_details
+           in
+           let bnd = "compliance_details", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : resource_tag_mapping_list -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -145,6 +155,7 @@ type aws_resourcegroupstaggingapi_resources = {
   resource_arn_list : string prop list option; [@option]
   resource_type_filters : string prop list option; [@option]
   tag_filter : tag_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -164,10 +175,13 @@ let yojson_of_aws_resourcegroupstaggingapi_resources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tag_filter v_tag_filter
-         in
-         ("tag_filter", arg) :: bnds
+         if [] = v_tag_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tag_filter) v_tag_filter
+           in
+           let bnd = "tag_filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resource_type_filters with

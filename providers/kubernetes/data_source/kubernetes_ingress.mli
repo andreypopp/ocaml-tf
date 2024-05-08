@@ -5,7 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type spec__tls = {
-  hosts : string prop list;  (** hosts *)
+  hosts : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** hosts *)
   secret_name : string prop;  (** secret_name *)
 }
 
@@ -15,17 +17,23 @@ type spec__rule__http__path__backend = {
 }
 
 type spec__rule__http__path = {
-  backend : spec__rule__http__path__backend list;  (** backend *)
+  backend : spec__rule__http__path__backend list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** backend *)
   path : string prop;  (** path *)
 }
 
 type spec__rule__http = {
-  path : spec__rule__http__path list;  (** path *)
+  path : spec__rule__http__path list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** path *)
 }
 
 type spec__rule = {
   host : string prop;  (** host *)
-  http : spec__rule__http list;  (** http *)
+  http : spec__rule__http list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** http *)
 }
 
 type spec__backend = {
@@ -34,10 +42,14 @@ type spec__backend = {
 }
 
 type spec = {
-  backend : spec__backend list;  (** backend *)
+  backend : spec__backend list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** backend *)
   ingress_class_name : string prop;  (** ingress_class_name *)
-  rule : spec__rule list;  (** rule *)
-  tls : spec__tls list;  (** tls *)
+  rule : spec__rule list; [@default []] [@yojson_drop_default ( = )]
+      (** rule *)
+  tls : spec__tls list; [@default []] [@yojson_drop_default ( = )]
+      (** tls *)
 }
 
 type status__load_balancer__ingress = {
@@ -46,11 +58,15 @@ type status__load_balancer__ingress = {
 }
 
 type status__load_balancer = {
-  ingress : status__load_balancer__ingress list;  (** ingress *)
+  ingress : status__load_balancer__ingress list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ingress *)
 }
 
 type status = {
-  load_balancer : status__load_balancer list;  (** load_balancer *)
+  load_balancer : status__load_balancer list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** load_balancer *)
 }
 
 type metadata

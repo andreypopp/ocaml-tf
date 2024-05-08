@@ -62,14 +62,14 @@ type gce_setup = {
   machine_type: string  prop option; [@option]
   metadata: (string * string   prop) list option; [@option]
   tags: string   prop list option; [@option]
-  accelerator_configs: gce_setup__accelerator_configs list;
-  boot_disk: gce_setup__boot_disk list;
-  container_image: gce_setup__container_image list;
-  data_disks: gce_setup__data_disks list;
-  network_interfaces: gce_setup__network_interfaces list;
-  service_accounts: gce_setup__service_accounts list;
-  shielded_instance_config: gce_setup__shielded_instance_config list;
-  vm_image: gce_setup__vm_image list;
+  accelerator_configs: gce_setup__accelerator_configs list; [@default []] [@yojson_drop_default ( = )]
+  boot_disk: gce_setup__boot_disk list; [@default []] [@yojson_drop_default ( = )]
+  container_image: gce_setup__container_image list; [@default []] [@yojson_drop_default ( = )]
+  data_disks: gce_setup__data_disks list; [@default []] [@yojson_drop_default ( = )]
+  network_interfaces: gce_setup__network_interfaces list; [@default []] [@yojson_drop_default ( = )]
+  service_accounts: gce_setup__service_accounts list; [@default []] [@yojson_drop_default ( = )]
+  shielded_instance_config: gce_setup__shielded_instance_config list; [@default []] [@yojson_drop_default ( = )]
+  vm_image: gce_setup__vm_image list; [@default []] [@yojson_drop_default ( = )]
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
@@ -104,7 +104,7 @@ type google_workbench_instance = {
   location: string prop; 
   name: string prop; 
   project: string  prop option; [@option]
-  gce_setup: gce_setup list;
+  gce_setup: gce_setup list; [@default []] [@yojson_drop_default ( = )]
   timeouts: timeouts option;
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]

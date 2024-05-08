@@ -358,12 +358,19 @@ type aws_ses_receipt_rule = {
   scan_enabled : bool prop option; [@option]
   tls_policy : string prop option; [@option]
   add_header_action : add_header_action list;
+      [@default []] [@yojson_drop_default ( = )]
   bounce_action : bounce_action list;
+      [@default []] [@yojson_drop_default ( = )]
   lambda_action : lambda_action list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_action : s3_action list;
+      [@default []] [@yojson_drop_default ( = )]
   sns_action : sns_action list;
+      [@default []] [@yojson_drop_default ( = )]
   stop_action : stop_action list;
+      [@default []] [@yojson_drop_default ( = )]
   workmail_action : workmail_action list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -392,45 +399,69 @@ let yojson_of_aws_ses_receipt_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_workmail_action v_workmail_action
-         in
-         ("workmail_action", arg) :: bnds
+         if [] = v_workmail_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workmail_action)
+               v_workmail_action
+           in
+           let bnd = "workmail_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stop_action v_stop_action
-         in
-         ("stop_action", arg) :: bnds
+         if [] = v_stop_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stop_action) v_stop_action
+           in
+           let bnd = "stop_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sns_action v_sns_action
-         in
-         ("sns_action", arg) :: bnds
+         if [] = v_sns_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sns_action) v_sns_action
+           in
+           let bnd = "sns_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_s3_action v_s3_action in
-         ("s3_action", arg) :: bnds
+         if [] = v_s3_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3_action) v_s3_action
+           in
+           let bnd = "s3_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lambda_action v_lambda_action
-         in
-         ("lambda_action", arg) :: bnds
+         if [] = v_lambda_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lambda_action) v_lambda_action
+           in
+           let bnd = "lambda_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bounce_action v_bounce_action
-         in
-         ("bounce_action", arg) :: bnds
+         if [] = v_bounce_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bounce_action) v_bounce_action
+           in
+           let bnd = "bounce_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_add_header_action
-             v_add_header_action
-         in
-         ("add_header_action", arg) :: bnds
+         if [] = v_add_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_add_header_action)
+               v_add_header_action
+           in
+           let bnd = "add_header_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tls_policy with

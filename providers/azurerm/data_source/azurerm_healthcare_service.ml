@@ -72,8 +72,11 @@ let _ = yojson_of_authentication_configuration
 type cors_configuration = {
   allow_credentials : bool prop;
   allowed_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allowed_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age_in_seconds : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -99,28 +102,34 @@ let yojson_of_cors_configuration =
          ("max_age_in_seconds", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_origins
-         in
-         ("allowed_origins", arg) :: bnds
+         if [] = v_allowed_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_origins
+           in
+           let bnd = "allowed_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_methods
-         in
-         ("allowed_methods", arg) :: bnds
+         if [] = v_allowed_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_methods
+           in
+           let bnd = "allowed_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_headers
-         in
-         ("allowed_headers", arg) :: bnds
+         if [] = v_allowed_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_headers
+           in
+           let bnd = "allowed_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

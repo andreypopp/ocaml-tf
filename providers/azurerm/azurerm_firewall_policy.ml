@@ -193,6 +193,7 @@ type insights = {
   enabled : bool prop;
   retention_in_days : float prop option; [@option]
   log_analytics_workspace : insights__log_analytics_workspace list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -211,11 +212,15 @@ let yojson_of_insights =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_insights__log_analytics_workspace
-             v_log_analytics_workspace
-         in
-         ("log_analytics_workspace", arg) :: bnds
+         if [] = v_log_analytics_workspace then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_insights__log_analytics_workspace)
+               v_log_analytics_workspace
+           in
+           let bnd = "log_analytics_workspace", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retention_in_days with
@@ -389,7 +394,9 @@ type intrusion_detection = {
   private_ranges : string prop list option; [@option]
   signature_overrides :
     intrusion_detection__signature_overrides list;
+      [@default []] [@yojson_drop_default ( = )]
   traffic_bypass : intrusion_detection__traffic_bypass list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -407,20 +414,26 @@ let yojson_of_intrusion_detection =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_intrusion_detection__traffic_bypass
-             v_traffic_bypass
-         in
-         ("traffic_bypass", arg) :: bnds
+         if [] = v_traffic_bypass then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_intrusion_detection__traffic_bypass)
+               v_traffic_bypass
+           in
+           let bnd = "traffic_bypass", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_intrusion_detection__signature_overrides
-             v_signature_overrides
-         in
-         ("signature_overrides", arg) :: bnds
+         if [] = v_signature_overrides then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_intrusion_detection__signature_overrides)
+               v_signature_overrides
+           in
+           let bnd = "signature_overrides", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_private_ranges with
@@ -593,14 +606,20 @@ type azurerm_firewall_policy = {
   sql_redirect_allowed : bool prop option; [@option]
   tags : (string * string prop) list option; [@option]
   threat_intelligence_mode : string prop option; [@option]
-  dns : dns list;
+  dns : dns list; [@default []] [@yojson_drop_default ( = )]
   explicit_proxy : explicit_proxy list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   insights : insights list;
+      [@default []] [@yojson_drop_default ( = )]
   intrusion_detection : intrusion_detection list;
+      [@default []] [@yojson_drop_default ( = )]
   threat_intelligence_allowlist : threat_intelligence_allowlist list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   tls_certificate : tls_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -635,46 +654,73 @@ let yojson_of_azurerm_firewall_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tls_certificate v_tls_certificate
-         in
-         ("tls_certificate", arg) :: bnds
+         if [] = v_tls_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tls_certificate)
+               v_tls_certificate
+           in
+           let bnd = "tls_certificate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_threat_intelligence_allowlist
-             v_threat_intelligence_allowlist
-         in
-         ("threat_intelligence_allowlist", arg) :: bnds
+         if [] = v_threat_intelligence_allowlist then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_threat_intelligence_allowlist)
+               v_threat_intelligence_allowlist
+           in
+           let bnd = "threat_intelligence_allowlist", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_intrusion_detection
-             v_intrusion_detection
-         in
-         ("intrusion_detection", arg) :: bnds
+         if [] = v_intrusion_detection then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_intrusion_detection)
+               v_intrusion_detection
+           in
+           let bnd = "intrusion_detection", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_insights v_insights in
-         ("insights", arg) :: bnds
+         if [] = v_insights then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_insights) v_insights
+           in
+           let bnd = "insights", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_explicit_proxy v_explicit_proxy
-         in
-         ("explicit_proxy", arg) :: bnds
+         if [] = v_explicit_proxy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_explicit_proxy)
+               v_explicit_proxy
+           in
+           let bnd = "explicit_proxy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_dns v_dns in
-         ("dns", arg) :: bnds
+         if [] = v_dns then bnds
+         else
+           let arg = (yojson_of_list yojson_of_dns) v_dns in
+           let bnd = "dns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_threat_intelligence_mode with

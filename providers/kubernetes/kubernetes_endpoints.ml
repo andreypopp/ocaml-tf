@@ -216,8 +216,10 @@ let _ = yojson_of_subset__port
 
 type subset = {
   address : subset__address list;
+      [@default []] [@yojson_drop_default ( = )]
   not_ready_address : subset__not_ready_address list;
-  port : subset__port list;
+      [@default []] [@yojson_drop_default ( = )]
+  port : subset__port list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -234,21 +236,32 @@ let yojson_of_subset =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_subset__port v_port in
-         ("port", arg) :: bnds
+         if [] = v_port then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subset__port) v_port
+           in
+           let bnd = "port", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_subset__not_ready_address
-             v_not_ready_address
-         in
-         ("not_ready_address", arg) :: bnds
+         if [] = v_not_ready_address then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subset__not_ready_address)
+               v_not_ready_address
+           in
+           let bnd = "not_ready_address", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_subset__address v_address
-         in
-         ("address", arg) :: bnds
+         if [] = v_address then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subset__address) v_address
+           in
+           let bnd = "address", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : subset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -260,7 +273,8 @@ let _ = yojson_of_subset
 type kubernetes_endpoints = {
   id : string prop option; [@option]
   metadata : metadata list;
-  subset : subset list;
+      [@default []] [@yojson_drop_default ( = )]
+  subset : subset list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -273,12 +287,20 @@ let yojson_of_kubernetes_endpoints =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_subset v_subset in
-         ("subset", arg) :: bnds
+         if [] = v_subset then bnds
+         else
+           let arg = (yojson_of_list yojson_of_subset) v_subset in
+           let bnd = "subset", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

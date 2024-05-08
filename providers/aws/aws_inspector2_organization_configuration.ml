@@ -103,6 +103,7 @@ let _ = yojson_of_timeouts
 type aws_inspector2_organization_configuration = {
   id : string prop option; [@option]
   auto_enable : auto_enable list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -124,10 +125,13 @@ let yojson_of_aws_inspector2_organization_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_enable v_auto_enable
-         in
-         ("auto_enable", arg) :: bnds
+         if [] = v_auto_enable then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_enable) v_auto_enable
+           in
+           let bnd = "auto_enable", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

@@ -576,20 +576,33 @@ let _ = yojson_of_features__virtual_machine_scale_set
 
 type features = {
   api_management : features__api_management list;
+      [@default []] [@yojson_drop_default ( = )]
   app_configuration : features__app_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   application_insights : features__application_insights list;
+      [@default []] [@yojson_drop_default ( = )]
   cognitive_account : features__cognitive_account list;
+      [@default []] [@yojson_drop_default ( = )]
   key_vault : features__key_vault list;
+      [@default []] [@yojson_drop_default ( = )]
   log_analytics_workspace : features__log_analytics_workspace list;
+      [@default []] [@yojson_drop_default ( = )]
   managed_disk : features__managed_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   postgresql_flexible_server :
     features__postgresql_flexible_server list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_group : features__resource_group list;
+      [@default []] [@yojson_drop_default ( = )]
   subscription : features__subscription list;
+      [@default []] [@yojson_drop_default ( = )]
   template_deployment : features__template_deployment list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_machine : features__virtual_machine list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_machine_scale_set :
     features__virtual_machine_scale_set list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -616,96 +629,137 @@ let yojson_of_features =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_features__virtual_machine_scale_set
-             v_virtual_machine_scale_set
-         in
-         ("virtual_machine_scale_set", arg) :: bnds
+         if [] = v_virtual_machine_scale_set then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_features__virtual_machine_scale_set)
+               v_virtual_machine_scale_set
+           in
+           let bnd = "virtual_machine_scale_set", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__virtual_machine
-             v_virtual_machine
-         in
-         ("virtual_machine", arg) :: bnds
+         if [] = v_virtual_machine then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__virtual_machine)
+               v_virtual_machine
+           in
+           let bnd = "virtual_machine", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__template_deployment
-             v_template_deployment
-         in
-         ("template_deployment", arg) :: bnds
+         if [] = v_template_deployment then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__template_deployment)
+               v_template_deployment
+           in
+           let bnd = "template_deployment", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__subscription
-             v_subscription
-         in
-         ("subscription", arg) :: bnds
+         if [] = v_subscription then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__subscription)
+               v_subscription
+           in
+           let bnd = "subscription", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__resource_group
-             v_resource_group
-         in
-         ("resource_group", arg) :: bnds
+         if [] = v_resource_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__resource_group)
+               v_resource_group
+           in
+           let bnd = "resource_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_features__postgresql_flexible_server
-             v_postgresql_flexible_server
-         in
-         ("postgresql_flexible_server", arg) :: bnds
+         if [] = v_postgresql_flexible_server then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_features__postgresql_flexible_server)
+               v_postgresql_flexible_server
+           in
+           let bnd = "postgresql_flexible_server", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__managed_disk
-             v_managed_disk
-         in
-         ("managed_disk", arg) :: bnds
+         if [] = v_managed_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__managed_disk)
+               v_managed_disk
+           in
+           let bnd = "managed_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__log_analytics_workspace
-             v_log_analytics_workspace
-         in
-         ("log_analytics_workspace", arg) :: bnds
+         if [] = v_log_analytics_workspace then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_features__log_analytics_workspace)
+               v_log_analytics_workspace
+           in
+           let bnd = "log_analytics_workspace", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__key_vault v_key_vault
-         in
-         ("key_vault", arg) :: bnds
+         if [] = v_key_vault then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__key_vault)
+               v_key_vault
+           in
+           let bnd = "key_vault", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__cognitive_account
-             v_cognitive_account
-         in
-         ("cognitive_account", arg) :: bnds
+         if [] = v_cognitive_account then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__cognitive_account)
+               v_cognitive_account
+           in
+           let bnd = "cognitive_account", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__application_insights
-             v_application_insights
-         in
-         ("application_insights", arg) :: bnds
+         if [] = v_application_insights then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__application_insights)
+               v_application_insights
+           in
+           let bnd = "application_insights", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__app_configuration
-             v_app_configuration
-         in
-         ("app_configuration", arg) :: bnds
+         if [] = v_app_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__app_configuration)
+               v_app_configuration
+           in
+           let bnd = "app_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_features__api_management
-             v_api_management
-         in
-         ("api_management", arg) :: bnds
+         if [] = v_api_management then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features__api_management)
+               v_api_management
+           in
+           let bnd = "api_management", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : features -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -741,7 +795,7 @@ type azurerm = {
   use_cli : bool prop option; [@option]
   use_msi : bool prop option; [@option]
   use_oidc : bool prop option; [@option]
-  features : features list;
+  features : features list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -783,8 +837,13 @@ let yojson_of_azurerm =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_features v_features in
-         ("features", arg) :: bnds
+         if [] = v_features then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_features) v_features
+           in
+           let bnd = "features", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_oidc with

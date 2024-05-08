@@ -32,7 +32,9 @@ type rules = {
   network_tier : string prop;  (** network_tier *)
   no_automate_dns_zone : bool prop;  (** no_automate_dns_zone *)
   port_range : string prop;  (** port_range *)
-  ports : string prop list;  (** ports *)
+  ports : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ports *)
   project : string prop;  (** project *)
   psc_connection_id : string prop;  (** psc_connection_id *)
   psc_connection_status : string prop;  (** psc_connection_status *)
@@ -41,10 +43,13 @@ type rules = {
   self_link : string prop;  (** self_link *)
   service_directory_registrations :
     rules__service_directory_registrations list;
+      [@default []] [@yojson_drop_default ( = )]
       (** service_directory_registrations *)
   service_label : string prop;  (** service_label *)
   service_name : string prop;  (** service_name *)
-  source_ip_ranges : string prop list;  (** source_ip_ranges *)
+  source_ip_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** source_ip_ranges *)
   subnetwork : string prop;  (** subnetwork *)
   target : string prop;  (** target *)
   terraform_labels : (string * string prop) list;

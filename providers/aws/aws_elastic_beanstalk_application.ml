@@ -65,6 +65,7 @@ type aws_elastic_beanstalk_application = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   appversion_lifecycle : appversion_lifecycle list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -84,11 +85,14 @@ let yojson_of_aws_elastic_beanstalk_application =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_appversion_lifecycle
-             v_appversion_lifecycle
-         in
-         ("appversion_lifecycle", arg) :: bnds
+         if [] = v_appversion_lifecycle then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_appversion_lifecycle)
+               v_appversion_lifecycle
+           in
+           let bnd = "appversion_lifecycle", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

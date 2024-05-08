@@ -84,9 +84,11 @@ type resources__dns_target_resource__target_resource = {
   nlb_resource :
     resources__dns_target_resource__target_resource__nlb_resource
     list;
+      [@default []] [@yojson_drop_default ( = )]
   r53_resource :
     resources__dns_target_resource__target_resource__r53_resource
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,20 +103,26 @@ let yojson_of_resources__dns_target_resource__target_resource =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_resources__dns_target_resource__target_resource__r53_resource
-             v_r53_resource
-         in
-         ("r53_resource", arg) :: bnds
+         if [] = v_r53_resource then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_resources__dns_target_resource__target_resource__r53_resource)
+               v_r53_resource
+           in
+           let bnd = "r53_resource", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_resources__dns_target_resource__target_resource__nlb_resource
-             v_nlb_resource
-         in
-         ("nlb_resource", arg) :: bnds
+         if [] = v_nlb_resource then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_resources__dns_target_resource__target_resource__nlb_resource)
+               v_nlb_resource
+           in
+           let bnd = "nlb_resource", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : resources__dns_target_resource__target_resource ->
@@ -131,6 +139,7 @@ type resources__dns_target_resource = {
   record_type : string prop option; [@option]
   target_resource :
     resources__dns_target_resource__target_resource list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -149,12 +158,15 @@ let yojson_of_resources__dns_target_resource =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_resources__dns_target_resource__target_resource
-             v_target_resource
-         in
-         ("target_resource", arg) :: bnds
+         if [] = v_target_resource then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_resources__dns_target_resource__target_resource)
+               v_target_resource
+           in
+           let bnd = "target_resource", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_record_type with
@@ -196,6 +208,7 @@ type resources = {
   readiness_scopes : string prop list option; [@option]
   resource_arn : string prop option; [@option]
   dns_target_resource : resources__dns_target_resource list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -212,11 +225,14 @@ let yojson_of_resources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resources__dns_target_resource
-             v_dns_target_resource
-         in
-         ("dns_target_resource", arg) :: bnds
+         if [] = v_dns_target_resource then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resources__dns_target_resource)
+               v_dns_target_resource
+           in
+           let bnd = "dns_target_resource", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resource_arn with
@@ -276,6 +292,7 @@ type aws_route53recoveryreadiness_resource_set = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   resources : resources list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -301,8 +318,13 @@ let yojson_of_aws_route53recoveryreadiness_resource_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_resources v_resources in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resources) v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

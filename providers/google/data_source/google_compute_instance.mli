@@ -43,6 +43,7 @@ type boot_disk = {
   disk_encryption_key_sha256 : string prop;
       (** disk_encryption_key_sha256 *)
   initialize_params : boot_disk__initialize_params list;
+      [@default []] [@yojson_drop_default ( = )]
       (** initialize_params *)
   kms_key_self_link : string prop;  (** kms_key_self_link *)
   mode : string prop;  (** mode *)
@@ -81,12 +82,15 @@ type network_interface__access_config = {
 
 type network_interface = {
   access_config : network_interface__access_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** access_config *)
   alias_ip_range : network_interface__alias_ip_range list;
+      [@default []] [@yojson_drop_default ( = )]
       (** alias_ip_range *)
   internal_ipv6_prefix_length : float prop;
       (** internal_ipv6_prefix_length *)
   ipv6_access_config : network_interface__ipv6_access_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ipv6_access_config *)
   ipv6_access_type : string prop;  (** ipv6_access_type *)
   ipv6_address : string prop;  (** ipv6_address *)
@@ -112,12 +116,15 @@ type params = {
 
 type reservation_affinity__specific_reservation = {
   key : string prop;  (** key *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type reservation_affinity = {
   specific_reservation :
     reservation_affinity__specific_reservation list;
+      [@default []] [@yojson_drop_default ( = )]
       (** specific_reservation *)
   type_ : string prop; [@key "type"]  (** type *)
 }
@@ -125,7 +132,9 @@ type reservation_affinity = {
 type scheduling__node_affinities = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type scheduling__local_ssd_recovery_timeout = {
@@ -139,9 +148,11 @@ type scheduling = {
       (** instance_termination_action *)
   local_ssd_recovery_timeout :
     scheduling__local_ssd_recovery_timeout list;
+      [@default []] [@yojson_drop_default ( = )]
       (** local_ssd_recovery_timeout *)
   min_node_cpus : float prop;  (** min_node_cpus *)
   node_affinities : scheduling__node_affinities list;
+      [@default []] [@yojson_drop_default ( = )]
       (** node_affinities *)
   on_host_maintenance : string prop;  (** on_host_maintenance *)
   preemptible : bool prop;  (** preemptible *)
@@ -156,7 +167,9 @@ type scratch_disk = {
 
 type service_account = {
   email : string prop;  (** email *)
-  scopes : string prop list;  (** scopes *)
+  scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** scopes *)
 }
 
 type shielded_instance_config = {

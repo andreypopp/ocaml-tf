@@ -5,6 +5,7 @@ open! Tf_core
 type posix_user = {
   gid : float prop;
   secondary_gids : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   uid : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -23,12 +24,14 @@ let yojson_of_posix_user =
          ("uid", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_secondary_gids
-         in
-         ("secondary_gids", arg) :: bnds
+         if [] = v_secondary_gids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_secondary_gids
+           in
+           let bnd = "secondary_gids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_gid in
@@ -82,6 +85,7 @@ let _ = yojson_of_root_directory__creation_info
 
 type root_directory = {
   creation_info : root_directory__creation_info list;
+      [@default []] [@yojson_drop_default ( = )]
   path : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -99,11 +103,14 @@ let yojson_of_root_directory =
          ("path", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_root_directory__creation_info
-             v_creation_info
-         in
-         ("creation_info", arg) :: bnds
+         if [] = v_creation_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_root_directory__creation_info)
+               v_creation_info
+           in
+           let bnd = "creation_info", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : root_directory -> Ppx_yojson_conv_lib.Yojson.Safe.t)

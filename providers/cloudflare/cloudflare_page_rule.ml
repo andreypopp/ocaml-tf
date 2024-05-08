@@ -234,10 +234,15 @@ let _ = yojson_of_actions__cache_key_fields__user
 
 type actions__cache_key_fields = {
   cookie : actions__cache_key_fields__cookie list;
+      [@default []] [@yojson_drop_default ( = )]
   header : actions__cache_key_fields__header list;
+      [@default []] [@yojson_drop_default ( = )]
   host : actions__cache_key_fields__host list;
+      [@default []] [@yojson_drop_default ( = )]
   query_string : actions__cache_key_fields__query_string list;
+      [@default []] [@yojson_drop_default ( = )]
   user : actions__cache_key_fields__user list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -256,40 +261,59 @@ let yojson_of_actions__cache_key_fields =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_actions__cache_key_fields__user
-             v_user
-         in
-         ("user", arg) :: bnds
+         if [] = v_user then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_actions__cache_key_fields__user)
+               v_user
+           in
+           let bnd = "user", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_actions__cache_key_fields__query_string
-             v_query_string
-         in
-         ("query_string", arg) :: bnds
+         if [] = v_query_string then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_actions__cache_key_fields__query_string)
+               v_query_string
+           in
+           let bnd = "query_string", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_actions__cache_key_fields__host
-             v_host
-         in
-         ("host", arg) :: bnds
+         if [] = v_host then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_actions__cache_key_fields__host)
+               v_host
+           in
+           let bnd = "host", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_actions__cache_key_fields__header
-             v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_actions__cache_key_fields__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_actions__cache_key_fields__cookie
-             v_cookie
-         in
-         ("cookie", arg) :: bnds
+         if [] = v_cookie then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_actions__cache_key_fields__cookie)
+               v_cookie
+           in
+           let bnd = "cookie", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : actions__cache_key_fields -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -426,9 +450,13 @@ type actions = {
   true_client_ip_header : string prop option; [@option]
   waf : string prop option; [@option]
   cache_key_fields : actions__cache_key_fields list;
+      [@default []] [@yojson_drop_default ( = )]
   cache_ttl_by_status : actions__cache_ttl_by_status list;
+      [@default []] [@yojson_drop_default ( = )]
   forwarding_url : actions__forwarding_url list;
+      [@default []] [@yojson_drop_default ( = )]
   minify : actions__minify list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -479,31 +507,43 @@ let yojson_of_actions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_actions__minify v_minify
-         in
-         ("minify", arg) :: bnds
+         if [] = v_minify then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_actions__minify) v_minify
+           in
+           let bnd = "minify", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_actions__forwarding_url
-             v_forwarding_url
-         in
-         ("forwarding_url", arg) :: bnds
+         if [] = v_forwarding_url then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_actions__forwarding_url)
+               v_forwarding_url
+           in
+           let bnd = "forwarding_url", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_actions__cache_ttl_by_status
-             v_cache_ttl_by_status
-         in
-         ("cache_ttl_by_status", arg) :: bnds
+         if [] = v_cache_ttl_by_status then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_actions__cache_ttl_by_status)
+               v_cache_ttl_by_status
+           in
+           let bnd = "cache_ttl_by_status", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_actions__cache_key_fields
-             v_cache_key_fields
-         in
-         ("cache_key_fields", arg) :: bnds
+         if [] = v_cache_key_fields then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_actions__cache_key_fields)
+               v_cache_key_fields
+           in
+           let bnd = "cache_key_fields", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_waf with
@@ -782,7 +822,7 @@ type cloudflare_page_rule = {
   status : string prop option; [@option]
   target : string prop;
   zone_id : string prop;
-  actions : actions list;
+  actions : actions list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -802,8 +842,11 @@ let yojson_of_cloudflare_page_rule =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_actions v_actions in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg = (yojson_of_list yojson_of_actions) v_actions in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in

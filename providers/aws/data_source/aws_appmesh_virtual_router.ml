@@ -34,6 +34,7 @@ let _ = yojson_of_spec__listener__port_mapping
 
 type spec__listener = {
   port_mapping : spec__listener__port_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,11 +47,14 @@ let yojson_of_spec__listener =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener__port_mapping
-             v_port_mapping
-         in
-         ("port_mapping", arg) :: bnds
+         if [] = v_port_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener__port_mapping)
+               v_port_mapping
+           in
+           let bnd = "port_mapping", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__listener -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -59,7 +63,10 @@ let _ = yojson_of_spec__listener
 
 [@@@deriving.end]
 
-type spec = { listener : spec__listener list }
+type spec = {
+  listener : spec__listener list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : spec) -> ()
@@ -71,10 +78,13 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__listener v_listener
-         in
-         ("listener", arg) :: bnds
+         if [] = v_listener then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__listener) v_listener
+           in
+           let bnd = "listener", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)

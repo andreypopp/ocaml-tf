@@ -5,9 +5,13 @@ open! Tf_core
 type cors = {
   allow_credentials : bool prop;
   allow_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   allow_origins : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   expose_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   max_age : float prop;
 }
 [@@deriving_inline yojson_of]
@@ -32,36 +36,44 @@ let yojson_of_cors =
          ("max_age", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_expose_headers
-         in
-         ("expose_headers", arg) :: bnds
+         if [] = v_expose_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_expose_headers
+           in
+           let bnd = "expose_headers", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_origins
-         in
-         ("allow_origins", arg) :: bnds
+         if [] = v_allow_origins then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_origins
+           in
+           let bnd = "allow_origins", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_methods
-         in
-         ("allow_methods", arg) :: bnds
+         if [] = v_allow_methods then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_methods
+           in
+           let bnd = "allow_methods", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allow_headers
-         in
-         ("allow_headers", arg) :: bnds
+         if [] = v_allow_headers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allow_headers
+           in
+           let bnd = "allow_headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

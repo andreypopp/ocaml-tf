@@ -440,6 +440,7 @@ let _ = yojson_of_fixed_scale
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -457,12 +458,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -714,9 +717,13 @@ let _ = yojson_of_mount__nfs_mount
 
 type mount = {
   azure_blob_file_system : mount__azure_blob_file_system list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_file_share : mount__azure_file_share list;
+      [@default []] [@yojson_drop_default ( = )]
   cifs_mount : mount__cifs_mount list;
+      [@default []] [@yojson_drop_default ( = )]
   nfs_mount : mount__nfs_mount list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -734,30 +741,43 @@ let yojson_of_mount =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mount__nfs_mount v_nfs_mount
-         in
-         ("nfs_mount", arg) :: bnds
+         if [] = v_nfs_mount then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mount__nfs_mount) v_nfs_mount
+           in
+           let bnd = "nfs_mount", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mount__cifs_mount v_cifs_mount
-         in
-         ("cifs_mount", arg) :: bnds
+         if [] = v_cifs_mount then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mount__cifs_mount)
+               v_cifs_mount
+           in
+           let bnd = "cifs_mount", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mount__azure_file_share
-             v_azure_file_share
-         in
-         ("azure_file_share", arg) :: bnds
+         if [] = v_azure_file_share then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mount__azure_file_share)
+               v_azure_file_share
+           in
+           let bnd = "azure_file_share", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mount__azure_blob_file_system
-             v_azure_blob_file_system
-         in
-         ("azure_blob_file_system", arg) :: bnds
+         if [] = v_azure_blob_file_system then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mount__azure_blob_file_system)
+               v_azure_blob_file_system
+           in
+           let bnd = "azure_blob_file_system", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : mount -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -832,6 +852,7 @@ type network_configuration__endpoint_configuration = {
   network_security_group_rules :
     network_configuration__endpoint_configuration__network_security_group_rules
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -850,12 +871,15 @@ let yojson_of_network_configuration__endpoint_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_configuration__endpoint_configuration__network_security_group_rules
-             v_network_security_group_rules
-         in
-         ("network_security_group_rules", arg) :: bnds
+         if [] = v_network_security_group_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_configuration__endpoint_configuration__network_security_group_rules)
+               v_network_security_group_rules
+           in
+           let bnd = "network_security_group_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_protocol in
@@ -891,6 +915,7 @@ type network_configuration = {
   subnet_id : string prop option; [@option]
   endpoint_configuration :
     network_configuration__endpoint_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -913,12 +938,15 @@ let yojson_of_network_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_configuration__endpoint_configuration
-             v_endpoint_configuration
-         in
-         ("endpoint_configuration", arg) :: bnds
+         if [] = v_endpoint_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_configuration__endpoint_configuration)
+               v_endpoint_configuration
+           in
+           let bnd = "endpoint_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_subnet_id with
@@ -1059,6 +1087,7 @@ type start_task__container = {
   run_options : string prop option; [@option]
   working_directory : string prop option; [@option]
   registry : start_task__container__registry list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1076,11 +1105,15 @@ let yojson_of_start_task__container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_start_task__container__registry
-             v_registry
-         in
-         ("registry", arg) :: bnds
+         if [] = v_registry then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_start_task__container__registry)
+               v_registry
+           in
+           let bnd = "registry", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_working_directory with
@@ -1240,6 +1273,7 @@ let _ = yojson_of_start_task__user_identity__auto_user
 type start_task__user_identity = {
   user_name : string prop option; [@option]
   auto_user : start_task__user_identity__auto_user list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1252,12 +1286,15 @@ let yojson_of_start_task__user_identity =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_start_task__user_identity__auto_user
-             v_auto_user
-         in
-         ("auto_user", arg) :: bnds
+         if [] = v_auto_user then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_start_task__user_identity__auto_user)
+               v_auto_user
+           in
+           let bnd = "auto_user", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_name with
@@ -1281,8 +1318,11 @@ type start_task = {
   task_retry_maximum : float prop option; [@option]
   wait_for_success : bool prop option; [@option]
   container : start_task__container list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_file : start_task__resource_file list;
+      [@default []] [@yojson_drop_default ( = )]
   user_identity : start_task__user_identity list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1304,24 +1344,34 @@ let yojson_of_start_task =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_start_task__user_identity
-             v_user_identity
-         in
-         ("user_identity", arg) :: bnds
+         if [] = v_user_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_start_task__user_identity)
+               v_user_identity
+           in
+           let bnd = "user_identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_start_task__resource_file
-             v_resource_file
-         in
-         ("resource_file", arg) :: bnds
+         if [] = v_resource_file then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_start_task__resource_file)
+               v_resource_file
+           in
+           let bnd = "resource_file", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_start_task__container v_container
-         in
-         ("container", arg) :: bnds
+         if [] = v_container then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_start_task__container)
+               v_container
+           in
+           let bnd = "container", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_wait_for_success with
@@ -1606,8 +1656,10 @@ type user_accounts = {
   password : string prop;
   linux_user_configuration :
     user_accounts__linux_user_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   windows_user_configuration :
     user_accounts__windows_user_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1626,20 +1678,26 @@ let yojson_of_user_accounts =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_user_accounts__windows_user_configuration
-             v_windows_user_configuration
-         in
-         ("windows_user_configuration", arg) :: bnds
+         if [] = v_windows_user_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_user_accounts__windows_user_configuration)
+               v_windows_user_configuration
+           in
+           let bnd = "windows_user_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_user_accounts__linux_user_configuration
-             v_linux_user_configuration
-         in
-         ("linux_user_configuration", arg) :: bnds
+         if [] = v_linux_user_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_user_accounts__linux_user_configuration)
+               v_linux_user_configuration
+           in
+           let bnd = "linux_user_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_password in
@@ -1706,22 +1764,36 @@ type azurerm_batch_pool = {
   target_node_communication_mode : string prop option; [@option]
   vm_size : string prop;
   auto_scale : auto_scale list;
+      [@default []] [@yojson_drop_default ( = )]
   certificate : certificate list;
+      [@default []] [@yojson_drop_default ( = )]
   container_configuration : container_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   data_disks : data_disks list;
+      [@default []] [@yojson_drop_default ( = )]
   disk_encryption : disk_encryption list;
+      [@default []] [@yojson_drop_default ( = )]
   extensions : extensions list;
+      [@default []] [@yojson_drop_default ( = )]
   fixed_scale : fixed_scale list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
-  mount : mount list;
+      [@default []] [@yojson_drop_default ( = )]
+  mount : mount list; [@default []] [@yojson_drop_default ( = )]
   network_configuration : network_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   node_placement : node_placement list;
+      [@default []] [@yojson_drop_default ( = )]
   start_task : start_task list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_image_reference : storage_image_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   task_scheduling_policy : task_scheduling_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   user_accounts : user_accounts list;
-  windows : windows list;
+      [@default []] [@yojson_drop_default ( = )]
+  windows : windows list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1768,102 +1840,154 @@ let yojson_of_azurerm_batch_pool =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_windows v_windows in
-         ("windows", arg) :: bnds
+         if [] = v_windows then bnds
+         else
+           let arg = (yojson_of_list yojson_of_windows) v_windows in
+           let bnd = "windows", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_user_accounts v_user_accounts
-         in
-         ("user_accounts", arg) :: bnds
+         if [] = v_user_accounts then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_user_accounts) v_user_accounts
+           in
+           let bnd = "user_accounts", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_task_scheduling_policy
-             v_task_scheduling_policy
-         in
-         ("task_scheduling_policy", arg) :: bnds
+         if [] = v_task_scheduling_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_task_scheduling_policy)
+               v_task_scheduling_policy
+           in
+           let bnd = "task_scheduling_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_image_reference
-             v_storage_image_reference
-         in
-         ("storage_image_reference", arg) :: bnds
+         if [] = v_storage_image_reference then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_image_reference)
+               v_storage_image_reference
+           in
+           let bnd = "storage_image_reference", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_start_task v_start_task
-         in
-         ("start_task", arg) :: bnds
+         if [] = v_start_task then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_start_task) v_start_task
+           in
+           let bnd = "start_task", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_node_placement v_node_placement
-         in
-         ("node_placement", arg) :: bnds
+         if [] = v_node_placement then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_node_placement)
+               v_node_placement
+           in
+           let bnd = "node_placement", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_configuration
-             v_network_configuration
-         in
-         ("network_configuration", arg) :: bnds
+         if [] = v_network_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_configuration)
+               v_network_configuration
+           in
+           let bnd = "network_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_mount v_mount in
-         ("mount", arg) :: bnds
+         if [] = v_mount then bnds
+         else
+           let arg = (yojson_of_list yojson_of_mount) v_mount in
+           let bnd = "mount", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_fixed_scale v_fixed_scale
-         in
-         ("fixed_scale", arg) :: bnds
+         if [] = v_fixed_scale then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_fixed_scale) v_fixed_scale
+           in
+           let bnd = "fixed_scale", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_extensions v_extensions
-         in
-         ("extensions", arg) :: bnds
+         if [] = v_extensions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_extensions) v_extensions
+           in
+           let bnd = "extensions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_disk_encryption v_disk_encryption
-         in
-         ("disk_encryption", arg) :: bnds
+         if [] = v_disk_encryption then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_disk_encryption)
+               v_disk_encryption
+           in
+           let bnd = "disk_encryption", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_disks v_data_disks
-         in
-         ("data_disks", arg) :: bnds
+         if [] = v_data_disks then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_disks) v_data_disks
+           in
+           let bnd = "data_disks", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_container_configuration
-             v_container_configuration
-         in
-         ("container_configuration", arg) :: bnds
+         if [] = v_container_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_container_configuration)
+               v_container_configuration
+           in
+           let bnd = "container_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_certificate v_certificate
-         in
-         ("certificate", arg) :: bnds
+         if [] = v_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_certificate) v_certificate
+           in
+           let bnd = "certificate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_scale v_auto_scale
-         in
-         ("auto_scale", arg) :: bnds
+         if [] = v_auto_scale then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_scale) v_auto_scale
+           in
+           let bnd = "auto_scale", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_vm_size in

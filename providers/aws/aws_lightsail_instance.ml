@@ -51,7 +51,7 @@ type aws_lightsail_instance = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   user_data : string prop option; [@option]
-  add_on : add_on list;
+  add_on : add_on list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -76,8 +76,11 @@ let yojson_of_aws_lightsail_instance =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_add_on v_add_on in
-         ("add_on", arg) :: bnds
+         if [] = v_add_on then bnds
+         else
+           let arg = (yojson_of_list yojson_of_add_on) v_add_on in
+           let bnd = "add_on", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_data with

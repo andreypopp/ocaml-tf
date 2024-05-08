@@ -76,6 +76,7 @@ let _ = yojson_of_hourly_schedule
 
 type monthly_schedule = {
   days_of_month : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   hour : float prop;
   minute : float prop;
   snapshots_to_keep : float prop;
@@ -110,12 +111,14 @@ let yojson_of_monthly_schedule =
          ("hour", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_days_of_month
-         in
-         ("days_of_month", arg) :: bnds
+         if [] = v_days_of_month then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_days_of_month
+           in
+           let bnd = "days_of_month", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : monthly_schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -186,6 +189,7 @@ let _ = yojson_of_timeouts
 
 type weekly_schedule = {
   days_of_week : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   hour : float prop;
   minute : float prop;
   snapshots_to_keep : float prop;
@@ -220,12 +224,14 @@ let yojson_of_weekly_schedule =
          ("hour", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_days_of_week
-         in
-         ("days_of_week", arg) :: bnds
+         if [] = v_days_of_week then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_days_of_week
+           in
+           let bnd = "days_of_week", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : weekly_schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -243,10 +249,14 @@ type azurerm_netapp_snapshot_policy = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   daily_schedule : daily_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   hourly_schedule : hourly_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   monthly_schedule : monthly_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   weekly_schedule : weekly_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -272,33 +282,48 @@ let yojson_of_azurerm_netapp_snapshot_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_weekly_schedule v_weekly_schedule
-         in
-         ("weekly_schedule", arg) :: bnds
+         if [] = v_weekly_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_weekly_schedule)
+               v_weekly_schedule
+           in
+           let bnd = "weekly_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monthly_schedule
-             v_monthly_schedule
-         in
-         ("monthly_schedule", arg) :: bnds
+         if [] = v_monthly_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monthly_schedule)
+               v_monthly_schedule
+           in
+           let bnd = "monthly_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_hourly_schedule v_hourly_schedule
-         in
-         ("hourly_schedule", arg) :: bnds
+         if [] = v_hourly_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_hourly_schedule)
+               v_hourly_schedule
+           in
+           let bnd = "hourly_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_daily_schedule v_daily_schedule
-         in
-         ("daily_schedule", arg) :: bnds
+         if [] = v_daily_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_daily_schedule)
+               v_daily_schedule
+           in
+           let bnd = "daily_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

@@ -143,6 +143,7 @@ type aws_storagegateway_nfs_file_share = {
   audit_destination_arn : string prop option; [@option]
   bucket_region : string prop option; [@option]
   client_list : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   default_storage_class : string prop option; [@option]
   file_share_name : string prop option; [@option]
   gateway_arn : string prop;
@@ -161,7 +162,9 @@ type aws_storagegateway_nfs_file_share = {
   tags_all : (string * string prop) list option; [@option]
   vpc_endpoint_dns_name : string prop option; [@option]
   cache_attributes : cache_attributes list;
+      [@default []] [@yojson_drop_default ( = )]
   nfs_file_share_defaults : nfs_file_share_defaults list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -203,18 +206,24 @@ let yojson_of_aws_storagegateway_nfs_file_share =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_nfs_file_share_defaults
-             v_nfs_file_share_defaults
-         in
-         ("nfs_file_share_defaults", arg) :: bnds
+         if [] = v_nfs_file_share_defaults then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_nfs_file_share_defaults)
+               v_nfs_file_share_defaults
+           in
+           let bnd = "nfs_file_share_defaults", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cache_attributes
-             v_cache_attributes
-         in
-         ("cache_attributes", arg) :: bnds
+         if [] = v_cache_attributes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cache_attributes)
+               v_cache_attributes
+           in
+           let bnd = "cache_attributes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_endpoint_dns_name with
@@ -357,12 +366,14 @@ let yojson_of_aws_storagegateway_nfs_file_share =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_client_list
-         in
-         ("client_list", arg) :: bnds
+         if [] = v_client_list then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_client_list
+           in
+           let bnd = "client_list", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_bucket_region with

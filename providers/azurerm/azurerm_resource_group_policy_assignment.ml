@@ -118,6 +118,7 @@ let _ = yojson_of_overrides__selectors
 type overrides = {
   value : string prop;
   selectors : overrides__selectors list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,10 +131,14 @@ let yojson_of_overrides =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_overrides__selectors v_selectors
-         in
-         ("selectors", arg) :: bnds
+         if [] = v_selectors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_overrides__selectors)
+               v_selectors
+           in
+           let bnd = "selectors", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_value in
@@ -196,6 +201,7 @@ let _ = yojson_of_resource_selectors__selectors
 type resource_selectors = {
   name : string prop option; [@option]
   selectors : resource_selectors__selectors list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -208,11 +214,14 @@ let yojson_of_resource_selectors =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resource_selectors__selectors
-             v_selectors
-         in
-         ("selectors", arg) :: bnds
+         if [] = v_selectors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resource_selectors__selectors)
+               v_selectors
+           in
+           let bnd = "selectors", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -302,9 +311,13 @@ type azurerm_resource_group_policy_assignment = {
   policy_definition_id : string prop;
   resource_group_id : string prop;
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   non_compliance_message : non_compliance_message list;
+      [@default []] [@yojson_drop_default ( = )]
   overrides : overrides list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_selectors : resource_selectors list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -339,26 +352,42 @@ let yojson_of_azurerm_resource_group_policy_assignment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resource_selectors
-             v_resource_selectors
-         in
-         ("resource_selectors", arg) :: bnds
+         if [] = v_resource_selectors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resource_selectors)
+               v_resource_selectors
+           in
+           let bnd = "resource_selectors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_overrides v_overrides in
-         ("overrides", arg) :: bnds
+         if [] = v_overrides then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_overrides) v_overrides
+           in
+           let bnd = "overrides", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_non_compliance_message
-             v_non_compliance_message
-         in
-         ("non_compliance_message", arg) :: bnds
+         if [] = v_non_compliance_message then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_non_compliance_message)
+               v_non_compliance_message
+           in
+           let bnd = "non_compliance_message", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -278,9 +278,11 @@ type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_
   match_expressions :
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
   match_fields :
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -300,20 +302,26 @@ let yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_sc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
-             v_match_fields
-         in
-         ("match_fields", arg) :: bnds
+         if [] = v_match_fields then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields)
+               v_match_fields
+           in
+           let bnd = "match_fields", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference ->
@@ -329,6 +337,7 @@ type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_
   preference :
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -345,12 +354,15 @@ let yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_sc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
-             v_preference
-         in
-         ("preference", arg) :: bnds
+         if [] = v_preference then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference)
+               v_preference
+           in
+           let bnd = "preference", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_weight in
@@ -469,9 +481,11 @@ type spec__template__spec__affinity__node_affinity__required_during_scheduling_i
   match_expressions :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
   match_fields :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -491,20 +505,26 @@ let yojson_of_spec__template__spec__affinity__node_affinity__required_during_sch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
-             v_match_fields
-         in
-         ("match_fields", arg) :: bnds
+         if [] = v_match_fields then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields)
+               v_match_fields
+           in
+           let bnd = "match_fields", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term ->
@@ -519,6 +539,7 @@ type spec__template__spec__affinity__node_affinity__required_during_scheduling_i
   node_selector_term :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -535,12 +556,15 @@ let yojson_of_spec__template__spec__affinity__node_affinity__required_during_sch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
-             v_node_selector_term
-         in
-         ("node_selector_term", arg) :: bnds
+         if [] = v_node_selector_term then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term)
+               v_node_selector_term
+           in
+           let bnd = "node_selector_term", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution ->
@@ -555,9 +579,11 @@ type spec__template__spec__affinity__node_affinity = {
   preferred_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
   required_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -575,22 +601,37 @@ let yojson_of_spec__template__spec__affinity__node_affinity =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
-             v_required_during_scheduling_ignored_during_execution
-         in
-         ("required_during_scheduling_ignored_during_execution", arg)
-         :: bnds
+         if
+           [] = v_required_during_scheduling_ignored_during_execution
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution)
+               v_required_during_scheduling_ignored_during_execution
+           in
+           let bnd =
+             ( "required_during_scheduling_ignored_during_execution",
+               arg )
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
-             v_preferred_during_scheduling_ignored_during_execution
-         in
-         ("preferred_during_scheduling_ignored_during_execution", arg)
-         :: bnds
+         if
+           []
+           = v_preferred_during_scheduling_ignored_during_execution
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution)
+               v_preferred_during_scheduling_ignored_during_execution
+           in
+           let bnd =
+             ( "preferred_during_scheduling_ignored_during_execution",
+               arg )
+           in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__affinity__node_affinity ->
@@ -659,6 +700,7 @@ type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_i
   match_expressions :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -678,12 +720,15 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_sch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_match_labels with
@@ -716,6 +761,7 @@ type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_i
   label_selector :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -736,12 +782,15 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_sch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
-             v_label_selector
-         in
-         ("label_selector", arg) :: bnds
+         if [] = v_label_selector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector)
+               v_label_selector
+           in
+           let bnd = "label_selector", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topology_key in
@@ -771,6 +820,7 @@ type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_i
   pod_affinity_term :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -788,12 +838,15 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_sch
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
-             v_pod_affinity_term
-         in
-         ("pod_affinity_term", arg) :: bnds
+         if [] = v_pod_affinity_term then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term)
+               v_pod_affinity_term
+           in
+           let bnd = "pod_affinity_term", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_weight in
@@ -867,6 +920,7 @@ type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ig
   match_expressions :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -886,12 +940,15 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__required_during_sche
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_match_labels with
@@ -924,6 +981,7 @@ type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ig
   label_selector :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -944,12 +1002,15 @@ let yojson_of_spec__template__spec__affinity__pod_affinity__required_during_sche
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
-             v_label_selector
-         in
-         ("label_selector", arg) :: bnds
+         if [] = v_label_selector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector)
+               v_label_selector
+           in
+           let bnd = "label_selector", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topology_key in
@@ -978,9 +1039,11 @@ type spec__template__spec__affinity__pod_affinity = {
   preferred_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
   required_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -998,22 +1061,37 @@ let yojson_of_spec__template__spec__affinity__pod_affinity =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
-             v_required_during_scheduling_ignored_during_execution
-         in
-         ("required_during_scheduling_ignored_during_execution", arg)
-         :: bnds
+         if
+           [] = v_required_during_scheduling_ignored_during_execution
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution)
+               v_required_during_scheduling_ignored_during_execution
+           in
+           let bnd =
+             ( "required_during_scheduling_ignored_during_execution",
+               arg )
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
-             v_preferred_during_scheduling_ignored_during_execution
-         in
-         ("preferred_during_scheduling_ignored_during_execution", arg)
-         :: bnds
+         if
+           []
+           = v_preferred_during_scheduling_ignored_during_execution
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution)
+               v_preferred_during_scheduling_ignored_during_execution
+           in
+           let bnd =
+             ( "preferred_during_scheduling_ignored_during_execution",
+               arg )
+           in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__affinity__pod_affinity ->
@@ -1082,6 +1160,7 @@ type spec__template__spec__affinity__pod_anti_affinity__preferred_during_schedul
   match_expressions :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1101,12 +1180,15 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_durin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_match_labels with
@@ -1139,6 +1221,7 @@ type spec__template__spec__affinity__pod_anti_affinity__preferred_during_schedul
   label_selector :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1159,12 +1242,15 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_durin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
-             v_label_selector
-         in
-         ("label_selector", arg) :: bnds
+         if [] = v_label_selector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector)
+               v_label_selector
+           in
+           let bnd = "label_selector", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topology_key in
@@ -1194,6 +1280,7 @@ type spec__template__spec__affinity__pod_anti_affinity__preferred_during_schedul
   pod_affinity_term :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1211,12 +1298,15 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_durin
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
-             v_pod_affinity_term
-         in
-         ("pod_affinity_term", arg) :: bnds
+         if [] = v_pod_affinity_term then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term)
+               v_pod_affinity_term
+           in
+           let bnd = "pod_affinity_term", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_weight in
@@ -1290,6 +1380,7 @@ type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduli
   match_expressions :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1309,12 +1400,15 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_match_labels with
@@ -1347,6 +1441,7 @@ type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduli
   label_selector :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1367,12 +1462,15 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
-             v_label_selector
-         in
-         ("label_selector", arg) :: bnds
+         if [] = v_label_selector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector)
+               v_label_selector
+           in
+           let bnd = "label_selector", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topology_key in
@@ -1401,9 +1499,11 @@ type spec__template__spec__affinity__pod_anti_affinity = {
   preferred_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
   required_during_scheduling_ignored_during_execution :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1422,22 +1522,37 @@ let yojson_of_spec__template__spec__affinity__pod_anti_affinity =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
-             v_required_during_scheduling_ignored_during_execution
-         in
-         ("required_during_scheduling_ignored_during_execution", arg)
-         :: bnds
+         if
+           [] = v_required_during_scheduling_ignored_during_execution
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution)
+               v_required_during_scheduling_ignored_during_execution
+           in
+           let bnd =
+             ( "required_during_scheduling_ignored_during_execution",
+               arg )
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
-             v_preferred_during_scheduling_ignored_during_execution
-         in
-         ("preferred_during_scheduling_ignored_during_execution", arg)
-         :: bnds
+         if
+           []
+           = v_preferred_during_scheduling_ignored_during_execution
+         then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution)
+               v_preferred_during_scheduling_ignored_during_execution
+           in
+           let bnd =
+             ( "preferred_during_scheduling_ignored_during_execution",
+               arg )
+           in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__affinity__pod_anti_affinity ->
@@ -1449,9 +1564,12 @@ let _ = yojson_of_spec__template__spec__affinity__pod_anti_affinity
 
 type spec__template__spec__affinity = {
   node_affinity : spec__template__spec__affinity__node_affinity list;
+      [@default []] [@yojson_drop_default ( = )]
   pod_affinity : spec__template__spec__affinity__pod_affinity list;
+      [@default []] [@yojson_drop_default ( = )]
   pod_anti_affinity :
     spec__template__spec__affinity__pod_anti_affinity list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1468,28 +1586,37 @@ let yojson_of_spec__template__spec__affinity =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_anti_affinity
-             v_pod_anti_affinity
-         in
-         ("pod_anti_affinity", arg) :: bnds
+         if [] = v_pod_anti_affinity then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_anti_affinity)
+               v_pod_anti_affinity
+           in
+           let bnd = "pod_anti_affinity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__pod_affinity
-             v_pod_affinity
-         in
-         ("pod_affinity", arg) :: bnds
+         if [] = v_pod_affinity then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__pod_affinity)
+               v_pod_affinity
+           in
+           let bnd = "pod_affinity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__affinity__node_affinity
-             v_node_affinity
-         in
-         ("node_affinity", arg) :: bnds
+         if [] = v_node_affinity then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__affinity__node_affinity)
+               v_node_affinity
+           in
+           let bnd = "node_affinity", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__affinity ->
@@ -1702,14 +1829,18 @@ type spec__template__spec__container__env__value_from = {
   config_map_key_ref :
     spec__template__spec__container__env__value_from__config_map_key_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
   field_ref :
     spec__template__spec__container__env__value_from__field_ref list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_field_ref :
     spec__template__spec__container__env__value_from__resource_field_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_key_ref :
     spec__template__spec__container__env__value_from__secret_key_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1728,36 +1859,48 @@ let yojson_of_spec__template__spec__container__env__value_from =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__env__value_from__secret_key_ref
-             v_secret_key_ref
-         in
-         ("secret_key_ref", arg) :: bnds
+         if [] = v_secret_key_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__env__value_from__secret_key_ref)
+               v_secret_key_ref
+           in
+           let bnd = "secret_key_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__env__value_from__resource_field_ref
-             v_resource_field_ref
-         in
-         ("resource_field_ref", arg) :: bnds
+         if [] = v_resource_field_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__env__value_from__resource_field_ref)
+               v_resource_field_ref
+           in
+           let bnd = "resource_field_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__env__value_from__field_ref
-             v_field_ref
-         in
-         ("field_ref", arg) :: bnds
+         if [] = v_field_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__env__value_from__field_ref)
+               v_field_ref
+           in
+           let bnd = "field_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__env__value_from__config_map_key_ref
-             v_config_map_key_ref
-         in
-         ("config_map_key_ref", arg) :: bnds
+         if [] = v_config_map_key_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__env__value_from__config_map_key_ref)
+               v_config_map_key_ref
+           in
+           let bnd = "config_map_key_ref", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__container__env__value_from ->
@@ -1771,6 +1914,7 @@ type spec__template__spec__container__env = {
   name : string prop;
   value : string prop option; [@option]
   value_from : spec__template__spec__container__env__value_from list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1783,12 +1927,15 @@ let yojson_of_spec__template__spec__container__env =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__env__value_from
-             v_value_from
-         in
-         ("value_from", arg) :: bnds
+         if [] = v_value_from then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__env__value_from)
+               v_value_from
+           in
+           let bnd = "value_from", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_value with
@@ -1889,8 +2036,10 @@ type spec__template__spec__container__env_from = {
   prefix : string prop option; [@option]
   config_map_ref :
     spec__template__spec__container__env_from__config_map_ref list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_ref :
     spec__template__spec__container__env_from__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1907,20 +2056,26 @@ let yojson_of_spec__template__spec__container__env_from =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__env_from__secret_ref
-             v_secret_ref
-         in
-         ("secret_ref", arg) :: bnds
+         if [] = v_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__env_from__secret_ref)
+               v_secret_ref
+           in
+           let bnd = "secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__env_from__config_map_ref
-             v_config_map_ref
-         in
-         ("config_map_ref", arg) :: bnds
+         if [] = v_config_map_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__env_from__config_map_ref)
+               v_config_map_ref
+           in
+           let bnd = "config_map_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_prefix with
@@ -2025,6 +2180,7 @@ type spec__template__spec__container__lifecycle__post_start__http_get = {
   http_header :
     spec__template__spec__container__lifecycle__post_start__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2047,12 +2203,15 @@ let yojson_of_spec__template__spec__container__lifecycle__post_start__http_get
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle__post_start__http_get__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle__post_start__http_get__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheme with
@@ -2128,12 +2287,15 @@ let _ =
 type spec__template__spec__container__lifecycle__post_start = {
   exec :
     spec__template__spec__container__lifecycle__post_start__exec list;
+      [@default []] [@yojson_drop_default ( = )]
   http_get :
     spec__template__spec__container__lifecycle__post_start__http_get
     list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_socket :
     spec__template__spec__container__lifecycle__post_start__tcp_socket
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2153,28 +2315,37 @@ let yojson_of_spec__template__spec__container__lifecycle__post_start
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle__post_start__tcp_socket
-             v_tcp_socket
-         in
-         ("tcp_socket", arg) :: bnds
+         if [] = v_tcp_socket then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle__post_start__tcp_socket)
+               v_tcp_socket
+           in
+           let bnd = "tcp_socket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle__post_start__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle__post_start__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle__post_start__exec
-             v_exec
-         in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle__post_start__exec)
+               v_exec
+           in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__container__lifecycle__post_start ->
@@ -2271,6 +2442,7 @@ type spec__template__spec__container__lifecycle__pre_stop__http_get = {
   http_header :
     spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2293,12 +2465,15 @@ let yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheme with
@@ -2374,12 +2549,15 @@ let _ =
 type spec__template__spec__container__lifecycle__pre_stop = {
   exec :
     spec__template__spec__container__lifecycle__pre_stop__exec list;
+      [@default []] [@yojson_drop_default ( = )]
   http_get :
     spec__template__spec__container__lifecycle__pre_stop__http_get
     list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_socket :
     spec__template__spec__container__lifecycle__pre_stop__tcp_socket
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2397,28 +2575,37 @@ let yojson_of_spec__template__spec__container__lifecycle__pre_stop =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle__pre_stop__tcp_socket
-             v_tcp_socket
-         in
-         ("tcp_socket", arg) :: bnds
+         if [] = v_tcp_socket then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle__pre_stop__tcp_socket)
+               v_tcp_socket
+           in
+           let bnd = "tcp_socket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle__pre_stop__exec
-             v_exec
-         in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle__pre_stop__exec)
+               v_exec
+           in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__container__lifecycle__pre_stop ->
@@ -2432,8 +2619,10 @@ let _ =
 type spec__template__spec__container__lifecycle = {
   post_start :
     spec__template__spec__container__lifecycle__post_start list;
+      [@default []] [@yojson_drop_default ( = )]
   pre_stop :
     spec__template__spec__container__lifecycle__pre_stop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2446,20 +2635,26 @@ let yojson_of_spec__template__spec__container__lifecycle =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle__pre_stop
-             v_pre_stop
-         in
-         ("pre_stop", arg) :: bnds
+         if [] = v_pre_stop then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle__pre_stop)
+               v_pre_stop
+           in
+           let bnd = "pre_stop", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle__post_start
-             v_post_start
-         in
-         ("post_start", arg) :: bnds
+         if [] = v_post_start then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle__post_start)
+               v_post_start
+           in
+           let bnd = "post_start", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__container__lifecycle ->
@@ -2591,6 +2786,7 @@ type spec__template__spec__container__liveness_probe__http_get = {
   http_header :
     spec__template__spec__container__liveness_probe__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2612,12 +2808,15 @@ let yojson_of_spec__template__spec__container__liveness_probe__http_get
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__liveness_probe__http_get__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__liveness_probe__http_get__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheme with
@@ -2697,11 +2896,15 @@ type spec__template__spec__container__liveness_probe = {
   success_threshold : float prop option; [@option]
   timeout_seconds : float prop option; [@option]
   exec : spec__template__spec__container__liveness_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
   grpc : spec__template__spec__container__liveness_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
   http_get :
     spec__template__spec__container__liveness_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_socket :
     spec__template__spec__container__liveness_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2725,36 +2928,48 @@ let yojson_of_spec__template__spec__container__liveness_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__liveness_probe__tcp_socket
-             v_tcp_socket
-         in
-         ("tcp_socket", arg) :: bnds
+         if [] = v_tcp_socket then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__liveness_probe__tcp_socket)
+               v_tcp_socket
+           in
+           let bnd = "tcp_socket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__liveness_probe__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__liveness_probe__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__liveness_probe__grpc
-             v_grpc
-         in
-         ("grpc", arg) :: bnds
+         if [] = v_grpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__liveness_probe__grpc)
+               v_grpc
+           in
+           let bnd = "grpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__liveness_probe__exec
-             v_exec
-         in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__liveness_probe__exec)
+               v_exec
+           in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_seconds with
@@ -2995,6 +3210,7 @@ type spec__template__spec__container__readiness_probe__http_get = {
   http_header :
     spec__template__spec__container__readiness_probe__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3016,12 +3232,15 @@ let yojson_of_spec__template__spec__container__readiness_probe__http_get
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__readiness_probe__http_get__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__readiness_probe__http_get__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheme with
@@ -3101,11 +3320,15 @@ type spec__template__spec__container__readiness_probe = {
   success_threshold : float prop option; [@option]
   timeout_seconds : float prop option; [@option]
   exec : spec__template__spec__container__readiness_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
   grpc : spec__template__spec__container__readiness_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
   http_get :
     spec__template__spec__container__readiness_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_socket :
     spec__template__spec__container__readiness_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3129,36 +3352,48 @@ let yojson_of_spec__template__spec__container__readiness_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__readiness_probe__tcp_socket
-             v_tcp_socket
-         in
-         ("tcp_socket", arg) :: bnds
+         if [] = v_tcp_socket then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__readiness_probe__tcp_socket)
+               v_tcp_socket
+           in
+           let bnd = "tcp_socket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__readiness_probe__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__readiness_probe__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__readiness_probe__grpc
-             v_grpc
-         in
-         ("grpc", arg) :: bnds
+         if [] = v_grpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__readiness_probe__grpc)
+               v_grpc
+           in
+           let bnd = "grpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__readiness_probe__exec
-             v_exec
-         in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__readiness_probe__exec)
+               v_exec
+           in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_seconds with
@@ -3428,12 +3663,15 @@ type spec__template__spec__container__security_context = {
   capabilities :
     spec__template__spec__container__security_context__capabilities
     list;
+      [@default []] [@yojson_drop_default ( = )]
   se_linux_options :
     spec__template__spec__container__security_context__se_linux_options
     list;
+      [@default []] [@yojson_drop_default ( = )]
   seccomp_profile :
     spec__template__spec__container__security_context__seccomp_profile
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3457,28 +3695,37 @@ let yojson_of_spec__template__spec__container__security_context =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__security_context__seccomp_profile
-             v_seccomp_profile
-         in
-         ("seccomp_profile", arg) :: bnds
+         if [] = v_seccomp_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__security_context__seccomp_profile)
+               v_seccomp_profile
+           in
+           let bnd = "seccomp_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__security_context__se_linux_options
-             v_se_linux_options
-         in
-         ("se_linux_options", arg) :: bnds
+         if [] = v_se_linux_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__security_context__se_linux_options)
+               v_se_linux_options
+           in
+           let bnd = "se_linux_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__security_context__capabilities
-             v_capabilities
-         in
-         ("capabilities", arg) :: bnds
+         if [] = v_capabilities then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__security_context__capabilities)
+               v_capabilities
+           in
+           let bnd = "capabilities", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_run_as_user with
@@ -3656,6 +3903,7 @@ type spec__template__spec__container__startup_probe__http_get = {
   http_header :
     spec__template__spec__container__startup_probe__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3677,12 +3925,15 @@ let yojson_of_spec__template__spec__container__startup_probe__http_get
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__startup_probe__http_get__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__startup_probe__http_get__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheme with
@@ -3761,11 +4012,15 @@ type spec__template__spec__container__startup_probe = {
   success_threshold : float prop option; [@option]
   timeout_seconds : float prop option; [@option]
   exec : spec__template__spec__container__startup_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
   grpc : spec__template__spec__container__startup_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
   http_get :
     spec__template__spec__container__startup_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_socket :
     spec__template__spec__container__startup_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3789,36 +4044,48 @@ let yojson_of_spec__template__spec__container__startup_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__startup_probe__tcp_socket
-             v_tcp_socket
-         in
-         ("tcp_socket", arg) :: bnds
+         if [] = v_tcp_socket then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__startup_probe__tcp_socket)
+               v_tcp_socket
+           in
+           let bnd = "tcp_socket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__startup_probe__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__startup_probe__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__startup_probe__grpc
-             v_grpc
-         in
-         ("grpc", arg) :: bnds
+         if [] = v_grpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__startup_probe__grpc)
+               v_grpc
+           in
+           let bnd = "grpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__startup_probe__exec
-             v_exec
-         in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__startup_probe__exec)
+               v_exec
+           in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_seconds with
@@ -3944,19 +4211,29 @@ type spec__template__spec__container = {
   tty : bool prop option; [@option]
   working_dir : string prop option; [@option]
   env : spec__template__spec__container__env list;
+      [@default []] [@yojson_drop_default ( = )]
   env_from : spec__template__spec__container__env_from list;
+      [@default []] [@yojson_drop_default ( = )]
   lifecycle : spec__template__spec__container__lifecycle list;
+      [@default []] [@yojson_drop_default ( = )]
   liveness_probe :
     spec__template__spec__container__liveness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   port : spec__template__spec__container__port list;
+      [@default []] [@yojson_drop_default ( = )]
   readiness_probe :
     spec__template__spec__container__readiness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   resources : spec__template__spec__container__resources list;
+      [@default []] [@yojson_drop_default ( = )]
   security_context :
     spec__template__spec__container__security_context list;
+      [@default []] [@yojson_drop_default ( = )]
   startup_probe :
     spec__template__spec__container__startup_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_mount : spec__template__spec__container__volume_mount list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3991,82 +4268,114 @@ let yojson_of_spec__template__spec__container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__volume_mount
-             v_volume_mount
-         in
-         ("volume_mount", arg) :: bnds
+         if [] = v_volume_mount then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__volume_mount)
+               v_volume_mount
+           in
+           let bnd = "volume_mount", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__startup_probe
-             v_startup_probe
-         in
-         ("startup_probe", arg) :: bnds
+         if [] = v_startup_probe then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__startup_probe)
+               v_startup_probe
+           in
+           let bnd = "startup_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__security_context
-             v_security_context
-         in
-         ("security_context", arg) :: bnds
+         if [] = v_security_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__security_context)
+               v_security_context
+           in
+           let bnd = "security_context", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__resources
-             v_resources
-         in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__resources)
+               v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__readiness_probe
-             v_readiness_probe
-         in
-         ("readiness_probe", arg) :: bnds
+         if [] = v_readiness_probe then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__readiness_probe)
+               v_readiness_probe
+           in
+           let bnd = "readiness_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__port v_port
-         in
-         ("port", arg) :: bnds
+         if [] = v_port then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__port)
+               v_port
+           in
+           let bnd = "port", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__liveness_probe
-             v_liveness_probe
-         in
-         ("liveness_probe", arg) :: bnds
+         if [] = v_liveness_probe then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__liveness_probe)
+               v_liveness_probe
+           in
+           let bnd = "liveness_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__lifecycle
-             v_lifecycle
-         in
-         ("lifecycle", arg) :: bnds
+         if [] = v_lifecycle then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__lifecycle)
+               v_lifecycle
+           in
+           let bnd = "lifecycle", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__env_from
-             v_env_from
-         in
-         ("env_from", arg) :: bnds
+         if [] = v_env_from then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__env_from)
+               v_env_from
+           in
+           let bnd = "env_from", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__container__env v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container__env)
+               v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_working_dir with
@@ -4202,7 +4511,7 @@ type spec__template__spec__dns_config = {
   nameservers : string prop list option; [@option]
   searches : string prop list option; [@option]
   option_ : spec__template__spec__dns_config__option list;
-      [@key "option"]
+      [@key "option"] [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4219,12 +4528,15 @@ let yojson_of_spec__template__spec__dns_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__dns_config__option
-             v_option_
-         in
-         ("option", arg) :: bnds
+         if [] = v_option_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__dns_config__option)
+               v_option_
+           in
+           let bnd = "option", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_searches with
@@ -4256,6 +4568,7 @@ let _ = yojson_of_spec__template__spec__dns_config
 
 type spec__template__spec__host_aliases = {
   hostnames : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   ip : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -4273,12 +4586,14 @@ let yojson_of_spec__template__spec__host_aliases =
          ("ip", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_hostnames
-         in
-         ("hostnames", arg) :: bnds
+         if [] = v_hostnames then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_hostnames
+           in
+           let bnd = "hostnames", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__host_aliases ->
@@ -4516,15 +4831,19 @@ type spec__template__spec__init_container__env__value_from = {
   config_map_key_ref :
     spec__template__spec__init_container__env__value_from__config_map_key_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
   field_ref :
     spec__template__spec__init_container__env__value_from__field_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_field_ref :
     spec__template__spec__init_container__env__value_from__resource_field_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_key_ref :
     spec__template__spec__init_container__env__value_from__secret_key_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4544,36 +4863,48 @@ let yojson_of_spec__template__spec__init_container__env__value_from =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__env__value_from__secret_key_ref
-             v_secret_key_ref
-         in
-         ("secret_key_ref", arg) :: bnds
+         if [] = v_secret_key_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__env__value_from__secret_key_ref)
+               v_secret_key_ref
+           in
+           let bnd = "secret_key_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__env__value_from__resource_field_ref
-             v_resource_field_ref
-         in
-         ("resource_field_ref", arg) :: bnds
+         if [] = v_resource_field_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__env__value_from__resource_field_ref)
+               v_resource_field_ref
+           in
+           let bnd = "resource_field_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__env__value_from__field_ref
-             v_field_ref
-         in
-         ("field_ref", arg) :: bnds
+         if [] = v_field_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__env__value_from__field_ref)
+               v_field_ref
+           in
+           let bnd = "field_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__env__value_from__config_map_key_ref
-             v_config_map_key_ref
-         in
-         ("config_map_key_ref", arg) :: bnds
+         if [] = v_config_map_key_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__env__value_from__config_map_key_ref)
+               v_config_map_key_ref
+           in
+           let bnd = "config_map_key_ref", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__init_container__env__value_from ->
@@ -4589,6 +4920,7 @@ type spec__template__spec__init_container__env = {
   value : string prop option; [@option]
   value_from :
     spec__template__spec__init_container__env__value_from list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4601,12 +4933,15 @@ let yojson_of_spec__template__spec__init_container__env =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__env__value_from
-             v_value_from
-         in
-         ("value_from", arg) :: bnds
+         if [] = v_value_from then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__env__value_from)
+               v_value_from
+           in
+           let bnd = "value_from", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_value with
@@ -4710,8 +5045,10 @@ type spec__template__spec__init_container__env_from = {
   config_map_ref :
     spec__template__spec__init_container__env_from__config_map_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_ref :
     spec__template__spec__init_container__env_from__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4729,20 +5066,26 @@ let yojson_of_spec__template__spec__init_container__env_from =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__env_from__secret_ref
-             v_secret_ref
-         in
-         ("secret_ref", arg) :: bnds
+         if [] = v_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__env_from__secret_ref)
+               v_secret_ref
+           in
+           let bnd = "secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__env_from__config_map_ref
-             v_config_map_ref
-         in
-         ("config_map_ref", arg) :: bnds
+         if [] = v_config_map_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__env_from__config_map_ref)
+               v_config_map_ref
+           in
+           let bnd = "config_map_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_prefix with
@@ -4847,6 +5190,7 @@ type spec__template__spec__init_container__lifecycle__post_start__http_get = {
   http_header :
     spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4869,12 +5213,15 @@ let yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_get__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheme with
@@ -4951,12 +5298,15 @@ type spec__template__spec__init_container__lifecycle__post_start = {
   exec :
     spec__template__spec__init_container__lifecycle__post_start__exec
     list;
+      [@default []] [@yojson_drop_default ( = )]
   http_get :
     spec__template__spec__init_container__lifecycle__post_start__http_get
     list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_socket :
     spec__template__spec__init_container__lifecycle__post_start__tcp_socket
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -4977,28 +5327,37 @@ let yojson_of_spec__template__spec__init_container__lifecycle__post_start
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle__post_start__tcp_socket
-             v_tcp_socket
-         in
-         ("tcp_socket", arg) :: bnds
+         if [] = v_tcp_socket then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle__post_start__tcp_socket)
+               v_tcp_socket
+           in
+           let bnd = "tcp_socket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle__post_start__exec
-             v_exec
-         in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle__post_start__exec)
+               v_exec
+           in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__init_container__lifecycle__post_start ->
@@ -5096,6 +5455,7 @@ type spec__template__spec__init_container__lifecycle__pre_stop__http_get = {
   http_header :
     spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5118,12 +5478,15 @@ let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_ge
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheme with
@@ -5200,12 +5563,15 @@ type spec__template__spec__init_container__lifecycle__pre_stop = {
   exec :
     spec__template__spec__init_container__lifecycle__pre_stop__exec
     list;
+      [@default []] [@yojson_drop_default ( = )]
   http_get :
     spec__template__spec__init_container__lifecycle__pre_stop__http_get
     list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_socket :
     spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5225,28 +5591,37 @@ let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
-             v_tcp_socket
-         in
-         ("tcp_socket", arg) :: bnds
+         if [] = v_tcp_socket then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket)
+               v_tcp_socket
+           in
+           let bnd = "tcp_socket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__exec
-             v_exec
-         in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__exec)
+               v_exec
+           in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__init_container__lifecycle__pre_stop ->
@@ -5260,8 +5635,10 @@ let _ =
 type spec__template__spec__init_container__lifecycle = {
   post_start :
     spec__template__spec__init_container__lifecycle__post_start list;
+      [@default []] [@yojson_drop_default ( = )]
   pre_stop :
     spec__template__spec__init_container__lifecycle__pre_stop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5275,20 +5652,26 @@ let yojson_of_spec__template__spec__init_container__lifecycle =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle__pre_stop
-             v_pre_stop
-         in
-         ("pre_stop", arg) :: bnds
+         if [] = v_pre_stop then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle__pre_stop)
+               v_pre_stop
+           in
+           let bnd = "pre_stop", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle__post_start
-             v_post_start
-         in
-         ("post_start", arg) :: bnds
+         if [] = v_post_start then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle__post_start)
+               v_post_start
+           in
+           let bnd = "post_start", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__init_container__lifecycle ->
@@ -5422,6 +5805,7 @@ type spec__template__spec__init_container__liveness_probe__http_get = {
   http_header :
     spec__template__spec__init_container__liveness_probe__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5444,12 +5828,15 @@ let yojson_of_spec__template__spec__init_container__liveness_probe__http_get
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__liveness_probe__http_get__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__liveness_probe__http_get__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheme with
@@ -5530,14 +5917,18 @@ type spec__template__spec__init_container__liveness_probe = {
   timeout_seconds : float prop option; [@option]
   exec :
     spec__template__spec__init_container__liveness_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
   grpc :
     spec__template__spec__init_container__liveness_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
   http_get :
     spec__template__spec__init_container__liveness_probe__http_get
     list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_socket :
     spec__template__spec__init_container__liveness_probe__tcp_socket
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5561,36 +5952,48 @@ let yojson_of_spec__template__spec__init_container__liveness_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__liveness_probe__tcp_socket
-             v_tcp_socket
-         in
-         ("tcp_socket", arg) :: bnds
+         if [] = v_tcp_socket then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__liveness_probe__tcp_socket)
+               v_tcp_socket
+           in
+           let bnd = "tcp_socket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__liveness_probe__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__liveness_probe__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__liveness_probe__grpc
-             v_grpc
-         in
-         ("grpc", arg) :: bnds
+         if [] = v_grpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__liveness_probe__grpc)
+               v_grpc
+           in
+           let bnd = "grpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__liveness_probe__exec
-             v_exec
-         in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__liveness_probe__exec)
+               v_exec
+           in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_seconds with
@@ -5834,6 +6237,7 @@ type spec__template__spec__init_container__readiness_probe__http_get = {
   http_header :
     spec__template__spec__init_container__readiness_probe__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5856,12 +6260,15 @@ let yojson_of_spec__template__spec__init_container__readiness_probe__http_get
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__readiness_probe__http_get__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__readiness_probe__http_get__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheme with
@@ -5942,14 +6349,18 @@ type spec__template__spec__init_container__readiness_probe = {
   timeout_seconds : float prop option; [@option]
   exec :
     spec__template__spec__init_container__readiness_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
   grpc :
     spec__template__spec__init_container__readiness_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
   http_get :
     spec__template__spec__init_container__readiness_probe__http_get
     list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_socket :
     spec__template__spec__init_container__readiness_probe__tcp_socket
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -5974,36 +6385,48 @@ let yojson_of_spec__template__spec__init_container__readiness_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__readiness_probe__tcp_socket
-             v_tcp_socket
-         in
-         ("tcp_socket", arg) :: bnds
+         if [] = v_tcp_socket then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__readiness_probe__tcp_socket)
+               v_tcp_socket
+           in
+           let bnd = "tcp_socket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__readiness_probe__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__readiness_probe__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__readiness_probe__grpc
-             v_grpc
-         in
-         ("grpc", arg) :: bnds
+         if [] = v_grpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__readiness_probe__grpc)
+               v_grpc
+           in
+           let bnd = "grpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__readiness_probe__exec
-             v_exec
-         in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__readiness_probe__exec)
+               v_exec
+           in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_seconds with
@@ -6275,12 +6698,15 @@ type spec__template__spec__init_container__security_context = {
   capabilities :
     spec__template__spec__init_container__security_context__capabilities
     list;
+      [@default []] [@yojson_drop_default ( = )]
   se_linux_options :
     spec__template__spec__init_container__security_context__se_linux_options
     list;
+      [@default []] [@yojson_drop_default ( = )]
   seccomp_profile :
     spec__template__spec__init_container__security_context__seccomp_profile
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6306,28 +6732,37 @@ let yojson_of_spec__template__spec__init_container__security_context
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__security_context__seccomp_profile
-             v_seccomp_profile
-         in
-         ("seccomp_profile", arg) :: bnds
+         if [] = v_seccomp_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__security_context__seccomp_profile)
+               v_seccomp_profile
+           in
+           let bnd = "seccomp_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__security_context__se_linux_options
-             v_se_linux_options
-         in
-         ("se_linux_options", arg) :: bnds
+         if [] = v_se_linux_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__security_context__se_linux_options)
+               v_se_linux_options
+           in
+           let bnd = "se_linux_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__security_context__capabilities
-             v_capabilities
-         in
-         ("capabilities", arg) :: bnds
+         if [] = v_capabilities then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__security_context__capabilities)
+               v_capabilities
+           in
+           let bnd = "capabilities", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_run_as_user with
@@ -6510,6 +6945,7 @@ type spec__template__spec__init_container__startup_probe__http_get = {
   http_header :
     spec__template__spec__init_container__startup_probe__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6532,12 +6968,15 @@ let yojson_of_spec__template__spec__init_container__startup_probe__http_get
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__startup_probe__http_get__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__startup_probe__http_get__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_scheme with
@@ -6618,14 +7057,18 @@ type spec__template__spec__init_container__startup_probe = {
   timeout_seconds : float prop option; [@option]
   exec :
     spec__template__spec__init_container__startup_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
   grpc :
     spec__template__spec__init_container__startup_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
   http_get :
     spec__template__spec__init_container__startup_probe__http_get
     list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_socket :
     spec__template__spec__init_container__startup_probe__tcp_socket
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6649,36 +7092,48 @@ let yojson_of_spec__template__spec__init_container__startup_probe =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__startup_probe__tcp_socket
-             v_tcp_socket
-         in
-         ("tcp_socket", arg) :: bnds
+         if [] = v_tcp_socket then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__startup_probe__tcp_socket)
+               v_tcp_socket
+           in
+           let bnd = "tcp_socket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__startup_probe__http_get
-             v_http_get
-         in
-         ("http_get", arg) :: bnds
+         if [] = v_http_get then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__startup_probe__http_get)
+               v_http_get
+           in
+           let bnd = "http_get", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__startup_probe__grpc
-             v_grpc
-         in
-         ("grpc", arg) :: bnds
+         if [] = v_grpc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__startup_probe__grpc)
+               v_grpc
+           in
+           let bnd = "grpc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__startup_probe__exec
-             v_exec
-         in
-         ("exec", arg) :: bnds
+         if [] = v_exec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__startup_probe__exec)
+               v_exec
+           in
+           let bnd = "exec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout_seconds with
@@ -6805,20 +7260,30 @@ type spec__template__spec__init_container = {
   tty : bool prop option; [@option]
   working_dir : string prop option; [@option]
   env : spec__template__spec__init_container__env list;
+      [@default []] [@yojson_drop_default ( = )]
   env_from : spec__template__spec__init_container__env_from list;
+      [@default []] [@yojson_drop_default ( = )]
   lifecycle : spec__template__spec__init_container__lifecycle list;
+      [@default []] [@yojson_drop_default ( = )]
   liveness_probe :
     spec__template__spec__init_container__liveness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   port : spec__template__spec__init_container__port list;
+      [@default []] [@yojson_drop_default ( = )]
   readiness_probe :
     spec__template__spec__init_container__readiness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   resources : spec__template__spec__init_container__resources list;
+      [@default []] [@yojson_drop_default ( = )]
   security_context :
     spec__template__spec__init_container__security_context list;
+      [@default []] [@yojson_drop_default ( = )]
   startup_probe :
     spec__template__spec__init_container__startup_probe list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_mount :
     spec__template__spec__init_container__volume_mount list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -6853,84 +7318,114 @@ let yojson_of_spec__template__spec__init_container =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__volume_mount
-             v_volume_mount
-         in
-         ("volume_mount", arg) :: bnds
+         if [] = v_volume_mount then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__volume_mount)
+               v_volume_mount
+           in
+           let bnd = "volume_mount", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__startup_probe
-             v_startup_probe
-         in
-         ("startup_probe", arg) :: bnds
+         if [] = v_startup_probe then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__startup_probe)
+               v_startup_probe
+           in
+           let bnd = "startup_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__security_context
-             v_security_context
-         in
-         ("security_context", arg) :: bnds
+         if [] = v_security_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__security_context)
+               v_security_context
+           in
+           let bnd = "security_context", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__resources
-             v_resources
-         in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__resources)
+               v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__readiness_probe
-             v_readiness_probe
-         in
-         ("readiness_probe", arg) :: bnds
+         if [] = v_readiness_probe then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__readiness_probe)
+               v_readiness_probe
+           in
+           let bnd = "readiness_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__port
-             v_port
-         in
-         ("port", arg) :: bnds
+         if [] = v_port then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__port)
+               v_port
+           in
+           let bnd = "port", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__liveness_probe
-             v_liveness_probe
-         in
-         ("liveness_probe", arg) :: bnds
+         if [] = v_liveness_probe then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__liveness_probe)
+               v_liveness_probe
+           in
+           let bnd = "liveness_probe", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__lifecycle
-             v_lifecycle
-         in
-         ("lifecycle", arg) :: bnds
+         if [] = v_lifecycle then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__lifecycle)
+               v_lifecycle
+           in
+           let bnd = "lifecycle", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__env_from
-             v_env_from
-         in
-         ("env_from", arg) :: bnds
+         if [] = v_env_from then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__env_from)
+               v_env_from
+           in
+           let bnd = "env_from", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container__env
-             v_env
-         in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container__env)
+               v_env
+           in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_working_dir with
@@ -7289,11 +7784,15 @@ type spec__template__spec__security_context = {
   supplemental_groups : float prop list option; [@option]
   se_linux_options :
     spec__template__spec__security_context__se_linux_options list;
+      [@default []] [@yojson_drop_default ( = )]
   seccomp_profile :
     spec__template__spec__security_context__seccomp_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   sysctl : spec__template__spec__security_context__sysctl list;
+      [@default []] [@yojson_drop_default ( = )]
   windows_options :
     spec__template__spec__security_context__windows_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7317,36 +7816,48 @@ let yojson_of_spec__template__spec__security_context =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__security_context__windows_options
-             v_windows_options
-         in
-         ("windows_options", arg) :: bnds
+         if [] = v_windows_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__security_context__windows_options)
+               v_windows_options
+           in
+           let bnd = "windows_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__security_context__sysctl
-             v_sysctl
-         in
-         ("sysctl", arg) :: bnds
+         if [] = v_sysctl then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__security_context__sysctl)
+               v_sysctl
+           in
+           let bnd = "sysctl", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__security_context__seccomp_profile
-             v_seccomp_profile
-         in
-         ("seccomp_profile", arg) :: bnds
+         if [] = v_seccomp_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__security_context__seccomp_profile)
+               v_seccomp_profile
+           in
+           let bnd = "seccomp_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__security_context__se_linux_options
-             v_se_linux_options
-         in
-         ("se_linux_options", arg) :: bnds
+         if [] = v_se_linux_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__security_context__se_linux_options)
+               v_se_linux_options
+           in
+           let bnd = "se_linux_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_supplemental_groups with
@@ -7536,6 +8047,7 @@ type spec__template__spec__topology_spread_constraint__label_selector = {
   match_expressions :
     spec__template__spec__topology_spread_constraint__label_selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7555,12 +8067,15 @@ let yojson_of_spec__template__spec__topology_spread_constraint__label_selector
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__topology_spread_constraint__label_selector__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__topology_spread_constraint__label_selector__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_match_labels with
@@ -7598,6 +8113,7 @@ type spec__template__spec__topology_spread_constraint = {
   label_selector :
     spec__template__spec__topology_spread_constraint__label_selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7620,12 +8136,15 @@ let yojson_of_spec__template__spec__topology_spread_constraint =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__topology_spread_constraint__label_selector
-             v_label_selector
-         in
-         ("label_selector", arg) :: bnds
+         if [] = v_label_selector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__topology_spread_constraint__label_selector)
+               v_label_selector
+           in
+           let bnd = "label_selector", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_when_unsatisfiable with
@@ -7916,11 +8435,13 @@ let _ = yojson_of_spec__template__spec__volume__ceph_fs__secret_ref
 
 type spec__template__spec__volume__ceph_fs = {
   monitors : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   path : string prop option; [@option]
   read_only : bool prop option; [@option]
   secret_file : string prop option; [@option]
   user : string prop option; [@option]
   secret_ref : spec__template__spec__volume__ceph_fs__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -7940,12 +8461,15 @@ let yojson_of_spec__template__spec__volume__ceph_fs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__ceph_fs__secret_ref
-             v_secret_ref
-         in
-         ("secret_ref", arg) :: bnds
+         if [] = v_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__ceph_fs__secret_ref)
+               v_secret_ref
+           in
+           let bnd = "secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user with
@@ -7980,12 +8504,14 @@ let yojson_of_spec__template__spec__volume__ceph_fs =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_monitors
-         in
-         ("monitors", arg) :: bnds
+         if [] = v_monitors then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_monitors
+           in
+           let bnd = "monitors", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__volume__ceph_fs ->
@@ -8095,6 +8621,7 @@ type spec__template__spec__volume__config_map = {
   name : string prop option; [@option]
   optional : bool prop option; [@option]
   items : spec__template__spec__volume__config_map__items list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8112,12 +8639,15 @@ let yojson_of_spec__template__spec__volume__config_map =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__config_map__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__config_map__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_optional with
@@ -8191,6 +8721,7 @@ type spec__template__spec__volume__csi = {
   volume_attributes : (string * string prop) list option; [@option]
   node_publish_secret_ref :
     spec__template__spec__volume__csi__node_publish_secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8209,12 +8740,15 @@ let yojson_of_spec__template__spec__volume__csi =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__csi__node_publish_secret_ref
-             v_node_publish_secret_ref
-         in
-         ("node_publish_secret_ref", arg) :: bnds
+         if [] = v_node_publish_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__csi__node_publish_secret_ref)
+               v_node_publish_secret_ref
+           in
+           let bnd = "node_publish_secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_volume_attributes with
@@ -8358,9 +8892,11 @@ type spec__template__spec__volume__downward_api__items = {
   path : string prop;
   field_ref :
     spec__template__spec__volume__downward_api__items__field_ref list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_field_ref :
     spec__template__spec__volume__downward_api__items__resource_field_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8379,20 +8915,26 @@ let yojson_of_spec__template__spec__volume__downward_api__items =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__downward_api__items__resource_field_ref
-             v_resource_field_ref
-         in
-         ("resource_field_ref", arg) :: bnds
+         if [] = v_resource_field_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__downward_api__items__resource_field_ref)
+               v_resource_field_ref
+           in
+           let bnd = "resource_field_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__downward_api__items__field_ref
-             v_field_ref
-         in
-         ("field_ref", arg) :: bnds
+         if [] = v_field_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__downward_api__items__field_ref)
+               v_field_ref
+           in
+           let bnd = "field_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_path in
@@ -8417,6 +8959,7 @@ let _ = yojson_of_spec__template__spec__volume__downward_api__items
 type spec__template__spec__volume__downward_api = {
   default_mode : string prop option; [@option]
   items : spec__template__spec__volume__downward_api__items list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8429,12 +8972,15 @@ let yojson_of_spec__template__spec__volume__downward_api =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__downward_api__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__downward_api__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_default_mode with
@@ -8667,6 +9213,7 @@ type spec__template__spec__volume__ephemeral__volume_claim_template__spec__selec
   match_expressions :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8686,12 +9233,15 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__sp
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
-             v_match_expressions
-         in
-         ("match_expressions", arg) :: bnds
+         if [] = v_match_expressions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions)
+               v_match_expressions
+           in
+           let bnd = "match_expressions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_match_labels with
@@ -8720,15 +9270,18 @@ let _ =
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__spec = {
   access_modes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_class_name : string prop option; [@option]
   volume_mode : string prop option; [@option]
   volume_name : string prop option; [@option]
   resources :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
     list;
+      [@default []] [@yojson_drop_default ( = )]
   selector :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8752,20 +9305,26 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__sp
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
-             v_selector
-         in
-         ("selector", arg) :: bnds
+         if [] = v_selector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector)
+               v_selector
+           in
+           let bnd = "selector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
-             v_resources
-         in
-         ("resources", arg) :: bnds
+         if [] = v_resources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources)
+               v_resources
+           in
+           let bnd = "resources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_volume_name with
@@ -8792,12 +9351,14 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__sp
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_access_modes
-         in
-         ("access_modes", arg) :: bnds
+         if [] = v_access_modes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_access_modes
+           in
+           let bnd = "access_modes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__volume__ephemeral__volume_claim_template__spec ->
@@ -8812,9 +9373,11 @@ type spec__template__spec__volume__ephemeral__volume_claim_template = {
   metadata :
     spec__template__spec__volume__ephemeral__volume_claim_template__metadata
     list;
+      [@default []] [@yojson_drop_default ( = )]
   spec :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8831,20 +9394,26 @@ let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec
-             v_spec
-         in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec)
+               v_spec
+           in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__metadata
-             v_metadata
-         in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__metadata)
+               v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__volume__ephemeral__volume_claim_template ->
@@ -8859,6 +9428,7 @@ type spec__template__spec__volume__ephemeral = {
   volume_claim_template :
     spec__template__spec__volume__ephemeral__volume_claim_template
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8871,12 +9441,15 @@ let yojson_of_spec__template__spec__volume__ephemeral =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template
-             v_volume_claim_template
-         in
-         ("volume_claim_template", arg) :: bnds
+         if [] = v_volume_claim_template then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template)
+               v_volume_claim_template
+           in
+           let bnd = "volume_claim_template", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__volume__ephemeral ->
@@ -8891,6 +9464,7 @@ type spec__template__spec__volume__fc = {
   lun : float prop;
   read_only : bool prop option; [@option]
   target_ww_ns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -8908,12 +9482,14 @@ let yojson_of_spec__template__spec__volume__fc =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_target_ww_ns
-         in
-         ("target_ww_ns", arg) :: bnds
+         if [] = v_target_ww_ns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_target_ww_ns
+           in
+           let bnd = "target_ww_ns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_read_only with
@@ -8991,6 +9567,7 @@ type spec__template__spec__volume__flex_volume = {
   read_only : bool prop option; [@option]
   secret_ref :
     spec__template__spec__volume__flex_volume__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9009,12 +9586,15 @@ let yojson_of_spec__template__spec__volume__flex_volume =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__flex_volume__secret_ref
-             v_secret_ref
-         in
-         ("secret_ref", arg) :: bnds
+         if [] = v_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__flex_volume__secret_ref)
+               v_secret_ref
+           in
+           let bnd = "secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_read_only with
@@ -9567,6 +10147,7 @@ type spec__template__spec__volume__projected__sources__config_map = {
   items :
     spec__template__spec__volume__projected__sources__config_map__items
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9583,12 +10164,15 @@ let yojson_of_spec__template__spec__volume__projected__sources__config_map
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected__sources__config_map__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected__sources__config_map__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_optional with
@@ -9714,9 +10298,11 @@ type spec__template__spec__volume__projected__sources__downward_api__items = {
   field_ref :
     spec__template__spec__volume__projected__sources__downward_api__items__field_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_field_ref :
     spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9738,20 +10324,26 @@ let yojson_of_spec__template__spec__volume__projected__sources__downward_api__it
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
-             v_resource_field_ref
-         in
-         ("resource_field_ref", arg) :: bnds
+         if [] = v_resource_field_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref)
+               v_resource_field_ref
+           in
+           let bnd = "resource_field_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected__sources__downward_api__items__field_ref
-             v_field_ref
-         in
-         ("field_ref", arg) :: bnds
+         if [] = v_field_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected__sources__downward_api__items__field_ref)
+               v_field_ref
+           in
+           let bnd = "field_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_path in
@@ -9778,6 +10370,7 @@ type spec__template__spec__volume__projected__sources__downward_api = {
   items :
     spec__template__spec__volume__projected__sources__downward_api__items
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9794,12 +10387,15 @@ let yojson_of_spec__template__spec__volume__projected__sources__downward_api
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected__sources__downward_api__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected__sources__downward_api__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__volume__projected__sources__downward_api ->
@@ -9868,6 +10464,7 @@ type spec__template__spec__volume__projected__sources__secret = {
   items :
     spec__template__spec__volume__projected__sources__secret__items
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9883,12 +10480,15 @@ let yojson_of_spec__template__spec__volume__projected__sources__secret
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected__sources__secret__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected__sources__secret__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_optional with
@@ -9970,14 +10570,18 @@ let _ =
 type spec__template__spec__volume__projected__sources = {
   config_map :
     spec__template__spec__volume__projected__sources__config_map list;
+      [@default []] [@yojson_drop_default ( = )]
   downward_api :
     spec__template__spec__volume__projected__sources__downward_api
     list;
+      [@default []] [@yojson_drop_default ( = )]
   secret :
     spec__template__spec__volume__projected__sources__secret list;
+      [@default []] [@yojson_drop_default ( = )]
   service_account_token :
     spec__template__spec__volume__projected__sources__service_account_token
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -9996,36 +10600,48 @@ let yojson_of_spec__template__spec__volume__projected__sources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected__sources__service_account_token
-             v_service_account_token
-         in
-         ("service_account_token", arg) :: bnds
+         if [] = v_service_account_token then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected__sources__service_account_token)
+               v_service_account_token
+           in
+           let bnd = "service_account_token", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected__sources__secret
-             v_secret
-         in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected__sources__secret)
+               v_secret
+           in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected__sources__downward_api
-             v_downward_api
-         in
-         ("downward_api", arg) :: bnds
+         if [] = v_downward_api then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected__sources__downward_api)
+               v_downward_api
+           in
+           let bnd = "downward_api", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected__sources__config_map
-             v_config_map
-         in
-         ("config_map", arg) :: bnds
+         if [] = v_config_map then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected__sources__config_map)
+               v_config_map
+           in
+           let bnd = "config_map", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__volume__projected__sources ->
@@ -10038,6 +10654,7 @@ let _ = yojson_of_spec__template__spec__volume__projected__sources
 type spec__template__spec__volume__projected = {
   default_mode : string prop option; [@option]
   sources : spec__template__spec__volume__projected__sources list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10050,12 +10667,15 @@ let yojson_of_spec__template__spec__volume__projected =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected__sources
-             v_sources
-         in
-         ("sources", arg) :: bnds
+         if [] = v_sources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected__sources)
+               v_sources
+           in
+           let bnd = "sources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_default_mode with
@@ -10176,6 +10796,7 @@ let _ = yojson_of_spec__template__spec__volume__rbd__secret_ref
 
 type spec__template__spec__volume__rbd = {
   ceph_monitors : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   fs_type : string prop option; [@option]
   keyring : string prop option; [@option]
   rados_user : string prop option; [@option]
@@ -10183,6 +10804,7 @@ type spec__template__spec__volume__rbd = {
   rbd_pool : string prop option; [@option]
   read_only : bool prop option; [@option]
   secret_ref : spec__template__spec__volume__rbd__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10204,12 +10826,15 @@ let yojson_of_spec__template__spec__volume__rbd =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__rbd__secret_ref
-             v_secret_ref
-         in
-         ("secret_ref", arg) :: bnds
+         if [] = v_secret_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__rbd__secret_ref)
+               v_secret_ref
+           in
+           let bnd = "secret_ref", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_read_only with
@@ -10256,12 +10881,14 @@ let yojson_of_spec__template__spec__volume__rbd =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ceph_monitors
-         in
-         ("ceph_monitors", arg) :: bnds
+         if [] = v_ceph_monitors then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ceph_monitors
+           in
+           let bnd = "ceph_monitors", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template__spec__volume__rbd ->
@@ -10323,6 +10950,7 @@ type spec__template__spec__volume__secret = {
   optional : bool prop option; [@option]
   secret_name : string prop option; [@option]
   items : spec__template__spec__volume__secret__items list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10340,12 +10968,15 @@ let yojson_of_spec__template__spec__volume__secret =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__secret__items
-             v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__secret__items)
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_secret_name with
@@ -10417,35 +11048,62 @@ type spec__template__spec__volume = {
   name : string prop option; [@option]
   aws_elastic_block_store :
     spec__template__spec__volume__aws_elastic_block_store list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_disk : spec__template__spec__volume__azure_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   azure_file : spec__template__spec__volume__azure_file list;
+      [@default []] [@yojson_drop_default ( = )]
   ceph_fs : spec__template__spec__volume__ceph_fs list;
+      [@default []] [@yojson_drop_default ( = )]
   cinder : spec__template__spec__volume__cinder list;
+      [@default []] [@yojson_drop_default ( = )]
   config_map : spec__template__spec__volume__config_map list;
+      [@default []] [@yojson_drop_default ( = )]
   csi : spec__template__spec__volume__csi list;
+      [@default []] [@yojson_drop_default ( = )]
   downward_api : spec__template__spec__volume__downward_api list;
+      [@default []] [@yojson_drop_default ( = )]
   empty_dir : spec__template__spec__volume__empty_dir list;
+      [@default []] [@yojson_drop_default ( = )]
   ephemeral : spec__template__spec__volume__ephemeral list;
+      [@default []] [@yojson_drop_default ( = )]
   fc : spec__template__spec__volume__fc list;
+      [@default []] [@yojson_drop_default ( = )]
   flex_volume : spec__template__spec__volume__flex_volume list;
+      [@default []] [@yojson_drop_default ( = )]
   flocker : spec__template__spec__volume__flocker list;
+      [@default []] [@yojson_drop_default ( = )]
   gce_persistent_disk :
     spec__template__spec__volume__gce_persistent_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   git_repo : spec__template__spec__volume__git_repo list;
+      [@default []] [@yojson_drop_default ( = )]
   glusterfs : spec__template__spec__volume__glusterfs list;
+      [@default []] [@yojson_drop_default ( = )]
   host_path : spec__template__spec__volume__host_path list;
+      [@default []] [@yojson_drop_default ( = )]
   iscsi : spec__template__spec__volume__iscsi list;
+      [@default []] [@yojson_drop_default ( = )]
   local : spec__template__spec__volume__local list;
+      [@default []] [@yojson_drop_default ( = )]
   nfs : spec__template__spec__volume__nfs list;
+      [@default []] [@yojson_drop_default ( = )]
   persistent_volume_claim :
     spec__template__spec__volume__persistent_volume_claim list;
+      [@default []] [@yojson_drop_default ( = )]
   photon_persistent_disk :
     spec__template__spec__volume__photon_persistent_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   projected : spec__template__spec__volume__projected list;
+      [@default []] [@yojson_drop_default ( = )]
   quobyte : spec__template__spec__volume__quobyte list;
+      [@default []] [@yojson_drop_default ( = )]
   rbd : spec__template__spec__volume__rbd list;
+      [@default []] [@yojson_drop_default ( = )]
   secret : spec__template__spec__volume__secret list;
+      [@default []] [@yojson_drop_default ( = )]
   vsphere_volume : spec__template__spec__volume__vsphere_volume list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10487,212 +11145,301 @@ let yojson_of_spec__template__spec__volume =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__vsphere_volume
-             v_vsphere_volume
-         in
-         ("vsphere_volume", arg) :: bnds
+         if [] = v_vsphere_volume then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__vsphere_volume)
+               v_vsphere_volume
+           in
+           let bnd = "vsphere_volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__secret v_secret
-         in
-         ("secret", arg) :: bnds
+         if [] = v_secret then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__secret)
+               v_secret
+           in
+           let bnd = "secret", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec__volume__rbd
-             v_rbd
-         in
-         ("rbd", arg) :: bnds
+         if [] = v_rbd then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__rbd)
+               v_rbd
+           in
+           let bnd = "rbd", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__quobyte
-             v_quobyte
-         in
-         ("quobyte", arg) :: bnds
+         if [] = v_quobyte then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__quobyte)
+               v_quobyte
+           in
+           let bnd = "quobyte", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__projected
-             v_projected
-         in
-         ("projected", arg) :: bnds
+         if [] = v_projected then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__projected)
+               v_projected
+           in
+           let bnd = "projected", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__photon_persistent_disk
-             v_photon_persistent_disk
-         in
-         ("photon_persistent_disk", arg) :: bnds
+         if [] = v_photon_persistent_disk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__photon_persistent_disk)
+               v_photon_persistent_disk
+           in
+           let bnd = "photon_persistent_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__persistent_volume_claim
-             v_persistent_volume_claim
-         in
-         ("persistent_volume_claim", arg) :: bnds
+         if [] = v_persistent_volume_claim then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__persistent_volume_claim)
+               v_persistent_volume_claim
+           in
+           let bnd = "persistent_volume_claim", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec__volume__nfs
-             v_nfs
-         in
-         ("nfs", arg) :: bnds
+         if [] = v_nfs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__nfs)
+               v_nfs
+           in
+           let bnd = "nfs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__local v_local
-         in
-         ("local", arg) :: bnds
+         if [] = v_local then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__local)
+               v_local
+           in
+           let bnd = "local", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__iscsi v_iscsi
-         in
-         ("iscsi", arg) :: bnds
+         if [] = v_iscsi then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__iscsi)
+               v_iscsi
+           in
+           let bnd = "iscsi", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__host_path
-             v_host_path
-         in
-         ("host_path", arg) :: bnds
+         if [] = v_host_path then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__host_path)
+               v_host_path
+           in
+           let bnd = "host_path", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__glusterfs
-             v_glusterfs
-         in
-         ("glusterfs", arg) :: bnds
+         if [] = v_glusterfs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__glusterfs)
+               v_glusterfs
+           in
+           let bnd = "glusterfs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__git_repo
-             v_git_repo
-         in
-         ("git_repo", arg) :: bnds
+         if [] = v_git_repo then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__git_repo)
+               v_git_repo
+           in
+           let bnd = "git_repo", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__gce_persistent_disk
-             v_gce_persistent_disk
-         in
-         ("gce_persistent_disk", arg) :: bnds
+         if [] = v_gce_persistent_disk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__gce_persistent_disk)
+               v_gce_persistent_disk
+           in
+           let bnd = "gce_persistent_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__flocker
-             v_flocker
-         in
-         ("flocker", arg) :: bnds
+         if [] = v_flocker then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__flocker)
+               v_flocker
+           in
+           let bnd = "flocker", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__flex_volume
-             v_flex_volume
-         in
-         ("flex_volume", arg) :: bnds
+         if [] = v_flex_volume then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__flex_volume)
+               v_flex_volume
+           in
+           let bnd = "flex_volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec__volume__fc
-             v_fc
-         in
-         ("fc", arg) :: bnds
+         if [] = v_fc then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__fc)
+               v_fc
+           in
+           let bnd = "fc", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__ephemeral
-             v_ephemeral
-         in
-         ("ephemeral", arg) :: bnds
+         if [] = v_ephemeral then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__ephemeral)
+               v_ephemeral
+           in
+           let bnd = "ephemeral", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__empty_dir
-             v_empty_dir
-         in
-         ("empty_dir", arg) :: bnds
+         if [] = v_empty_dir then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__empty_dir)
+               v_empty_dir
+           in
+           let bnd = "empty_dir", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__downward_api
-             v_downward_api
-         in
-         ("downward_api", arg) :: bnds
+         if [] = v_downward_api then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__downward_api)
+               v_downward_api
+           in
+           let bnd = "downward_api", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec__volume__csi
-             v_csi
-         in
-         ("csi", arg) :: bnds
+         if [] = v_csi then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__csi)
+               v_csi
+           in
+           let bnd = "csi", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__config_map
-             v_config_map
-         in
-         ("config_map", arg) :: bnds
+         if [] = v_config_map then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__config_map)
+               v_config_map
+           in
+           let bnd = "config_map", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__cinder v_cinder
-         in
-         ("cinder", arg) :: bnds
+         if [] = v_cinder then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__cinder)
+               v_cinder
+           in
+           let bnd = "cinder", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__ceph_fs
-             v_ceph_fs
-         in
-         ("ceph_fs", arg) :: bnds
+         if [] = v_ceph_fs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__ceph_fs)
+               v_ceph_fs
+           in
+           let bnd = "ceph_fs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__azure_file
-             v_azure_file
-         in
-         ("azure_file", arg) :: bnds
+         if [] = v_azure_file then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__azure_file)
+               v_azure_file
+           in
+           let bnd = "azure_file", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__azure_disk
-             v_azure_disk
-         in
-         ("azure_disk", arg) :: bnds
+         if [] = v_azure_disk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__azure_disk)
+               v_azure_disk
+           in
+           let bnd = "azure_disk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__volume__aws_elastic_block_store
-             v_aws_elastic_block_store
-         in
-         ("aws_elastic_block_store", arg) :: bnds
+         if [] = v_aws_elastic_block_store then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__volume__aws_elastic_block_store)
+               v_aws_elastic_block_store
+           in
+           let bnd = "aws_elastic_block_store", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_name with
@@ -10730,18 +11477,30 @@ type spec__template__spec = {
   subdomain : string prop option; [@option]
   termination_grace_period_seconds : float prop option; [@option]
   affinity : spec__template__spec__affinity list;
+      [@default []] [@yojson_drop_default ( = )]
   container : spec__template__spec__container list;
+      [@default []] [@yojson_drop_default ( = )]
   dns_config : spec__template__spec__dns_config list;
+      [@default []] [@yojson_drop_default ( = )]
   host_aliases : spec__template__spec__host_aliases list;
+      [@default []] [@yojson_drop_default ( = )]
   image_pull_secrets : spec__template__spec__image_pull_secrets list;
+      [@default []] [@yojson_drop_default ( = )]
   init_container : spec__template__spec__init_container list;
+      [@default []] [@yojson_drop_default ( = )]
   os : spec__template__spec__os list;
+      [@default []] [@yojson_drop_default ( = )]
   readiness_gate : spec__template__spec__readiness_gate list;
+      [@default []] [@yojson_drop_default ( = )]
   security_context : spec__template__spec__security_context list;
+      [@default []] [@yojson_drop_default ( = )]
   toleration : spec__template__spec__toleration list;
+      [@default []] [@yojson_drop_default ( = )]
   topology_spread_constraint :
     spec__template__spec__topology_spread_constraint list;
+      [@default []] [@yojson_drop_default ( = )]
   volume : spec__template__spec__volume list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -10787,93 +11546,132 @@ let yojson_of_spec__template__spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec__volume
-             v_volume
-         in
-         ("volume", arg) :: bnds
+         if [] = v_volume then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__template__spec__volume)
+               v_volume
+           in
+           let bnd = "volume", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__topology_spread_constraint
-             v_topology_spread_constraint
-         in
-         ("topology_spread_constraint", arg) :: bnds
+         if [] = v_topology_spread_constraint then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__topology_spread_constraint)
+               v_topology_spread_constraint
+           in
+           let bnd = "topology_spread_constraint", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec__toleration
-             v_toleration
-         in
-         ("toleration", arg) :: bnds
+         if [] = v_toleration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__toleration)
+               v_toleration
+           in
+           let bnd = "toleration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__security_context
-             v_security_context
-         in
-         ("security_context", arg) :: bnds
+         if [] = v_security_context then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__security_context)
+               v_security_context
+           in
+           let bnd = "security_context", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__readiness_gate
-             v_readiness_gate
-         in
-         ("readiness_gate", arg) :: bnds
+         if [] = v_readiness_gate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__readiness_gate)
+               v_readiness_gate
+           in
+           let bnd = "readiness_gate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec__os v_os
-         in
-         ("os", arg) :: bnds
+         if [] = v_os then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__template__spec__os) v_os
+           in
+           let bnd = "os", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__init_container
-             v_init_container
-         in
-         ("init_container", arg) :: bnds
+         if [] = v_init_container then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__init_container)
+               v_init_container
+           in
+           let bnd = "init_container", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__image_pull_secrets
-             v_image_pull_secrets
-         in
-         ("image_pull_secrets", arg) :: bnds
+         if [] = v_image_pull_secrets then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__image_pull_secrets)
+               v_image_pull_secrets
+           in
+           let bnd = "image_pull_secrets", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_spec__template__spec__host_aliases
-             v_host_aliases
-         in
-         ("host_aliases", arg) :: bnds
+         if [] = v_host_aliases then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__host_aliases)
+               v_host_aliases
+           in
+           let bnd = "host_aliases", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec__dns_config
-             v_dns_config
-         in
-         ("dns_config", arg) :: bnds
+         if [] = v_dns_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__dns_config)
+               v_dns_config
+           in
+           let bnd = "dns_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec__container
-             v_container
-         in
-         ("container", arg) :: bnds
+         if [] = v_container then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_spec__template__spec__container)
+               v_container
+           in
+           let bnd = "container", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec__affinity
-             v_affinity
-         in
-         ("affinity", arg) :: bnds
+         if [] = v_affinity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__template__spec__affinity)
+               v_affinity
+           in
+           let bnd = "affinity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_termination_grace_period_seconds with
@@ -11036,7 +11834,9 @@ let _ = yojson_of_spec__template__spec
 
 type spec__template = {
   metadata : spec__template__metadata list;
+      [@default []] [@yojson_drop_default ( = )]
   spec : spec__template__spec list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11049,17 +11849,23 @@ let yojson_of_spec__template =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__spec v_spec
-         in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__template__spec) v_spec
+           in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template__metadata
-             v_metadata
-         in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__template__metadata)
+               v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : spec__template -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -11073,6 +11879,7 @@ type spec = {
   replicas : float prop option; [@option]
   selector : (string * string prop) list;
   template : spec__template list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -11090,10 +11897,13 @@ let yojson_of_spec =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spec__template v_template
-         in
-         ("template", arg) :: bnds
+         if [] = v_template then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spec__template) v_template
+           in
+           let bnd = "template", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -11179,7 +11989,8 @@ let _ = yojson_of_timeouts
 type kubernetes_replication_controller_v1 = {
   id : string prop option; [@option]
   metadata : metadata list;
-  spec : spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -11202,12 +12013,20 @@ let yojson_of_kubernetes_replication_controller_v1 =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

@@ -77,6 +77,7 @@ type google_dialogflow_cx_environment = {
   parent : string prop option; [@option]
   timeouts : timeouts option;
   version_configs : version_configs list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -96,10 +97,14 @@ let yojson_of_google_dialogflow_cx_environment =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_version_configs v_version_configs
-         in
-         ("version_configs", arg) :: bnds
+         if [] = v_version_configs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_version_configs)
+               v_version_configs
+           in
+           let bnd = "version_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

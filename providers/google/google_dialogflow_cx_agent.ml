@@ -86,7 +86,9 @@ let _ = yojson_of_advanced_settings__dtmf_settings
 type advanced_settings = {
   audio_export_gcs_destination :
     advanced_settings__audio_export_gcs_destination list;
+      [@default []] [@yojson_drop_default ( = )]
   dtmf_settings : advanced_settings__dtmf_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -102,19 +104,26 @@ let yojson_of_advanced_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_advanced_settings__dtmf_settings
-             v_dtmf_settings
-         in
-         ("dtmf_settings", arg) :: bnds
+         if [] = v_dtmf_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_advanced_settings__dtmf_settings)
+               v_dtmf_settings
+           in
+           let bnd = "dtmf_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_advanced_settings__audio_export_gcs_destination
-             v_audio_export_gcs_destination
-         in
-         ("audio_export_gcs_destination", arg) :: bnds
+         if [] = v_audio_export_gcs_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_advanced_settings__audio_export_gcs_destination)
+               v_audio_export_gcs_destination
+           in
+           let bnd = "audio_export_gcs_destination", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : advanced_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -198,6 +207,7 @@ let _ = yojson_of_git_integration_settings__github_settings
 
 type git_integration_settings = {
   github_settings : git_integration_settings__github_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -210,12 +220,15 @@ let yojson_of_git_integration_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_git_integration_settings__github_settings
-             v_github_settings
-         in
-         ("github_settings", arg) :: bnds
+         if [] = v_github_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_git_integration_settings__github_settings)
+               v_github_settings
+           in
+           let bnd = "github_settings", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : git_integration_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -340,9 +353,13 @@ type google_dialogflow_cx_agent = {
   supported_language_codes : string prop list option; [@option]
   time_zone : string prop;
   advanced_settings : advanced_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   git_integration_settings : git_integration_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   speech_to_text_settings : speech_to_text_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   text_to_speech_settings : text_to_speech_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -378,32 +395,44 @@ let yojson_of_google_dialogflow_cx_agent =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_text_to_speech_settings
-             v_text_to_speech_settings
-         in
-         ("text_to_speech_settings", arg) :: bnds
+         if [] = v_text_to_speech_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_text_to_speech_settings)
+               v_text_to_speech_settings
+           in
+           let bnd = "text_to_speech_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_speech_to_text_settings
-             v_speech_to_text_settings
-         in
-         ("speech_to_text_settings", arg) :: bnds
+         if [] = v_speech_to_text_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_speech_to_text_settings)
+               v_speech_to_text_settings
+           in
+           let bnd = "speech_to_text_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_git_integration_settings
-             v_git_integration_settings
-         in
-         ("git_integration_settings", arg) :: bnds
+         if [] = v_git_integration_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_git_integration_settings)
+               v_git_integration_settings
+           in
+           let bnd = "git_integration_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_advanced_settings
-             v_advanced_settings
-         in
-         ("advanced_settings", arg) :: bnds
+         if [] = v_advanced_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_advanced_settings)
+               v_advanced_settings
+           in
+           let bnd = "advanced_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_time_zone in

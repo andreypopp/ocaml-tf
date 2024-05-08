@@ -190,9 +190,13 @@ type google_bigquery_analytics_hub_listing = {
   project : string prop option; [@option]
   request_access : string prop option; [@option]
   bigquery_dataset : bigquery_dataset list;
+      [@default []] [@yojson_drop_default ( = )]
   data_provider : data_provider list;
+      [@default []] [@yojson_drop_default ( = )]
   publisher : publisher list;
+      [@default []] [@yojson_drop_default ( = )]
   restricted_export_config : restricted_export_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -228,28 +232,42 @@ let yojson_of_google_bigquery_analytics_hub_listing =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restricted_export_config
-             v_restricted_export_config
-         in
-         ("restricted_export_config", arg) :: bnds
+         if [] = v_restricted_export_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restricted_export_config)
+               v_restricted_export_config
+           in
+           let bnd = "restricted_export_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_publisher v_publisher in
-         ("publisher", arg) :: bnds
+         if [] = v_publisher then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_publisher) v_publisher
+           in
+           let bnd = "publisher", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_data_provider v_data_provider
-         in
-         ("data_provider", arg) :: bnds
+         if [] = v_data_provider then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_data_provider) v_data_provider
+           in
+           let bnd = "data_provider", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bigquery_dataset
-             v_bigquery_dataset
-         in
-         ("bigquery_dataset", arg) :: bnds
+         if [] = v_bigquery_dataset then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bigquery_dataset)
+               v_bigquery_dataset
+           in
+           let bnd = "bigquery_dataset", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_request_access with

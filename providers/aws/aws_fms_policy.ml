@@ -156,9 +156,11 @@ type security_service_policy_data__policy_option = {
   network_firewall_policy :
     security_service_policy_data__policy_option__network_firewall_policy
     list;
+      [@default []] [@yojson_drop_default ( = )]
   third_party_firewall_policy :
     security_service_policy_data__policy_option__third_party_firewall_policy
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -174,20 +176,26 @@ let yojson_of_security_service_policy_data__policy_option =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_service_policy_data__policy_option__third_party_firewall_policy
-             v_third_party_firewall_policy
-         in
-         ("third_party_firewall_policy", arg) :: bnds
+         if [] = v_third_party_firewall_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_service_policy_data__policy_option__third_party_firewall_policy)
+               v_third_party_firewall_policy
+           in
+           let bnd = "third_party_firewall_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_service_policy_data__policy_option__network_firewall_policy
-             v_network_firewall_policy
-         in
-         ("network_firewall_policy", arg) :: bnds
+         if [] = v_network_firewall_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_service_policy_data__policy_option__network_firewall_policy)
+               v_network_firewall_policy
+           in
+           let bnd = "network_firewall_policy", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : security_service_policy_data__policy_option ->
@@ -201,6 +209,7 @@ type security_service_policy_data = {
   managed_service_data : string prop option; [@option]
   type_ : string prop; [@key "type"]
   policy_option : security_service_policy_data__policy_option list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -217,12 +226,15 @@ let yojson_of_security_service_policy_data =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_service_policy_data__policy_option
-             v_policy_option
-         in
-         ("policy_option", arg) :: bnds
+         if [] = v_policy_option then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_service_policy_data__policy_option)
+               v_policy_option
+           in
+           let bnd = "policy_option", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -258,8 +270,11 @@ type aws_fms_policy = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   exclude_map : exclude_map list;
+      [@default []] [@yojson_drop_default ( = )]
   include_map : include_map list;
+      [@default []] [@yojson_drop_default ( = )]
   security_service_policy_data : security_service_policy_data list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -289,23 +304,32 @@ let yojson_of_aws_fms_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_security_service_policy_data
-             v_security_service_policy_data
-         in
-         ("security_service_policy_data", arg) :: bnds
+         if [] = v_security_service_policy_data then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_security_service_policy_data)
+               v_security_service_policy_data
+           in
+           let bnd = "security_service_policy_data", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_include_map v_include_map
-         in
-         ("include_map", arg) :: bnds
+         if [] = v_include_map then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_include_map) v_include_map
+           in
+           let bnd = "include_map", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_exclude_map v_exclude_map
-         in
-         ("exclude_map", arg) :: bnds
+         if [] = v_exclude_map then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_exclude_map) v_exclude_map
+           in
+           let bnd = "exclude_map", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

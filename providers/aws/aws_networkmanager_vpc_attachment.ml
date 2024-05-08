@@ -92,10 +92,11 @@ type aws_networkmanager_vpc_attachment = {
   core_network_id : string prop;
   id : string prop option; [@option]
   subnet_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   vpc_arn : string prop;
-  options : options list;
+  options : options list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -122,8 +123,11 @@ let yojson_of_aws_networkmanager_vpc_attachment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_options v_options in
-         ("options", arg) :: bnds
+         if [] = v_options then bnds
+         else
+           let arg = (yojson_of_list yojson_of_options) v_options in
+           let bnd = "options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_vpc_arn in
@@ -162,12 +166,14 @@ let yojson_of_aws_networkmanager_vpc_attachment =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_arns
-         in
-         ("subnet_arns", arg) :: bnds
+         if [] = v_subnet_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_arns
+           in
+           let bnd = "subnet_arns", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

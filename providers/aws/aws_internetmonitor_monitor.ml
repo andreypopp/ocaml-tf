@@ -91,6 +91,7 @@ let _ = yojson_of_internet_measurements_log_delivery__s3_config
 
 type internet_measurements_log_delivery = {
   s3_config : internet_measurements_log_delivery__s3_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -103,12 +104,15 @@ let yojson_of_internet_measurements_log_delivery =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_internet_measurements_log_delivery__s3_config
-             v_s3_config
-         in
-         ("s3_config", arg) :: bnds
+         if [] = v_s3_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_internet_measurements_log_delivery__s3_config)
+               v_s3_config
+           in
+           let bnd = "s3_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : internet_measurements_log_delivery ->
@@ -128,8 +132,10 @@ type aws_internetmonitor_monitor = {
   tags_all : (string * string prop) list option; [@option]
   traffic_percentage_to_monitor : float prop option; [@option]
   health_events_config : health_events_config list;
+      [@default []] [@yojson_drop_default ( = )]
   internet_measurements_log_delivery :
     internet_measurements_log_delivery list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -155,19 +161,25 @@ let yojson_of_aws_internetmonitor_monitor =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_internet_measurements_log_delivery
-             v_internet_measurements_log_delivery
-         in
-         ("internet_measurements_log_delivery", arg) :: bnds
+         if [] = v_internet_measurements_log_delivery then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_internet_measurements_log_delivery)
+               v_internet_measurements_log_delivery
+           in
+           let bnd = "internet_measurements_log_delivery", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_health_events_config
-             v_health_events_config
-         in
-         ("health_events_config", arg) :: bnds
+         if [] = v_health_events_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_health_events_config)
+               v_health_events_config
+           in
+           let bnd = "health_events_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_traffic_percentage_to_monitor with

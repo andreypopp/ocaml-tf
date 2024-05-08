@@ -4,10 +4,12 @@ open! Tf_core
 
 type aws_iam_openid_connect_provider = {
   client_id_list : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   thumbprint_list : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   url : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -32,12 +34,14 @@ let yojson_of_aws_iam_openid_connect_provider =
          ("url", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_thumbprint_list
-         in
-         ("thumbprint_list", arg) :: bnds
+         if [] = v_thumbprint_list then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_thumbprint_list
+           in
+           let bnd = "thumbprint_list", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -80,12 +84,14 @@ let yojson_of_aws_iam_openid_connect_provider =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_client_id_list
-         in
-         ("client_id_list", arg) :: bnds
+         if [] = v_client_id_list then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_client_id_list
+           in
+           let bnd = "client_id_list", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_iam_openid_connect_provider ->

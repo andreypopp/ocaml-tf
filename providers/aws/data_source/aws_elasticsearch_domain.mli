@@ -19,6 +19,7 @@ type auto_tune_options__maintenance_schedule = {
   cron_expression_for_recurrence : string prop;
       (** cron_expression_for_recurrence *)
   duration : auto_tune_options__maintenance_schedule__duration list;
+      [@default []] [@yojson_drop_default ( = )]
       (** duration *)
   start_at : string prop;  (** start_at *)
 }
@@ -27,6 +28,7 @@ type auto_tune_options = {
   desired_state : string prop;  (** desired_state *)
   maintenance_schedule :
     auto_tune_options__maintenance_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
       (** maintenance_schedule *)
   rollback_on_disable : string prop;  (** rollback_on_disable *)
 }
@@ -42,6 +44,7 @@ type cluster_config__cold_storage_options = {
 
 type cluster_config = {
   cold_storage_options : cluster_config__cold_storage_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** cold_storage_options *)
   dedicated_master_count : float prop;  (** dedicated_master_count *)
   dedicated_master_enabled : bool prop;
@@ -53,6 +56,7 @@ type cluster_config = {
   warm_enabled : bool prop;  (** warm_enabled *)
   warm_type : string prop;  (** warm_type *)
   zone_awareness_config : cluster_config__zone_awareness_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** zone_awareness_config *)
   zone_awareness_enabled : bool prop;  (** zone_awareness_enabled *)
 }
@@ -94,9 +98,15 @@ type snapshot_options = {
 }
 
 type vpc_options = {
-  availability_zones : string prop list;  (** availability_zones *)
-  security_group_ids : string prop list;  (** security_group_ids *)
-  subnet_ids : string prop list;  (** subnet_ids *)
+  availability_zones : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** availability_zones *)
+  security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** security_group_ids *)
+  subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** subnet_ids *)
   vpc_id : string prop;  (** vpc_id *)
 }
 

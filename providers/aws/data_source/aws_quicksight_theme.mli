@@ -29,6 +29,7 @@ type configuration__typography__font_families = {
 
 type configuration__typography = {
   font_families : configuration__typography__font_families list;
+      [@default []] [@yojson_drop_default ( = )]
       (** font_families *)
 }
 
@@ -42,8 +43,10 @@ type configuration__sheet__tile_layout__gutter = {
 
 type configuration__sheet__tile_layout = {
   gutter : configuration__sheet__tile_layout__gutter list;
+      [@default []] [@yojson_drop_default ( = )]
       (** gutter *)
   margin : configuration__sheet__tile_layout__margin list;
+      [@default []] [@yojson_drop_default ( = )]
       (** margin *)
 }
 
@@ -52,32 +55,49 @@ type configuration__sheet__tile__border = {
 }
 
 type configuration__sheet__tile = {
-  border : configuration__sheet__tile__border list;  (** border *)
+  border : configuration__sheet__tile__border list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** border *)
 }
 
 type configuration__sheet = {
-  tile : configuration__sheet__tile list;  (** tile *)
+  tile : configuration__sheet__tile list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** tile *)
   tile_layout : configuration__sheet__tile_layout list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tile_layout *)
 }
 
 type configuration__data_color_palette = {
-  colors : string prop list;  (** colors *)
+  colors : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** colors *)
   empty_fill_color : string prop;  (** empty_fill_color *)
-  min_max_gradient : string prop list;  (** min_max_gradient *)
+  min_max_gradient : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** min_max_gradient *)
 }
 
 type configuration = {
   data_color_palette : configuration__data_color_palette list;
+      [@default []] [@yojson_drop_default ( = )]
       (** data_color_palette *)
-  sheet : configuration__sheet list;  (** sheet *)
-  typography : configuration__typography list;  (** typography *)
+  sheet : configuration__sheet list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** sheet *)
+  typography : configuration__typography list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** typography *)
   ui_color_palette : configuration__ui_color_palette list;
+      [@default []] [@yojson_drop_default ( = )]
       (** ui_color_palette *)
 }
 
 type permissions = {
-  actions : string prop list;  (** actions *)
+  actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** actions *)
   principal : string prop;  (** principal *)
 }
 

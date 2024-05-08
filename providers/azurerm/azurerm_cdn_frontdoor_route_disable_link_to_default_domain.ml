@@ -64,6 +64,7 @@ let _ = yojson_of_timeouts
 
 type azurerm_cdn_frontdoor_route_disable_link_to_default_domain = {
   cdn_frontdoor_custom_domain_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   cdn_frontdoor_route_id : string prop;
   id : string prop option; [@option]
   timeouts : timeouts option;
@@ -106,12 +107,14 @@ let yojson_of_azurerm_cdn_frontdoor_route_disable_link_to_default_domain
          ("cdn_frontdoor_route_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cdn_frontdoor_custom_domain_ids
-         in
-         ("cdn_frontdoor_custom_domain_ids", arg) :: bnds
+         if [] = v_cdn_frontdoor_custom_domain_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cdn_frontdoor_custom_domain_ids
+           in
+           let bnd = "cdn_frontdoor_custom_domain_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_cdn_frontdoor_route_disable_link_to_default_domain ->

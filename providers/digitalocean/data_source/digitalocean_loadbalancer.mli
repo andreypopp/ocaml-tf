@@ -5,8 +5,11 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type firewall = {
-  allow : string prop list;  (** allow *)
-  deny : string prop list;  (** deny *)
+  allow : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allow *)
+  deny : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** deny *)
 }
 
 type forwarding_rule = {

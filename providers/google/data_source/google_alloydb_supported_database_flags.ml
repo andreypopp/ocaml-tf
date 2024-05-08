@@ -4,6 +4,7 @@ open! Tf_core
 
 type supported_database_flags__string_restrictions = {
   allowed_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -16,12 +17,14 @@ let yojson_of_supported_database_flags__string_restrictions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_values
-         in
-         ("allowed_values", arg) :: bnds
+         if [] = v_allowed_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_values
+           in
+           let bnd = "allowed_values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : supported_database_flags__string_restrictions ->
@@ -67,11 +70,14 @@ type supported_database_flags = {
   flag_name : string prop;
   integer_restrictions :
     supported_database_flags__integer_restrictions list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   requires_db_restart : bool prop;
   string_restrictions :
     supported_database_flags__string_restrictions list;
+      [@default []] [@yojson_drop_default ( = )]
   supported_db_versions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   value_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -98,20 +104,25 @@ let yojson_of_supported_database_flags =
          ("value_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_supported_db_versions
-         in
-         ("supported_db_versions", arg) :: bnds
+         if [] = v_supported_db_versions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_supported_db_versions
+           in
+           let bnd = "supported_db_versions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_supported_database_flags__string_restrictions
-             v_string_restrictions
-         in
-         ("string_restrictions", arg) :: bnds
+         if [] = v_string_restrictions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_supported_database_flags__string_restrictions)
+               v_string_restrictions
+           in
+           let bnd = "string_restrictions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -124,12 +135,15 @@ let yojson_of_supported_database_flags =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_supported_database_flags__integer_restrictions
-             v_integer_restrictions
-         in
-         ("integer_restrictions", arg) :: bnds
+         if [] = v_integer_restrictions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_supported_database_flags__integer_restrictions)
+               v_integer_restrictions
+           in
+           let bnd = "integer_restrictions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_flag_name in

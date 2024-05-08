@@ -50,6 +50,7 @@ let _ = yojson_of_timeouts
 
 type google_certificate_manager_certificate_map_entry = {
   certificates : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   description : string prop option; [@option]
   hostname : string prop option; [@option]
   id : string prop option; [@option]
@@ -151,12 +152,14 @@ let yojson_of_google_certificate_manager_certificate_map_entry =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_certificates
-         in
-         ("certificates", arg) :: bnds
+         if [] = v_certificates then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_certificates
+           in
+           let bnd = "certificates", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : google_certificate_manager_certificate_map_entry ->

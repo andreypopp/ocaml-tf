@@ -109,7 +109,9 @@ type aws_transfer_user = {
   tags_all : (string * string prop) list option; [@option]
   user_name : string prop;
   home_directory_mappings : home_directory_mappings list;
+      [@default []] [@yojson_drop_default ( = )]
   posix_profile : posix_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -140,17 +142,23 @@ let yojson_of_aws_transfer_user =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_posix_profile v_posix_profile
-         in
-         ("posix_profile", arg) :: bnds
+         if [] = v_posix_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_posix_profile) v_posix_profile
+           in
+           let bnd = "posix_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_home_directory_mappings
-             v_home_directory_mappings
-         in
-         ("home_directory_mappings", arg) :: bnds
+         if [] = v_home_directory_mappings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_home_directory_mappings)
+               v_home_directory_mappings
+           in
+           let bnd = "home_directory_mappings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_user_name in

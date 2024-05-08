@@ -60,7 +60,7 @@ type aws_chime_voice_connector_origination = {
   disabled : bool prop option; [@option]
   id : string prop option; [@option]
   voice_connector_id : string prop;
-  route : route list;
+  route : route list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,8 +78,11 @@ let yojson_of_aws_chime_voice_connector_origination =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_route v_route in
-         ("route", arg) :: bnds
+         if [] = v_route then bnds
+         else
+           let arg = (yojson_of_list yojson_of_route) v_route in
+           let bnd = "route", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

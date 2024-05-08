@@ -47,6 +47,7 @@ let _ =
 type adaptive_protection_config = {
   layer_7_ddos_defense_config :
     adaptive_protection_config__layer_7_ddos_defense_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,12 +61,15 @@ let yojson_of_adaptive_protection_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_adaptive_protection_config__layer_7_ddos_defense_config
-             v_layer_7_ddos_defense_config
-         in
-         ("layer_7_ddos_defense_config", arg) :: bnds
+         if [] = v_layer_7_ddos_defense_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_adaptive_protection_config__layer_7_ddos_defense_config)
+               v_layer_7_ddos_defense_config
+           in
+           let bnd = "layer_7_ddos_defense_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : adaptive_protection_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -76,6 +80,7 @@ let _ = yojson_of_adaptive_protection_config
 
 type advanced_options_config__json_custom_config = {
   content_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,12 +93,14 @@ let yojson_of_advanced_options_config__json_custom_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_content_types
-         in
-         ("content_types", arg) :: bnds
+         if [] = v_content_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_content_types
+           in
+           let bnd = "content_types", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : advanced_options_config__json_custom_config ->
@@ -109,6 +116,7 @@ type advanced_options_config = {
   user_ip_request_headers : string prop list option; [@option]
   json_custom_config :
     advanced_options_config__json_custom_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -126,12 +134,15 @@ let yojson_of_advanced_options_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_advanced_options_config__json_custom_config
-             v_json_custom_config
-         in
-         ("json_custom_config", arg) :: bnds
+         if [] = v_json_custom_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_advanced_options_config__json_custom_config)
+               v_json_custom_config
+           in
+           let bnd = "json_custom_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_ip_request_headers with
@@ -228,6 +239,7 @@ let _ = yojson_of_rule__header_action__request_headers_to_adds
 type rule__header_action = {
   request_headers_to_adds :
     rule__header_action__request_headers_to_adds list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -240,12 +252,15 @@ let yojson_of_rule__header_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__header_action__request_headers_to_adds
-             v_request_headers_to_adds
-         in
-         ("request_headers_to_adds", arg) :: bnds
+         if [] = v_request_headers_to_adds then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__header_action__request_headers_to_adds)
+               v_request_headers_to_adds
+           in
+           let bnd = "request_headers_to_adds", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rule__header_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -254,7 +269,10 @@ let _ = yojson_of_rule__header_action
 
 [@@@deriving.end]
 
-type rule__match__config = { src_ip_ranges : string prop list }
+type rule__match__config = {
+  src_ip_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : rule__match__config) -> ()
@@ -266,12 +284,14 @@ let yojson_of_rule__match__config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_src_ip_ranges
-         in
-         ("src_ip_ranges", arg) :: bnds
+         if [] = v_src_ip_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_src_ip_ranges
+           in
+           let bnd = "src_ip_ranges", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : rule__match__config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -305,7 +325,9 @@ let _ = yojson_of_rule__match__expr
 type rule__match = {
   versioned_expr : string prop option; [@option]
   config : rule__match__config list;
+      [@default []] [@yojson_drop_default ( = )]
   expr : rule__match__expr list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -322,16 +344,22 @@ let yojson_of_rule__match =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__match__expr v_expr
-         in
-         ("expr", arg) :: bnds
+         if [] = v_expr then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__match__expr) v_expr
+           in
+           let bnd = "expr", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__match__config v_config
-         in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__match__config) v_config
+           in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_versioned_expr with
@@ -451,10 +479,13 @@ type rule__rate_limit_options = {
   enforce_on_key_name : string prop option; [@option]
   exceed_action : string prop;
   ban_threshold : rule__rate_limit_options__ban_threshold list;
+      [@default []] [@yojson_drop_default ( = )]
   exceed_redirect_options :
     rule__rate_limit_options__exceed_redirect_options list;
+      [@default []] [@yojson_drop_default ( = )]
   rate_limit_threshold :
     rule__rate_limit_options__rate_limit_threshold list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -476,28 +507,37 @@ let yojson_of_rule__rate_limit_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__rate_limit_options__rate_limit_threshold
-             v_rate_limit_threshold
-         in
-         ("rate_limit_threshold", arg) :: bnds
+         if [] = v_rate_limit_threshold then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rate_limit_options__rate_limit_threshold)
+               v_rate_limit_threshold
+           in
+           let bnd = "rate_limit_threshold", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__rate_limit_options__exceed_redirect_options
-             v_exceed_redirect_options
-         in
-         ("exceed_redirect_options", arg) :: bnds
+         if [] = v_exceed_redirect_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rate_limit_options__exceed_redirect_options)
+               v_exceed_redirect_options
+           in
+           let bnd = "exceed_redirect_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_rule__rate_limit_options__ban_threshold
-             v_ban_threshold
-         in
-         ("ban_threshold", arg) :: bnds
+         if [] = v_ban_threshold then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_rule__rate_limit_options__ban_threshold)
+               v_ban_threshold
+           in
+           let bnd = "ban_threshold", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_exceed_action in
@@ -579,9 +619,13 @@ type rule = {
   preview : bool prop option; [@option]
   priority : float prop;
   header_action : rule__header_action list;
-  match_ : rule__match list; [@key "match"]
+      [@default []] [@yojson_drop_default ( = )]
+  match_ : rule__match list;
+      [@key "match"] [@default []] [@yojson_drop_default ( = )]
   rate_limit_options : rule__rate_limit_options list;
+      [@default []] [@yojson_drop_default ( = )]
   redirect_options : rule__redirect_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -603,29 +647,43 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__redirect_options
-             v_redirect_options
-         in
-         ("redirect_options", arg) :: bnds
+         if [] = v_redirect_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__redirect_options)
+               v_redirect_options
+           in
+           let bnd = "redirect_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__rate_limit_options
-             v_rate_limit_options
-         in
-         ("rate_limit_options", arg) :: bnds
+         if [] = v_rate_limit_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__rate_limit_options)
+               v_rate_limit_options
+           in
+           let bnd = "rate_limit_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule__match v_match_ in
-         ("match", arg) :: bnds
+         if [] = v_match_ then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__match) v_match_
+           in
+           let bnd = "match", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__header_action
-             v_header_action
-         in
-         ("header_action", arg) :: bnds
+         if [] = v_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__header_action)
+               v_header_action
+           in
+           let bnd = "header_action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_priority in
@@ -711,9 +769,12 @@ type google_compute_security_policy = {
   project : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
   adaptive_protection_config : adaptive_protection_config list;
+      [@default []] [@yojson_drop_default ( = )]
   advanced_options_config : advanced_options_config list;
+      [@default []] [@yojson_drop_default ( = )]
   recaptcha_options_config : recaptcha_options_config list;
-  rule : rule list;
+      [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -742,29 +803,41 @@ let yojson_of_google_compute_security_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recaptcha_options_config
-             v_recaptcha_options_config
-         in
-         ("recaptcha_options_config", arg) :: bnds
+         if [] = v_recaptcha_options_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recaptcha_options_config)
+               v_recaptcha_options_config
+           in
+           let bnd = "recaptcha_options_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_advanced_options_config
-             v_advanced_options_config
-         in
-         ("advanced_options_config", arg) :: bnds
+         if [] = v_advanced_options_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_advanced_options_config)
+               v_advanced_options_config
+           in
+           let bnd = "advanced_options_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_adaptive_protection_config
-             v_adaptive_protection_config
-         in
-         ("adaptive_protection_config", arg) :: bnds
+         if [] = v_adaptive_protection_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_adaptive_protection_config)
+               v_adaptive_protection_config
+           in
+           let bnd = "adaptive_protection_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

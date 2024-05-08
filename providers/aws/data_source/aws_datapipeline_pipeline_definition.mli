@@ -10,7 +10,9 @@ type parameter_object__attribute = {
 }
 
 type parameter_object = {
-  attribute : parameter_object__attribute list;  (** attribute *)
+  attribute : parameter_object__attribute list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** attribute *)
   id : string prop;  (** id *)
 }
 
@@ -21,7 +23,9 @@ type pipeline_object__field = {
 }
 
 type pipeline_object = {
-  field : pipeline_object__field list;  (** field *)
+  field : pipeline_object__field list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** field *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }

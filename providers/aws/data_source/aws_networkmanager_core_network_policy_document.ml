@@ -123,7 +123,9 @@ type attachment_policies = {
   description : string prop option; [@option]
   rule_number : float prop;
   action : attachment_policies__action list;
+      [@default []] [@yojson_drop_default ( = )]
   conditions : attachment_policies__conditions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -142,18 +144,25 @@ let yojson_of_attachment_policies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attachment_policies__conditions
-             v_conditions
-         in
-         ("conditions", arg) :: bnds
+         if [] = v_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_attachment_policies__conditions)
+               v_conditions
+           in
+           let bnd = "conditions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attachment_policies__action
-             v_action
-         in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attachment_policies__action)
+               v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_rule_number in
@@ -233,9 +242,11 @@ let _ = yojson_of_core_network_configuration__edge_locations
 
 type core_network_configuration = {
   asn_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   inside_cidr_blocks : string prop list option; [@option]
   vpn_ecmp_support : bool prop option; [@option]
   edge_locations : core_network_configuration__edge_locations list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -253,12 +264,15 @@ let yojson_of_core_network_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_core_network_configuration__edge_locations
-             v_edge_locations
-         in
-         ("edge_locations", arg) :: bnds
+         if [] = v_edge_locations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_core_network_configuration__edge_locations)
+               v_edge_locations
+           in
+           let bnd = "edge_locations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpn_ecmp_support with
@@ -279,12 +293,14 @@ let yojson_of_core_network_configuration =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_asn_ranges
-         in
-         ("asn_ranges", arg) :: bnds
+         if [] = v_asn_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_asn_ranges
+           in
+           let bnd = "asn_ranges", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : core_network_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -490,9 +506,12 @@ type aws_networkmanager_core_network_policy_document = {
   id : string prop option; [@option]
   version : string prop option; [@option]
   attachment_policies : attachment_policies list;
+      [@default []] [@yojson_drop_default ( = )]
   core_network_configuration : core_network_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   segment_actions : segment_actions list;
-  segments : segments list;
+      [@default []] [@yojson_drop_default ( = )]
+  segments : segments list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -513,28 +532,43 @@ let yojson_of_aws_networkmanager_core_network_policy_document =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_segments v_segments in
-         ("segments", arg) :: bnds
+         if [] = v_segments then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_segments) v_segments
+           in
+           let bnd = "segments", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_segment_actions v_segment_actions
-         in
-         ("segment_actions", arg) :: bnds
+         if [] = v_segment_actions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_segment_actions)
+               v_segment_actions
+           in
+           let bnd = "segment_actions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_core_network_configuration
-             v_core_network_configuration
-         in
-         ("core_network_configuration", arg) :: bnds
+         if [] = v_core_network_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_core_network_configuration)
+               v_core_network_configuration
+           in
+           let bnd = "core_network_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attachment_policies
-             v_attachment_policies
-         in
-         ("attachment_policies", arg) :: bnds
+         if [] = v_attachment_policies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attachment_policies)
+               v_attachment_policies
+           in
+           let bnd = "attachment_policies", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with

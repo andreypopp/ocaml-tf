@@ -98,7 +98,9 @@ type rule = {
   record : string prop option; [@option]
   severity : float prop option; [@option]
   action : rule__action list;
+      [@default []] [@yojson_drop_default ( = )]
   alert_resolution : rule__alert_resolution list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -122,15 +124,23 @@ let yojson_of_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rule__alert_resolution
-             v_alert_resolution
-         in
-         ("alert_resolution", arg) :: bnds
+         if [] = v_alert_resolution then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__alert_resolution)
+               v_alert_resolution
+           in
+           let bnd = "alert_resolution", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule__action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rule__action) v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_severity with
@@ -285,8 +295,9 @@ type azurerm_monitor_alert_prometheus_rule_group = {
   resource_group_name : string prop;
   rule_group_enabled : bool prop option; [@option]
   scopes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -317,8 +328,11 @@ let yojson_of_azurerm_monitor_alert_prometheus_rule_group =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -337,10 +351,14 @@ let yojson_of_azurerm_monitor_alert_prometheus_rule_group =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
-         in
-         ("scopes", arg) :: bnds
+         if [] = v_scopes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_scopes
+           in
+           let bnd = "scopes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_rule_group_enabled with

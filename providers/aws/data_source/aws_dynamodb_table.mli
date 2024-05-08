@@ -12,7 +12,9 @@ type attribute = {
 type global_secondary_index = {
   hash_key : string prop;  (** hash_key *)
   name : string prop;  (** name *)
-  non_key_attributes : string prop list;  (** non_key_attributes *)
+  non_key_attributes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** non_key_attributes *)
   projection_type : string prop;  (** projection_type *)
   range_key : string prop;  (** range_key *)
   read_capacity : float prop;  (** read_capacity *)
@@ -21,7 +23,9 @@ type global_secondary_index = {
 
 type local_secondary_index = {
   name : string prop;  (** name *)
-  non_key_attributes : string prop list;  (** non_key_attributes *)
+  non_key_attributes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** non_key_attributes *)
   projection_type : string prop;  (** projection_type *)
   range_key : string prop;  (** range_key *)
 }

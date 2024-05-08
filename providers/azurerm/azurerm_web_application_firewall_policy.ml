@@ -44,6 +44,7 @@ type custom_rules__match_conditions = {
   transforms : string prop list option; [@option]
   match_variables :
     custom_rules__match_conditions__match_variables list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -62,12 +63,15 @@ let yojson_of_custom_rules__match_conditions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_custom_rules__match_conditions__match_variables
-             v_match_variables
-         in
-         ("match_variables", arg) :: bnds
+         if [] = v_match_variables then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_custom_rules__match_conditions__match_variables)
+               v_match_variables
+           in
+           let bnd = "match_variables", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_transforms with
@@ -119,6 +123,7 @@ type custom_rules = {
   rate_limit_threshold : float prop option; [@option]
   rule_type : string prop;
   match_conditions : custom_rules__match_conditions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -141,11 +146,14 @@ let yojson_of_custom_rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_rules__match_conditions
-             v_match_conditions
-         in
-         ("match_conditions", arg) :: bnds
+         if [] = v_match_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_rules__match_conditions)
+               v_match_conditions
+           in
+           let bnd = "match_conditions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_rule_type in
@@ -256,6 +264,7 @@ type managed_rules__exclusion__excluded_rule_set = {
   version : string prop option; [@option]
   rule_group :
     managed_rules__exclusion__excluded_rule_set__rule_group list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -272,12 +281,15 @@ let yojson_of_managed_rules__exclusion__excluded_rule_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_managed_rules__exclusion__excluded_rule_set__rule_group
-             v_rule_group
-         in
-         ("rule_group", arg) :: bnds
+         if [] = v_rule_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_managed_rules__exclusion__excluded_rule_set__rule_group)
+               v_rule_group
+           in
+           let bnd = "rule_group", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -309,6 +321,7 @@ type managed_rules__exclusion = {
   selector_match_operator : string prop;
   excluded_rule_set :
     managed_rules__exclusion__excluded_rule_set list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -326,12 +339,15 @@ let yojson_of_managed_rules__exclusion =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_managed_rules__exclusion__excluded_rule_set
-             v_excluded_rule_set
-         in
-         ("excluded_rule_set", arg) :: bnds
+         if [] = v_excluded_rule_set then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_managed_rules__exclusion__excluded_rule_set)
+               v_excluded_rule_set
+           in
+           let bnd = "excluded_rule_set", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -408,6 +424,7 @@ type managed_rules__managed_rule_set__rule_group_override = {
   rule_group_name : string prop;
   rule :
     managed_rules__managed_rule_set__rule_group_override__rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -425,12 +442,15 @@ let yojson_of_managed_rules__managed_rule_set__rule_group_override =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_managed_rules__managed_rule_set__rule_group_override__rule
-             v_rule
-         in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_managed_rules__managed_rule_set__rule_group_override__rule)
+               v_rule
+           in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -462,6 +482,7 @@ type managed_rules__managed_rule_set = {
   version : string prop;
   rule_group_override :
     managed_rules__managed_rule_set__rule_group_override list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -478,12 +499,15 @@ let yojson_of_managed_rules__managed_rule_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_managed_rules__managed_rule_set__rule_group_override
-             v_rule_group_override
-         in
-         ("rule_group_override", arg) :: bnds
+         if [] = v_rule_group_override then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_managed_rules__managed_rule_set__rule_group_override)
+               v_rule_group_override
+           in
+           let bnd = "rule_group_override", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_version in
@@ -507,7 +531,9 @@ let _ = yojson_of_managed_rules__managed_rule_set
 
 type managed_rules = {
   exclusion : managed_rules__exclusion list;
+      [@default []] [@yojson_drop_default ( = )]
   managed_rule_set : managed_rules__managed_rule_set list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -523,18 +549,25 @@ let yojson_of_managed_rules =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_managed_rules__managed_rule_set
-             v_managed_rule_set
-         in
-         ("managed_rule_set", arg) :: bnds
+         if [] = v_managed_rule_set then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_managed_rules__managed_rule_set)
+               v_managed_rule_set
+           in
+           let bnd = "managed_rule_set", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_managed_rules__exclusion
-             v_exclusion
-         in
-         ("exclusion", arg) :: bnds
+         if [] = v_exclusion then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_managed_rules__exclusion)
+               v_exclusion
+           in
+           let bnd = "exclusion", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : managed_rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -605,6 +638,7 @@ let _ = yojson_of_policy_settings__log_scrubbing__rule
 type policy_settings__log_scrubbing = {
   enabled : bool prop option; [@option]
   rule : policy_settings__log_scrubbing__rule list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -617,11 +651,15 @@ let yojson_of_policy_settings__log_scrubbing =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policy_settings__log_scrubbing__rule v_rule
-         in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policy_settings__log_scrubbing__rule)
+               v_rule
+           in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enabled with
@@ -647,6 +685,7 @@ type policy_settings = {
   request_body_check : bool prop option; [@option]
   request_body_inspect_limit_in_kb : float prop option; [@option]
   log_scrubbing : policy_settings__log_scrubbing list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -668,11 +707,14 @@ let yojson_of_policy_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policy_settings__log_scrubbing
-             v_log_scrubbing
-         in
-         ("log_scrubbing", arg) :: bnds
+         if [] = v_log_scrubbing then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_policy_settings__log_scrubbing)
+               v_log_scrubbing
+           in
+           let bnd = "log_scrubbing", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_request_body_inspect_limit_in_kb with
@@ -796,8 +838,11 @@ type azurerm_web_application_firewall_policy = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   custom_rules : custom_rules list;
+      [@default []] [@yojson_drop_default ( = )]
   managed_rules : managed_rules list;
+      [@default []] [@yojson_drop_default ( = )]
   policy_settings : policy_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -825,22 +870,32 @@ let yojson_of_azurerm_web_application_firewall_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policy_settings v_policy_settings
-         in
-         ("policy_settings", arg) :: bnds
+         if [] = v_policy_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_policy_settings)
+               v_policy_settings
+           in
+           let bnd = "policy_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_managed_rules v_managed_rules
-         in
-         ("managed_rules", arg) :: bnds
+         if [] = v_managed_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_managed_rules) v_managed_rules
+           in
+           let bnd = "managed_rules", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_custom_rules v_custom_rules
-         in
-         ("custom_rules", arg) :: bnds
+         if [] = v_custom_rules then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom_rules) v_custom_rules
+           in
+           let bnd = "custom_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

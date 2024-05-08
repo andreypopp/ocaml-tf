@@ -19,11 +19,14 @@ type spec__worker__log_destination__datadog = {
 
 type spec__worker__log_destination = {
   datadog : spec__worker__log_destination__datadog list;
+      [@default []] [@yojson_drop_default ( = )]
       (** datadog *)
   logtail : spec__worker__log_destination__logtail list;
+      [@default []] [@yojson_drop_default ( = )]
       (** logtail *)
   name : string prop;  (** name *)
   papertrail : spec__worker__log_destination__papertrail list;
+      [@default []] [@yojson_drop_default ( = )]
       (** papertrail *)
 }
 
@@ -33,6 +36,7 @@ type spec__worker__image__deploy_on_push = {
 
 type spec__worker__image = {
   deploy_on_push : spec__worker__image__deploy_on_push list;
+      [@default []] [@yojson_drop_default ( = )]
       (** deploy_on_push *)
   registry : string prop;  (** registry *)
   registry_type : string prop;  (** registry_type *)
@@ -73,18 +77,31 @@ type spec__worker__alert = {
 }
 
 type spec__worker = {
-  alert : spec__worker__alert list;  (** alert *)
+  alert : spec__worker__alert list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** alert *)
   build_command : string prop;  (** build_command *)
   dockerfile_path : string prop;  (** dockerfile_path *)
-  env : spec__worker__env list;  (** env *)
+  env : spec__worker__env list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env *)
   environment_slug : string prop;  (** environment_slug *)
-  git : spec__worker__git list;  (** git *)
-  github : spec__worker__github list;  (** github *)
-  gitlab : spec__worker__gitlab list;  (** gitlab *)
-  image : spec__worker__image list;  (** image *)
+  git : spec__worker__git list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** git *)
+  github : spec__worker__github list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** github *)
+  gitlab : spec__worker__gitlab list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** gitlab *)
+  image : spec__worker__image list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** image *)
   instance_count : float prop;  (** instance_count *)
   instance_size_slug : string prop;  (** instance_size_slug *)
   log_destination : spec__worker__log_destination list;
+      [@default []] [@yojson_drop_default ( = )]
       (** log_destination *)
   name : string prop;  (** name *)
   run_command : string prop;  (** run_command *)
@@ -128,29 +145,48 @@ type spec__static_site__cors__allow_origins = {
 
 type spec__static_site__cors = {
   allow_credentials : bool prop;  (** allow_credentials *)
-  allow_headers : string prop list;  (** allow_headers *)
-  allow_methods : string prop list;  (** allow_methods *)
+  allow_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allow_headers *)
+  allow_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allow_methods *)
   allow_origins : spec__static_site__cors__allow_origins list;
+      [@default []] [@yojson_drop_default ( = )]
       (** allow_origins *)
-  expose_headers : string prop list;  (** expose_headers *)
+  expose_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** expose_headers *)
   max_age : string prop;  (** max_age *)
 }
 
 type spec__static_site = {
   build_command : string prop;  (** build_command *)
   catchall_document : string prop;  (** catchall_document *)
-  cors : spec__static_site__cors list;  (** cors *)
+  cors : spec__static_site__cors list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cors *)
   dockerfile_path : string prop;  (** dockerfile_path *)
-  env : spec__static_site__env list;  (** env *)
+  env : spec__static_site__env list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env *)
   environment_slug : string prop;  (** environment_slug *)
   error_document : string prop;  (** error_document *)
-  git : spec__static_site__git list;  (** git *)
-  github : spec__static_site__github list;  (** github *)
-  gitlab : spec__static_site__gitlab list;  (** gitlab *)
+  git : spec__static_site__git list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** git *)
+  github : spec__static_site__github list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** github *)
+  gitlab : spec__static_site__gitlab list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** gitlab *)
   index_document : string prop;  (** index_document *)
   name : string prop;  (** name *)
   output_dir : string prop;  (** output_dir *)
-  routes : spec__static_site__routes list;  (** routes *)
+  routes : spec__static_site__routes list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** routes *)
   source_dir : string prop;  (** source_dir *)
 }
 
@@ -174,11 +210,14 @@ type spec__service__log_destination__datadog = {
 
 type spec__service__log_destination = {
   datadog : spec__service__log_destination__datadog list;
+      [@default []] [@yojson_drop_default ( = )]
       (** datadog *)
   logtail : spec__service__log_destination__logtail list;
+      [@default []] [@yojson_drop_default ( = )]
       (** logtail *)
   name : string prop;  (** name *)
   papertrail : spec__service__log_destination__papertrail list;
+      [@default []] [@yojson_drop_default ( = )]
       (** papertrail *)
 }
 
@@ -188,6 +227,7 @@ type spec__service__image__deploy_on_push = {
 
 type spec__service__image = {
   deploy_on_push : spec__service__image__deploy_on_push list;
+      [@default []] [@yojson_drop_default ( = )]
       (** deploy_on_push *)
   registry : string prop;  (** registry *)
   registry_type : string prop;  (** registry_type *)
@@ -237,11 +277,18 @@ type spec__service__cors__allow_origins = {
 
 type spec__service__cors = {
   allow_credentials : bool prop;  (** allow_credentials *)
-  allow_headers : string prop list;  (** allow_headers *)
-  allow_methods : string prop list;  (** allow_methods *)
+  allow_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allow_headers *)
+  allow_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allow_methods *)
   allow_origins : spec__service__cors__allow_origins list;
+      [@default []] [@yojson_drop_default ( = )]
       (** allow_origins *)
-  expose_headers : string prop list;  (** expose_headers *)
+  expose_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** expose_headers *)
   max_age : string prop;  (** max_age *)
 }
 
@@ -254,26 +301,46 @@ type spec__service__alert = {
 }
 
 type spec__service = {
-  alert : spec__service__alert list;  (** alert *)
+  alert : spec__service__alert list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** alert *)
   build_command : string prop;  (** build_command *)
-  cors : spec__service__cors list;  (** cors *)
+  cors : spec__service__cors list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cors *)
   dockerfile_path : string prop;  (** dockerfile_path *)
-  env : spec__service__env list;  (** env *)
+  env : spec__service__env list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env *)
   environment_slug : string prop;  (** environment_slug *)
-  git : spec__service__git list;  (** git *)
-  github : spec__service__github list;  (** github *)
-  gitlab : spec__service__gitlab list;  (** gitlab *)
+  git : spec__service__git list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** git *)
+  github : spec__service__github list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** github *)
+  gitlab : spec__service__gitlab list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** gitlab *)
   health_check : spec__service__health_check list;
+      [@default []] [@yojson_drop_default ( = )]
       (** health_check *)
   http_port : float prop;  (** http_port *)
-  image : spec__service__image list;  (** image *)
+  image : spec__service__image list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** image *)
   instance_count : float prop;  (** instance_count *)
   instance_size_slug : string prop;  (** instance_size_slug *)
-  internal_ports : float prop list;  (** internal_ports *)
+  internal_ports : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** internal_ports *)
   log_destination : spec__service__log_destination list;
+      [@default []] [@yojson_drop_default ( = )]
       (** log_destination *)
   name : string prop;  (** name *)
-  routes : spec__service__routes list;  (** routes *)
+  routes : spec__service__routes list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** routes *)
   run_command : string prop;  (** run_command *)
   source_dir : string prop;  (** source_dir *)
 }
@@ -292,10 +359,15 @@ type spec__job__log_destination__datadog = {
 }
 
 type spec__job__log_destination = {
-  datadog : spec__job__log_destination__datadog list;  (** datadog *)
-  logtail : spec__job__log_destination__logtail list;  (** logtail *)
+  datadog : spec__job__log_destination__datadog list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** datadog *)
+  logtail : spec__job__log_destination__logtail list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** logtail *)
   name : string prop;  (** name *)
   papertrail : spec__job__log_destination__papertrail list;
+      [@default []] [@yojson_drop_default ( = )]
       (** papertrail *)
 }
 
@@ -305,6 +377,7 @@ type spec__job__image__deploy_on_push = {
 
 type spec__job__image = {
   deploy_on_push : spec__job__image__deploy_on_push list;
+      [@default []] [@yojson_drop_default ( = )]
       (** deploy_on_push *)
   registry : string prop;  (** registry *)
   registry_type : string prop;  (** registry_type *)
@@ -345,19 +418,32 @@ type spec__job__alert = {
 }
 
 type spec__job = {
-  alert : spec__job__alert list;  (** alert *)
+  alert : spec__job__alert list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** alert *)
   build_command : string prop;  (** build_command *)
   dockerfile_path : string prop;  (** dockerfile_path *)
-  env : spec__job__env list;  (** env *)
+  env : spec__job__env list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env *)
   environment_slug : string prop;  (** environment_slug *)
-  git : spec__job__git list;  (** git *)
-  github : spec__job__github list;  (** github *)
-  gitlab : spec__job__gitlab list;  (** gitlab *)
-  image : spec__job__image list;  (** image *)
+  git : spec__job__git list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** git *)
+  github : spec__job__github list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** github *)
+  gitlab : spec__job__gitlab list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** gitlab *)
+  image : spec__job__image list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** image *)
   instance_count : float prop;  (** instance_count *)
   instance_size_slug : string prop;  (** instance_size_slug *)
   kind : string prop;  (** kind *)
   log_destination : spec__job__log_destination list;
+      [@default []] [@yojson_drop_default ( = )]
       (** log_destination *)
   name : string prop;  (** name *)
   run_command : string prop;  (** run_command *)
@@ -377,7 +463,9 @@ type spec__ingress__rule__match__path = {
 }
 
 type spec__ingress__rule__match = {
-  path : spec__ingress__rule__match__path list;  (** path *)
+  path : spec__ingress__rule__match__path list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** path *)
 }
 
 type spec__ingress__rule__cors__allow_origins = {
@@ -388,11 +476,18 @@ type spec__ingress__rule__cors__allow_origins = {
 
 type spec__ingress__rule__cors = {
   allow_credentials : bool prop;  (** allow_credentials *)
-  allow_headers : string prop list;  (** allow_headers *)
-  allow_methods : string prop list;  (** allow_methods *)
+  allow_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allow_headers *)
+  allow_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allow_methods *)
   allow_origins : spec__ingress__rule__cors__allow_origins list;
+      [@default []] [@yojson_drop_default ( = )]
       (** allow_origins *)
-  expose_headers : string prop list;  (** expose_headers *)
+  expose_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** expose_headers *)
   max_age : string prop;  (** max_age *)
 }
 
@@ -403,14 +498,25 @@ type spec__ingress__rule__component = {
 }
 
 type spec__ingress__rule = {
-  component : spec__ingress__rule__component list;  (** component *)
-  cors : spec__ingress__rule__cors list;  (** cors *)
-  match_ : spec__ingress__rule__match list; [@key "match"]
+  component : spec__ingress__rule__component list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** component *)
+  cors : spec__ingress__rule__cors list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cors *)
+  match_ : spec__ingress__rule__match list;
+      [@default []] [@yojson_drop_default ( = )] [@key "match"]
       (** match *)
-  redirect : spec__ingress__rule__redirect list;  (** redirect *)
+  redirect : spec__ingress__rule__redirect list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** redirect *)
 }
 
-type spec__ingress = { rule : spec__ingress__rule list  (** rule *) }
+type spec__ingress = {
+  rule : spec__ingress__rule list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** rule *)
+}
 
 type spec__function__routes = {
   path : string prop;  (** path *)
@@ -432,11 +538,14 @@ type spec__function__log_destination__datadog = {
 
 type spec__function__log_destination = {
   datadog : spec__function__log_destination__datadog list;
+      [@default []] [@yojson_drop_default ( = )]
       (** datadog *)
   logtail : spec__function__log_destination__logtail list;
+      [@default []] [@yojson_drop_default ( = )]
       (** logtail *)
   name : string prop;  (** name *)
   papertrail : spec__function__log_destination__papertrail list;
+      [@default []] [@yojson_drop_default ( = )]
       (** papertrail *)
 }
 
@@ -472,11 +581,18 @@ type spec__function__cors__allow_origins = {
 
 type spec__function__cors = {
   allow_credentials : bool prop;  (** allow_credentials *)
-  allow_headers : string prop list;  (** allow_headers *)
-  allow_methods : string prop list;  (** allow_methods *)
+  allow_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allow_headers *)
+  allow_methods : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** allow_methods *)
   allow_origins : spec__function__cors__allow_origins list;
+      [@default []] [@yojson_drop_default ( = )]
       (** allow_origins *)
-  expose_headers : string prop list;  (** expose_headers *)
+  expose_headers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** expose_headers *)
   max_age : string prop;  (** max_age *)
 }
 
@@ -489,16 +605,31 @@ type spec__function__alert = {
 }
 
 type spec__function = {
-  alert : spec__function__alert list;  (** alert *)
-  cors : spec__function__cors list;  (** cors *)
-  env : spec__function__env list;  (** env *)
-  git : spec__function__git list;  (** git *)
-  github : spec__function__github list;  (** github *)
-  gitlab : spec__function__gitlab list;  (** gitlab *)
+  alert : spec__function__alert list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** alert *)
+  cors : spec__function__cors list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cors *)
+  env : spec__function__env list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env *)
+  git : spec__function__git list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** git *)
+  github : spec__function__github list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** github *)
+  gitlab : spec__function__gitlab list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** gitlab *)
   log_destination : spec__function__log_destination list;
+      [@default []] [@yojson_drop_default ( = )]
       (** log_destination *)
   name : string prop;  (** name *)
-  routes : spec__function__routes list;  (** routes *)
+  routes : spec__function__routes list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** routes *)
   source_dir : string prop;  (** source_dir *)
 }
 
@@ -532,20 +663,42 @@ type spec__alert = {
 }
 
 type spec = {
-  alert : spec__alert list;  (** alert *)
-  database : spec__database list;  (** database *)
-  domain : spec__domain list;  (** domain *)
-  domains : string prop list;  (** domains *)
-  env : spec__env list;  (** env *)
-  features : string prop list;  (** features *)
-  function_ : spec__function list; [@key "function"]  (** function *)
-  ingress : spec__ingress list;  (** ingress *)
-  job : spec__job list;  (** job *)
+  alert : spec__alert list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** alert *)
+  database : spec__database list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** database *)
+  domain : spec__domain list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** domain *)
+  domains : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** domains *)
+  env : spec__env list; [@default []] [@yojson_drop_default ( = )]
+      (** env *)
+  features : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** features *)
+  function_ : spec__function list;
+      [@default []] [@yojson_drop_default ( = )] [@key "function"]
+      (** function *)
+  ingress : spec__ingress list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ingress *)
+  job : spec__job list; [@default []] [@yojson_drop_default ( = )]
+      (** job *)
   name : string prop;  (** name *)
   region : string prop;  (** region *)
-  service : spec__service list;  (** service *)
-  static_site : spec__static_site list;  (** static_site *)
-  worker : spec__worker list;  (** worker *)
+  service : spec__service list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** service *)
+  static_site : spec__static_site list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** static_site *)
+  worker : spec__worker list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** worker *)
 }
 
 type digitalocean_app

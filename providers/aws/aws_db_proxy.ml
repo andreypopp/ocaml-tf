@@ -140,7 +140,8 @@ type aws_db_proxy = {
   tags_all : (string * string prop) list option; [@option]
   vpc_security_group_ids : string prop list option; [@option]
   vpc_subnet_ids : string prop list;
-  auth : auth list;
+      [@default []] [@yojson_drop_default ( = )]
+  auth : auth list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -172,16 +173,21 @@ let yojson_of_aws_db_proxy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_auth v_auth in
-         ("auth", arg) :: bnds
+         if [] = v_auth then bnds
+         else
+           let arg = (yojson_of_list yojson_of_auth) v_auth in
+           let bnd = "auth", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_vpc_subnet_ids
-         in
-         ("vpc_subnet_ids", arg) :: bnds
+         if [] = v_vpc_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_vpc_subnet_ids
+           in
+           let bnd = "vpc_subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_security_group_ids with

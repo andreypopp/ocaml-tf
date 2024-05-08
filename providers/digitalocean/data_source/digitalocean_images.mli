@@ -14,11 +14,14 @@ type images = {
   min_disk_size : float prop;  (** min_disk_size *)
   name : string prop;  (** name *)
   private_ : bool prop; [@key "private"]  (** private *)
-  regions : string prop list;  (** regions *)
+  regions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** regions *)
   size_gigabytes : float prop;  (** size_gigabytes *)
   slug : string prop;  (** slug *)
   status : string prop;  (** status *)
-  tags : string prop list;  (** tags *)
+  tags : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** tags *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 

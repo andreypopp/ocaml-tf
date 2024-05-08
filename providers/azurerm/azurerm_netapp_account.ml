@@ -4,6 +4,7 @@ open! Tf_core
 
 type active_directory = {
   dns_servers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   domain : string prop;
   organizational_unit : string prop option; [@option]
   password : string prop;
@@ -54,12 +55,14 @@ let yojson_of_active_directory =
          ("domain", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_dns_servers
-         in
-         ("dns_servers", arg) :: bnds
+         if [] = v_dns_servers then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_dns_servers
+           in
+           let bnd = "dns_servers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : active_directory -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -170,7 +173,9 @@ type azurerm_netapp_account = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   active_directory : active_directory list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -197,15 +202,23 @@ let yojson_of_azurerm_netapp_account =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_active_directory
-             v_active_directory
-         in
-         ("active_directory", arg) :: bnds
+         if [] = v_active_directory then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_active_directory)
+               v_active_directory
+           in
+           let bnd = "active_directory", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

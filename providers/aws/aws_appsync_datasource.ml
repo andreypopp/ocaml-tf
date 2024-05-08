@@ -57,6 +57,7 @@ type dynamodb_config = {
   use_caller_credentials : bool prop option; [@option]
   versioned : bool prop option; [@option]
   delta_sync_config : dynamodb_config__delta_sync_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,12 +76,15 @@ let yojson_of_dynamodb_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_dynamodb_config__delta_sync_config
-             v_delta_sync_config
-         in
-         ("delta_sync_config", arg) :: bnds
+         if [] = v_delta_sync_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_dynamodb_config__delta_sync_config)
+               v_delta_sync_config
+           in
+           let bnd = "delta_sync_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_versioned with
@@ -218,6 +222,7 @@ type http_config__authorization_config = {
   authorization_type : string prop option; [@option]
   aws_iam_config :
     http_config__authorization_config__aws_iam_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -233,12 +238,15 @@ let yojson_of_http_config__authorization_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_http_config__authorization_config__aws_iam_config
-             v_aws_iam_config
-         in
-         ("aws_iam_config", arg) :: bnds
+         if [] = v_aws_iam_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_http_config__authorization_config__aws_iam_config)
+               v_aws_iam_config
+           in
+           let bnd = "aws_iam_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_authorization_type with
@@ -259,6 +267,7 @@ let _ = yojson_of_http_config__authorization_config
 type http_config = {
   endpoint : string prop;
   authorization_config : http_config__authorization_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -274,11 +283,15 @@ let yojson_of_http_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_config__authorization_config
-             v_authorization_config
-         in
-         ("authorization_config", arg) :: bnds
+         if [] = v_authorization_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_http_config__authorization_config)
+               v_authorization_config
+           in
+           let bnd = "authorization_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_endpoint in
@@ -418,6 +431,7 @@ type relational_database_config = {
   source_type : string prop option; [@option]
   http_endpoint_config :
     relational_database_config__http_endpoint_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -433,12 +447,15 @@ let yojson_of_relational_database_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_relational_database_config__http_endpoint_config
-             v_http_endpoint_config
-         in
-         ("http_endpoint_config", arg) :: bnds
+         if [] = v_http_endpoint_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_relational_database_config__http_endpoint_config)
+               v_http_endpoint_config
+           in
+           let bnd = "http_endpoint_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_type with
@@ -463,12 +480,19 @@ type aws_appsync_datasource = {
   service_role_arn : string prop option; [@option]
   type_ : string prop; [@key "type"]
   dynamodb_config : dynamodb_config list;
+      [@default []] [@yojson_drop_default ( = )]
   elasticsearch_config : elasticsearch_config list;
+      [@default []] [@yojson_drop_default ( = )]
   event_bridge_config : event_bridge_config list;
+      [@default []] [@yojson_drop_default ( = )]
   http_config : http_config list;
+      [@default []] [@yojson_drop_default ( = )]
   lambda_config : lambda_config list;
+      [@default []] [@yojson_drop_default ( = )]
   opensearchservice_config : opensearchservice_config list;
+      [@default []] [@yojson_drop_default ( = )]
   relational_database_config : relational_database_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -495,50 +519,72 @@ let yojson_of_aws_appsync_datasource =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_relational_database_config
-             v_relational_database_config
-         in
-         ("relational_database_config", arg) :: bnds
+         if [] = v_relational_database_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_relational_database_config)
+               v_relational_database_config
+           in
+           let bnd = "relational_database_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_opensearchservice_config
-             v_opensearchservice_config
-         in
-         ("opensearchservice_config", arg) :: bnds
+         if [] = v_opensearchservice_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_opensearchservice_config)
+               v_opensearchservice_config
+           in
+           let bnd = "opensearchservice_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_lambda_config v_lambda_config
-         in
-         ("lambda_config", arg) :: bnds
+         if [] = v_lambda_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_lambda_config) v_lambda_config
+           in
+           let bnd = "lambda_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http_config v_http_config
-         in
-         ("http_config", arg) :: bnds
+         if [] = v_http_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http_config) v_http_config
+           in
+           let bnd = "http_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_bridge_config
-             v_event_bridge_config
-         in
-         ("event_bridge_config", arg) :: bnds
+         if [] = v_event_bridge_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_bridge_config)
+               v_event_bridge_config
+           in
+           let bnd = "event_bridge_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_elasticsearch_config
-             v_elasticsearch_config
-         in
-         ("elasticsearch_config", arg) :: bnds
+         if [] = v_elasticsearch_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_elasticsearch_config)
+               v_elasticsearch_config
+           in
+           let bnd = "elasticsearch_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dynamodb_config v_dynamodb_config
-         in
-         ("dynamodb_config", arg) :: bnds
+         if [] = v_dynamodb_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dynamodb_config)
+               v_dynamodb_config
+           in
+           let bnd = "dynamodb_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

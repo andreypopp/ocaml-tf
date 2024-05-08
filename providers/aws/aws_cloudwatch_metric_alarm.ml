@@ -86,6 +86,7 @@ type metric_query = {
   period : float prop option; [@option]
   return_data : bool prop option; [@option]
   metric : metric_query__metric list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -106,10 +107,13 @@ let yojson_of_metric_query =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metric_query__metric v_metric
-         in
-         ("metric", arg) :: bnds
+         if [] = v_metric then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metric_query__metric) v_metric
+           in
+           let bnd = "metric", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_return_data with
@@ -188,6 +192,7 @@ type aws_cloudwatch_metric_alarm = {
   treat_missing_data : string prop option; [@option]
   unit : string prop option; [@option]
   metric_query : metric_query list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -226,10 +231,13 @@ let yojson_of_aws_cloudwatch_metric_alarm =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metric_query v_metric_query
-         in
-         ("metric_query", arg) :: bnds
+         if [] = v_metric_query then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metric_query) v_metric_query
+           in
+           let bnd = "metric_query", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_unit with

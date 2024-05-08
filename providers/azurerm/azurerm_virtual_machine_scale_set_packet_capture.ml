@@ -206,9 +206,11 @@ type azurerm_virtual_machine_scale_set_packet_capture = {
   name : string prop;
   network_watcher_id : string prop;
   virtual_machine_scale_set_id : string prop;
-  filter : filter list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
   machine_scope : machine_scope list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_location : storage_location list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -240,21 +242,30 @@ let yojson_of_azurerm_virtual_machine_scale_set_packet_capture =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_location
-             v_storage_location
-         in
-         ("storage_location", arg) :: bnds
+         if [] = v_storage_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_location)
+               v_storage_location
+           in
+           let bnd = "storage_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_machine_scope v_machine_scope
-         in
-         ("machine_scope", arg) :: bnds
+         if [] = v_machine_scope then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_machine_scope) v_machine_scope
+           in
+           let bnd = "machine_scope", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -182,9 +182,13 @@ let _ = yojson_of_env__value_from__secret_key_ref
 
 type env__value_from = {
   config_map_key_ref : env__value_from__config_map_key_ref list;
+      [@default []] [@yojson_drop_default ( = )]
   field_ref : env__value_from__field_ref list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_field_ref : env__value_from__resource_field_ref list;
+      [@default []] [@yojson_drop_default ( = )]
   secret_key_ref : env__value_from__secret_key_ref list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -202,34 +206,47 @@ let yojson_of_env__value_from =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_env__value_from__secret_key_ref
-             v_secret_key_ref
-         in
-         ("secret_key_ref", arg) :: bnds
+         if [] = v_secret_key_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_env__value_from__secret_key_ref)
+               v_secret_key_ref
+           in
+           let bnd = "secret_key_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_env__value_from__resource_field_ref
-             v_resource_field_ref
-         in
-         ("resource_field_ref", arg) :: bnds
+         if [] = v_resource_field_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_env__value_from__resource_field_ref)
+               v_resource_field_ref
+           in
+           let bnd = "resource_field_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_env__value_from__field_ref
-             v_field_ref
-         in
-         ("field_ref", arg) :: bnds
+         if [] = v_field_ref then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_env__value_from__field_ref)
+               v_field_ref
+           in
+           let bnd = "field_ref", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_env__value_from__config_map_key_ref
-             v_config_map_key_ref
-         in
-         ("config_map_key_ref", arg) :: bnds
+         if [] = v_config_map_key_ref then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_env__value_from__config_map_key_ref)
+               v_config_map_key_ref
+           in
+           let bnd = "config_map_key_ref", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : env__value_from -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -242,6 +259,7 @@ type env = {
   name : string prop;
   value : string prop option; [@option]
   value_from : env__value_from list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -254,10 +272,13 @@ let yojson_of_env =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_env__value_from v_value_from
-         in
-         ("value_from", arg) :: bnds
+         if [] = v_value_from then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_env__value_from) v_value_from
+           in
+           let bnd = "value_from", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_value with
@@ -319,8 +340,8 @@ type kubernetes_env = {
   id : string prop option; [@option]
   init_container : string prop option; [@option]
   kind : string prop;
-  env : env list;
-  metadata : metadata list;
+  env : env list; [@default []] [@yojson_drop_default ( = )]
+  metadata : metadata list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -343,12 +364,20 @@ let yojson_of_kubernetes_env =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_env v_env in
-         ("env", arg) :: bnds
+         if [] = v_env then bnds
+         else
+           let arg = (yojson_of_list yojson_of_env) v_env in
+           let bnd = "env", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_kind in

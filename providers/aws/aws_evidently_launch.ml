@@ -111,6 +111,7 @@ let _ = yojson_of_metric_monitors__metric_definition
 
 type metric_monitors = {
   metric_definition : metric_monitors__metric_definition list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -123,12 +124,15 @@ let yojson_of_metric_monitors =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_metric_monitors__metric_definition
-             v_metric_definition
-         in
-         ("metric_definition", arg) :: bnds
+         if [] = v_metric_definition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_metric_monitors__metric_definition)
+               v_metric_definition
+           in
+           let bnd = "metric_definition", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : metric_monitors -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -192,6 +196,7 @@ type scheduled_splits_config__steps = {
   start_time : string prop;
   segment_overrides :
     scheduled_splits_config__steps__segment_overrides list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -208,12 +213,15 @@ let yojson_of_scheduled_splits_config__steps =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_scheduled_splits_config__steps__segment_overrides
-             v_segment_overrides
-         in
-         ("segment_overrides", arg) :: bnds
+         if [] = v_segment_overrides then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scheduled_splits_config__steps__segment_overrides)
+               v_segment_overrides
+           in
+           let bnd = "segment_overrides", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_start_time in
@@ -241,6 +249,7 @@ let _ = yojson_of_scheduled_splits_config__steps
 
 type scheduled_splits_config = {
   steps : scheduled_splits_config__steps list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -253,11 +262,14 @@ let yojson_of_scheduled_splits_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scheduled_splits_config__steps
-             v_steps
-         in
-         ("steps", arg) :: bnds
+         if [] = v_steps then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scheduled_splits_config__steps)
+               v_steps
+           in
+           let bnd = "steps", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : scheduled_splits_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -349,9 +361,11 @@ type aws_evidently_launch = {
   randomization_salt : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  groups : groups list;
+  groups : groups list; [@default []] [@yojson_drop_default ( = )]
   metric_monitors : metric_monitors list;
+      [@default []] [@yojson_drop_default ( = )]
   scheduled_splits_config : scheduled_splits_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -381,21 +395,31 @@ let yojson_of_aws_evidently_launch =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scheduled_splits_config
-             v_scheduled_splits_config
-         in
-         ("scheduled_splits_config", arg) :: bnds
+         if [] = v_scheduled_splits_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scheduled_splits_config)
+               v_scheduled_splits_config
+           in
+           let bnd = "scheduled_splits_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metric_monitors v_metric_monitors
-         in
-         ("metric_monitors", arg) :: bnds
+         if [] = v_metric_monitors then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metric_monitors)
+               v_metric_monitors
+           in
+           let bnd = "metric_monitors", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_groups v_groups in
-         ("groups", arg) :: bnds
+         if [] = v_groups then bnds
+         else
+           let arg = (yojson_of_list yojson_of_groups) v_groups in
+           let bnd = "groups", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

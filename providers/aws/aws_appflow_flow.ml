@@ -67,6 +67,7 @@ type destination_flow_config__destination_connector_properties__custom_connector
   error_handling_config :
     destination_flow_config__destination_connector_properties__custom_connector__error_handling_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,12 +90,15 @@ let yojson_of_destination_flow_config__destination_connector_properties__custom_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__custom_connector__error_handling_config
-             v_error_handling_config
-         in
-         ("error_handling_config", arg) :: bnds
+         if [] = v_error_handling_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__custom_connector__error_handling_config)
+               v_error_handling_config
+           in
+           let bnd = "error_handling_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_write_operation_type with
@@ -247,6 +251,7 @@ type destination_flow_config__destination_connector_properties__event_bridge = {
   error_handling_config :
     destination_flow_config__destination_connector_properties__event_bridge__error_handling_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -266,12 +271,15 @@ let yojson_of_destination_flow_config__destination_connector_properties__event_b
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__event_bridge__error_handling_config
-             v_error_handling_config
-         in
-         ("error_handling_config", arg) :: bnds
+         if [] = v_error_handling_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__event_bridge__error_handling_config)
+               v_error_handling_config
+           in
+           let bnd = "error_handling_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_object_ in
@@ -348,6 +356,7 @@ type destination_flow_config__destination_connector_properties__honeycode = {
   error_handling_config :
     destination_flow_config__destination_connector_properties__honeycode__error_handling_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -367,12 +376,15 @@ let yojson_of_destination_flow_config__destination_connector_properties__honeyco
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__honeycode__error_handling_config
-             v_error_handling_config
-         in
-         ("error_handling_config", arg) :: bnds
+         if [] = v_error_handling_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__honeycode__error_handling_config)
+               v_error_handling_config
+           in
+           let bnd = "error_handling_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_object_ in
@@ -469,6 +481,7 @@ type destination_flow_config__destination_connector_properties__marketo = {
   error_handling_config :
     destination_flow_config__destination_connector_properties__marketo__error_handling_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -488,12 +501,15 @@ let yojson_of_destination_flow_config__destination_connector_properties__marketo
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__marketo__error_handling_config
-             v_error_handling_config
-         in
-         ("error_handling_config", arg) :: bnds
+         if [] = v_error_handling_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__marketo__error_handling_config)
+               v_error_handling_config
+           in
+           let bnd = "error_handling_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_object_ in
@@ -572,6 +588,7 @@ type destination_flow_config__destination_connector_properties__redshift = {
   error_handling_config :
     destination_flow_config__destination_connector_properties__redshift__error_handling_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -593,12 +610,15 @@ let yojson_of_destination_flow_config__destination_connector_properties__redshif
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__redshift__error_handling_config
-             v_error_handling_config
-         in
-         ("error_handling_config", arg) :: bnds
+         if [] = v_error_handling_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__redshift__error_handling_config)
+               v_error_handling_config
+           in
+           let bnd = "error_handling_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_object_ in
@@ -723,9 +743,11 @@ type destination_flow_config__destination_connector_properties__s3__s3_output_fo
   aggregation_config :
     destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix_config :
     destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -747,20 +769,26 @@ let yojson_of_destination_flow_config__destination_connector_properties__s3__s3_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config
-             v_prefix_config
-         in
-         ("prefix_config", arg) :: bnds
+         if [] = v_prefix_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__s3__s3_output_format_config__prefix_config)
+               v_prefix_config
+           in
+           let bnd = "prefix_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config
-             v_aggregation_config
-         in
-         ("aggregation_config", arg) :: bnds
+         if [] = v_aggregation_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__s3__s3_output_format_config__aggregation_config)
+               v_aggregation_config
+           in
+           let bnd = "aggregation_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_preserve_source_data_typing with
@@ -793,6 +821,7 @@ type destination_flow_config__destination_connector_properties__s3 = {
   s3_output_format_config :
     destination_flow_config__destination_connector_properties__s3__s3_output_format_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -813,12 +842,15 @@ let yojson_of_destination_flow_config__destination_connector_properties__s3
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__s3__s3_output_format_config
-             v_s3_output_format_config
-         in
-         ("s3_output_format_config", arg) :: bnds
+         if [] = v_s3_output_format_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__s3__s3_output_format_config)
+               v_s3_output_format_config
+           in
+           let bnd = "s3_output_format_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_bucket_prefix with
@@ -905,6 +937,7 @@ type destination_flow_config__destination_connector_properties__salesforce = {
   error_handling_config :
     destination_flow_config__destination_connector_properties__salesforce__error_handling_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -926,12 +959,15 @@ let yojson_of_destination_flow_config__destination_connector_properties__salesfo
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__salesforce__error_handling_config
-             v_error_handling_config
-         in
-         ("error_handling_config", arg) :: bnds
+         if [] = v_error_handling_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__salesforce__error_handling_config)
+               v_error_handling_config
+           in
+           let bnd = "error_handling_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_write_operation_type with
@@ -1072,9 +1108,11 @@ type destination_flow_config__destination_connector_properties__sapo_data = {
   error_handling_config :
     destination_flow_config__destination_connector_properties__sapo_data__error_handling_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   success_response_handling_config :
     destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1098,20 +1136,26 @@ let yojson_of_destination_flow_config__destination_connector_properties__sapo_da
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config
-             v_success_response_handling_config
-         in
-         ("success_response_handling_config", arg) :: bnds
+         if [] = v_success_response_handling_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__sapo_data__success_response_handling_config)
+               v_success_response_handling_config
+           in
+           let bnd = "success_response_handling_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__sapo_data__error_handling_config
-             v_error_handling_config
-         in
-         ("error_handling_config", arg) :: bnds
+         if [] = v_error_handling_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__sapo_data__error_handling_config)
+               v_error_handling_config
+           in
+           let bnd = "error_handling_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_write_operation_type with
@@ -1208,6 +1252,7 @@ type destination_flow_config__destination_connector_properties__snowflake = {
   error_handling_config :
     destination_flow_config__destination_connector_properties__snowflake__error_handling_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1229,12 +1274,15 @@ let yojson_of_destination_flow_config__destination_connector_properties__snowfla
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__snowflake__error_handling_config
-             v_error_handling_config
-         in
-         ("error_handling_config", arg) :: bnds
+         if [] = v_error_handling_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__snowflake__error_handling_config)
+               v_error_handling_config
+           in
+           let bnd = "error_handling_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_object_ in
@@ -1342,9 +1390,11 @@ type destination_flow_config__destination_connector_properties__upsolver__s3_out
   aggregation_config :
     destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix_config :
     destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1365,20 +1415,26 @@ let yojson_of_destination_flow_config__destination_connector_properties__upsolve
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config
-             v_prefix_config
-         in
-         ("prefix_config", arg) :: bnds
+         if [] = v_prefix_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__prefix_config)
+               v_prefix_config
+           in
+           let bnd = "prefix_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config
-             v_aggregation_config
-         in
-         ("aggregation_config", arg) :: bnds
+         if [] = v_aggregation_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config__aggregation_config)
+               v_aggregation_config
+           in
+           let bnd = "aggregation_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_file_type with
@@ -1403,6 +1459,7 @@ type destination_flow_config__destination_connector_properties__upsolver = {
   s3_output_format_config :
     destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1423,12 +1480,15 @@ let yojson_of_destination_flow_config__destination_connector_properties__upsolve
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config
-             v_s3_output_format_config
-         in
-         ("s3_output_format_config", arg) :: bnds
+         if [] = v_s3_output_format_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__upsolver__s3_output_format_config)
+               v_s3_output_format_config
+           in
+           let bnd = "s3_output_format_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_bucket_prefix with
@@ -1515,6 +1575,7 @@ type destination_flow_config__destination_connector_properties__zendesk = {
   error_handling_config :
     destination_flow_config__destination_connector_properties__zendesk__error_handling_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1536,12 +1597,15 @@ let yojson_of_destination_flow_config__destination_connector_properties__zendesk
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__zendesk__error_handling_config
-             v_error_handling_config
-         in
-         ("error_handling_config", arg) :: bnds
+         if [] = v_error_handling_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__zendesk__error_handling_config)
+               v_error_handling_config
+           in
+           let bnd = "error_handling_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_write_operation_type with
@@ -1578,42 +1642,55 @@ type destination_flow_config__destination_connector_properties = {
   custom_connector :
     destination_flow_config__destination_connector_properties__custom_connector
     list;
+      [@default []] [@yojson_drop_default ( = )]
   customer_profiles :
     destination_flow_config__destination_connector_properties__customer_profiles
     list;
+      [@default []] [@yojson_drop_default ( = )]
   event_bridge :
     destination_flow_config__destination_connector_properties__event_bridge
     list;
+      [@default []] [@yojson_drop_default ( = )]
   honeycode :
     destination_flow_config__destination_connector_properties__honeycode
     list;
+      [@default []] [@yojson_drop_default ( = )]
   lookout_metrics :
     destination_flow_config__destination_connector_properties__lookout_metrics
     list;
+      [@default []] [@yojson_drop_default ( = )]
   marketo :
     destination_flow_config__destination_connector_properties__marketo
     list;
+      [@default []] [@yojson_drop_default ( = )]
   redshift :
     destination_flow_config__destination_connector_properties__redshift
     list;
+      [@default []] [@yojson_drop_default ( = )]
   s3 :
     destination_flow_config__destination_connector_properties__s3
     list;
+      [@default []] [@yojson_drop_default ( = )]
   salesforce :
     destination_flow_config__destination_connector_properties__salesforce
     list;
+      [@default []] [@yojson_drop_default ( = )]
   sapo_data :
     destination_flow_config__destination_connector_properties__sapo_data
     list;
+      [@default []] [@yojson_drop_default ( = )]
   snowflake :
     destination_flow_config__destination_connector_properties__snowflake
     list;
+      [@default []] [@yojson_drop_default ( = )]
   upsolver :
     destination_flow_config__destination_connector_properties__upsolver
     list;
+      [@default []] [@yojson_drop_default ( = )]
   zendesk :
     destination_flow_config__destination_connector_properties__zendesk
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1643,108 +1720,147 @@ let yojson_of_destination_flow_config__destination_connector_properties
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__zendesk
-             v_zendesk
-         in
-         ("zendesk", arg) :: bnds
+         if [] = v_zendesk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__zendesk)
+               v_zendesk
+           in
+           let bnd = "zendesk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__upsolver
-             v_upsolver
-         in
-         ("upsolver", arg) :: bnds
+         if [] = v_upsolver then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__upsolver)
+               v_upsolver
+           in
+           let bnd = "upsolver", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__snowflake
-             v_snowflake
-         in
-         ("snowflake", arg) :: bnds
+         if [] = v_snowflake then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__snowflake)
+               v_snowflake
+           in
+           let bnd = "snowflake", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__sapo_data
-             v_sapo_data
-         in
-         ("sapo_data", arg) :: bnds
+         if [] = v_sapo_data then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__sapo_data)
+               v_sapo_data
+           in
+           let bnd = "sapo_data", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__salesforce
-             v_salesforce
-         in
-         ("salesforce", arg) :: bnds
+         if [] = v_salesforce then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__salesforce)
+               v_salesforce
+           in
+           let bnd = "salesforce", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__s3
-             v_s3
-         in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__s3)
+               v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__redshift
-             v_redshift
-         in
-         ("redshift", arg) :: bnds
+         if [] = v_redshift then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__redshift)
+               v_redshift
+           in
+           let bnd = "redshift", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__marketo
-             v_marketo
-         in
-         ("marketo", arg) :: bnds
+         if [] = v_marketo then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__marketo)
+               v_marketo
+           in
+           let bnd = "marketo", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__lookout_metrics
-             v_lookout_metrics
-         in
-         ("lookout_metrics", arg) :: bnds
+         if [] = v_lookout_metrics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__lookout_metrics)
+               v_lookout_metrics
+           in
+           let bnd = "lookout_metrics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__honeycode
-             v_honeycode
-         in
-         ("honeycode", arg) :: bnds
+         if [] = v_honeycode then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__honeycode)
+               v_honeycode
+           in
+           let bnd = "honeycode", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__event_bridge
-             v_event_bridge
-         in
-         ("event_bridge", arg) :: bnds
+         if [] = v_event_bridge then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__event_bridge)
+               v_event_bridge
+           in
+           let bnd = "event_bridge", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__customer_profiles
-             v_customer_profiles
-         in
-         ("customer_profiles", arg) :: bnds
+         if [] = v_customer_profiles then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__customer_profiles)
+               v_customer_profiles
+           in
+           let bnd = "customer_profiles", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties__custom_connector
-             v_custom_connector
-         in
-         ("custom_connector", arg) :: bnds
+         if [] = v_custom_connector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties__custom_connector)
+               v_custom_connector
+           in
+           let bnd = "custom_connector", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : destination_flow_config__destination_connector_properties ->
@@ -1761,6 +1877,7 @@ type destination_flow_config = {
   connector_type : string prop;
   destination_connector_properties :
     destination_flow_config__destination_connector_properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1779,12 +1896,15 @@ let yojson_of_destination_flow_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_destination_flow_config__destination_connector_properties
-             v_destination_connector_properties
-         in
-         ("destination_connector_properties", arg) :: bnds
+         if [] = v_destination_connector_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_destination_flow_config__destination_connector_properties)
+               v_destination_connector_properties
+           in
+           let bnd = "destination_connector_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2110,6 +2230,7 @@ type source_flow_config__source_connector_properties__s3 = {
   s3_input_format_config :
     source_flow_config__source_connector_properties__s3__s3_input_format_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2127,12 +2248,15 @@ let yojson_of_source_flow_config__source_connector_properties__s3 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__s3__s3_input_format_config
-             v_s3_input_format_config
-         in
-         ("s3_input_format_config", arg) :: bnds
+         if [] = v_s3_input_format_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__s3__s3_input_format_config)
+               v_s3_input_format_config
+           in
+           let bnd = "s3_input_format_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_bucket_prefix in
@@ -2452,37 +2576,53 @@ let _ =
 type source_flow_config__source_connector_properties = {
   amplitude :
     source_flow_config__source_connector_properties__amplitude list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_connector :
     source_flow_config__source_connector_properties__custom_connector
     list;
+      [@default []] [@yojson_drop_default ( = )]
   datadog :
     source_flow_config__source_connector_properties__datadog list;
+      [@default []] [@yojson_drop_default ( = )]
   dynatrace :
     source_flow_config__source_connector_properties__dynatrace list;
+      [@default []] [@yojson_drop_default ( = )]
   google_analytics :
     source_flow_config__source_connector_properties__google_analytics
     list;
+      [@default []] [@yojson_drop_default ( = )]
   infor_nexus :
     source_flow_config__source_connector_properties__infor_nexus list;
+      [@default []] [@yojson_drop_default ( = )]
   marketo :
     source_flow_config__source_connector_properties__marketo list;
+      [@default []] [@yojson_drop_default ( = )]
   s3 : source_flow_config__source_connector_properties__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
   salesforce :
     source_flow_config__source_connector_properties__salesforce list;
+      [@default []] [@yojson_drop_default ( = )]
   sapo_data :
     source_flow_config__source_connector_properties__sapo_data list;
+      [@default []] [@yojson_drop_default ( = )]
   service_now :
     source_flow_config__source_connector_properties__service_now list;
+      [@default []] [@yojson_drop_default ( = )]
   singular :
     source_flow_config__source_connector_properties__singular list;
+      [@default []] [@yojson_drop_default ( = )]
   slack :
     source_flow_config__source_connector_properties__slack list;
+      [@default []] [@yojson_drop_default ( = )]
   trendmicro :
     source_flow_config__source_connector_properties__trendmicro list;
+      [@default []] [@yojson_drop_default ( = )]
   veeva :
     source_flow_config__source_connector_properties__veeva list;
+      [@default []] [@yojson_drop_default ( = )]
   zendesk :
     source_flow_config__source_connector_properties__zendesk list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2513,132 +2653,180 @@ let yojson_of_source_flow_config__source_connector_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__zendesk
-             v_zendesk
-         in
-         ("zendesk", arg) :: bnds
+         if [] = v_zendesk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__zendesk)
+               v_zendesk
+           in
+           let bnd = "zendesk", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__veeva
-             v_veeva
-         in
-         ("veeva", arg) :: bnds
+         if [] = v_veeva then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__veeva)
+               v_veeva
+           in
+           let bnd = "veeva", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__trendmicro
-             v_trendmicro
-         in
-         ("trendmicro", arg) :: bnds
+         if [] = v_trendmicro then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__trendmicro)
+               v_trendmicro
+           in
+           let bnd = "trendmicro", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__slack
-             v_slack
-         in
-         ("slack", arg) :: bnds
+         if [] = v_slack then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__slack)
+               v_slack
+           in
+           let bnd = "slack", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__singular
-             v_singular
-         in
-         ("singular", arg) :: bnds
+         if [] = v_singular then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__singular)
+               v_singular
+           in
+           let bnd = "singular", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__service_now
-             v_service_now
-         in
-         ("service_now", arg) :: bnds
+         if [] = v_service_now then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__service_now)
+               v_service_now
+           in
+           let bnd = "service_now", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__sapo_data
-             v_sapo_data
-         in
-         ("sapo_data", arg) :: bnds
+         if [] = v_sapo_data then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__sapo_data)
+               v_sapo_data
+           in
+           let bnd = "sapo_data", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__salesforce
-             v_salesforce
-         in
-         ("salesforce", arg) :: bnds
+         if [] = v_salesforce then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__salesforce)
+               v_salesforce
+           in
+           let bnd = "salesforce", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__s3
-             v_s3
-         in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__s3)
+               v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__marketo
-             v_marketo
-         in
-         ("marketo", arg) :: bnds
+         if [] = v_marketo then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__marketo)
+               v_marketo
+           in
+           let bnd = "marketo", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__infor_nexus
-             v_infor_nexus
-         in
-         ("infor_nexus", arg) :: bnds
+         if [] = v_infor_nexus then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__infor_nexus)
+               v_infor_nexus
+           in
+           let bnd = "infor_nexus", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__google_analytics
-             v_google_analytics
-         in
-         ("google_analytics", arg) :: bnds
+         if [] = v_google_analytics then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__google_analytics)
+               v_google_analytics
+           in
+           let bnd = "google_analytics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__dynatrace
-             v_dynatrace
-         in
-         ("dynatrace", arg) :: bnds
+         if [] = v_dynatrace then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__dynatrace)
+               v_dynatrace
+           in
+           let bnd = "dynatrace", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__datadog
-             v_datadog
-         in
-         ("datadog", arg) :: bnds
+         if [] = v_datadog then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__datadog)
+               v_datadog
+           in
+           let bnd = "datadog", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__custom_connector
-             v_custom_connector
-         in
-         ("custom_connector", arg) :: bnds
+         if [] = v_custom_connector then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__custom_connector)
+               v_custom_connector
+           in
+           let bnd = "custom_connector", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties__amplitude
-             v_amplitude
-         in
-         ("amplitude", arg) :: bnds
+         if [] = v_amplitude then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties__amplitude)
+               v_amplitude
+           in
+           let bnd = "amplitude", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : source_flow_config__source_connector_properties ->
@@ -2654,8 +2842,10 @@ type source_flow_config = {
   connector_type : string prop;
   incremental_pull_config :
     source_flow_config__incremental_pull_config list;
+      [@default []] [@yojson_drop_default ( = )]
   source_connector_properties :
     source_flow_config__source_connector_properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2674,20 +2864,26 @@ let yojson_of_source_flow_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__source_connector_properties
-             v_source_connector_properties
-         in
-         ("source_connector_properties", arg) :: bnds
+         if [] = v_source_connector_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__source_connector_properties)
+               v_source_connector_properties
+           in
+           let bnd = "source_connector_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_source_flow_config__incremental_pull_config
-             v_incremental_pull_config
-         in
-         ("incremental_pull_config", arg) :: bnds
+         if [] = v_incremental_pull_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_source_flow_config__incremental_pull_config)
+               v_incremental_pull_config
+           in
+           let bnd = "incremental_pull_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -2904,6 +3100,7 @@ type task = {
   task_properties : (string * string prop) list option; [@option]
   task_type : string prop;
   connector_operator : task__connector_operator list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2922,11 +3119,14 @@ let yojson_of_task =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_task__connector_operator
-             v_connector_operator
-         in
-         ("connector_operator", arg) :: bnds
+         if [] = v_connector_operator then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_task__connector_operator)
+               v_connector_operator
+           in
+           let bnd = "connector_operator", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_task_type in
@@ -3064,6 +3264,7 @@ let _ = yojson_of_trigger_config__trigger_properties__scheduled
 
 type trigger_config__trigger_properties = {
   scheduled : trigger_config__trigger_properties__scheduled list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3076,12 +3277,15 @@ let yojson_of_trigger_config__trigger_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_trigger_config__trigger_properties__scheduled
-             v_scheduled
-         in
-         ("scheduled", arg) :: bnds
+         if [] = v_scheduled then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trigger_config__trigger_properties__scheduled)
+               v_scheduled
+           in
+           let bnd = "scheduled", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : trigger_config__trigger_properties ->
@@ -3094,6 +3298,7 @@ let _ = yojson_of_trigger_config__trigger_properties
 type trigger_config = {
   trigger_type : string prop;
   trigger_properties : trigger_config__trigger_properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3109,12 +3314,15 @@ let yojson_of_trigger_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_trigger_config__trigger_properties
-             v_trigger_properties
-         in
-         ("trigger_properties", arg) :: bnds
+         if [] = v_trigger_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trigger_config__trigger_properties)
+               v_trigger_properties
+           in
+           let bnd = "trigger_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_trigger_type in
@@ -3135,9 +3343,12 @@ type aws_appflow_flow = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   destination_flow_config : destination_flow_config list;
+      [@default []] [@yojson_drop_default ( = )]
   source_flow_config : source_flow_config list;
-  task : task list;
+      [@default []] [@yojson_drop_default ( = )]
+  task : task list; [@default []] [@yojson_drop_default ( = )]
   trigger_config : trigger_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -3161,28 +3372,41 @@ let yojson_of_aws_appflow_flow =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trigger_config v_trigger_config
-         in
-         ("trigger_config", arg) :: bnds
+         if [] = v_trigger_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trigger_config)
+               v_trigger_config
+           in
+           let bnd = "trigger_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_task v_task in
-         ("task", arg) :: bnds
+         if [] = v_task then bnds
+         else
+           let arg = (yojson_of_list yojson_of_task) v_task in
+           let bnd = "task", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_source_flow_config
-             v_source_flow_config
-         in
-         ("source_flow_config", arg) :: bnds
+         if [] = v_source_flow_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_source_flow_config)
+               v_source_flow_config
+           in
+           let bnd = "source_flow_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination_flow_config
-             v_destination_flow_config
-         in
-         ("destination_flow_config", arg) :: bnds
+         if [] = v_destination_flow_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination_flow_config)
+               v_destination_flow_config
+           in
+           let bnd = "destination_flow_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

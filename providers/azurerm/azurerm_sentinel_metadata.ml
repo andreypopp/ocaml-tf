@@ -262,10 +262,11 @@ type azurerm_sentinel_metadata = {
   threat_analysis_techniques : string prop list option; [@option]
   version : string prop option; [@option]
   workspace_id : string prop;
-  author : author list;
+  author : author list; [@default []] [@yojson_drop_default ( = )]
   category : category list;
-  source : source list;
-  support : support list;
+      [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
+  support : support list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -307,20 +308,34 @@ let yojson_of_azurerm_sentinel_metadata =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_support v_support in
-         ("support", arg) :: bnds
+         if [] = v_support then bnds
+         else
+           let arg = (yojson_of_list yojson_of_support) v_support in
+           let bnd = "support", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_category v_category in
-         ("category", arg) :: bnds
+         if [] = v_category then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_category) v_category
+           in
+           let bnd = "category", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_author v_author in
-         ("author", arg) :: bnds
+         if [] = v_author then bnds
+         else
+           let arg = (yojson_of_list yojson_of_author) v_author in
+           let bnd = "author", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_workspace_id in

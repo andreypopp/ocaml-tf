@@ -88,9 +88,11 @@ type aws_route53_resolver_endpoint = {
   protocols : string prop list option; [@option]
   resolver_endpoint_type : string prop option; [@option]
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   ip_address : ip_address list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -119,10 +121,13 @@ let yojson_of_aws_route53_resolver_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ip_address v_ip_address
-         in
-         ("ip_address", arg) :: bnds
+         if [] = v_ip_address then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ip_address) v_ip_address
+           in
+           let bnd = "ip_address", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -157,12 +162,14 @@ let yojson_of_aws_route53_resolver_endpoint =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resolver_endpoint_type with

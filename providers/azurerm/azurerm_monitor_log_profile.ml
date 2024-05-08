@@ -97,12 +97,15 @@ let _ = yojson_of_timeouts
 
 type azurerm_monitor_log_profile = {
   categories : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   locations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   servicebus_rule_id : string prop option; [@option]
   storage_account_id : string prop option; [@option]
   retention_policy : retention_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -129,11 +132,14 @@ let yojson_of_azurerm_monitor_log_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_retention_policy
-             v_retention_policy
-         in
-         ("retention_policy", arg) :: bnds
+         if [] = v_retention_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_retention_policy)
+               v_retention_policy
+           in
+           let bnd = "retention_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_storage_account_id with
@@ -156,12 +162,14 @@ let yojson_of_azurerm_monitor_log_profile =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_locations
-         in
-         ("locations", arg) :: bnds
+         if [] = v_locations then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_locations
+           in
+           let bnd = "locations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with
@@ -172,12 +180,14 @@ let yojson_of_azurerm_monitor_log_profile =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_categories
-         in
-         ("categories", arg) :: bnds
+         if [] = v_categories then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_categories
+           in
+           let bnd = "categories", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : azurerm_monitor_log_profile ->

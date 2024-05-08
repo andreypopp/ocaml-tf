@@ -61,6 +61,7 @@ let _ = yojson_of_scheduled_agent_updates__schedule
 type scheduled_agent_updates = {
   enabled : bool prop;
   schedule : scheduled_agent_updates__schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   timezone : string prop;
   use_session_host_timezone : bool prop;
 }
@@ -90,11 +91,15 @@ let yojson_of_scheduled_agent_updates =
          ("timezone", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scheduled_agent_updates__schedule
-             v_schedule
-         in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scheduled_agent_updates__schedule)
+               v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in

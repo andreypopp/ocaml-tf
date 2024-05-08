@@ -136,6 +136,7 @@ type condition = {
   operator : string prop;
   property : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -152,10 +153,14 @@ let yojson_of_condition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_property in
@@ -244,8 +249,11 @@ type azurerm_sentinel_automation_rule = {
   triggers_on : string prop option; [@option]
   triggers_when : string prop option; [@option]
   action_incident : action_incident list;
+      [@default []] [@yojson_drop_default ( = )]
   action_playbook : action_playbook list;
+      [@default []] [@yojson_drop_default ( = )]
   condition : condition list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -278,20 +286,33 @@ let yojson_of_azurerm_sentinel_automation_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_condition v_condition in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition) v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action_playbook v_action_playbook
-         in
-         ("action_playbook", arg) :: bnds
+         if [] = v_action_playbook then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action_playbook)
+               v_action_playbook
+           in
+           let bnd = "action_playbook", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action_incident v_action_incident
-         in
-         ("action_incident", arg) :: bnds
+         if [] = v_action_incident then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action_incident)
+               v_action_incident
+           in
+           let bnd = "action_incident", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_triggers_when with

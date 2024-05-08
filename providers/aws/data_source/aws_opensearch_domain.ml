@@ -40,6 +40,7 @@ let _ =
 type off_peak_window_options__off_peak_window = {
   window_start_time :
     off_peak_window_options__off_peak_window__window_start_time list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -52,12 +53,15 @@ let yojson_of_off_peak_window_options__off_peak_window =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_off_peak_window_options__off_peak_window__window_start_time
-             v_window_start_time
-         in
-         ("window_start_time", arg) :: bnds
+         if [] = v_window_start_time then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_off_peak_window_options__off_peak_window__window_start_time)
+               v_window_start_time
+           in
+           let bnd = "window_start_time", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : off_peak_window_options__off_peak_window ->
@@ -157,6 +161,7 @@ let _ = yojson_of_auto_tune_options__maintenance_schedule__duration
 type auto_tune_options__maintenance_schedule = {
   cron_expression_for_recurrence : string prop;
   duration : auto_tune_options__maintenance_schedule__duration list;
+      [@default []] [@yojson_drop_default ( = )]
   start_at : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -179,12 +184,15 @@ let yojson_of_auto_tune_options__maintenance_schedule =
          ("start_at", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auto_tune_options__maintenance_schedule__duration
-             v_duration
-         in
-         ("duration", arg) :: bnds
+         if [] = v_duration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auto_tune_options__maintenance_schedule__duration)
+               v_duration
+           in
+           let bnd = "duration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -205,6 +213,7 @@ type auto_tune_options = {
   desired_state : string prop;
   maintenance_schedule :
     auto_tune_options__maintenance_schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   rollback_on_disable : string prop;
   use_off_peak_window : bool prop;
 }
@@ -236,12 +245,15 @@ let yojson_of_auto_tune_options =
          ("rollback_on_disable", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_auto_tune_options__maintenance_schedule
-             v_maintenance_schedule
-         in
-         ("maintenance_schedule", arg) :: bnds
+         if [] = v_maintenance_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_auto_tune_options__maintenance_schedule)
+               v_maintenance_schedule
+           in
+           let bnd = "maintenance_schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_desired_state in
@@ -306,6 +318,7 @@ let _ = yojson_of_cluster_config__cold_storage_options
 
 type cluster_config = {
   cold_storage_options : cluster_config__cold_storage_options list;
+      [@default []] [@yojson_drop_default ( = )]
   dedicated_master_count : float prop;
   dedicated_master_enabled : bool prop;
   dedicated_master_type : string prop;
@@ -316,6 +329,7 @@ type cluster_config = {
   warm_enabled : bool prop;
   warm_type : string prop;
   zone_awareness_config : cluster_config__zone_awareness_config list;
+      [@default []] [@yojson_drop_default ( = )]
   zone_awareness_enabled : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -349,12 +363,15 @@ let yojson_of_cluster_config =
          ("zone_awareness_enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cluster_config__zone_awareness_config
-             v_zone_awareness_config
-         in
-         ("zone_awareness_config", arg) :: bnds
+         if [] = v_zone_awareness_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cluster_config__zone_awareness_config)
+               v_zone_awareness_config
+           in
+           let bnd = "zone_awareness_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_warm_type in
@@ -402,12 +419,15 @@ let yojson_of_cluster_config =
          ("dedicated_master_count", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_cluster_config__cold_storage_options
-             v_cold_storage_options
-         in
-         ("cold_storage_options", arg) :: bnds
+         if [] = v_cold_storage_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_cluster_config__cold_storage_options)
+               v_cold_storage_options
+           in
+           let bnd = "cold_storage_options", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cluster_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -664,8 +684,11 @@ let _ = yojson_of_software_update_options
 
 type vpc_options = {
   availability_zones : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -688,28 +711,34 @@ let yojson_of_vpc_options =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_availability_zones
-         in
-         ("availability_zones", arg) :: bnds
+         if [] = v_availability_zones then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_availability_zones
+           in
+           let bnd = "availability_zones", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vpc_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -723,6 +752,7 @@ type aws_opensearch_domain = {
   id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   off_peak_window_options : off_peak_window_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -740,11 +770,14 @@ let yojson_of_aws_opensearch_domain =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_off_peak_window_options
-             v_off_peak_window_options
-         in
-         ("off_peak_window_options", arg) :: bnds
+         if [] = v_off_peak_window_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_off_peak_window_options)
+               v_off_peak_window_options
+           in
+           let bnd = "off_peak_window_options", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

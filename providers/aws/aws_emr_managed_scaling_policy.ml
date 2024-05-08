@@ -69,6 +69,7 @@ type aws_emr_managed_scaling_policy = {
   cluster_id : string prop;
   id : string prop option; [@option]
   compute_limits : compute_limits list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -85,10 +86,14 @@ let yojson_of_aws_emr_managed_scaling_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_compute_limits v_compute_limits
-         in
-         ("compute_limits", arg) :: bnds
+         if [] = v_compute_limits then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_compute_limits)
+               v_compute_limits
+           in
+           let bnd = "compute_limits", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

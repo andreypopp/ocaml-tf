@@ -4,6 +4,7 @@ open! Tf_core
 
 type message_storage_policy = {
   allowed_persistence_regions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,12 +18,14 @@ let yojson_of_message_storage_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_persistence_regions
-         in
-         ("allowed_persistence_regions", arg) :: bnds
+         if [] = v_allowed_persistence_regions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_persistence_regions
+           in
+           let bnd = "allowed_persistence_regions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : message_storage_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -118,7 +121,9 @@ type google_pubsub_topic = {
   name : string prop;
   project : string prop option; [@option]
   message_storage_policy : message_storage_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   schema_settings : schema_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -146,17 +151,24 @@ let yojson_of_google_pubsub_topic =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schema_settings v_schema_settings
-         in
-         ("schema_settings", arg) :: bnds
+         if [] = v_schema_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schema_settings)
+               v_schema_settings
+           in
+           let bnd = "schema_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_message_storage_policy
-             v_message_storage_policy
-         in
-         ("message_storage_policy", arg) :: bnds
+         if [] = v_message_storage_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_message_storage_policy)
+               v_message_storage_policy
+           in
+           let bnd = "message_storage_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

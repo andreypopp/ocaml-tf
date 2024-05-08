@@ -68,7 +68,9 @@ type recording_group = {
   resource_types : string prop list option; [@option]
   exclusion_by_resource_types :
     recording_group__exclusion_by_resource_types list;
+      [@default []] [@yojson_drop_default ( = )]
   recording_strategy : recording_group__recording_strategy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,20 +90,26 @@ let yojson_of_recording_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_recording_group__recording_strategy
-             v_recording_strategy
-         in
-         ("recording_strategy", arg) :: bnds
+         if [] = v_recording_strategy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_recording_group__recording_strategy)
+               v_recording_strategy
+           in
+           let bnd = "recording_strategy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_recording_group__exclusion_by_resource_types
-             v_exclusion_by_resource_types
-         in
-         ("exclusion_by_resource_types", arg) :: bnds
+         if [] = v_exclusion_by_resource_types then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_recording_group__exclusion_by_resource_types)
+               v_exclusion_by_resource_types
+           in
+           let bnd = "exclusion_by_resource_types", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resource_types with
@@ -140,6 +148,7 @@ type recording_mode__recording_mode_override = {
   description : string prop option; [@option]
   recording_frequency : string prop;
   resource_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -156,12 +165,14 @@ let yojson_of_recording_mode__recording_mode_override =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_resource_types
-         in
-         ("resource_types", arg) :: bnds
+         if [] = v_resource_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_resource_types
+           in
+           let bnd = "resource_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -189,6 +200,7 @@ type recording_mode = {
   recording_frequency : string prop option; [@option]
   recording_mode_override :
     recording_mode__recording_mode_override list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -204,12 +216,15 @@ let yojson_of_recording_mode =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_recording_mode__recording_mode_override
-             v_recording_mode_override
-         in
-         ("recording_mode_override", arg) :: bnds
+         if [] = v_recording_mode_override then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_recording_mode__recording_mode_override)
+               v_recording_mode_override
+           in
+           let bnd = "recording_mode_override", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_recording_frequency with
@@ -231,7 +246,9 @@ type aws_config_configuration_recorder = {
   name : string prop option; [@option]
   role_arn : string prop;
   recording_group : recording_group list;
+      [@default []] [@yojson_drop_default ( = )]
   recording_mode : recording_mode list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -250,16 +267,24 @@ let yojson_of_aws_config_configuration_recorder =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recording_mode v_recording_mode
-         in
-         ("recording_mode", arg) :: bnds
+         if [] = v_recording_mode then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recording_mode)
+               v_recording_mode
+           in
+           let bnd = "recording_mode", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_recording_group v_recording_group
-         in
-         ("recording_group", arg) :: bnds
+         if [] = v_recording_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_recording_group)
+               v_recording_group
+           in
+           let bnd = "recording_group", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_role_arn in

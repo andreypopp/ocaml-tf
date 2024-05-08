@@ -186,7 +186,9 @@ let _ = yojson_of_timeouts
 
 type compliance_status = {
   acknowledged_violation_count : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
   active_violation_count : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -202,20 +204,24 @@ let yojson_of_compliance_status =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_active_violation_count
-         in
-         ("active_violation_count", arg) :: bnds
+         if [] = v_active_violation_count then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_active_violation_count
+           in
+           let bnd = "active_violation_count", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_acknowledged_violation_count
-         in
-         ("acknowledged_violation_count", arg) :: bnds
+         if [] = v_acknowledged_violation_count then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_acknowledged_violation_count
+           in
+           let bnd = "acknowledged_violation_count", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : compliance_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -304,6 +310,7 @@ let _ = yojson_of_resources
 
 type saa_enrollment_response = {
   setup_errors : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   setup_status : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -322,12 +329,14 @@ let yojson_of_saa_enrollment_response =
          ("setup_status", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_setup_errors
-         in
-         ("setup_errors", arg) :: bnds
+         if [] = v_setup_errors then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_setup_errors
+           in
+           let bnd = "setup_errors", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : saa_enrollment_response -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -349,8 +358,11 @@ type google_assured_workloads_workload = {
   provisioned_resources_parent : string prop option; [@option]
   violation_notifications_enabled : bool prop option; [@option]
   kms_settings : kms_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   partner_permissions : partner_permissions list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_settings : resource_settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -385,24 +397,33 @@ let yojson_of_google_assured_workloads_workload =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_resource_settings
-             v_resource_settings
-         in
-         ("resource_settings", arg) :: bnds
+         if [] = v_resource_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_resource_settings)
+               v_resource_settings
+           in
+           let bnd = "resource_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_partner_permissions
-             v_partner_permissions
-         in
-         ("partner_permissions", arg) :: bnds
+         if [] = v_partner_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_partner_permissions)
+               v_partner_permissions
+           in
+           let bnd = "partner_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_kms_settings v_kms_settings
-         in
-         ("kms_settings", arg) :: bnds
+         if [] = v_kms_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kms_settings) v_kms_settings
+           in
+           let bnd = "kms_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_violation_notifications_enabled with

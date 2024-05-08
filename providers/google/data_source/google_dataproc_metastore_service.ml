@@ -52,6 +52,7 @@ let _ = yojson_of_hive_metastore_config__kerberos_config__keytab
 
 type hive_metastore_config__kerberos_config = {
   keytab : hive_metastore_config__kerberos_config__keytab list;
+      [@default []] [@yojson_drop_default ( = )]
   krb5_config_gcs_uri : string prop;
   principal : string prop;
 }
@@ -80,12 +81,15 @@ let yojson_of_hive_metastore_config__kerberos_config =
          ("krb5_config_gcs_uri", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_hive_metastore_config__kerberos_config__keytab
-             v_keytab
-         in
-         ("keytab", arg) :: bnds
+         if [] = v_keytab then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_hive_metastore_config__kerberos_config__keytab)
+               v_keytab
+           in
+           let bnd = "keytab", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : hive_metastore_config__kerberos_config ->
@@ -145,9 +149,11 @@ let _ = yojson_of_hive_metastore_config__auxiliary_versions
 type hive_metastore_config = {
   auxiliary_versions :
     hive_metastore_config__auxiliary_versions list;
+      [@default []] [@yojson_drop_default ( = )]
   config_overrides : (string * string prop) list;
   endpoint_protocol : string prop;
   kerberos_config : hive_metastore_config__kerberos_config list;
+      [@default []] [@yojson_drop_default ( = )]
   version : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -171,12 +177,15 @@ let yojson_of_hive_metastore_config =
          ("version", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_hive_metastore_config__kerberos_config
-             v_kerberos_config
-         in
-         ("kerberos_config", arg) :: bnds
+         if [] = v_kerberos_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_hive_metastore_config__kerberos_config)
+               v_kerberos_config
+           in
+           let bnd = "kerberos_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -197,12 +206,15 @@ let yojson_of_hive_metastore_config =
          ("config_overrides", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_hive_metastore_config__auxiliary_versions
-             v_auxiliary_versions
-         in
-         ("auxiliary_versions", arg) :: bnds
+         if [] = v_auxiliary_versions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_hive_metastore_config__auxiliary_versions)
+               v_auxiliary_versions
+           in
+           let bnd = "auxiliary_versions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : hive_metastore_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -268,6 +280,7 @@ let _ = yojson_of_metadata_integration__data_catalog_config
 type metadata_integration = {
   data_catalog_config :
     metadata_integration__data_catalog_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -280,12 +293,15 @@ let yojson_of_metadata_integration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_metadata_integration__data_catalog_config
-             v_data_catalog_config
-         in
-         ("data_catalog_config", arg) :: bnds
+         if [] = v_data_catalog_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_metadata_integration__data_catalog_config)
+               v_data_catalog_config
+           in
+           let bnd = "data_catalog_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : metadata_integration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -323,7 +339,10 @@ let _ = yojson_of_network_config__consumers
 
 [@@@deriving.end]
 
-type network_config = { consumers : network_config__consumers list }
+type network_config = {
+  consumers : network_config__consumers list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : network_config) -> ()
@@ -335,11 +354,14 @@ let yojson_of_network_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_config__consumers
-             v_consumers
-         in
-         ("consumers", arg) :: bnds
+         if [] = v_consumers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_config__consumers)
+               v_consumers
+           in
+           let bnd = "consumers", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : network_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)

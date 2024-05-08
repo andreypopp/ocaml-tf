@@ -202,8 +202,10 @@ type azurerm_gallery_application_version = {
   package_file : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   manage_action : manage_action list;
-  source : source list;
+      [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
   target_region : target_region list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -236,20 +238,29 @@ let yojson_of_azurerm_gallery_application_version =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_region v_target_region
-         in
-         ("target_region", arg) :: bnds
+         if [] = v_target_region then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_region) v_target_region
+           in
+           let bnd = "target_region", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_manage_action v_manage_action
-         in
-         ("manage_action", arg) :: bnds
+         if [] = v_manage_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_manage_action) v_manage_action
+           in
+           let bnd = "manage_action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

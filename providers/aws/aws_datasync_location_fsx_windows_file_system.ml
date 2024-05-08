@@ -8,6 +8,7 @@ type aws_datasync_location_fsx_windows_file_system = {
   id : string prop option; [@option]
   password : string prop;
   security_group_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subdirectory : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
@@ -78,12 +79,14 @@ let yojson_of_aws_datasync_location_fsx_windows_file_system =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_arns
-         in
-         ("security_group_arns", arg) :: bnds
+         if [] = v_security_group_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_arns
+           in
+           let bnd = "security_group_arns", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_password in

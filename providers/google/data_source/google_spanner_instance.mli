@@ -20,8 +20,10 @@ type autoscaling_config__autoscaling_limits = {
 
 type autoscaling_config = {
   autoscaling_limits : autoscaling_config__autoscaling_limits list;
+      [@default []] [@yojson_drop_default ( = )]
       (** autoscaling_limits *)
   autoscaling_targets : autoscaling_config__autoscaling_targets list;
+      [@default []] [@yojson_drop_default ( = )]
       (** autoscaling_targets *)
 }
 

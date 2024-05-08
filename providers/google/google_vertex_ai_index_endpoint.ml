@@ -102,6 +102,7 @@ type google_vertex_ai_index_endpoint = {
   region : string prop option; [@option]
   private_service_connect_config :
     private_service_connect_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -131,11 +132,14 @@ let yojson_of_google_vertex_ai_index_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_service_connect_config
-             v_private_service_connect_config
-         in
-         ("private_service_connect_config", arg) :: bnds
+         if [] = v_private_service_connect_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_service_connect_config)
+               v_private_service_connect_config
+           in
+           let bnd = "private_service_connect_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

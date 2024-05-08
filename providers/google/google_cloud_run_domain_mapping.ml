@@ -227,9 +227,11 @@ let _ = yojson_of_status__conditions
 
 type status = {
   conditions : status__conditions list;
+      [@default []] [@yojson_drop_default ( = )]
   mapped_route_name : string prop;
   observed_generation : float prop;
   resource_records : status__resource_records list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -247,11 +249,14 @@ let yojson_of_status =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__resource_records
-             v_resource_records
-         in
-         ("resource_records", arg) :: bnds
+         if [] = v_resource_records then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__resource_records)
+               v_resource_records
+           in
+           let bnd = "resource_records", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -266,10 +271,14 @@ let yojson_of_status =
          ("mapped_route_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_status__conditions v_conditions
-         in
-         ("conditions", arg) :: bnds
+         if [] = v_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_status__conditions)
+               v_conditions
+           in
+           let bnd = "conditions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -284,7 +293,8 @@ type google_cloud_run_domain_mapping = {
   name : string prop;
   project : string prop option; [@option]
   metadata : metadata list;
-  spec : spec list;
+      [@default []] [@yojson_drop_default ( = )]
+  spec : spec list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -310,12 +320,20 @@ let yojson_of_google_cloud_run_domain_mapping =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_spec v_spec in
-         ("spec", arg) :: bnds
+         if [] = v_spec then bnds
+         else
+           let arg = (yojson_of_list yojson_of_spec) v_spec in
+           let bnd = "spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_metadata v_metadata in
-         ("metadata", arg) :: bnds
+         if [] = v_metadata then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata) v_metadata
+           in
+           let bnd = "metadata", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

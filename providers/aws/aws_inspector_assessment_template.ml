@@ -36,10 +36,12 @@ type aws_inspector_assessment_template = {
   id : string prop option; [@option]
   name : string prop;
   rules_package_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   target_arn : string prop;
   event_subscription : event_subscription list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -61,11 +63,14 @@ let yojson_of_aws_inspector_assessment_template =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_subscription
-             v_event_subscription
-         in
-         ("event_subscription", arg) :: bnds
+         if [] = v_event_subscription then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_subscription)
+               v_event_subscription
+           in
+           let bnd = "event_subscription", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_target_arn in
@@ -104,12 +109,14 @@ let yojson_of_aws_inspector_assessment_template =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_rules_package_arns
-         in
-         ("rules_package_arns", arg) :: bnds
+         if [] = v_rules_package_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_rules_package_arns
+           in
+           let bnd = "rules_package_arns", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

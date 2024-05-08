@@ -206,8 +206,10 @@ type deployed_models__dedicated_resources = {
   autoscaling_metric_specs :
     deployed_models__dedicated_resources__autoscaling_metric_specs
     list;
+      [@default []] [@yojson_drop_default ( = )]
   machine_spec :
     deployed_models__dedicated_resources__machine_spec list;
+      [@default []] [@yojson_drop_default ( = )]
   max_replica_count : float prop;
   min_replica_count : float prop;
 }
@@ -239,20 +241,26 @@ let yojson_of_deployed_models__dedicated_resources =
          ("max_replica_count", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deployed_models__dedicated_resources__machine_spec
-             v_machine_spec
-         in
-         ("machine_spec", arg) :: bnds
+         if [] = v_machine_spec then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deployed_models__dedicated_resources__machine_spec)
+               v_machine_spec
+           in
+           let bnd = "machine_spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deployed_models__dedicated_resources__autoscaling_metric_specs
-             v_autoscaling_metric_specs
-         in
-         ("autoscaling_metric_specs", arg) :: bnds
+         if [] = v_autoscaling_metric_specs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deployed_models__dedicated_resources__autoscaling_metric_specs)
+               v_autoscaling_metric_specs
+           in
+           let bnd = "autoscaling_metric_specs", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deployed_models__dedicated_resources ->
@@ -301,8 +309,10 @@ let _ = yojson_of_deployed_models__automatic_resources
 
 type deployed_models = {
   automatic_resources : deployed_models__automatic_resources list;
+      [@default []] [@yojson_drop_default ( = )]
   create_time : string prop;
   dedicated_resources : deployed_models__dedicated_resources list;
+      [@default []] [@yojson_drop_default ( = )]
   display_name : string prop;
   enable_access_logging : bool prop;
   enable_container_logging : bool prop;
@@ -310,6 +320,7 @@ type deployed_models = {
   model : string prop;
   model_version_id : string prop;
   private_endpoints : deployed_models__private_endpoints list;
+      [@default []] [@yojson_drop_default ( = )]
   service_account : string prop;
   shared_resources : string prop;
 }
@@ -349,12 +360,15 @@ let yojson_of_deployed_models =
          ("service_account", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deployed_models__private_endpoints
-             v_private_endpoints
-         in
-         ("private_endpoints", arg) :: bnds
+         if [] = v_private_endpoints then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deployed_models__private_endpoints)
+               v_private_endpoints
+           in
+           let bnd = "private_endpoints", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -387,24 +401,30 @@ let yojson_of_deployed_models =
          ("display_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deployed_models__dedicated_resources
-             v_dedicated_resources
-         in
-         ("dedicated_resources", arg) :: bnds
+         if [] = v_dedicated_resources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deployed_models__dedicated_resources)
+               v_dedicated_resources
+           in
+           let bnd = "dedicated_resources", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_create_time in
          ("create_time", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_deployed_models__automatic_resources
-             v_automatic_resources
-         in
-         ("automatic_resources", arg) :: bnds
+         if [] = v_automatic_resources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_deployed_models__automatic_resources)
+               v_automatic_resources
+           in
+           let bnd = "automatic_resources", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : deployed_models -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -424,6 +444,7 @@ type google_vertex_ai_endpoint = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   encryption_spec : encryption_spec list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -453,10 +474,14 @@ let yojson_of_google_vertex_ai_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_spec v_encryption_spec
-         in
-         ("encryption_spec", arg) :: bnds
+         if [] = v_encryption_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_spec)
+               v_encryption_spec
+           in
+           let bnd = "encryption_spec", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

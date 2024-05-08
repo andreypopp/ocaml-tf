@@ -73,6 +73,7 @@ let _ = yojson_of_basic_algorithm__yarn_config
 type basic_algorithm = {
   cooldown_period : string prop option; [@option]
   yarn_config : basic_algorithm__yarn_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,11 +89,14 @@ let yojson_of_basic_algorithm =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_basic_algorithm__yarn_config
-             v_yarn_config
-         in
-         ("yarn_config", arg) :: bnds
+         if [] = v_yarn_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_basic_algorithm__yarn_config)
+               v_yarn_config
+           in
+           let bnd = "yarn_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_cooldown_period with
@@ -257,9 +261,12 @@ type google_dataproc_autoscaling_policy = {
   policy_id : string prop;
   project : string prop option; [@option]
   basic_algorithm : basic_algorithm list;
+      [@default []] [@yojson_drop_default ( = )]
   secondary_worker_config : secondary_worker_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   worker_config : worker_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -281,27 +288,37 @@ let yojson_of_google_dataproc_autoscaling_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_worker_config v_worker_config
-         in
-         ("worker_config", arg) :: bnds
+         if [] = v_worker_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_worker_config) v_worker_config
+           in
+           let bnd = "worker_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secondary_worker_config
-             v_secondary_worker_config
-         in
-         ("secondary_worker_config", arg) :: bnds
+         if [] = v_secondary_worker_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secondary_worker_config)
+               v_secondary_worker_config
+           in
+           let bnd = "secondary_worker_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_basic_algorithm v_basic_algorithm
-         in
-         ("basic_algorithm", arg) :: bnds
+         if [] = v_basic_algorithm then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_basic_algorithm)
+               v_basic_algorithm
+           in
+           let bnd = "basic_algorithm", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

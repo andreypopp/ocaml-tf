@@ -30,6 +30,7 @@ let _ = yojson_of_timeouts
 
 type notifications = {
   additional_recipients : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   notify_dc_admins : bool prop;
   notify_global_admins : bool prop;
 }
@@ -60,12 +61,14 @@ let yojson_of_notifications =
          ("notify_dc_admins", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_additional_recipients
-         in
-         ("additional_recipients", arg) :: bnds
+         if [] = v_additional_recipients then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_additional_recipients
+           in
+           let bnd = "additional_recipients", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : notifications -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -76,6 +79,7 @@ let _ = yojson_of_notifications
 
 type replica_sets = {
   domain_controller_ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   external_access_ip_address : string prop;
   id : string prop;
   location : string prop;
@@ -126,12 +130,14 @@ let yojson_of_replica_sets =
          ("external_access_ip_address", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_domain_controller_ip_addresses
-         in
-         ("domain_controller_ip_addresses", arg) :: bnds
+         if [] = v_domain_controller_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_domain_controller_ip_addresses
+           in
+           let bnd = "domain_controller_ip_addresses", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : replica_sets -> Ppx_yojson_conv_lib.Yojson.Safe.t)

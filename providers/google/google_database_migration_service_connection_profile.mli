@@ -6,7 +6,9 @@ open! Tf_core
 
 type error = {
   code : float prop;  (** code *)
-  details : (string * string prop) list list;  (** details *)
+  details : (string * string prop) list list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** details *)
   message : string prop;  (** message *)
 }
 

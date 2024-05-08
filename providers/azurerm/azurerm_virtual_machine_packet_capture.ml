@@ -162,8 +162,9 @@ type azurerm_virtual_machine_packet_capture = {
   name : string prop;
   network_watcher_id : string prop;
   virtual_machine_id : string prop;
-  filter : filter list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
   storage_location : storage_location list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -193,15 +194,21 @@ let yojson_of_azurerm_virtual_machine_packet_capture =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_location
-             v_storage_location
-         in
-         ("storage_location", arg) :: bnds
+         if [] = v_storage_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_location)
+               v_storage_location
+           in
+           let bnd = "storage_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

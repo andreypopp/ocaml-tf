@@ -202,7 +202,9 @@ type azurerm_healthcare_service = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   authentication_configuration : authentication_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   cors_configuration : cors_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -236,18 +238,24 @@ let yojson_of_azurerm_healthcare_service =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cors_configuration
-             v_cors_configuration
-         in
-         ("cors_configuration", arg) :: bnds
+         if [] = v_cors_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cors_configuration)
+               v_cors_configuration
+           in
+           let bnd = "cors_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_authentication_configuration
-             v_authentication_configuration
-         in
-         ("authentication_configuration", arg) :: bnds
+         if [] = v_authentication_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_authentication_configuration)
+               v_authentication_configuration
+           in
+           let bnd = "authentication_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

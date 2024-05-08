@@ -117,6 +117,7 @@ type network_acls = {
   default_action : string prop;
   ip_rules : string prop list option; [@option]
   virtual_network_rules : network_acls__virtual_network_rules list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -133,12 +134,15 @@ let yojson_of_network_acls =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_network_acls__virtual_network_rules
-             v_virtual_network_rules
-         in
-         ("virtual_network_rules", arg) :: bnds
+         if [] = v_virtual_network_rules then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_acls__virtual_network_rules)
+               v_virtual_network_rules
+           in
+           let bnd = "virtual_network_rules", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_ip_rules with
@@ -285,9 +289,12 @@ type azurerm_cognitive_account = {
   sku_name : string prop;
   tags : (string * string prop) list option; [@option]
   customer_managed_key : customer_managed_key list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   network_acls : network_acls list;
-  storage : storage list;
+      [@default []] [@yojson_drop_default ( = )]
+  storage : storage list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -338,25 +345,39 @@ let yojson_of_azurerm_cognitive_account =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_storage v_storage in
-         ("storage", arg) :: bnds
+         if [] = v_storage then bnds
+         else
+           let arg = (yojson_of_list yojson_of_storage) v_storage in
+           let bnd = "storage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_acls v_network_acls
-         in
-         ("network_acls", arg) :: bnds
+         if [] = v_network_acls then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_acls) v_network_acls
+           in
+           let bnd = "network_acls", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_customer_managed_key
-             v_customer_managed_key
-         in
-         ("customer_managed_key", arg) :: bnds
+         if [] = v_customer_managed_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_customer_managed_key)
+               v_customer_managed_key
+           in
+           let bnd = "customer_managed_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

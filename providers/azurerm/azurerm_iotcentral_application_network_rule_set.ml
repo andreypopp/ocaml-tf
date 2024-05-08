@@ -93,7 +93,7 @@ type azurerm_iotcentral_application_network_rule_set = {
   default_action : string prop option; [@option]
   id : string prop option; [@option]
   iotcentral_application_id : string prop;
-  ip_rule : ip_rule list;
+  ip_rule : ip_rule list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -119,8 +119,11 @@ let yojson_of_azurerm_iotcentral_application_network_rule_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_ip_rule v_ip_rule in
-         ("ip_rule", arg) :: bnds
+         if [] = v_ip_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_ip_rule) v_ip_rule in
+           let bnd = "ip_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

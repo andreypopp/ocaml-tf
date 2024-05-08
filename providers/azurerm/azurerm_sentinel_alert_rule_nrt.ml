@@ -38,6 +38,7 @@ type alert_details_override = {
   severity_column_name : string prop option; [@option]
   tactics_column_name : string prop option; [@option]
   dynamic_property : alert_details_override__dynamic_property list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,12 +57,15 @@ let yojson_of_alert_details_override =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_alert_details_override__dynamic_property
-             v_dynamic_property
-         in
-         ("dynamic_property", arg) :: bnds
+         if [] = v_dynamic_property then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_alert_details_override__dynamic_property)
+               v_dynamic_property
+           in
+           let bnd = "dynamic_property", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tactics_column_name with
@@ -135,6 +139,7 @@ let _ = yojson_of_entity_mapping__field_mapping
 type entity_mapping = {
   entity_type : string prop;
   field_mapping : entity_mapping__field_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,11 +153,14 @@ let yojson_of_entity_mapping =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_entity_mapping__field_mapping
-             v_field_mapping
-         in
-         ("field_mapping", arg) :: bnds
+         if [] = v_field_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_entity_mapping__field_mapping)
+               v_field_mapping
+           in
+           let bnd = "field_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_entity_type in
@@ -288,6 +296,7 @@ let _ = yojson_of_incident__grouping
 type incident = {
   create_incident_enabled : bool prop;
   grouping : incident__grouping list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -303,10 +312,13 @@ let yojson_of_incident =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_incident__grouping v_grouping
-         in
-         ("grouping", arg) :: bnds
+         if [] = v_grouping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_incident__grouping) v_grouping
+           in
+           let bnd = "grouping", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -420,10 +432,15 @@ type azurerm_sentinel_alert_rule_nrt = {
   tactics : string prop list option; [@option]
   techniques : string prop list option; [@option]
   alert_details_override : alert_details_override list;
+      [@default []] [@yojson_drop_default ( = )]
   entity_mapping : entity_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
   event_grouping : event_grouping list;
+      [@default []] [@yojson_drop_default ( = )]
   incident : incident list;
+      [@default []] [@yojson_drop_default ( = )]
   sentinel_entity_mapping : sentinel_entity_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -463,34 +480,53 @@ let yojson_of_azurerm_sentinel_alert_rule_nrt =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sentinel_entity_mapping
-             v_sentinel_entity_mapping
-         in
-         ("sentinel_entity_mapping", arg) :: bnds
+         if [] = v_sentinel_entity_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sentinel_entity_mapping)
+               v_sentinel_entity_mapping
+           in
+           let bnd = "sentinel_entity_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_incident v_incident in
-         ("incident", arg) :: bnds
+         if [] = v_incident then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_incident) v_incident
+           in
+           let bnd = "incident", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_grouping v_event_grouping
-         in
-         ("event_grouping", arg) :: bnds
+         if [] = v_event_grouping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_grouping)
+               v_event_grouping
+           in
+           let bnd = "event_grouping", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_entity_mapping v_entity_mapping
-         in
-         ("entity_mapping", arg) :: bnds
+         if [] = v_entity_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_entity_mapping)
+               v_entity_mapping
+           in
+           let bnd = "entity_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_alert_details_override
-             v_alert_details_override
-         in
-         ("alert_details_override", arg) :: bnds
+         if [] = v_alert_details_override then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_alert_details_override)
+               v_alert_details_override
+           in
+           let bnd = "alert_details_override", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_techniques with

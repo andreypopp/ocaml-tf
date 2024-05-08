@@ -192,8 +192,11 @@ type aws_cloudformation_stack_set = {
   template_body : string prop option; [@option]
   template_url : string prop option; [@option]
   auto_deployment : auto_deployment list;
+      [@default []] [@yojson_drop_default ( = )]
   managed_execution : managed_execution list;
+      [@default []] [@yojson_drop_default ( = )]
   operation_preferences : operation_preferences list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -229,24 +232,34 @@ let yojson_of_aws_cloudformation_stack_set =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_operation_preferences
-             v_operation_preferences
-         in
-         ("operation_preferences", arg) :: bnds
+         if [] = v_operation_preferences then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_operation_preferences)
+               v_operation_preferences
+           in
+           let bnd = "operation_preferences", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_managed_execution
-             v_managed_execution
-         in
-         ("managed_execution", arg) :: bnds
+         if [] = v_managed_execution then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_managed_execution)
+               v_managed_execution
+           in
+           let bnd = "managed_execution", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_deployment v_auto_deployment
-         in
-         ("auto_deployment", arg) :: bnds
+         if [] = v_auto_deployment then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_deployment)
+               v_auto_deployment
+           in
+           let bnd = "auto_deployment", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_template_url with

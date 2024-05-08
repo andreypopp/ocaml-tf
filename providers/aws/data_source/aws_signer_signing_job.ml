@@ -66,7 +66,10 @@ let _ = yojson_of_signed_object__s3
 
 [@@@deriving.end]
 
-type signed_object = { s3 : signed_object__s3 list }
+type signed_object = {
+  s3 : signed_object__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : signed_object) -> ()
@@ -78,8 +81,13 @@ let yojson_of_signed_object =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_signed_object__s3 v_s3 in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_signed_object__s3) v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : signed_object -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -122,7 +130,10 @@ let _ = yojson_of_source__s3
 
 [@@@deriving.end]
 
-type source = { s3 : source__s3 list } [@@deriving_inline yojson_of]
+type source = {
+  s3 : source__s3 list; [@default []] [@yojson_drop_default ( = )]
+}
+[@@deriving_inline yojson_of]
 
 let _ = fun (_ : source) -> ()
 
@@ -133,8 +144,11 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source__s3 v_s3 in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source__s3) v_s3 in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)

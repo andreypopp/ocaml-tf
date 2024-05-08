@@ -6,22 +6,30 @@ open! Tf_core
 
 type trusted_key_groups__items = {
   key_group_id : string prop;  (** key_group_id *)
-  key_pair_ids : string prop list;  (** key_pair_ids *)
+  key_pair_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** key_pair_ids *)
 }
 
 type trusted_key_groups = {
   enabled : bool prop;  (** enabled *)
-  items : trusted_key_groups__items list;  (** items *)
+  items : trusted_key_groups__items list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** items *)
 }
 
 type trusted_signers__items = {
   aws_account_number : string prop;  (** aws_account_number *)
-  key_pair_ids : string prop list;  (** key_pair_ids *)
+  key_pair_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** key_pair_ids *)
 }
 
 type trusted_signers = {
   enabled : bool prop;  (** enabled *)
-  items : trusted_signers__items list;  (** items *)
+  items : trusted_signers__items list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** items *)
 }
 
 type custom_error_response

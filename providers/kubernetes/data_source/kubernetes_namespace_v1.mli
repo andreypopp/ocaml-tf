@@ -4,7 +4,12 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
-type spec = { finalizers : string prop list  (** finalizers *) }
+type spec = {
+  finalizers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** finalizers *)
+}
+
 type metadata
 
 val metadata :

@@ -135,7 +135,9 @@ type azurerm_billing_account_cost_management_export = {
   recurrence_period_start_date : string prop;
   recurrence_type : string prop;
   export_data_options : export_data_options list;
+      [@default []] [@yojson_drop_default ( = )]
   export_data_storage_location : export_data_storage_location list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -165,18 +167,24 @@ let yojson_of_azurerm_billing_account_cost_management_export =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_export_data_storage_location
-             v_export_data_storage_location
-         in
-         ("export_data_storage_location", arg) :: bnds
+         if [] = v_export_data_storage_location then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_export_data_storage_location)
+               v_export_data_storage_location
+           in
+           let bnd = "export_data_storage_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_export_data_options
-             v_export_data_options
-         in
-         ("export_data_options", arg) :: bnds
+         if [] = v_export_data_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_export_data_options)
+               v_export_data_options
+           in
+           let bnd = "export_data_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

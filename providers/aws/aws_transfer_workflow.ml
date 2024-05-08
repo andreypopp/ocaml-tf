@@ -92,9 +92,11 @@ type on_exception_steps__copy_step_details__destination_file_location = {
   efs_file_location :
     on_exception_steps__copy_step_details__destination_file_location__efs_file_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_file_location :
     on_exception_steps__copy_step_details__destination_file_location__s3_file_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -114,20 +116,26 @@ let yojson_of_on_exception_steps__copy_step_details__destination_file_location
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__copy_step_details__destination_file_location__s3_file_location
-             v_s3_file_location
-         in
-         ("s3_file_location", arg) :: bnds
+         if [] = v_s3_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__copy_step_details__destination_file_location__s3_file_location)
+               v_s3_file_location
+           in
+           let bnd = "s3_file_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__copy_step_details__destination_file_location__efs_file_location
-             v_efs_file_location
-         in
-         ("efs_file_location", arg) :: bnds
+         if [] = v_efs_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__copy_step_details__destination_file_location__efs_file_location)
+               v_efs_file_location
+           in
+           let bnd = "efs_file_location", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : on_exception_steps__copy_step_details__destination_file_location ->
@@ -145,6 +153,7 @@ type on_exception_steps__copy_step_details = {
   destination_file_location :
     on_exception_steps__copy_step_details__destination_file_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -162,12 +171,15 @@ let yojson_of_on_exception_steps__copy_step_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__copy_step_details__destination_file_location
-             v_destination_file_location
-         in
-         ("destination_file_location", arg) :: bnds
+         if [] = v_destination_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__copy_step_details__destination_file_location)
+               v_destination_file_location
+           in
+           let bnd = "destination_file_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_file_location with
@@ -352,9 +364,11 @@ type on_exception_steps__decrypt_step_details__destination_file_location = {
   efs_file_location :
     on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_file_location :
     on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -374,20 +388,26 @@ let yojson_of_on_exception_steps__decrypt_step_details__destination_file_locatio
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location
-             v_s3_file_location
-         in
-         ("s3_file_location", arg) :: bnds
+         if [] = v_s3_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__decrypt_step_details__destination_file_location__s3_file_location)
+               v_s3_file_location
+           in
+           let bnd = "s3_file_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location
-             v_efs_file_location
-         in
-         ("efs_file_location", arg) :: bnds
+         if [] = v_efs_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__decrypt_step_details__destination_file_location__efs_file_location)
+               v_efs_file_location
+           in
+           let bnd = "efs_file_location", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : on_exception_steps__decrypt_step_details__destination_file_location ->
@@ -406,6 +426,7 @@ type on_exception_steps__decrypt_step_details = {
   destination_file_location :
     on_exception_steps__decrypt_step_details__destination_file_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -424,12 +445,15 @@ let yojson_of_on_exception_steps__decrypt_step_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__decrypt_step_details__destination_file_location
-             v_destination_file_location
-         in
-         ("destination_file_location", arg) :: bnds
+         if [] = v_destination_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__decrypt_step_details__destination_file_location)
+               v_destination_file_location
+           in
+           let bnd = "destination_file_location", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -540,6 +564,7 @@ type on_exception_steps__tag_step_details = {
   name : string prop option; [@option]
   source_file_location : string prop option; [@option]
   tags : on_exception_steps__tag_step_details__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -556,12 +581,15 @@ let yojson_of_on_exception_steps__tag_step_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__tag_step_details__tags
-             v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__tag_step_details__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_file_location with
@@ -590,11 +618,16 @@ let _ = yojson_of_on_exception_steps__tag_step_details
 type on_exception_steps = {
   type_ : string prop; [@key "type"]
   copy_step_details : on_exception_steps__copy_step_details list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_step_details : on_exception_steps__custom_step_details list;
+      [@default []] [@yojson_drop_default ( = )]
   decrypt_step_details :
     on_exception_steps__decrypt_step_details list;
+      [@default []] [@yojson_drop_default ( = )]
   delete_step_details : on_exception_steps__delete_step_details list;
+      [@default []] [@yojson_drop_default ( = )]
   tag_step_details : on_exception_steps__tag_step_details list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -614,44 +647,59 @@ let yojson_of_on_exception_steps =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__tag_step_details
-             v_tag_step_details
-         in
-         ("tag_step_details", arg) :: bnds
+         if [] = v_tag_step_details then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__tag_step_details)
+               v_tag_step_details
+           in
+           let bnd = "tag_step_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__delete_step_details
-             v_delete_step_details
-         in
-         ("delete_step_details", arg) :: bnds
+         if [] = v_delete_step_details then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__delete_step_details)
+               v_delete_step_details
+           in
+           let bnd = "delete_step_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__decrypt_step_details
-             v_decrypt_step_details
-         in
-         ("decrypt_step_details", arg) :: bnds
+         if [] = v_decrypt_step_details then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__decrypt_step_details)
+               v_decrypt_step_details
+           in
+           let bnd = "decrypt_step_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__custom_step_details
-             v_custom_step_details
-         in
-         ("custom_step_details", arg) :: bnds
+         if [] = v_custom_step_details then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__custom_step_details)
+               v_custom_step_details
+           in
+           let bnd = "custom_step_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_on_exception_steps__copy_step_details
-             v_copy_step_details
-         in
-         ("copy_step_details", arg) :: bnds
+         if [] = v_copy_step_details then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_on_exception_steps__copy_step_details)
+               v_copy_step_details
+           in
+           let bnd = "copy_step_details", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -754,9 +802,11 @@ type steps__copy_step_details__destination_file_location = {
   efs_file_location :
     steps__copy_step_details__destination_file_location__efs_file_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_file_location :
     steps__copy_step_details__destination_file_location__s3_file_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -773,20 +823,26 @@ let yojson_of_steps__copy_step_details__destination_file_location =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_steps__copy_step_details__destination_file_location__s3_file_location
-             v_s3_file_location
-         in
-         ("s3_file_location", arg) :: bnds
+         if [] = v_s3_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_steps__copy_step_details__destination_file_location__s3_file_location)
+               v_s3_file_location
+           in
+           let bnd = "s3_file_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_steps__copy_step_details__destination_file_location__efs_file_location
-             v_efs_file_location
-         in
-         ("efs_file_location", arg) :: bnds
+         if [] = v_efs_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_steps__copy_step_details__destination_file_location__efs_file_location)
+               v_efs_file_location
+           in
+           let bnd = "efs_file_location", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : steps__copy_step_details__destination_file_location ->
@@ -802,6 +858,7 @@ type steps__copy_step_details = {
   source_file_location : string prop option; [@option]
   destination_file_location :
     steps__copy_step_details__destination_file_location list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -819,12 +876,15 @@ let yojson_of_steps__copy_step_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_steps__copy_step_details__destination_file_location
-             v_destination_file_location
-         in
-         ("destination_file_location", arg) :: bnds
+         if [] = v_destination_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_steps__copy_step_details__destination_file_location)
+               v_destination_file_location
+           in
+           let bnd = "destination_file_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_file_location with
@@ -1007,9 +1067,11 @@ type steps__decrypt_step_details__destination_file_location = {
   efs_file_location :
     steps__decrypt_step_details__destination_file_location__efs_file_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_file_location :
     steps__decrypt_step_details__destination_file_location__s3_file_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1028,20 +1090,26 @@ let yojson_of_steps__decrypt_step_details__destination_file_location
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_steps__decrypt_step_details__destination_file_location__s3_file_location
-             v_s3_file_location
-         in
-         ("s3_file_location", arg) :: bnds
+         if [] = v_s3_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_steps__decrypt_step_details__destination_file_location__s3_file_location)
+               v_s3_file_location
+           in
+           let bnd = "s3_file_location", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_steps__decrypt_step_details__destination_file_location__efs_file_location
-             v_efs_file_location
-         in
-         ("efs_file_location", arg) :: bnds
+         if [] = v_efs_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_steps__decrypt_step_details__destination_file_location__efs_file_location)
+               v_efs_file_location
+           in
+           let bnd = "efs_file_location", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : steps__decrypt_step_details__destination_file_location ->
@@ -1059,6 +1127,7 @@ type steps__decrypt_step_details = {
   type_ : string prop; [@key "type"]
   destination_file_location :
     steps__decrypt_step_details__destination_file_location list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1077,12 +1146,15 @@ let yojson_of_steps__decrypt_step_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_steps__decrypt_step_details__destination_file_location
-             v_destination_file_location
-         in
-         ("destination_file_location", arg) :: bnds
+         if [] = v_destination_file_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_steps__decrypt_step_details__destination_file_location)
+               v_destination_file_location
+           in
+           let bnd = "destination_file_location", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -1192,6 +1264,7 @@ type steps__tag_step_details = {
   name : string prop option; [@option]
   source_file_location : string prop option; [@option]
   tags : steps__tag_step_details__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1208,11 +1281,14 @@ let yojson_of_steps__tag_step_details =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_steps__tag_step_details__tags
-             v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_steps__tag_step_details__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_file_location with
@@ -1240,10 +1316,15 @@ let _ = yojson_of_steps__tag_step_details
 type steps = {
   type_ : string prop; [@key "type"]
   copy_step_details : steps__copy_step_details list;
+      [@default []] [@yojson_drop_default ( = )]
   custom_step_details : steps__custom_step_details list;
+      [@default []] [@yojson_drop_default ( = )]
   decrypt_step_details : steps__decrypt_step_details list;
+      [@default []] [@yojson_drop_default ( = )]
   delete_step_details : steps__delete_step_details list;
+      [@default []] [@yojson_drop_default ( = )]
   tag_step_details : steps__tag_step_details list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1263,39 +1344,54 @@ let yojson_of_steps =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_steps__tag_step_details
-             v_tag_step_details
-         in
-         ("tag_step_details", arg) :: bnds
+         if [] = v_tag_step_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_steps__tag_step_details)
+               v_tag_step_details
+           in
+           let bnd = "tag_step_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_steps__delete_step_details
-             v_delete_step_details
-         in
-         ("delete_step_details", arg) :: bnds
+         if [] = v_delete_step_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_steps__delete_step_details)
+               v_delete_step_details
+           in
+           let bnd = "delete_step_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_steps__decrypt_step_details
-             v_decrypt_step_details
-         in
-         ("decrypt_step_details", arg) :: bnds
+         if [] = v_decrypt_step_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_steps__decrypt_step_details)
+               v_decrypt_step_details
+           in
+           let bnd = "decrypt_step_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_steps__custom_step_details
-             v_custom_step_details
-         in
-         ("custom_step_details", arg) :: bnds
+         if [] = v_custom_step_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_steps__custom_step_details)
+               v_custom_step_details
+           in
+           let bnd = "custom_step_details", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_steps__copy_step_details
-             v_copy_step_details
-         in
-         ("copy_step_details", arg) :: bnds
+         if [] = v_copy_step_details then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_steps__copy_step_details)
+               v_copy_step_details
+           in
+           let bnd = "copy_step_details", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -1314,7 +1410,8 @@ type aws_transfer_workflow = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   on_exception_steps : on_exception_steps list;
-  steps : steps list;
+      [@default []] [@yojson_drop_default ( = )]
+  steps : steps list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1334,15 +1431,21 @@ let yojson_of_aws_transfer_workflow =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_steps v_steps in
-         ("steps", arg) :: bnds
+         if [] = v_steps then bnds
+         else
+           let arg = (yojson_of_list yojson_of_steps) v_steps in
+           let bnd = "steps", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_on_exception_steps
-             v_on_exception_steps
-         in
-         ("on_exception_steps", arg) :: bnds
+         if [] = v_on_exception_steps then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_on_exception_steps)
+               v_on_exception_steps
+           in
+           let bnd = "on_exception_steps", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

@@ -188,8 +188,10 @@ type google_compute_router_peer = {
   router : string prop;
   router_appliance_instance : string prop option; [@option]
   advertised_ip_ranges : advertised_ip_ranges list;
-  bfd : bfd list;
+      [@default []] [@yojson_drop_default ( = )]
+  bfd : bfd list; [@default []] [@yojson_drop_default ( = )]
   md5_authentication_key : md5_authentication_key list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -229,22 +231,31 @@ let yojson_of_google_compute_router_peer =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_md5_authentication_key
-             v_md5_authentication_key
-         in
-         ("md5_authentication_key", arg) :: bnds
+         if [] = v_md5_authentication_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_md5_authentication_key)
+               v_md5_authentication_key
+           in
+           let bnd = "md5_authentication_key", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_bfd v_bfd in
-         ("bfd", arg) :: bnds
+         if [] = v_bfd then bnds
+         else
+           let arg = (yojson_of_list yojson_of_bfd) v_bfd in
+           let bnd = "bfd", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_advertised_ip_ranges
-             v_advertised_ip_ranges
-         in
-         ("advertised_ip_ranges", arg) :: bnds
+         if [] = v_advertised_ip_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_advertised_ip_ranges)
+               v_advertised_ip_ranges
+           in
+           let bnd = "advertised_ip_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_router_appliance_instance with

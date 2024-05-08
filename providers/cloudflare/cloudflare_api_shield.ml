@@ -43,6 +43,7 @@ type cloudflare_api_shield = {
   id : string prop option; [@option]
   zone_id : string prop;
   auth_id_characteristics : auth_id_characteristics list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,11 +60,14 @@ let yojson_of_cloudflare_api_shield =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auth_id_characteristics
-             v_auth_id_characteristics
-         in
-         ("auth_id_characteristics", arg) :: bnds
+         if [] = v_auth_id_characteristics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auth_id_characteristics)
+               v_auth_id_characteristics
+           in
+           let bnd = "auth_id_characteristics", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_id in

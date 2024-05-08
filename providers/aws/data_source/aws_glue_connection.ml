@@ -5,6 +5,7 @@ open! Tf_core
 type physical_connection_requirements = {
   availability_zone : string prop;
   security_group_id_list : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -26,12 +27,14 @@ let yojson_of_physical_connection_requirements =
          ("subnet_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_id_list
-         in
-         ("security_group_id_list", arg) :: bnds
+         if [] = v_security_group_id_list then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_id_list
+           in
+           let bnd = "security_group_id_list", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

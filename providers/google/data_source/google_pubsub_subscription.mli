@@ -18,6 +18,7 @@ type cloud_storage_config__avro_config = {
 
 type cloud_storage_config = {
   avro_config : cloud_storage_config__avro_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** avro_config *)
   bucket : string prop;  (** bucket *)
   filename_prefix : string prop;  (** filename_prefix *)
@@ -45,8 +46,12 @@ type push_config__no_wrapper = {
 
 type push_config = {
   attributes : (string * string prop) list;  (** attributes *)
-  no_wrapper : push_config__no_wrapper list;  (** no_wrapper *)
-  oidc_token : push_config__oidc_token list;  (** oidc_token *)
+  no_wrapper : push_config__no_wrapper list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** no_wrapper *)
+  oidc_token : push_config__oidc_token list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** oidc_token *)
   push_endpoint : string prop;  (** push_endpoint *)
 }
 

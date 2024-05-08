@@ -37,6 +37,7 @@ type artifact_store = {
   region : string prop option; [@option]
   type_ : string prop; [@key "type"]
   encryption_key : artifact_store__encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,11 +55,14 @@ let yojson_of_artifact_store =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_artifact_store__encryption_key
-             v_encryption_key
-         in
-         ("encryption_key", arg) :: bnds
+         if [] = v_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_artifact_store__encryption_key)
+               v_encryption_key
+           in
+           let bnd = "encryption_key", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -215,7 +219,11 @@ let _ = yojson_of_stage__action
 
 [@@@deriving.end]
 
-type stage = { name : string prop; action : stage__action list }
+type stage = {
+  name : string prop;
+  action : stage__action list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : stage) -> ()
@@ -227,8 +235,13 @@ let yojson_of_stage =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_stage__action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stage__action) v_action
+           in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -331,8 +344,10 @@ let _ =
 type trigger__git_configuration__pull_request = {
   events : string prop list option; [@option]
   branches : trigger__git_configuration__pull_request__branches list;
+      [@default []] [@yojson_drop_default ( = )]
   file_paths :
     trigger__git_configuration__pull_request__file_paths list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -349,20 +364,26 @@ let yojson_of_trigger__git_configuration__pull_request =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_trigger__git_configuration__pull_request__file_paths
-             v_file_paths
-         in
-         ("file_paths", arg) :: bnds
+         if [] = v_file_paths then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trigger__git_configuration__pull_request__file_paths)
+               v_file_paths
+           in
+           let bnd = "file_paths", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_trigger__git_configuration__pull_request__branches
-             v_branches
-         in
-         ("branches", arg) :: bnds
+         if [] = v_branches then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trigger__git_configuration__pull_request__branches)
+               v_branches
+           in
+           let bnd = "branches", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_events with
@@ -510,8 +531,11 @@ let _ = yojson_of_trigger__git_configuration__push__tags
 
 type trigger__git_configuration__push = {
   branches : trigger__git_configuration__push__branches list;
+      [@default []] [@yojson_drop_default ( = )]
   file_paths : trigger__git_configuration__push__file_paths list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : trigger__git_configuration__push__tags list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -528,27 +552,37 @@ let yojson_of_trigger__git_configuration__push =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_trigger__git_configuration__push__tags v_tags
-         in
-         ("tags", arg) :: bnds
+         if [] = v_tags then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trigger__git_configuration__push__tags)
+               v_tags
+           in
+           let bnd = "tags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_trigger__git_configuration__push__file_paths
-             v_file_paths
-         in
-         ("file_paths", arg) :: bnds
+         if [] = v_file_paths then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trigger__git_configuration__push__file_paths)
+               v_file_paths
+           in
+           let bnd = "file_paths", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_trigger__git_configuration__push__branches
-             v_branches
-         in
-         ("branches", arg) :: bnds
+         if [] = v_branches then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trigger__git_configuration__push__branches)
+               v_branches
+           in
+           let bnd = "branches", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : trigger__git_configuration__push ->
@@ -561,7 +595,9 @@ let _ = yojson_of_trigger__git_configuration__push
 type trigger__git_configuration = {
   source_action_name : string prop;
   pull_request : trigger__git_configuration__pull_request list;
+      [@default []] [@yojson_drop_default ( = )]
   push : trigger__git_configuration__push list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -578,19 +614,26 @@ let yojson_of_trigger__git_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trigger__git_configuration__push
-             v_push
-         in
-         ("push", arg) :: bnds
+         if [] = v_push then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trigger__git_configuration__push)
+               v_push
+           in
+           let bnd = "push", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_trigger__git_configuration__pull_request
-             v_pull_request
-         in
-         ("pull_request", arg) :: bnds
+         if [] = v_pull_request then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_trigger__git_configuration__pull_request)
+               v_pull_request
+           in
+           let bnd = "pull_request", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -608,6 +651,7 @@ let _ = yojson_of_trigger__git_configuration
 type trigger = {
   provider_type : string prop;
   git_configuration : trigger__git_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -623,11 +667,14 @@ let yojson_of_trigger =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_trigger__git_configuration
-             v_git_configuration
-         in
-         ("git_configuration", arg) :: bnds
+         if [] = v_git_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_trigger__git_configuration)
+               v_git_configuration
+           in
+           let bnd = "git_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_provider_type in
@@ -695,9 +742,10 @@ type aws_codepipeline = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   artifact_store : artifact_store list;
-  stage : stage list;
-  trigger : trigger list;
-  variable : variable list;
+      [@default []] [@yojson_drop_default ( = )]
+  stage : stage list; [@default []] [@yojson_drop_default ( = )]
+  trigger : trigger list; [@default []] [@yojson_drop_default ( = )]
+  variable : variable list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -722,22 +770,37 @@ let yojson_of_aws_codepipeline =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_variable v_variable in
-         ("variable", arg) :: bnds
+         if [] = v_variable then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_variable) v_variable
+           in
+           let bnd = "variable", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_trigger v_trigger in
-         ("trigger", arg) :: bnds
+         if [] = v_trigger then bnds
+         else
+           let arg = (yojson_of_list yojson_of_trigger) v_trigger in
+           let bnd = "trigger", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_stage v_stage in
-         ("stage", arg) :: bnds
+         if [] = v_stage then bnds
+         else
+           let arg = (yojson_of_list yojson_of_stage) v_stage in
+           let bnd = "stage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_artifact_store v_artifact_store
-         in
-         ("artifact_store", arg) :: bnds
+         if [] = v_artifact_store then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_artifact_store)
+               v_artifact_store
+           in
+           let bnd = "artifact_store", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

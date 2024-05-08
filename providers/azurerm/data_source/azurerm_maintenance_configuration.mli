@@ -6,26 +6,36 @@ open! Tf_core
 
 type install_patches__windows = {
   classifications_to_include : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** classifications_to_include *)
   kb_numbers_to_exclude : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** kb_numbers_to_exclude *)
   kb_numbers_to_include : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** kb_numbers_to_include *)
 }
 
 type install_patches__linux = {
   classifications_to_include : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** classifications_to_include *)
   package_names_mask_to_exclude : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** package_names_mask_to_exclude *)
   package_names_mask_to_include : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** package_names_mask_to_include *)
 }
 
 type install_patches = {
-  linux : install_patches__linux list;  (** linux *)
+  linux : install_patches__linux list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** linux *)
   reboot : string prop;  (** reboot *)
-  windows : install_patches__windows list;  (** windows *)
+  windows : install_patches__windows list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** windows *)
 }
 
 type window = {

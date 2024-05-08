@@ -35,7 +35,10 @@ let _ = yojson_of_destination__s3
 
 [@@@deriving.end]
 
-type destination = { s3 : destination__s3 list }
+type destination = {
+  s3 : destination__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : destination) -> ()
@@ -47,8 +50,13 @@ let yojson_of_destination =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_destination__s3 v_s3 in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination__s3) v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -91,7 +99,10 @@ let _ = yojson_of_source__s3
 
 [@@@deriving.end]
 
-type source = { s3 : source__s3 list } [@@deriving_inline yojson_of]
+type source = {
+  s3 : source__s3 list; [@default []] [@yojson_drop_default ( = )]
+}
+[@@deriving_inline yojson_of]
 
 let _ = fun (_ : source) -> ()
 
@@ -102,8 +113,11 @@ let yojson_of_source =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source__s3 v_s3 in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source__s3) v_s3 in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -176,7 +190,10 @@ let _ = yojson_of_signed_object__s3
 
 [@@@deriving.end]
 
-type signed_object = { s3 : signed_object__s3 list }
+type signed_object = {
+  s3 : signed_object__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : signed_object) -> ()
@@ -188,8 +205,13 @@ let yojson_of_signed_object =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_signed_object__s3 v_s3 in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_signed_object__s3) v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : signed_object -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -203,7 +225,8 @@ type aws_signer_signing_job = {
   ignore_signing_job_failure : bool prop option; [@option]
   profile_name : string prop;
   destination : destination list;
-  source : source list;
+      [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -222,14 +245,20 @@ let yojson_of_aws_signer_signing_job =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination) v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_profile_name in

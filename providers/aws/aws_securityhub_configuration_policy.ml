@@ -93,7 +93,7 @@ let _ =
 [@@@deriving.end]
 
 type configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum_list = {
-  value : string prop list;
+  value : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -110,10 +110,14 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum_list ->
@@ -155,7 +159,7 @@ let _ =
 [@@@deriving.end]
 
 type configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list = {
-  value : float prop list;
+  value : float prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -172,10 +176,14 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_float) v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list ->
@@ -217,7 +225,7 @@ let _ =
 [@@@deriving.end]
 
 type configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string_list = {
-  value : string prop list;
+  value : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -234,10 +242,14 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string_list ->
@@ -254,30 +266,35 @@ type configuration_policy__security_controls_configuration__security_control_cus
   bool_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool
     list;
-      [@key "bool"]
+      [@key "bool"] [@default []] [@yojson_drop_default ( = )]
   double :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__double
     list;
+      [@default []] [@yojson_drop_default ( = )]
   enum :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum
     list;
+      [@default []] [@yojson_drop_default ( = )]
   enum_list :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum_list
     list;
+      [@default []] [@yojson_drop_default ( = )]
   int_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int
     list;
-      [@key "int"]
+      [@key "int"] [@default []] [@yojson_drop_default ( = )]
   int_list :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list
     list;
+      [@default []] [@yojson_drop_default ( = )]
   string_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string
     list;
-      [@key "string"]
+      [@key "string"] [@default []] [@yojson_drop_default ( = )]
   string_list :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string_list
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -305,68 +322,92 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string_list
-             v_string_list
-         in
-         ("string_list", arg) :: bnds
+         if [] = v_string_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string_list)
+               v_string_list
+           in
+           let bnd = "string_list", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string
-             v_string_
-         in
-         ("string", arg) :: bnds
+         if [] = v_string_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string)
+               v_string_
+           in
+           let bnd = "string", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list
-             v_int_list
-         in
-         ("int_list", arg) :: bnds
+         if [] = v_int_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list)
+               v_int_list
+           in
+           let bnd = "int_list", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int
-             v_int_
-         in
-         ("int", arg) :: bnds
+         if [] = v_int_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int)
+               v_int_
+           in
+           let bnd = "int", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum_list
-             v_enum_list
-         in
-         ("enum_list", arg) :: bnds
+         if [] = v_enum_list then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum_list)
+               v_enum_list
+           in
+           let bnd = "enum_list", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum
-             v_enum
-         in
-         ("enum", arg) :: bnds
+         if [] = v_enum then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum)
+               v_enum
+           in
+           let bnd = "enum", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__double
-             v_double
-         in
-         ("double", arg) :: bnds
+         if [] = v_double then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__double)
+               v_double
+           in
+           let bnd = "double", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool
-             v_bool_
-         in
-         ("bool", arg) :: bnds
+         if [] = v_bool_ then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool)
+               v_bool_
+           in
+           let bnd = "bool", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_value_type in
@@ -390,6 +431,7 @@ type configuration_policy__security_controls_configuration__security_control_cus
   parameter :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -409,12 +451,15 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter
-             v_parameter
-         in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter)
+               v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -437,6 +482,7 @@ type configuration_policy__security_controls_configuration = {
   security_control_custom_parameter :
     configuration_policy__security_controls_configuration__security_control_custom_parameter
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -456,12 +502,15 @@ let yojson_of_configuration_policy__security_controls_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter
-             v_security_control_custom_parameter
-         in
-         ("security_control_custom_parameter", arg) :: bnds
+         if [] = v_security_control_custom_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter)
+               v_security_control_custom_parameter
+           in
+           let bnd = "security_control_custom_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_enabled_control_identifiers with
@@ -494,9 +543,11 @@ let _ =
 
 type configuration_policy = {
   enabled_standard_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   service_enabled : bool prop;
   security_controls_configuration :
     configuration_policy__security_controls_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -514,24 +565,29 @@ let yojson_of_configuration_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configuration_policy__security_controls_configuration
-             v_security_controls_configuration
-         in
-         ("security_controls_configuration", arg) :: bnds
+         if [] = v_security_controls_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configuration_policy__security_controls_configuration)
+               v_security_controls_configuration
+           in
+           let bnd = "security_controls_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_service_enabled in
          ("service_enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_enabled_standard_arns
-         in
-         ("enabled_standard_arns", arg) :: bnds
+         if [] = v_enabled_standard_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_enabled_standard_arns
+           in
+           let bnd = "enabled_standard_arns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : configuration_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -545,6 +601,7 @@ type aws_securityhub_configuration_policy = {
   id : string prop option; [@option]
   name : string prop;
   configuration_policy : configuration_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -562,11 +619,14 @@ let yojson_of_aws_securityhub_configuration_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configuration_policy
-             v_configuration_policy
-         in
-         ("configuration_policy", arg) :: bnds
+         if [] = v_configuration_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configuration_policy)
+               v_configuration_policy
+           in
+           let bnd = "configuration_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

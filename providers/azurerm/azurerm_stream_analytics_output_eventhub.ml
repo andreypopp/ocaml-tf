@@ -131,6 +131,7 @@ type azurerm_stream_analytics_output_eventhub = {
   shared_access_policy_name : string prop option; [@option]
   stream_analytics_job_name : string prop;
   serialization : serialization list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -162,10 +163,13 @@ let yojson_of_azurerm_stream_analytics_output_eventhub =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_serialization v_serialization
-         in
-         ("serialization", arg) :: bnds
+         if [] = v_serialization then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_serialization) v_serialization
+           in
+           let bnd = "serialization", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

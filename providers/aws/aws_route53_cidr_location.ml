@@ -4,6 +4,7 @@ open! Tf_core
 
 type aws_route53_cidr_location = {
   cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   cidr_collection_id : string prop;
   name : string prop;
 }
@@ -32,12 +33,14 @@ let yojson_of_aws_route53_cidr_location =
          ("cidr_collection_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_cidr_blocks
-         in
-         ("cidr_blocks", arg) :: bnds
+         if [] = v_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_cidr_blocks
+           in
+           let bnd = "cidr_blocks", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_route53_cidr_location -> Ppx_yojson_conv_lib.Yojson.Safe.t)

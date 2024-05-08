@@ -34,6 +34,7 @@ let _ = yojson_of_module_link__hash
 type module_link = {
   uri : string prop;
   hash : module_link__hash list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,10 +47,13 @@ let yojson_of_module_link =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_module_link__hash v_hash
-         in
-         ("hash", arg) :: bnds
+         if [] = v_hash then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_module_link__hash) v_hash
+           in
+           let bnd = "hash", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_uri in
@@ -127,6 +131,7 @@ type azurerm_automation_powershell72_module = {
   id : string prop option; [@option]
   name : string prop;
   module_link : module_link list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -150,10 +155,13 @@ let yojson_of_azurerm_automation_powershell72_module =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_module_link v_module_link
-         in
-         ("module_link", arg) :: bnds
+         if [] = v_module_link then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_module_link) v_module_link
+           in
+           let bnd = "module_link", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

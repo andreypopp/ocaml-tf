@@ -17,7 +17,9 @@ type spec__volume__secret__items = {
 
 type spec__volume__secret = {
   default_mode : string prop;  (** default_mode *)
-  items : spec__volume__secret__items list;  (** items *)
+  items : spec__volume__secret__items list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** items *)
   optional : bool prop;  (** optional *)
   secret_name : string prop;  (** secret_name *)
 }
@@ -28,14 +30,18 @@ type spec__volume__rbd__secret_ref = {
 }
 
 type spec__volume__rbd = {
-  ceph_monitors : string prop list;  (** ceph_monitors *)
+  ceph_monitors : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ceph_monitors *)
   fs_type : string prop;  (** fs_type *)
   keyring : string prop;  (** keyring *)
   rados_user : string prop;  (** rados_user *)
   rbd_image : string prop;  (** rbd_image *)
   rbd_pool : string prop;  (** rbd_pool *)
   read_only : bool prop;  (** read_only *)
-  secret_ref : spec__volume__rbd__secret_ref list;  (** secret_ref *)
+  secret_ref : spec__volume__rbd__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** secret_ref *)
 }
 
 type spec__volume__quobyte = {
@@ -60,6 +66,7 @@ type spec__volume__projected__sources__secret__items = {
 
 type spec__volume__projected__sources__secret = {
   items : spec__volume__projected__sources__secret__items list;
+      [@default []] [@yojson_drop_default ( = )]
       (** items *)
   name : string prop;  (** name *)
   optional : bool prop;  (** optional *)
@@ -80,17 +87,20 @@ type spec__volume__projected__sources__downward_api__items = {
   field_ref :
     spec__volume__projected__sources__downward_api__items__field_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** field_ref *)
   mode : string prop;  (** mode *)
   path : string prop;  (** path *)
   resource_field_ref :
     spec__volume__projected__sources__downward_api__items__resource_field_ref
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** resource_field_ref *)
 }
 
 type spec__volume__projected__sources__downward_api = {
   items : spec__volume__projected__sources__downward_api__items list;
+      [@default []] [@yojson_drop_default ( = )]
       (** items *)
 }
 
@@ -102,6 +112,7 @@ type spec__volume__projected__sources__config_map__items = {
 
 type spec__volume__projected__sources__config_map = {
   items : spec__volume__projected__sources__config_map__items list;
+      [@default []] [@yojson_drop_default ( = )]
       (** items *)
   name : string prop;  (** name *)
   optional : bool prop;  (** optional *)
@@ -109,19 +120,25 @@ type spec__volume__projected__sources__config_map = {
 
 type spec__volume__projected__sources = {
   config_map : spec__volume__projected__sources__config_map list;
+      [@default []] [@yojson_drop_default ( = )]
       (** config_map *)
   downward_api : spec__volume__projected__sources__downward_api list;
+      [@default []] [@yojson_drop_default ( = )]
       (** downward_api *)
   secret : spec__volume__projected__sources__secret list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret *)
   service_account_token :
     spec__volume__projected__sources__service_account_token list;
+      [@default []] [@yojson_drop_default ( = )]
       (** service_account_token *)
 }
 
 type spec__volume__projected = {
   default_mode : string prop;  (** default_mode *)
-  sources : spec__volume__projected__sources list;  (** sources *)
+  sources : spec__volume__projected__sources list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** sources *)
 }
 
 type spec__volume__photon_persistent_disk = {
@@ -191,6 +208,7 @@ type spec__volume__flex_volume = {
   options : (string * string prop) list;  (** options *)
   read_only : bool prop;  (** read_only *)
   secret_ref : spec__volume__flex_volume__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret_ref *)
 }
 
@@ -198,19 +216,24 @@ type spec__volume__fc = {
   fs_type : string prop;  (** fs_type *)
   lun : float prop;  (** lun *)
   read_only : bool prop;  (** read_only *)
-  target_ww_ns : string prop list;  (** target_ww_ns *)
+  target_ww_ns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** target_ww_ns *)
 }
 
 type spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type spec__volume__ephemeral__volume_claim_template__spec__selector = {
   match_expressions :
     spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_expressions *)
   match_labels : (string * string prop) list;  (** match_labels *)
 }
@@ -221,14 +244,18 @@ type spec__volume__ephemeral__volume_claim_template__spec__resources = {
 }
 
 type spec__volume__ephemeral__volume_claim_template__spec = {
-  access_modes : string prop list;  (** access_modes *)
+  access_modes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** access_modes *)
   resources :
     spec__volume__ephemeral__volume_claim_template__spec__resources
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** resources *)
   selector :
     spec__volume__ephemeral__volume_claim_template__spec__selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** selector *)
   storage_class_name : string prop;  (** storage_class_name *)
   volume_mode : string prop;  (** volume_mode *)
@@ -243,14 +270,17 @@ type spec__volume__ephemeral__volume_claim_template__metadata = {
 type spec__volume__ephemeral__volume_claim_template = {
   metadata :
     spec__volume__ephemeral__volume_claim_template__metadata list;
+      [@default []] [@yojson_drop_default ( = )]
       (** metadata *)
   spec : spec__volume__ephemeral__volume_claim_template__spec list;
+      [@default []] [@yojson_drop_default ( = )]
       (** spec *)
 }
 
 type spec__volume__ephemeral = {
   volume_claim_template :
     spec__volume__ephemeral__volume_claim_template list;
+      [@default []] [@yojson_drop_default ( = )]
       (** volume_claim_template *)
 }
 
@@ -272,17 +302,21 @@ type spec__volume__downward_api__items__field_ref = {
 
 type spec__volume__downward_api__items = {
   field_ref : spec__volume__downward_api__items__field_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** field_ref *)
   mode : string prop;  (** mode *)
   path : string prop;  (** path *)
   resource_field_ref :
     spec__volume__downward_api__items__resource_field_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** resource_field_ref *)
 }
 
 type spec__volume__downward_api = {
   default_mode : string prop;  (** default_mode *)
-  items : spec__volume__downward_api__items list;  (** items *)
+  items : spec__volume__downward_api__items list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** items *)
 }
 
 type spec__volume__csi__node_publish_secret_ref = {
@@ -294,6 +328,7 @@ type spec__volume__csi = {
   fs_type : string prop;  (** fs_type *)
   node_publish_secret_ref :
     spec__volume__csi__node_publish_secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** node_publish_secret_ref *)
   read_only : bool prop;  (** read_only *)
   volume_attributes : (string * string prop) list;
@@ -308,7 +343,9 @@ type spec__volume__config_map__items = {
 
 type spec__volume__config_map = {
   default_mode : string prop;  (** default_mode *)
-  items : spec__volume__config_map__items list;  (** items *)
+  items : spec__volume__config_map__items list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** items *)
   name : string prop;  (** name *)
   optional : bool prop;  (** optional *)
 }
@@ -325,11 +362,14 @@ type spec__volume__ceph_fs__secret_ref = {
 }
 
 type spec__volume__ceph_fs = {
-  monitors : string prop list;  (** monitors *)
+  monitors : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** monitors *)
   path : string prop;  (** path *)
   read_only : bool prop;  (** read_only *)
   secret_file : string prop;  (** secret_file *)
   secret_ref : spec__volume__ceph_fs__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret_ref *)
   user : string prop;  (** user *)
 }
@@ -360,52 +400,103 @@ type spec__volume__aws_elastic_block_store = {
 type spec__volume = {
   aws_elastic_block_store :
     spec__volume__aws_elastic_block_store list;
+      [@default []] [@yojson_drop_default ( = )]
       (** aws_elastic_block_store *)
-  azure_disk : spec__volume__azure_disk list;  (** azure_disk *)
-  azure_file : spec__volume__azure_file list;  (** azure_file *)
-  ceph_fs : spec__volume__ceph_fs list;  (** ceph_fs *)
-  cinder : spec__volume__cinder list;  (** cinder *)
-  config_map : spec__volume__config_map list;  (** config_map *)
-  csi : spec__volume__csi list;  (** csi *)
+  azure_disk : spec__volume__azure_disk list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** azure_disk *)
+  azure_file : spec__volume__azure_file list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** azure_file *)
+  ceph_fs : spec__volume__ceph_fs list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ceph_fs *)
+  cinder : spec__volume__cinder list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cinder *)
+  config_map : spec__volume__config_map list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** config_map *)
+  csi : spec__volume__csi list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** csi *)
   downward_api : spec__volume__downward_api list;
+      [@default []] [@yojson_drop_default ( = )]
       (** downward_api *)
-  empty_dir : spec__volume__empty_dir list;  (** empty_dir *)
-  ephemeral : spec__volume__ephemeral list;  (** ephemeral *)
-  fc : spec__volume__fc list;  (** fc *)
-  flex_volume : spec__volume__flex_volume list;  (** flex_volume *)
-  flocker : spec__volume__flocker list;  (** flocker *)
+  empty_dir : spec__volume__empty_dir list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** empty_dir *)
+  ephemeral : spec__volume__ephemeral list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ephemeral *)
+  fc : spec__volume__fc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** fc *)
+  flex_volume : spec__volume__flex_volume list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** flex_volume *)
+  flocker : spec__volume__flocker list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** flocker *)
   gce_persistent_disk : spec__volume__gce_persistent_disk list;
+      [@default []] [@yojson_drop_default ( = )]
       (** gce_persistent_disk *)
-  git_repo : spec__volume__git_repo list;  (** git_repo *)
-  glusterfs : spec__volume__glusterfs list;  (** glusterfs *)
-  host_path : spec__volume__host_path list;  (** host_path *)
-  iscsi : spec__volume__iscsi list;  (** iscsi *)
-  local : spec__volume__local list;  (** local *)
+  git_repo : spec__volume__git_repo list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** git_repo *)
+  glusterfs : spec__volume__glusterfs list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** glusterfs *)
+  host_path : spec__volume__host_path list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** host_path *)
+  iscsi : spec__volume__iscsi list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** iscsi *)
+  local : spec__volume__local list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** local *)
   name : string prop;  (** name *)
-  nfs : spec__volume__nfs list;  (** nfs *)
+  nfs : spec__volume__nfs list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** nfs *)
   persistent_volume_claim :
     spec__volume__persistent_volume_claim list;
+      [@default []] [@yojson_drop_default ( = )]
       (** persistent_volume_claim *)
   photon_persistent_disk : spec__volume__photon_persistent_disk list;
+      [@default []] [@yojson_drop_default ( = )]
       (** photon_persistent_disk *)
-  projected : spec__volume__projected list;  (** projected *)
-  quobyte : spec__volume__quobyte list;  (** quobyte *)
-  rbd : spec__volume__rbd list;  (** rbd *)
-  secret : spec__volume__secret list;  (** secret *)
+  projected : spec__volume__projected list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** projected *)
+  quobyte : spec__volume__quobyte list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** quobyte *)
+  rbd : spec__volume__rbd list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** rbd *)
+  secret : spec__volume__secret list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** secret *)
   vsphere_volume : spec__volume__vsphere_volume list;
+      [@default []] [@yojson_drop_default ( = )]
       (** vsphere_volume *)
 }
 
 type spec__topology_spread_constraint__label_selector__match_expressions = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type spec__topology_spread_constraint__label_selector = {
   match_expressions :
     spec__topology_spread_constraint__label_selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_expressions *)
   match_labels : (string * string prop) list;  (** match_labels *)
 }
@@ -413,8 +504,11 @@ type spec__topology_spread_constraint__label_selector = {
 type spec__topology_spread_constraint = {
   label_selector :
     spec__topology_spread_constraint__label_selector list;
+      [@default []] [@yojson_drop_default ( = )]
       (** label_selector *)
-  match_label_keys : string prop list;  (** match_label_keys *)
+  match_label_keys : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** match_label_keys *)
   max_skew : float prop;  (** max_skew *)
   min_domains : float prop;  (** min_domains *)
   node_affinity_policy : string prop;  (** node_affinity_policy *)
@@ -464,12 +558,19 @@ type spec__security_context = {
   run_as_non_root : bool prop;  (** run_as_non_root *)
   run_as_user : string prop;  (** run_as_user *)
   se_linux_options : spec__security_context__se_linux_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** se_linux_options *)
   seccomp_profile : spec__security_context__seccomp_profile list;
+      [@default []] [@yojson_drop_default ( = )]
       (** seccomp_profile *)
-  supplemental_groups : float prop list;  (** supplemental_groups *)
-  sysctl : spec__security_context__sysctl list;  (** sysctl *)
+  supplemental_groups : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** supplemental_groups *)
+  sysctl : spec__security_context__sysctl list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** sysctl *)
   windows_options : spec__security_context__windows_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** windows_options *)
 }
 
@@ -500,6 +601,7 @@ type spec__init_container__startup_probe__http_get = {
   host : string prop;  (** host *)
   http_header :
     spec__init_container__startup_probe__http_get__http_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_header *)
   path : string prop;  (** path *)
   port : string prop;  (** port *)
@@ -512,19 +614,27 @@ type spec__init_container__startup_probe__grpc = {
 }
 
 type spec__init_container__startup_probe__exec = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
 }
 
 type spec__init_container__startup_probe = {
-  exec : spec__init_container__startup_probe__exec list;  (** exec *)
+  exec : spec__init_container__startup_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** exec *)
   failure_threshold : float prop;  (** failure_threshold *)
-  grpc : spec__init_container__startup_probe__grpc list;  (** grpc *)
+  grpc : spec__init_container__startup_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** grpc *)
   http_get : spec__init_container__startup_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   initial_delay_seconds : float prop;  (** initial_delay_seconds *)
   period_seconds : float prop;  (** period_seconds *)
   success_threshold : float prop;  (** success_threshold *)
   tcp_socket : spec__init_container__startup_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
   timeout_seconds : float prop;  (** timeout_seconds *)
 }
@@ -542,8 +652,10 @@ type spec__init_container__security_context__se_linux_options = {
 }
 
 type spec__init_container__security_context__capabilities = {
-  add : string prop list;  (** add *)
-  drop : string prop list;  (** drop *)
+  add : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** add *)
+  drop : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** drop *)
 }
 
 type spec__init_container__security_context = {
@@ -551,6 +663,7 @@ type spec__init_container__security_context = {
       (** allow_privilege_escalation *)
   capabilities :
     spec__init_container__security_context__capabilities list;
+      [@default []] [@yojson_drop_default ( = )]
       (** capabilities *)
   privileged : bool prop;  (** privileged *)
   read_only_root_filesystem : bool prop;
@@ -560,9 +673,11 @@ type spec__init_container__security_context = {
   run_as_user : string prop;  (** run_as_user *)
   se_linux_options :
     spec__init_container__security_context__se_linux_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** se_linux_options *)
   seccomp_profile :
     spec__init_container__security_context__seccomp_profile list;
+      [@default []] [@yojson_drop_default ( = )]
       (** seccomp_profile *)
 }
 
@@ -584,6 +699,7 @@ type spec__init_container__readiness_probe__http_get = {
   host : string prop;  (** host *)
   http_header :
     spec__init_container__readiness_probe__http_get__http_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_header *)
   path : string prop;  (** path *)
   port : string prop;  (** port *)
@@ -596,22 +712,28 @@ type spec__init_container__readiness_probe__grpc = {
 }
 
 type spec__init_container__readiness_probe__exec = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
 }
 
 type spec__init_container__readiness_probe = {
   exec : spec__init_container__readiness_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
       (** exec *)
   failure_threshold : float prop;  (** failure_threshold *)
   grpc : spec__init_container__readiness_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
       (** grpc *)
   http_get : spec__init_container__readiness_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   initial_delay_seconds : float prop;  (** initial_delay_seconds *)
   period_seconds : float prop;  (** period_seconds *)
   success_threshold : float prop;  (** success_threshold *)
   tcp_socket :
     spec__init_container__readiness_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
   timeout_seconds : float prop;  (** timeout_seconds *)
 }
@@ -637,6 +759,7 @@ type spec__init_container__liveness_probe__http_get = {
   host : string prop;  (** host *)
   http_header :
     spec__init_container__liveness_probe__http_get__http_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_header *)
   path : string prop;  (** path *)
   port : string prop;  (** port *)
@@ -649,21 +772,27 @@ type spec__init_container__liveness_probe__grpc = {
 }
 
 type spec__init_container__liveness_probe__exec = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
 }
 
 type spec__init_container__liveness_probe = {
   exec : spec__init_container__liveness_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
       (** exec *)
   failure_threshold : float prop;  (** failure_threshold *)
   grpc : spec__init_container__liveness_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
       (** grpc *)
   http_get : spec__init_container__liveness_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   initial_delay_seconds : float prop;  (** initial_delay_seconds *)
   period_seconds : float prop;  (** period_seconds *)
   success_threshold : float prop;  (** success_threshold *)
   tcp_socket : spec__init_container__liveness_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
   timeout_seconds : float prop;  (** timeout_seconds *)
 }
@@ -682,6 +811,7 @@ type spec__init_container__lifecycle__pre_stop__http_get = {
   http_header :
     spec__init_container__lifecycle__pre_stop__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_header *)
   path : string prop;  (** path *)
   port : string prop;  (** port *)
@@ -689,17 +819,22 @@ type spec__init_container__lifecycle__pre_stop__http_get = {
 }
 
 type spec__init_container__lifecycle__pre_stop__exec = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
 }
 
 type spec__init_container__lifecycle__pre_stop = {
   exec : spec__init_container__lifecycle__pre_stop__exec list;
+      [@default []] [@yojson_drop_default ( = )]
       (** exec *)
   http_get :
     spec__init_container__lifecycle__pre_stop__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   tcp_socket :
     spec__init_container__lifecycle__pre_stop__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
 }
 
@@ -717,6 +852,7 @@ type spec__init_container__lifecycle__post_start__http_get = {
   http_header :
     spec__init_container__lifecycle__post_start__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_header *)
   path : string prop;  (** path *)
   port : string prop;  (** port *)
@@ -724,24 +860,31 @@ type spec__init_container__lifecycle__post_start__http_get = {
 }
 
 type spec__init_container__lifecycle__post_start__exec = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
 }
 
 type spec__init_container__lifecycle__post_start = {
   exec : spec__init_container__lifecycle__post_start__exec list;
+      [@default []] [@yojson_drop_default ( = )]
       (** exec *)
   http_get :
     spec__init_container__lifecycle__post_start__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   tcp_socket :
     spec__init_container__lifecycle__post_start__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
 }
 
 type spec__init_container__lifecycle = {
   post_start : spec__init_container__lifecycle__post_start list;
+      [@default []] [@yojson_drop_default ( = )]
       (** post_start *)
   pre_stop : spec__init_container__lifecycle__pre_stop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pre_stop *)
 }
 
@@ -758,9 +901,11 @@ type spec__init_container__env_from__config_map_ref = {
 type spec__init_container__env_from = {
   config_map_ref :
     spec__init_container__env_from__config_map_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** config_map_ref *)
   prefix : string prop;  (** prefix *)
   secret_ref : spec__init_container__env_from__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret_ref *)
 }
 
@@ -790,14 +935,18 @@ type spec__init_container__env__value_from__config_map_key_ref = {
 type spec__init_container__env__value_from = {
   config_map_key_ref :
     spec__init_container__env__value_from__config_map_key_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** config_map_key_ref *)
   field_ref : spec__init_container__env__value_from__field_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** field_ref *)
   resource_field_ref :
     spec__init_container__env__value_from__resource_field_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** resource_field_ref *)
   secret_key_ref :
     spec__init_container__env__value_from__secret_key_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret_key_ref *)
 }
 
@@ -805,27 +954,45 @@ type spec__init_container__env = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
   value_from : spec__init_container__env__value_from list;
+      [@default []] [@yojson_drop_default ( = )]
       (** value_from *)
 }
 
 type spec__init_container = {
-  args : string prop list;  (** args *)
-  command : string prop list;  (** command *)
-  env : spec__init_container__env list;  (** env *)
-  env_from : spec__init_container__env_from list;  (** env_from *)
+  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** args *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
+  env : spec__init_container__env list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env *)
+  env_from : spec__init_container__env_from list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env_from *)
   image : string prop;  (** image *)
   image_pull_policy : string prop;  (** image_pull_policy *)
-  lifecycle : spec__init_container__lifecycle list;  (** lifecycle *)
+  lifecycle : spec__init_container__lifecycle list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** lifecycle *)
   liveness_probe : spec__init_container__liveness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** liveness_probe *)
   name : string prop;  (** name *)
-  port : spec__init_container__port list;  (** port *)
+  port : spec__init_container__port list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** port *)
   readiness_probe : spec__init_container__readiness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** readiness_probe *)
-  resources : spec__init_container__resources list;  (** resources *)
+  resources : spec__init_container__resources list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** resources *)
   security_context : spec__init_container__security_context list;
+      [@default []] [@yojson_drop_default ( = )]
       (** security_context *)
   startup_probe : spec__init_container__startup_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** startup_probe *)
   stdin : bool prop;  (** stdin *)
   stdin_once : bool prop;  (** stdin_once *)
@@ -835,6 +1002,7 @@ type spec__init_container = {
       (** termination_message_policy *)
   tty : bool prop;  (** tty *)
   volume_mount : spec__init_container__volume_mount list;
+      [@default []] [@yojson_drop_default ( = )]
       (** volume_mount *)
   working_dir : string prop;  (** working_dir *)
 }
@@ -842,7 +1010,9 @@ type spec__init_container = {
 type spec__image_pull_secrets = { name : string prop  (** name *) }
 
 type spec__host_aliases = {
-  hostnames : string prop list;  (** hostnames *)
+  hostnames : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** hostnames *)
   ip : string prop;  (** ip *)
 }
 
@@ -852,10 +1022,15 @@ type spec__dns_config__option = {
 }
 
 type spec__dns_config = {
-  nameservers : string prop list;  (** nameservers *)
-  option_ : spec__dns_config__option list; [@key "option"]
+  nameservers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** nameservers *)
+  option_ : spec__dns_config__option list;
+      [@default []] [@yojson_drop_default ( = )] [@key "option"]
       (** option *)
-  searches : string prop list;  (** searches *)
+  searches : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** searches *)
 }
 
 type spec__container__volume_mount = {
@@ -879,6 +1054,7 @@ type spec__container__startup_probe__http_get = {
   host : string prop;  (** host *)
   http_header :
     spec__container__startup_probe__http_get__http_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_header *)
   path : string prop;  (** path *)
   port : string prop;  (** port *)
@@ -891,19 +1067,27 @@ type spec__container__startup_probe__grpc = {
 }
 
 type spec__container__startup_probe__exec = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
 }
 
 type spec__container__startup_probe = {
-  exec : spec__container__startup_probe__exec list;  (** exec *)
+  exec : spec__container__startup_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** exec *)
   failure_threshold : float prop;  (** failure_threshold *)
-  grpc : spec__container__startup_probe__grpc list;  (** grpc *)
+  grpc : spec__container__startup_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** grpc *)
   http_get : spec__container__startup_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   initial_delay_seconds : float prop;  (** initial_delay_seconds *)
   period_seconds : float prop;  (** period_seconds *)
   success_threshold : float prop;  (** success_threshold *)
   tcp_socket : spec__container__startup_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
   timeout_seconds : float prop;  (** timeout_seconds *)
 }
@@ -921,8 +1105,10 @@ type spec__container__security_context__se_linux_options = {
 }
 
 type spec__container__security_context__capabilities = {
-  add : string prop list;  (** add *)
-  drop : string prop list;  (** drop *)
+  add : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** add *)
+  drop : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** drop *)
 }
 
 type spec__container__security_context = {
@@ -930,6 +1116,7 @@ type spec__container__security_context = {
       (** allow_privilege_escalation *)
   capabilities :
     spec__container__security_context__capabilities list;
+      [@default []] [@yojson_drop_default ( = )]
       (** capabilities *)
   privileged : bool prop;  (** privileged *)
   read_only_root_filesystem : bool prop;
@@ -939,9 +1126,11 @@ type spec__container__security_context = {
   run_as_user : string prop;  (** run_as_user *)
   se_linux_options :
     spec__container__security_context__se_linux_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** se_linux_options *)
   seccomp_profile :
     spec__container__security_context__seccomp_profile list;
+      [@default []] [@yojson_drop_default ( = )]
       (** seccomp_profile *)
 }
 
@@ -963,6 +1152,7 @@ type spec__container__readiness_probe__http_get = {
   host : string prop;  (** host *)
   http_header :
     spec__container__readiness_probe__http_get__http_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_header *)
   path : string prop;  (** path *)
   port : string prop;  (** port *)
@@ -975,19 +1165,27 @@ type spec__container__readiness_probe__grpc = {
 }
 
 type spec__container__readiness_probe__exec = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
 }
 
 type spec__container__readiness_probe = {
-  exec : spec__container__readiness_probe__exec list;  (** exec *)
+  exec : spec__container__readiness_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** exec *)
   failure_threshold : float prop;  (** failure_threshold *)
-  grpc : spec__container__readiness_probe__grpc list;  (** grpc *)
+  grpc : spec__container__readiness_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** grpc *)
   http_get : spec__container__readiness_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   initial_delay_seconds : float prop;  (** initial_delay_seconds *)
   period_seconds : float prop;  (** period_seconds *)
   success_threshold : float prop;  (** success_threshold *)
   tcp_socket : spec__container__readiness_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
   timeout_seconds : float prop;  (** timeout_seconds *)
 }
@@ -1013,6 +1211,7 @@ type spec__container__liveness_probe__http_get = {
   host : string prop;  (** host *)
   http_header :
     spec__container__liveness_probe__http_get__http_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_header *)
   path : string prop;  (** path *)
   port : string prop;  (** port *)
@@ -1025,19 +1224,27 @@ type spec__container__liveness_probe__grpc = {
 }
 
 type spec__container__liveness_probe__exec = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
 }
 
 type spec__container__liveness_probe = {
-  exec : spec__container__liveness_probe__exec list;  (** exec *)
+  exec : spec__container__liveness_probe__exec list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** exec *)
   failure_threshold : float prop;  (** failure_threshold *)
-  grpc : spec__container__liveness_probe__grpc list;  (** grpc *)
+  grpc : spec__container__liveness_probe__grpc list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** grpc *)
   http_get : spec__container__liveness_probe__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   initial_delay_seconds : float prop;  (** initial_delay_seconds *)
   period_seconds : float prop;  (** period_seconds *)
   success_threshold : float prop;  (** success_threshold *)
   tcp_socket : spec__container__liveness_probe__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
   timeout_seconds : float prop;  (** timeout_seconds *)
 }
@@ -1055,6 +1262,7 @@ type spec__container__lifecycle__pre_stop__http_get = {
   host : string prop;  (** host *)
   http_header :
     spec__container__lifecycle__pre_stop__http_get__http_header list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_header *)
   path : string prop;  (** path *)
   port : string prop;  (** port *)
@@ -1062,15 +1270,20 @@ type spec__container__lifecycle__pre_stop__http_get = {
 }
 
 type spec__container__lifecycle__pre_stop__exec = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
 }
 
 type spec__container__lifecycle__pre_stop = {
   exec : spec__container__lifecycle__pre_stop__exec list;
+      [@default []] [@yojson_drop_default ( = )]
       (** exec *)
   http_get : spec__container__lifecycle__pre_stop__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   tcp_socket : spec__container__lifecycle__pre_stop__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
 }
 
@@ -1088,6 +1301,7 @@ type spec__container__lifecycle__post_start__http_get = {
   http_header :
     spec__container__lifecycle__post_start__http_get__http_header
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_header *)
   path : string prop;  (** path *)
   port : string prop;  (** port *)
@@ -1095,23 +1309,30 @@ type spec__container__lifecycle__post_start__http_get = {
 }
 
 type spec__container__lifecycle__post_start__exec = {
-  command : string prop list;  (** command *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
 }
 
 type spec__container__lifecycle__post_start = {
   exec : spec__container__lifecycle__post_start__exec list;
+      [@default []] [@yojson_drop_default ( = )]
       (** exec *)
   http_get : spec__container__lifecycle__post_start__http_get list;
+      [@default []] [@yojson_drop_default ( = )]
       (** http_get *)
   tcp_socket :
     spec__container__lifecycle__post_start__tcp_socket list;
+      [@default []] [@yojson_drop_default ( = )]
       (** tcp_socket *)
 }
 
 type spec__container__lifecycle = {
   post_start : spec__container__lifecycle__post_start list;
+      [@default []] [@yojson_drop_default ( = )]
       (** post_start *)
   pre_stop : spec__container__lifecycle__pre_stop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pre_stop *)
 }
 
@@ -1127,9 +1348,11 @@ type spec__container__env_from__config_map_ref = {
 
 type spec__container__env_from = {
   config_map_ref : spec__container__env_from__config_map_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** config_map_ref *)
   prefix : string prop;  (** prefix *)
   secret_ref : spec__container__env_from__secret_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret_ref *)
 }
 
@@ -1159,14 +1382,18 @@ type spec__container__env__value_from__config_map_key_ref = {
 type spec__container__env__value_from = {
   config_map_key_ref :
     spec__container__env__value_from__config_map_key_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** config_map_key_ref *)
   field_ref : spec__container__env__value_from__field_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** field_ref *)
   resource_field_ref :
     spec__container__env__value_from__resource_field_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** resource_field_ref *)
   secret_key_ref :
     spec__container__env__value_from__secret_key_ref list;
+      [@default []] [@yojson_drop_default ( = )]
       (** secret_key_ref *)
 }
 
@@ -1174,27 +1401,45 @@ type spec__container__env = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
   value_from : spec__container__env__value_from list;
+      [@default []] [@yojson_drop_default ( = )]
       (** value_from *)
 }
 
 type spec__container = {
-  args : string prop list;  (** args *)
-  command : string prop list;  (** command *)
-  env : spec__container__env list;  (** env *)
-  env_from : spec__container__env_from list;  (** env_from *)
+  args : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** args *)
+  command : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** command *)
+  env : spec__container__env list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env *)
+  env_from : spec__container__env_from list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** env_from *)
   image : string prop;  (** image *)
   image_pull_policy : string prop;  (** image_pull_policy *)
-  lifecycle : spec__container__lifecycle list;  (** lifecycle *)
+  lifecycle : spec__container__lifecycle list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** lifecycle *)
   liveness_probe : spec__container__liveness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** liveness_probe *)
   name : string prop;  (** name *)
-  port : spec__container__port list;  (** port *)
+  port : spec__container__port list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** port *)
   readiness_probe : spec__container__readiness_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** readiness_probe *)
-  resources : spec__container__resources list;  (** resources *)
+  resources : spec__container__resources list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** resources *)
   security_context : spec__container__security_context list;
+      [@default []] [@yojson_drop_default ( = )]
       (** security_context *)
   startup_probe : spec__container__startup_probe list;
+      [@default []] [@yojson_drop_default ( = )]
       (** startup_probe *)
   stdin : bool prop;  (** stdin *)
   stdin_once : bool prop;  (** stdin_once *)
@@ -1204,6 +1449,7 @@ type spec__container = {
       (** termination_message_policy *)
   tty : bool prop;  (** tty *)
   volume_mount : spec__container__volume_mount list;
+      [@default []] [@yojson_drop_default ( = )]
       (** volume_mount *)
   working_dir : string prop;  (** working_dir *)
 }
@@ -1211,13 +1457,16 @@ type spec__container = {
 type spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector = {
   match_expressions :
     spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_expressions *)
   match_labels : (string * string prop) list;  (** match_labels *)
 }
@@ -1226,21 +1475,27 @@ type spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_durin
   label_selector :
     spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** label_selector *)
-  namespaces : string prop list;  (** namespaces *)
+  namespaces : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** namespaces *)
   topology_key : string prop;  (** topology_key *)
 }
 
 type spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector = {
   match_expressions :
     spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_expressions *)
   match_labels : (string * string prop) list;  (** match_labels *)
 }
@@ -1249,8 +1504,11 @@ type spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_duri
   label_selector :
     spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** label_selector *)
-  namespaces : string prop list;  (** namespaces *)
+  namespaces : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** namespaces *)
   topology_key : string prop;  (** topology_key *)
 }
 
@@ -1258,6 +1516,7 @@ type spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_duri
   pod_affinity_term :
     spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pod_affinity_term *)
   weight : float prop;  (** weight *)
 }
@@ -1266,23 +1525,28 @@ type spec__affinity__pod_anti_affinity = {
   preferred_during_scheduling_ignored_during_execution :
     spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** preferred_during_scheduling_ignored_during_execution *)
   required_during_scheduling_ignored_during_execution :
     spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** required_during_scheduling_ignored_during_execution *)
 }
 
 type spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector = {
   match_expressions :
     spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_expressions *)
   match_labels : (string * string prop) list;  (** match_labels *)
 }
@@ -1291,21 +1555,27 @@ type spec__affinity__pod_affinity__required_during_scheduling_ignored_during_exe
   label_selector :
     spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** label_selector *)
-  namespaces : string prop list;  (** namespaces *)
+  namespaces : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** namespaces *)
   topology_key : string prop;  (** topology_key *)
 }
 
 type spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector = {
   match_expressions :
     spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_expressions *)
   match_labels : (string * string prop) list;  (** match_labels *)
 }
@@ -1314,8 +1584,11 @@ type spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_ex
   label_selector :
     spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** label_selector *)
-  namespaces : string prop list;  (** namespaces *)
+  namespaces : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** namespaces *)
   topology_key : string prop;  (** topology_key *)
 }
 
@@ -1323,6 +1596,7 @@ type spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_ex
   pod_affinity_term :
     spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pod_affinity_term *)
   weight : float prop;  (** weight *)
 }
@@ -1331,33 +1605,41 @@ type spec__affinity__pod_affinity = {
   preferred_during_scheduling_ignored_during_execution :
     spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** preferred_during_scheduling_ignored_during_execution *)
   required_during_scheduling_ignored_during_execution :
     spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** required_during_scheduling_ignored_during_execution *)
 }
 
 type spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term = {
   match_expressions :
     spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_expressions *)
   match_fields :
     spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_fields *)
 }
 
@@ -1365,29 +1647,36 @@ type spec__affinity__node_affinity__required_during_scheduling_ignored_during_ex
   node_selector_term :
     spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** node_selector_term *)
 }
 
 type spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions = {
   key : string prop;  (** key *)
   operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** values *)
 }
 
 type spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference = {
   match_expressions :
     spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_expressions *)
   match_fields :
     spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** match_fields *)
 }
 
@@ -1395,6 +1684,7 @@ type spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_e
   preference :
     spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** preference *)
   weight : float prop;  (** weight *)
 }
@@ -1403,49 +1693,69 @@ type spec__affinity__node_affinity = {
   preferred_during_scheduling_ignored_during_execution :
     spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** preferred_during_scheduling_ignored_during_execution *)
   required_during_scheduling_ignored_during_execution :
     spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** required_during_scheduling_ignored_during_execution *)
 }
 
 type spec__affinity = {
   node_affinity : spec__affinity__node_affinity list;
+      [@default []] [@yojson_drop_default ( = )]
       (** node_affinity *)
   pod_affinity : spec__affinity__pod_affinity list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pod_affinity *)
   pod_anti_affinity : spec__affinity__pod_anti_affinity list;
+      [@default []] [@yojson_drop_default ( = )]
       (** pod_anti_affinity *)
 }
 
 type spec = {
   active_deadline_seconds : float prop;
       (** active_deadline_seconds *)
-  affinity : spec__affinity list;  (** affinity *)
+  affinity : spec__affinity list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** affinity *)
   automount_service_account_token : bool prop;
       (** automount_service_account_token *)
-  container : spec__container list;  (** container *)
-  dns_config : spec__dns_config list;  (** dns_config *)
+  container : spec__container list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** container *)
+  dns_config : spec__dns_config list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** dns_config *)
   dns_policy : string prop;  (** dns_policy *)
   enable_service_links : bool prop;  (** enable_service_links *)
-  host_aliases : spec__host_aliases list;  (** host_aliases *)
+  host_aliases : spec__host_aliases list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** host_aliases *)
   host_ipc : bool prop;  (** host_ipc *)
   host_network : bool prop;  (** host_network *)
   host_pid : bool prop;  (** host_pid *)
   hostname : string prop;  (** hostname *)
   image_pull_secrets : spec__image_pull_secrets list;
+      [@default []] [@yojson_drop_default ( = )]
       (** image_pull_secrets *)
-  init_container : spec__init_container list;  (** init_container *)
+  init_container : spec__init_container list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** init_container *)
   node_name : string prop;  (** node_name *)
   node_selector : (string * string prop) list;  (** node_selector *)
-  os : spec__os list;  (** os *)
+  os : spec__os list; [@default []] [@yojson_drop_default ( = )]
+      (** os *)
   priority_class_name : string prop;  (** priority_class_name *)
-  readiness_gate : spec__readiness_gate list;  (** readiness_gate *)
+  readiness_gate : spec__readiness_gate list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** readiness_gate *)
   restart_policy : string prop;  (** restart_policy *)
   runtime_class_name : string prop;  (** runtime_class_name *)
   scheduler_name : string prop;  (** scheduler_name *)
   security_context : spec__security_context list;
+      [@default []] [@yojson_drop_default ( = )]
       (** security_context *)
   service_account_name : string prop;  (** service_account_name *)
   share_process_namespace : bool prop;
@@ -1453,10 +1763,15 @@ type spec = {
   subdomain : string prop;  (** subdomain *)
   termination_grace_period_seconds : float prop;
       (** termination_grace_period_seconds *)
-  toleration : spec__toleration list;  (** toleration *)
+  toleration : spec__toleration list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** toleration *)
   topology_spread_constraint : spec__topology_spread_constraint list;
+      [@default []] [@yojson_drop_default ( = )]
       (** topology_spread_constraint *)
-  volume : spec__volume list;  (** volume *)
+  volume : spec__volume list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** volume *)
 }
 
 type metadata

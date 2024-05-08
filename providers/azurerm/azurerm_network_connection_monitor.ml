@@ -42,6 +42,7 @@ let _ = yojson_of_endpoint__filter__item
 type endpoint__filter = {
   type_ : string prop option; [@option] [@key "type"]
   item : endpoint__filter__item list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,10 +55,13 @@ let yojson_of_endpoint__filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint__filter__item v_item
-         in
-         ("item", arg) :: bnds
+         if [] = v_item then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint__filter__item) v_item
+           in
+           let bnd = "item", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with
@@ -83,6 +87,7 @@ type endpoint = {
   target_resource_id : string prop option; [@option]
   target_resource_type : string prop option; [@option]
   filter : endpoint__filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -104,10 +109,13 @@ let yojson_of_endpoint =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint__filter v_filter
-         in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint__filter) v_filter
+           in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_target_resource_type with
@@ -214,6 +222,7 @@ type test_configuration__http_configuration = {
   valid_status_code_ranges : string prop list option; [@option]
   request_header :
     test_configuration__http_configuration__request_header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -233,12 +242,15 @@ let yojson_of_test_configuration__http_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_configuration__http_configuration__request_header
-             v_request_header
-         in
-         ("request_header", arg) :: bnds
+         if [] = v_request_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_configuration__http_configuration__request_header)
+               v_request_header
+           in
+           let bnd = "request_header", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_valid_status_code_ranges with
@@ -413,9 +425,13 @@ type test_configuration = {
   protocol : string prop;
   test_frequency_in_seconds : float prop option; [@option]
   http_configuration : test_configuration__http_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   icmp_configuration : test_configuration__icmp_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   success_threshold : test_configuration__success_threshold list;
+      [@default []] [@yojson_drop_default ( = )]
   tcp_configuration : test_configuration__tcp_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -437,36 +453,48 @@ let yojson_of_test_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_configuration__tcp_configuration
-             v_tcp_configuration
-         in
-         ("tcp_configuration", arg) :: bnds
+         if [] = v_tcp_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_configuration__tcp_configuration)
+               v_tcp_configuration
+           in
+           let bnd = "tcp_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_configuration__success_threshold
-             v_success_threshold
-         in
-         ("success_threshold", arg) :: bnds
+         if [] = v_success_threshold then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_configuration__success_threshold)
+               v_success_threshold
+           in
+           let bnd = "success_threshold", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_configuration__icmp_configuration
-             v_icmp_configuration
-         in
-         ("icmp_configuration", arg) :: bnds
+         if [] = v_icmp_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_configuration__icmp_configuration)
+               v_icmp_configuration
+           in
+           let bnd = "icmp_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_test_configuration__http_configuration
-             v_http_configuration
-         in
-         ("http_configuration", arg) :: bnds
+         if [] = v_http_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_test_configuration__http_configuration)
+               v_http_configuration
+           in
+           let bnd = "http_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_test_frequency_in_seconds with
@@ -501,10 +529,13 @@ let _ = yojson_of_test_configuration
 
 type test_group = {
   destination_endpoints : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   enabled : bool prop option; [@option]
   name : string prop;
   source_endpoints : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   test_configuration_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -523,20 +554,24 @@ let yojson_of_test_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_test_configuration_names
-         in
-         ("test_configuration_names", arg) :: bnds
+         if [] = v_test_configuration_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_test_configuration_names
+           in
+           let bnd = "test_configuration_names", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_source_endpoints
-         in
-         ("source_endpoints", arg) :: bnds
+         if [] = v_source_endpoints then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source_endpoints
+           in
+           let bnd = "source_endpoints", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -551,12 +586,14 @@ let yojson_of_test_group =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_endpoints
-         in
-         ("destination_endpoints", arg) :: bnds
+         if [] = v_destination_endpoints then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_endpoints
+           in
+           let bnd = "destination_endpoints", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : test_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -634,8 +671,11 @@ type azurerm_network_connection_monitor = {
   output_workspace_resource_ids : string prop list option; [@option]
   tags : (string * string prop) list option; [@option]
   endpoint : endpoint list;
+      [@default []] [@yojson_drop_default ( = )]
   test_configuration : test_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   test_group : test_group list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -666,21 +706,32 @@ let yojson_of_azurerm_network_connection_monitor =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_test_group v_test_group
-         in
-         ("test_group", arg) :: bnds
+         if [] = v_test_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_test_group) v_test_group
+           in
+           let bnd = "test_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_test_configuration
-             v_test_configuration
-         in
-         ("test_configuration", arg) :: bnds
+         if [] = v_test_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_test_configuration)
+               v_test_configuration
+           in
+           let bnd = "test_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_endpoint v_endpoint in
-         ("endpoint", arg) :: bnds
+         if [] = v_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint) v_endpoint
+           in
+           let bnd = "endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

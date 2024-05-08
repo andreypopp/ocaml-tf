@@ -382,7 +382,9 @@ type task_report_config = {
   report_level : string prop option; [@option]
   s3_object_versioning : string prop option; [@option]
   report_overrides : task_report_config__report_overrides list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_destination : task_report_config__s3_destination list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -401,20 +403,26 @@ let yojson_of_task_report_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_task_report_config__s3_destination
-             v_s3_destination
-         in
-         ("s3_destination", arg) :: bnds
+         if [] = v_s3_destination then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_task_report_config__s3_destination)
+               v_s3_destination
+           in
+           let bnd = "s3_destination", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_task_report_config__report_overrides
-             v_report_overrides
-         in
-         ("report_overrides", arg) :: bnds
+         if [] = v_report_overrides then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_task_report_config__report_overrides)
+               v_report_overrides
+           in
+           let bnd = "report_overrides", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_s3_object_versioning with
@@ -482,10 +490,14 @@ type aws_datasync_task = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   excludes : excludes list;
+      [@default []] [@yojson_drop_default ( = )]
   includes : includes list;
-  options : options list;
+      [@default []] [@yojson_drop_default ( = )]
+  options : options list; [@default []] [@yojson_drop_default ( = )]
   schedule : schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   task_report_config : task_report_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -517,27 +529,48 @@ let yojson_of_aws_datasync_task =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_task_report_config
-             v_task_report_config
-         in
-         ("task_report_config", arg) :: bnds
+         if [] = v_task_report_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_task_report_config)
+               v_task_report_config
+           in
+           let bnd = "task_report_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_schedule v_schedule in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule) v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_options v_options in
-         ("options", arg) :: bnds
+         if [] = v_options then bnds
+         else
+           let arg = (yojson_of_list yojson_of_options) v_options in
+           let bnd = "options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_includes v_includes in
-         ("includes", arg) :: bnds
+         if [] = v_includes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_includes) v_includes
+           in
+           let bnd = "includes", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_excludes v_excludes in
-         ("excludes", arg) :: bnds
+         if [] = v_excludes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_excludes) v_excludes
+           in
+           let bnd = "excludes", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

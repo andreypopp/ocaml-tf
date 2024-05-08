@@ -65,6 +65,7 @@ let _ = yojson_of_timeouts
 type azurerm_log_analytics_datasource_windows_event = {
   event_log_name : string prop;
   event_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   name : string prop;
   resource_group_name : string prop;
@@ -119,12 +120,14 @@ let yojson_of_azurerm_log_analytics_datasource_windows_event =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_event_types
-         in
-         ("event_types", arg) :: bnds
+         if [] = v_event_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_event_types
+           in
+           let bnd = "event_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

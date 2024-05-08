@@ -5,6 +5,7 @@ open! Tf_core
 type psc_config = {
   limit : string prop option; [@option]
   subnetworks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,12 +18,14 @@ let yojson_of_psc_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnetworks
-         in
-         ("subnetworks", arg) :: bnds
+         if [] = v_subnetworks then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnetworks
+           in
+           let bnd = "subnetworks", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_limit with
@@ -132,6 +135,7 @@ let _ = yojson_of_psc_connections__error_info
 type psc_connections__error = {
   code : float prop;
   details : (string * string prop) list list;
+      [@default []] [@yojson_drop_default ( = )]
   message : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -149,15 +153,18 @@ let yojson_of_psc_connections__error =
          ("message", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_list (function v0, v1 ->
-                  let v0 = yojson_of_string v0
-                  and v1 = yojson_of_prop yojson_of_string v1 in
-                  `List [ v0; v1 ]))
-             v_details
-         in
-         ("details", arg) :: bnds
+         if [] = v_details then bnds
+         else
+           let arg =
+             (yojson_of_list
+                (yojson_of_list (function v0, v1 ->
+                     let v0 = yojson_of_string v0
+                     and v1 = yojson_of_prop yojson_of_string v1 in
+                     `List [ v0; v1 ])))
+               v_details
+           in
+           let bnd = "details", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_code in
@@ -175,7 +182,9 @@ type psc_connections = {
   consumer_forwarding_rule : string prop;
   consumer_target_project : string prop;
   error : psc_connections__error list;
+      [@default []] [@yojson_drop_default ( = )]
   error_info : psc_connections__error_info list;
+      [@default []] [@yojson_drop_default ( = )]
   error_type : string prop;
   gce_operation : string prop;
   psc_connection_id : string prop;
@@ -220,17 +229,24 @@ let yojson_of_psc_connections =
          ("error_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_psc_connections__error_info
-             v_error_info
-         in
-         ("error_info", arg) :: bnds
+         if [] = v_error_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_psc_connections__error_info)
+               v_error_info
+           in
+           let bnd = "error_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_psc_connections__error v_error
-         in
-         ("error", arg) :: bnds
+         if [] = v_error then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_psc_connections__error)
+               v_error
+           in
+           let bnd = "error", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -267,6 +283,7 @@ type google_network_connectivity_service_connection_policy = {
   project : string prop option; [@option]
   service_class : string prop;
   psc_config : psc_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -297,10 +314,13 @@ let yojson_of_google_network_connectivity_service_connection_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_psc_config v_psc_config
-         in
-         ("psc_config", arg) :: bnds
+         if [] = v_psc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_psc_config) v_psc_config
+           in
+           let bnd = "psc_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_service_class in

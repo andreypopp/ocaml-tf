@@ -37,6 +37,7 @@ type aws_guardduty_detector_feature = {
   name : string prop;
   status : string prop;
   additional_configuration : additional_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,11 +56,14 @@ let yojson_of_aws_guardduty_detector_feature =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_additional_configuration
-             v_additional_configuration
-         in
-         ("additional_configuration", arg) :: bnds
+         if [] = v_additional_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_additional_configuration)
+               v_additional_configuration
+           in
+           let bnd = "additional_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_status in

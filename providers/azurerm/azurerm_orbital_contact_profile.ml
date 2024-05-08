@@ -59,6 +59,7 @@ type links__channels = {
   modulation_configuration : string prop option; [@option]
   name : string prop;
   end_point : links__channels__end_point list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -78,11 +79,14 @@ let yojson_of_links__channels =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_links__channels__end_point
-             v_end_point
-         in
-         ("end_point", arg) :: bnds
+         if [] = v_end_point then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_links__channels__end_point)
+               v_end_point
+           in
+           let bnd = "end_point", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -126,6 +130,7 @@ type links = {
   name : string prop;
   polarization : string prop;
   channels : links__channels list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -143,10 +148,13 @@ let yojson_of_links =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_links__channels v_channels
-         in
-         ("channels", arg) :: bnds
+         if [] = v_channels then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_links__channels) v_channels
+           in
+           let bnd = "channels", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_polarization in
@@ -238,7 +246,7 @@ type azurerm_orbital_contact_profile = {
   network_configuration_subnet_id : string prop;
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
-  links : links list;
+  links : links list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -271,8 +279,11 @@ let yojson_of_azurerm_orbital_contact_profile =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_links v_links in
-         ("links", arg) :: bnds
+         if [] = v_links then bnds
+         else
+           let arg = (yojson_of_list yojson_of_links) v_links in
+           let bnd = "links", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

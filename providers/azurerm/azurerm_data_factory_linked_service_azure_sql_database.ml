@@ -147,7 +147,9 @@ type azurerm_data_factory_linked_service_azure_sql_database = {
   tenant_id : string prop option; [@option]
   use_managed_identity : bool prop option; [@option]
   key_vault_connection_string : key_vault_connection_string list;
+      [@default []] [@yojson_drop_default ( = )]
   key_vault_password : key_vault_password list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -185,18 +187,24 @@ let yojson_of_azurerm_data_factory_linked_service_azure_sql_database
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_key_vault_password
-             v_key_vault_password
-         in
-         ("key_vault_password", arg) :: bnds
+         if [] = v_key_vault_password then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_vault_password)
+               v_key_vault_password
+           in
+           let bnd = "key_vault_password", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_key_vault_connection_string
-             v_key_vault_connection_string
-         in
-         ("key_vault_connection_string", arg) :: bnds
+         if [] = v_key_vault_connection_string then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_vault_connection_string)
+               v_key_vault_connection_string
+           in
+           let bnd = "key_vault_connection_string", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_use_managed_identity with

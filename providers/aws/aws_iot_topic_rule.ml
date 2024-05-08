@@ -272,6 +272,7 @@ let _ = yojson_of_dynamodbv2__put_item
 type dynamodbv2 = {
   role_arn : string prop;
   put_item : dynamodbv2__put_item list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -284,10 +285,14 @@ let yojson_of_dynamodbv2 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dynamodbv2__put_item v_put_item
-         in
-         ("put_item", arg) :: bnds
+         if [] = v_put_item then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dynamodbv2__put_item)
+               v_put_item
+           in
+           let bnd = "put_item", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_role_arn in
@@ -626,6 +631,7 @@ let _ = yojson_of_error_action__dynamodbv2__put_item
 type error_action__dynamodbv2 = {
   role_arn : string prop;
   put_item : error_action__dynamodbv2__put_item list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -638,11 +644,15 @@ let yojson_of_error_action__dynamodbv2 =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_error_action__dynamodbv2__put_item v_put_item
-         in
-         ("put_item", arg) :: bnds
+         if [] = v_put_item then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_error_action__dynamodbv2__put_item)
+               v_put_item
+           in
+           let bnd = "put_item", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_role_arn in
@@ -794,6 +804,7 @@ type error_action__http = {
   confirmation_url : string prop option; [@option]
   url : string prop;
   http_header : error_action__http__http_header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -810,11 +821,15 @@ let yojson_of_error_action__http =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__http__http_header
-             v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_error_action__http__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_url in
@@ -967,6 +982,7 @@ type error_action__kafka = {
   partition : string prop option; [@option]
   topic : string prop;
   header : error_action__kafka__header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -986,11 +1002,14 @@ let yojson_of_error_action__kafka =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__kafka__header
-             v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__kafka__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topic in
@@ -1377,7 +1396,9 @@ type error_action__timestream = {
   role_arn : string prop;
   table_name : string prop;
   dimension : error_action__timestream__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   timestamp : error_action__timestream__timestamp list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1396,20 +1417,26 @@ let yojson_of_error_action__timestream =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_error_action__timestream__timestamp
-             v_timestamp
-         in
-         ("timestamp", arg) :: bnds
+         if [] = v_timestamp then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_error_action__timestream__timestamp)
+               v_timestamp
+           in
+           let bnd = "timestamp", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_error_action__timestream__dimension
-             v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_error_action__timestream__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_table_name in
@@ -1432,24 +1459,43 @@ let _ = yojson_of_error_action__timestream
 
 type error_action = {
   cloudwatch_alarm : error_action__cloudwatch_alarm list;
+      [@default []] [@yojson_drop_default ( = )]
   cloudwatch_logs : error_action__cloudwatch_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   cloudwatch_metric : error_action__cloudwatch_metric list;
+      [@default []] [@yojson_drop_default ( = )]
   dynamodb : error_action__dynamodb list;
+      [@default []] [@yojson_drop_default ( = )]
   dynamodbv2 : error_action__dynamodbv2 list;
+      [@default []] [@yojson_drop_default ( = )]
   elasticsearch : error_action__elasticsearch list;
+      [@default []] [@yojson_drop_default ( = )]
   firehose : error_action__firehose list;
+      [@default []] [@yojson_drop_default ( = )]
   http : error_action__http list;
+      [@default []] [@yojson_drop_default ( = )]
   iot_analytics : error_action__iot_analytics list;
+      [@default []] [@yojson_drop_default ( = )]
   iot_events : error_action__iot_events list;
+      [@default []] [@yojson_drop_default ( = )]
   kafka : error_action__kafka list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis : error_action__kinesis list;
+      [@default []] [@yojson_drop_default ( = )]
   lambda : error_action__lambda list;
+      [@default []] [@yojson_drop_default ( = )]
   republish : error_action__republish list;
+      [@default []] [@yojson_drop_default ( = )]
   s3 : error_action__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
   sns : error_action__sns list;
+      [@default []] [@yojson_drop_default ( = )]
   sqs : error_action__sqs list;
+      [@default []] [@yojson_drop_default ( = )]
   step_functions : error_action__step_functions list;
+      [@default []] [@yojson_drop_default ( = )]
   timestream : error_action__timestream list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1482,126 +1528,189 @@ let yojson_of_error_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__timestream
-             v_timestream
-         in
-         ("timestream", arg) :: bnds
+         if [] = v_timestream then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__timestream)
+               v_timestream
+           in
+           let bnd = "timestream", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__step_functions
-             v_step_functions
-         in
-         ("step_functions", arg) :: bnds
+         if [] = v_step_functions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__step_functions)
+               v_step_functions
+           in
+           let bnd = "step_functions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__sqs v_sqs
-         in
-         ("sqs", arg) :: bnds
+         if [] = v_sqs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__sqs) v_sqs
+           in
+           let bnd = "sqs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__sns v_sns
-         in
-         ("sns", arg) :: bnds
+         if [] = v_sns then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__sns) v_sns
+           in
+           let bnd = "sns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_error_action__s3 v_s3 in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__s3) v_s3
+           in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__republish
-             v_republish
-         in
-         ("republish", arg) :: bnds
+         if [] = v_republish then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__republish)
+               v_republish
+           in
+           let bnd = "republish", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__lambda v_lambda
-         in
-         ("lambda", arg) :: bnds
+         if [] = v_lambda then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__lambda) v_lambda
+           in
+           let bnd = "lambda", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__kinesis v_kinesis
-         in
-         ("kinesis", arg) :: bnds
+         if [] = v_kinesis then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__kinesis)
+               v_kinesis
+           in
+           let bnd = "kinesis", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__kafka v_kafka
-         in
-         ("kafka", arg) :: bnds
+         if [] = v_kafka then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__kafka) v_kafka
+           in
+           let bnd = "kafka", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__iot_events
-             v_iot_events
-         in
-         ("iot_events", arg) :: bnds
+         if [] = v_iot_events then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__iot_events)
+               v_iot_events
+           in
+           let bnd = "iot_events", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__iot_analytics
-             v_iot_analytics
-         in
-         ("iot_analytics", arg) :: bnds
+         if [] = v_iot_analytics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__iot_analytics)
+               v_iot_analytics
+           in
+           let bnd = "iot_analytics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__http v_http
-         in
-         ("http", arg) :: bnds
+         if [] = v_http then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__http) v_http
+           in
+           let bnd = "http", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__firehose v_firehose
-         in
-         ("firehose", arg) :: bnds
+         if [] = v_firehose then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__firehose)
+               v_firehose
+           in
+           let bnd = "firehose", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__elasticsearch
-             v_elasticsearch
-         in
-         ("elasticsearch", arg) :: bnds
+         if [] = v_elasticsearch then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__elasticsearch)
+               v_elasticsearch
+           in
+           let bnd = "elasticsearch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__dynamodbv2
-             v_dynamodbv2
-         in
-         ("dynamodbv2", arg) :: bnds
+         if [] = v_dynamodbv2 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__dynamodbv2)
+               v_dynamodbv2
+           in
+           let bnd = "dynamodbv2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__dynamodb v_dynamodb
-         in
-         ("dynamodb", arg) :: bnds
+         if [] = v_dynamodb then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__dynamodb)
+               v_dynamodb
+           in
+           let bnd = "dynamodb", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__cloudwatch_metric
-             v_cloudwatch_metric
-         in
-         ("cloudwatch_metric", arg) :: bnds
+         if [] = v_cloudwatch_metric then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_error_action__cloudwatch_metric)
+               v_cloudwatch_metric
+           in
+           let bnd = "cloudwatch_metric", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__cloudwatch_logs
-             v_cloudwatch_logs
-         in
-         ("cloudwatch_logs", arg) :: bnds
+         if [] = v_cloudwatch_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__cloudwatch_logs)
+               v_cloudwatch_logs
+           in
+           let bnd = "cloudwatch_logs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action__cloudwatch_alarm
-             v_cloudwatch_alarm
-         in
-         ("cloudwatch_alarm", arg) :: bnds
+         if [] = v_cloudwatch_alarm then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action__cloudwatch_alarm)
+               v_cloudwatch_alarm
+           in
+           let bnd = "cloudwatch_alarm", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : error_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1694,6 +1803,7 @@ type http = {
   confirmation_url : string prop option; [@option]
   url : string prop;
   http_header : http__http_header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1710,10 +1820,14 @@ let yojson_of_http =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_http__http_header v_http_header
-         in
-         ("http_header", arg) :: bnds
+         if [] = v_http_header then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_http__http_header)
+               v_http_header
+           in
+           let bnd = "http_header", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_url in
@@ -1861,6 +1975,7 @@ type kafka = {
   partition : string prop option; [@option]
   topic : string prop;
   header : kafka__header list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1880,8 +1995,13 @@ let yojson_of_kafka =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_kafka__header v_header in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_kafka__header) v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_topic in
@@ -2265,7 +2385,9 @@ type timestream = {
   role_arn : string prop;
   table_name : string prop;
   dimension : timestream__dimension list;
+      [@default []] [@yojson_drop_default ( = )]
   timestamp : timestream__timestamp list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2284,16 +2406,24 @@ let yojson_of_timestream =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_timestream__timestamp v_timestamp
-         in
-         ("timestamp", arg) :: bnds
+         if [] = v_timestamp then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_timestream__timestamp)
+               v_timestamp
+           in
+           let bnd = "timestamp", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_timestream__dimension v_dimension
-         in
-         ("dimension", arg) :: bnds
+         if [] = v_dimension then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_timestream__dimension)
+               v_dimension
+           in
+           let bnd = "dimension", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_table_name in
@@ -2324,25 +2454,38 @@ type aws_iot_topic_rule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   cloudwatch_alarm : cloudwatch_alarm list;
+      [@default []] [@yojson_drop_default ( = )]
   cloudwatch_logs : cloudwatch_logs list;
+      [@default []] [@yojson_drop_default ( = )]
   cloudwatch_metric : cloudwatch_metric list;
+      [@default []] [@yojson_drop_default ( = )]
   dynamodb : dynamodb list;
+      [@default []] [@yojson_drop_default ( = )]
   dynamodbv2 : dynamodbv2 list;
+      [@default []] [@yojson_drop_default ( = )]
   elasticsearch : elasticsearch list;
+      [@default []] [@yojson_drop_default ( = )]
   error_action : error_action list;
+      [@default []] [@yojson_drop_default ( = )]
   firehose : firehose list;
-  http : http list;
+      [@default []] [@yojson_drop_default ( = )]
+  http : http list; [@default []] [@yojson_drop_default ( = )]
   iot_analytics : iot_analytics list;
+      [@default []] [@yojson_drop_default ( = )]
   iot_events : iot_events list;
-  kafka : kafka list;
-  kinesis : kinesis list;
-  lambda : lambda list;
+      [@default []] [@yojson_drop_default ( = )]
+  kafka : kafka list; [@default []] [@yojson_drop_default ( = )]
+  kinesis : kinesis list; [@default []] [@yojson_drop_default ( = )]
+  lambda : lambda list; [@default []] [@yojson_drop_default ( = )]
   republish : republish list;
-  s3 : s3 list;
-  sns : sns list;
-  sqs : sqs list;
+      [@default []] [@yojson_drop_default ( = )]
+  s3 : s3 list; [@default []] [@yojson_drop_default ( = )]
+  sns : sns list; [@default []] [@yojson_drop_default ( = )]
+  sqs : sqs list; [@default []] [@yojson_drop_default ( = )]
   step_functions : step_functions list;
+      [@default []] [@yojson_drop_default ( = )]
   timestream : timestream list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -2384,106 +2527,174 @@ let yojson_of_aws_iot_topic_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_timestream v_timestream
-         in
-         ("timestream", arg) :: bnds
+         if [] = v_timestream then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_timestream) v_timestream
+           in
+           let bnd = "timestream", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_step_functions v_step_functions
-         in
-         ("step_functions", arg) :: bnds
+         if [] = v_step_functions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_step_functions)
+               v_step_functions
+           in
+           let bnd = "step_functions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sqs v_sqs in
-         ("sqs", arg) :: bnds
+         if [] = v_sqs then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sqs) v_sqs in
+           let bnd = "sqs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sns v_sns in
-         ("sns", arg) :: bnds
+         if [] = v_sns then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sns) v_sns in
+           let bnd = "sns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_s3 v_s3 in
-         ("s3", arg) :: bnds
+         if [] = v_s3 then bnds
+         else
+           let arg = (yojson_of_list yojson_of_s3) v_s3 in
+           let bnd = "s3", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_republish v_republish in
-         ("republish", arg) :: bnds
+         if [] = v_republish then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_republish) v_republish
+           in
+           let bnd = "republish", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_lambda v_lambda in
-         ("lambda", arg) :: bnds
+         if [] = v_lambda then bnds
+         else
+           let arg = (yojson_of_list yojson_of_lambda) v_lambda in
+           let bnd = "lambda", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_kinesis v_kinesis in
-         ("kinesis", arg) :: bnds
+         if [] = v_kinesis then bnds
+         else
+           let arg = (yojson_of_list yojson_of_kinesis) v_kinesis in
+           let bnd = "kinesis", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_kafka v_kafka in
-         ("kafka", arg) :: bnds
+         if [] = v_kafka then bnds
+         else
+           let arg = (yojson_of_list yojson_of_kafka) v_kafka in
+           let bnd = "kafka", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_iot_events v_iot_events
-         in
-         ("iot_events", arg) :: bnds
+         if [] = v_iot_events then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_iot_events) v_iot_events
+           in
+           let bnd = "iot_events", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_iot_analytics v_iot_analytics
-         in
-         ("iot_analytics", arg) :: bnds
+         if [] = v_iot_analytics then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_iot_analytics) v_iot_analytics
+           in
+           let bnd = "iot_analytics", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_http v_http in
-         ("http", arg) :: bnds
+         if [] = v_http then bnds
+         else
+           let arg = (yojson_of_list yojson_of_http) v_http in
+           let bnd = "http", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_firehose v_firehose in
-         ("firehose", arg) :: bnds
+         if [] = v_firehose then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_firehose) v_firehose
+           in
+           let bnd = "firehose", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_error_action v_error_action
-         in
-         ("error_action", arg) :: bnds
+         if [] = v_error_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_error_action) v_error_action
+           in
+           let bnd = "error_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_elasticsearch v_elasticsearch
-         in
-         ("elasticsearch", arg) :: bnds
+         if [] = v_elasticsearch then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_elasticsearch) v_elasticsearch
+           in
+           let bnd = "elasticsearch", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dynamodbv2 v_dynamodbv2
-         in
-         ("dynamodbv2", arg) :: bnds
+         if [] = v_dynamodbv2 then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dynamodbv2) v_dynamodbv2
+           in
+           let bnd = "dynamodbv2", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_dynamodb v_dynamodb in
-         ("dynamodb", arg) :: bnds
+         if [] = v_dynamodb then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dynamodb) v_dynamodb
+           in
+           let bnd = "dynamodb", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cloudwatch_metric
-             v_cloudwatch_metric
-         in
-         ("cloudwatch_metric", arg) :: bnds
+         if [] = v_cloudwatch_metric then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cloudwatch_metric)
+               v_cloudwatch_metric
+           in
+           let bnd = "cloudwatch_metric", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cloudwatch_logs v_cloudwatch_logs
-         in
-         ("cloudwatch_logs", arg) :: bnds
+         if [] = v_cloudwatch_logs then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cloudwatch_logs)
+               v_cloudwatch_logs
+           in
+           let bnd = "cloudwatch_logs", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cloudwatch_alarm
-             v_cloudwatch_alarm
-         in
-         ("cloudwatch_alarm", arg) :: bnds
+         if [] = v_cloudwatch_alarm then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cloudwatch_alarm)
+               v_cloudwatch_alarm
+           in
+           let bnd = "cloudwatch_alarm", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

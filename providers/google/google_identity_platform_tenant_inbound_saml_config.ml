@@ -36,6 +36,7 @@ type idp_config = {
   sign_request : bool prop option; [@option]
   sso_url : string prop;
   idp_certificates : idp_config__idp_certificates list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -53,11 +54,14 @@ let yojson_of_idp_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_idp_config__idp_certificates
-             v_idp_certificates
-         in
-         ("idp_certificates", arg) :: bnds
+         if [] = v_idp_certificates then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_idp_config__idp_certificates)
+               v_idp_certificates
+           in
+           let bnd = "idp_certificates", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_sso_url in
@@ -190,7 +194,9 @@ type google_identity_platform_tenant_inbound_saml_config = {
   project : string prop option; [@option]
   tenant : string prop;
   idp_config : idp_config list;
+      [@default []] [@yojson_drop_default ( = )]
   sp_config : sp_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -219,14 +225,22 @@ let yojson_of_google_identity_platform_tenant_inbound_saml_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sp_config v_sp_config in
-         ("sp_config", arg) :: bnds
+         if [] = v_sp_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sp_config) v_sp_config
+           in
+           let bnd = "sp_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_idp_config v_idp_config
-         in
-         ("idp_config", arg) :: bnds
+         if [] = v_idp_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_idp_config) v_idp_config
+           in
+           let bnd = "idp_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_tenant in

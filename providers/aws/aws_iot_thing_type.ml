@@ -51,6 +51,7 @@ type aws_iot_thing_type = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   properties : properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,10 +71,13 @@ let yojson_of_aws_iot_thing_type =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_properties v_properties
-         in
-         ("properties", arg) :: bnds
+         if [] = v_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_properties) v_properties
+           in
+           let bnd = "properties", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

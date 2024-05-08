@@ -33,6 +33,7 @@ type monitoring_schedule_config = {
   monitoring_job_definition_name : string prop;
   monitoring_type : string prop;
   schedule_config : monitoring_schedule_config__schedule_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,12 +51,15 @@ let yojson_of_monitoring_schedule_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_monitoring_schedule_config__schedule_config
-             v_schedule_config
-         in
-         ("schedule_config", arg) :: bnds
+         if [] = v_schedule_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_monitoring_schedule_config__schedule_config)
+               v_schedule_config
+           in
+           let bnd = "schedule_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -83,6 +87,7 @@ type aws_sagemaker_monitoring_schedule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   monitoring_schedule_config : monitoring_schedule_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -101,11 +106,14 @@ let yojson_of_aws_sagemaker_monitoring_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitoring_schedule_config
-             v_monitoring_schedule_config
-         in
-         ("monitoring_schedule_config", arg) :: bnds
+         if [] = v_monitoring_schedule_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitoring_schedule_config)
+               v_monitoring_schedule_config
+           in
+           let bnd = "monitoring_schedule_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

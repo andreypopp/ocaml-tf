@@ -38,6 +38,7 @@ let _ =
 type config__data_retention_config = {
   task_logs_retention_config :
     config__data_retention_config__task_logs_retention_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,12 +51,15 @@ let yojson_of_config__data_retention_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__data_retention_config__task_logs_retention_config
-             v_task_logs_retention_config
-         in
-         ("task_logs_retention_config", arg) :: bnds
+         if [] = v_task_logs_retention_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__data_retention_config__task_logs_retention_config)
+               v_task_logs_retention_config
+           in
+           let bnd = "task_logs_retention_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config__data_retention_config ->
@@ -204,6 +208,7 @@ type config__master_authorized_networks_config = {
   enabled : bool prop;
   cidr_blocks :
     config__master_authorized_networks_config__cidr_blocks list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -216,12 +221,15 @@ let yojson_of_config__master_authorized_networks_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__master_authorized_networks_config__cidr_blocks
-             v_cidr_blocks
-         in
-         ("cidr_blocks", arg) :: bnds
+         if [] = v_cidr_blocks then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__master_authorized_networks_config__cidr_blocks)
+               v_cidr_blocks
+           in
+           let bnd = "cidr_blocks", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in
@@ -596,6 +604,7 @@ let _ = yojson_of_config__recovery_config__scheduled_snapshots_config
 type config__recovery_config = {
   scheduled_snapshots_config :
     config__recovery_config__scheduled_snapshots_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -608,12 +617,15 @@ let yojson_of_config__recovery_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__recovery_config__scheduled_snapshots_config
-             v_scheduled_snapshots_config
-         in
-         ("scheduled_snapshots_config", arg) :: bnds
+         if [] = v_scheduled_snapshots_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__recovery_config__scheduled_snapshots_config)
+               v_scheduled_snapshots_config
+           in
+           let bnd = "scheduled_snapshots_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config__recovery_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -791,6 +803,7 @@ let _ =
 type config__web_server_network_access_control = {
   allowed_ip_range :
     config__web_server_network_access_control__allowed_ip_range list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -803,12 +816,15 @@ let yojson_of_config__web_server_network_access_control =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__web_server_network_access_control__allowed_ip_range
-             v_allowed_ip_range
-         in
-         ("allowed_ip_range", arg) :: bnds
+         if [] = v_allowed_ip_range then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__web_server_network_access_control__allowed_ip_range)
+               v_allowed_ip_range
+           in
+           let bnd = "allowed_ip_range", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config__web_server_network_access_control ->
@@ -1038,9 +1054,13 @@ let _ = yojson_of_config__workloads_config__worker
 
 type config__workloads_config = {
   scheduler : config__workloads_config__scheduler list;
+      [@default []] [@yojson_drop_default ( = )]
   triggerer : config__workloads_config__triggerer list;
+      [@default []] [@yojson_drop_default ( = )]
   web_server : config__workloads_config__web_server list;
+      [@default []] [@yojson_drop_default ( = )]
   worker : config__workloads_config__worker list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1058,35 +1078,48 @@ let yojson_of_config__workloads_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__workloads_config__worker
-             v_worker
-         in
-         ("worker", arg) :: bnds
+         if [] = v_worker then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__workloads_config__worker)
+               v_worker
+           in
+           let bnd = "worker", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__workloads_config__web_server
-             v_web_server
-         in
-         ("web_server", arg) :: bnds
+         if [] = v_web_server then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__workloads_config__web_server)
+               v_web_server
+           in
+           let bnd = "web_server", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__workloads_config__triggerer
-             v_triggerer
-         in
-         ("triggerer", arg) :: bnds
+         if [] = v_triggerer then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__workloads_config__triggerer)
+               v_triggerer
+           in
+           let bnd = "triggerer", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__workloads_config__scheduler
-             v_scheduler
-         in
-         ("scheduler", arg) :: bnds
+         if [] = v_scheduler then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__workloads_config__scheduler)
+               v_scheduler
+           in
+           let bnd = "scheduler", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config__workloads_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1100,20 +1133,32 @@ type config = {
   node_count : float prop option; [@option]
   resilience_mode : string prop option; [@option]
   data_retention_config : config__data_retention_config list;
+      [@default []] [@yojson_drop_default ( = )]
   database_config : config__database_config list;
+      [@default []] [@yojson_drop_default ( = )]
   encryption_config : config__encryption_config list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_window : config__maintenance_window list;
+      [@default []] [@yojson_drop_default ( = )]
   master_authorized_networks_config :
     config__master_authorized_networks_config list;
+      [@default []] [@yojson_drop_default ( = )]
   node_config : config__node_config list;
+      [@default []] [@yojson_drop_default ( = )]
   private_environment_config :
     config__private_environment_config list;
+      [@default []] [@yojson_drop_default ( = )]
   recovery_config : config__recovery_config list;
+      [@default []] [@yojson_drop_default ( = )]
   software_config : config__software_config list;
+      [@default []] [@yojson_drop_default ( = )]
   web_server_config : config__web_server_config list;
+      [@default []] [@yojson_drop_default ( = )]
   web_server_network_access_control :
     config__web_server_network_access_control list;
+      [@default []] [@yojson_drop_default ( = )]
   workloads_config : config__workloads_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1144,90 +1189,127 @@ let yojson_of_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__workloads_config
-             v_workloads_config
-         in
-         ("workloads_config", arg) :: bnds
+         if [] = v_workloads_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__workloads_config)
+               v_workloads_config
+           in
+           let bnd = "workloads_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__web_server_network_access_control
-             v_web_server_network_access_control
-         in
-         ("web_server_network_access_control", arg) :: bnds
+         if [] = v_web_server_network_access_control then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__web_server_network_access_control)
+               v_web_server_network_access_control
+           in
+           let bnd = "web_server_network_access_control", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__web_server_config
-             v_web_server_config
-         in
-         ("web_server_config", arg) :: bnds
+         if [] = v_web_server_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__web_server_config)
+               v_web_server_config
+           in
+           let bnd = "web_server_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__software_config
-             v_software_config
-         in
-         ("software_config", arg) :: bnds
+         if [] = v_software_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__software_config)
+               v_software_config
+           in
+           let bnd = "software_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__recovery_config
-             v_recovery_config
-         in
-         ("recovery_config", arg) :: bnds
+         if [] = v_recovery_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__recovery_config)
+               v_recovery_config
+           in
+           let bnd = "recovery_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__private_environment_config
-             v_private_environment_config
-         in
-         ("private_environment_config", arg) :: bnds
+         if [] = v_private_environment_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__private_environment_config)
+               v_private_environment_config
+           in
+           let bnd = "private_environment_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__node_config v_node_config
-         in
-         ("node_config", arg) :: bnds
+         if [] = v_node_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__node_config)
+               v_node_config
+           in
+           let bnd = "node_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__master_authorized_networks_config
-             v_master_authorized_networks_config
-         in
-         ("master_authorized_networks_config", arg) :: bnds
+         if [] = v_master_authorized_networks_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__master_authorized_networks_config)
+               v_master_authorized_networks_config
+           in
+           let bnd = "master_authorized_networks_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__maintenance_window
-             v_maintenance_window
-         in
-         ("maintenance_window", arg) :: bnds
+         if [] = v_maintenance_window then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__maintenance_window)
+               v_maintenance_window
+           in
+           let bnd = "maintenance_window", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__encryption_config
-             v_encryption_config
-         in
-         ("encryption_config", arg) :: bnds
+         if [] = v_encryption_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__encryption_config)
+               v_encryption_config
+           in
+           let bnd = "encryption_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__database_config
-             v_database_config
-         in
-         ("database_config", arg) :: bnds
+         if [] = v_database_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__database_config)
+               v_database_config
+           in
+           let bnd = "database_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__data_retention_config
-             v_data_retention_config
-         in
-         ("data_retention_config", arg) :: bnds
+         if [] = v_data_retention_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__data_retention_config)
+               v_data_retention_config
+           in
+           let bnd = "data_retention_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resilience_mode with
@@ -1334,8 +1416,9 @@ type google_composer_environment = {
   name : string prop;
   project : string prop option; [@option]
   region : string prop option; [@option]
-  config : config list;
+  config : config list; [@default []] [@yojson_drop_default ( = )]
   storage_config : storage_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1362,14 +1445,21 @@ let yojson_of_google_composer_environment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_config v_storage_config
-         in
-         ("storage_config", arg) :: bnds
+         if [] = v_storage_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_config)
+               v_storage_config
+           in
+           let bnd = "storage_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_config v_config in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg = (yojson_of_list yojson_of_config) v_config in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

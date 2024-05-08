@@ -165,7 +165,7 @@ type azurerm_kusto_attached_database_configuration = {
   location : string prop;
   name : string prop;
   resource_group_name : string prop;
-  sharing : sharing list;
+  sharing : sharing list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -195,8 +195,11 @@ let yojson_of_azurerm_kusto_attached_database_configuration =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_sharing v_sharing in
-         ("sharing", arg) :: bnds
+         if [] = v_sharing then bnds
+         else
+           let arg = (yojson_of_list yojson_of_sharing) v_sharing in
+           let bnd = "sharing", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

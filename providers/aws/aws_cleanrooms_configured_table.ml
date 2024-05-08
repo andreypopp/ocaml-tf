@@ -80,6 +80,7 @@ let _ = yojson_of_timeouts
 
 type aws_cleanrooms_configured_table = {
   allowed_columns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   analysis_method : string prop;
   description : string prop option; [@option]
   id : string prop option; [@option]
@@ -87,6 +88,7 @@ type aws_cleanrooms_configured_table = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   table_reference : table_reference list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -114,10 +116,14 @@ let yojson_of_aws_cleanrooms_configured_table =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_table_reference v_table_reference
-         in
-         ("table_reference", arg) :: bnds
+         if [] = v_table_reference then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_table_reference)
+               v_table_reference
+           in
+           let bnd = "table_reference", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with
@@ -178,12 +184,14 @@ let yojson_of_aws_cleanrooms_configured_table =
          ("analysis_method", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_allowed_columns
-         in
-         ("allowed_columns", arg) :: bnds
+         if [] = v_allowed_columns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_allowed_columns
+           in
+           let bnd = "allowed_columns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_cleanrooms_configured_table ->

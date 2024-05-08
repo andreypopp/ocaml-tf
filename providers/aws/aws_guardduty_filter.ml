@@ -95,6 +95,7 @@ let _ = yojson_of_finding_criteria__criterion
 
 type finding_criteria = {
   criterion : finding_criteria__criterion list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -107,11 +108,14 @@ let yojson_of_finding_criteria =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_finding_criteria__criterion
-             v_criterion
-         in
-         ("criterion", arg) :: bnds
+         if [] = v_criterion then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_finding_criteria__criterion)
+               v_criterion
+           in
+           let bnd = "criterion", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : finding_criteria -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -130,6 +134,7 @@ type aws_guardduty_filter = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   finding_criteria : finding_criteria list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -152,11 +157,14 @@ let yojson_of_aws_guardduty_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_finding_criteria
-             v_finding_criteria
-         in
-         ("finding_criteria", arg) :: bnds
+         if [] = v_finding_criteria then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_finding_criteria)
+               v_finding_criteria
+           in
+           let bnd = "finding_criteria", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

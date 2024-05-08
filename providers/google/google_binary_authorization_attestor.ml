@@ -53,6 +53,7 @@ type attestation_authority_note__public_keys = {
   id : string prop option; [@option]
   pkix_public_key :
     attestation_authority_note__public_keys__pkix_public_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,12 +71,15 @@ let yojson_of_attestation_authority_note__public_keys =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_attestation_authority_note__public_keys__pkix_public_key
-             v_pkix_public_key
-         in
-         ("pkix_public_key", arg) :: bnds
+         if [] = v_pkix_public_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_attestation_authority_note__public_keys__pkix_public_key)
+               v_pkix_public_key
+           in
+           let bnd = "pkix_public_key", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with
@@ -112,6 +116,7 @@ let _ = yojson_of_attestation_authority_note__public_keys
 type attestation_authority_note = {
   note_reference : string prop;
   public_keys : attestation_authority_note__public_keys list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -127,12 +132,15 @@ let yojson_of_attestation_authority_note =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_attestation_authority_note__public_keys
-             v_public_keys
-         in
-         ("public_keys", arg) :: bnds
+         if [] = v_public_keys then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_attestation_authority_note__public_keys)
+               v_public_keys
+           in
+           let bnd = "public_keys", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -199,6 +207,7 @@ type google_binary_authorization_attestor = {
   name : string prop;
   project : string prop option; [@option]
   attestation_authority_note : attestation_authority_note list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -223,11 +232,14 @@ let yojson_of_google_binary_authorization_attestor =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attestation_authority_note
-             v_attestation_authority_note
-         in
-         ("attestation_authority_note", arg) :: bnds
+         if [] = v_attestation_authority_note then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attestation_authority_note)
+               v_attestation_authority_note
+           in
+           let bnd = "attestation_authority_note", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

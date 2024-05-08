@@ -32,6 +32,7 @@ type secret__customer_certificate = {
   expiration_date : string prop;
   key_vault_certificate_id : string prop;
   subject_alternative_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -48,12 +49,14 @@ let yojson_of_secret__customer_certificate =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subject_alternative_names
-         in
-         ("subject_alternative_names", arg) :: bnds
+         if [] = v_subject_alternative_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subject_alternative_names
+           in
+           let bnd = "subject_alternative_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -77,6 +80,7 @@ let _ = yojson_of_secret__customer_certificate
 
 type secret = {
   customer_certificate : secret__customer_certificate list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,11 +93,14 @@ let yojson_of_secret =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secret__customer_certificate
-             v_customer_certificate
-         in
-         ("customer_certificate", arg) :: bnds
+         if [] = v_customer_certificate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secret__customer_certificate)
+               v_customer_certificate
+           in
+           let bnd = "customer_certificate", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : secret -> Ppx_yojson_conv_lib.Yojson.Safe.t)

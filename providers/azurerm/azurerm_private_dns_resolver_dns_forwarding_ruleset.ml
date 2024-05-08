@@ -67,6 +67,7 @@ type azurerm_private_dns_resolver_dns_forwarding_ruleset = {
   location : string prop;
   name : string prop;
   private_dns_resolver_outbound_endpoint_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   timeouts : timeouts option;
@@ -118,12 +119,17 @@ let yojson_of_azurerm_private_dns_resolver_dns_forwarding_ruleset =
          ("resource_group_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_private_dns_resolver_outbound_endpoint_ids
-         in
-         ("private_dns_resolver_outbound_endpoint_ids", arg) :: bnds
+         if [] = v_private_dns_resolver_outbound_endpoint_ids then
+           bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_private_dns_resolver_outbound_endpoint_ids
+           in
+           let bnd =
+             "private_dns_resolver_outbound_endpoint_ids", arg
+           in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

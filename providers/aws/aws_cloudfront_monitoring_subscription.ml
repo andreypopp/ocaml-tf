@@ -42,6 +42,7 @@ type monitoring_subscription = {
   realtime_metrics_subscription_config :
     monitoring_subscription__realtime_metrics_subscription_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,12 +58,15 @@ let yojson_of_monitoring_subscription =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_monitoring_subscription__realtime_metrics_subscription_config
-             v_realtime_metrics_subscription_config
-         in
-         ("realtime_metrics_subscription_config", arg) :: bnds
+         if [] = v_realtime_metrics_subscription_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_monitoring_subscription__realtime_metrics_subscription_config)
+               v_realtime_metrics_subscription_config
+           in
+           let bnd = "realtime_metrics_subscription_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : monitoring_subscription -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -75,6 +79,7 @@ type aws_cloudfront_monitoring_subscription = {
   distribution_id : string prop;
   id : string prop option; [@option]
   monitoring_subscription : monitoring_subscription list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -91,11 +96,14 @@ let yojson_of_aws_cloudfront_monitoring_subscription =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_monitoring_subscription
-             v_monitoring_subscription
-         in
-         ("monitoring_subscription", arg) :: bnds
+         if [] = v_monitoring_subscription then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_monitoring_subscription)
+               v_monitoring_subscription
+           in
+           let bnd = "monitoring_subscription", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

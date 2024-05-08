@@ -59,6 +59,7 @@ type basic__conditions__device_policy = {
   require_screen_lock : bool prop option; [@option]
   os_constraints :
     basic__conditions__device_policy__os_constraints list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -79,12 +80,15 @@ let yojson_of_basic__conditions__device_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_basic__conditions__device_policy__os_constraints
-             v_os_constraints
-         in
-         ("os_constraints", arg) :: bnds
+         if [] = v_os_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_basic__conditions__device_policy__os_constraints)
+               v_os_constraints
+           in
+           let bnd = "os_constraints", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_require_screen_lock with
@@ -184,6 +188,7 @@ let _ =
 type basic__conditions__vpc_network_sources = {
   vpc_subnetwork :
     basic__conditions__vpc_network_sources__vpc_subnetwork list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,12 +201,15 @@ let yojson_of_basic__conditions__vpc_network_sources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_basic__conditions__vpc_network_sources__vpc_subnetwork
-             v_vpc_subnetwork
-         in
-         ("vpc_subnetwork", arg) :: bnds
+         if [] = v_vpc_subnetwork then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_basic__conditions__vpc_network_sources__vpc_subnetwork)
+               v_vpc_subnetwork
+           in
+           let bnd = "vpc_subnetwork", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : basic__conditions__vpc_network_sources ->
@@ -218,7 +226,9 @@ type basic__conditions = {
   regions : string prop list option; [@option]
   required_access_levels : string prop list option; [@option]
   device_policy : basic__conditions__device_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_network_sources : basic__conditions__vpc_network_sources list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -239,19 +249,26 @@ let yojson_of_basic__conditions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_basic__conditions__vpc_network_sources
-             v_vpc_network_sources
-         in
-         ("vpc_network_sources", arg) :: bnds
+         if [] = v_vpc_network_sources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_basic__conditions__vpc_network_sources)
+               v_vpc_network_sources
+           in
+           let bnd = "vpc_network_sources", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_basic__conditions__device_policy
-             v_device_policy
-         in
-         ("device_policy", arg) :: bnds
+         if [] = v_device_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_basic__conditions__device_policy)
+               v_device_policy
+           in
+           let bnd = "device_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_required_access_levels with
@@ -311,6 +328,7 @@ let _ = yojson_of_basic__conditions
 type basic = {
   combining_function : string prop option; [@option]
   conditions : basic__conditions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -326,10 +344,14 @@ let yojson_of_basic =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_basic__conditions v_conditions
-         in
-         ("conditions", arg) :: bnds
+         if [] = v_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_basic__conditions)
+               v_conditions
+           in
+           let bnd = "conditions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_combining_function with
@@ -402,7 +424,9 @@ let _ = yojson_of_custom__expr
 
 [@@@deriving.end]
 
-type custom = { expr : custom__expr list }
+type custom = {
+  expr : custom__expr list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : custom) -> ()
@@ -414,8 +438,13 @@ let yojson_of_custom =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_custom__expr v_expr in
-         ("expr", arg) :: bnds
+         if [] = v_expr then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_custom__expr) v_expr
+           in
+           let bnd = "expr", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : custom -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -476,8 +505,8 @@ type google_access_context_manager_access_level = {
   name : string prop;
   parent : string prop;
   title : string prop;
-  basic : basic list;
-  custom : custom list;
+  basic : basic list; [@default []] [@yojson_drop_default ( = )]
+  custom : custom list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -504,12 +533,18 @@ let yojson_of_google_access_context_manager_access_level =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_custom v_custom in
-         ("custom", arg) :: bnds
+         if [] = v_custom then bnds
+         else
+           let arg = (yojson_of_list yojson_of_custom) v_custom in
+           let bnd = "custom", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_basic v_basic in
-         ("basic", arg) :: bnds
+         if [] = v_basic then bnds
+         else
+           let arg = (yojson_of_list yojson_of_basic) v_basic in
+           let bnd = "basic", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_title in

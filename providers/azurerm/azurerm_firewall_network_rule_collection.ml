@@ -8,8 +8,10 @@ type rule = {
   destination_fqdns : string prop list option; [@option]
   destination_ip_groups : string prop list option; [@option]
   destination_ports : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   protocols : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   source_addresses : string prop list option; [@option]
   source_ip_groups : string prop list option; [@option]
 }
@@ -54,24 +56,28 @@ let yojson_of_rule =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_protocols
-         in
-         ("protocols", arg) :: bnds
+         if [] = v_protocols then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_protocols
+           in
+           let bnd = "protocols", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_destination_ports
-         in
-         ("destination_ports", arg) :: bnds
+         if [] = v_destination_ports then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_destination_ports
+           in
+           let bnd = "destination_ports", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_destination_ip_groups with
@@ -185,7 +191,7 @@ type azurerm_firewall_network_rule_collection = {
   name : string prop;
   priority : float prop;
   resource_group_name : string prop;
-  rule : rule list;
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -212,8 +218,11 @@ let yojson_of_azurerm_firewall_network_rule_collection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

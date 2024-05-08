@@ -113,7 +113,7 @@ type azurerm_dns_srv_record = {
   tags : (string * string prop) list option; [@option]
   ttl : float prop;
   zone_name : string prop;
-  record : record list;
+  record : record list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -140,8 +140,11 @@ let yojson_of_azurerm_dns_srv_record =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_record v_record in
-         ("record", arg) :: bnds
+         if [] = v_record then bnds
+         else
+           let arg = (yojson_of_list yojson_of_record) v_record in
+           let bnd = "record", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_zone_name in

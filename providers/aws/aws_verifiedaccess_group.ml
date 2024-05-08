@@ -50,6 +50,7 @@ type aws_verifiedaccess_group = {
   tags_all : (string * string prop) list option; [@option]
   verifiedaccess_instance_id : string prop;
   sse_configuration : sse_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,11 +71,14 @@ let yojson_of_aws_verifiedaccess_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_sse_configuration
-             v_sse_configuration
-         in
-         ("sse_configuration", arg) :: bnds
+         if [] = v_sse_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_sse_configuration)
+               v_sse_configuration
+           in
+           let bnd = "sse_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

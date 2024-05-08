@@ -352,6 +352,7 @@ type settings__backup_configuration = {
   transaction_log_retention_days : float prop option; [@option]
   backup_retention_settings :
     settings__backup_configuration__backup_retention_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -374,12 +375,15 @@ let yojson_of_settings__backup_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_settings__backup_configuration__backup_retention_settings
-             v_backup_retention_settings
-         in
-         ("backup_retention_settings", arg) :: bnds
+         if [] = v_backup_retention_settings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_settings__backup_configuration__backup_retention_settings)
+               v_backup_retention_settings
+           in
+           let bnd = "backup_retention_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_transaction_log_retention_days with
@@ -705,7 +709,9 @@ type settings__ip_configuration = {
   ssl_mode : string prop option; [@option]
   authorized_networks :
     settings__ip_configuration__authorized_networks list;
+      [@default []] [@yojson_drop_default ( = )]
   psc_config : settings__ip_configuration__psc_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -728,20 +734,26 @@ let yojson_of_settings__ip_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_settings__ip_configuration__psc_config
-             v_psc_config
-         in
-         ("psc_config", arg) :: bnds
+         if [] = v_psc_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_settings__ip_configuration__psc_config)
+               v_psc_config
+           in
+           let bnd = "psc_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_settings__ip_configuration__authorized_networks
-             v_authorized_networks
-         in
-         ("authorized_networks", arg) :: bnds
+         if [] = v_authorized_networks then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_settings__ip_configuration__authorized_networks)
+               v_authorized_networks
+           in
+           let bnd = "authorized_networks", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_ssl_mode with
@@ -1044,19 +1056,31 @@ type settings = {
   time_zone : string prop option; [@option]
   user_labels : (string * string prop) list option; [@option]
   active_directory_config : settings__active_directory_config list;
+      [@default []] [@yojson_drop_default ( = )]
   advanced_machine_features :
     settings__advanced_machine_features list;
+      [@default []] [@yojson_drop_default ( = )]
   backup_configuration : settings__backup_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   data_cache_config : settings__data_cache_config list;
+      [@default []] [@yojson_drop_default ( = )]
   database_flags : settings__database_flags list;
+      [@default []] [@yojson_drop_default ( = )]
   deny_maintenance_period : settings__deny_maintenance_period list;
+      [@default []] [@yojson_drop_default ( = )]
   insights_config : settings__insights_config list;
+      [@default []] [@yojson_drop_default ( = )]
   ip_configuration : settings__ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   location_preference : settings__location_preference list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_window : settings__maintenance_window list;
+      [@default []] [@yojson_drop_default ( = )]
   password_validation_policy :
     settings__password_validation_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   sql_server_audit_config : settings__sql_server_audit_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1096,90 +1120,129 @@ let yojson_of_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_settings__sql_server_audit_config
-             v_sql_server_audit_config
-         in
-         ("sql_server_audit_config", arg) :: bnds
+         if [] = v_sql_server_audit_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_settings__sql_server_audit_config)
+               v_sql_server_audit_config
+           in
+           let bnd = "sql_server_audit_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_settings__password_validation_policy
-             v_password_validation_policy
-         in
-         ("password_validation_policy", arg) :: bnds
+         if [] = v_password_validation_policy then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_settings__password_validation_policy)
+               v_password_validation_policy
+           in
+           let bnd = "password_validation_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_settings__maintenance_window
-             v_maintenance_window
-         in
-         ("maintenance_window", arg) :: bnds
+         if [] = v_maintenance_window then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings__maintenance_window)
+               v_maintenance_window
+           in
+           let bnd = "maintenance_window", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_settings__location_preference
-             v_location_preference
-         in
-         ("location_preference", arg) :: bnds
+         if [] = v_location_preference then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings__location_preference)
+               v_location_preference
+           in
+           let bnd = "location_preference", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_settings__ip_configuration
-             v_ip_configuration
-         in
-         ("ip_configuration", arg) :: bnds
+         if [] = v_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings__ip_configuration)
+               v_ip_configuration
+           in
+           let bnd = "ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_settings__insights_config
-             v_insights_config
-         in
-         ("insights_config", arg) :: bnds
+         if [] = v_insights_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings__insights_config)
+               v_insights_config
+           in
+           let bnd = "insights_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_settings__deny_maintenance_period
-             v_deny_maintenance_period
-         in
-         ("deny_maintenance_period", arg) :: bnds
+         if [] = v_deny_maintenance_period then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_settings__deny_maintenance_period)
+               v_deny_maintenance_period
+           in
+           let bnd = "deny_maintenance_period", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_settings__database_flags
-             v_database_flags
-         in
-         ("database_flags", arg) :: bnds
+         if [] = v_database_flags then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings__database_flags)
+               v_database_flags
+           in
+           let bnd = "database_flags", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_settings__data_cache_config
-             v_data_cache_config
-         in
-         ("data_cache_config", arg) :: bnds
+         if [] = v_data_cache_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings__data_cache_config)
+               v_data_cache_config
+           in
+           let bnd = "data_cache_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_settings__backup_configuration
-             v_backup_configuration
-         in
-         ("backup_configuration", arg) :: bnds
+         if [] = v_backup_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings__backup_configuration)
+               v_backup_configuration
+           in
+           let bnd = "backup_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_settings__advanced_machine_features
-             v_advanced_machine_features
-         in
-         ("advanced_machine_features", arg) :: bnds
+         if [] = v_advanced_machine_features then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_settings__advanced_machine_features)
+               v_advanced_machine_features
+           in
+           let bnd = "advanced_machine_features", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_settings__active_directory_config
-             v_active_directory_config
-         in
-         ("active_directory_config", arg) :: bnds
+         if [] = v_active_directory_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_settings__active_directory_config)
+               v_active_directory_config
+           in
+           let bnd = "active_directory_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_labels with
@@ -1456,10 +1519,13 @@ type google_sql_database_instance = {
   project : string prop option; [@option]
   region : string prop option; [@option]
   root_password : string prop option; [@option]
-  clone : clone list;
+  clone : clone list; [@default []] [@yojson_drop_default ( = )]
   replica_configuration : replica_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   restore_backup_context : restore_backup_context list;
+      [@default []] [@yojson_drop_default ( = )]
   settings : settings list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1494,26 +1560,40 @@ let yojson_of_google_sql_database_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_settings v_settings in
-         ("settings", arg) :: bnds
+         if [] = v_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_settings) v_settings
+           in
+           let bnd = "settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restore_backup_context
-             v_restore_backup_context
-         in
-         ("restore_backup_context", arg) :: bnds
+         if [] = v_restore_backup_context then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restore_backup_context)
+               v_restore_backup_context
+           in
+           let bnd = "restore_backup_context", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_replica_configuration
-             v_replica_configuration
-         in
-         ("replica_configuration", arg) :: bnds
+         if [] = v_replica_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_replica_configuration)
+               v_replica_configuration
+           in
+           let bnd = "replica_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_clone v_clone in
-         ("clone", arg) :: bnds
+         if [] = v_clone then bnds
+         else
+           let arg = (yojson_of_list yojson_of_clone) v_clone in
+           let bnd = "clone", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_root_password with

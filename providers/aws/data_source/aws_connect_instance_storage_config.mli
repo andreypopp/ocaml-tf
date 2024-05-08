@@ -14,6 +14,7 @@ type storage_config__s3_config = {
   bucket_prefix : string prop;  (** bucket_prefix *)
   encryption_config :
     storage_config__s3_config__encryption_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** encryption_config *)
 }
 
@@ -26,6 +27,7 @@ type storage_config__kinesis_video_stream_config = {
   encryption_config :
     storage_config__kinesis_video_stream_config__encryption_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** encryption_config *)
   prefix : string prop;  (** prefix *)
   retention_period_hours : float prop;  (** retention_period_hours *)
@@ -42,13 +44,18 @@ type storage_config__kinesis_firehose_config = {
 type storage_config = {
   kinesis_firehose_config :
     storage_config__kinesis_firehose_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** kinesis_firehose_config *)
   kinesis_stream_config : storage_config__kinesis_stream_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** kinesis_stream_config *)
   kinesis_video_stream_config :
     storage_config__kinesis_video_stream_config list;
+      [@default []] [@yojson_drop_default ( = )]
       (** kinesis_video_stream_config *)
-  s3_config : storage_config__s3_config list;  (** s3_config *)
+  s3_config : storage_config__s3_config list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** s3_config *)
   storage_type : string prop;  (** storage_type *)
 }
 

@@ -31,6 +31,7 @@ let _ = yojson_of_voice_connector
 type aws_chimesdkvoice_global_settings = {
   id : string prop option; [@option]
   voice_connector : voice_connector list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -43,10 +44,14 @@ let yojson_of_aws_chimesdkvoice_global_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_voice_connector v_voice_connector
-         in
-         ("voice_connector", arg) :: bnds
+         if [] = v_voice_connector then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_voice_connector)
+               v_voice_connector
+           in
+           let bnd = "voice_connector", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

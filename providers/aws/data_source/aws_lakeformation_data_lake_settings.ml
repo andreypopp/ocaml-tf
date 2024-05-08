@@ -4,6 +4,7 @@ open! Tf_core
 
 type create_database_default_permissions = {
   permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   principal : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -21,12 +22,14 @@ let yojson_of_create_database_default_permissions =
          ("principal", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_permissions
-         in
-         ("permissions", arg) :: bnds
+         if [] = v_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_permissions
+           in
+           let bnd = "permissions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : create_database_default_permissions ->
@@ -38,6 +41,7 @@ let _ = yojson_of_create_database_default_permissions
 
 type create_table_default_permissions = {
   permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   principal : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -55,12 +59,14 @@ let yojson_of_create_table_default_permissions =
          ("principal", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_permissions
-         in
-         ("permissions", arg) :: bnds
+         if [] = v_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_permissions
+           in
+           let bnd = "permissions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : create_table_default_permissions ->

@@ -52,7 +52,10 @@ let _ = yojson_of_index_config__indexes
 
 [@@@deriving.end]
 
-type index_config = { indexes : index_config__indexes list }
+type index_config = {
+  indexes : index_config__indexes list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : index_config) -> ()
@@ -64,10 +67,14 @@ let yojson_of_index_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_index_config__indexes v_indexes
-         in
-         ("indexes", arg) :: bnds
+         if [] = v_indexes then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_index_config__indexes)
+               v_indexes
+           in
+           let bnd = "indexes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : index_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -140,8 +147,10 @@ type google_firestore_field = {
   id : string prop option; [@option]
   project : string prop option; [@option]
   index_config : index_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   ttl_config : ttl_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -163,20 +172,26 @@ let yojson_of_google_firestore_field =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ttl_config v_ttl_config
-         in
-         ("ttl_config", arg) :: bnds
+         if [] = v_ttl_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ttl_config) v_ttl_config
+           in
+           let bnd = "ttl_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_index_config v_index_config
-         in
-         ("index_config", arg) :: bnds
+         if [] = v_index_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_index_config) v_index_config
+           in
+           let bnd = "index_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

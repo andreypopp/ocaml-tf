@@ -23,7 +23,9 @@ type endpoint = {
 }
 
 type enrichment = {
-  endpoint_names : string prop list;  (** endpoint_names *)
+  endpoint_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** endpoint_names *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
@@ -31,7 +33,9 @@ type enrichment = {
 type route = {
   condition : string prop;  (** condition *)
   enabled : bool prop;  (** enabled *)
-  endpoint_names : string prop list;  (** endpoint_names *)
+  endpoint_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** endpoint_names *)
   name : string prop;  (** name *)
   source : string prop;  (** source *)
 }

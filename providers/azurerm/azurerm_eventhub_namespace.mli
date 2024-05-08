@@ -17,12 +17,15 @@ type network_rulesets__ip_rule = {
 
 type network_rulesets = {
   default_action : string prop;  (** default_action *)
-  ip_rule : network_rulesets__ip_rule list;  (** ip_rule *)
+  ip_rule : network_rulesets__ip_rule list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** ip_rule *)
   public_network_access_enabled : bool prop;
       (** public_network_access_enabled *)
   trusted_service_access_enabled : bool prop;
       (** trusted_service_access_enabled *)
   virtual_network_rule : network_rulesets__virtual_network_rule list;
+      [@default []] [@yojson_drop_default ( = )]
       (** virtual_network_rule *)
 }
 

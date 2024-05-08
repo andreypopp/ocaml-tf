@@ -210,7 +210,8 @@ type azurerm_spring_cloud_gateway_route_config = {
   spring_cloud_gateway_id : string prop;
   sso_validation_enabled : bool prop option; [@option]
   open_api : open_api list;
-  route : route list;
+      [@default []] [@yojson_drop_default ( = )]
+  route : route list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -240,12 +241,20 @@ let yojson_of_azurerm_spring_cloud_gateway_route_config =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_route v_route in
-         ("route", arg) :: bnds
+         if [] = v_route then bnds
+         else
+           let arg = (yojson_of_list yojson_of_route) v_route in
+           let bnd = "route", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_open_api v_open_api in
-         ("open_api", arg) :: bnds
+         if [] = v_open_api then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_open_api) v_open_api
+           in
+           let bnd = "open_api", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_sso_validation_enabled with

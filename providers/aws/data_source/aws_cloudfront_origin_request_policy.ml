@@ -2,7 +2,9 @@
 
 open! Tf_core
 
-type cookies_config__cookies = { items : string prop list }
+type cookies_config__cookies = {
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : cookies_config__cookies) -> ()
@@ -14,10 +16,14 @@ let yojson_of_cookies_config__cookies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : cookies_config__cookies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -29,6 +35,7 @@ let _ = yojson_of_cookies_config__cookies
 type cookies_config = {
   cookie_behavior : string prop;
   cookies : cookies_config__cookies list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -41,10 +48,14 @@ let yojson_of_cookies_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cookies_config__cookies v_cookies
-         in
-         ("cookies", arg) :: bnds
+         if [] = v_cookies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cookies_config__cookies)
+               v_cookies
+           in
+           let bnd = "cookies", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -59,7 +70,9 @@ let _ = yojson_of_cookies_config
 
 [@@@deriving.end]
 
-type headers_config__headers = { items : string prop list }
+type headers_config__headers = {
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : headers_config__headers) -> ()
@@ -71,10 +84,14 @@ let yojson_of_headers_config__headers =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : headers_config__headers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -86,6 +103,7 @@ let _ = yojson_of_headers_config__headers
 type headers_config = {
   header_behavior : string prop;
   headers : headers_config__headers list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -98,10 +116,14 @@ let yojson_of_headers_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_headers_config__headers v_headers
-         in
-         ("headers", arg) :: bnds
+         if [] = v_headers then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_headers_config__headers)
+               v_headers
+           in
+           let bnd = "headers", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -117,7 +139,7 @@ let _ = yojson_of_headers_config
 [@@@deriving.end]
 
 type query_strings_config__query_strings = {
-  items : string prop list;
+  items : string prop list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -130,10 +152,14 @@ let yojson_of_query_strings_config__query_strings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_items
-         in
-         ("items", arg) :: bnds
+         if [] = v_items then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_items
+           in
+           let bnd = "items", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : query_strings_config__query_strings ->
@@ -146,6 +172,7 @@ let _ = yojson_of_query_strings_config__query_strings
 type query_strings_config = {
   query_string_behavior : string prop;
   query_strings : query_strings_config__query_strings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,12 +188,15 @@ let yojson_of_query_strings_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_query_strings_config__query_strings
-             v_query_strings
-         in
-         ("query_strings", arg) :: bnds
+         if [] = v_query_strings then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_query_strings_config__query_strings)
+               v_query_strings
+           in
+           let bnd = "query_strings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

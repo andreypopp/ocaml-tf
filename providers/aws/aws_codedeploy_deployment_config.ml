@@ -118,7 +118,9 @@ let _ = yojson_of_traffic_routing_config__time_based_linear
 type traffic_routing_config = {
   type_ : string prop option; [@option] [@key "type"]
   time_based_canary : traffic_routing_config__time_based_canary list;
+      [@default []] [@yojson_drop_default ( = )]
   time_based_linear : traffic_routing_config__time_based_linear list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -135,20 +137,26 @@ let yojson_of_traffic_routing_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_traffic_routing_config__time_based_linear
-             v_time_based_linear
-         in
-         ("time_based_linear", arg) :: bnds
+         if [] = v_time_based_linear then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_traffic_routing_config__time_based_linear)
+               v_time_based_linear
+           in
+           let bnd = "time_based_linear", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_traffic_routing_config__time_based_canary
-             v_time_based_canary
-         in
-         ("time_based_canary", arg) :: bnds
+         if [] = v_time_based_canary then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_traffic_routing_config__time_based_canary)
+               v_time_based_canary
+           in
+           let bnd = "time_based_canary", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with
@@ -170,7 +178,9 @@ type aws_codedeploy_deployment_config = {
   deployment_config_name : string prop;
   id : string prop option; [@option]
   minimum_healthy_hosts : minimum_healthy_hosts list;
+      [@default []] [@yojson_drop_default ( = )]
   traffic_routing_config : traffic_routing_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -189,18 +199,24 @@ let yojson_of_aws_codedeploy_deployment_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_traffic_routing_config
-             v_traffic_routing_config
-         in
-         ("traffic_routing_config", arg) :: bnds
+         if [] = v_traffic_routing_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_traffic_routing_config)
+               v_traffic_routing_config
+           in
+           let bnd = "traffic_routing_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_minimum_healthy_hosts
-             v_minimum_healthy_hosts
-         in
-         ("minimum_healthy_hosts", arg) :: bnds
+         if [] = v_minimum_healthy_hosts then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_minimum_healthy_hosts)
+               v_minimum_healthy_hosts
+           in
+           let bnd = "minimum_healthy_hosts", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

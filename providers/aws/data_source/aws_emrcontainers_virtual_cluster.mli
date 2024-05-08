@@ -9,12 +9,16 @@ type container_provider__info__eks_info = {
 }
 
 type container_provider__info = {
-  eks_info : container_provider__info__eks_info list;  (** eks_info *)
+  eks_info : container_provider__info__eks_info list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** eks_info *)
 }
 
 type container_provider = {
   id : string prop;  (** id *)
-  info : container_provider__info list;  (** info *)
+  info : container_provider__info list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** info *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 

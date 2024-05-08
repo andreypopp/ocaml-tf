@@ -59,6 +59,7 @@ let _ = yojson_of_ip_configuration
 type private_dns_zone_group = {
   name : string prop;
   private_dns_zone_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -72,12 +73,14 @@ let yojson_of_private_dns_zone_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_private_dns_zone_ids
-         in
-         ("private_dns_zone_ids", arg) :: bnds
+         if [] = v_private_dns_zone_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_private_dns_zone_ids
+           in
+           let bnd = "private_dns_zone_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -231,6 +234,7 @@ let _ = yojson_of_timeouts
 type custom_dns_configs = {
   fqdn : string prop;
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -243,12 +247,14 @@ let yojson_of_custom_dns_configs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_fqdn in
@@ -290,6 +296,7 @@ let _ = yojson_of_network_interface
 type private_dns_zone_configs__record_sets = {
   fqdn : string prop;
   ip_addresses : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   ttl : float prop;
   type_ : string prop; [@key "type"]
@@ -323,12 +330,14 @@ let yojson_of_private_dns_zone_configs__record_sets =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_ip_addresses
-         in
-         ("ip_addresses", arg) :: bnds
+         if [] = v_ip_addresses then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ip_addresses
+           in
+           let bnd = "ip_addresses", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_fqdn in
@@ -347,6 +356,7 @@ type private_dns_zone_configs = {
   name : string prop;
   private_dns_zone_id : string prop;
   record_sets : private_dns_zone_configs__record_sets list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -364,12 +374,15 @@ let yojson_of_private_dns_zone_configs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_private_dns_zone_configs__record_sets
-             v_record_sets
-         in
-         ("record_sets", arg) :: bnds
+         if [] = v_record_sets then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_private_dns_zone_configs__record_sets)
+               v_record_sets
+           in
+           let bnd = "record_sets", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -401,8 +414,11 @@ type azurerm_private_endpoint = {
   subnet_id : string prop;
   tags : (string * string prop) list option; [@option]
   ip_configuration : ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   private_dns_zone_group : private_dns_zone_group list;
+      [@default []] [@yojson_drop_default ( = )]
   private_service_connection : private_service_connection list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -433,25 +449,34 @@ let yojson_of_azurerm_private_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_service_connection
-             v_private_service_connection
-         in
-         ("private_service_connection", arg) :: bnds
+         if [] = v_private_service_connection then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_service_connection)
+               v_private_service_connection
+           in
+           let bnd = "private_service_connection", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_private_dns_zone_group
-             v_private_dns_zone_group
-         in
-         ("private_dns_zone_group", arg) :: bnds
+         if [] = v_private_dns_zone_group then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_private_dns_zone_group)
+               v_private_dns_zone_group
+           in
+           let bnd = "private_dns_zone_group", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ip_configuration
-             v_ip_configuration
-         in
-         ("ip_configuration", arg) :: bnds
+         if [] = v_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ip_configuration)
+               v_ip_configuration
+           in
+           let bnd = "ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

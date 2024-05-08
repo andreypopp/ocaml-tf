@@ -34,6 +34,7 @@ let _ = yojson_of_connection_properties__cross_cluster_search
 type connection_properties = {
   cross_cluster_search :
     connection_properties__cross_cluster_search list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,12 +47,15 @@ let yojson_of_connection_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_connection_properties__cross_cluster_search
-             v_cross_cluster_search
-         in
-         ("cross_cluster_search", arg) :: bnds
+         if [] = v_cross_cluster_search then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_connection_properties__cross_cluster_search)
+               v_cross_cluster_search
+           in
+           let bnd = "cross_cluster_search", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : connection_properties -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -179,8 +183,11 @@ type aws_opensearch_outbound_connection = {
   connection_mode : string prop option; [@option]
   id : string prop option; [@option]
   connection_properties : connection_properties list;
+      [@default []] [@yojson_drop_default ( = )]
   local_domain_info : local_domain_info list;
+      [@default []] [@yojson_drop_default ( = )]
   remote_domain_info : remote_domain_info list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -207,25 +214,34 @@ let yojson_of_aws_opensearch_outbound_connection =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_remote_domain_info
-             v_remote_domain_info
-         in
-         ("remote_domain_info", arg) :: bnds
+         if [] = v_remote_domain_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_remote_domain_info)
+               v_remote_domain_info
+           in
+           let bnd = "remote_domain_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_local_domain_info
-             v_local_domain_info
-         in
-         ("local_domain_info", arg) :: bnds
+         if [] = v_local_domain_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_local_domain_info)
+               v_local_domain_info
+           in
+           let bnd = "local_domain_info", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_connection_properties
-             v_connection_properties
-         in
-         ("connection_properties", arg) :: bnds
+         if [] = v_connection_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_connection_properties)
+               v_connection_properties
+           in
+           let bnd = "connection_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

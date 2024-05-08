@@ -44,6 +44,7 @@ type permissions_boundary = {
   managed_policy_arn : string prop option; [@option]
   customer_managed_policy_reference :
     permissions_boundary__customer_managed_policy_reference list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -60,12 +61,15 @@ let yojson_of_permissions_boundary =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_permissions_boundary__customer_managed_policy_reference
-             v_customer_managed_policy_reference
-         in
-         ("customer_managed_policy_reference", arg) :: bnds
+         if [] = v_customer_managed_policy_reference then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_permissions_boundary__customer_managed_policy_reference)
+               v_customer_managed_policy_reference
+           in
+           let bnd = "customer_managed_policy_reference", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_managed_policy_arn with
@@ -124,6 +128,7 @@ type aws_ssoadmin_permissions_boundary_attachment = {
   instance_arn : string prop;
   permission_set_arn : string prop;
   permissions_boundary : permissions_boundary list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -147,11 +152,14 @@ let yojson_of_aws_ssoadmin_permissions_boundary_attachment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_permissions_boundary
-             v_permissions_boundary
-         in
-         ("permissions_boundary", arg) :: bnds
+         if [] = v_permissions_boundary then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_permissions_boundary)
+               v_permissions_boundary
+           in
+           let bnd = "permissions_boundary", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

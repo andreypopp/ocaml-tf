@@ -5,7 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type output_resources__containers = {
-  image_uris : string prop list;  (** image_uris *)
+  image_uris : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** image_uris *)
   region : string prop;  (** region *)
 }
 
@@ -18,8 +20,12 @@ type output_resources__amis = {
 }
 
 type output_resources = {
-  amis : output_resources__amis list;  (** amis *)
-  containers : output_resources__containers list;  (** containers *)
+  amis : output_resources__amis list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** amis *)
+  containers : output_resources__containers list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** containers *)
 }
 
 type image_scanning_configuration__ecr_configuration

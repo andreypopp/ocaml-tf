@@ -320,7 +320,9 @@ let _ = yojson_of_tracing_config
 type vpc_config = {
   ipv6_allowed_for_dual_stack : bool prop option; [@option]
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -337,20 +339,24 @@ let yojson_of_vpc_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_ipv6_allowed_for_dual_stack with
@@ -395,15 +401,24 @@ type aws_lambda_function = {
   tags_all : (string * string prop) list option; [@option]
   timeout : float prop option; [@option]
   dead_letter_config : dead_letter_config list;
+      [@default []] [@yojson_drop_default ( = )]
   environment : environment list;
+      [@default []] [@yojson_drop_default ( = )]
   ephemeral_storage : ephemeral_storage list;
+      [@default []] [@yojson_drop_default ( = )]
   file_system_config : file_system_config list;
+      [@default []] [@yojson_drop_default ( = )]
   image_config : image_config list;
+      [@default []] [@yojson_drop_default ( = )]
   logging_config : logging_config list;
+      [@default []] [@yojson_drop_default ( = )]
   snap_start : snap_start list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   tracing_config : tracing_config list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_config : vpc_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -456,65 +471,94 @@ let yojson_of_aws_lambda_function =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_config v_vpc_config
-         in
-         ("vpc_config", arg) :: bnds
+         if [] = v_vpc_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_config) v_vpc_config
+           in
+           let bnd = "vpc_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tracing_config v_tracing_config
-         in
-         ("tracing_config", arg) :: bnds
+         if [] = v_tracing_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tracing_config)
+               v_tracing_config
+           in
+           let bnd = "tracing_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_snap_start v_snap_start
-         in
-         ("snap_start", arg) :: bnds
+         if [] = v_snap_start then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_snap_start) v_snap_start
+           in
+           let bnd = "snap_start", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logging_config v_logging_config
-         in
-         ("logging_config", arg) :: bnds
+         if [] = v_logging_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logging_config)
+               v_logging_config
+           in
+           let bnd = "logging_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_image_config v_image_config
-         in
-         ("image_config", arg) :: bnds
+         if [] = v_image_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_image_config) v_image_config
+           in
+           let bnd = "image_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_file_system_config
-             v_file_system_config
-         in
-         ("file_system_config", arg) :: bnds
+         if [] = v_file_system_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_file_system_config)
+               v_file_system_config
+           in
+           let bnd = "file_system_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ephemeral_storage
-             v_ephemeral_storage
-         in
-         ("ephemeral_storage", arg) :: bnds
+         if [] = v_ephemeral_storage then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ephemeral_storage)
+               v_ephemeral_storage
+           in
+           let bnd = "ephemeral_storage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_environment v_environment
-         in
-         ("environment", arg) :: bnds
+         if [] = v_environment then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_environment) v_environment
+           in
+           let bnd = "environment", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_dead_letter_config
-             v_dead_letter_config
-         in
-         ("dead_letter_config", arg) :: bnds
+         if [] = v_dead_letter_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_dead_letter_config)
+               v_dead_letter_config
+           in
+           let bnd = "dead_letter_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout with

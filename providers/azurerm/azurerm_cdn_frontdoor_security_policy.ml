@@ -32,7 +32,9 @@ let _ = yojson_of_security_policies__firewall__association__domain
 
 type security_policies__firewall__association = {
   patterns_to_match : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   domain : security_policies__firewall__association__domain list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -46,20 +48,25 @@ let yojson_of_security_policies__firewall__association =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_policies__firewall__association__domain
-             v_domain
-         in
-         ("domain", arg) :: bnds
+         if [] = v_domain then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_policies__firewall__association__domain)
+               v_domain
+           in
+           let bnd = "domain", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_patterns_to_match
-         in
-         ("patterns_to_match", arg) :: bnds
+         if [] = v_patterns_to_match then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_patterns_to_match
+           in
+           let bnd = "patterns_to_match", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : security_policies__firewall__association ->
@@ -72,6 +79,7 @@ let _ = yojson_of_security_policies__firewall__association
 type security_policies__firewall = {
   cdn_frontdoor_firewall_policy_id : string prop;
   association : security_policies__firewall__association list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -88,12 +96,15 @@ let yojson_of_security_policies__firewall =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_security_policies__firewall__association
-             v_association
-         in
-         ("association", arg) :: bnds
+         if [] = v_association then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_security_policies__firewall__association)
+               v_association
+           in
+           let bnd = "association", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -112,6 +123,7 @@ let _ = yojson_of_security_policies__firewall
 
 type security_policies = {
   firewall : security_policies__firewall list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -124,11 +136,14 @@ let yojson_of_security_policies =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_security_policies__firewall
-             v_firewall
-         in
-         ("firewall", arg) :: bnds
+         if [] = v_firewall then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_security_policies__firewall)
+               v_firewall
+           in
+           let bnd = "firewall", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : security_policies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -188,6 +203,7 @@ type azurerm_cdn_frontdoor_security_policy = {
   id : string prop option; [@option]
   name : string prop;
   security_policies : security_policies list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -211,11 +227,14 @@ let yojson_of_azurerm_cdn_frontdoor_security_policy =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_security_policies
-             v_security_policies
-         in
-         ("security_policies", arg) :: bnds
+         if [] = v_security_policies then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_security_policies)
+               v_security_policies
+           in
+           let bnd = "security_policies", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

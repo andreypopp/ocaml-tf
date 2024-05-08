@@ -133,6 +133,7 @@ type azurerm_media_streaming_locator = {
   streaming_locator_id : string prop option; [@option]
   streaming_policy_name : string prop;
   content_key : content_key list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -166,10 +167,13 @@ let yojson_of_azurerm_media_streaming_locator =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_content_key v_content_key
-         in
-         ("content_key", arg) :: bnds
+         if [] = v_content_key then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_content_key) v_content_key
+           in
+           let bnd = "content_key", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

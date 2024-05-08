@@ -6,6 +6,7 @@ type context = {
   key : string prop;
   type_ : string prop; [@key "type"]
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -18,10 +19,14 @@ let yojson_of_context =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in
@@ -81,7 +86,9 @@ type results = {
   decision : string prop;
   decision_details : (string * string prop) list;
   matched_statements : results__matched_statements list;
+      [@default []] [@yojson_drop_default ( = )]
   missing_context_keys : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_arn : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -107,19 +114,24 @@ let yojson_of_results =
          ("resource_arn", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_missing_context_keys
-         in
-         ("missing_context_keys", arg) :: bnds
+         if [] = v_missing_context_keys then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_missing_context_keys
+           in
+           let bnd = "missing_context_keys", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_results__matched_statements
-             v_matched_statements
-         in
-         ("matched_statements", arg) :: bnds
+         if [] = v_matched_statements then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_results__matched_statements)
+               v_matched_statements
+           in
+           let bnd = "matched_statements", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -154,6 +166,7 @@ let _ = yojson_of_results
 
 type aws_iam_principal_policy_simulation = {
   action_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   additional_policies_json : string prop list option; [@option]
   caller_arn : string prop option; [@option]
   permissions_boundary_policies_json : string prop list option;
@@ -163,7 +176,7 @@ type aws_iam_principal_policy_simulation = {
   resource_handling_option : string prop option; [@option]
   resource_owner_account_id : string prop option; [@option]
   resource_policy_json : string prop option; [@option]
-  context : context list;
+  context : context list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -188,8 +201,11 @@ let yojson_of_aws_iam_principal_policy_simulation =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_context v_context in
-         ("context", arg) :: bnds
+         if [] = v_context then bnds
+         else
+           let arg = (yojson_of_list yojson_of_context) v_context in
+           let bnd = "context", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_resource_policy_json with
@@ -260,12 +276,14 @@ let yojson_of_aws_iam_principal_policy_simulation =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_action_names
-         in
-         ("action_names", arg) :: bnds
+         if [] = v_action_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_action_names
+           in
+           let bnd = "action_names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_iam_principal_policy_simulation ->

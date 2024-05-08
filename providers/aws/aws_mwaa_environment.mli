@@ -11,7 +11,9 @@ type last_updated__error = {
 
 type last_updated = {
   created_at : string prop;  (** created_at *)
-  error : last_updated__error list;  (** error *)
+  error : last_updated__error list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** error *)
   status : string prop;  (** status *)
 }
 

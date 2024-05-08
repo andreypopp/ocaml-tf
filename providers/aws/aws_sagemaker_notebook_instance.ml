@@ -57,6 +57,7 @@ type aws_sagemaker_notebook_instance = {
   volume_size : float prop option; [@option]
   instance_metadata_service_configuration :
     instance_metadata_service_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -89,12 +90,17 @@ let yojson_of_aws_sagemaker_notebook_instance =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_instance_metadata_service_configuration
-             v_instance_metadata_service_configuration
-         in
-         ("instance_metadata_service_configuration", arg) :: bnds
+         if [] = v_instance_metadata_service_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_instance_metadata_service_configuration)
+               v_instance_metadata_service_configuration
+           in
+           let bnd =
+             "instance_metadata_service_configuration", arg
+           in
+           bnd :: bnds
        in
        let bnds =
          match v_volume_size with

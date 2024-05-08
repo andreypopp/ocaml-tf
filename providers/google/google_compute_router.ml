@@ -41,6 +41,7 @@ type bgp = {
   asn : float prop;
   keepalive_interval : float prop option; [@option]
   advertised_ip_ranges : bgp__advertised_ip_ranges list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,11 +60,14 @@ let yojson_of_bgp =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_bgp__advertised_ip_ranges
-             v_advertised_ip_ranges
-         in
-         ("advertised_ip_ranges", arg) :: bnds
+         if [] = v_advertised_ip_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_bgp__advertised_ip_ranges)
+               v_advertised_ip_ranges
+           in
+           let bnd = "advertised_ip_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_keepalive_interval with
@@ -156,7 +160,7 @@ type google_compute_router = {
   network : string prop;
   project : string prop option; [@option]
   region : string prop option; [@option]
-  bgp : bgp list;
+  bgp : bgp list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -185,8 +189,11 @@ let yojson_of_google_compute_router =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_bgp v_bgp in
-         ("bgp", arg) :: bnds
+         if [] = v_bgp then bnds
+         else
+           let arg = (yojson_of_list yojson_of_bgp) v_bgp in
+           let bnd = "bgp", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_region with

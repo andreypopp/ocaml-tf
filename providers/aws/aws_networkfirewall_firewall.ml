@@ -147,6 +147,7 @@ let _ = yojson_of_firewall_status__sync_states__attachment
 
 type firewall_status__sync_states = {
   attachment : firewall_status__sync_states__attachment list;
+      [@default []] [@yojson_drop_default ( = )]
   availability_zone : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -169,12 +170,15 @@ let yojson_of_firewall_status__sync_states =
          ("availability_zone", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_firewall_status__sync_states__attachment
-             v_attachment
-         in
-         ("attachment", arg) :: bnds
+         if [] = v_attachment then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_firewall_status__sync_states__attachment)
+               v_attachment
+           in
+           let bnd = "attachment", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : firewall_status__sync_states ->
@@ -186,6 +190,7 @@ let _ = yojson_of_firewall_status__sync_states
 
 type firewall_status = {
   sync_states : firewall_status__sync_states list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -198,11 +203,14 @@ let yojson_of_firewall_status =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_firewall_status__sync_states
-             v_sync_states
-         in
-         ("sync_states", arg) :: bnds
+         if [] = v_sync_states then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_firewall_status__sync_states)
+               v_sync_states
+           in
+           let bnd = "sync_states", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : firewall_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -223,7 +231,9 @@ type aws_networkfirewall_firewall = {
   tags_all : (string * string prop) list option; [@option]
   vpc_id : string prop;
   encryption_configuration : encryption_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_mapping : subnet_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -256,17 +266,24 @@ let yojson_of_aws_networkfirewall_firewall =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_subnet_mapping v_subnet_mapping
-         in
-         ("subnet_mapping", arg) :: bnds
+         if [] = v_subnet_mapping then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subnet_mapping)
+               v_subnet_mapping
+           in
+           let bnd = "subnet_mapping", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_encryption_configuration
-             v_encryption_configuration
-         in
-         ("encryption_configuration", arg) :: bnds
+         if [] = v_encryption_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_encryption_configuration)
+               v_encryption_configuration
+           in
+           let bnd = "encryption_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_vpc_id in

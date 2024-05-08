@@ -277,10 +277,14 @@ type azurerm_data_factory = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   github_configuration : github_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   global_parameter : global_parameter list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   vsts_configuration : vsts_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -311,33 +315,47 @@ let yojson_of_azurerm_data_factory =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vsts_configuration
-             v_vsts_configuration
-         in
-         ("vsts_configuration", arg) :: bnds
+         if [] = v_vsts_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vsts_configuration)
+               v_vsts_configuration
+           in
+           let bnd = "vsts_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_global_parameter
-             v_global_parameter
-         in
-         ("global_parameter", arg) :: bnds
+         if [] = v_global_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_global_parameter)
+               v_global_parameter
+           in
+           let bnd = "global_parameter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_github_configuration
-             v_github_configuration
-         in
-         ("github_configuration", arg) :: bnds
+         if [] = v_github_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_github_configuration)
+               v_github_configuration
+           in
+           let bnd = "github_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

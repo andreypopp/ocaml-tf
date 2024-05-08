@@ -71,7 +71,9 @@ let _ = yojson_of_alternate_identifier__unique_attribute
 
 type alternate_identifier = {
   external_id : alternate_identifier__external_id list;
+      [@default []] [@yojson_drop_default ( = )]
   unique_attribute : alternate_identifier__unique_attribute list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -87,19 +89,26 @@ let yojson_of_alternate_identifier =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_alternate_identifier__unique_attribute
-             v_unique_attribute
-         in
-         ("unique_attribute", arg) :: bnds
+         if [] = v_unique_attribute then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_alternate_identifier__unique_attribute)
+               v_unique_attribute
+           in
+           let bnd = "unique_attribute", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_alternate_identifier__external_id
-             v_external_id
-         in
-         ("external_id", arg) :: bnds
+         if [] = v_external_id then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_alternate_identifier__external_id)
+               v_external_id
+           in
+           let bnd = "external_id", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : alternate_identifier -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -175,7 +184,8 @@ type aws_identitystore_group = {
   id : string prop option; [@option]
   identity_store_id : string prop;
   alternate_identifier : alternate_identifier list;
-  filter : filter list;
+      [@default []] [@yojson_drop_default ( = )]
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -194,15 +204,21 @@ let yojson_of_aws_identitystore_group =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_alternate_identifier
-             v_alternate_identifier
-         in
-         ("alternate_identifier", arg) :: bnds
+         if [] = v_alternate_identifier then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_alternate_identifier)
+               v_alternate_identifier
+           in
+           let bnd = "alternate_identifier", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

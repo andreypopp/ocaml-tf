@@ -84,6 +84,7 @@ type aws_cloudwatch_log_metric_filter = {
   name : string prop;
   pattern : string prop;
   metric_transformation : metric_transformation list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -102,11 +103,14 @@ let yojson_of_aws_cloudwatch_log_metric_filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metric_transformation
-             v_metric_transformation
-         in
-         ("metric_transformation", arg) :: bnds
+         if [] = v_metric_transformation then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metric_transformation)
+               v_metric_transformation
+           in
+           let bnd = "metric_transformation", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_pattern in

@@ -301,9 +301,13 @@ type aws_launch_configuration = {
   user_data : string prop option; [@option]
   user_data_base64 : string prop option; [@option]
   ebs_block_device : ebs_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   ephemeral_block_device : ephemeral_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
   metadata_options : metadata_options list;
+      [@default []] [@yojson_drop_default ( = )]
   root_block_device : root_block_device list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -336,32 +340,44 @@ let yojson_of_aws_launch_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_root_block_device
-             v_root_block_device
-         in
-         ("root_block_device", arg) :: bnds
+         if [] = v_root_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_root_block_device)
+               v_root_block_device
+           in
+           let bnd = "root_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_metadata_options
-             v_metadata_options
-         in
-         ("metadata_options", arg) :: bnds
+         if [] = v_metadata_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_metadata_options)
+               v_metadata_options
+           in
+           let bnd = "metadata_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ephemeral_block_device
-             v_ephemeral_block_device
-         in
-         ("ephemeral_block_device", arg) :: bnds
+         if [] = v_ephemeral_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ephemeral_block_device)
+               v_ephemeral_block_device
+           in
+           let bnd = "ephemeral_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ebs_block_device
-             v_ebs_block_device
-         in
-         ("ebs_block_device", arg) :: bnds
+         if [] = v_ebs_block_device then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ebs_block_device)
+               v_ebs_block_device
+           in
+           let bnd = "ebs_block_device", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_user_data_base64 with

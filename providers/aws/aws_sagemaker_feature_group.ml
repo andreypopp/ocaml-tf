@@ -143,7 +143,9 @@ type offline_store_config = {
   table_format : string prop option; [@option]
   data_catalog_config :
     offline_store_config__data_catalog_config list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_storage_config : offline_store_config__s3_storage_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -161,20 +163,26 @@ let yojson_of_offline_store_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_offline_store_config__s3_storage_config
-             v_s3_storage_config
-         in
-         ("s3_storage_config", arg) :: bnds
+         if [] = v_s3_storage_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_offline_store_config__s3_storage_config)
+               v_s3_storage_config
+           in
+           let bnd = "s3_storage_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_offline_store_config__data_catalog_config
-             v_data_catalog_config
-         in
-         ("data_catalog_config", arg) :: bnds
+         if [] = v_data_catalog_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_offline_store_config__data_catalog_config)
+               v_data_catalog_config
+           in
+           let bnd = "data_catalog_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_table_format with
@@ -270,7 +278,9 @@ type online_store_config = {
   enable_online_store : bool prop option; [@option]
   storage_type : string prop option; [@option]
   security_config : online_store_config__security_config list;
+      [@default []] [@yojson_drop_default ( = )]
   ttl_duration : online_store_config__ttl_duration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -288,19 +298,26 @@ let yojson_of_online_store_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_online_store_config__ttl_duration
-             v_ttl_duration
-         in
-         ("ttl_duration", arg) :: bnds
+         if [] = v_ttl_duration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_online_store_config__ttl_duration)
+               v_ttl_duration
+           in
+           let bnd = "ttl_duration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_online_store_config__security_config
-             v_security_config
-         in
-         ("security_config", arg) :: bnds
+         if [] = v_security_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_online_store_config__security_config)
+               v_security_config
+           in
+           let bnd = "security_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_storage_type with
@@ -335,8 +352,11 @@ type aws_sagemaker_feature_group = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   feature_definition : feature_definition list;
+      [@default []] [@yojson_drop_default ( = )]
   offline_store_config : offline_store_config list;
+      [@default []] [@yojson_drop_default ( = )]
   online_store_config : online_store_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -362,25 +382,34 @@ let yojson_of_aws_sagemaker_feature_group =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_online_store_config
-             v_online_store_config
-         in
-         ("online_store_config", arg) :: bnds
+         if [] = v_online_store_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_online_store_config)
+               v_online_store_config
+           in
+           let bnd = "online_store_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_offline_store_config
-             v_offline_store_config
-         in
-         ("offline_store_config", arg) :: bnds
+         if [] = v_offline_store_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_offline_store_config)
+               v_offline_store_config
+           in
+           let bnd = "offline_store_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_feature_definition
-             v_feature_definition
-         in
-         ("feature_definition", arg) :: bnds
+         if [] = v_feature_definition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_feature_definition)
+               v_feature_definition
+           in
+           let bnd = "feature_definition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

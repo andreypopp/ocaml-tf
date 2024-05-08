@@ -32,8 +32,11 @@ type pcc_rule__service_data_flow_template = {
   direction : string prop;
   name : string prop;
   ports : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   protocol : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   remote_ip_list : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -52,26 +55,34 @@ let yojson_of_pcc_rule__service_data_flow_template =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_remote_ip_list
-         in
-         ("remote_ip_list", arg) :: bnds
+         if [] = v_remote_ip_list then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_remote_ip_list
+           in
+           let bnd = "remote_ip_list", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_protocol
-         in
-         ("protocol", arg) :: bnds
+         if [] = v_protocol then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_protocol
+           in
+           let bnd = "protocol", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_ports
-         in
-         ("ports", arg) :: bnds
+         if [] = v_ports then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_ports
+           in
+           let bnd = "ports", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -153,7 +164,9 @@ type pcc_rule__qos_policy = {
   allocation_and_retention_priority_level : float prop;
   guaranteed_bit_rate :
     pcc_rule__qos_policy__guaranteed_bit_rate list;
+      [@default []] [@yojson_drop_default ( = )]
   maximum_bit_rate : pcc_rule__qos_policy__maximum_bit_rate list;
+      [@default []] [@yojson_drop_default ( = )]
   preemption_capability : string prop;
   preemption_vulnerability : string prop;
   qos_indicator : float prop;
@@ -193,20 +206,26 @@ let yojson_of_pcc_rule__qos_policy =
          ("preemption_capability", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_pcc_rule__qos_policy__maximum_bit_rate
-             v_maximum_bit_rate
-         in
-         ("maximum_bit_rate", arg) :: bnds
+         if [] = v_maximum_bit_rate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_pcc_rule__qos_policy__maximum_bit_rate)
+               v_maximum_bit_rate
+           in
+           let bnd = "maximum_bit_rate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_pcc_rule__qos_policy__guaranteed_bit_rate
-             v_guaranteed_bit_rate
-         in
-         ("guaranteed_bit_rate", arg) :: bnds
+         if [] = v_guaranteed_bit_rate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_pcc_rule__qos_policy__guaranteed_bit_rate)
+               v_guaranteed_bit_rate
+           in
+           let bnd = "guaranteed_bit_rate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -226,8 +245,10 @@ type pcc_rule = {
   name : string prop;
   precedence : float prop;
   qos_policy : pcc_rule__qos_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   service_data_flow_template :
     pcc_rule__service_data_flow_template list;
+      [@default []] [@yojson_drop_default ( = )]
   traffic_control_enabled : bool prop;
 }
 [@@deriving_inline yojson_of]
@@ -253,18 +274,25 @@ let yojson_of_pcc_rule =
          ("traffic_control_enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_pcc_rule__service_data_flow_template
-             v_service_data_flow_template
-         in
-         ("service_data_flow_template", arg) :: bnds
+         if [] = v_service_data_flow_template then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_pcc_rule__service_data_flow_template)
+               v_service_data_flow_template
+           in
+           let bnd = "service_data_flow_template", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pcc_rule__qos_policy v_qos_policy
-         in
-         ("qos_policy", arg) :: bnds
+         if [] = v_qos_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pcc_rule__qos_policy)
+               v_qos_policy
+           in
+           let bnd = "qos_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_precedence in
@@ -314,6 +342,7 @@ let _ = yojson_of_service_qos_policy__maximum_bit_rate
 type service_qos_policy = {
   allocation_and_retention_priority_level : float prop;
   maximum_bit_rate : service_qos_policy__maximum_bit_rate list;
+      [@default []] [@yojson_drop_default ( = )]
   preemption_capability : string prop;
   preemption_vulnerability : string prop;
   qos_indicator : float prop;
@@ -352,12 +381,15 @@ let yojson_of_service_qos_policy =
          ("preemption_capability", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_qos_policy__maximum_bit_rate
-             v_maximum_bit_rate
-         in
-         ("maximum_bit_rate", arg) :: bnds
+         if [] = v_maximum_bit_rate then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_qos_policy__maximum_bit_rate)
+               v_maximum_bit_rate
+           in
+           let bnd = "maximum_bit_rate", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

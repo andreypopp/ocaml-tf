@@ -42,6 +42,7 @@ let _ = yojson_of_disk_iops_configuration
 type root_volume_configuration__nfs_exports__client_configurations = {
   clients : string prop;
   options : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,10 +59,14 @@ let yojson_of_root_volume_configuration__nfs_exports__client_configurations
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_options
-         in
-         ("options", arg) :: bnds
+         if [] = v_options then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_options
+           in
+           let bnd = "options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_clients in
@@ -80,6 +85,7 @@ type root_volume_configuration__nfs_exports = {
   client_configurations :
     root_volume_configuration__nfs_exports__client_configurations
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -92,12 +98,15 @@ let yojson_of_root_volume_configuration__nfs_exports =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_root_volume_configuration__nfs_exports__client_configurations
-             v_client_configurations
-         in
-         ("client_configurations", arg) :: bnds
+         if [] = v_client_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_root_volume_configuration__nfs_exports__client_configurations)
+               v_client_configurations
+           in
+           let bnd = "client_configurations", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : root_volume_configuration__nfs_exports ->
@@ -156,8 +165,10 @@ type root_volume_configuration = {
   read_only : bool prop option; [@option]
   record_size_kib : float prop option; [@option]
   nfs_exports : root_volume_configuration__nfs_exports list;
+      [@default []] [@yojson_drop_default ( = )]
   user_and_group_quotas :
     root_volume_configuration__user_and_group_quotas list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -177,20 +188,26 @@ let yojson_of_root_volume_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_root_volume_configuration__user_and_group_quotas
-             v_user_and_group_quotas
-         in
-         ("user_and_group_quotas", arg) :: bnds
+         if [] = v_user_and_group_quotas then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_root_volume_configuration__user_and_group_quotas)
+               v_user_and_group_quotas
+           in
+           let bnd = "user_and_group_quotas", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_root_volume_configuration__nfs_exports
-             v_nfs_exports
-         in
-         ("nfs_exports", arg) :: bnds
+         if [] = v_nfs_exports then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_root_volume_configuration__nfs_exports)
+               v_nfs_exports
+           in
+           let bnd = "nfs_exports", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_record_size_kib with
@@ -294,12 +311,15 @@ type aws_fsx_openzfs_file_system = {
   storage_capacity : float prop option; [@option]
   storage_type : string prop option; [@option]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   throughput_capacity : float prop;
   weekly_maintenance_start_time : string prop option; [@option]
   disk_iops_configuration : disk_iops_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   root_volume_configuration : root_volume_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -344,18 +364,24 @@ let yojson_of_aws_fsx_openzfs_file_system =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_root_volume_configuration
-             v_root_volume_configuration
-         in
-         ("root_volume_configuration", arg) :: bnds
+         if [] = v_root_volume_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_root_volume_configuration)
+               v_root_volume_configuration
+           in
+           let bnd = "root_volume_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_disk_iops_configuration
-             v_disk_iops_configuration
-         in
-         ("disk_iops_configuration", arg) :: bnds
+         if [] = v_disk_iops_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_disk_iops_configuration)
+               v_disk_iops_configuration
+           in
+           let bnd = "disk_iops_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_weekly_maintenance_start_time with
@@ -404,12 +430,14 @@ let yojson_of_aws_fsx_openzfs_file_system =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_storage_type with

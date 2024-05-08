@@ -134,6 +134,7 @@ type aws_workspaces_workspace = {
   volume_encryption_key : string prop option; [@option]
   timeouts : timeouts option;
   workspace_properties : workspace_properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -160,11 +161,14 @@ let yojson_of_aws_workspaces_workspace =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_workspace_properties
-             v_workspace_properties
-         in
-         ("workspace_properties", arg) :: bnds
+         if [] = v_workspace_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workspace_properties)
+               v_workspace_properties
+           in
+           let bnd = "workspace_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

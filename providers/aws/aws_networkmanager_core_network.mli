@@ -7,13 +7,19 @@ open! Tf_core
 type edges = {
   asn : float prop;  (** asn *)
   edge_location : string prop;  (** edge_location *)
-  inside_cidr_blocks : string prop list;  (** inside_cidr_blocks *)
+  inside_cidr_blocks : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** inside_cidr_blocks *)
 }
 
 type segments = {
-  edge_locations : string prop list;  (** edge_locations *)
+  edge_locations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** edge_locations *)
   name : string prop;  (** name *)
-  shared_segments : string prop list;  (** shared_segments *)
+  shared_segments : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** shared_segments *)
 }
 
 type timeouts

@@ -191,9 +191,13 @@ type azurerm_synapse_spark_pool = {
   synapse_workspace_id : string prop;
   tags : (string * string prop) list option; [@option]
   auto_pause : auto_pause list;
+      [@default []] [@yojson_drop_default ( = )]
   auto_scale : auto_scale list;
+      [@default []] [@yojson_drop_default ( = )]
   library_requirement : library_requirement list;
+      [@default []] [@yojson_drop_default ( = )]
   spark_config : spark_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -235,29 +239,41 @@ let yojson_of_azurerm_synapse_spark_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_spark_config v_spark_config
-         in
-         ("spark_config", arg) :: bnds
+         if [] = v_spark_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_spark_config) v_spark_config
+           in
+           let bnd = "spark_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_library_requirement
-             v_library_requirement
-         in
-         ("library_requirement", arg) :: bnds
+         if [] = v_library_requirement then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_library_requirement)
+               v_library_requirement
+           in
+           let bnd = "library_requirement", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_scale v_auto_scale
-         in
-         ("auto_scale", arg) :: bnds
+         if [] = v_auto_scale then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_scale) v_auto_scale
+           in
+           let bnd = "auto_scale", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_pause v_auto_pause
-         in
-         ("auto_pause", arg) :: bnds
+         if [] = v_auto_pause then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_pause) v_auto_pause
+           in
+           let bnd = "auto_pause", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

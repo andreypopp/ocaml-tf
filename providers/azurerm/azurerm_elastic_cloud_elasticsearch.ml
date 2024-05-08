@@ -41,6 +41,7 @@ type logs = {
   send_azuread_logs : bool prop option; [@option]
   send_subscription_logs : bool prop option; [@option]
   filtering_tag : logs__filtering_tag list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -58,11 +59,14 @@ let yojson_of_logs =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_logs__filtering_tag
-             v_filtering_tag
-         in
-         ("filtering_tag", arg) :: bnds
+         if [] = v_filtering_tag then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_logs__filtering_tag)
+               v_filtering_tag
+           in
+           let bnd = "filtering_tag", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_send_subscription_logs with
@@ -164,7 +168,7 @@ type azurerm_elastic_cloud_elasticsearch = {
   resource_group_name : string prop;
   sku_name : string prop;
   tags : (string * string prop) list option; [@option]
-  logs : logs list;
+  logs : logs list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -193,8 +197,11 @@ let yojson_of_azurerm_elastic_cloud_elasticsearch =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_logs v_logs in
-         ("logs", arg) :: bnds
+         if [] = v_logs then bnds
+         else
+           let arg = (yojson_of_list yojson_of_logs) v_logs in
+           let bnd = "logs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

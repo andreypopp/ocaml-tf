@@ -52,6 +52,7 @@ type aws_oam_link = {
   id : string prop option; [@option]
   label_template : string prop;
   resource_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   sink_identifier : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
@@ -118,12 +119,14 @@ let yojson_of_aws_oam_link =
          ("sink_identifier", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_resource_types
-         in
-         ("resource_types", arg) :: bnds
+         if [] = v_resource_types then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_resource_types
+           in
+           let bnd = "resource_types", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

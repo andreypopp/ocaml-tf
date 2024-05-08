@@ -117,6 +117,7 @@ type azurerm_mobile_network_sim = {
   operator_key_code : string prop;
   sim_policy_id : string prop option; [@option]
   static_ip_configuration : static_ip_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -148,11 +149,14 @@ let yojson_of_azurerm_mobile_network_sim =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_static_ip_configuration
-             v_static_ip_configuration
-         in
-         ("static_ip_configuration", arg) :: bnds
+         if [] = v_static_ip_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_static_ip_configuration)
+               v_static_ip_configuration
+           in
+           let bnd = "static_ip_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_sim_policy_id with

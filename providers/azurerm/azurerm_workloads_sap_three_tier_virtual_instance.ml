@@ -4,6 +4,7 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   type_ : string prop; [@key "type"]
 }
 [@@deriving_inline yojson_of]
@@ -21,12 +22,14 @@ let yojson_of_identity =
          ("type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_identity_ids
-         in
-         ("identity_ids", arg) :: bnds
+         if [] = v_identity_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_identity_ids
+           in
+           let bnd = "identity_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -140,9 +143,11 @@ type three_tier_configuration__application_server_configuration__virtual_machine
   image :
     three_tier_configuration__application_server_configuration__virtual_machine_configuration__image
     list;
+      [@default []] [@yojson_drop_default ( = )]
   os_profile :
     three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -163,20 +168,26 @@ let yojson_of_three_tier_configuration__application_server_configuration__virtua
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile
-             v_os_profile
-         in
-         ("os_profile", arg) :: bnds
+         if [] = v_os_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile)
+               v_os_profile
+           in
+           let bnd = "os_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration__image
-             v_image
-         in
-         ("image", arg) :: bnds
+         if [] = v_image then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration__image)
+               v_image
+           in
+           let bnd = "image", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -199,6 +210,7 @@ type three_tier_configuration__application_server_configuration = {
   virtual_machine_configuration :
     three_tier_configuration__application_server_configuration__virtual_machine_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -219,12 +231,15 @@ let yojson_of_three_tier_configuration__application_server_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration
-             v_virtual_machine_configuration
-         in
-         ("virtual_machine_configuration", arg) :: bnds
+         if [] = v_virtual_machine_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration)
+               v_virtual_machine_configuration
+           in
+           let bnd = "virtual_machine_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_subnet_id in
@@ -348,9 +363,11 @@ type three_tier_configuration__central_server_configuration__virtual_machine_con
   image :
     three_tier_configuration__central_server_configuration__virtual_machine_configuration__image
     list;
+      [@default []] [@yojson_drop_default ( = )]
   os_profile :
     three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -371,20 +388,26 @@ let yojson_of_three_tier_configuration__central_server_configuration__virtual_ma
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile
-             v_os_profile
-         in
-         ("os_profile", arg) :: bnds
+         if [] = v_os_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile)
+               v_os_profile
+           in
+           let bnd = "os_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration__image
-             v_image
-         in
-         ("image", arg) :: bnds
+         if [] = v_image then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration__image)
+               v_image
+           in
+           let bnd = "image", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -407,6 +430,7 @@ type three_tier_configuration__central_server_configuration = {
   virtual_machine_configuration :
     three_tier_configuration__central_server_configuration__virtual_machine_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -427,12 +451,15 @@ let yojson_of_three_tier_configuration__central_server_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration
-             v_virtual_machine_configuration
-         in
-         ("virtual_machine_configuration", arg) :: bnds
+         if [] = v_virtual_machine_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration)
+               v_virtual_machine_configuration
+           in
+           let bnd = "virtual_machine_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_subnet_id in
@@ -608,9 +635,11 @@ type three_tier_configuration__database_server_configuration__virtual_machine_co
   image :
     three_tier_configuration__database_server_configuration__virtual_machine_configuration__image
     list;
+      [@default []] [@yojson_drop_default ( = )]
   os_profile :
     three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -631,20 +660,26 @@ let yojson_of_three_tier_configuration__database_server_configuration__virtual_m
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile
-             v_os_profile
-         in
-         ("os_profile", arg) :: bnds
+         if [] = v_os_profile then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile)
+               v_os_profile
+           in
+           let bnd = "os_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration__image
-             v_image
-         in
-         ("image", arg) :: bnds
+         if [] = v_image then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration__image)
+               v_image
+           in
+           let bnd = "image", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -668,9 +703,11 @@ type three_tier_configuration__database_server_configuration = {
   disk_volume_configuration :
     three_tier_configuration__database_server_configuration__disk_volume_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_machine_configuration :
     three_tier_configuration__database_server_configuration__virtual_machine_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -693,20 +730,26 @@ let yojson_of_three_tier_configuration__database_server_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration
-             v_virtual_machine_configuration
-         in
-         ("virtual_machine_configuration", arg) :: bnds
+         if [] = v_virtual_machine_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration)
+               v_virtual_machine_configuration
+           in
+           let bnd = "virtual_machine_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__database_server_configuration__disk_volume_configuration
-             v_disk_volume_configuration
-         in
-         ("disk_volume_configuration", arg) :: bnds
+         if [] = v_disk_volume_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__database_server_configuration__disk_volume_configuration)
+               v_disk_volume_configuration
+           in
+           let bnd = "disk_volume_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_subnet_id in
@@ -735,6 +778,7 @@ let _ =
 
 type three_tier_configuration__resource_names__application_server__virtual_machine__data_disk = {
   names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -756,10 +800,14 @@ let yojson_of_three_tier_configuration__resource_names__application_server__virt
          ("volume_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_names
-         in
-         ("names", arg) :: bnds
+         if [] = v_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_names
+           in
+           let bnd = "names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : three_tier_configuration__resource_names__application_server__virtual_machine__data_disk ->
@@ -778,6 +826,7 @@ type three_tier_configuration__resource_names__application_server__virtual_machi
   data_disk :
     three_tier_configuration__resource_names__application_server__virtual_machine__data_disk
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -800,12 +849,15 @@ let yojson_of_three_tier_configuration__resource_names__application_server__virt
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__application_server__virtual_machine__data_disk
-             v_data_disk
-         in
-         ("data_disk", arg) :: bnds
+         if [] = v_data_disk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__application_server__virtual_machine__data_disk)
+               v_data_disk
+           in
+           let bnd = "data_disk", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_machine_name with
@@ -855,6 +907,7 @@ type three_tier_configuration__resource_names__application_server = {
   virtual_machine :
     three_tier_configuration__resource_names__application_server__virtual_machine
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -874,12 +927,15 @@ let yojson_of_three_tier_configuration__resource_names__application_server
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__application_server__virtual_machine
-             v_virtual_machine
-         in
-         ("virtual_machine", arg) :: bnds
+         if [] = v_virtual_machine then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__application_server__virtual_machine)
+               v_virtual_machine
+           in
+           let bnd = "virtual_machine", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_availability_set_name with
@@ -974,6 +1030,7 @@ let _ =
 
 type three_tier_configuration__resource_names__central_server__virtual_machine__data_disk = {
   names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -995,10 +1052,14 @@ let yojson_of_three_tier_configuration__resource_names__central_server__virtual_
          ("volume_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_names
-         in
-         ("names", arg) :: bnds
+         if [] = v_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_names
+           in
+           let bnd = "names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : three_tier_configuration__resource_names__central_server__virtual_machine__data_disk ->
@@ -1017,6 +1078,7 @@ type three_tier_configuration__resource_names__central_server__virtual_machine =
   data_disk :
     three_tier_configuration__resource_names__central_server__virtual_machine__data_disk
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1039,12 +1101,15 @@ let yojson_of_three_tier_configuration__resource_names__central_server__virtual_
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__central_server__virtual_machine__data_disk
-             v_data_disk
-         in
-         ("data_disk", arg) :: bnds
+         if [] = v_data_disk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__central_server__virtual_machine__data_disk)
+               v_data_disk
+           in
+           let bnd = "data_disk", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_machine_name with
@@ -1094,9 +1159,11 @@ type three_tier_configuration__resource_names__central_server = {
   load_balancer :
     three_tier_configuration__resource_names__central_server__load_balancer
     list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_machine :
     three_tier_configuration__resource_names__central_server__virtual_machine
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1116,20 +1183,26 @@ let yojson_of_three_tier_configuration__resource_names__central_server
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__central_server__virtual_machine
-             v_virtual_machine
-         in
-         ("virtual_machine", arg) :: bnds
+         if [] = v_virtual_machine then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__central_server__virtual_machine)
+               v_virtual_machine
+           in
+           let bnd = "virtual_machine", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__central_server__load_balancer
-             v_load_balancer
-         in
-         ("load_balancer", arg) :: bnds
+         if [] = v_load_balancer then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__central_server__load_balancer)
+               v_load_balancer
+           in
+           let bnd = "load_balancer", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_availability_set_name with
@@ -1224,6 +1297,7 @@ let _ =
 
 type three_tier_configuration__resource_names__database_server__virtual_machine__data_disk = {
   names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   volume_name : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1245,10 +1319,14 @@ let yojson_of_three_tier_configuration__resource_names__database_server__virtual
          ("volume_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_names
-         in
-         ("names", arg) :: bnds
+         if [] = v_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_names
+           in
+           let bnd = "names", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : three_tier_configuration__resource_names__database_server__virtual_machine__data_disk ->
@@ -1267,6 +1345,7 @@ type three_tier_configuration__resource_names__database_server__virtual_machine 
   data_disk :
     three_tier_configuration__resource_names__database_server__virtual_machine__data_disk
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1289,12 +1368,15 @@ let yojson_of_three_tier_configuration__resource_names__database_server__virtual
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__database_server__virtual_machine__data_disk
-             v_data_disk
-         in
-         ("data_disk", arg) :: bnds
+         if [] = v_data_disk then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__database_server__virtual_machine__data_disk)
+               v_data_disk
+           in
+           let bnd = "data_disk", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_virtual_machine_name with
@@ -1344,9 +1426,11 @@ type three_tier_configuration__resource_names__database_server = {
   load_balancer :
     three_tier_configuration__resource_names__database_server__load_balancer
     list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_machine :
     three_tier_configuration__resource_names__database_server__virtual_machine
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1366,20 +1450,26 @@ let yojson_of_three_tier_configuration__resource_names__database_server
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__database_server__virtual_machine
-             v_virtual_machine
-         in
-         ("virtual_machine", arg) :: bnds
+         if [] = v_virtual_machine then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__database_server__virtual_machine)
+               v_virtual_machine
+           in
+           let bnd = "virtual_machine", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__database_server__load_balancer
-             v_load_balancer
-         in
-         ("load_balancer", arg) :: bnds
+         if [] = v_load_balancer then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__database_server__load_balancer)
+               v_load_balancer
+           in
+           let bnd = "load_balancer", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_availability_set_name with
@@ -1446,12 +1536,16 @@ let _ =
 type three_tier_configuration__resource_names = {
   application_server :
     three_tier_configuration__resource_names__application_server list;
+      [@default []] [@yojson_drop_default ( = )]
   central_server :
     three_tier_configuration__resource_names__central_server list;
+      [@default []] [@yojson_drop_default ( = )]
   database_server :
     three_tier_configuration__resource_names__database_server list;
+      [@default []] [@yojson_drop_default ( = )]
   shared_storage :
     three_tier_configuration__resource_names__shared_storage list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1469,36 +1563,48 @@ let yojson_of_three_tier_configuration__resource_names =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__shared_storage
-             v_shared_storage
-         in
-         ("shared_storage", arg) :: bnds
+         if [] = v_shared_storage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__shared_storage)
+               v_shared_storage
+           in
+           let bnd = "shared_storage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__database_server
-             v_database_server
-         in
-         ("database_server", arg) :: bnds
+         if [] = v_database_server then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__database_server)
+               v_database_server
+           in
+           let bnd = "database_server", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__central_server
-             v_central_server
-         in
-         ("central_server", arg) :: bnds
+         if [] = v_central_server then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__central_server)
+               v_central_server
+           in
+           let bnd = "central_server", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names__application_server
-             v_application_server
-         in
-         ("application_server", arg) :: bnds
+         if [] = v_application_server then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names__application_server)
+               v_application_server
+           in
+           let bnd = "application_server", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : three_tier_configuration__resource_names ->
@@ -1557,13 +1663,18 @@ type three_tier_configuration = {
   secondary_ip_enabled : bool prop option; [@option]
   application_server_configuration :
     three_tier_configuration__application_server_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   central_server_configuration :
     three_tier_configuration__central_server_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   database_server_configuration :
     three_tier_configuration__database_server_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_names : three_tier_configuration__resource_names list;
+      [@default []] [@yojson_drop_default ( = )]
   transport_create_and_mount :
     three_tier_configuration__transport_create_and_mount list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1587,44 +1698,59 @@ let yojson_of_three_tier_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__transport_create_and_mount
-             v_transport_create_and_mount
-         in
-         ("transport_create_and_mount", arg) :: bnds
+         if [] = v_transport_create_and_mount then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__transport_create_and_mount)
+               v_transport_create_and_mount
+           in
+           let bnd = "transport_create_and_mount", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__resource_names
-             v_resource_names
-         in
-         ("resource_names", arg) :: bnds
+         if [] = v_resource_names then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__resource_names)
+               v_resource_names
+           in
+           let bnd = "resource_names", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__database_server_configuration
-             v_database_server_configuration
-         in
-         ("database_server_configuration", arg) :: bnds
+         if [] = v_database_server_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__database_server_configuration)
+               v_database_server_configuration
+           in
+           let bnd = "database_server_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__central_server_configuration
-             v_central_server_configuration
-         in
-         ("central_server_configuration", arg) :: bnds
+         if [] = v_central_server_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__central_server_configuration)
+               v_central_server_configuration
+           in
+           let bnd = "central_server_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_three_tier_configuration__application_server_configuration
-             v_application_server_configuration
-         in
-         ("application_server_configuration", arg) :: bnds
+         if [] = v_application_server_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_three_tier_configuration__application_server_configuration)
+               v_application_server_configuration
+           in
+           let bnd = "application_server_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_secondary_ip_enabled with
@@ -1727,7 +1853,9 @@ type azurerm_workloads_sap_three_tier_virtual_instance = {
   sap_product : string prop;
   tags : (string * string prop) list option; [@option]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   three_tier_configuration : three_tier_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1760,15 +1888,23 @@ let yojson_of_azurerm_workloads_sap_three_tier_virtual_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_three_tier_configuration
-             v_three_tier_configuration
-         in
-         ("three_tier_configuration", arg) :: bnds
+         if [] = v_three_tier_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_three_tier_configuration)
+               v_three_tier_configuration
+           in
+           let bnd = "three_tier_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

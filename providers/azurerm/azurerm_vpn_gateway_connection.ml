@@ -5,6 +5,7 @@ open! Tf_core
 type routing__propagated_route_table = {
   labels : string prop list option; [@option]
   route_table_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -17,12 +18,14 @@ let yojson_of_routing__propagated_route_table =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_route_table_ids
-         in
-         ("route_table_ids", arg) :: bnds
+         if [] = v_route_table_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_route_table_ids
+           in
+           let bnd = "route_table_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_labels with
@@ -47,6 +50,7 @@ type routing = {
   inbound_route_map_id : string prop option; [@option]
   outbound_route_map_id : string prop option; [@option]
   propagated_route_table : routing__propagated_route_table list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,11 +68,15 @@ let yojson_of_routing =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_routing__propagated_route_table
-             v_propagated_route_table
-         in
-         ("propagated_route_table", arg) :: bnds
+         if [] = v_propagated_route_table then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_routing__propagated_route_table)
+               v_propagated_route_table
+           in
+           let bnd = "propagated_route_table", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_outbound_route_map_id with
@@ -161,7 +169,9 @@ let _ = yojson_of_timeouts
 
 type traffic_selector_policy = {
   local_address_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   remote_address_ranges : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -177,20 +187,24 @@ let yojson_of_traffic_selector_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_remote_address_ranges
-         in
-         ("remote_address_ranges", arg) :: bnds
+         if [] = v_remote_address_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_remote_address_ranges
+           in
+           let bnd = "remote_address_ranges", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_local_address_ranges
-         in
-         ("local_address_ranges", arg) :: bnds
+         if [] = v_local_address_ranges then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_local_address_ranges
+           in
+           let bnd = "local_address_ranges", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : traffic_selector_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -329,7 +343,9 @@ type vpn_link = {
   shared_key : string prop option; [@option]
   vpn_site_link_id : string prop;
   custom_bgp_address : vpn_link__custom_bgp_address list;
+      [@default []] [@yojson_drop_default ( = )]
   ipsec_policy : vpn_link__ipsec_policy list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -360,18 +376,24 @@ let yojson_of_vpn_link =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpn_link__ipsec_policy
-             v_ipsec_policy
-         in
-         ("ipsec_policy", arg) :: bnds
+         if [] = v_ipsec_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpn_link__ipsec_policy)
+               v_ipsec_policy
+           in
+           let bnd = "ipsec_policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpn_link__custom_bgp_address
-             v_custom_bgp_address
-         in
-         ("custom_bgp_address", arg) :: bnds
+         if [] = v_custom_bgp_address then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpn_link__custom_bgp_address)
+               v_custom_bgp_address
+           in
+           let bnd = "custom_bgp_address", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -490,10 +512,11 @@ type azurerm_vpn_gateway_connection = {
   name : string prop;
   remote_vpn_site_id : string prop;
   vpn_gateway_id : string prop;
-  routing : routing list;
+  routing : routing list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   traffic_selector_policy : traffic_selector_policy list;
-  vpn_link : vpn_link list;
+      [@default []] [@yojson_drop_default ( = )]
+  vpn_link : vpn_link list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -516,23 +539,34 @@ let yojson_of_azurerm_vpn_gateway_connection =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_vpn_link v_vpn_link in
-         ("vpn_link", arg) :: bnds
+         if [] = v_vpn_link then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpn_link) v_vpn_link
+           in
+           let bnd = "vpn_link", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_traffic_selector_policy
-             v_traffic_selector_policy
-         in
-         ("traffic_selector_policy", arg) :: bnds
+         if [] = v_traffic_selector_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_traffic_selector_policy)
+               v_traffic_selector_policy
+           in
+           let bnd = "traffic_selector_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_routing v_routing in
-         ("routing", arg) :: bnds
+         if [] = v_routing then bnds
+         else
+           let arg = (yojson_of_list yojson_of_routing) v_routing in
+           let bnd = "routing", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

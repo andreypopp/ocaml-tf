@@ -70,45 +70,64 @@ type mixed_instances_policy__launch_template__override__instance_requirements = 
   accelerator_count :
     mixed_instances_policy__launch_template__override__instance_requirements__accelerator_count
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** accelerator_count *)
   accelerator_manufacturers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** accelerator_manufacturers *)
-  accelerator_names : string prop list;  (** accelerator_names *)
+  accelerator_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** accelerator_names *)
   accelerator_total_memory_mib :
     mixed_instances_policy__launch_template__override__instance_requirements__accelerator_total_memory_mib
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** accelerator_total_memory_mib *)
-  accelerator_types : string prop list;  (** accelerator_types *)
+  accelerator_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** accelerator_types *)
   allowed_instance_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** allowed_instance_types *)
   bare_metal : string prop;  (** bare_metal *)
   baseline_ebs_bandwidth_mbps :
     mixed_instances_policy__launch_template__override__instance_requirements__baseline_ebs_bandwidth_mbps
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** baseline_ebs_bandwidth_mbps *)
   burstable_performance : string prop;  (** burstable_performance *)
-  cpu_manufacturers : string prop list;  (** cpu_manufacturers *)
+  cpu_manufacturers : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cpu_manufacturers *)
   excluded_instance_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** excluded_instance_types *)
   instance_generations : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** instance_generations *)
   local_storage : string prop;  (** local_storage *)
-  local_storage_types : string prop list;  (** local_storage_types *)
+  local_storage_types : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** local_storage_types *)
   memory_gib_per_vcpu :
     mixed_instances_policy__launch_template__override__instance_requirements__memory_gib_per_vcpu
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** memory_gib_per_vcpu *)
   memory_mib :
     mixed_instances_policy__launch_template__override__instance_requirements__memory_mib
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** memory_mib *)
   network_bandwidth_gbps :
     mixed_instances_policy__launch_template__override__instance_requirements__network_bandwidth_gbps
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** network_bandwidth_gbps *)
   network_interface_count :
     mixed_instances_policy__launch_template__override__instance_requirements__network_interface_count
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** network_interface_count *)
   on_demand_max_price_percentage_over_lowest_price : float prop;
       (** on_demand_max_price_percentage_over_lowest_price *)
@@ -119,10 +138,12 @@ type mixed_instances_policy__launch_template__override__instance_requirements = 
   total_local_storage_gb :
     mixed_instances_policy__launch_template__override__instance_requirements__total_local_storage_gb
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** total_local_storage_gb *)
   vcpu_count :
     mixed_instances_policy__launch_template__override__instance_requirements__vcpu_count
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** vcpu_count *)
 }
 
@@ -130,11 +151,13 @@ type mixed_instances_policy__launch_template__override = {
   instance_requirements :
     mixed_instances_policy__launch_template__override__instance_requirements
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** instance_requirements *)
   instance_type : string prop;  (** instance_type *)
   launch_template_specification :
     mixed_instances_policy__launch_template__override__launch_template_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** launch_template_specification *)
   weighted_capacity : string prop;  (** weighted_capacity *)
 }
@@ -149,8 +172,10 @@ type mixed_instances_policy__launch_template = {
   launch_template_specification :
     mixed_instances_policy__launch_template__launch_template_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** launch_template_specification *)
   override : mixed_instances_policy__launch_template__override list;
+      [@default []] [@yojson_drop_default ( = )]
       (** override *)
 }
 
@@ -170,8 +195,10 @@ type mixed_instances_policy__instances_distribution = {
 type mixed_instances_policy = {
   instances_distribution :
     mixed_instances_policy__instances_distribution list;
+      [@default []] [@yojson_drop_default ( = )]
       (** instances_distribution *)
   launch_template : mixed_instances_policy__launch_template list;
+      [@default []] [@yojson_drop_default ( = )]
       (** launch_template *)
 }
 
@@ -192,6 +219,7 @@ type warm_pool__instance_reuse_policy = {
 
 type warm_pool = {
   instance_reuse_policy : warm_pool__instance_reuse_policy list;
+      [@default []] [@yojson_drop_default ( = )]
       (** instance_reuse_policy *)
   max_group_prepared_capacity : float prop;
       (** max_group_prepared_capacity *)

@@ -94,7 +94,7 @@ type google_app_engine_service_split_traffic = {
   migrate_traffic : bool prop option; [@option]
   project : string prop option; [@option]
   service : string prop;
-  split : split list;
+  split : split list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -119,8 +119,11 @@ let yojson_of_google_app_engine_service_split_traffic =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_split v_split in
-         ("split", arg) :: bnds
+         if [] = v_split then bnds
+         else
+           let arg = (yojson_of_list yojson_of_split) v_split in
+           let bnd = "split", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_service in

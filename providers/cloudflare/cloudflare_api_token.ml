@@ -43,7 +43,10 @@ let _ = yojson_of_condition__request_ip
 
 [@@@deriving.end]
 
-type condition = { request_ip : condition__request_ip list }
+type condition = {
+  request_ip : condition__request_ip list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : condition) -> ()
@@ -55,11 +58,14 @@ let yojson_of_condition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_condition__request_ip
-             v_request_ip
-         in
-         ("request_ip", arg) :: bnds
+         if [] = v_request_ip then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition__request_ip)
+               v_request_ip
+           in
+           let bnd = "request_ip", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -71,6 +77,7 @@ let _ = yojson_of_condition
 type policy = {
   effect : string prop option; [@option]
   permission_groups : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   resources : (string * string prop) list;
 }
 [@@deriving_inline yojson_of]
@@ -100,12 +107,14 @@ let yojson_of_policy =
          ("resources", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_permission_groups
-         in
-         ("permission_groups", arg) :: bnds
+         if [] = v_permission_groups then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_permission_groups
+           in
+           let bnd = "permission_groups", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_effect with
@@ -128,7 +137,8 @@ type cloudflare_api_token = {
   name : string prop;
   not_before : string prop option; [@option]
   condition : condition list;
-  policy : policy list;
+      [@default []] [@yojson_drop_default ( = )]
+  policy : policy list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -148,12 +158,20 @@ let yojson_of_cloudflare_api_token =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_policy v_policy in
-         ("policy", arg) :: bnds
+         if [] = v_policy then bnds
+         else
+           let arg = (yojson_of_list yojson_of_policy) v_policy in
+           let bnd = "policy", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_condition v_condition in
-         ("condition", arg) :: bnds
+         if [] = v_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_condition) v_condition
+           in
+           let bnd = "condition", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_not_before with

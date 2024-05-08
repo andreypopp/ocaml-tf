@@ -4,7 +4,12 @@ open! Tf_core
 
 (** RESOURCE SERIALIZATION *)
 
-type metadata = { services : string prop list  (** services *) }
+type metadata = {
+  services : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** services *)
+}
+
 type source__files
 
 val source__files :

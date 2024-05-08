@@ -139,6 +139,7 @@ let _ = yojson_of_delivery_rule__cookies_condition
 
 type delivery_rule__device_condition = {
   match_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   negate_condition : bool prop option; [@option]
   operator : string prop option; [@option]
 }
@@ -173,12 +174,14 @@ let yojson_of_delivery_rule__device_condition =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_match_values
-         in
-         ("match_values", arg) :: bnds
+         if [] = v_match_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_values
+           in
+           let bnd = "match_values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : delivery_rule__device_condition ->
@@ -190,6 +193,7 @@ let _ = yojson_of_delivery_rule__device_condition
 
 type delivery_rule__http_version_condition = {
   match_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   negate_condition : bool prop option; [@option]
   operator : string prop option; [@option]
 }
@@ -224,12 +228,14 @@ let yojson_of_delivery_rule__http_version_condition =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_match_values
-         in
-         ("match_values", arg) :: bnds
+         if [] = v_match_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_values
+           in
+           let bnd = "match_values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : delivery_rule__http_version_condition ->
@@ -624,6 +630,7 @@ let _ = yojson_of_delivery_rule__request_header_condition
 
 type delivery_rule__request_method_condition = {
   match_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   negate_condition : bool prop option; [@option]
   operator : string prop option; [@option]
 }
@@ -658,12 +665,14 @@ let yojson_of_delivery_rule__request_method_condition =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_match_values
-         in
-         ("match_values", arg) :: bnds
+         if [] = v_match_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_values
+           in
+           let bnd = "match_values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : delivery_rule__request_method_condition ->
@@ -675,6 +684,7 @@ let _ = yojson_of_delivery_rule__request_method_condition
 
 type delivery_rule__request_scheme_condition = {
   match_values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   negate_condition : bool prop option; [@option]
   operator : string prop option; [@option]
 }
@@ -709,12 +719,14 @@ let yojson_of_delivery_rule__request_scheme_condition =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_match_values
-         in
-         ("match_values", arg) :: bnds
+         if [] = v_match_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_match_values
+           in
+           let bnd = "match_values", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : delivery_rule__request_scheme_condition ->
@@ -1095,37 +1107,57 @@ type delivery_rule = {
   order : float prop;
   cache_expiration_action :
     delivery_rule__cache_expiration_action list;
+      [@default []] [@yojson_drop_default ( = )]
   cache_key_query_string_action :
     delivery_rule__cache_key_query_string_action list;
+      [@default []] [@yojson_drop_default ( = )]
   cookies_condition : delivery_rule__cookies_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   device_condition : delivery_rule__device_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   http_version_condition :
     delivery_rule__http_version_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   modify_request_header_action :
     delivery_rule__modify_request_header_action list;
+      [@default []] [@yojson_drop_default ( = )]
   modify_response_header_action :
     delivery_rule__modify_response_header_action list;
+      [@default []] [@yojson_drop_default ( = )]
   post_arg_condition : delivery_rule__post_arg_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   query_string_condition :
     delivery_rule__query_string_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   remote_address_condition :
     delivery_rule__remote_address_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   request_body_condition :
     delivery_rule__request_body_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   request_header_condition :
     delivery_rule__request_header_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   request_method_condition :
     delivery_rule__request_method_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   request_scheme_condition :
     delivery_rule__request_scheme_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   request_uri_condition : delivery_rule__request_uri_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   url_file_extension_condition :
     delivery_rule__url_file_extension_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   url_file_name_condition :
     delivery_rule__url_file_name_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   url_path_condition : delivery_rule__url_path_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   url_redirect_action : delivery_rule__url_redirect_action list;
+      [@default []] [@yojson_drop_default ( = )]
   url_rewrite_action : delivery_rule__url_rewrite_action list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1163,159 +1195,224 @@ let yojson_of_delivery_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delivery_rule__url_rewrite_action
-             v_url_rewrite_action
-         in
-         ("url_rewrite_action", arg) :: bnds
+         if [] = v_url_rewrite_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__url_rewrite_action)
+               v_url_rewrite_action
+           in
+           let bnd = "url_rewrite_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__url_redirect_action
-             v_url_redirect_action
-         in
-         ("url_redirect_action", arg) :: bnds
+         if [] = v_url_redirect_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__url_redirect_action)
+               v_url_redirect_action
+           in
+           let bnd = "url_redirect_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delivery_rule__url_path_condition
-             v_url_path_condition
-         in
-         ("url_path_condition", arg) :: bnds
+         if [] = v_url_path_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__url_path_condition)
+               v_url_path_condition
+           in
+           let bnd = "url_path_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__url_file_name_condition
-             v_url_file_name_condition
-         in
-         ("url_file_name_condition", arg) :: bnds
+         if [] = v_url_file_name_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__url_file_name_condition)
+               v_url_file_name_condition
+           in
+           let bnd = "url_file_name_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__url_file_extension_condition
-             v_url_file_extension_condition
-         in
-         ("url_file_extension_condition", arg) :: bnds
+         if [] = v_url_file_extension_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__url_file_extension_condition)
+               v_url_file_extension_condition
+           in
+           let bnd = "url_file_extension_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__request_uri_condition
-             v_request_uri_condition
-         in
-         ("request_uri_condition", arg) :: bnds
+         if [] = v_request_uri_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__request_uri_condition)
+               v_request_uri_condition
+           in
+           let bnd = "request_uri_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__request_scheme_condition
-             v_request_scheme_condition
-         in
-         ("request_scheme_condition", arg) :: bnds
+         if [] = v_request_scheme_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__request_scheme_condition)
+               v_request_scheme_condition
+           in
+           let bnd = "request_scheme_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__request_method_condition
-             v_request_method_condition
-         in
-         ("request_method_condition", arg) :: bnds
+         if [] = v_request_method_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__request_method_condition)
+               v_request_method_condition
+           in
+           let bnd = "request_method_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__request_header_condition
-             v_request_header_condition
-         in
-         ("request_header_condition", arg) :: bnds
+         if [] = v_request_header_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__request_header_condition)
+               v_request_header_condition
+           in
+           let bnd = "request_header_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__request_body_condition
-             v_request_body_condition
-         in
-         ("request_body_condition", arg) :: bnds
+         if [] = v_request_body_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__request_body_condition)
+               v_request_body_condition
+           in
+           let bnd = "request_body_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__remote_address_condition
-             v_remote_address_condition
-         in
-         ("remote_address_condition", arg) :: bnds
+         if [] = v_remote_address_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__remote_address_condition)
+               v_remote_address_condition
+           in
+           let bnd = "remote_address_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__query_string_condition
-             v_query_string_condition
-         in
-         ("query_string_condition", arg) :: bnds
+         if [] = v_query_string_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__query_string_condition)
+               v_query_string_condition
+           in
+           let bnd = "query_string_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delivery_rule__post_arg_condition
-             v_post_arg_condition
-         in
-         ("post_arg_condition", arg) :: bnds
+         if [] = v_post_arg_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__post_arg_condition)
+               v_post_arg_condition
+           in
+           let bnd = "post_arg_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__modify_response_header_action
-             v_modify_response_header_action
-         in
-         ("modify_response_header_action", arg) :: bnds
+         if [] = v_modify_response_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__modify_response_header_action)
+               v_modify_response_header_action
+           in
+           let bnd = "modify_response_header_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__modify_request_header_action
-             v_modify_request_header_action
-         in
-         ("modify_request_header_action", arg) :: bnds
+         if [] = v_modify_request_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__modify_request_header_action)
+               v_modify_request_header_action
+           in
+           let bnd = "modify_request_header_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__http_version_condition
-             v_http_version_condition
-         in
-         ("http_version_condition", arg) :: bnds
+         if [] = v_http_version_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__http_version_condition)
+               v_http_version_condition
+           in
+           let bnd = "http_version_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delivery_rule__device_condition
-             v_device_condition
-         in
-         ("device_condition", arg) :: bnds
+         if [] = v_device_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__device_condition)
+               v_device_condition
+           in
+           let bnd = "device_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delivery_rule__cookies_condition
-             v_cookies_condition
-         in
-         ("cookies_condition", arg) :: bnds
+         if [] = v_cookies_condition then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__cookies_condition)
+               v_cookies_condition
+           in
+           let bnd = "cookies_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__cache_key_query_string_action
-             v_cache_key_query_string_action
-         in
-         ("cache_key_query_string_action", arg) :: bnds
+         if [] = v_cache_key_query_string_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__cache_key_query_string_action)
+               v_cache_key_query_string_action
+           in
+           let bnd = "cache_key_query_string_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_delivery_rule__cache_expiration_action
-             v_cache_expiration_action
-         in
-         ("cache_expiration_action", arg) :: bnds
+         if [] = v_cache_expiration_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_delivery_rule__cache_expiration_action)
+               v_cache_expiration_action
+           in
+           let bnd = "cache_expiration_action", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_order in
@@ -1335,6 +1432,7 @@ let _ = yojson_of_delivery_rule
 type geo_filter = {
   action : string prop;
   country_codes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   relative_path : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -1356,12 +1454,14 @@ let yojson_of_geo_filter =
          ("relative_path", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_country_codes
-         in
-         ("country_codes", arg) :: bnds
+         if [] = v_country_codes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_country_codes
+           in
+           let bnd = "country_codes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_action in
@@ -1648,15 +1748,21 @@ let _ = yojson_of_global_delivery_rule__url_rewrite_action
 type global_delivery_rule = {
   cache_expiration_action :
     global_delivery_rule__cache_expiration_action list;
+      [@default []] [@yojson_drop_default ( = )]
   cache_key_query_string_action :
     global_delivery_rule__cache_key_query_string_action list;
+      [@default []] [@yojson_drop_default ( = )]
   modify_request_header_action :
     global_delivery_rule__modify_request_header_action list;
+      [@default []] [@yojson_drop_default ( = )]
   modify_response_header_action :
     global_delivery_rule__modify_response_header_action list;
+      [@default []] [@yojson_drop_default ( = )]
   url_redirect_action :
     global_delivery_rule__url_redirect_action list;
+      [@default []] [@yojson_drop_default ( = )]
   url_rewrite_action : global_delivery_rule__url_rewrite_action list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1678,52 +1784,70 @@ let yojson_of_global_delivery_rule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_global_delivery_rule__url_rewrite_action
-             v_url_rewrite_action
-         in
-         ("url_rewrite_action", arg) :: bnds
+         if [] = v_url_rewrite_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_global_delivery_rule__url_rewrite_action)
+               v_url_rewrite_action
+           in
+           let bnd = "url_rewrite_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_global_delivery_rule__url_redirect_action
-             v_url_redirect_action
-         in
-         ("url_redirect_action", arg) :: bnds
+         if [] = v_url_redirect_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_global_delivery_rule__url_redirect_action)
+               v_url_redirect_action
+           in
+           let bnd = "url_redirect_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_global_delivery_rule__modify_response_header_action
-             v_modify_response_header_action
-         in
-         ("modify_response_header_action", arg) :: bnds
+         if [] = v_modify_response_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_global_delivery_rule__modify_response_header_action)
+               v_modify_response_header_action
+           in
+           let bnd = "modify_response_header_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_global_delivery_rule__modify_request_header_action
-             v_modify_request_header_action
-         in
-         ("modify_request_header_action", arg) :: bnds
+         if [] = v_modify_request_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_global_delivery_rule__modify_request_header_action)
+               v_modify_request_header_action
+           in
+           let bnd = "modify_request_header_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_global_delivery_rule__cache_key_query_string_action
-             v_cache_key_query_string_action
-         in
-         ("cache_key_query_string_action", arg) :: bnds
+         if [] = v_cache_key_query_string_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_global_delivery_rule__cache_key_query_string_action)
+               v_cache_key_query_string_action
+           in
+           let bnd = "cache_key_query_string_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_global_delivery_rule__cache_expiration_action
-             v_cache_expiration_action
-         in
-         ("cache_expiration_action", arg) :: bnds
+         if [] = v_cache_expiration_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_global_delivery_rule__cache_expiration_action)
+               v_cache_expiration_action
+           in
+           let bnd = "cache_expiration_action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : global_delivery_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -1861,9 +1985,12 @@ type azurerm_cdn_endpoint = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   delivery_rule : delivery_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   geo_filter : geo_filter list;
+      [@default []] [@yojson_drop_default ( = )]
   global_delivery_rule : global_delivery_rule list;
-  origin : origin list;
+      [@default []] [@yojson_drop_default ( = )]
+  origin : origin list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1903,27 +2030,39 @@ let yojson_of_azurerm_cdn_endpoint =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_origin v_origin in
-         ("origin", arg) :: bnds
+         if [] = v_origin then bnds
+         else
+           let arg = (yojson_of_list yojson_of_origin) v_origin in
+           let bnd = "origin", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_global_delivery_rule
-             v_global_delivery_rule
-         in
-         ("global_delivery_rule", arg) :: bnds
+         if [] = v_global_delivery_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_global_delivery_rule)
+               v_global_delivery_rule
+           in
+           let bnd = "global_delivery_rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_geo_filter v_geo_filter
-         in
-         ("geo_filter", arg) :: bnds
+         if [] = v_geo_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_geo_filter) v_geo_filter
+           in
+           let bnd = "geo_filter", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_delivery_rule v_delivery_rule
-         in
-         ("delivery_rule", arg) :: bnds
+         if [] = v_delivery_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_delivery_rule) v_delivery_rule
+           in
+           let bnd = "delivery_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

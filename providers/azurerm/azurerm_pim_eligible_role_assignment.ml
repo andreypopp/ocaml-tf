@@ -55,6 +55,7 @@ let _ = yojson_of_schedule__expiration
 type schedule = {
   start_date_time : string prop option; [@option]
   expiration : schedule__expiration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -70,10 +71,14 @@ let yojson_of_schedule =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_schedule__expiration v_expiration
-         in
-         ("expiration", arg) :: bnds
+         if [] = v_expiration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule__expiration)
+               v_expiration
+           in
+           let bnd = "expiration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start_date_time with
@@ -180,7 +185,8 @@ type azurerm_pim_eligible_role_assignment = {
   role_definition_id : string prop;
   scope : string prop;
   schedule : schedule list;
-  ticket : ticket list;
+      [@default []] [@yojson_drop_default ( = )]
+  ticket : ticket list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -207,12 +213,20 @@ let yojson_of_azurerm_pim_eligible_role_assignment =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_ticket v_ticket in
-         ("ticket", arg) :: bnds
+         if [] = v_ticket then bnds
+         else
+           let arg = (yojson_of_list yojson_of_ticket) v_ticket in
+           let bnd = "ticket", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_schedule v_schedule in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule) v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_scope in

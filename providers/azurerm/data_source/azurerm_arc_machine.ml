@@ -90,11 +90,15 @@ let _ = yojson_of_agent__extensions_allow_list
 
 type agent = {
   extensions_allow_list : agent__extensions_allow_list list;
+      [@default []] [@yojson_drop_default ( = )]
   extensions_block_list : agent__extensions_block_list list;
+      [@default []] [@yojson_drop_default ( = )]
   extensions_enabled : bool prop;
   guest_configuration_enabled : bool prop;
   incoming_connections_ports : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   proxy_bypass : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   proxy_url : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -120,20 +124,24 @@ let yojson_of_agent =
          ("proxy_url", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_proxy_bypass
-         in
-         ("proxy_bypass", arg) :: bnds
+         if [] = v_proxy_bypass then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_proxy_bypass
+           in
+           let bnd = "proxy_bypass", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_incoming_connections_ports
-         in
-         ("incoming_connections_ports", arg) :: bnds
+         if [] = v_incoming_connections_ports then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_incoming_connections_ports
+           in
+           let bnd = "incoming_connections_ports", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -149,18 +157,24 @@ let yojson_of_agent =
          ("extensions_enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_agent__extensions_block_list
-             v_extensions_block_list
-         in
-         ("extensions_block_list", arg) :: bnds
+         if [] = v_extensions_block_list then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_agent__extensions_block_list)
+               v_extensions_block_list
+           in
+           let bnd = "extensions_block_list", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_agent__extensions_allow_list
-             v_extensions_allow_list
-         in
-         ("extensions_allow_list", arg) :: bnds
+         if [] = v_extensions_allow_list then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_agent__extensions_allow_list)
+               v_extensions_allow_list
+           in
+           let bnd = "extensions_allow_list", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : agent -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -311,6 +325,7 @@ let _ = yojson_of_os_profile__windows__patch
 
 type os_profile__windows = {
   patch : os_profile__windows__patch list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -323,11 +338,14 @@ let yojson_of_os_profile__windows =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_os_profile__windows__patch
-             v_patch
-         in
-         ("patch", arg) :: bnds
+         if [] = v_patch then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_os_profile__windows__patch)
+               v_patch
+           in
+           let bnd = "patch", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : os_profile__windows -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -370,7 +388,10 @@ let _ = yojson_of_os_profile__linux__patch
 
 [@@@deriving.end]
 
-type os_profile__linux = { patch : os_profile__linux__patch list }
+type os_profile__linux = {
+  patch : os_profile__linux__patch list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : os_profile__linux) -> ()
@@ -382,10 +403,14 @@ let yojson_of_os_profile__linux =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_os_profile__linux__patch v_patch
-         in
-         ("patch", arg) :: bnds
+         if [] = v_patch then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_os_profile__linux__patch)
+               v_patch
+           in
+           let bnd = "patch", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : os_profile__linux -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -397,7 +422,9 @@ let _ = yojson_of_os_profile__linux
 type os_profile = {
   computer_name : string prop;
   linux : os_profile__linux list;
+      [@default []] [@yojson_drop_default ( = )]
   windows : os_profile__windows list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -414,16 +441,22 @@ let yojson_of_os_profile =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_os_profile__windows v_windows
-         in
-         ("windows", arg) :: bnds
+         if [] = v_windows then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_os_profile__windows) v_windows
+           in
+           let bnd = "windows", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_os_profile__linux v_linux
-         in
-         ("linux", arg) :: bnds
+         if [] = v_linux then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_os_profile__linux) v_linux
+           in
+           let bnd = "linux", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_computer_name in
@@ -498,8 +531,10 @@ let _ = yojson_of_service_status__extension_service
 
 type service_status = {
   extension_service : service_status__extension_service list;
+      [@default []] [@yojson_drop_default ( = )]
   guest_configuration_service :
     service_status__guest_configuration_service list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -515,19 +550,26 @@ let yojson_of_service_status =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_service_status__guest_configuration_service
-             v_guest_configuration_service
-         in
-         ("guest_configuration_service", arg) :: bnds
+         if [] = v_guest_configuration_service then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_status__guest_configuration_service)
+               v_guest_configuration_service
+           in
+           let bnd = "guest_configuration_service", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_status__extension_service
-             v_extension_service
-         in
-         ("extension_service", arg) :: bnds
+         if [] = v_extension_service then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_service_status__extension_service)
+               v_extension_service
+           in
+           let bnd = "extension_service", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : service_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)

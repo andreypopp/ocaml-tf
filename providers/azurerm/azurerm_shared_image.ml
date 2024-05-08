@@ -166,7 +166,9 @@ type azurerm_shared_image = {
   trusted_launch_enabled : bool prop option; [@option]
   trusted_launch_supported : bool prop option; [@option]
   identifier : identifier list;
+      [@default []] [@yojson_drop_default ( = )]
   purchase_plan : purchase_plan list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -214,16 +216,22 @@ let yojson_of_azurerm_shared_image =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_purchase_plan v_purchase_plan
-         in
-         ("purchase_plan", arg) :: bnds
+         if [] = v_purchase_plan then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_purchase_plan) v_purchase_plan
+           in
+           let bnd = "purchase_plan", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_identifier v_identifier
-         in
-         ("identifier", arg) :: bnds
+         if [] = v_identifier then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identifier) v_identifier
+           in
+           let bnd = "identifier", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_trusted_launch_supported with

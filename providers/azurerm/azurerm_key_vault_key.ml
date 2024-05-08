@@ -46,6 +46,7 @@ type rotation_policy = {
   expire_after : string prop option; [@option]
   notify_before_expiry : string prop option; [@option]
   automatic : rotation_policy__automatic list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -62,11 +63,14 @@ let yojson_of_rotation_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rotation_policy__automatic
-             v_automatic
-         in
-         ("automatic", arg) :: bnds
+         if [] = v_automatic then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rotation_policy__automatic)
+               v_automatic
+           in
+           let bnd = "automatic", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_notify_before_expiry with
@@ -156,6 +160,7 @@ type azurerm_key_vault_key = {
   expiration_date : string prop option; [@option]
   id : string prop option; [@option]
   key_opts : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   key_size : float prop option; [@option]
   key_type : string prop;
   key_vault_id : string prop;
@@ -163,6 +168,7 @@ type azurerm_key_vault_key = {
   not_before_date : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   rotation_policy : rotation_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -193,10 +199,14 @@ let yojson_of_azurerm_key_vault_key =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_rotation_policy v_rotation_policy
-         in
-         ("rotation_policy", arg) :: bnds
+         if [] = v_rotation_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_rotation_policy)
+               v_rotation_policy
+           in
+           let bnd = "rotation_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -243,12 +253,14 @@ let yojson_of_azurerm_key_vault_key =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_key_opts
-         in
-         ("key_opts", arg) :: bnds
+         if [] = v_key_opts then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_key_opts
+           in
+           let bnd = "key_opts", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

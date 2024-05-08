@@ -55,6 +55,7 @@ type application_configuration__application_code_configuration__code_content = {
   s3_content_location :
     application_configuration__application_code_configuration__code_content__s3_content_location
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -74,12 +75,15 @@ let yojson_of_application_configuration__application_code_configuration__code_co
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__application_code_configuration__code_content__s3_content_location
-             v_s3_content_location
-         in
-         ("s3_content_location", arg) :: bnds
+         if [] = v_s3_content_location then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__application_code_configuration__code_content__s3_content_location)
+               v_s3_content_location
+           in
+           let bnd = "s3_content_location", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_text_content with
@@ -103,6 +107,7 @@ type application_configuration__application_code_configuration = {
   code_content :
     application_configuration__application_code_configuration__code_content
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -121,12 +126,15 @@ let yojson_of_application_configuration__application_code_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__application_code_configuration__code_content
-             v_code_content
-         in
-         ("code_content", arg) :: bnds
+         if [] = v_code_content then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__application_code_configuration__code_content)
+               v_code_content
+           in
+           let bnd = "code_content", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -227,6 +235,7 @@ type application_configuration__environment_properties = {
   property_group :
     application_configuration__environment_properties__property_group
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -240,12 +249,15 @@ let yojson_of_application_configuration__environment_properties =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__environment_properties__property_group
-             v_property_group
-         in
-         ("property_group", arg) :: bnds
+         if [] = v_property_group then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__environment_properties__property_group)
+               v_property_group
+           in
+           let bnd = "property_group", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : application_configuration__environment_properties ->
@@ -442,12 +454,15 @@ type application_configuration__flink_application_configuration = {
   checkpoint_configuration :
     application_configuration__flink_application_configuration__checkpoint_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   monitoring_configuration :
     application_configuration__flink_application_configuration__monitoring_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   parallelism_configuration :
     application_configuration__flink_application_configuration__parallelism_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -467,28 +482,37 @@ let yojson_of_application_configuration__flink_application_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__flink_application_configuration__parallelism_configuration
-             v_parallelism_configuration
-         in
-         ("parallelism_configuration", arg) :: bnds
+         if [] = v_parallelism_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__flink_application_configuration__parallelism_configuration)
+               v_parallelism_configuration
+           in
+           let bnd = "parallelism_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__flink_application_configuration__monitoring_configuration
-             v_monitoring_configuration
-         in
-         ("monitoring_configuration", arg) :: bnds
+         if [] = v_monitoring_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__flink_application_configuration__monitoring_configuration)
+               v_monitoring_configuration
+           in
+           let bnd = "monitoring_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__flink_application_configuration__checkpoint_configuration
-             v_checkpoint_configuration
-         in
-         ("checkpoint_configuration", arg) :: bnds
+         if [] = v_checkpoint_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__flink_application_configuration__checkpoint_configuration)
+               v_checkpoint_configuration
+           in
+           let bnd = "checkpoint_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : application_configuration__flink_application_configuration ->
@@ -583,9 +607,11 @@ type application_configuration__run_configuration = {
   application_restore_configuration :
     application_configuration__run_configuration__application_restore_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   flink_run_configuration :
     application_configuration__run_configuration__flink_run_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -602,20 +628,26 @@ let yojson_of_application_configuration__run_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__run_configuration__flink_run_configuration
-             v_flink_run_configuration
-         in
-         ("flink_run_configuration", arg) :: bnds
+         if [] = v_flink_run_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__run_configuration__flink_run_configuration)
+               v_flink_run_configuration
+           in
+           let bnd = "flink_run_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__run_configuration__application_restore_configuration
-             v_application_restore_configuration
-         in
-         ("application_restore_configuration", arg) :: bnds
+         if [] = v_application_restore_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__run_configuration__application_restore_configuration)
+               v_application_restore_configuration
+           in
+           let bnd = "application_restore_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : application_configuration__run_configuration ->
@@ -693,6 +725,7 @@ type application_configuration__sql_application_configuration__input__input_proc
   input_lambda_processor :
     application_configuration__sql_application_configuration__input__input_processing_configuration__input_lambda_processor
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -709,12 +742,15 @@ let yojson_of_application_configuration__sql_application_configuration__input__i
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__input_processing_configuration__input_lambda_processor
-             v_input_lambda_processor
-         in
-         ("input_lambda_processor", arg) :: bnds
+         if [] = v_input_lambda_processor then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__input_processing_configuration__input_lambda_processor)
+               v_input_lambda_processor
+           in
+           let bnd = "input_lambda_processor", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : application_configuration__sql_application_configuration__input__input_processing_configuration ->
@@ -847,9 +883,11 @@ type application_configuration__sql_application_configuration__input__input_sche
   csv_mapping_parameters :
     application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters__csv_mapping_parameters
     list;
+      [@default []] [@yojson_drop_default ( = )]
   json_mapping_parameters :
     application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters__json_mapping_parameters
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -869,20 +907,26 @@ let yojson_of_application_configuration__sql_application_configuration__input__i
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters__json_mapping_parameters
-             v_json_mapping_parameters
-         in
-         ("json_mapping_parameters", arg) :: bnds
+         if [] = v_json_mapping_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters__json_mapping_parameters)
+               v_json_mapping_parameters
+           in
+           let bnd = "json_mapping_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters__csv_mapping_parameters
-             v_csv_mapping_parameters
-         in
-         ("csv_mapping_parameters", arg) :: bnds
+         if [] = v_csv_mapping_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters__csv_mapping_parameters)
+               v_csv_mapping_parameters
+           in
+           let bnd = "csv_mapping_parameters", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters ->
@@ -898,6 +942,7 @@ type application_configuration__sql_application_configuration__input__input_sche
   mapping_parameters :
     application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -917,12 +962,15 @@ let yojson_of_application_configuration__sql_application_configuration__input__i
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters
-             v_mapping_parameters
-         in
-         ("mapping_parameters", arg) :: bnds
+         if [] = v_mapping_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__input_schema__record_format__mapping_parameters)
+               v_mapping_parameters
+           in
+           let bnd = "mapping_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -944,9 +992,11 @@ type application_configuration__sql_application_configuration__input__input_sche
   record_column :
     application_configuration__sql_application_configuration__input__input_schema__record_column
     list;
+      [@default []] [@yojson_drop_default ( = )]
   record_format :
     application_configuration__sql_application_configuration__input__input_schema__record_format
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -967,20 +1017,26 @@ let yojson_of_application_configuration__sql_application_configuration__input__i
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__input_schema__record_format
-             v_record_format
-         in
-         ("record_format", arg) :: bnds
+         if [] = v_record_format then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__input_schema__record_format)
+               v_record_format
+           in
+           let bnd = "record_format", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__input_schema__record_column
-             v_record_column
-         in
-         ("record_column", arg) :: bnds
+         if [] = v_record_column then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__input_schema__record_column)
+               v_record_column
+           in
+           let bnd = "record_column", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_record_encoding with
@@ -1098,21 +1154,27 @@ type application_configuration__sql_application_configuration__input = {
   input_parallelism :
     application_configuration__sql_application_configuration__input__input_parallelism
     list;
+      [@default []] [@yojson_drop_default ( = )]
   input_processing_configuration :
     application_configuration__sql_application_configuration__input__input_processing_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   input_schema :
     application_configuration__sql_application_configuration__input__input_schema
     list;
+      [@default []] [@yojson_drop_default ( = )]
   input_starting_position_configuration :
     application_configuration__sql_application_configuration__input__input_starting_position_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_firehose_input :
     application_configuration__sql_application_configuration__input__kinesis_firehose_input
     list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_streams_input :
     application_configuration__sql_application_configuration__input__kinesis_streams_input
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1139,52 +1201,70 @@ let yojson_of_application_configuration__sql_application_configuration__input
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__kinesis_streams_input
-             v_kinesis_streams_input
-         in
-         ("kinesis_streams_input", arg) :: bnds
+         if [] = v_kinesis_streams_input then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__kinesis_streams_input)
+               v_kinesis_streams_input
+           in
+           let bnd = "kinesis_streams_input", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__kinesis_firehose_input
-             v_kinesis_firehose_input
-         in
-         ("kinesis_firehose_input", arg) :: bnds
+         if [] = v_kinesis_firehose_input then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__kinesis_firehose_input)
+               v_kinesis_firehose_input
+           in
+           let bnd = "kinesis_firehose_input", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__input_starting_position_configuration
-             v_input_starting_position_configuration
-         in
-         ("input_starting_position_configuration", arg) :: bnds
+         if [] = v_input_starting_position_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__input_starting_position_configuration)
+               v_input_starting_position_configuration
+           in
+           let bnd = "input_starting_position_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__input_schema
-             v_input_schema
-         in
-         ("input_schema", arg) :: bnds
+         if [] = v_input_schema then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__input_schema)
+               v_input_schema
+           in
+           let bnd = "input_schema", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__input_processing_configuration
-             v_input_processing_configuration
-         in
-         ("input_processing_configuration", arg) :: bnds
+         if [] = v_input_processing_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__input_processing_configuration)
+               v_input_processing_configuration
+           in
+           let bnd = "input_processing_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input__input_parallelism
-             v_input_parallelism
-         in
-         ("input_parallelism", arg) :: bnds
+         if [] = v_input_parallelism then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input__input_parallelism)
+               v_input_parallelism
+           in
+           let bnd = "input_parallelism", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name_prefix in
@@ -1326,15 +1406,19 @@ type application_configuration__sql_application_configuration__output = {
   destination_schema :
     application_configuration__sql_application_configuration__output__destination_schema
     list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_firehose_output :
     application_configuration__sql_application_configuration__output__kinesis_firehose_output
     list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_streams_output :
     application_configuration__sql_application_configuration__output__kinesis_streams_output
     list;
+      [@default []] [@yojson_drop_default ( = )]
   lambda_output :
     application_configuration__sql_application_configuration__output__lambda_output
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1357,36 +1441,48 @@ let yojson_of_application_configuration__sql_application_configuration__output
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__output__lambda_output
-             v_lambda_output
-         in
-         ("lambda_output", arg) :: bnds
+         if [] = v_lambda_output then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__output__lambda_output)
+               v_lambda_output
+           in
+           let bnd = "lambda_output", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__output__kinesis_streams_output
-             v_kinesis_streams_output
-         in
-         ("kinesis_streams_output", arg) :: bnds
+         if [] = v_kinesis_streams_output then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__output__kinesis_streams_output)
+               v_kinesis_streams_output
+           in
+           let bnd = "kinesis_streams_output", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__output__kinesis_firehose_output
-             v_kinesis_firehose_output
-         in
-         ("kinesis_firehose_output", arg) :: bnds
+         if [] = v_kinesis_firehose_output then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__output__kinesis_firehose_output)
+               v_kinesis_firehose_output
+           in
+           let bnd = "kinesis_firehose_output", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__output__destination_schema
-             v_destination_schema
-         in
-         ("destination_schema", arg) :: bnds
+         if [] = v_destination_schema then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__output__destination_schema)
+               v_destination_schema
+           in
+           let bnd = "destination_schema", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1523,9 +1619,11 @@ type application_configuration__sql_application_configuration__reference_data_so
   csv_mapping_parameters :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters__csv_mapping_parameters
     list;
+      [@default []] [@yojson_drop_default ( = )]
   json_mapping_parameters :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters__json_mapping_parameters
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1545,20 +1643,26 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters__json_mapping_parameters
-             v_json_mapping_parameters
-         in
-         ("json_mapping_parameters", arg) :: bnds
+         if [] = v_json_mapping_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters__json_mapping_parameters)
+               v_json_mapping_parameters
+           in
+           let bnd = "json_mapping_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters__csv_mapping_parameters
-             v_csv_mapping_parameters
-         in
-         ("csv_mapping_parameters", arg) :: bnds
+         if [] = v_csv_mapping_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters__csv_mapping_parameters)
+               v_csv_mapping_parameters
+           in
+           let bnd = "csv_mapping_parameters", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters ->
@@ -1574,6 +1678,7 @@ type application_configuration__sql_application_configuration__reference_data_so
   mapping_parameters :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1593,12 +1698,15 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters
-             v_mapping_parameters
-         in
-         ("mapping_parameters", arg) :: bnds
+         if [] = v_mapping_parameters then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format__mapping_parameters)
+               v_mapping_parameters
+           in
+           let bnd = "mapping_parameters", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1620,9 +1728,11 @@ type application_configuration__sql_application_configuration__reference_data_so
   record_column :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_column
     list;
+      [@default []] [@yojson_drop_default ( = )]
   record_format :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1643,20 +1753,26 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format
-             v_record_format
-         in
-         ("record_format", arg) :: bnds
+         if [] = v_record_format then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_format)
+               v_record_format
+           in
+           let bnd = "record_format", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_column
-             v_record_column
-         in
-         ("record_column", arg) :: bnds
+         if [] = v_record_column then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema__record_column)
+               v_record_column
+           in
+           let bnd = "record_column", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_record_encoding with
@@ -1715,9 +1831,11 @@ type application_configuration__sql_application_configuration__reference_data_so
   reference_schema :
     application_configuration__sql_application_configuration__reference_data_source__reference_schema
     list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_reference_data_source :
     application_configuration__sql_application_configuration__reference_data_source__s3_reference_data_source
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1738,20 +1856,26 @@ let yojson_of_application_configuration__sql_application_configuration__referenc
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__reference_data_source__s3_reference_data_source
-             v_s3_reference_data_source
-         in
-         ("s3_reference_data_source", arg) :: bnds
+         if [] = v_s3_reference_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__reference_data_source__s3_reference_data_source)
+               v_s3_reference_data_source
+           in
+           let bnd = "s3_reference_data_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema
-             v_reference_schema
-         in
-         ("reference_schema", arg) :: bnds
+         if [] = v_reference_schema then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__reference_data_source__reference_schema)
+               v_reference_schema
+           in
+           let bnd = "reference_schema", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_table_name in
@@ -1770,12 +1894,15 @@ type application_configuration__sql_application_configuration = {
   input :
     application_configuration__sql_application_configuration__input
     list;
+      [@default []] [@yojson_drop_default ( = )]
   output :
     application_configuration__sql_application_configuration__output
     list;
+      [@default []] [@yojson_drop_default ( = )]
   reference_data_source :
     application_configuration__sql_application_configuration__reference_data_source
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1795,28 +1922,37 @@ let yojson_of_application_configuration__sql_application_configuration
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__reference_data_source
-             v_reference_data_source
-         in
-         ("reference_data_source", arg) :: bnds
+         if [] = v_reference_data_source then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__reference_data_source)
+               v_reference_data_source
+           in
+           let bnd = "reference_data_source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__output
-             v_output
-         in
-         ("output", arg) :: bnds
+         if [] = v_output then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__output)
+               v_output
+           in
+           let bnd = "output", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration__input
-             v_input
-         in
-         ("input", arg) :: bnds
+         if [] = v_input then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration__input)
+               v_input
+           in
+           let bnd = "input", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : application_configuration__sql_application_configuration ->
@@ -1829,7 +1965,9 @@ let _ =
 
 type application_configuration__vpc_configuration = {
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1845,20 +1983,24 @@ let yojson_of_application_configuration__vpc_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : application_configuration__vpc_configuration ->
@@ -1871,19 +2013,26 @@ let _ = yojson_of_application_configuration__vpc_configuration
 type application_configuration = {
   application_code_configuration :
     application_configuration__application_code_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   application_snapshot_configuration :
     application_configuration__application_snapshot_configuration
     list;
+      [@default []] [@yojson_drop_default ( = )]
   environment_properties :
     application_configuration__environment_properties list;
+      [@default []] [@yojson_drop_default ( = )]
   flink_application_configuration :
     application_configuration__flink_application_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   run_configuration :
     application_configuration__run_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   sql_application_configuration :
     application_configuration__sql_application_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_configuration :
     application_configuration__vpc_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1908,60 +2057,81 @@ let yojson_of_application_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__vpc_configuration
-             v_vpc_configuration
-         in
-         ("vpc_configuration", arg) :: bnds
+         if [] = v_vpc_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__vpc_configuration)
+               v_vpc_configuration
+           in
+           let bnd = "vpc_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__sql_application_configuration
-             v_sql_application_configuration
-         in
-         ("sql_application_configuration", arg) :: bnds
+         if [] = v_sql_application_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__sql_application_configuration)
+               v_sql_application_configuration
+           in
+           let bnd = "sql_application_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__run_configuration
-             v_run_configuration
-         in
-         ("run_configuration", arg) :: bnds
+         if [] = v_run_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__run_configuration)
+               v_run_configuration
+           in
+           let bnd = "run_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__flink_application_configuration
-             v_flink_application_configuration
-         in
-         ("flink_application_configuration", arg) :: bnds
+         if [] = v_flink_application_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__flink_application_configuration)
+               v_flink_application_configuration
+           in
+           let bnd = "flink_application_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__environment_properties
-             v_environment_properties
-         in
-         ("environment_properties", arg) :: bnds
+         if [] = v_environment_properties then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__environment_properties)
+               v_environment_properties
+           in
+           let bnd = "environment_properties", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__application_snapshot_configuration
-             v_application_snapshot_configuration
-         in
-         ("application_snapshot_configuration", arg) :: bnds
+         if [] = v_application_snapshot_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__application_snapshot_configuration)
+               v_application_snapshot_configuration
+           in
+           let bnd = "application_snapshot_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_application_configuration__application_code_configuration
-             v_application_code_configuration
-         in
-         ("application_code_configuration", arg) :: bnds
+         if [] = v_application_code_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_application_configuration__application_code_configuration)
+               v_application_code_configuration
+           in
+           let bnd = "application_code_configuration", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : application_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -2051,7 +2221,9 @@ type aws_kinesisanalyticsv2_application = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   application_configuration : application_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   cloudwatch_logging_options : cloudwatch_logging_options list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -2082,18 +2254,24 @@ let yojson_of_aws_kinesisanalyticsv2_application =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cloudwatch_logging_options
-             v_cloudwatch_logging_options
-         in
-         ("cloudwatch_logging_options", arg) :: bnds
+         if [] = v_cloudwatch_logging_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cloudwatch_logging_options)
+               v_cloudwatch_logging_options
+           in
+           let bnd = "cloudwatch_logging_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_application_configuration
-             v_application_configuration
-         in
-         ("application_configuration", arg) :: bnds
+         if [] = v_application_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_application_configuration)
+               v_application_configuration
+           in
+           let bnd = "application_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

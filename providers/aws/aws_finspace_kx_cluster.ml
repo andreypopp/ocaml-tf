@@ -207,6 +207,7 @@ type database = {
   database_name : string prop;
   dataview_name : string prop option; [@option]
   cache_configurations : database__cache_configurations list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -224,11 +225,14 @@ let yojson_of_database =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_database__cache_configurations
-             v_cache_configurations
-         in
-         ("cache_configurations", arg) :: bnds
+         if [] = v_cache_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_database__cache_configurations)
+               v_cache_configurations
+           in
+           let bnd = "cache_configurations", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_dataview_name with
@@ -370,6 +374,7 @@ let _ = yojson_of_scaling_group_configuration
 
 type tickerplant_log_configuration = {
   tickerplant_log_volumes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -382,12 +387,14 @@ let yojson_of_tickerplant_log_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_tickerplant_log_volumes
-         in
-         ("tickerplant_log_volumes", arg) :: bnds
+         if [] = v_tickerplant_log_volumes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_tickerplant_log_volumes
+           in
+           let bnd = "tickerplant_log_volumes", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : tickerplant_log_configuration ->
@@ -446,7 +453,9 @@ let _ = yojson_of_timeouts
 type vpc_configuration = {
   ip_address_type : string prop;
   security_group_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -469,20 +478,24 @@ let yojson_of_vpc_configuration =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_security_group_ids
-         in
-         ("security_group_ids", arg) :: bnds
+         if [] = v_security_group_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_security_group_ids
+           in
+           let bnd = "security_group_ids", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -513,16 +526,24 @@ type aws_finspace_kx_cluster = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   auto_scaling_configuration : auto_scaling_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   cache_storage_configurations : cache_storage_configurations list;
+      [@default []] [@yojson_drop_default ( = )]
   capacity_configuration : capacity_configuration list;
-  code : code list;
+      [@default []] [@yojson_drop_default ( = )]
+  code : code list; [@default []] [@yojson_drop_default ( = )]
   database : database list;
+      [@default []] [@yojson_drop_default ( = )]
   savedown_storage_configuration :
     savedown_storage_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   scaling_group_configuration : scaling_group_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   tickerplant_log_configuration : tickerplant_log_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   vpc_configuration : vpc_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -561,65 +582,94 @@ let yojson_of_aws_finspace_kx_cluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_configuration
-             v_vpc_configuration
-         in
-         ("vpc_configuration", arg) :: bnds
+         if [] = v_vpc_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_configuration)
+               v_vpc_configuration
+           in
+           let bnd = "vpc_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_tickerplant_log_configuration
-             v_tickerplant_log_configuration
-         in
-         ("tickerplant_log_configuration", arg) :: bnds
+         if [] = v_tickerplant_log_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_tickerplant_log_configuration)
+               v_tickerplant_log_configuration
+           in
+           let bnd = "tickerplant_log_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scaling_group_configuration
-             v_scaling_group_configuration
-         in
-         ("scaling_group_configuration", arg) :: bnds
+         if [] = v_scaling_group_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scaling_group_configuration)
+               v_scaling_group_configuration
+           in
+           let bnd = "scaling_group_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_savedown_storage_configuration
-             v_savedown_storage_configuration
-         in
-         ("savedown_storage_configuration", arg) :: bnds
+         if [] = v_savedown_storage_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_savedown_storage_configuration)
+               v_savedown_storage_configuration
+           in
+           let bnd = "savedown_storage_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_database v_database in
-         ("database", arg) :: bnds
+         if [] = v_database then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_database) v_database
+           in
+           let bnd = "database", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_code v_code in
-         ("code", arg) :: bnds
+         if [] = v_code then bnds
+         else
+           let arg = (yojson_of_list yojson_of_code) v_code in
+           let bnd = "code", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_capacity_configuration
-             v_capacity_configuration
-         in
-         ("capacity_configuration", arg) :: bnds
+         if [] = v_capacity_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_capacity_configuration)
+               v_capacity_configuration
+           in
+           let bnd = "capacity_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cache_storage_configurations
-             v_cache_storage_configurations
-         in
-         ("cache_storage_configurations", arg) :: bnds
+         if [] = v_cache_storage_configurations then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cache_storage_configurations)
+               v_cache_storage_configurations
+           in
+           let bnd = "cache_storage_configurations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_auto_scaling_configuration
-             v_auto_scaling_configuration
-         in
-         ("auto_scaling_configuration", arg) :: bnds
+         if [] = v_auto_scaling_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_auto_scaling_configuration)
+               v_auto_scaling_configuration
+           in
+           let bnd = "auto_scaling_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_type_ in

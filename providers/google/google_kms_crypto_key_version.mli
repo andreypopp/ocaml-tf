@@ -11,17 +11,25 @@ type attestation__external_protection_level_options = {
 }
 
 type attestation__cert_chains = {
-  cavium_certs : string prop list;  (** cavium_certs *)
-  google_card_certs : string prop list;  (** google_card_certs *)
+  cavium_certs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cavium_certs *)
+  google_card_certs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** google_card_certs *)
   google_partition_certs : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
       (** google_partition_certs *)
 }
 
 type attestation = {
-  cert_chains : attestation__cert_chains list;  (** cert_chains *)
+  cert_chains : attestation__cert_chains list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** cert_chains *)
   content : string prop;  (** content *)
   external_protection_level_options :
     attestation__external_protection_level_options list;
+      [@default []] [@yojson_drop_default ( = )]
       (** external_protection_level_options *)
   format : string prop;  (** format *)
 }

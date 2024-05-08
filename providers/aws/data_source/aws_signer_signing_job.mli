@@ -15,7 +15,11 @@ type signed_object__s3 = {
   key : string prop;  (** key *)
 }
 
-type signed_object = { s3 : signed_object__s3 list  (** s3 *) }
+type signed_object = {
+  s3 : signed_object__s3 list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** s3 *)
+}
 
 type source__s3 = {
   bucket : string prop;  (** bucket *)
@@ -23,7 +27,11 @@ type source__s3 = {
   version : string prop;  (** version *)
 }
 
-type source = { s3 : source__s3 list  (** s3 *) }
+type source = {
+  s3 : source__s3 list; [@default []] [@yojson_drop_default ( = )]
+      (** s3 *)
+}
+
 type aws_signer_signing_job
 
 val aws_signer_signing_job :

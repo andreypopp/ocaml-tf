@@ -41,6 +41,7 @@ let _ = yojson_of_application_source__tag_filter
 type application_source = {
   cloudformation_stack_arn : string prop option; [@option]
   tag_filter : application_source__tag_filter list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -56,11 +57,14 @@ let yojson_of_application_source =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_application_source__tag_filter
-             v_tag_filter
-         in
-         ("tag_filter", arg) :: bnds
+         if [] = v_tag_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_application_source__tag_filter)
+               v_tag_filter
+           in
+           let bnd = "tag_filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_cloudformation_stack_arn with
@@ -319,9 +323,11 @@ type scaling_instruction__target_tracking_configuration = {
   customized_scaling_metric_specification :
     scaling_instruction__target_tracking_configuration__customized_scaling_metric_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
   predefined_scaling_metric_specification :
     scaling_instruction__target_tracking_configuration__predefined_scaling_metric_specification
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -345,20 +351,30 @@ let yojson_of_scaling_instruction__target_tracking_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_scaling_instruction__target_tracking_configuration__predefined_scaling_metric_specification
-             v_predefined_scaling_metric_specification
-         in
-         ("predefined_scaling_metric_specification", arg) :: bnds
+         if [] = v_predefined_scaling_metric_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scaling_instruction__target_tracking_configuration__predefined_scaling_metric_specification)
+               v_predefined_scaling_metric_specification
+           in
+           let bnd =
+             "predefined_scaling_metric_specification", arg
+           in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_scaling_instruction__target_tracking_configuration__customized_scaling_metric_specification
-             v_customized_scaling_metric_specification
-         in
-         ("customized_scaling_metric_specification", arg) :: bnds
+         if [] = v_customized_scaling_metric_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scaling_instruction__target_tracking_configuration__customized_scaling_metric_specification)
+               v_customized_scaling_metric_specification
+           in
+           let bnd =
+             "customized_scaling_metric_specification", arg
+           in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_target_value in
@@ -420,10 +436,13 @@ type scaling_instruction = {
   service_namespace : string prop;
   customized_load_metric_specification :
     scaling_instruction__customized_load_metric_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   predefined_load_metric_specification :
     scaling_instruction__predefined_load_metric_specification list;
+      [@default []] [@yojson_drop_default ( = )]
   target_tracking_configuration :
     scaling_instruction__target_tracking_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -457,28 +476,37 @@ let yojson_of_scaling_instruction =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_scaling_instruction__target_tracking_configuration
-             v_target_tracking_configuration
-         in
-         ("target_tracking_configuration", arg) :: bnds
+         if [] = v_target_tracking_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scaling_instruction__target_tracking_configuration)
+               v_target_tracking_configuration
+           in
+           let bnd = "target_tracking_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_scaling_instruction__predefined_load_metric_specification
-             v_predefined_load_metric_specification
-         in
-         ("predefined_load_metric_specification", arg) :: bnds
+         if [] = v_predefined_load_metric_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scaling_instruction__predefined_load_metric_specification)
+               v_predefined_load_metric_specification
+           in
+           let bnd = "predefined_load_metric_specification", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_scaling_instruction__customized_load_metric_specification
-             v_customized_load_metric_specification
-         in
-         ("customized_load_metric_specification", arg) :: bnds
+         if [] = v_customized_load_metric_specification then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_scaling_instruction__customized_load_metric_specification)
+               v_customized_load_metric_specification
+           in
+           let bnd = "customized_load_metric_specification", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -567,7 +595,9 @@ type aws_autoscalingplans_scaling_plan = {
   id : string prop option; [@option]
   name : string prop;
   application_source : application_source list;
+      [@default []] [@yojson_drop_default ( = )]
   scaling_instruction : scaling_instruction list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -585,18 +615,24 @@ let yojson_of_aws_autoscalingplans_scaling_plan =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scaling_instruction
-             v_scaling_instruction
-         in
-         ("scaling_instruction", arg) :: bnds
+         if [] = v_scaling_instruction then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scaling_instruction)
+               v_scaling_instruction
+           in
+           let bnd = "scaling_instruction", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_application_source
-             v_application_source
-         in
-         ("application_source", arg) :: bnds
+         if [] = v_application_source then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_application_source)
+               v_application_source
+           in
+           let bnd = "application_source", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

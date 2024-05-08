@@ -5,14 +5,20 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type routing__static_vnet_route = {
-  address_prefixes : string prop list;  (** address_prefixes *)
+  address_prefixes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** address_prefixes *)
   name : string prop;  (** name *)
   next_hop_ip_address : string prop;  (** next_hop_ip_address *)
 }
 
 type routing__propagated_route_table = {
-  labels : string prop list;  (** labels *)
-  route_table_ids : string prop list;  (** route_table_ids *)
+  labels : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** labels *)
+  route_table_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** route_table_ids *)
 }
 
 type routing = {
@@ -21,10 +27,12 @@ type routing = {
   inbound_route_map_id : string prop;  (** inbound_route_map_id *)
   outbound_route_map_id : string prop;  (** outbound_route_map_id *)
   propagated_route_table : routing__propagated_route_table list;
+      [@default []] [@yojson_drop_default ( = )]
       (** propagated_route_table *)
   static_vnet_local_route_override_criteria : string prop;
       (** static_vnet_local_route_override_criteria *)
   static_vnet_route : routing__static_vnet_route list;
+      [@default []] [@yojson_drop_default ( = )]
       (** static_vnet_route *)
 }
 

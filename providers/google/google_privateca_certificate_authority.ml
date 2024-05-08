@@ -166,7 +166,9 @@ let _ = yojson_of_config__subject_config__subject_alt_name
 
 type config__subject_config = {
   subject : config__subject_config__subject list;
+      [@default []] [@yojson_drop_default ( = )]
   subject_alt_name : config__subject_config__subject_alt_name list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -180,19 +182,26 @@ let yojson_of_config__subject_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__subject_config__subject_alt_name
-             v_subject_alt_name
-         in
-         ("subject_alt_name", arg) :: bnds
+         if [] = v_subject_alt_name then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__subject_config__subject_alt_name)
+               v_subject_alt_name
+           in
+           let bnd = "subject_alt_name", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__subject_config__subject
-             v_subject
-         in
-         ("subject", arg) :: bnds
+         if [] = v_subject then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__subject_config__subject)
+               v_subject
+           in
+           let bnd = "subject", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config__subject_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -203,6 +212,7 @@ let _ = yojson_of_config__subject_config
 
 type config__x509_config__additional_extensions__object_id = {
   object_id_path : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -217,12 +227,14 @@ let yojson_of_config__x509_config__additional_extensions__object_id =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_object_id_path
-         in
-         ("object_id_path", arg) :: bnds
+         if [] = v_object_id_path then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_object_id_path
+           in
+           let bnd = "object_id_path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config__x509_config__additional_extensions__object_id ->
@@ -238,6 +250,7 @@ type config__x509_config__additional_extensions = {
   value : string prop;
   object_id :
     config__x509_config__additional_extensions__object_id list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -254,12 +267,15 @@ let yojson_of_config__x509_config__additional_extensions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__x509_config__additional_extensions__object_id
-             v_object_id
-         in
-         ("object_id", arg) :: bnds
+         if [] = v_object_id then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__x509_config__additional_extensions__object_id)
+               v_object_id
+           in
+           let bnd = "object_id", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_value in
@@ -530,6 +546,7 @@ let _ = yojson_of_config__x509_config__key_usage__extended_key_usage
 
 type config__x509_config__key_usage__unknown_extended_key_usages = {
   object_id_path : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -546,12 +563,14 @@ let yojson_of_config__x509_config__key_usage__unknown_extended_key_usages
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_object_id_path
-         in
-         ("object_id_path", arg) :: bnds
+         if [] = v_object_id_path then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_object_id_path
+           in
+           let bnd = "object_id_path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config__x509_config__key_usage__unknown_extended_key_usages ->
@@ -565,10 +584,13 @@ let _ =
 type config__x509_config__key_usage = {
   base_key_usage :
     config__x509_config__key_usage__base_key_usage list;
+      [@default []] [@yojson_drop_default ( = )]
   extended_key_usage :
     config__x509_config__key_usage__extended_key_usage list;
+      [@default []] [@yojson_drop_default ( = )]
   unknown_extended_key_usages :
     config__x509_config__key_usage__unknown_extended_key_usages list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -585,28 +607,37 @@ let yojson_of_config__x509_config__key_usage =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__x509_config__key_usage__unknown_extended_key_usages
-             v_unknown_extended_key_usages
-         in
-         ("unknown_extended_key_usages", arg) :: bnds
+         if [] = v_unknown_extended_key_usages then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__x509_config__key_usage__unknown_extended_key_usages)
+               v_unknown_extended_key_usages
+           in
+           let bnd = "unknown_extended_key_usages", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__x509_config__key_usage__extended_key_usage
-             v_extended_key_usage
-         in
-         ("extended_key_usage", arg) :: bnds
+         if [] = v_extended_key_usage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__x509_config__key_usage__extended_key_usage)
+               v_extended_key_usage
+           in
+           let bnd = "extended_key_usage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__x509_config__key_usage__base_key_usage
-             v_base_key_usage
-         in
-         ("base_key_usage", arg) :: bnds
+         if [] = v_base_key_usage then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__x509_config__key_usage__base_key_usage)
+               v_base_key_usage
+           in
+           let bnd = "base_key_usage", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config__x509_config__key_usage ->
@@ -741,6 +772,7 @@ let _ = yojson_of_config__x509_config__name_constraints
 
 type config__x509_config__policy_ids = {
   object_id_path : float prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -753,12 +785,14 @@ let yojson_of_config__x509_config__policy_ids =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_float)
-             v_object_id_path
-         in
-         ("object_id_path", arg) :: bnds
+         if [] = v_object_id_path then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_float))
+               v_object_id_path
+           in
+           let bnd = "object_id_path", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config__x509_config__policy_ids ->
@@ -772,10 +806,15 @@ type config__x509_config = {
   aia_ocsp_servers : string prop list option; [@option]
   additional_extensions :
     config__x509_config__additional_extensions list;
+      [@default []] [@yojson_drop_default ( = )]
   ca_options : config__x509_config__ca_options list;
+      [@default []] [@yojson_drop_default ( = )]
   key_usage : config__x509_config__key_usage list;
+      [@default []] [@yojson_drop_default ( = )]
   name_constraints : config__x509_config__name_constraints list;
+      [@default []] [@yojson_drop_default ( = )]
   policy_ids : config__x509_config__policy_ids list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -795,41 +834,58 @@ let yojson_of_config__x509_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__x509_config__policy_ids
-             v_policy_ids
-         in
-         ("policy_ids", arg) :: bnds
+         if [] = v_policy_ids then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__x509_config__policy_ids)
+               v_policy_ids
+           in
+           let bnd = "policy_ids", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__x509_config__name_constraints
-             v_name_constraints
-         in
-         ("name_constraints", arg) :: bnds
+         if [] = v_name_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__x509_config__name_constraints)
+               v_name_constraints
+           in
+           let bnd = "name_constraints", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__x509_config__key_usage
-             v_key_usage
-         in
-         ("key_usage", arg) :: bnds
+         if [] = v_key_usage then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__x509_config__key_usage)
+               v_key_usage
+           in
+           let bnd = "key_usage", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__x509_config__ca_options
-             v_ca_options
-         in
-         ("ca_options", arg) :: bnds
+         if [] = v_ca_options then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__x509_config__ca_options)
+               v_ca_options
+           in
+           let bnd = "ca_options", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_config__x509_config__additional_extensions
-             v_additional_extensions
-         in
-         ("additional_extensions", arg) :: bnds
+         if [] = v_additional_extensions then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_config__x509_config__additional_extensions)
+               v_additional_extensions
+           in
+           let bnd = "additional_extensions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_aia_ocsp_servers with
@@ -850,7 +906,9 @@ let _ = yojson_of_config__x509_config
 
 type config = {
   subject_config : config__subject_config list;
+      [@default []] [@yojson_drop_default ( = )]
   x509_config : config__x509_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -866,17 +924,24 @@ let yojson_of_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__x509_config v_x509_config
-         in
-         ("x509_config", arg) :: bnds
+         if [] = v_x509_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__x509_config)
+               v_x509_config
+           in
+           let bnd = "x509_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_config__subject_config
-             v_subject_config
-         in
-         ("subject_config", arg) :: bnds
+         if [] = v_subject_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_config__subject_config)
+               v_subject_config
+           in
+           let bnd = "subject_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -959,6 +1024,7 @@ let _ = yojson_of_subordinate_config__pem_issuer_chain
 type subordinate_config = {
   certificate_authority : string prop option; [@option]
   pem_issuer_chain : subordinate_config__pem_issuer_chain list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -974,12 +1040,15 @@ let yojson_of_subordinate_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_subordinate_config__pem_issuer_chain
-             v_pem_issuer_chain
-         in
-         ("pem_issuer_chain", arg) :: bnds
+         if [] = v_pem_issuer_chain then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_subordinate_config__pem_issuer_chain)
+               v_pem_issuer_chain
+           in
+           let bnd = "pem_issuer_chain", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_certificate_authority with
@@ -1045,6 +1114,7 @@ let _ = yojson_of_timeouts
 type access_urls = {
   ca_certificate_access_url : string prop;
   crl_access_urls : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1060,12 +1130,14 @@ let yojson_of_access_urls =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_crl_access_urls
-         in
-         ("crl_access_urls", arg) :: bnds
+         if [] = v_crl_access_urls then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_crl_access_urls
+           in
+           let bnd = "crl_access_urls", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -1097,9 +1169,11 @@ type google_privateca_certificate_authority = {
   project : string prop option; [@option]
   skip_grace_period : bool prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
-  config : config list;
+  config : config list; [@default []] [@yojson_drop_default ( = )]
   key_spec : key_spec list;
+      [@default []] [@yojson_drop_default ( = )]
   subordinate_config : subordinate_config list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1137,19 +1211,30 @@ let yojson_of_google_privateca_certificate_authority =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_subordinate_config
-             v_subordinate_config
-         in
-         ("subordinate_config", arg) :: bnds
+         if [] = v_subordinate_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subordinate_config)
+               v_subordinate_config
+           in
+           let bnd = "subordinate_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_key_spec v_key_spec in
-         ("key_spec", arg) :: bnds
+         if [] = v_key_spec then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_key_spec) v_key_spec
+           in
+           let bnd = "key_spec", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_config v_config in
-         ("config", arg) :: bnds
+         if [] = v_config then bnds
+         else
+           let arg = (yojson_of_list yojson_of_config) v_config in
+           let bnd = "config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_type_ with

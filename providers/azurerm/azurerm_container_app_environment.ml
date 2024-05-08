@@ -123,6 +123,7 @@ type azurerm_container_app_environment = {
   zone_redundancy_enabled : bool prop option; [@option]
   timeouts : timeouts option;
   workload_profile : workload_profile list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -152,11 +153,14 @@ let yojson_of_azurerm_container_app_environment =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_workload_profile
-             v_workload_profile
-         in
-         ("workload_profile", arg) :: bnds
+         if [] = v_workload_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_workload_profile)
+               v_workload_profile
+           in
+           let bnd = "workload_profile", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

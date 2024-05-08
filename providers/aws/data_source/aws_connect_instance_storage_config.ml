@@ -39,6 +39,7 @@ type storage_config__s3_config = {
   bucket_prefix : string prop;
   encryption_config :
     storage_config__s3_config__encryption_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -55,12 +56,15 @@ let yojson_of_storage_config__s3_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_config__s3_config__encryption_config
-             v_encryption_config
-         in
-         ("encryption_config", arg) :: bnds
+         if [] = v_encryption_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_config__s3_config__encryption_config)
+               v_encryption_config
+           in
+           let bnd = "encryption_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_bucket_prefix in
@@ -118,6 +122,7 @@ type storage_config__kinesis_video_stream_config = {
   encryption_config :
     storage_config__kinesis_video_stream_config__encryption_config
     list;
+      [@default []] [@yojson_drop_default ( = )]
   prefix : string prop;
   retention_period_hours : float prop;
 }
@@ -146,12 +151,15 @@ let yojson_of_storage_config__kinesis_video_stream_config =
          ("prefix", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_config__kinesis_video_stream_config__encryption_config
-             v_encryption_config
-         in
-         ("encryption_config", arg) :: bnds
+         if [] = v_encryption_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_config__kinesis_video_stream_config__encryption_config)
+               v_encryption_config
+           in
+           let bnd = "encryption_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : storage_config__kinesis_video_stream_config ->
@@ -214,10 +222,14 @@ let _ = yojson_of_storage_config__kinesis_firehose_config
 type storage_config = {
   kinesis_firehose_config :
     storage_config__kinesis_firehose_config list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_stream_config : storage_config__kinesis_stream_config list;
+      [@default []] [@yojson_drop_default ( = )]
   kinesis_video_stream_config :
     storage_config__kinesis_video_stream_config list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_config : storage_config__s3_config list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_type : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -241,35 +253,47 @@ let yojson_of_storage_config =
          ("storage_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_storage_config__s3_config
-             v_s3_config
-         in
-         ("s3_config", arg) :: bnds
+         if [] = v_s3_config then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_storage_config__s3_config)
+               v_s3_config
+           in
+           let bnd = "s3_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_config__kinesis_video_stream_config
-             v_kinesis_video_stream_config
-         in
-         ("kinesis_video_stream_config", arg) :: bnds
+         if [] = v_kinesis_video_stream_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_config__kinesis_video_stream_config)
+               v_kinesis_video_stream_config
+           in
+           let bnd = "kinesis_video_stream_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_config__kinesis_stream_config
-             v_kinesis_stream_config
-         in
-         ("kinesis_stream_config", arg) :: bnds
+         if [] = v_kinesis_stream_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_config__kinesis_stream_config)
+               v_kinesis_stream_config
+           in
+           let bnd = "kinesis_stream_config", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_storage_config__kinesis_firehose_config
-             v_kinesis_firehose_config
-         in
-         ("kinesis_firehose_config", arg) :: bnds
+         if [] = v_kinesis_firehose_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_storage_config__kinesis_firehose_config)
+               v_kinesis_firehose_config
+           in
+           let bnd = "kinesis_firehose_config", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : storage_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)

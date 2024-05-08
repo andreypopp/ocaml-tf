@@ -35,6 +35,7 @@ let _ = yojson_of_endpoint__kinesis_stream_config
 type endpoint = {
   stream_type : string prop;
   kinesis_stream_config : endpoint__kinesis_stream_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -50,11 +51,15 @@ let yojson_of_endpoint =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_endpoint__kinesis_stream_config
-             v_kinesis_stream_config
-         in
-         ("kinesis_stream_config", arg) :: bnds
+         if [] = v_kinesis_stream_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_endpoint__kinesis_stream_config)
+               v_kinesis_stream_config
+           in
+           let bnd = "kinesis_stream_config", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_stream_type in
@@ -69,10 +74,11 @@ let _ = yojson_of_endpoint
 
 type aws_cloudfront_realtime_log_config = {
   fields : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   id : string prop option; [@option]
   name : string prop;
   sampling_rate : float prop;
-  endpoint : endpoint list;
+  endpoint : endpoint list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -91,8 +97,13 @@ let yojson_of_aws_cloudfront_realtime_log_config =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_endpoint v_endpoint in
-         ("endpoint", arg) :: bnds
+         if [] = v_endpoint then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_endpoint) v_endpoint
+           in
+           let bnd = "endpoint", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_float v_sampling_rate in
@@ -111,10 +122,14 @@ let yojson_of_aws_cloudfront_realtime_log_config =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_fields
-         in
-         ("fields", arg) :: bnds
+         if [] = v_fields then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_fields
+           in
+           let bnd = "fields", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_cloudfront_realtime_log_config ->

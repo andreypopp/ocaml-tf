@@ -127,6 +127,7 @@ type azurerm_logic_app_trigger_recurrence = {
   start_time : string prop option; [@option]
   time_zone : string prop option; [@option]
   schedule : schedule list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -154,8 +155,13 @@ let yojson_of_azurerm_logic_app_trigger_recurrence =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_schedule v_schedule in
-         ("schedule", arg) :: bnds
+         if [] = v_schedule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_schedule) v_schedule
+           in
+           let bnd = "schedule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_time_zone with

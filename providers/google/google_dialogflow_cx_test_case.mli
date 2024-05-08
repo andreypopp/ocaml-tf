@@ -10,7 +10,8 @@ type last_test_result__conversation_turns__virtual_agent_output__triggered_inten
 }
 
 type last_test_result__conversation_turns__virtual_agent_output__text_responses = {
-  text : string prop list;  (** text *)
+  text : string prop list; [@default []] [@yojson_drop_default ( = )]
+      (** text *)
 }
 
 type last_test_result__conversation_turns__virtual_agent_output__status = {
@@ -33,23 +34,28 @@ type last_test_result__conversation_turns__virtual_agent_output = {
   current_page :
     last_test_result__conversation_turns__virtual_agent_output__current_page
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** current_page *)
   differences :
     last_test_result__conversation_turns__virtual_agent_output__differences
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** differences *)
   session_parameters : string prop;  (** session_parameters *)
   status :
     last_test_result__conversation_turns__virtual_agent_output__status
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** status *)
   text_responses :
     last_test_result__conversation_turns__virtual_agent_output__text_responses
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** text_responses *)
   triggered_intent :
     last_test_result__conversation_turns__virtual_agent_output__triggered_intent
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** triggered_intent *)
 }
 
@@ -70,15 +76,18 @@ type last_test_result__conversation_turns__user_input__input = {
   dtmf :
     last_test_result__conversation_turns__user_input__input__dtmf
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** dtmf *)
   event :
     last_test_result__conversation_turns__user_input__input__event
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** event *)
   language_code : string prop;  (** language_code *)
   text :
     last_test_result__conversation_turns__user_input__input__text
     list;
+      [@default []] [@yojson_drop_default ( = )]
       (** text *)
 }
 
@@ -88,20 +97,24 @@ type last_test_result__conversation_turns__user_input = {
   injected_parameters : string prop;  (** injected_parameters *)
   input :
     last_test_result__conversation_turns__user_input__input list;
+      [@default []] [@yojson_drop_default ( = )]
       (** input *)
   is_webhook_enabled : bool prop;  (** is_webhook_enabled *)
 }
 
 type last_test_result__conversation_turns = {
   user_input : last_test_result__conversation_turns__user_input list;
+      [@default []] [@yojson_drop_default ( = )]
       (** user_input *)
   virtual_agent_output :
     last_test_result__conversation_turns__virtual_agent_output list;
+      [@default []] [@yojson_drop_default ( = )]
       (** virtual_agent_output *)
 }
 
 type last_test_result = {
   conversation_turns : last_test_result__conversation_turns list;
+      [@default []] [@yojson_drop_default ( = )]
       (** conversation_turns *)
   environment : string prop;  (** environment *)
   name : string prop;  (** name *)

@@ -65,6 +65,7 @@ type google_compute_disk_async_replication = {
   id : string prop option; [@option]
   primary_disk : string prop;
   secondary_disk : secondary_disk list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -87,10 +88,14 @@ let yojson_of_google_compute_disk_async_replication =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_secondary_disk v_secondary_disk
-         in
-         ("secondary_disk", arg) :: bnds
+         if [] = v_secondary_disk then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_secondary_disk)
+               v_secondary_disk
+           in
+           let bnd = "secondary_disk", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_primary_disk in

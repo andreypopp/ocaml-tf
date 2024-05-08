@@ -98,8 +98,10 @@ let _ = yojson_of_encryption_settings__disk_encryption_key
 type encryption_settings = {
   disk_encryption_key :
     encryption_settings__disk_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
   enabled : bool prop;
   key_encryption_key : encryption_settings__key_encryption_key list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -116,24 +118,30 @@ let yojson_of_encryption_settings =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_encryption_settings__key_encryption_key
-             v_key_encryption_key
-         in
-         ("key_encryption_key", arg) :: bnds
+         if [] = v_key_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_encryption_settings__key_encryption_key)
+               v_key_encryption_key
+           in
+           let bnd = "key_encryption_key", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in
          ("enabled", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_encryption_settings__disk_encryption_key
-             v_disk_encryption_key
-         in
-         ("disk_encryption_key", arg) :: bnds
+         if [] = v_disk_encryption_key then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_encryption_settings__disk_encryption_key)
+               v_disk_encryption_key
+           in
+           let bnd = "disk_encryption_key", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : encryption_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)

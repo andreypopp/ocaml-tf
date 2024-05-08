@@ -39,6 +39,7 @@ type aws_config_delivery_channel = {
   s3_kms_key_arn : string prop option; [@option]
   sns_topic_arn : string prop option; [@option]
   snapshot_delivery_properties : snapshot_delivery_properties list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -59,11 +60,14 @@ let yojson_of_aws_config_delivery_channel =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_snapshot_delivery_properties
-             v_snapshot_delivery_properties
-         in
-         ("snapshot_delivery_properties", arg) :: bnds
+         if [] = v_snapshot_delivery_properties then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_snapshot_delivery_properties)
+               v_snapshot_delivery_properties
+           in
+           let bnd = "snapshot_delivery_properties", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_sns_topic_arn with

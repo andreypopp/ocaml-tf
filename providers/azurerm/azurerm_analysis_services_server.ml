@@ -112,6 +112,7 @@ type azurerm_analysis_services_server = {
   sku : string prop;
   tags : (string * string prop) list option; [@option]
   ipv4_firewall_rule : ipv4_firewall_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -142,11 +143,14 @@ let yojson_of_azurerm_analysis_services_server =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ipv4_firewall_rule
-             v_ipv4_firewall_rule
-         in
-         ("ipv4_firewall_rule", arg) :: bnds
+         if [] = v_ipv4_firewall_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ipv4_firewall_rule)
+               v_ipv4_firewall_rule
+           in
+           let bnd = "ipv4_firewall_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

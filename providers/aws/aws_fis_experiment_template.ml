@@ -60,7 +60,9 @@ type action = {
   name : string prop;
   start_after : string prop list option; [@option]
   parameter : action__parameter list;
+      [@default []] [@yojson_drop_default ( = )]
   target : action__target list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -80,16 +82,22 @@ let yojson_of_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__target v_target
-         in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__target) v_target
+           in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_action__parameter v_parameter
-         in
-         ("parameter", arg) :: bnds
+         if [] = v_parameter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_action__parameter) v_parameter
+           in
+           let bnd = "parameter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_start_after with
@@ -188,7 +196,9 @@ type log_configuration = {
   log_schema_version : float prop;
   cloudwatch_logs_configuration :
     log_configuration__cloudwatch_logs_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_configuration : log_configuration__s3_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -206,20 +216,26 @@ let yojson_of_log_configuration =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_log_configuration__s3_configuration
-             v_s3_configuration
-         in
-         ("s3_configuration", arg) :: bnds
+         if [] = v_s3_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_log_configuration__s3_configuration)
+               v_s3_configuration
+           in
+           let bnd = "s3_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_log_configuration__cloudwatch_logs_configuration
-             v_cloudwatch_logs_configuration
-         in
-         ("cloudwatch_logs_configuration", arg) :: bnds
+         if [] = v_cloudwatch_logs_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_log_configuration__cloudwatch_logs_configuration)
+               v_cloudwatch_logs_configuration
+           in
+           let bnd = "cloudwatch_logs_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -270,6 +286,7 @@ let _ = yojson_of_stop_condition
 type target__filter = {
   path : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -282,10 +299,14 @@ let yojson_of_target__filter =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_path in
@@ -334,7 +355,9 @@ type target = {
   resource_type : string prop;
   selection_mode : string prop;
   filter : target__filter list;
+      [@default []] [@yojson_drop_default ( = )]
   resource_tag : target__resource_tag list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -355,17 +378,23 @@ let yojson_of_target =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__resource_tag
-             v_resource_tag
-         in
-         ("resource_tag", arg) :: bnds
+         if [] = v_resource_tag then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__resource_tag)
+               v_resource_tag
+           in
+           let bnd = "resource_tag", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target__filter v_filter
-         in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target__filter) v_filter
+           in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -466,10 +495,12 @@ type aws_fis_experiment_template = {
   role_arn : string prop;
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  action : action list;
+  action : action list; [@default []] [@yojson_drop_default ( = )]
   log_configuration : log_configuration list;
+      [@default []] [@yojson_drop_default ( = )]
   stop_condition : stop_condition list;
-  target : target list;
+      [@default []] [@yojson_drop_default ( = )]
+  target : target list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -498,25 +529,38 @@ let yojson_of_aws_fis_experiment_template =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_target v_target in
-         ("target", arg) :: bnds
+         if [] = v_target then bnds
+         else
+           let arg = (yojson_of_list yojson_of_target) v_target in
+           let bnd = "target", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_stop_condition v_stop_condition
-         in
-         ("stop_condition", arg) :: bnds
+         if [] = v_stop_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_stop_condition)
+               v_stop_condition
+           in
+           let bnd = "stop_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_log_configuration
-             v_log_configuration
-         in
-         ("log_configuration", arg) :: bnds
+         if [] = v_log_configuration then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_log_configuration)
+               v_log_configuration
+           in
+           let bnd = "log_configuration", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_action v_action in
-         ("action", arg) :: bnds
+         if [] = v_action then bnds
+         else
+           let arg = (yojson_of_list yojson_of_action) v_action in
+           let bnd = "action", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

@@ -5,7 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type enumeration_value = {
-  synonyms : string prop list;  (** synonyms *)
+  synonyms : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** synonyms *)
   value : string prop;  (** value *)
 }
 

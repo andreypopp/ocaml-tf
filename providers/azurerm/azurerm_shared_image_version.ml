@@ -144,6 +144,7 @@ type azurerm_shared_image_version = {
   storage_account_id : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   target_region : target_region list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -180,10 +181,13 @@ let yojson_of_azurerm_shared_image_version =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_target_region v_target_region
-         in
-         ("target_region", arg) :: bnds
+         if [] = v_target_region then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_target_region) v_target_region
+           in
+           let bnd = "target_region", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

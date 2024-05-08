@@ -105,7 +105,9 @@ type digitalocean_database_cluster = {
   tags : string prop list option; [@option]
   version : string prop option; [@option]
   backup_restore : backup_restore list;
+      [@default []] [@yojson_drop_default ( = )]
   maintenance_window : maintenance_window list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -140,17 +142,24 @@ let yojson_of_digitalocean_database_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_maintenance_window
-             v_maintenance_window
-         in
-         ("maintenance_window", arg) :: bnds
+         if [] = v_maintenance_window then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_maintenance_window)
+               v_maintenance_window
+           in
+           let bnd = "maintenance_window", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_backup_restore v_backup_restore
-         in
-         ("backup_restore", arg) :: bnds
+         if [] = v_backup_restore then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_backup_restore)
+               v_backup_restore
+           in
+           let bnd = "backup_restore", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with

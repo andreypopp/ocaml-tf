@@ -15,7 +15,12 @@ type state__state = {
   update_time : string prop;  (** update_time *)
 }
 
-type state = { state : state__state list  (** state *) }
+type state = {
+  state : state__state list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** state *)
+}
+
 type fleet_default_member_config__configmanagement__config_sync__git
 
 val fleet_default_member_config__configmanagement__config_sync__git :

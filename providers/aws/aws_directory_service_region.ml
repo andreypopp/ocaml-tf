@@ -50,6 +50,7 @@ let _ = yojson_of_timeouts
 
 type vpc_settings = {
   subnet_ids : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   vpc_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -67,12 +68,14 @@ let yojson_of_vpc_settings =
          ("vpc_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subnet_ids
-         in
-         ("subnet_ids", arg) :: bnds
+         if [] = v_subnet_ids then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subnet_ids
+           in
+           let bnd = "subnet_ids", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vpc_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -90,6 +93,7 @@ type aws_directory_service_region = {
   tags_all : (string * string prop) list option; [@option]
   timeouts : timeouts option;
   vpc_settings : vpc_settings list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -112,10 +116,13 @@ let yojson_of_aws_directory_service_region =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_settings v_vpc_settings
-         in
-         ("vpc_settings", arg) :: bnds
+         if [] = v_vpc_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_settings) v_vpc_settings
+           in
+           let bnd = "vpc_settings", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in

@@ -140,7 +140,7 @@ type digitalocean_kubernetes_node_pool = {
   node_count : float prop option; [@option]
   size : string prop;
   tags : string prop list option; [@option]
-  taint : taint list;
+  taint : taint list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -171,8 +171,11 @@ let yojson_of_digitalocean_kubernetes_node_pool =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_taint v_taint in
-         ("taint", arg) :: bnds
+         if [] = v_taint then bnds
+         else
+           let arg = (yojson_of_list yojson_of_taint) v_taint in
+           let bnd = "taint", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

@@ -44,6 +44,7 @@ type device_policy = {
   require_corp_owned : bool prop option; [@option]
   require_screen_lock : bool prop option; [@option]
   os_constraints : device_policy__os_constraints list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -64,11 +65,14 @@ let yojson_of_device_policy =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_device_policy__os_constraints
-             v_os_constraints
-         in
-         ("os_constraints", arg) :: bnds
+         if [] = v_os_constraints then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_device_policy__os_constraints)
+               v_os_constraints
+           in
+           let bnd = "os_constraints", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_require_screen_lock with
@@ -199,6 +203,7 @@ let _ = yojson_of_vpc_network_sources__vpc_subnetwork
 
 type vpc_network_sources = {
   vpc_subnetwork : vpc_network_sources__vpc_subnetwork list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -211,12 +216,15 @@ let yojson_of_vpc_network_sources =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_vpc_network_sources__vpc_subnetwork
-             v_vpc_subnetwork
-         in
-         ("vpc_subnetwork", arg) :: bnds
+         if [] = v_vpc_subnetwork then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_vpc_network_sources__vpc_subnetwork)
+               v_vpc_subnetwork
+           in
+           let bnd = "vpc_subnetwork", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : vpc_network_sources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -234,8 +242,10 @@ type google_access_context_manager_access_level_condition = {
   regions : string prop list option; [@option]
   required_access_levels : string prop list option; [@option]
   device_policy : device_policy list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   vpc_network_sources : vpc_network_sources list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -260,21 +270,27 @@ let yojson_of_google_access_context_manager_access_level_condition =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_vpc_network_sources
-             v_vpc_network_sources
-         in
-         ("vpc_network_sources", arg) :: bnds
+         if [] = v_vpc_network_sources then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_vpc_network_sources)
+               v_vpc_network_sources
+           in
+           let bnd = "vpc_network_sources", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_device_policy v_device_policy
-         in
-         ("device_policy", arg) :: bnds
+         if [] = v_device_policy then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_device_policy) v_device_policy
+           in
+           let bnd = "device_policy", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_required_access_levels with

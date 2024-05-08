@@ -98,6 +98,7 @@ type azurerm_logic_app_integration_account_partner = {
   name : string prop;
   resource_group_name : string prop;
   business_identity : business_identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -123,11 +124,14 @@ let yojson_of_azurerm_logic_app_integration_account_partner =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_business_identity
-             v_business_identity
-         in
-         ("business_identity", arg) :: bnds
+         if [] = v_business_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_business_identity)
+               v_business_identity
+           in
+           let bnd = "business_identity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

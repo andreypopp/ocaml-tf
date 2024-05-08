@@ -5,12 +5,16 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type create_database_default_permissions = {
-  permissions : string prop list;  (** permissions *)
+  permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** permissions *)
   principal : string prop;  (** principal *)
 }
 
 type create_table_default_permissions = {
-  permissions : string prop list;  (** permissions *)
+  permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** permissions *)
   principal : string prop;  (** principal *)
 }
 

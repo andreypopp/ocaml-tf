@@ -217,9 +217,13 @@ type aws_glue_classifier = {
   id : string prop option; [@option]
   name : string prop;
   csv_classifier : csv_classifier list;
+      [@default []] [@yojson_drop_default ( = )]
   grok_classifier : grok_classifier list;
+      [@default []] [@yojson_drop_default ( = )]
   json_classifier : json_classifier list;
+      [@default []] [@yojson_drop_default ( = )]
   xml_classifier : xml_classifier list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -239,28 +243,44 @@ let yojson_of_aws_glue_classifier =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_xml_classifier v_xml_classifier
-         in
-         ("xml_classifier", arg) :: bnds
+         if [] = v_xml_classifier then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_xml_classifier)
+               v_xml_classifier
+           in
+           let bnd = "xml_classifier", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_json_classifier v_json_classifier
-         in
-         ("json_classifier", arg) :: bnds
+         if [] = v_json_classifier then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_json_classifier)
+               v_json_classifier
+           in
+           let bnd = "json_classifier", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_grok_classifier v_grok_classifier
-         in
-         ("grok_classifier", arg) :: bnds
+         if [] = v_grok_classifier then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_grok_classifier)
+               v_grok_classifier
+           in
+           let bnd = "grok_classifier", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_csv_classifier v_csv_classifier
-         in
-         ("csv_classifier", arg) :: bnds
+         if [] = v_csv_classifier then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_csv_classifier)
+               v_csv_classifier
+           in
+           let bnd = "csv_classifier", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

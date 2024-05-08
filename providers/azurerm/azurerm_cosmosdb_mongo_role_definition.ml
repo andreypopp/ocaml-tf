@@ -41,7 +41,9 @@ let _ = yojson_of_privilege__resource
 
 type privilege = {
   actions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   resource : privilege__resource list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,16 +56,24 @@ let yojson_of_privilege =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_privilege__resource v_resource
-         in
-         ("resource", arg) :: bnds
+         if [] = v_resource then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_privilege__resource)
+               v_resource
+           in
+           let bnd = "resource", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_actions
-         in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_actions
+           in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : privilege -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -138,6 +148,7 @@ type azurerm_cosmosdb_mongo_role_definition = {
   inherited_role_names : string prop list option; [@option]
   role_name : string prop;
   privilege : privilege list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -162,8 +173,13 @@ let yojson_of_azurerm_cosmosdb_mongo_role_definition =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_privilege v_privilege in
-         ("privilege", arg) :: bnds
+         if [] = v_privilege then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_privilege) v_privilege
+           in
+           let bnd = "privilege", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_role_name in

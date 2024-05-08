@@ -187,8 +187,10 @@ type azurerm_machine_learning_compute_cluster = {
   vm_priority : string prop;
   vm_size : string prop;
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   scale_settings : scale_settings list;
-  ssh : ssh list;
+      [@default []] [@yojson_drop_default ( = )]
+  ssh : ssh list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -224,18 +226,30 @@ let yojson_of_azurerm_machine_learning_compute_cluster =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_ssh v_ssh in
-         ("ssh", arg) :: bnds
+         if [] = v_ssh then bnds
+         else
+           let arg = (yojson_of_list yojson_of_ssh) v_ssh in
+           let bnd = "ssh", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_scale_settings v_scale_settings
-         in
-         ("scale_settings", arg) :: bnds
+         if [] = v_scale_settings then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_scale_settings)
+               v_scale_settings
+           in
+           let bnd = "scale_settings", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_vm_size in

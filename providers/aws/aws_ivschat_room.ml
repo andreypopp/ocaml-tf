@@ -95,6 +95,7 @@ type aws_ivschat_room = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   message_review_handler : message_review_handler list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -124,11 +125,14 @@ let yojson_of_aws_ivschat_room =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_message_review_handler
-             v_message_review_handler
-         in
-         ("message_review_handler", arg) :: bnds
+         if [] = v_message_review_handler then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_message_review_handler)
+               v_message_review_handler
+           in
+           let bnd = "message_review_handler", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags_all with

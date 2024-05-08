@@ -6,7 +6,9 @@ open! Tf_core
 
 type sql_server_user_details = {
   disabled : bool prop;  (** disabled *)
-  server_roles : string prop list;  (** server_roles *)
+  server_roles : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** server_roles *)
 }
 
 type password_policy__status = {

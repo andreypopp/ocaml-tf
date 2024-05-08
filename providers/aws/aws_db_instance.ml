@@ -353,8 +353,11 @@ type aws_db_instance = {
   username : string prop option; [@option]
   vpc_security_group_ids : string prop list option; [@option]
   blue_green_update : blue_green_update list;
+      [@default []] [@yojson_drop_default ( = )]
   restore_to_point_in_time : restore_to_point_in_time list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_import : s3_import list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -446,22 +449,33 @@ let yojson_of_aws_db_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_s3_import v_s3_import in
-         ("s3_import", arg) :: bnds
+         if [] = v_s3_import then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_s3_import) v_s3_import
+           in
+           let bnd = "s3_import", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_restore_to_point_in_time
-             v_restore_to_point_in_time
-         in
-         ("restore_to_point_in_time", arg) :: bnds
+         if [] = v_restore_to_point_in_time then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_restore_to_point_in_time)
+               v_restore_to_point_in_time
+           in
+           let bnd = "restore_to_point_in_time", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_blue_green_update
-             v_blue_green_update
-         in
-         ("blue_green_update", arg) :: bnds
+         if [] = v_blue_green_update then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_blue_green_update)
+               v_blue_green_update
+           in
+           let bnd = "blue_green_update", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_vpc_security_group_ids with

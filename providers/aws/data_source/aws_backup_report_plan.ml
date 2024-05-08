@@ -4,6 +4,7 @@ open! Tf_core
 
 type report_delivery_channel = {
   formats : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   s3_bucket_name : string prop;
   s3_key_prefix : string prop;
 }
@@ -32,10 +33,14 @@ let yojson_of_report_delivery_channel =
          ("s3_bucket_name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_formats
-         in
-         ("formats", arg) :: bnds
+         if [] = v_formats then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_formats
+           in
+           let bnd = "formats", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : report_delivery_channel -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -46,10 +51,14 @@ let _ = yojson_of_report_delivery_channel
 
 type report_setting = {
   accounts : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   framework_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   number_of_frameworks : float prop;
   organization_units : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   regions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   report_template : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -76,18 +85,24 @@ let yojson_of_report_setting =
          ("report_template", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_regions
-         in
-         ("regions", arg) :: bnds
+         if [] = v_regions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_regions
+           in
+           let bnd = "regions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_organization_units
-         in
-         ("organization_units", arg) :: bnds
+         if [] = v_organization_units then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_organization_units
+           in
+           let bnd = "organization_units", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -96,20 +111,24 @@ let yojson_of_report_setting =
          ("number_of_frameworks", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_framework_arns
-         in
-         ("framework_arns", arg) :: bnds
+         if [] = v_framework_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_framework_arns
+           in
+           let bnd = "framework_arns", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_accounts
-         in
-         ("accounts", arg) :: bnds
+         if [] = v_accounts then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_accounts
+           in
+           let bnd = "accounts", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : report_setting -> Ppx_yojson_conv_lib.Yojson.Safe.t)

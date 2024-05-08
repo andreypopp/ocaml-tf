@@ -30,6 +30,7 @@ let _ = yojson_of_mount_options
 
 type aws_datasync_location_smb = {
   agent_arns : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   domain : string prop option; [@option]
   id : string prop option; [@option]
   password : string prop;
@@ -39,6 +40,7 @@ type aws_datasync_location_smb = {
   tags_all : (string * string prop) list option; [@option]
   user : string prop;
   mount_options : mount_options list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -62,10 +64,13 @@ let yojson_of_aws_datasync_location_smb =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_mount_options v_mount_options
-         in
-         ("mount_options", arg) :: bnds
+         if [] = v_mount_options then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_mount_options) v_mount_options
+           in
+           let bnd = "mount_options", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_user in
@@ -134,12 +139,14 @@ let yojson_of_aws_datasync_location_smb =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_agent_arns
-         in
-         ("agent_arns", arg) :: bnds
+         if [] = v_agent_arns then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_agent_arns
+           in
+           let bnd = "agent_arns", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : aws_datasync_location_smb -> Ppx_yojson_conv_lib.Yojson.Safe.t)

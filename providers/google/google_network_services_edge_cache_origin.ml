@@ -95,6 +95,7 @@ type origin_override_action__header_action = {
   request_headers_to_add :
     origin_override_action__header_action__request_headers_to_add
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -107,12 +108,15 @@ let yojson_of_origin_override_action__header_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_origin_override_action__header_action__request_headers_to_add
-             v_request_headers_to_add
-         in
-         ("request_headers_to_add", arg) :: bnds
+         if [] = v_request_headers_to_add then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_origin_override_action__header_action__request_headers_to_add)
+               v_request_headers_to_add
+           in
+           let bnd = "request_headers_to_add", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : origin_override_action__header_action ->
@@ -153,7 +157,9 @@ let _ = yojson_of_origin_override_action__url_rewrite
 
 type origin_override_action = {
   header_action : origin_override_action__header_action list;
+      [@default []] [@yojson_drop_default ( = )]
   url_rewrite : origin_override_action__url_rewrite list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -167,20 +173,26 @@ let yojson_of_origin_override_action =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_origin_override_action__url_rewrite
-             v_url_rewrite
-         in
-         ("url_rewrite", arg) :: bnds
+         if [] = v_url_rewrite then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_origin_override_action__url_rewrite)
+               v_url_rewrite
+           in
+           let bnd = "url_rewrite", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_origin_override_action__header_action
-             v_header_action
-         in
-         ("header_action", arg) :: bnds
+         if [] = v_header_action then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_origin_override_action__header_action)
+               v_header_action
+           in
+           let bnd = "header_action", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : origin_override_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -338,9 +350,12 @@ type google_network_services_edge_cache_origin = {
   protocol : string prop option; [@option]
   retry_conditions : string prop list option; [@option]
   aws_v4_authentication : aws_v4_authentication list;
+      [@default []] [@yojson_drop_default ( = )]
   origin_override_action : origin_override_action list;
+      [@default []] [@yojson_drop_default ( = )]
   origin_redirect : origin_redirect list;
-  timeout : timeout list;
+      [@default []] [@yojson_drop_default ( = )]
+  timeout : timeout list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -375,28 +390,41 @@ let yojson_of_google_network_services_edge_cache_origin =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_timeout v_timeout in
-         ("timeout", arg) :: bnds
+         if [] = v_timeout then bnds
+         else
+           let arg = (yojson_of_list yojson_of_timeout) v_timeout in
+           let bnd = "timeout", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_origin_redirect v_origin_redirect
-         in
-         ("origin_redirect", arg) :: bnds
+         if [] = v_origin_redirect then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_origin_redirect)
+               v_origin_redirect
+           in
+           let bnd = "origin_redirect", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_origin_override_action
-             v_origin_override_action
-         in
-         ("origin_override_action", arg) :: bnds
+         if [] = v_origin_override_action then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_origin_override_action)
+               v_origin_override_action
+           in
+           let bnd = "origin_override_action", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_aws_v4_authentication
-             v_aws_v4_authentication
-         in
-         ("aws_v4_authentication", arg) :: bnds
+         if [] = v_aws_v4_authentication then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_aws_v4_authentication)
+               v_aws_v4_authentication
+           in
+           let bnd = "aws_v4_authentication", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_retry_conditions with

@@ -4,6 +4,7 @@ open! Tf_core
 
 type category = {
   custom_urls : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   feeds : string prop list option; [@option]
 }
 [@@deriving_inline yojson_of]
@@ -27,12 +28,14 @@ let yojson_of_category =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_custom_urls
-         in
-         ("custom_urls", arg) :: bnds
+         if [] = v_custom_urls then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_custom_urls
+           in
+           let bnd = "custom_urls", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : category -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -255,6 +258,7 @@ let _ = yojson_of_timeouts
 type azurerm_palo_alto_local_rulestack_rule = {
   action : string prop;
   applications : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   audit_comment : string prop option; [@option]
   decryption_rule_type : string prop option; [@option]
   description : string prop option; [@option]
@@ -271,8 +275,10 @@ type azurerm_palo_alto_local_rulestack_rule = {
   rulestack_id : string prop;
   tags : (string * string prop) list option; [@option]
   category : category list;
+      [@default []] [@yojson_drop_default ( = )]
   destination : destination list;
-  source : source list;
+      [@default []] [@yojson_drop_default ( = )]
+  source : source list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -312,18 +318,29 @@ let yojson_of_azurerm_palo_alto_local_rulestack_rule =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_source v_source in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg = (yojson_of_list yojson_of_source) v_source in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_destination v_destination
-         in
-         ("destination", arg) :: bnds
+         if [] = v_destination then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_destination) v_destination
+           in
+           let bnd = "destination", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_category v_category in
-         ("category", arg) :: bnds
+         if [] = v_category then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_category) v_category
+           in
+           let bnd = "category", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with
@@ -444,12 +461,14 @@ let yojson_of_azurerm_palo_alto_local_rulestack_rule =
              bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_applications
-         in
-         ("applications", arg) :: bnds
+         if [] = v_applications then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_applications
+           in
+           let bnd = "applications", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_action in

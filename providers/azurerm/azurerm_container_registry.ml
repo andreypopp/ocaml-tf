@@ -265,7 +265,9 @@ let _ = yojson_of_network_rule_set__ip_rule
 type network_rule_set = {
   default_action : string prop;
   ip_rule : network_rule_set__ip_rule list;
+      [@default []] [@yojson_drop_default ( = )]
   virtual_network : network_rule_set__virtual_network list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -282,18 +284,25 @@ let yojson_of_network_rule_set =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_rule_set__virtual_network
-             v_virtual_network
-         in
-         ("virtual_network", arg) :: bnds
+         if [] = v_virtual_network then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_network_rule_set__virtual_network)
+               v_virtual_network
+           in
+           let bnd = "virtual_network", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_rule_set__ip_rule
-             v_ip_rule
-         in
-         ("ip_rule", arg) :: bnds
+         if [] = v_ip_rule then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_rule_set__ip_rule)
+               v_ip_rule
+           in
+           let bnd = "ip_rule", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -376,7 +385,9 @@ type azurerm_container_registry = {
   trust_policy : trust_policy list option; [@option]
   zone_redundancy_enabled : bool prop option; [@option]
   georeplications : georeplications list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -417,14 +428,23 @@ let yojson_of_azurerm_container_registry =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_georeplications v_georeplications
-         in
-         ("georeplications", arg) :: bnds
+         if [] = v_georeplications then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_georeplications)
+               v_georeplications
+           in
+           let bnd = "georeplications", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_zone_redundancy_enabled with

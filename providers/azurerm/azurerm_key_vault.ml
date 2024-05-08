@@ -165,10 +165,14 @@ let _ = yojson_of_timeouts
 type access_policy = {
   application_id : string prop;
   certificate_permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   key_permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   object_id : string prop;
   secret_permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   storage_permissions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   tenant_id : string prop;
 }
 [@@deriving_inline yojson_of]
@@ -194,40 +198,48 @@ let yojson_of_access_policy =
          ("tenant_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_storage_permissions
-         in
-         ("storage_permissions", arg) :: bnds
+         if [] = v_storage_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_storage_permissions
+           in
+           let bnd = "storage_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_secret_permissions
-         in
-         ("secret_permissions", arg) :: bnds
+         if [] = v_secret_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_secret_permissions
+           in
+           let bnd = "secret_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_object_id in
          ("object_id", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_key_permissions
-         in
-         ("key_permissions", arg) :: bnds
+         if [] = v_key_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_key_permissions
+           in
+           let bnd = "key_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_certificate_permissions
-         in
-         ("certificate_permissions", arg) :: bnds
+         if [] = v_certificate_permissions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_certificate_permissions
+           in
+           let bnd = "certificate_permissions", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =
@@ -258,8 +270,9 @@ type azurerm_key_vault = {
   soft_delete_retention_days : float prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tenant_id : string prop;
-  contact : contact list;
+  contact : contact list; [@default []] [@yojson_drop_default ( = )]
   network_acls : network_acls list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -298,14 +311,20 @@ let yojson_of_azurerm_key_vault =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_acls v_network_acls
-         in
-         ("network_acls", arg) :: bnds
+         if [] = v_network_acls then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_acls) v_network_acls
+           in
+           let bnd = "network_acls", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_contact v_contact in
-         ("contact", arg) :: bnds
+         if [] = v_contact then bnds
+         else
+           let arg = (yojson_of_list yojson_of_contact) v_contact in
+           let bnd = "contact", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_tenant_id in

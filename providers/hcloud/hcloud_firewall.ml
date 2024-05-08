@@ -120,7 +120,8 @@ type hcloud_firewall = {
   labels : (string * string prop) list option; [@option]
   name : string prop;
   apply_to : apply_to list;
-  rule : rule list;
+      [@default []] [@yojson_drop_default ( = )]
+  rule : rule list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -139,12 +140,20 @@ let yojson_of_hcloud_firewall =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_rule v_rule in
-         ("rule", arg) :: bnds
+         if [] = v_rule then bnds
+         else
+           let arg = (yojson_of_list yojson_of_rule) v_rule in
+           let bnd = "rule", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_apply_to v_apply_to in
-         ("apply_to", arg) :: bnds
+         if [] = v_apply_to then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_apply_to) v_apply_to
+           in
+           let bnd = "apply_to", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in

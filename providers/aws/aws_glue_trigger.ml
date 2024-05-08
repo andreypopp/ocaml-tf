@@ -38,6 +38,7 @@ type actions = {
   security_configuration : string prop option; [@option]
   timeout : float prop option; [@option]
   notification_property : actions__notification_property list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -57,11 +58,14 @@ let yojson_of_actions =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_actions__notification_property
-             v_notification_property
-         in
-         ("notification_property", arg) :: bnds
+         if [] = v_notification_property then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_actions__notification_property)
+               v_notification_property
+           in
+           let bnd = "notification_property", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_timeout with
@@ -224,6 +228,7 @@ let _ = yojson_of_predicate__conditions
 type predicate = {
   logical : string prop option; [@option]
   conditions : predicate__conditions list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -236,11 +241,14 @@ let yojson_of_predicate =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_predicate__conditions
-             v_conditions
-         in
-         ("conditions", arg) :: bnds
+         if [] = v_conditions then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_predicate__conditions)
+               v_conditions
+           in
+           let bnd = "conditions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_logical with
@@ -314,9 +322,11 @@ type aws_glue_trigger = {
   tags_all : (string * string prop) list option; [@option]
   type_ : string prop; [@key "type"]
   workflow_name : string prop option; [@option]
-  actions : actions list;
+  actions : actions list; [@default []] [@yojson_drop_default ( = )]
   event_batching_condition : event_batching_condition list;
+      [@default []] [@yojson_drop_default ( = )]
   predicate : predicate list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -349,19 +359,30 @@ let yojson_of_aws_glue_trigger =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_predicate v_predicate in
-         ("predicate", arg) :: bnds
+         if [] = v_predicate then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_predicate) v_predicate
+           in
+           let bnd = "predicate", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_event_batching_condition
-             v_event_batching_condition
-         in
-         ("event_batching_condition", arg) :: bnds
+         if [] = v_event_batching_condition then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_event_batching_condition)
+               v_event_batching_condition
+           in
+           let bnd = "event_batching_condition", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_actions v_actions in
-         ("actions", arg) :: bnds
+         if [] = v_actions then bnds
+         else
+           let arg = (yojson_of_list yojson_of_actions) v_actions in
+           let bnd = "actions", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_workflow_name with

@@ -154,8 +154,10 @@ type azurerm_machine_learning_compute_instance = {
   tags : (string * string prop) list option; [@option]
   virtual_machine_size : string prop;
   assign_to_user : assign_to_user list;
+      [@default []] [@yojson_drop_default ( = )]
   identity : identity list;
-  ssh : ssh list;
+      [@default []] [@yojson_drop_default ( = )]
+  ssh : ssh list; [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -190,18 +192,30 @@ let yojson_of_azurerm_machine_learning_compute_instance =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_ssh v_ssh in
-         ("ssh", arg) :: bnds
+         if [] = v_ssh then bnds
+         else
+           let arg = (yojson_of_list yojson_of_ssh) v_ssh in
+           let bnd = "ssh", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_identity v_identity in
-         ("identity", arg) :: bnds
+         if [] = v_identity then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_identity) v_identity
+           in
+           let bnd = "identity", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_assign_to_user v_assign_to_user
-         in
-         ("assign_to_user", arg) :: bnds
+         if [] = v_assign_to_user then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_assign_to_user)
+               v_assign_to_user
+           in
+           let bnd = "assign_to_user", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg =

@@ -2,7 +2,10 @@
 
 open! Tf_core
 
-type attribute__value = { source : string prop list }
+type attribute__value = {
+  source : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : attribute__value) -> ()
@@ -14,10 +17,14 @@ let yojson_of_attribute__value =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_source
-         in
-         ("source", arg) :: bnds
+         if [] = v_source then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_source
+           in
+           let bnd = "source", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : attribute__value -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -26,7 +33,11 @@ let _ = yojson_of_attribute__value
 
 [@@@deriving.end]
 
-type attribute = { key : string prop; value : attribute__value list }
+type attribute = {
+  key : string prop;
+  value : attribute__value list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : attribute) -> ()
@@ -38,10 +49,13 @@ let yojson_of_attribute =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_attribute__value v_value
-         in
-         ("value", arg) :: bnds
+         if [] = v_value then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attribute__value) v_value
+           in
+           let bnd = "value", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_key in
@@ -58,6 +72,7 @@ type aws_ssoadmin_instance_access_control_attributes = {
   id : string prop option; [@option]
   instance_arn : string prop;
   attribute : attribute list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -75,8 +90,13 @@ let yojson_of_aws_ssoadmin_instance_access_control_attributes =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_attribute v_attribute in
-         ("attribute", arg) :: bnds
+         if [] = v_attribute then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_attribute) v_attribute
+           in
+           let bnd = "attribute", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_instance_arn in

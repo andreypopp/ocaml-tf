@@ -83,6 +83,7 @@ let _ = yojson_of_pools__load_shedding
 type pools__origins__header = {
   header : string prop;
   values : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -95,10 +96,14 @@ let yojson_of_pools__origins__header =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_values
-         in
-         ("values", arg) :: bnds
+         if [] = v_values then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_values
+           in
+           let bnd = "values", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_header in
@@ -115,6 +120,7 @@ type pools__origins = {
   address : string prop;
   enabled : bool prop;
   header : pools__origins__header list;
+      [@default []] [@yojson_drop_default ( = )]
   name : string prop;
   weight : float prop;
 }
@@ -143,10 +149,14 @@ let yojson_of_pools__origins =
          ("name", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_pools__origins__header v_header
-         in
-         ("header", arg) :: bnds
+         if [] = v_header then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_pools__origins__header)
+               v_header
+           in
+           let bnd = "header", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_bool v_enabled in
@@ -177,8 +187,8 @@ let _ = yojson_of_pools
 type cloudflare_load_balancer_pools = {
   account_id : string prop;
   id : string prop option; [@option]
-  filter : filter list;
-  pools : pools list;
+  filter : filter list; [@default []] [@yojson_drop_default ( = )]
+  pools : pools list; [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,12 +206,18 @@ let yojson_of_cloudflare_load_balancer_pools =
          []
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_pools v_pools in
-         ("pools", arg) :: bnds
+         if [] = v_pools then bnds
+         else
+           let arg = (yojson_of_list yojson_of_pools) v_pools in
+           let bnd = "pools", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_filter v_filter in
-         ("filter", arg) :: bnds
+         if [] = v_filter then bnds
+         else
+           let arg = (yojson_of_list yojson_of_filter) v_filter in
+           let bnd = "filter", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_id with

@@ -30,11 +30,14 @@ let _ = yojson_of_broker_instance_options__availability_zones
 type broker_instance_options = {
   availability_zones :
     broker_instance_options__availability_zones list;
+      [@default []] [@yojson_drop_default ( = )]
   engine_type : string prop;
   host_instance_type : string prop;
   storage_type : string prop;
   supported_deployment_modes : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   supported_engine_versions : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -54,20 +57,24 @@ let yojson_of_broker_instance_options =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_supported_engine_versions
-         in
-         ("supported_engine_versions", arg) :: bnds
+         if [] = v_supported_engine_versions then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_supported_engine_versions
+           in
+           let bnd = "supported_engine_versions", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_supported_deployment_modes
-         in
-         ("supported_deployment_modes", arg) :: bnds
+         if [] = v_supported_deployment_modes then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_supported_deployment_modes
+           in
+           let bnd = "supported_deployment_modes", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_storage_type in
@@ -84,12 +91,15 @@ let yojson_of_broker_instance_options =
          ("engine_type", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_broker_instance_options__availability_zones
-             v_availability_zones
-         in
-         ("availability_zones", arg) :: bnds
+         if [] = v_availability_zones then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_broker_instance_options__availability_zones)
+               v_availability_zones
+           in
+           let bnd = "availability_zones", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : broker_instance_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)

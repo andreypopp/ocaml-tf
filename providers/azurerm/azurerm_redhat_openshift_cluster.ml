@@ -352,13 +352,20 @@ type azurerm_redhat_openshift_cluster = {
   resource_group_name : string prop;
   tags : (string * string prop) list option; [@option]
   api_server_profile : api_server_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   cluster_profile : cluster_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   ingress_profile : ingress_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   main_profile : main_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   network_profile : network_profile list;
+      [@default []] [@yojson_drop_default ( = )]
   service_principal : service_principal list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
   worker_profile : worker_profile list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -385,52 +392,77 @@ let yojson_of_azurerm_redhat_openshift_cluster =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_worker_profile v_worker_profile
-         in
-         ("worker_profile", arg) :: bnds
+         if [] = v_worker_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_worker_profile)
+               v_worker_profile
+           in
+           let bnd = "worker_profile", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_option yojson_of_timeouts v_timeouts in
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_service_principal
-             v_service_principal
-         in
-         ("service_principal", arg) :: bnds
+         if [] = v_service_principal then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_service_principal)
+               v_service_principal
+           in
+           let bnd = "service_principal", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_network_profile v_network_profile
-         in
-         ("network_profile", arg) :: bnds
+         if [] = v_network_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_network_profile)
+               v_network_profile
+           in
+           let bnd = "network_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_main_profile v_main_profile
-         in
-         ("main_profile", arg) :: bnds
+         if [] = v_main_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_main_profile) v_main_profile
+           in
+           let bnd = "main_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_ingress_profile v_ingress_profile
-         in
-         ("ingress_profile", arg) :: bnds
+         if [] = v_ingress_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_ingress_profile)
+               v_ingress_profile
+           in
+           let bnd = "ingress_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_cluster_profile v_cluster_profile
-         in
-         ("cluster_profile", arg) :: bnds
+         if [] = v_cluster_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_cluster_profile)
+               v_cluster_profile
+           in
+           let bnd = "cluster_profile", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_api_server_profile
-             v_api_server_profile
-         in
-         ("api_server_profile", arg) :: bnds
+         if [] = v_api_server_profile then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_api_server_profile)
+               v_api_server_profile
+           in
+           let bnd = "api_server_profile", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_tags with

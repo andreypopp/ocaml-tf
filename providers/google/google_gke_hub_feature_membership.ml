@@ -207,7 +207,9 @@ type configmanagement__config_sync = {
   prevent_drift : bool prop option; [@option]
   source_format : string prop option; [@option]
   git : configmanagement__config_sync__git list;
+      [@default []] [@yojson_drop_default ( = )]
   oci : configmanagement__config_sync__oci list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -227,18 +229,26 @@ let yojson_of_configmanagement__config_sync =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configmanagement__config_sync__oci v_oci
-         in
-         ("oci", arg) :: bnds
+         if [] = v_oci then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configmanagement__config_sync__oci)
+               v_oci
+           in
+           let bnd = "oci", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configmanagement__config_sync__git v_git
-         in
-         ("git", arg) :: bnds
+         if [] = v_git then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configmanagement__config_sync__git)
+               v_git
+           in
+           let bnd = "git", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_source_format with
@@ -365,6 +375,7 @@ type configmanagement__policy_controller = {
   referential_rules_enabled : bool prop option; [@option]
   template_library_installed : bool prop option; [@option]
   monitoring : configmanagement__policy_controller__monitoring list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -386,12 +397,15 @@ let yojson_of_configmanagement__policy_controller =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configmanagement__policy_controller__monitoring
-             v_monitoring
-         in
-         ("monitoring", arg) :: bnds
+         if [] = v_monitoring then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configmanagement__policy_controller__monitoring)
+               v_monitoring
+           in
+           let bnd = "monitoring", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_template_library_installed with
@@ -462,9 +476,13 @@ let _ = yojson_of_configmanagement__policy_controller
 type configmanagement = {
   version : string prop option; [@option]
   binauthz : configmanagement__binauthz list;
+      [@default []] [@yojson_drop_default ( = )]
   config_sync : configmanagement__config_sync list;
+      [@default []] [@yojson_drop_default ( = )]
   hierarchy_controller : configmanagement__hierarchy_controller list;
+      [@default []] [@yojson_drop_default ( = )]
   policy_controller : configmanagement__policy_controller list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -483,34 +501,46 @@ let yojson_of_configmanagement =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configmanagement__policy_controller
-             v_policy_controller
-         in
-         ("policy_controller", arg) :: bnds
+         if [] = v_policy_controller then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configmanagement__policy_controller)
+               v_policy_controller
+           in
+           let bnd = "policy_controller", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_configmanagement__hierarchy_controller
-             v_hierarchy_controller
-         in
-         ("hierarchy_controller", arg) :: bnds
+         if [] = v_hierarchy_controller then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_configmanagement__hierarchy_controller)
+               v_hierarchy_controller
+           in
+           let bnd = "hierarchy_controller", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configmanagement__config_sync
-             v_config_sync
-         in
-         ("config_sync", arg) :: bnds
+         if [] = v_config_sync then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configmanagement__config_sync)
+               v_config_sync
+           in
+           let bnd = "config_sync", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configmanagement__binauthz
-             v_binauthz
-         in
-         ("binauthz", arg) :: bnds
+         if [] = v_binauthz then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configmanagement__binauthz)
+               v_binauthz
+           in
+           let bnd = "binauthz", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -655,9 +685,11 @@ type policycontroller__policy_controller_hub_config__deployment_configs__contain
   limits :
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
     list;
+      [@default []] [@yojson_drop_default ( = )]
   requests :
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -674,20 +706,26 @@ let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
-             v_requests
-         in
-         ("requests", arg) :: bnds
+         if [] = v_requests then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests)
+               v_requests
+           in
+           let bnd = "requests", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
-             v_limits
-         in
-         ("limits", arg) :: bnds
+         if [] = v_limits then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits)
+               v_limits
+           in
+           let bnd = "limits", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : policycontroller__policy_controller_hub_config__deployment_configs__container_resources ->
@@ -771,9 +809,11 @@ type policycontroller__policy_controller_hub_config__deployment_configs = {
   container_resources :
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources
     list;
+      [@default []] [@yojson_drop_default ( = )]
   pod_tolerations :
     policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -796,20 +836,26 @@ let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
-             v_pod_tolerations
-         in
-         ("pod_tolerations", arg) :: bnds
+         if [] = v_pod_tolerations then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations)
+               v_pod_tolerations
+           in
+           let bnd = "pod_tolerations", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources
-             v_container_resources
-         in
-         ("container_resources", arg) :: bnds
+         if [] = v_container_resources then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources)
+               v_container_resources
+           in
+           let bnd = "container_resources", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_replica_count with
@@ -959,9 +1005,11 @@ type policycontroller__policy_controller_hub_config__policy_content = {
   bundles :
     policycontroller__policy_controller_hub_config__policy_content__bundles
     list;
+      [@default []] [@yojson_drop_default ( = )]
   template_library :
     policycontroller__policy_controller_hub_config__policy_content__template_library
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -979,20 +1027,26 @@ let yojson_of_policycontroller__policy_controller_hub_config__policy_content
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policycontroller__policy_controller_hub_config__policy_content__template_library
-             v_template_library
-         in
-         ("template_library", arg) :: bnds
+         if [] = v_template_library then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policycontroller__policy_controller_hub_config__policy_content__template_library)
+               v_template_library
+           in
+           let bnd = "template_library", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policycontroller__policy_controller_hub_config__policy_content__bundles
-             v_bundles
-         in
-         ("bundles", arg) :: bnds
+         if [] = v_bundles then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policycontroller__policy_controller_hub_config__policy_content__bundles)
+               v_bundles
+           in
+           let bnd = "bundles", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : policycontroller__policy_controller_hub_config__policy_content ->
@@ -1014,11 +1068,14 @@ type policycontroller__policy_controller_hub_config = {
   deployment_configs :
     policycontroller__policy_controller_hub_config__deployment_configs
     list;
+      [@default []] [@yojson_drop_default ( = )]
   monitoring :
     policycontroller__policy_controller_hub_config__monitoring list;
+      [@default []] [@yojson_drop_default ( = )]
   policy_content :
     policycontroller__policy_controller_hub_config__policy_content
     list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1043,28 +1100,37 @@ let yojson_of_policycontroller__policy_controller_hub_config =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policycontroller__policy_controller_hub_config__policy_content
-             v_policy_content
-         in
-         ("policy_content", arg) :: bnds
+         if [] = v_policy_content then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policycontroller__policy_controller_hub_config__policy_content)
+               v_policy_content
+           in
+           let bnd = "policy_content", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policycontroller__policy_controller_hub_config__monitoring
-             v_monitoring
-         in
-         ("monitoring", arg) :: bnds
+         if [] = v_monitoring then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policycontroller__policy_controller_hub_config__monitoring)
+               v_monitoring
+           in
+           let bnd = "monitoring", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
-             v_deployment_configs
-         in
-         ("deployment_configs", arg) :: bnds
+         if [] = v_deployment_configs then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policycontroller__policy_controller_hub_config__deployment_configs)
+               v_deployment_configs
+           in
+           let bnd = "deployment_configs", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_referential_rules_enabled with
@@ -1136,6 +1202,7 @@ type policycontroller = {
   version : string prop option; [@option]
   policy_controller_hub_config :
     policycontroller__policy_controller_hub_config list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -1151,12 +1218,15 @@ let yojson_of_policycontroller =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             yojson_of_policycontroller__policy_controller_hub_config
-             v_policy_controller_hub_config
-         in
-         ("policy_controller_hub_config", arg) :: bnds
+         if [] = v_policy_controller_hub_config then bnds
+         else
+           let arg =
+             (yojson_of_list
+                yojson_of_policycontroller__policy_controller_hub_config)
+               v_policy_controller_hub_config
+           in
+           let bnd = "policy_controller_hub_config", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_version with
@@ -1227,8 +1297,10 @@ type google_gke_hub_feature_membership = {
   membership_location : string prop option; [@option]
   project : string prop option; [@option]
   configmanagement : configmanagement list;
-  mesh : mesh list;
+      [@default []] [@yojson_drop_default ( = )]
+  mesh : mesh list; [@default []] [@yojson_drop_default ( = )]
   policycontroller : policycontroller list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -1257,22 +1329,31 @@ let yojson_of_google_gke_hub_feature_membership =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_policycontroller
-             v_policycontroller
-         in
-         ("policycontroller", arg) :: bnds
+         if [] = v_policycontroller then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_policycontroller)
+               v_policycontroller
+           in
+           let bnd = "policycontroller", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_mesh v_mesh in
-         ("mesh", arg) :: bnds
+         if [] = v_mesh then bnds
+         else
+           let arg = (yojson_of_list yojson_of_mesh) v_mesh in
+           let bnd = "mesh", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_configmanagement
-             v_configmanagement
-         in
-         ("configmanagement", arg) :: bnds
+         if [] = v_configmanagement then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_configmanagement)
+               v_configmanagement
+           in
+           let bnd = "configmanagement", arg in
+           bnd :: bnds
        in
        let bnds =
          match v_project with

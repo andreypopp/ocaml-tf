@@ -11,10 +11,16 @@ type spec__listener__port_mapping = {
 
 type spec__listener = {
   port_mapping : spec__listener__port_mapping list;
+      [@default []] [@yojson_drop_default ( = )]
       (** port_mapping *)
 }
 
-type spec = { listener : spec__listener list  (** listener *) }
+type spec = {
+  listener : spec__listener list;
+      [@default []] [@yojson_drop_default ( = )]
+      (** listener *)
+}
+
 type aws_appmesh_virtual_router
 
 val aws_appmesh_virtual_router :

@@ -11,6 +11,7 @@ type dkim_signing_attributes = {
   signing_attributes_origin : string prop;
   status : string prop;
   tokens : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
 }
 [@@deriving_inline yojson_of]
 
@@ -33,10 +34,14 @@ let yojson_of_dkim_signing_attributes =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list (yojson_of_prop yojson_of_string) v_tokens
-         in
-         ("tokens", arg) :: bnds
+         if [] = v_tokens then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_tokens
+           in
+           let bnd = "tokens", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_status in

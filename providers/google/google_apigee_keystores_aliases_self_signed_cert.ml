@@ -168,6 +168,7 @@ type certs_info__cert_info = {
   sig_alg_name : string prop;
   subject : string prop;
   subject_alternative_names : string prop list;
+      [@default []] [@yojson_drop_default ( = )]
   valid_from : string prop;
   version : float prop;
 }
@@ -202,12 +203,14 @@ let yojson_of_certs_info__cert_info =
          ("valid_from", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list
-             (yojson_of_prop yojson_of_string)
-             v_subject_alternative_names
-         in
-         ("subject_alternative_names", arg) :: bnds
+         if [] = v_subject_alternative_names then bnds
+         else
+           let arg =
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+               v_subject_alternative_names
+           in
+           let bnd = "subject_alternative_names", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_subject in
@@ -250,7 +253,10 @@ let _ = yojson_of_certs_info__cert_info
 
 [@@@deriving.end]
 
-type certs_info = { cert_info : certs_info__cert_info list }
+type certs_info = {
+  cert_info : certs_info__cert_info list;
+      [@default []] [@yojson_drop_default ( = )]
+}
 [@@deriving_inline yojson_of]
 
 let _ = fun (_ : certs_info) -> ()
@@ -262,10 +268,14 @@ let yojson_of_certs_info =
          []
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_certs_info__cert_info v_cert_info
-         in
-         ("cert_info", arg) :: bnds
+         if [] = v_cert_info then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_certs_info__cert_info)
+               v_cert_info
+           in
+           let bnd = "cert_info", arg in
+           bnd :: bnds
        in
        `Assoc bnds
     : certs_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
@@ -283,8 +293,9 @@ type google_apigee_keystores_aliases_self_signed_cert = {
   keystore : string prop;
   org_id : string prop;
   sig_alg : string prop;
-  subject : subject list;
+  subject : subject list; [@default []] [@yojson_drop_default ( = )]
   subject_alternative_dns_names : subject_alternative_dns_names list;
+      [@default []] [@yojson_drop_default ( = )]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -316,15 +327,21 @@ let yojson_of_google_apigee_keystores_aliases_self_signed_cert =
          ("timeouts", arg) :: bnds
        in
        let bnds =
-         let arg =
-           yojson_of_list yojson_of_subject_alternative_dns_names
-             v_subject_alternative_dns_names
-         in
-         ("subject_alternative_dns_names", arg) :: bnds
+         if [] = v_subject_alternative_dns_names then bnds
+         else
+           let arg =
+             (yojson_of_list yojson_of_subject_alternative_dns_names)
+               v_subject_alternative_dns_names
+           in
+           let bnd = "subject_alternative_dns_names", arg in
+           bnd :: bnds
        in
        let bnds =
-         let arg = yojson_of_list yojson_of_subject v_subject in
-         ("subject", arg) :: bnds
+         if [] = v_subject then bnds
+         else
+           let arg = (yojson_of_list yojson_of_subject) v_subject in
+           let bnd = "subject", arg in
+           bnd :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_sig_alg in
